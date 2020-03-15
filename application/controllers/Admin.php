@@ -5,6 +5,8 @@ class Admin extends CI_Controller
     // =============================== CONSTRUCTOR =============================== //
     public function __construct()
     {
+
+        //Changes
         parent::__construct();
 
         //LIBRARIES
