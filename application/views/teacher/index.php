@@ -389,6 +389,7 @@
                     <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="student_reports">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>NIS</th>
                                 <th>Name</th>
                                 <th>Class</th>

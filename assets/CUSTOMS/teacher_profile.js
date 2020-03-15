@@ -223,12 +223,13 @@ $(document).ready(function () {
 			});
 		}
 
+		var index = 0
 		//GET TABLE STUDENTS GRADE REPORTS
 		$('#student_reports').DataTable({
 			processing: true,
 			serverSide: true,
-			length: 10,
 			info: false, //Hide bottom left entries' info
+			lengthMenu: [10, 25, 50, 500, 1000],
 			ajax: {
 				url: 'ajx_datatable_get_student_reports',
 				method: 'GET',
@@ -239,6 +240,9 @@ $(document).ready(function () {
 				}	
 			},
 			columns: [
+				{
+					data: () => index += 1
+				},
 				{
 					data: 'IDNumber',
 					orderable: false
@@ -279,7 +283,8 @@ $(document).ready(function () {
 							</ul>
 						</div>`
 				}
-			]
+			],
+			drawCallback: () => index = 0 //Set var index back to 0 after render complete
 		})
 
 		//DISPLAY PRINT MID SEMESTER RESULT
