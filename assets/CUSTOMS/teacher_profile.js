@@ -225,9 +225,10 @@ $(document).ready(function () {
 
 		//GET TABLE STUDENTS GRADE REPORTS
 		$('#student_reports').DataTable({
-			processing: true,	
+			processing: true,
 			ajax: {
 				url: 'ajx_datatable_get_student_reports',
+				method: 'GET',
 				dataSrc: ''
 			},
 			columns: [
