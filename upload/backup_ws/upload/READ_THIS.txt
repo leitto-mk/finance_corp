@@ -1,0 +1,12 @@
+Update Kopra - web service & apk
+
+Penempatan file php : Kopra/upload
+IP		    : 192.169.100.1
+
+Note. 
+> Tolong rubah koneksi database sesuai dengan server
+-> connectdbkopra.php
+-> dbkopralogin.php
+-> koneksi.php
+> Mohon di trial sebelumnya
+> Pastikan di dalam file upload ada folder gambar, thank u
