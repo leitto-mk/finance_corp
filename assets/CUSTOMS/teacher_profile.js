@@ -226,23 +226,34 @@ $(document).ready(function () {
 		//GET TABLE STUDENTS GRADE REPORTS
 		$('#student_reports').DataTable({
 			processing: true,
+			serverSide: true,
+			length: 10,
+			info: false, //Hide bottom left entries' info
 			ajax: {
 				url: 'ajx_datatable_get_student_reports',
 				method: 'GET',
-				dataSrc: ''
+				dataSrc: '',
+				error: response => {
+					alert("CANNOT RETRIEVE DATA FROM SERVER")
+					console.log(response.responseText)
+				}	
 			},
 			columns: [
 				{
-					data: 'IDNumber'
+					data: 'IDNumber',
+					orderable: false
 				},
 				{
-					data: 'FullName'
+					data: 'FullName',
+					orderable: false
 				},
 				{
-					data: 'Kelas'
+					data: 'Kelas',
+					orderable: false
 				},
 				{
-					data: 'Ruangan'
+					data: 'Ruangan',
+					orderable: false
 				},
 				{
 					orderable: false,

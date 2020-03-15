@@ -361,8 +361,14 @@ class Mdl_nonstudent extends CI_Model
 		return $query;
 	}
 
-	public function model_get_student_reports()
+	public function model_get_student_reports($header)
 	{
+		extract($header);
+
+		$WHERE_NAME = ($search == '') ? '' : "WHERE t1.FirstNAme LIKE '$search%' OR t1.LastName LIKE '$search%' OR t1.IDNumber LIKE '$search%' OR t2.Kelas LIKE '$search%' OR t2.Ruangan LIKE '$search%'";
+
+		$LIMIT = is_null($start) ? "LIMIT $limit" : "LIMIT $limit OFFSET $start";
+
 		$query = $this->db->query(
 			"SELECT 
                 t1.IDNumber,
@@ -374,7 +380,9 @@ class Mdl_nonstudent extends CI_Model
 			 ON t1.IDNumber = t2.NIS
              JOIN tbl_03_class t3
              ON t2.Kelas = t3.ClassDesc
-			 ORDER BY t3.ClassNumeric, FullName ASC"
+			 $WHERE_NAME
+			 ORDER BY t3.ClassNumeric, FullName ASC 
+			 $LIMIT"
 		)->result();
 
 		return $query;

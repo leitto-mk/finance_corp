@@ -248,7 +248,15 @@ class Teacher extends CI_Controller
 
     public function ajx_datatable_get_student_reports()
     {
-        $result = $this->Mdl_nonstudent->model_get_student_reports();
+        //FROM DATATABLE REQUEST HEADER
+        $header = [
+            'limit' => $_GET['length'],
+            'start' => $_GET['start'],
+            'order' => $_GET['order'],
+            'search' => $_GET['search']['value'],
+        ];
+
+        $result = $this->Mdl_nonstudent->model_get_student_reports($header);
 
         echo json_encode($result);
     }
