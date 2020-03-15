@@ -1,0 +1,48 @@
+.wrapper {
+    margin: 0px;
+}
+
+.container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.navbar-fixed-top {
+    padding: 0px 10px !important;
+}
+
+.nav .navbar-nav {
+    margin-bottom: 0px !important;
+}
+
+.navbar-toggle {
+    padding: 10px;
+    margin-top: 20px !important;
+    margin-left: 0px;
+    margin-right: 15px !important;
+}
+
+.nav-collapse {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.navbar .dropdown-menu-fw {
+    margin-top: -3px;
+    left: 0px;
+    right: 0px;
+    background: white;
+}
+
+.modal-footer {
+    border-top: 0px !important;
+}
+
+.new-absn-body{
+    padding-top: 100px;
+}
+
+.form-seach-absn {
+    padding: 50px;
+}
+
