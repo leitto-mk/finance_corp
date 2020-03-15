@@ -232,9 +232,6 @@ $(document).ready(function () {
 			},
 			columns: [
 				{
-					data: () => `1`
-				},
-				{
 					data: 'IDNumber'
 				},
 				{
