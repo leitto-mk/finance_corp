@@ -258,7 +258,15 @@ class Teacher extends CI_Controller
             'order_dir' => $_GET['order'][0]['dir']
         ];
 
-        $result = $this->Mdl_nonstudent->model_get_student_reports($header);
+        //DESTRUCTURING
+        [$query, $total] = $this->Mdl_nonstudent->model_get_student_reports($header);
+
+        $result = [
+            'draw' => $_GET['draw'],
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+            'data' => $query
+        ];
 
         echo json_encode($result);
     }

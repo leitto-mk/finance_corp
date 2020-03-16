@@ -384,6 +384,27 @@ class Mdl_nonstudent extends CI_Model
 			 LIMIT $limit OFFSET $start"
 		)->result();
 
-		return $query;
+		//Add Number for every records for query
+        $num = 0;
+        foreach($query as $query){
+            $query->Num = $num+1;
+            $num++;
+        }
+
+		//COUNT TOTAL RECORDS
+		$total = $this->db->query(
+			"SELECT 
+                t1.IDNumber,
+                CONCAT(t1.FirstName,' ',t1.LastName) As FullName,
+                t2.Kelas, 
+                t2.Ruangan 
+             FROM tbl_07_personal_bio t1
+             JOIN tbl_08_job_info_std t2
+			 ON t1.IDNumber = t2.NIS
+             JOIN tbl_03_class t3
+             ON t2.Kelas = t3.ClassDesc"
+		)->num_rows();
+
+		return [$query, $total];
 	}
 }

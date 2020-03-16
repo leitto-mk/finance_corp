@@ -223,25 +223,21 @@ $(document).ready(function () {
 			});
 		}
 
-		var index = 0
 		//GET TABLE STUDENTS GRADE REPORTS
 		$('#student_reports').DataTable({
 			processing: true,
 			serverSide: true,
-			info: false, //Hide bottom left entries' info
 			lengthMenu: [10, 25, 50, 500, 1000],
 			ajax: {
 				url: 'ajx_datatable_get_student_reports',
 				method: 'GET',
-				dataSrc: '',
 				error: response => {
 					alert("CANNOT RETRIEVE DATA FROM SERVER")
 					console.log(response.responseText)
-				}	
+				}
 			},
-			columns: [
-				{
-					data: () => index += 1,
+			columns: [{
+					data: 'Num',
 					orderable: false
 				},
 				{
@@ -261,7 +257,6 @@ $(document).ready(function () {
 					data: 'Ruangan'
 				},
 				{
-					orderable: false,
 					data: response => `<div class="btn-group pull-right">
 							<button class="btn green btn-xs btn-outline dropdown-toggle" data-toggle="dropdown" id="btn_report">Reports
 								<i class="fa fa-angle-down"></i>
@@ -282,10 +277,10 @@ $(document).ready(function () {
 										<i class="fa fa-print"></i> Final Report </a>
 								</li>
 							</ul>
-						</div>`
+						</div>`,
+					orderable: false
 				}
-			],
-			drawCallback: () => index = 0 //Set var index back to 0 after render complete
+			]
 		})
 
 		//DISPLAY PRINT MID SEMESTER RESULT
@@ -298,12 +293,12 @@ $(document).ready(function () {
 
 			let header = `nis=${id}&cls=${cls}&subj=${subj}&semester=${semester}`
 			let url = `${base_url}Teacher/display_report_mid_print?${header}`
-			
+
 			window.open(url)
 		})
 
 		//DISPLAY FINAL RESULT
-		$('#student_reports').on('click','.print_final', function(e){
+		$('#student_reports').on('click', '.print_final', function (e) {
 			e.preventDefault()
 
 			let id = $(this).attr('data-id')
@@ -312,18 +307,18 @@ $(document).ready(function () {
 			var cur_subj = $('#grade_subj_compact > option')
 			let swal_list = {}
 
-			for(let i = 0; i < cur_subj.length; i++){
+			for (let i = 0; i < cur_subj.length; i++) {
 				//Push to Object, Output would be => {'Matematika': 'Matematika','Komputer': 'Komputer',....}
-				swal_list[cur_subj.eq(i).val()] = cur_subj.eq(i).val() 
+				swal_list[cur_subj.eq(i).val()] = cur_subj.eq(i).val()
 			}
-			
+
 			Swal.fire({
 				title: 'Select Subject',
 				input: 'select',
 				inputOptions: swal_list,
 				showCancelButton: true
 			}).then(result => {
-				if(result.value) {
+				if (result.value) {
 					let subj = result.value
 					let header = `nis=${id}&cls=${cls}&subj=${subj}&semester=${semester}`
 					let url = `${base_url}Teacher/display_report_print?${header}`
