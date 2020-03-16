@@ -51,9 +51,6 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <!-- CUSTOM SCRIPTS -->
-<script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/student_profile.js"></script>
-<script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/teacher_profile.js"></script>
-
 <script>
     var base_url = '<?= base_url() ?>'
     var id = '<?= $id; ?>'
@@ -66,6 +63,9 @@
 
     console.log(`${id} - ${fullname} - ${cur_sem} - ${cur_per} - ${homeroom}`)
 </script>
+
+<script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/student_profile.js"></script>
+<script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/teacher_profile.js"></script>
 
 </body>
 

@@ -160,6 +160,35 @@ class Mdl_nonstudent extends CI_Model
 	{
 	}
 
+	public function model_get_kd_details($room, $subj){
+		$schYear = '';
+        $semester = '';
+        $time = date('d-m-Y');
+        $year = date('Y');
+
+        if (date('n', strtotime($time)) <= 6) {
+            $schYear = ($year - 1) . '/' . $year;
+            $semester = 2;
+        } else {
+            $schYear = $year . '/' . ($year + 1);
+            $semester = 1;
+		}
+
+        $result = $this->db->query(
+            "SELECT Type, Code, KD, Weight1_Desc, Weight2_Desc, Weight3_Desc
+             FROM tbl_05_subject_kd
+             WHERE Semester = '$semester'
+             AND SubjName = '$subj'
+             AND Classes = 
+                (SELECT ClassRomanic FROM tbl_03_class t1 
+                 JOIN tbl_04_class_rooms t2
+                 ON t1.ClassID = t2.ClassID
+                 WHERE t2.RoomDesc = '$room')"
+		)->result();
+		
+		return $result;
+	}
+
 	public function modal_get_full_attendance($semester, $period, $room)
 	{
 		$query = $this->db->query(
@@ -406,5 +435,21 @@ class Mdl_nonstudent extends CI_Model
 		)->num_rows();
 
 		return [$query, $total];
+	}
+
+	public function model_get_class_full_mid_recap($homeroom, $semester, $period){
+		$query = $this->db->query(
+            "SELECT DISTINCT t1.SubjName FROM tbl_05_subject t1
+             JOIN tbl_06_schedule t2
+             ON t1.SubjName = t2.SubjName
+             WHERE t2.RoomDesc = '$homeroom'
+             AND t2.semester = '$semester'
+             AND t2.schoolyear = '$period'
+             AND t1.Type != 'Non-Subject'
+             AND t2.SubjName NOT IN ('EXCUL','ELECTIVE','None','')
+             ORDER BY t1.SubjName ASC"
+		)->result();
+		
+		return $query;
 	}
 }

@@ -417,9 +417,9 @@
                     <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="full_mid_recap">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>NIS</th>
-                                <th>Name</th>
+                                <th class="all">No</th>
+                                <th class="all">NIS</th>
+                                <th class="all">Name</th>
                             </tr>
                         </thead>
                         <tbody>
