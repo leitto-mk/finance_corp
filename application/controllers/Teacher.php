@@ -254,6 +254,8 @@ class Teacher extends CI_Controller
             'start' => $_GET['start'],
             'order' => $_GET['order'],
             'search' => $_GET['search']['value'],
+            'order_by' => $_GET['order'][0]['column'],
+            'order_dir' => $_GET['order'][0]['dir']
         ];
 
         $result = $this->Mdl_nonstudent->model_get_student_reports($header);

@@ -241,23 +241,24 @@ $(document).ready(function () {
 			},
 			columns: [
 				{
-					data: () => index += 1
+					data: () => index += 1,
+					orderable: false
 				},
 				{
 					data: 'IDNumber',
-					orderable: false
+					data: 'IDNumber'
 				},
 				{
 					data: 'FullName',
-					orderable: false
+					data: 'FullName'
 				},
 				{
 					data: 'Kelas',
-					orderable: false
+					data: 'Kelas'
 				},
 				{
 					data: 'Ruangan',
-					orderable: false
+					data: 'Ruangan'
 				},
 				{
 					orderable: false,

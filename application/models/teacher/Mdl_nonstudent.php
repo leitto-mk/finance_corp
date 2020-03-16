@@ -366,8 +366,7 @@ class Mdl_nonstudent extends CI_Model
 		extract($header);
 
 		$WHERE_NAME = ($search == '') ? '' : "WHERE t1.FirstNAme LIKE '$search%' OR t1.LastName LIKE '$search%' OR t1.IDNumber LIKE '$search%' OR t2.Kelas LIKE '$search%' OR t2.Ruangan LIKE '$search%'";
-
-		$LIMIT = is_null($start) ? "LIMIT $limit" : "LIMIT $limit OFFSET $start";
+		$ORDER = ($order_by == 0) ? "FullName ASC" : "$order_by $order_dir";
 
 		$query = $this->db->query(
 			"SELECT 
@@ -381,8 +380,8 @@ class Mdl_nonstudent extends CI_Model
              JOIN tbl_03_class t3
              ON t2.Kelas = t3.ClassDesc
 			 $WHERE_NAME
-			 ORDER BY t3.ClassNumeric, FullName ASC 
-			 $LIMIT"
+			 ORDER BY t3.ClassNumeric, $ORDER
+			 LIMIT $limit OFFSET $start"
 		)->result();
 
 		return $query;
