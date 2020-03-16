@@ -233,7 +233,7 @@ $(document).ready(function () {
 				method: 'GET',
 				error: response => {
 					alert("CANNOT RETRIEVE DATA FROM SERVER")
-					console.log(response.responseText)
+					console.log('%' +cresponse.responseText, 'color: #fe346e')
 				}
 			},
 			columns: [{
