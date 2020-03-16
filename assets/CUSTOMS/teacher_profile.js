@@ -233,7 +233,7 @@ $(document).ready(function () {
 				method: 'GET',
 				error: response => {
 					alert("CANNOT RETRIEVE DATA FROM SERVER")
-					console.log('%' +cresponse.responseText, 'color: #fe346e')
+					console.log('%' + cresponse.responseText, 'color: #fe346e')
 				}
 			},
 			columns: [{
@@ -326,6 +326,53 @@ $(document).ready(function () {
 				}
 			})
 		})
+
+		let mid_recap = async () => {
+
+			let head = await fetch('ajax_get_class_full_mid_recap_head')
+			let data = await head.json()
+
+			let dt_column = [{
+				data: 'No'
+			}, {
+				data: 'IDNumber'
+			}, {
+				data: 'FullName'
+			}]
+
+			for (var row in data) {
+				$('#full_mid_recap tr:last-child').append(`<th> ${data[row].SubjName} </th>`)
+
+				dt_column.push({
+					data: data[row].SubjName
+				})
+			}
+
+			dt_column.push({
+				data: 'MidRecap'
+			}, {
+				data: 'Score'
+			})
+
+			$('#full_mid_recap tr:last-child').append(`<th> Mid-Grade </th><th> Peringkat </th>`)
+
+			$('#full_mid_recap').DataTable({
+				processing: true,
+				lengthMenu: [10, 25, 50, 100, 300, 'All'],
+				// ajax: {
+				// 	url: 'public function ajax_get_class_full_mid_recap',
+				// 	dataSrc: '',
+				// 	error: response => {
+				// 		alert('CANNOT RETRIEVE DATA FROM SERVER')
+				// 		console.log(response.responseText)
+				// 	}
+				// },
+				column: dt_column,
+			})
+		}
+
+		//EXECUTE mid_recap
+		mid_recap()
 
 		//================================================================================================\\
 		//										MODAL PROFILE SECTION

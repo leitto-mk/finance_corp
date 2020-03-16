@@ -404,6 +404,31 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">Recap Mid-Semester Siswa</span>
+                    </div>
+                    <div class="tools"> </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="full_mid_recap">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>NIS</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <!-- END PAGE BASE CONTENT -->
     </div>
     <!-- END CONTENT -->

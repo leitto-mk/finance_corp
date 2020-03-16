@@ -37,6 +37,20 @@ class Auth extends CI_Controller
         if (empty($user) || $user == 'empty'){
             redirect('auth/index');
         } else {
+            $schYear = '';
+            $semester = '';
+
+            $time = date('d-m-Y');
+            $year = date('Y');
+
+            if (date('n', strtotime($time)) <= 6) {
+                $schYear = ($year - 1) . '/' . $year;
+                $semester = 2;
+            } else {
+                $schYear = $year . '/' . ($year + 1);
+                $semester = 1;
+            }
+
             if ($pass === $user->password) {
                 if ($user->status == 'admin') {
                     $data = [
@@ -44,6 +58,8 @@ class Auth extends CI_Controller
                         'fname' => $user->FirstName,
                         'lname' => $user->LastName,
                         'status' => $user->status,
+                        'period' => $schYear,
+                        'semester' => $semester,
                         'photo' => $user->Photo,
                         'jobdesc' => $user->JobDesc,
                         'homeroom' => $user->Homeroom,
@@ -60,6 +76,8 @@ class Auth extends CI_Controller
                         'fname' => $user->FirstName,
                         'lname' => $user->LastName,
                         'status' => $user->status,
+                        'period' => $schYear,
+                        'semester' => $semester,
                         'photo' => $user->Photo,
                         'jobdesc' => $user->JobDesc,
                         'homeroom' => $user->Homeroom,
@@ -76,6 +94,8 @@ class Auth extends CI_Controller
                         'fname' => $user->FirstName,
                         'lname' => $user->LastName,
                         'status' => $user->status,
+                        'period' => $schYear,
+                        'semester' => $semester,
                         'cls' => $user->Kelas,
                         'room' => $user->Ruangan,
                         'photo' => $user->Photo

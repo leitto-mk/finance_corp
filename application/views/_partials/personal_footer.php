@@ -60,10 +60,11 @@
     var fullname = '<?= "$fname $lname" ?>'
 
     //FROM TEACHER CONTROLLER
-    var cur_sem = '<?= $period[0]['Semester'] ?>'
-    var cur_per = '<?= $period[0]['schoolyear'] ?>'
+    var cur_sem = '<?= $semester ?>'
+    var cur_per = '<?= $schyear ?>'
+    var homeroom = '<?= $homeroom ?>'
 
-    console.log(`${id} - ${fullname} - ${cur_sem} - ${cur_per}`)
+    console.log(`${id} - ${fullname} - ${cur_sem} - ${cur_per} - ${homeroom}`)
 </script>
 
 </body>

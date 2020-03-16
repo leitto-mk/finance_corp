@@ -29,6 +29,8 @@ class Teacher extends CI_Controller
             'fname' => $this->session->userdata('fname'),
             'lname' => $this->session->userdata('lname'),
             'status' => $this->session->userdata('status'),
+            'semester' => $this->session->userdata('semester'),
+            'schyear' => $this->session->userdata('period'),
             'photo' => $this->session->userdata('photo'),
             'jobdesc' => $this->session->userdata('jobdesc'),
             'homeroom' => $this->session->userdata('homeroom'),
@@ -313,6 +315,28 @@ class Teacher extends CI_Controller
         ];
 
         $this->load->view('grade_report_mid_print', $data);
+    }
+
+    public function ajax_get_class_full_mid_recap_head(){
+        $homeroom = $this->session->userdata('homeroom');
+        $semester = $this->session->userdata('semester');
+        $period = $this->session->userdata('period');
+
+        $query = $this->db->query(
+            "SELECT t1.SubjName FROM tbl_05_subject t1
+             JOIN tbl_06_schedule t2
+             ON t1.SubjName = t2.SubjName
+             WHERE t2.RoomDesc = '$homeroom'
+             AND t2.semester = '$semester'
+             AND t2.schoolyear = '$period'
+             AND t2.SubjName NOT IN ('EXCUL','ELECTIVE','None','')"
+        )->result();
+
+        echo json_encode($query);
+    }
+
+    public function ajax_get_class_full_mid_recap(){
+        //
     }
 
     /* 
