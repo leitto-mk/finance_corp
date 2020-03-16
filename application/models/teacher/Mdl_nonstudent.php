@@ -386,8 +386,8 @@ class Mdl_nonstudent extends CI_Model
 
 		//Add Number for every records for query
         $num = 0;
-        foreach($query as $query){
-            $query->Num = $num+1;
+        foreach($query as $row){
+            $row->Num = $num+1;
             $num++;
         }
 
