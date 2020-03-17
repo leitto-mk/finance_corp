@@ -225,6 +225,7 @@ $(document).ready(function () {
 
 		//GET TABLE STUDENTS GRADE REPORTS
 		$('#student_reports').DataTable({
+			responsive: true,
 			processing: true,
 			serverSide: true,
 			lengthMenu: [10, 25, 50, 500, 1000],
@@ -238,7 +239,7 @@ $(document).ready(function () {
 			},
 			columns: [{
 					data: 'Num',
-					orderable: false
+					orderable: false,
 				},
 				{
 					data: 'IDNumber',
@@ -327,6 +328,7 @@ $(document).ready(function () {
 			})
 		})
 
+		//SHOW FULL MID SEMESTER RECAP
 		let mid_recap = async () => {
 			
 			let head = await fetch('ajax_get_class_full_mid_recap_head')
