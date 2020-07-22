@@ -728,7 +728,8 @@ $(document).ready(function () {
 
 		// LOAD STUDENT'S GRADES FULL TABLE
 		var grade_cls = $('.by_cls').val()
-		var grade_semester = $('.radio_semester:checked').attr('data-semester')
+		var grade_year = $('.by_year option:selected').val()
+		var grade_semester = $('.by_year option:selected').attr('data-semester')
 
 		function get_grades() {
 			if (grade_type == 'skills') {
@@ -739,10 +740,10 @@ $(document).ready(function () {
 				$('.full_details_character').modal('show')
 			}
 
-			get_full_details(grade_cls, grade_semester, grade_subj, grade_type)
+			get_full_details(grade_cls, grade_year, grade_semester, grade_subj, grade_type)
 		}
 
-		function get_full_details(grade_cls, grade_semester, grade_subj, grade_type) {
+		function get_full_details(grade_cls, grade_year, grade_semester, grade_subj, grade_type) {
 
 			let controller
 			if (grade_type == 'cognitive') {
@@ -755,6 +756,7 @@ $(document).ready(function () {
 
 			console.table({
 				grade_cls,
+				grade_year,
 				grade_semester,
 				grade_subj,
 				grade_type,
@@ -767,6 +769,7 @@ $(document).ready(function () {
 				dataType: 'JSON',
 				data: {
 					cls: grade_cls,
+					year: grade_year,
 					semester: grade_semester,
 					subj: grade_subj,
 					type: grade_type
@@ -793,17 +796,27 @@ $(document).ready(function () {
 		// LOAD STUDENT'S GRADES FULL TABLE (EVENT LISTENER)
 		$('.by_cls').on('change', function () {
 			grade_cls = $(this).val();
-			grade_semester = $(this).parents('.modal-body').find('.radio_semester:checked').attr('data-semester')
+			grade_year = $(this).parents('.modal-body').find('.by_year').val()
+			grade_semester = $(this).parents('.modal-body').find('.by_year option:selected').attr('data-semester')
 
-			get_full_details(grade_cls, grade_semester, grade_subj, grade_type)
+			get_full_details(grade_cls, grade_year, grade_semester, grade_subj, grade_type)
 		});
 
+		$('.by_year').on('change', function () {
+			grade_cls = $(this).parents('.modal-body').find('.by_cls').val()
+			grade_year = $(this).val();
+			grade_semester = $(this).find('option:selected').attr('data-semester');
+
+			get_full_details(grade_cls, grade_year, grade_semester, grade_subj, grade_type)
+		})
+
 		$('.radio_semester').click(function () {
-			grade_cls = $('.by_cls').val()
-			let grade_semester = $(this).attr('data-semester')
+			grade_cls = $(this).parents('.modal-body').find('.by_cls').val()
+			grade_year = $(this).parents('.modal-body').find('.by_year').val()
+			grade_semester = $(this).parents('.modal-body').find('.by_year option:selected').attr('data-semester')
 
 			if ($(this).attr('name') !== 'compact_select_semester') {
-				get_full_details(grade_cls, grade_semester, grade_subj, grade_type)
+				get_full_details(grade_cls, grade_year, grade_semester, grade_subj, grade_type)
 			}
 		})
 
@@ -1005,7 +1018,8 @@ $(document).ready(function () {
 			if (e.keyCode == 13) {
 				e.preventDefault();
 
-				let semester = $(this).parents('.modal-body').find('.radio_semester:checked').attr('data-semester')
+				let year = $(this).parents('.modal-body').find('.by_year').val()
+				let semester = $(this).parents('.modal-body').find('.by_year option:selected').attr('data-semester')
 				let type = $(this).attr('data-type')
 				let subj = $(this).attr('data-subj')
 				let code = $(this).attr('data-code')
@@ -1037,7 +1051,7 @@ $(document).ready(function () {
 					},
 					success: data => {
 						if (data == 'success') {
-							get_full_details(grade_cls, semester, grade_subj, grade_type)
+							get_full_details(grade_cls, year, semester, grade_subj, grade_type)
 						} else {
 							console.log(data)
 						}
@@ -1054,7 +1068,8 @@ $(document).ready(function () {
 			if (e.keyCode == 13 && !$(this).is('.kd_desc_sk')) {
 				e.preventDefault()
 
-				let semester = $(this).parents('.modal-body').find('.radio_semester:checked').attr('data-semester')
+				let year = $(this).parents('.modal-body').find('.by_year').val()
+				let semester = $(this).parents('.modal-body').find('.by_year option:selected').attr('data-semester')
 				let room = grade_cls
 				let subj = $(this).attr('data-subj')
 				let field = $(this).attr('data-field')
@@ -1080,7 +1095,7 @@ $(document).ready(function () {
 					},
 					success: data => {
 						if (data == 'success') {
-							get_full_details(grade_cls, semester, grade_subj, grade_type)
+							get_full_details(grade_cls, year, semester, grade_subj, grade_type)
 						} else {
 							console.log()
 						}
@@ -1097,7 +1112,8 @@ $(document).ready(function () {
 			if (e.keyCode == 13) {
 				e.preventDefault();
 
-				let semester = $(this).parents('.modal-body').find('.radio_semester:checked').attr('data-semester')
+				let year = $(this).parents('.modal-body').find('.by_year').val()
+				let semester = $(this).parents('.modal-body').find('.by_year option:selected').attr('data-semester')
 				let type = $(this).attr('data-type')
 				let subj = $(this).attr('data-subj')
 				let code = $(this).attr('data-code')
@@ -1132,7 +1148,7 @@ $(document).ready(function () {
 					},
 					success: data => {
 						if (data == 'success') {
-							get_full_details(grade_cls, semester, grade_subj, grade_type)
+							get_full_details(grade_cls, year, semester, grade_subj, grade_type)
 						} else {
 							console.log(data)
 						}
@@ -1150,7 +1166,8 @@ $(document).ready(function () {
 				let row = $(this).attr('data-row')
 				let nis = $(this).siblings().eq(1).text()
 				nis = nis.replace(/\s+/g, '')
-				let semester = $(this).parents('.modal-body').find('.radio_semester:checked').attr('data-semester')
+				let year = $(this).parents('.modal-body').find('.by_year').val()
+				let semester = $(this).parents('.modal-body').find('.by_year option:selected').attr('data-semester')
 				let cls = $(this).parent('tr').attr('data-class')
 				let room = $(this).parent('tr').attr('data-room')
 				subj = grade_subj //Redeclare GLOBAL VAR
@@ -1197,7 +1214,7 @@ $(document).ready(function () {
 						success: data => {
 							console.log(data)
 							if (data == 'success') {
-								get_full_details(grade_cls, semester, subj, type)
+								get_full_details(grade_cls, year, semester, subj, type)
 							} else {
 								alert("SOMETHING'S WRONG")
 							}
@@ -1237,7 +1254,7 @@ $(document).ready(function () {
 							console.log(data)
 
 							if (data == 'success') {
-								get_full_details(grade_cls, semester, subj, type)
+								get_full_details(grade_cls, year, semester, subj, type)
 							} else {
 								alert("SOMETHING'S WRONG")
 							}
@@ -1255,7 +1272,8 @@ $(document).ready(function () {
 			if (e.keyCode == 13) {
 				e.preventDefault()
 
-				let semester = $('[name="radio_sem_char"]:checked').attr('data-semester')
+				let year = $(this).parents('.modal-body').find('.by_year').val()
+				let semester = $(this).parents('.modal-body').find('.by_year option:selected').attr('data-semester')
 				let nis = $(this).siblings().eq(1).text()
 				nis = nis.replace(/\s+/g, '')
 				let name = $(this).siblings().eq(2).text()
@@ -1302,7 +1320,7 @@ $(document).ready(function () {
 								grade_type
 							})
 
-							get_full_details(grade_cls, semester, grade_subj, grade_type)
+							get_full_details(grade_cls, year, semester, grade_subj, grade_type)
 						} else {
 							console.log(data.responseText)
 						}

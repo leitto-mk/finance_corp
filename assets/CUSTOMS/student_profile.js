@@ -104,16 +104,11 @@ $(document).ready(function () {
 			let semester = $('#select_period').children('option:selected').attr('data-sem')
 			let period = $('#select_period').children('option:selected').attr('data-period')
 
-			console.table({
-				semester,
-				period
-			})
-
 			get_full_acd_detail(id, semester, period)
 		})
 
 		//GET ACADEMIC DETAILS BASED ON SELECTION
-		$('.select_period').change(function () {
+		$('#select_period').change(function () {
 			let semester = $('#select_period').children('option:selected').attr('data-sem')
 			let period = $('#select_period').children('option:selected').attr('data-period')
 

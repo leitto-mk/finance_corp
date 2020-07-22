@@ -13,7 +13,7 @@ class Teacher extends CI_Controller
         $this->load->model('admin/Mdl_grade');
 
         //If there is no known user and role is wrong
-        if ($this->session->userdata('status') != 'teacher') {
+        if ($this->session->userdata('status') == 'student') {
             redirect('Auth/index');
         }
     }
@@ -314,12 +314,13 @@ class Teacher extends CI_Controller
     public function get_full_table_grading_cognitive()
     {
         $cls = $_POST['cls'];
+        $year = $_POST['period'];
         $semester = $_POST['semester'];
         $subj = $_POST['subj'];
         $type = $_POST['type'];
 
         $head_details = $this->Mdl_grade->model_get_full_kd_details($cls, $semester, $subj, $type);
-        $full_query = $this->Mdl_grade->model_get_person_full_details($cls, $semester, $subj);
+        $full_query = $this->Mdl_grade->model_get_person_full_details($cls, $year, $semester, $subj);
 
         $kd_multi = $head_details->num_rows() * 3;
         $total_kd = $head_details->num_rows();
@@ -565,12 +566,13 @@ class Teacher extends CI_Controller
     public function get_full_table_grading_skills()
     {
         $cls = $_POST['cls'];
+        $year = $_POST['period'];
         $semester = $_POST['semester'];
         $subj = $_POST['subj'];
         $type = $_POST['type'];
 
         $head_details = $this->Mdl_grade->model_get_full_kd_details($cls, $semester, $subj, $type);
-        $full_query = $this->Mdl_grade->model_get_person_full_details($cls, $semester, $subj);
+        $full_query = $this->Mdl_grade->model_get_person_full_details($cls, $year, $semester, $subj);
 
         $total_kd = $head_details->num_rows();
 
@@ -707,13 +709,14 @@ class Teacher extends CI_Controller
     public function get_full_table_grading_character()
     {
         $room = $_POST['cls'];
+        $year = $_POST['period'];
         $semester = $_POST['semester'];
         $subj = $_POST['subj'];
 
         $soc_desc = $this->Mdl_grade->get_social_desc();
         $spirit_desc = $this->Mdl_grade->get_spirit_desc();
 
-        $full_query = $this->Mdl_grade->model_get_person_full_details($room, $semester, $subj);
+        $full_query = $this->Mdl_grade->model_get_person_full_details($room, $year, $semester, $subj);
 
         $i = 1;
         $social = '';
@@ -940,4 +943,66 @@ class Teacher extends CI_Controller
 
         echo json_encode($result);
     }
+
+    //Start - Teacher Portal New Build
+    public function home()
+    {
+        //Destructuring 'array' return from model_get_taught_subject as seperate var
+        [$taught, $schedule] = $this->Mdl_nonstudent->model_get_taught_subject($this->session->userdata('id'));
+
+        $data = [
+            'title' => 'Teacher Information',
+            'id' => $this->session->userdata('id'),
+            'fname' => $this->session->userdata('fname'),
+            'lname' => $this->session->userdata('lname'),
+            'status' => $this->session->userdata('status'),
+            'photo' => $this->session->userdata('photo'),
+            'jobdesc' => $this->session->userdata('jobdesc'),
+            'homeroom' => $this->session->userdata('homeroom'),
+            'subject' => $this->session->userdata('subject'),
+            'degree' => $this->session->userdata('degree'),
+            'schedule' => $schedule,
+
+            //FOR MODAL PROFILE
+            'profile' => $this->Mdl_nonstudent->get_all_info($this->session->userdata('id')),
+
+            //MODAL AKADEMIK
+            'period' => $this->Mdl_nonstudent->get_period($this->session->userdata('id')),
+            'rooms' => $this->Mdl_nonstudent->get_active_room()->result(),
+            'taught' => $taught
+        ];
+        
+        $this->load->view('teacher/home', $data);
+    }
+
+    public function view_my_profile()
+    {
+        //Destructuring 'array' return from model_get_taught_subject as seperate var
+        [$taught, $schedule] = $this->Mdl_nonstudent->model_get_taught_subject($this->session->userdata('id'));
+
+        $data = [
+            'title' => 'Teacher Information',
+            'id' => $this->session->userdata('id'),
+            'fname' => $this->session->userdata('fname'),
+            'lname' => $this->session->userdata('lname'),
+            'status' => $this->session->userdata('status'),
+            'photo' => $this->session->userdata('photo'),
+            'jobdesc' => $this->session->userdata('jobdesc'),
+            'homeroom' => $this->session->userdata('homeroom'),
+            'subject' => $this->session->userdata('subject'),
+            'degree' => $this->session->userdata('degree'),
+            'schedule' => $schedule,
+
+            //FOR MODAL PROFILE
+            'profile' => $this->Mdl_nonstudent->get_all_info($this->session->userdata('id')),
+
+            //MODAL AKADEMIK
+            'period' => $this->Mdl_nonstudent->get_period($this->session->userdata('id')),
+            'rooms' => $this->Mdl_nonstudent->get_active_room()->result(),
+            'taught' => $taught
+        ];
+        
+        $this->load->view('teacher/v_my_profile', $data);
+    }
+    //End - Teacher Portal New Build
 }

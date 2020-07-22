@@ -128,6 +128,18 @@ class Mdl_grade extends CI_Model
         return $query;
     }
 
+    public function get_period(){
+        $query = $this->db->query(
+            "SELECT DISTINCT 
+                Semester, 
+                schoolyear 
+             FROM tbl_09_det_grades 
+             ORDER BY Semester DESC, schoolyear DESC"
+        )->result();
+
+        return $query;
+    }
+
     public function get_active_degree()
     {
         $query = $this->db->get_where('tbl_02_school', ['isActive' => 1])->result();
@@ -265,31 +277,13 @@ class Mdl_grade extends CI_Model
         return $query;
     }
 
-    public function model_get_person_full_details($cls, $semester, $subj)
+    public function model_get_person_full_details($cls, $year, $semester, $subj)
     {
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        //VARIABLE FROM AJAX TEACHER-PERSONAL
-        $period = (isset($_POST['period']) ? $_POST['period'] : NULL);
-
-        if ($period === NULL) {
-            if (date('n', strtotime($time)) <= 6) {
-                $schYear = ($year - 1) . '/' . $year;
-            } else {
-                $schYear = $year . '/' . ($year + 1);
-            }
-        } else {
-            $schYear = $period;
-        }
-
         $query = $this->db->query(
             "SELECT * FROM tbl_09_det_grades
              WHERE Room = '$cls' 
-             AND Semester = '$semester' 
-             AND schoolyear = '$schYear'
+             AND Semester = '$semester'
+             AND schoolyear = '$year'
              AND SubjName = '$subj'
              ORDER BY FullName"
         );

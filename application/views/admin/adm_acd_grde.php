@@ -10,9 +10,9 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-1">
                         <div class="form-group form-md-line-input form-md-floating-label has-info">
-                            <select class="form-control edited by_cls" id="form_control_1">
+                            <select class="form-control edited by_cls">
                                 <?php foreach ($rooms as $row) : ?>
                                     <option class="sbold" value="<?= $row->RoomDesc ?>"> <?= $row->RoomDesc ?> </option>
                                 <?php endforeach; ?>
@@ -20,26 +20,14 @@
                             <label for="form_control_1">Select Class</label>
                         </div>
                     </div>
-                    <div class="col-md-9">
-                        <div class="form-group form-md-radios has-info">
-                            <div class="col-md-9">
-                                <div class="md-radio-inline" style="margin-top: 20px">
-                                    <div class="md-radio">
-                                        <input type="radio" id="grade_semester1_cog" name="radio_sem_cog" class="md-radiobtn radio_semester" data-semester="1" checked>
-                                        <label for="grade_semester1_cog">
-                                            <span></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Semester 1 </label>
-                                    </div>
-                                    <div class="md-radio">
-                                        <input type="radio" id="grade_semester2_cog" name="radio_sem_cog" class="md-radiobtn radio_semester" data-semester="2">
-                                        <label for="grade_semester2_cog">
-                                            <span></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Semester 2 </label>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-md-line-input form-md-floating-label has-info">
+                            <select class="form-control edited by_year">
+                                <?php foreach($period as $period_cog) : ?>
+                                    <option value="<?=$period_cog->schoolyear?>" data-semester="<?= $period_cog->Semester?>"><?= 'Semester ' . ($period_cog->Semester == 1 ? 'Ganjil' : 'Genap') .' - '. $period_cog->schoolyear ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <label for="form_control_1">Select Year</label>
                         </div>
                     </div>
                 </div>
@@ -113,9 +101,9 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-1">
                         <div class="form-group form-md-line-input form-md-floating-label has-info">
-                            <select class="form-control edited by_cls" id="form_control_1">
+                            <select class="form-control edited by_cls">
                                 <?php foreach ($rooms as $row) : ?>
                                     <option class="sbold" value="<?= $row->RoomDesc ?>"> <?= $row->RoomDesc ?> </option>
                                 <?php endforeach; ?>
@@ -123,26 +111,14 @@
                             <label for="form_control_1">Select Class</label>
                         </div>
                     </div>
-                    <div class="col-md-9">
-                        <div class="form-group form-md-radios has-info">
-                            <div class="col-md-9">
-                                <div class="md-radio-inline" style="margin-top: 20px">
-                                    <div class="md-radio">
-                                        <input type="radio" id="grade_semester1_sk" name="radio_sem_sk" class="md-radiobtn radio_semester" data-semester="1" checked>
-                                        <label for="grade_semester1_sk">
-                                            <span></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Semester 1 </label>
-                                    </div>
-                                    <div class="md-radio">
-                                        <input type="radio" id="grade_semester2_sk" name="radio_sem_sk" class="md-radiobtn radio_semester" data-semester="2">
-                                        <label for="grade_semester2_sk">
-                                            <span></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Semester 2 </label>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-md-line-input form-md-floating-label has-info">
+                            <select class="form-control edited by_year">
+                                <?php foreach($period as $period_sk) : ?>
+                                    <option value="<?=$period_sk->schoolyear?>" data-semester="<?=$period_sk->Semester?>"><?= 'Semester ' . ($period_sk->Semester == 1 ? 'Ganjil' : 'Genap') .' - '. $period_sk->schoolyear ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <label for="form_control_1">Select Year</label>
                         </div>
                     </div>
                 </div>
@@ -202,9 +178,9 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-1">
                         <div class="form-group form-md-line-input form-md-floating-label has-info">
-                            <select class="form-control edited by_cls" id="form_control_1">
+                            <select class="form-control edited by_cls">
                                 <?php foreach ($rooms as $row) : ?>
                                     <option class="sbold" value="<?= $row->RoomDesc ?>"> <?= $row->RoomDesc ?> </option>
                                 <?php endforeach; ?>
@@ -212,26 +188,14 @@
                             <label for="form_control_1">Select Class</label>
                         </div>
                     </div>
-                    <div class="col-md-9">
-                        <div class="form-group form-md-radios has-info">
-                            <div class="col-md-9">
-                                <div class="md-radio-inline" style="margin-top: 20px">
-                                    <div class="md-radio">
-                                        <input type="radio" id="grade_semester1_char" name="radio_sem_char" class="md-radiobtn radio_semester" data-semester="1" checked>
-                                        <label for="grade_semester1_char">
-                                            <span></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Semester 1 </label>
-                                    </div>
-                                    <div class="md-radio">
-                                        <input type="radio" id="grade_semester2_char" name="radio_sem_char" class="md-radiobtn radio_semester" data-semester="2">
-                                        <label for="grade_semester2_char">
-                                            <span></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Semester 2 </label>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-md-line-input form-md-floating-label has-info">
+                            <select class="form-control edited by_year">
+                                <?php foreach($period as $period_char) : ?>
+                                    <option value="<?=$period_char->schoolyear?>" data-semester="<?= $period_char->Semester ?>"><?= 'Semester ' . ($period_char->Semester == 1 ? 'Ganjil' : 'Genap') .' - '. $period_char->schoolyear ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <label for="form_control_1">Select Year</label>
                         </div>
                     </div>
                 </div>
@@ -1666,7 +1630,6 @@
 
 <div class="container-fluid grade">
     <div class="page-content">
-
         <div class="row">
             <div class="col-sm-2" style="padding-left: 0px">
                 <div class="portlet light bordered text-center" style="padding: 1px 10px 10px 10px;">

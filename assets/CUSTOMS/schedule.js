@@ -743,12 +743,12 @@ $(document).ready(function () {
 
 		// AJAX SHOW EDIT SCHEDULE MODAL
 		$('.std_rep').on('click', '.btn_edit_sch', function () {
-			let data_day = $(this).attr('data-day');
-			let data_room = $(this).attr('data-room');
-			let data_hour = $(this).attr('data-hour');
-			let data_subj = $(this).attr('data-subj');
+			var data_day = $(this).attr('data-day');
+			var data_room = $(this).attr('data-room');
+			var data_hour = $(this).attr('data-hour');
+			var data_subj = $(this).attr('data-subj');
 
-			console.log(`DAY: ${data_day} | ROOM: ${data_room} | HOUR: ${data_hour} | SUBJ: ${data_subj}`);
+			// console.log(`DAY: ${data_day} | ROOM: ${data_room} | HOUR: ${data_hour} | SUBJ: ${data_subj}`);
 
 			$.ajax({
 				url: "load_edit_sch",
@@ -766,7 +766,7 @@ $(document).ready(function () {
 					$('.modal-title').text(`Edit Class: ${data_room}`);
 					$('.modal-edit').modal('show');
 
-					classDetails(room);
+					classDetails(data_room);
 				},
 				error: function () {
 					alert(`${data_room} failed to POST to controller`);
@@ -785,7 +785,7 @@ $(document).ready(function () {
 			let upd_teacher = $('select[name="teacher"] option:selected').val();
 			let upd_note = $('textarea[name="note"]').val();
 
-			console.log(`ROOM: ${upd_room} | DAY: ${upd_day} | HOUR: ${upd_hour} | TYPE: ${upd_type} | SUBJ: ${upd_subj} | TEACHER: ${upd_teacher} | NOTE: ${upd_note}`);
+			// console.log(`ROOM: ${upd_room} | DAY: ${upd_day} | HOUR: ${upd_hour} | TYPE: ${upd_type} | SUBJ: ${upd_subj} | TEACHER: ${upd_teacher} | NOTE: ${upd_note}`);
 
 			if (upd_type != '' && upd_subj != '' && upd_teacher != '') {
 				//POST TO DB

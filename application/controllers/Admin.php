@@ -1492,6 +1492,9 @@ class Admin extends CI_Controller
             'status' => $this->session->userdata('status'),
             'photo' => $this->session->userdata('photo'),
 
+            //Period (Semester List) for all Modal
+            'period' => $this->Mdl_grade->get_period(),
+
             //For Modal Material (KD)
             'class' => $this->Mdl_grade->get_active_classes(),
             'rooms' => $this->Mdl_grade->get_active_rooms(),
@@ -1949,12 +1952,13 @@ class Admin extends CI_Controller
     public function get_full_table_details_cognitive()
     {
         $cls = $_POST['cls'];
+        $year = $_POST['year'];
         $semester = $_POST['semester'];
         $subj = $_POST['subj'];
         $type = $_POST['type'];
 
         $head_details = $this->Mdl_grade->model_get_full_kd_details($cls, $semester, $subj, $type);
-        $full_query = $this->Mdl_grade->model_get_person_full_details($cls, $semester, $subj);
+        $full_query = $this->Mdl_grade->model_get_person_full_details($cls, $year, $semester, $subj);
 
         $kd_multi = $head_details->num_rows() * 3;
         $total_kd = $head_details->num_rows();
@@ -2200,12 +2204,13 @@ class Admin extends CI_Controller
     public function get_full_table_details_skills()
     {
         $cls = $_POST['cls'];
+        $year = $_POST['year'];
         $semester = $_POST['semester'];
         $subj = $_POST['subj'];
         $type = $_POST['type'];
 
         $head_details = $this->Mdl_grade->model_get_full_kd_details($cls, $semester, $subj, $type);
-        $full_query = $this->Mdl_grade->model_get_person_full_details($cls, $semester, $subj);
+        $full_query = $this->Mdl_grade->model_get_person_full_details($cls, $year, $semester, $subj);
 
         $total_kd = $head_details->num_rows();
 
@@ -2342,13 +2347,14 @@ class Admin extends CI_Controller
     public function get_full_table_details_character()
     {
         $room = $_POST['cls'];
+        $year = $_POST['year'];
         $semester = $_POST['semester'];
         $subj = $_POST['subj'];
 
         $soc_desc = $this->Mdl_grade->get_social_desc();
         $spirit_desc = $this->Mdl_grade->get_spirit_desc();
 
-        $full_query = $this->Mdl_grade->model_get_person_full_details($room, $semester, $subj);
+        $full_query = $this->Mdl_grade->model_get_person_full_details($room, $year, $semester, $subj);
 
         $i = 1;
         $social = '';
