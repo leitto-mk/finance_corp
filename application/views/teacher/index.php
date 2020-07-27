@@ -386,21 +386,22 @@
                     <div class="tools"> </div>
                 </div>
                 <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="student_reports">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>NIS</th>
-                                <th>Name</th>
-                                <th>Class</th>
-                                <th>Room</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="student_reports">
+                            <thead>
+                                <tr>
+                                    <th width="1%">No</th>
+                                    <th width="2%">NIS</th>
+                                    <th width="10%">Name</th>
+                                    <th width="1%">Class</th>
+                                    <th width="1%">Room</th>
+                                    <th width="1%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -744,7 +745,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-3">
-                        <div class="form-group form-md-line-input form-md-floating-label has-info">
+                        <div class="form-group form-md-line-input has-info">
                             <select class="form-control selected_period" id="form_control_1">
                                 <?php if (!empty($period)) : ?>
                                     <?php foreach ($period as $row) : ?>

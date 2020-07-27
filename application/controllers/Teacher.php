@@ -227,6 +227,7 @@ class Teacher extends CI_Controller
     {
         //FROM DATATABLE REQUEST HEADER
         $header = [
+            'id' => $this->session->userdata('id'),
             'limit' => $_GET['length'],
             'start' => $_GET['start'],
             'order' => $_GET['order'],
@@ -242,7 +243,7 @@ class Teacher extends CI_Controller
             'draw' => $_GET['draw'],
             'recordsTotal' => $total,
             'recordsFiltered' => $total,
-            'data' => $query
+            'data' => $query->result()
         ];
 
         echo json_encode($result);

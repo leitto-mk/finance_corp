@@ -225,37 +225,49 @@ $(document).ready(function () {
 
 		//GET TABLE STUDENTS GRADE REPORTS
 		$('#student_reports').DataTable({
-			responsive: true,
+			destroy: true,
 			processing: true,
 			serverSide: true,
-			lengthMenu: [10, 25, 50, 500, 1000],
+			lengthMenu: [10, 25, 50, 500],
 			ajax: {
 				url: 'ajx_datatable_get_student_reports',
 				method: 'GET',
+				dataSrc: response => {
+					let index = 1
+					for (let i in response.data) {
+						//Put New Object
+						response.data[i].Number = index
+						index++
+					}
+
+					return response.data
+				},
 				error: response => {
 					alert("CANNOT RETRIEVE DATA FROM SERVER")
-					console.log('%' + cresponse.responseText, 'color: #fe346e')
+					console.log('%' + response.responseText, 'color: #fe346e')
 				}
 			},
 			columns: [{
-					data: 'Num',
+					data: 'Number',
 					orderable: false,
 				},
 				{
 					data: 'IDNumber',
-					data: 'IDNumber'
+					orderable: true,
 				},
 				{
 					data: 'FullName',
-					data: 'FullName'
+					orderable: true,
 				},
 				{
 					data: 'Kelas',
-					data: 'Kelas'
+					orderable: false,
+					createdCell: response => response.setAttribute('align', 'center')
 				},
 				{
 					data: 'Ruangan',
-					data: 'Ruangan'
+					orderable: false,
+					createdCell: response => response.setAttribute('align', 'center')
 				},
 				{
 					data: response => `<div class="btn-group pull-right">
@@ -330,22 +342,23 @@ $(document).ready(function () {
 
 		//SHOW FULL MID SEMESTER RECAP
 		let mid_recap = async () => {
-			
+
 			let head = await fetch('ajax_get_class_full_mid_recap_head')
 			let data = await head.json()
 
 			let dt_column = [{
-				data: 'No',
-			}, {
-				data: 'IDNumber',
-			}, {
-				data: 'FullName',
-			},
-			{
-				data: 'MidRecap',
-			}, {
-				data: 'Score',
-			}]
+					data: 'No',
+				}, {
+					data: 'IDNumber',
+				}, {
+					data: 'FullName',
+				},
+				{
+					data: 'MidRecap',
+				}, {
+					data: 'Score',
+				}
+			]
 
 			for (var row in data) {
 				$('#full_mid_recap tr:last-child').append(`<th class="desktop"> ${data[row].SubjName} </th>`)

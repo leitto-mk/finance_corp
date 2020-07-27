@@ -409,18 +409,11 @@ class Mdl_nonstudent extends CI_Model
              JOIN tbl_03_class t3
              ON t2.Kelas = t3.ClassDesc
 			 $WHERE_NAME
+			 AND t2.Ruangan = (SELECT Homeroom FROM tbl_08_job_info WHERE IDNumber = '$id')
 			 ORDER BY t3.ClassNumeric, $ORDER
 			 LIMIT $limit OFFSET $start"
-		)->result();
+		);
 
-		//Add Number for every records for query
-        $num = 0;
-        foreach($query as $row){
-            $row->Num = $num+1;
-            $num++;
-        }
-
-		//COUNT TOTAL RECORDS
 		$total = $this->db->query(
 			"SELECT 
                 t1.IDNumber,
@@ -431,7 +424,10 @@ class Mdl_nonstudent extends CI_Model
              JOIN tbl_08_job_info_std t2
 			 ON t1.IDNumber = t2.NIS
              JOIN tbl_03_class t3
-             ON t2.Kelas = t3.ClassDesc"
+             ON t2.Kelas = t3.ClassDesc
+			 $WHERE_NAME
+			 AND t2.Ruangan = (SELECT Homeroom FROM tbl_08_job_info WHERE IDNumber = '$id')
+			 ORDER BY t3.ClassNumeric, $ORDER"
 		)->num_rows();
 
 		return [$query, $total];
