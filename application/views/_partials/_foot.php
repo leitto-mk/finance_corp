@@ -103,6 +103,7 @@
 <script src="<?= base_url(); ?>assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/global/plugins/jquery-repeater/jquery.repeater.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
@@ -111,6 +112,7 @@
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="<?= base_url(); ?>assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/pages/scripts/form-repeater.min.js" type="text/javascript"></script>
 <!-- <script src="<?= base_url(); ?>assets/pages/scripts/dashboard.js" type="text/javascript"></script> -->
 <!-- <script src="<?= base_url(); ?>assets/pages/scripts/charts-amcharts.min.js" type="text/javascript"></script> -->
 <!-- END PAGE LEVEL SCRIPTS -->
@@ -122,16 +124,16 @@
 
 <!-- CUSTOM PLUGIN -->
 <!-- <script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/DataTables/datatables.min.js" type="text/javascript"></script> -->
-<script src="<?= base_url() ?>assets/global/plugins/sweetalert2/dist/sweetalert2.all.min.js" type="text/javascript"></script>
-<script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/daterangepicker-master/daterangepicker.js" type="text/javascript"></script>
-<script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
-<script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/jqueryui-editable-1.5.1/js/jqueryui-editable.min.js" type="text/javascript"></script>
-<script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js" type="text/javascript"></script>
-<script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/underscore-master/underscore-min.js" type="text/javascript"></script>
-<script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/jquery-mask-plugin/dist/jquery.mask.min.js" type="text/javascript"></script>
-<script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/jquery.inputmask.min.js" type="text/javascript"></script>
-<script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/bindings/inputmask.binding.js" type="text/javascript"></script>
-<!-- <script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/interactive-toggle/dist/jquery.btnswitch.min.js" type="text/javascript"></script> -->
+<script src="<?= base_url(); ?>assets/global/plugins/sweetalert2/dist/sweetalert2.all.min.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/daterangepicker-master/daterangepicker.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/jqueryui-editable-1.5.1/js/jqueryui-editable.min.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/underscore-master/underscore-min.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/jquery-mask-plugin/dist/jquery.mask.min.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/bindings/inputmask.binding.js" type="text/javascript"></script>
+<!-- <script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/interactive-toggle/dist/jquery.btnswitch.min.js" type="text/javascript"></script> -->
 
 <script>
     var base_url = `<?= base_url() ?>`

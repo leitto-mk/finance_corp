@@ -887,5 +887,80 @@ $(document).ready(function () {
 				}
 			});
 		});
+
+		//AJAX SHOW NON-REGULAR ASSIGN
+		$(document).on('click', '.btn_edit_nonregular', function () {
+			$('#assign_room').val($(this).attr('data-room'))
+			$('#assign_type').val($(this).attr('data-type'))
+			$('#assign_day').val($(this).attr('data-day'))
+			$('#assign_hour').val($(this).attr('data-hour'))
+
+			$.ajax({
+				url: 'ajax_get_nonregular_subject',
+				method: 'POST',
+				dataType: 'JSON',
+				data: {
+					room: $(this).attr('data-room'),
+					type: $(this).attr('data-type'),
+					day: $(this).attr('data-day'),
+					hour: $(this).attr('data-hour')
+				},
+				success: response => {
+					$('#assign_subject').html(response.subj)
+					$('#assign_teacher').html(response.teacher)
+				},
+				error: err => console.log(err.responseText)
+			})
+
+			$('#modal_assign').modal('show')
+		})
+
+		//AJAX SHOW NON-REGULAR ASSIGN ON REPEATER-BUTTON
+		$('.mt-repeater-add').click(function () {
+			$.ajax({
+				url: 'ajax_get_nonregular_subject',
+				method: 'POST',
+				dataType: 'JSON',
+				data: {
+					room: $('#assign_room').val(),
+					type: $('#assign_type').val()
+				},
+				success: response => {
+					$('.subject_repeater').each(function () {
+						if ($(this).val() == '') {
+							$(this).html(response.subj)
+						}
+					})
+
+					$('.teacher_repeater').each(function () {
+						if ($(this).val() == '') {
+							$(this).html(response.teacher)
+						}
+					})
+				},
+				error: err => console.log(err.responseText)
+			})
+		})
+
+		$('#assign_nonregular').submit(function (e) {
+			e.preventDefault()
+
+			let form = $(this).serializeArray()
+
+			$.ajax({
+				url: 'ajax_submit_nonregular',
+				method: 'POST',
+				data: form,
+				success: response => {
+					if (response == 'success') {
+						alert('SUCCESS...')
+					} else {
+						alert("SOMETHING'S WRONG")
+						console.log(response)
+					}
+				},
+				error: err => console.log(err.responseText)
+			})
+		})
 	}
 });

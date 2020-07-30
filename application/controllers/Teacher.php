@@ -13,7 +13,7 @@ class Teacher extends CI_Controller
         $this->load->model('admin/Mdl_grade');
 
         //If there is no known user and role is wrong
-        if ($this->session->userdata('status') == 'student') {
+        if ($this->session->userdata('status') == 'student' || !$this->session->userdata('status')) {
             redirect('Auth/index');
         }
     }
@@ -247,6 +247,79 @@ class Teacher extends CI_Controller
         ];
 
         echo json_encode($result);
+    }
+
+    public function ajax_get_nonregular_info()
+    {
+        $type = $_POST['type'];
+
+        [$schedule, $subjects] = $this->Mdl_nonstudent->get_nonregular_info($type);
+
+        $v_sch = '<option value="">Select Day</option>';
+        $v_subj = '<option value="">Select Subject</option>';
+
+        foreach($schedule as $sch){
+            $v_sch .= '<option value="'.$sch->Days.'" data-hour="'.$sch->Hour.'"> '. $sch->Days .' </option>';
+        }
+
+        foreach($subjects as $subj){
+            $v_subj .= '<option value="'.$subj->SubjName.'"> '. $subj->SubjName .' </option>';
+        }
+
+        $result = [
+            'schedule' => $v_sch,
+            'subjects' => $v_subj
+        ];
+
+        echo json_encode($result);
+    }
+
+    public function ajax_get_hour_of_day(){
+        $room = $_POST['room'];
+        $type = $_POST['type'];
+        $day = $_POST['day'];
+
+        $result = $this->Mdl_nonstudent->get_hour_of_day($room, $type, $day);
+
+        $v_hour = '<option value=""> Select Hour </option>';
+        foreach($result as $row){
+            $v_hour .= '<option value="'.$row->Hour.'"> '.$row->Hour.' </option>';
+        }
+
+        echo $v_hour;
+    }
+
+    public function ajax_get_nonregular_subjects(){
+        $room = $_POST['room'];
+        $type = $_POST['type'];
+        $day = $_POST['day'];
+        $hour = date('H:i',strtotime($_POST['hour']));
+
+        $v_subj = '<option value=""> Select Subject </option>';
+
+        $subjects = $this->Mdl_nonstudent->get_nonregular_subjects($room, $type, $day, $hour);
+
+        foreach($subjects as $subj){
+            $v_subj .= '<option value="'.$subj->SubjName.'"> '. $subj->SubjName .' </option>';
+        }
+
+        echo $v_subj;
+    }
+
+    public function ajax_add_nonregular(){
+        $data = [
+            'id' => $_POST['id'],
+            'cls' => $_POST['cls'],
+            'room' => $_POST['room'],
+            'type' => $_POST['assign_type'],
+            'day' => $_POST['assign_day'],
+            'subject' => $_POST['assign_subject'],
+            'hour' => $_POST['assign_hour']
+        ];
+        
+        $result = $this->Mdl_nonstudent->add_nonregular($data);
+
+        echo $result;
     }
 
     public function display_report_print()

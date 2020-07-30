@@ -731,47 +731,57 @@ class Admin extends CI_Controller
                                                         </td>';
                 }
                 if ($row->Mon != NULL) {
-                    $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"> ' . $row->Mon . '
-                                                            <button class="btn btn-xs btn_edit_sch" style="font-size: 8px; background-color: #f1f4f7; line-height: 0.5;" data-day="Senin" data-room="' . $room . '" data-hour="' . $row->Start . '" data-subj="' . $row->Mon . '">
+                    $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"> <a class="btn_edit_sch" data-day="Senin" data-room="' . $room . '" data-hour="' . $row->Start . '" data-subj="' . $row->Mon . '"> ' . $row->Mon . ' </a>';
+                        if(strtolower($row->Mon) == 'elective' || strtolower($row->Mon) == 'excul'){
+                            $value .=                        '<button class="btn btn-xs btn_edit_nonregular" style="font-size: 8px; background-color: #f1f4f7; line-height: 0.5;" data-day="Senin" data-room="' . $room . '" data-hour="' . $row->Start . '" data-type="'.$row->Mon.'">
                                                                 <i class="glyphicon glyphicon-edit"/>
-                                                            </button>
-                                                        </td>';
+                                                            </button';
+                        }
+                    $value .= '                         </td>';
                 } else {
                     $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"></td>';
                 }
                 if ($row->Tue != NULL) {
-                    $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"> ' . $row->Tue . '
-                                                            <button class="btn btn-xs btn_edit_sch" style="font-size: 8px; background-color: #f1f4f7; line-height: 0.5;" data-day="Selasa" data-room="' . $room . '" data-hour="' . $row->Start . '" data-subj="' . $row->Tue . '">
+                    $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"> <a class="btn_edit_sch" data-day="Selasa" data-room="' . $room . '" data-hour="' . $row->Start . '" data-subj="' . $row->Tue . '"> ' . $row->Tue . ' </a>';
+                        if(strtolower($row->Tue) == 'elective' || strtolower($row->Tue) == 'excul'){
+                            $value .=                        '<button class="btn btn-xs btn_edit_nonregular" style="font-size: 8px; background-color: #f1f4f7; line-height: 0.5;" data-day="Selasa" data-room="' . $room . '" data-hour="' . $row->Start . '" data-type="'.$row->Tue.'">
                                                                 <i class="glyphicon glyphicon-edit"/> 
-                                                            </button> 
-                                                        </td>';
+                                                            </button>';
+                        }
+                    $value .= '                         </td>';
                 } else {
                     $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"></td>';
                 }
                 if ($row->Wed != NULL) {
-                    $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"> ' . $row->Wed . '
-                                                            <button class="btn btn-xs btn_edit_sch" style="font-size: 8px; background-color: #f1f4f7; line-height: 0.5;" data-day="Rabu" data-room="' . $room . '" data-hour="' . $row->Start . '" data-subj="' . $row->Wed . '">
+                    $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"> <a class="btn_edit_sch" data-day="Rabu" data-room="' . $room . '" data-hour="' . $row->Start . '" data-subj="' . $row->Wed . '"> ' . $row->Wed . ' </a>';
+                        if(strtolower($row->Wed) == 'elective' || strtolower($row->Wed) == 'excul'){
+                            $value .=                        '<button class="btn btn-xs btn_edit_nonregular" style="font-size: 8px; background-color: #f1f4f7; line-height: 0.5;" data-day="Rabu" data-room="' . $room . '" data-hour="' . $row->Start . '" data-type="'.$row->Wed.'">
                                                                 <i class="glyphicon glyphicon-edit"/> 
-                                                            </button> 
-                                                        </td>';
+                                                            </button>';
+                        }
+                    $value .= '                         </td>';
                 } else {
                     $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"></td>';
                 }
                 if ($row->Thu != NULL) {
-                    $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"> ' . $row->Thu . '
-                                                            <button class="btn btn-xs btn_edit_sch" style="font-size: 8px; background-color: #f1f4f7; line-height: 0.5;" data-day="Kamis" data-room="' . $room . '" data-hour="' . $row->Start . '" data-subj="' . $row->Thu . '">
+                    $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"> <a class="btn_edit_sch" data-day="Kamis" data-room="' . $room . '" data-hour="' . $row->Start . '" data-subj="' . $row->Thu . '"> ' . $row->Thu . ' </a>';
+                        if(strtolower($row->Thu) == 'elective' || strtolower($row->Thu) == 'excul'){
+                            $value .=                        '<button class="btn btn-xs btn_edit_nonregular" style="font-size: 8px; background-color: #f1f4f7; line-height: 0.5;" data-day="Kamis" data-room="' . $room . '" data-hour="' . $row->Start . '" data-type="'.$row->Thu.'">
                                                                 <i class="glyphicon glyphicon-edit"/> 
-                                                            </button> 
-                                                        </td>';
+                                                            </button>';
+                        }
+                    $value .= '                         </td>';
                 } else {
                     $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"></td>';
                 }
                 if ($row->Fri != NULL) {
-                    $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"> ' . $row->Fri . '
-                                                            <button class="btn btn-xs btn_edit_sch" style="font-size: 8px; background-color: #f1f4f7; line-height: 0.5;" data-day="Jumat" data-room="' . $room . '" data-hour="' . $row->Start . '" data-subj="' . $row->Fri . '">
+                    $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"> <a class="btn_edit_sch" data-day="Jumat" data-room="' . $room . '" data-hour="' . $row->Start . '" data-subj="' . $row->Fri . '"> ' . $row->Fri . ' </a>';
+                        if(strtolower($row->Fri) == 'elective' || strtolower($row->Fri) == 'excul'){
+                            $value .=                        '<button class="btn btn-xs btn_edit_nonregular" style="font-size: 8px; background-color: #f1f4f7; line-height: 0.5;" data-day="Jumat" data-room="' . $room . '" data-hour="' . $row->Start . '" data-type="'.$row->Fri.'">
                                                                 <i class="glyphicon glyphicon-edit"/> 
-                                                            </button> 
-                                                        </td>';
+                                                            </button>';
+                        }
+                    $value .= '                         </td>';
                 } else {
                     $value .= '                         <td style="border-bottom: 0px; padding-left: 0px;" class="text-center"></td>';
                 }
@@ -1180,7 +1190,7 @@ class Admin extends CI_Controller
                             <br>
                             <br>
                             <div class="form-group teacher">
-                                <label class="control-label col-md-3">Note<span style="color: red">*</span></label>
+                                <label class="control-label col-md-3">Teacher<span style="color: red">*</span></label>
                                 <div class="col-md-9">
                                     <select name="teacher" class="form-control">';
             if ($tch) {
@@ -1478,7 +1488,45 @@ class Admin extends CI_Controller
         }
     }
 
+    //AJAX NON-REGULAR 
+    public function ajax_get_nonregular_subject(){
+        $room = $_POST['room'];
+        $type = $_POST['type'];
+        $day = $_POST['day'];
+        $hour = $_POST['hour'];
 
+        [$subjects, $teacher] = $this->Mdl_schedule->get_nonregular_subject($room, $type, $day, $hour);
+             
+        $v_subj = '<option value=""> Select Subject </option>';
+        $v_teacher = '<option value=""> Select Teacher </option>';
+
+        foreach($subjects as $subj){
+            $v_subj .= '<option value="'.$subj->SubjName.'"> '. $subj->SubjName .' </option>';
+        }
+
+        foreach($teacher as $teach){
+            $v_teacher .= '<option value="'.$teach->IDNumber.'"> '. $teach->FullName .' </option>';
+        }
+
+        $data = [
+            'subj' => $v_subj,
+            'teacher' => $v_teacher
+        ];
+
+        echo json_encode($data);
+    }
+
+    public function ajax_submit_nonregular(){
+        $assign_room = $_POST['assign_room'];
+        $assign_type = $_POST['assign_type'];
+        $assign_day = $_POST['assign_day'];
+        $assign_hour = $_POST['assign_hour'];
+        $subjects = $_POST['group-c'];
+
+        $result = $this->Mdl_schedule->submit_nonregular($assign_room, $assign_type, $assign_day, $assign_hour, $subjects);
+
+        echo $result;
+    }
 
     // ==================================================================================================================== \\
     // ==============================                     STUDENT GRADES CONTROLLER          ============================== \\
@@ -2449,6 +2497,7 @@ class Admin extends CI_Controller
     public function update_kd_weight()
     {
         $room = $_POST['room'];
+        $year = $_POST['year'];
         $semester = $_POST['semester'];
         $type = $_POST['type'];
         $subj = $_POST['subj'];
@@ -2456,20 +2505,35 @@ class Admin extends CI_Controller
         $field = $_POST['field'];
         $value = $_POST['value'];
 
-        $result = $this->Mdl_grade->model_update_kd_weight($room, $semester, $type, $subj, $code, $field, $value);
+        $current_period = $this->session->userdata('period');
+        $current_semester = $this->session->userdata('semester');
+
+        if($year == $current_period && $semester == $current_semester){
+            $result = $this->Mdl_grade->model_update_kd_weight($room, $year, $semester, $type, $subj, $code, $field, $value);
+        }else{
+            $result = 'INVALID_PERIOD';
+        }
 
         echo $result;
     }
 
     public function update_recap_weight()
     {
+        $year = $_POST['year'];
         $semester = $_POST['semester'];
         $room = $_POST['room'];
         $subj = $_POST['subj'];
         $field = $_POST['field'];
         $value = $_POST['value'];
 
-        $result = $this->Mdl_grade->model_update_recap_weight($semester, $room, $subj, $field, $value);
+        $current_period = $this->session->userdata('period');
+        $current_semester = $this->session->userdata('semester');
+
+        if($year == $current_period && $semester == $current_semester){
+            $result = $this->Mdl_grade->model_update_recap_weight($semester, $room, $subj, $field, $value);
+        }else{
+            $result = 'INVALID_PERIOD';
+        }
 
         echo $result;
     }
@@ -2498,6 +2562,7 @@ class Admin extends CI_Controller
         $data = [
             'nis' => $_POST['nis'],
             'fullname' => $_POST['fullname'],
+            'year' => $_POST['year'],
             'semester' => $_POST['semester'],
             'cls' => $_POST['cls'],
             'room' => $_POST['room'],
@@ -2508,7 +2573,14 @@ class Admin extends CI_Controller
             'value' => $_POST['val']
         ];
 
-        $result = $this->Mdl_grade->model_sv_kd_grades($data);
+        $current_period = $this->session->userdata('period');
+        $current_semester = $this->session->userdata('semester');
+
+        if($data['year'] == $current_period && $data['semester'] == $current_semester){
+            $result = $this->Mdl_grade->model_sv_kd_grades($data);
+        }else{
+            $result = 'INVALID_PERIOD';
+        }
 
         echo $result;
     }
@@ -2518,6 +2590,7 @@ class Admin extends CI_Controller
         $data = [
             'nis' => $_POST['nis'],
             'cls' => $_POST['cls'],
+            'year' => $_POST['year'],
             'semester' => $_POST['semester'],
             'room' => $_POST['room'],
             'subj' => $_POST['subj'],
@@ -2526,7 +2599,15 @@ class Admin extends CI_Controller
             'value' => $_POST['val']
         ];
 
-        $result = $this->Mdl_grade->model_sv_exam_grades($data);
+        $current_period = $this->session->userdata('period');
+        $current_semester = $this->session->userdata('semester');
+
+        if($data['year'] == $current_period && $data['semester'] == $current_semester){
+            $result = $this->Mdl_grade->model_sv_exam_grades($data);
+        }else{
+            $result = 'INVALID_PERIOD';
+        }
+
 
         echo $result;
     }
@@ -2535,6 +2616,7 @@ class Admin extends CI_Controller
     {
         $nis = $_POST['nis'];
         $name = $_POST['name'];
+        $year = $_POST['year'];
         $semester = $_POST['semester'];
         $subj = $_POST['subj'];
         $room = $_POST['room'];
@@ -2542,7 +2624,14 @@ class Admin extends CI_Controller
         $desc = $_POST['desc'];
         $value = $_POST['value'];
 
-        $result = $this->Mdl_grade->model_sv_std_char_grades($nis, $name, $semester, $subj, $room, $type, $desc, $value);
+        $current_period = $this->session->userdata('period');
+        $current_semester = $this->session->userdata('semester');
+
+        if($year == $current_period && $semester == $current_semester){
+            $result = $this->Mdl_grade->model_sv_std_char_grades($nis, $name, $semester, $subj, $room, $type, $desc, $value);
+        }else{
+            $result = 'INVALID_PERIOD';
+        }
 
         echo $result;
     }

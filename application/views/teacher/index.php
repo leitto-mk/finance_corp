@@ -381,7 +381,7 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Grade Siswa</span>
+                        <span class="caption-subject bold uppercase">Daftar Siswa</span>
                     </div>
                     <div class="tools"> </div>
                 </div>
@@ -1070,5 +1070,72 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<!--=================================================== MODAL ASSIGN ELECTIVE =======================================================-->
+<div class="modal fade in full" id="modal_assign" tabindex="-1" role="dialog" aria-hidden="true" style="display: hidden;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4> Assign Non-Regular Subject </h4>
+            </div>
+            <div class="modal-body">
+                <form id="assign_nonregular" role="form" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Student</label>
+                            <div class="col-md-8">
+                                <input type="text" id="assign_name" name="assign_name" class="form-control" data-id="" data-cls="" data-room="" required readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Type</label>
+                            <div class="col-md-8">
+                                <select type="text" id="assign_type" name="assign_type" class="form-control" required> 
+                                    <option value="Elective">Linas Minat</option>
+                                    <option value="Excul">Extra Kulikuler</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Day</label>
+                            <div class="col-md-8">
+                                <select type="text" id="assign_day" name="assign_day" class="form-control" required> 
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Hour</label>
+                            <div class="col-md-8">
+                                <select type="text" id="assign_hour" name="assign_hour" class="form-control" required disabled> 
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Subject</label>
+                            <div class="col-md-8">
+                                <select type="text" id="assign_subject" name="assign_subject" class="form-control" required> 
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-4 col-md-8">
+                                <button type="button" class="btn default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn blue" form="assign_nonregular">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 
 <?php $this->load->view('_partials/personal_footer'); ?>

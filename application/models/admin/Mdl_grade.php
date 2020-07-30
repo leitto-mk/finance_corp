@@ -38,7 +38,6 @@ class Mdl_grade extends CI_Model
 
     public function model_save_new_kd($type, $cls, $subj, $semester, $material, $code, $adjust)
     {
-
         $this->db->insert('tbl_05_subject_kd', [
             'Type' => $type,
             'Classes' => $cls,
@@ -134,7 +133,7 @@ class Mdl_grade extends CI_Model
                 Semester, 
                 schoolyear 
              FROM tbl_09_det_grades 
-             ORDER BY Semester DESC, schoolyear DESC"
+             ORDER BY schoolyear DESC, Semester DESC"
         )->result();
 
         return $query;
@@ -328,22 +327,15 @@ class Mdl_grade extends CI_Model
         return $query->row();
     }
 
-    public function model_update_kd_weight($room, $semester, $type, $subj, $code, $field, $value)
+    public function model_update_kd_weight($room, $year, $semester, $type, $subj, $code, $field, $value)
     {
         $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
 
         //VARIABLE FROM AJAX TEACHER-PERSONAL
         $period = (isset($_POST['period']) ? $_POST['period'] : NULL);
 
         if ($period === NULL) {
-            if (date('n', strtotime($time)) <= 6) {
-                $schYear = ($year - 1) . '/' . $year;
-            } else {
-                $schYear = $year . '/' . ($year + 1);
-            }
+            $schYear = $year;
         } else {
             $schYear = $period;
         }

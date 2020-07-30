@@ -94,11 +94,6 @@
                 <h4 class="modal-title opt_title" style="color: white">Options</h4>
             </div>
             <div class="detail-body">
-
-
-
-
-
                 <div class="modal-body" style="padding-right: 0px;">
                     <div class="row">
                         <div class="col-sm-12">
@@ -246,11 +241,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -265,11 +255,6 @@
                 <h4 class="modal-title hour_title" style="color: white">Options</h4>
             </div>
             <div class="detail-body">
-
-
-
-
-
                 <div class="modal-body" style="padding-right: 0px;">
                     <div class="row">
                         <div class="col-sm-12" class="text-center">
@@ -327,11 +312,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -346,11 +326,6 @@
                 <h4 class="modal-title hour_title" style="color: white">Sessions</h4>
             </div>
             <div class="detail-body">
-
-
-
-
-
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12" class="text-center">
@@ -494,16 +469,91 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
     </div>
 </div>
 
+<!------------------------- MODAL NON-REGULAR ASSIGNMENT ------------------------->
+<div class="modal fade in full" id="modal_assign" tabindex="-1" role="dialog" aria-hidden="true" style="display: hidden;">
+    <div class="modal-dialog" style="width: 900px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4> Assign Non-Regular Subject </h4>
+            </div>
+            <div class="modal-body">
+                <form id="assign_nonregular" role="form" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Room</label>
+                            <div class="col-md-8">
+                                <input type="text" id="assign_room" name="assign_room" class="form-control" required readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Type</label>
+                            <div class="col-md-8">
+                                <input type="text" id="assign_type" name="assign_type" class="form-control" required readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Day</label>
+                            <div class="col-md-8">
+                                <input type="text" id="assign_day" name="assign_day" class="form-control" required readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Hour</label>
+                            <div class="col-md-8">
+                                <input type="text" id="assign_hour" name="assign_hour" class="form-control" required readonly>
+                            </div>
+                        </div>
+                        <div class="form-group mt-repeater">
+                            <div data-repeater-list="group-c">
+                                <div data-repeater-item class="mt-repeater-item">
+                                    <div class="row mt-repeater-row">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="col-md-5" style="padding-right: 0px">
+                                                <label class="control-label">Subject</label>
+                                                <select type="text" id="assign_subject" name="assign_subject" class="form-control subject_repeater" required> 
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-5" style="padding-right: 0px">
+                                                <label class="control-label">Teacher</label>
+                                                <select type="text" id="assign_teacher" name="assign_teacher" class="form-control teacher_repeater" required> 
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="javascript:;" data-repeater-delete class="btn btn-danger mt-repeater-delete">
+                                                    <i class="fa fa-close"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <a href="javascript:;" data-repeater-create class="btn btn-info mt-repeater-add" style="float: right">
+                                    <i class="fa fa-plus"></i> New </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-4 col-md-8">
+                                <button type="button" class="btn default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn blue" form="assign_nonregular">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!------------------------- SCHEDULE CONTENT ------------------------->
 <div class="container-fluid schedule">

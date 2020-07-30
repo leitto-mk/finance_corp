@@ -75,9 +75,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label">Point of Birth</label>
+                                                <label class="control-label">Date of Birth</label>
                                                 <!-- <input type="text" placeholder="Tanggal Lahir" class="form-control" > -->
-                                                <input class="form-control input-medium date-picker" name="newtgllhr" id="newtgllhr" size="30" type="text" value="">
+                                                <input class="form-control input-medium" name="newtgllhr" id="newtgllhr" size="30" type="date">
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Place of Birth</label>

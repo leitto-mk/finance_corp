@@ -390,6 +390,104 @@ class Mdl_nonstudent extends CI_Model
 		return $query;
 	}
 
+	public function get_nonregular_info($type){
+		$schYear = '';
+		$semester = '';
+
+		$time = date('d-m-Y');
+		$year = date('Y');
+
+		if (date('n', strtotime($time)) <= 6) {
+			$schYear = ($year - 1) . '/' . $year;
+			$semester = 2;
+		} else {
+			$schYear = $year . '/' . ($year + 1);
+			$semester = 1;
+        }
+        
+        $schedule = $this->db
+                            ->where([
+                                'semester' => $semester,
+                                'schoolyear' => $schYear,
+                                'subjName' => $type
+                            ])
+                            ->select('Days, Hour')
+                            ->get('tbl_06_schedule')->result();
+
+        $subjects = $this->db
+							->where("Type = '$type' AND SubjName != '$type'")
+                            ->select('SubjID, SubjName')
+							->get('tbl_05_subject')->result();
+							
+		return [$schedule, $subjects];
+	}
+
+	public function get_hour_of_day($room, $type, $day){
+		$schYear = '';
+		$semester = '';
+
+		$time = date('d-m-Y');
+		$year = date('Y');
+
+		if (date('n', strtotime($time)) <= 6) {
+			$schYear = ($year - 1) . '/' . $year;
+			$semester = 2;
+		} else {
+			$schYear = $year . '/' . ($year + 1);
+			$semester = 1;
+		}
+		
+		$query = $this->db
+							->where([
+								'Days' => $day,
+								'semester' => $semester,
+								'schoolyear' => $schYear,
+								'SubjName' => $type
+							])
+							->select('Hour')
+							->order_by('Hour', 'ASC')
+							->get('tbl_06_schedule')->result();
+
+		return $query;
+	}
+
+	public function get_nonregular_subjects($room, $type, $day, $hour){
+		$schYear = '';
+		$semester = '';
+
+		$time = date('d-m-Y');
+		$year = date('Y');
+
+		if (date('n', strtotime($time)) <= 6) {
+			$schYear = ($year - 1) . '/' . $year;
+			$semester = 2;
+		} else {
+			$schYear = $year . '/' . ($year + 1);
+			$semester = 1;
+        }
+
+        $subjects = $this->db
+                            ->where("Type = '$type' AND SubjName != '$type'")
+                            ->where("SubjName NOT IN(
+                                                SELECT SubjName FROM tbl_06_schedule_nonregular
+                                                WHERE semester = '$semester'
+                                                AND schoolyear = '$schYear'
+                                                AND RoomDesc = '$room'
+                                                AND Days = '$day'
+                                                AND Hour = '$hour')")
+							->select('SubjID, SubjName')
+							->order_by('SubjName', 'ASC')
+							->get('tbl_05_subject')->result();
+
+		return $subjects;
+	}
+
+	public function add_nonregular($data){
+		extract($data);
+
+		
+	}
+
 	public function model_get_student_reports($header)
 	{
 		extract($header);

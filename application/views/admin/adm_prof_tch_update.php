@@ -106,7 +106,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label">Date of Birth</label>
                                                         <!-- <input type="text" placeholder="Tanggal Lahir" class="form-control" > -->
-                                                        <input class="form-control input-medium date-picker" name="newtgllhr" id="newtgllhr" size="30" type="text" value="<?= date('m/d/Y', strtotime($datatoedit->DateofBirth)) ?>">
+                                                        <input class="form-control input-medium" name="newtgllhr" id="newtgllhr" size="30" type="date" value="<?= $datatoedit->DateofBirth ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Place of Birth</label>

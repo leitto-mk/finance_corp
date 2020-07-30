@@ -828,10 +828,18 @@ class Mdl_schedule extends CI_Model
         if ($type == 'Non-Subject') {
             $IDNumber = '-';
             $TeacherName = '-';
+        } elseif ($type == 'Elective') {
+            $SubjName = 'ELECTIVE';
+            $IDNumber = '-';
+            $TeacherName = '-';
+        } elseif ($type == 'Excul') {
+            $SubjName = 'EXCUL';
+            $IDNumber = '-';
+            $TeacherName = '-';
         } else {
             $IDNumber = $teacher;
-            $tch = $this->db->query("SELECT CONCAT(FirstName,' ', LastName) AS FullName FROM tbl_07_personal_bio WHERE IDNumber = '$IDNumber'")->row_array();
-            $TeacherName = $tch['FullName'];
+            $tch = $this->db->query("SELECT CONCAT(FirstName,' ', LastName) AS FullName FROM tbl_07_personal_bio WHERE IDNumber = '$IDNumber'")->row();
+            $TeacherName = $tch->FullName;
         }
 
         $this->db->trans_begin();
@@ -865,9 +873,16 @@ class Mdl_schedule extends CI_Model
             'schoolyear' => $schYear
         ])->row();
 
-        $unmatched = $this->db->query("SELECT SubjName FROM unmatch");
+        $unmatched = $this->db->query(
+                "SELECT SubjName FROM tbl_09_det_grades 
+                 WHERE SubjName 
+                 NOT IN 
+                    (SELECT SubjName 
+                     FROM tbl_06_schedule
+                     WHERE semester = '$semester'
+                     AND schoolyear = '$schYear')");
 
-        if ($type == 'Regular' || $type == 'Elective') {
+        if ($type == 'Regular') {
             if ($tch_avail == 0 ||  $IDNumber == $tch_current->IDNumber) {
                 //Get current Subject before Update
                 $duplicate = $this->db->query(
@@ -878,16 +893,16 @@ class Mdl_schedule extends CI_Model
                      AND schoolyear = '$schYear'"
                 );
 
-                //SCRIPT FOR MAKING VIEW "UNMATCH":
-                // "CREATE VIEW UNMATCH AS 
-                // SELECT SubjName FROM tbl_09_det_grades 
-                // WHERE SubjName 
-                // NOT IN (SELECT SubjName FROM tbl_06_schedule)"
-
-                //FIND UNMATCHED DATA FOR BOTH SCH & GRD HERE, GET RESULT FROM MYSQL VIEW
-
+                //FIND UNMATCHED DATA FOR BOTH SCH & GRD HERE
                 if ($unmatched->num_rows() > 0) {
-                    $this->db->query("DELETE FROM `tbl_09_det_grades` WHERE SubjName IN (SELECT SubjName FROM unmatch)");
+                    $this->db->query(
+                        "DELETE FROM `tbl_09_det_grades` 
+                         WHERE SubjName 
+                         NOT IN 
+                            (SELECT SubjName 
+                             FROM tbl_06_schedule
+                             WHERE semester = '$semester'
+                             AND schoolyear = '$schYear')");
                 }
 
                 if ($duplicate->num_rows() == 1) {
@@ -924,7 +939,15 @@ class Mdl_schedule extends CI_Model
             }
         } else {
             if ($unmatched->num_rows() > 0) {
-                $this->db->query("DELETE FROM `tbl_09_det_grades` WHERE SubjName IN (SELECT SubjName FROM unmatch)");
+                $this->db->query(
+                    "DELETE FROM `tbl_09_det_grades` 
+                         WHERE SubjName 
+                         NOT IN 
+                            (SELECT SubjName 
+                             FROM tbl_06_schedule
+                             WHERE semester = '$semester'
+                             AND schoolyear = '$schYear')"
+                );
             }
         }
 
@@ -973,5 +996,101 @@ class Mdl_schedule extends CI_Model
         );
 
         $this->db->trans_commit();
+    }
+
+    public function get_nonregular_subject($room, $type, $day, $hour){
+        $schYear = '';
+		$semester = '';
+
+		$time = date('d-m-Y');
+		$year = date('Y');
+
+		if (date('n', strtotime($time)) <= 6) {
+			$schYear = ($year - 1) . '/' . $year;
+			$semester = 2;
+		} else {
+			$schYear = $year . '/' . ($year + 1);
+			$semester = 1;
+        }
+
+        $subjects = $this->db
+                            ->where("Type = '$type' AND SubjName != '$type'")
+                            ->where("SubjName NOT IN(
+                                                SELECT SubjName FROM tbl_06_schedule_nonregular
+                                                WHERE semester = '$semester'
+                                                AND schoolyear = '$schYear'
+                                                AND RoomDesc = '$room'
+                                                AND Days = '$day'
+                                                AND Hour = '$hour')")
+                            ->select('SubjID, SubjName')
+                            ->order_by('SubjName', 'ASC')
+                            ->get('tbl_05_subject')->result();
+
+         $teacher = $this->db->query(
+             "SELECT t1.IDNumber, CONCAT(t1.FirstName,' ',t1.LastName) AS FullName, t2.SubjectTeach 
+              FROM tbl_07_personal_bio AS t1
+              INNER JOIN tbl_08_job_info AS t2
+              ON t1.IDNumber = t2.IDNumber
+              WHERE status = 'teacher'
+              AND t1.IDNumber NOT IN(SELECT IDNumber 
+                                     FROM tbl_06_schedule_nonregular
+                                     WHERE semester = '$semester'
+                                                AND schoolyear = '$schYear'
+                                                AND RoomDesc = '$room'
+                                                AND Days = '$day'
+                                                AND Hour = '$hour')
+              ORDER BY t1.IDNumber")->result();
+
+        return [$subjects, $teacher];
+    }
+
+    public function submit_nonregular($assign_room, $assign_type, $assign_day, $assign_hour, $subjects){
+        $subject_batch = [];
+        $semester = '';
+        $schYear = '';
+
+        $time = date('d-m-Y');
+        $year = date('Y');
+
+        if (date('n', strtotime($time)) <= 6) {
+            $semester = 2;
+            $schYear = ($year - 1) . '/' . $year;
+        } else {
+            $schYear = $year . '/' . ($year + 1);
+            $semester = 1;
+        }
+
+        $roominfo = $this->db
+                            ->select('Type, RoomID')
+                            ->where('RoomDesc', $assign_room)
+                            ->get('tbl_04_class_rooms')->row();
+
+        $this->db->trans_start();
+
+        for($i = 0; $i < count($_POST['group-c']); $i++){
+            array_push($subject_batch, [
+                'Degree' => $roominfo->Type,
+                'RoomID' => $roominfo->RoomID,
+                'RoomDesc' => $assign_room,
+                'semester' => $semester,
+                'schoolyear' => $schYear,
+                'hour' => $assign_hour,
+                'Type' => $assign_type,
+                'SubjName' => $subjects[$i]['assign_subject'],
+                'Days' => $assign_day,
+                'IDNumber' => $subjects[$i]['assign_teacher'],
+                'TeacherName' => $this->db->select("CONCAT(FirstName,' ',LastName) AS FullName")->where('IDNumber', $subjects[$i]['assign_teacher'])->get('tbl_07_personal_bio')->row()->FullName
+            ]);  
+        }
+
+        $this->db->insert_batch('tbl_06_schedule_nonregular', $subject_batch);
+
+        $this->db->trans_complete();
+
+        if($this->db->trans_status()){
+            return 'success';
+        }else{
+            return $this->db->error();
+        }
     }
 }

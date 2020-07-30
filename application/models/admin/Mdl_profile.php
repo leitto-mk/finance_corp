@@ -184,8 +184,10 @@ class Mdl_profile extends CI_Model
     {
         $query = $this->db->query(
             "SELECT t2.ClassDesc FROM tbl_02_school t1 
-             JOIN tbl_03_class t2
+             LEFT JOIN tbl_03_class t2
              ON t1.School_Desc = t2.Type
+             RIGHT JOIN tbl_04_class_rooms
+             USING(ClassID)
              WHERE t2.ClassDesc != '-'
              AND t1.isActive = 1
              ORDER BY t2.ClassNumeric"

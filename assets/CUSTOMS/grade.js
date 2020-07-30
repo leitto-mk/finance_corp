@@ -1027,21 +1027,12 @@ $(document).ready(function () {
 				let value = $(this).text()
 				value = value.replace(/\s+/g, '')
 
-				console.table({
-					grade_cls,
-					semester,
-					type,
-					subj,
-					code,
-					field,
-					value
-				})
-
 				$.ajax({
 					url: 'update_kd_weight',
 					method: 'POST',
 					data: {
 						room: grade_cls,
+						year,
 						semester,
 						type,
 						subj,
@@ -1052,6 +1043,8 @@ $(document).ready(function () {
 					success: data => {
 						if (data == 'success') {
 							get_full_details(grade_cls, year, semester, grade_subj, grade_type)
+						} else if (data == 'INVALID_PERIOD') {
+							alert('CANNOT UPDATE OLD PERIOD!')
 						} else {
 							console.log(data)
 						}
@@ -1068,6 +1061,8 @@ $(document).ready(function () {
 			if (e.keyCode == 13 && !$(this).is('.kd_desc_sk')) {
 				e.preventDefault()
 
+				alert('TEST')
+
 				let year = $(this).parents('.modal-body').find('.by_year').val()
 				let semester = $(this).parents('.modal-body').find('.by_year option:selected').attr('data-semester')
 				let room = grade_cls
@@ -1076,18 +1071,12 @@ $(document).ready(function () {
 				let value = $(this).text()
 				value = value.replace(/\s+/g, '')
 
-				console.table({
-					room,
-					subj,
-					field,
-					value
-				})
-
 				$.ajax({
 					url: 'update_recap_weight',
 					method: 'POST',
 					data: {
 						room,
+						year,
 						semester,
 						subj,
 						field,
@@ -1096,8 +1085,10 @@ $(document).ready(function () {
 					success: data => {
 						if (data == 'success') {
 							get_full_details(grade_cls, year, semester, grade_subj, grade_type)
+						} else if (data == 'INVALID_PERIOD') {
+							alert('CANNOT UPDATE OLD PERIOD!')
 						} else {
-							console.log()
+							console.log(data)
 						}
 					},
 					error: data => {
@@ -1139,6 +1130,7 @@ $(document).ready(function () {
 					method: 'POST',
 					data: {
 						room: grade_cls,
+						year,
 						semester,
 						type,
 						subj,
@@ -1149,6 +1141,8 @@ $(document).ready(function () {
 					success: data => {
 						if (data == 'success') {
 							get_full_details(grade_cls, year, semester, grade_subj, grade_type)
+						} else if (data == 'INVALID_PERIOD') {
+							alert('CANNOT UPDATE OLD PERIOD!')
 						} else {
 							console.log(data)
 						}
@@ -1183,24 +1177,13 @@ $(document).ready(function () {
 					let code = $(this).attr('data-code')
 					code = code.replace(/\s+/g, '')
 
-					console.table({
-						nis,
-						semester,
-						cls,
-						room,
-						subj,
-						type,
-						code,
-						field,
-						val
-					})
-
 					$.ajax({
 						url: 'sv_std_kd_grades',
 						method: 'POST',
 						data: {
 							row,
 							nis,
+							year,
 							semester,
 							fullname,
 							cls,
@@ -1212,11 +1195,12 @@ $(document).ready(function () {
 							val
 						},
 						success: data => {
-							console.log(data)
 							if (data == 'success') {
-								get_full_details(grade_cls, year, semester, subj, type)
+								get_full_details(grade_cls, year, semester, grade_subj, grade_type)
+							} else if (data == 'INVALID_PERIOD') {
+								alert('CANNOT UPDATE OLD PERIOD!')
 							} else {
-								alert("SOMETHING'S WRONG")
+								console.log(data)
 							}
 						},
 						error: data => {
@@ -1225,17 +1209,6 @@ $(document).ready(function () {
 					})
 				} else {
 
-					console.table({
-						nis,
-						semester,
-						cls,
-						room,
-						subj,
-						type,
-						field,
-						val
-					})
-
 					$.ajax({
 						url: 'sv_std_exam_grades',
 						method: 'POST',
@@ -1243,6 +1216,7 @@ $(document).ready(function () {
 							row,
 							cls,
 							nis,
+							year,
 							semester,
 							room,
 							subj,
@@ -1251,12 +1225,12 @@ $(document).ready(function () {
 							val
 						},
 						success: data => {
-							console.log(data)
-
 							if (data == 'success') {
-								get_full_details(grade_cls, year, semester, subj, type)
+								get_full_details(grade_cls, year, semester, grade_subj, grade_type)
+							} else if (data == 'INVALID_PERIOD') {
+								alert('CANNOT UPDATE OLD PERIOD!')
 							} else {
-								alert("SOMETHING'S WRONG")
+								console.log(data)
 							}
 						},
 						error: data => {
@@ -1304,6 +1278,7 @@ $(document).ready(function () {
 						data: {
 							nis,
 							name,
+							year,
 							semester,
 							subj,
 							room,
@@ -1313,16 +1288,11 @@ $(document).ready(function () {
 						}
 					}).then((data) => {
 						if (data == 'success') {
-							console.table({
-								grade_cls,
-								semester,
-								grade_subj,
-								grade_type
-							})
-
 							get_full_details(grade_cls, year, semester, grade_subj, grade_type)
+						} else if (data == 'INVALID_PERIOD') {
+							alert('CANNOT UPDATE OLD PERIOD!')
 						} else {
-							console.log(data.responseText)
+							console.log(data)
 						}
 					})
 				}

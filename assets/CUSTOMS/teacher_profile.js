@@ -270,7 +270,15 @@ $(document).ready(function () {
 					createdCell: response => response.setAttribute('align', 'center')
 				},
 				{
-					data: response => `<div class="btn-group pull-right">
+					data: response => `
+						<a href="javascript:;"
+							class="std_assign btn blue btn-xs btn-outline"
+							data-name="${response.FullName}"
+							data-id="${response.IDNumber}"
+							data-cls="${response.Kelas}"
+							data-room="${response.Ruangan}">
+							<i class="fa fa-check"></i> Assign </a>
+						<div class="btn-group pull-right" style="margin-top: 0px">
 							<button class="btn green btn-xs btn-outline dropdown-toggle" data-toggle="dropdown" id="btn_report">Reports
 								<i class="fa fa-angle-down"></i>
 							</button>
@@ -294,6 +302,112 @@ $(document).ready(function () {
 					orderable: false
 				}
 			]
+		})
+
+		function getNonRegular(type) {
+			$.ajax({
+				url: 'ajax_get_nonregular_info',
+				method: 'POST',
+				dataType: 'JSON',
+				data: {
+					type
+				},
+				success: response => {
+					$('select[name="assign_day"]').html(response.schedule)
+					$('select[name="assign_subject"]').html(response.subjects)
+				},
+				error: response => console.log(response.responseText)
+			})
+		}
+
+		//ASSIGN STUDENT TO ELECTIVE
+		$('#student_reports').on('click', '.std_assign', function () {
+			$('#assign_name').val($(this).attr('data-name'))
+			$('#assign_name').attr('data-id', $(this).attr('data-id'))
+			$('#assign_name').attr('data-cls', $(this).attr('data-cls'))
+			$('#assign_name').attr('data-room', $(this).attr('data-room'))
+
+			let type = $('#assign_type').val()
+
+			getNonRegular(type)
+
+			$('#modal_assign').modal('show')
+		})
+
+		//GET DAY, SUBJECT AND HOUR BASED ON SELECTED TYPE
+		$('#assign_type').on('change', function () {
+			let type = $(this).val()
+
+			getNonRegular(type)
+		})
+
+		//GET HOUR BASED ON SELECTED DAY
+		$('#modal_assign').on('change', '#assign_day', function () {
+			$.ajax({
+				url: 'ajax_get_hour_of_day',
+				method: 'POST',
+				data: {
+					room: $('#assign_name').attr('data-room'),
+					type: $('#assign_type').val(),
+					day: $(this).val()
+				},
+				success: response => {
+					$('select[name="assign_hour"]').prop('disabled', false)
+					$('select[name="assign_hour"]').html(response)
+				},
+				error: err => console.log(err.responseText)
+			})
+		})
+
+		//GET SUBJECT BASED ON SELECTED DAY & HOUR
+		$('#modal_assign').on('change', '#assign_hour', function () {
+			$.ajax({
+				url: 'ajax_get_nonregular_subjects',
+				method: 'POST',
+				data: {
+					room: $('#assign_name').attr('data-room'),
+					type: $('#assign_type').val(),
+					day: $('#assign_day').val(),
+					hour: $(this).val()
+				},
+				success: response => {
+					$('select[name="assign_subject"]').prop('disabled', false)
+					$('select[name="assign_subject"]').html(response)
+				},
+				error: err => console.log(err.responseText)
+			})
+		})
+
+		//SUBMIT STUDENT NON-REGULAR SCHEDULE
+		$('#assign_nonregular').submit(function (e) {
+			e.preventDefault()
+
+			let form = $(this).serializeArray()
+
+			form.push({
+				'name': 'id',
+				'value': $('#assign_name').attr('data-id')
+			}, {
+				'name': 'cls',
+				'value': $('#assign_name').attr('data-cls')
+			}, {
+				'name': 'room',
+				'value': $('#assign_name').attr('data-room')
+			})
+
+			$.ajax({
+				url: 'ajax_add_nonregular',
+				method: 'POST',
+				data: form,
+				success: response => {
+					if (response == 'success') {
+
+					} else {
+						console.log(response)
+					}
+				},
+				error: err => console.log(err.responseText)
+			})
 		})
 
 		//DISPLAY PRINT MID SEMESTER RESULT
