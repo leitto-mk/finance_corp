@@ -7,7 +7,7 @@
                 <i class="fa fa-window-restore"></i> Dashboard </a>
             <ul class="dropdown-menu dropdown-menu-fw">
                 <li>
-                    <a class="subnav" id="full_det" href="<?= base_url('admin/index'); ?>">
+                    <a class="subnav" id="full_det" href="<?= base_url('Admin/index'); ?>">
                         <i class="icon-bar-chart"></i> School Details </a>
                 </li>
             </ul>
@@ -18,7 +18,7 @@
                 <i class="fa fa-users"></i> &nbsp;Profile </a>
             <ul class="dropdown-menu dropdown-menu-fw">
                 <li>
-                    <a class="subnav" id="adm" href="<?= base_url('admin/load_prof_adm'); ?>">
+                    <a class="subnav" id="adm" href="<?= base_url('Admin/load_prof_adm'); ?>">
                         <i class="fa fa-id-badge"></i> Admin Profile </a>
                 </li>
                 <li>
@@ -30,7 +30,7 @@
                         <i class="fa fa-graduation-cap"></i> Students </a>
                 </li>
                 <!-- <li>
-                    <a class="subnav" id="staff" href="<?= base_url('admin/load_prof_stf_edit'); ?>">
+                    <a class="subnav" id="staff" href="<?= base_url('Admin/load_prof_stf_edit'); ?>">
                         <i class="fa fa-user"></i> Staffs </a>
                 </li> -->
             </ul>
@@ -45,15 +45,15 @@
                         <i class="fas fa-school"></i> &nbsp;Kelas </a>
                 </li> -->
                 <li>
-                    <a class="subnav" id="jadwal" href="<?= base_url('admin/load_acd_sch_edit'); ?>">
+                    <a class="subnav" id="jadwal" href="<?= base_url('Admin/load_acd_sch_edit'); ?>">
                         <i class="fa fa-calendar"></i> &nbsp;Schedule </a>
                 </li>
                 <li>
-                    <a class="subnav" id="nilai" href="<?= base_url('admin/load_acd_grde'); ?>">
+                    <a class="subnav" id="nilai" href="<?= base_url('Admin/load_acd_grde'); ?>">
                         <i class="icon-bulb"></i> Student Grades </a>
                 </li>
                 <li>
-                    <a class="subnav" id="absen" href="<?= base_url('admin/load_acd_absn'); ?>">
+                    <a class="subnav" id="absen" href="<?= base_url('Admin/load_acd_absn'); ?>">
                         <i class="icon-graph"></i> Absence </a>
                 </li>
             </ul>
@@ -64,7 +64,7 @@
                 <i class="fa fa-list-alt"></i> &nbsp;Enrollment </a>
             <ul class="dropdown-menu dropdown-menu-fw">
                 <li>
-                    <a class="subnav" href="<?= base_url('admin/load_enroll'); ?>">
+                    <a class="subnav" href="<?= base_url('Admin/load_enroll'); ?>">
                         <i class="icon-bar-chart"></i> Enrollment </a>
                 </li>
             </ul>
@@ -83,7 +83,7 @@
                         <i class="fa fa-graduation-cap"></i> Students </a>
                 </li>
                 <li>
-                    <a class="subnav" id="staff" href="<?= base_url('admin/load_fnc_stf'); ?>">
+                    <a class="subnav" id="staff" href="<?= base_url('Admin/load_fnc_stf'); ?>">
                         <i class="fa fa-user"></i> Staffs </a>
                 </li>
             </ul>

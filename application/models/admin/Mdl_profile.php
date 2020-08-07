@@ -71,13 +71,17 @@ class Mdl_profile extends CI_Model
     public function get_classrooms()
     {
         $query = $this->db->query(
-            "SELECT t3.RoomDesc FROM tbl_02_school t1
+            "SELECT t3.RoomDesc 
+             FROM tbl_02_school t1
              JOIN tbl_03_class t2
-             ON t1.SchoolID = t2.SchoolID
+                ON t1.SchoolID = t2.SchoolID
              JOIN tbl_04_class_rooms t3
-             ON t2.ClassId = t3.ClassID
+                ON t2.ClassId = t3.ClassID
              WHERE t1.isActive = '1'
-             ORDER BY t2.ClassNumeric"
+             UNION ALL
+             SELECT RoomDesc
+             FROM tbl_04_class_rooms_vocational
+             ORDER BY RoomDesc"
         );
 
         return $query->result();
@@ -86,7 +90,7 @@ class Mdl_profile extends CI_Model
     //Dropdown Menu of Subject for New Teacher Form
     public function get_dropdown_subject()
     {
-        $query = $this->db->query("SELECT SubjName FROM tbl_05_subject");
+        $query = $this->db->query("SELECT SubjName FROM tbl_05_subject WHERE SubjName NOT IN('EXCUL', 'ELECTIVE', '-','','None', '0')");
 
         return $query->result();
     }
@@ -148,7 +152,6 @@ class Mdl_profile extends CI_Model
 
     public function model_update_tch($selected_id, $table1, $table2)
     {
-
         $this->db->trans_begin();
         $this->db->update('tbl_07_personal_bio', $table1, ['IDNumber' => $selected_id]);
         $this->db->update('tbl_08_job_info', $table2, ['IDNumber' => $selected_id]);
@@ -161,22 +164,37 @@ class Mdl_profile extends CI_Model
     // ==================================================================================================================== \\
     // ==============================                     MODEL PROFILE STUDENT              ============================== \\
     // ==================================================================================================================== \\
-    public function get_student($std)
+    public function get_student($header)
     {
-        $dat = $this->db->query(
-            "SELECT t1.IDNumber, CONCAT(t1.FirstName,' ',t1.MiddleName,' ',t1.LastName) AS Fullname, t1.NickName, t1.Gender, t1.DateofBirth, t1.status, t2.Kelas, t2.Ruangan 
+        extract($header);
+
+        $room = ($room == 'all' ? 'IS NOT NULL' : "= '$room'");
+        $search = ($search ? "LIKE '%$search%'" : "IS NOT NULL");
+        $order_by = ($order_by ? $order_by : 'Fullname');
+        $order_dir = ($order_dir ? $order_dir : 'ASC');
+
+        $query = $this->db->query(
+            "SELECT 
+                t1.IDNumber, 
+                CONCAT(t1.FirstName,' ',t1.MiddleName,' ',t1.LastName) AS Fullname, 
+                t1.NickName, t1.Gender, 
+                t1.DateofBirth, 
+                t1.status, 
+                t2.Kelas, 
+                t2.Ruangan 
              FROM tbl_07_personal_bio AS t1
              INNER JOIN tbl_08_job_info_std AS t2
-             ON t1.IDNumber = t2.NIS
-             WHERE status = '$std'
-             ORDER BY t1.FirstName"
+                ON t1.IDNumber = t2.NIS 
+                AND t2.Ruangan $room
+             WHERE status = 'student'
+             AND t1.IDNumber $search OR t1.FirstName $search OR t1.MiddleName $search OR t1.LastName $search
+             ORDER BY $order_by $order_dir
+             LIMIT $limit OFFSET $start"
         );
+        
+        $total = $query->num_rows();
 
-        if ($dat->num_rows() > 0) {
-            return $dat->result();
-        } else {
-            return null;
-        }
+        return [$query, $total];
     }
 
     //Dropdown Menu of Class for New Student Form
@@ -190,7 +208,12 @@ class Mdl_profile extends CI_Model
              USING(ClassID)
              WHERE t2.ClassDesc != '-'
              AND t1.isActive = 1
-             ORDER BY t2.ClassNumeric"
+             UNION ALL
+             SELECT class.ClassDesc FROM tbl_03_b_class_vocational AS class
+             RIGHT JOIN tbl_04_class_rooms_vocational AS room
+                ON class.ClassDesc = room.Simplified
+             GROUP BY ClassDesc
+             ORDER BY ClassDesc"
         );
 
         return $query->result();
@@ -198,10 +221,19 @@ class Mdl_profile extends CI_Model
 
     public function get_dropdown_room()
     {
-        $query = $this->db->query("SELECT ClassDesc, RoomDesc 
-            FROM tbl_03_class AS t1
-            JOIN tbl_04_class_rooms AS t2
-            ON t2.ClassID = t1.ClassID");
+        $query = $this->db->query(
+            "SELECT ClassDesc, RoomDesc 
+             FROM tbl_03_class AS t1
+             JOIN tbl_04_class_rooms AS t2
+                ON t2.ClassID = t1.ClassID
+             UNION ALL
+             SELECT t1.ClassDesc, t2.RoomDesc
+             FROM tbl_03_b_class_vocational t1
+             LEFT JOIN tbl_04_class_rooms_vocational t2
+                ON t1.ClassDesc = t2.Simplified 
+             WHERE t2.RoomDesc IS NOT NULL
+             ORDER BY ClassDesc"
+        );
 
         return $query->result();
     }
@@ -212,7 +244,13 @@ class Mdl_profile extends CI_Model
             "SELECT t1.RoomDesc FROM tbl_04_class_rooms t1
              JOIN tbl_03_class t2
              ON t2.ClassID = t1.ClassID
-             WHERE t2.ClassDesc = '$cls'"
+             WHERE ClassDesc = '$cls'
+             UNION ALL
+             SELECT room.RoomDesc
+             FROM tbl_03_b_class_vocational AS class
+             LEFT JOIN tbl_04_class_rooms_vocational AS room
+                ON class.ClassDesc = room.Simplified
+             WHERE ClassDesc = '$cls'"
         );
 
         return $result->result();
@@ -399,7 +437,10 @@ class Mdl_profile extends CI_Model
              JOIN tbl_04_class_rooms t2
              ON t1.School_Desc = t2.Type
              WHERE t1.isActive = 1
-             ORDER BY t2.ClassID, t2.RoomDesc"
+             UNION ALL
+             SELECT RoomDesc
+             FROM tbl_04_class_rooms_vocational
+             ORDER BY RoomDesc"
         )->result();
 
         return $result;
@@ -430,7 +471,7 @@ class Mdl_profile extends CI_Model
         return $query;
     }
 
-    public function model_get_active_room_studets($room)
+    public function model_get_active_room_students($room)
     {
         $result = $this->db->query(
             "SELECT t1.*, t2.* FROM tbl_07_personal_bio t1

@@ -116,11 +116,26 @@ class Mdl_nonstudent extends CI_Model
 		)->result();
 
 		$querySchedule = $this->db->query(
-			"SELECT RoomDesc, Days, SubjName, Hour FROM tbl_06_schedule
+			"SELECT 
+				RoomDesc, 
+				Days, 
+				SubjName, 
+				TIME_FORMAT(Hour, '%H:%i') AS Hour
+			 FROM tbl_06_schedule
 			 WHERE IDNumber = '$id'
 			 AND semester = '$semester'
 			 AND schoolyear = '$schYear'
 			 AND SubjName NOT IN ('','None','ELECTIVE','EXCUL')
+			 UNION ALL
+			 SELECT 
+				RoomDesc, 
+				Days, 
+				SubjName, 
+				Hour 
+			 FROM tbl_06_schedule_nonregular
+			 WHERE IDNumber = '$id'
+			 AND semester = '$semester'
+			 AND schoolyear = '$schYear'
 			 ORDER BY Hour"
 		)->result();
 
@@ -468,13 +483,13 @@ class Mdl_nonstudent extends CI_Model
 
         $subjects = $this->db
                             ->where("Type = '$type' AND SubjName != '$type'")
-                            ->where("SubjName NOT IN(
+                            ->where("SubjName IN(
                                                 SELECT SubjName FROM tbl_06_schedule_nonregular
                                                 WHERE semester = '$semester'
                                                 AND schoolyear = '$schYear'
                                                 AND RoomDesc = '$room'
                                                 AND Days = '$day'
-                                                AND Hour = '$hour')")
+												AND Hour = '$hour')")
 							->select('SubjID, SubjName')
 							->order_by('SubjName', 'ASC')
 							->get('tbl_05_subject')->result();
@@ -485,7 +500,54 @@ class Mdl_nonstudent extends CI_Model
 	public function add_nonregular($data){
 		extract($data);
 
+		$schYear = '';
+		$semester = '';
+
+		$time = date('d-m-Y');
+		$year = date('Y');
+
+		if (date('n', strtotime($time)) <= 6) {
+			$schYear = ($year - 1) . '/' . $year;
+			$semester = 2;
+		} else {
+			$schYear = $year . '/' . ($year + 1);
+			$semester = 1;
+		}
+
+		//Get data for Availability
+		$availability = $this->db->query(
+			"SELECT 
+				Grd.NIS,
+				Sch.Hour, 
+				Sch.Days, 
+				Sch.SubjName 
+			 FROM tbl_06_schedule_nonregular AS Sch
+			 LEFT JOIN tbl_09_det_grades AS Grd
+				ON Sch.SubjName = Grd.SubjName AND Sch.RoomDesc = Grd.Room
+			 WHERE Grd.NIS = '$NIS'
+			 AND Sch.semester = '$semester'
+			 AND Sch.schoolyear = '$schYear'
+             AND Sch.Days = '$Day'
+             AND Sch.Hour = TIME_FORMAT('$Hour', '%H:%i')"
+		);
 		
+		//If this student has been registered with one non-regular subject, 
+		//reject the upcoming Non-Regular Assignment
+		if($availability->num_rows() > 0){
+			return 'SUBJ_REGISTERED';
+		}
+
+		$this->db->insert('tbl_09_det_grades', [
+			'NIS' => $NIS,
+			'FullName' => $this->db->select("CONCAT(FirstName, ' ', LastName) AS FullName")->where('IDNumber', $NIS)->get('tbl_07_personal_bio')->row()->FullName,
+			'Semester' => $semester,
+			'schoolyear' => $schYear,
+            'Class' => $Class,
+            'Room' => $Room,
+            'SubjName' => $SubjName
+		]);
+
+		return ($this->db->affected_rows() ? 'success' : $this->db->error());
 	}
 
 	public function model_get_student_reports($header)

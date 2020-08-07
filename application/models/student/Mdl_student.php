@@ -97,7 +97,7 @@ class Mdl_student extends CI_Model
         return $query;
     }
 
-    public function get_schedule($day, $room)
+    public function get_schedule($id, $day, $room)
     {
         $schYear = '';
 
@@ -113,7 +113,44 @@ class Mdl_student extends CI_Model
         }
 
         $query = $this->db->query(
-            "SELECT * FROM tbl_06_schedule WHERE semester = '$semester' AND schoolyear = '$schYear' AND RoomDesc = '$room' AND Days = '$day' ORDER BY time(Hour)"
+            "SELECT 
+                Sch.Days,
+                TIME_FORMAT(Sch.Hour, '%H:%i') AS Hour,
+                Grd.SubjName,
+                Sch.TeacherName
+             FROM tbl_09_det_grades AS Grd
+             LEFT JOIN tbl_06_schedule AS Sch
+                    ON Sch.RoomDesc = Grd.Room 
+                    AND Sch.SubjName = Grd.SubjName
+                    AND Sch.semester = Grd.semester
+                    AND Sch.schoolyear = Grd.schoolyear
+                WHERE Grd.NIS = '$id'
+                AND Grd.Semester = '$semester'
+                AND Grd.schoolyear = '$schYear'
+                AND Sch.Days = '$day'
+                AND Sch.Days IS NOT NULL 
+                AND Sch.Hour IS NOT NULL
+                GROUP BY Grd.SubjName
+             UNION ALL
+             SELECT 
+                Non.Days,
+                Non.Hour,
+                Grd.SubjName,
+                Non.TeacherName
+             FROM tbl_09_det_grades AS Grd
+             LEFT JOIN tbl_06_schedule_nonregular AS Non
+                    ON Non.RoomDesc = Grd.Room 
+                    AND Non.SubjName = Grd.SubjName
+                    AND Non.semester = Grd.semester
+                    AND Non.schoolyear = Grd.schoolyear
+                WHERE Grd.NIS = '$id'
+                AND Grd.Semester = '$semester'
+                AND Grd.schoolyear = '$schYear'
+                AND Non.Days = '$day'
+                AND Non.Days IS NOT NULL 
+                AND Non.Hour IS NOT NULL
+             GROUP BY Grd.SubjName
+             ORDER BY Hour ASC"
         )->result();
 
         return $query;

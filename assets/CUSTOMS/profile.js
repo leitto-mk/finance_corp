@@ -3,6 +3,92 @@ $(document).ready(function () {
 	//If current Path is on said page, load the script
 	if ($('div').is('.profiles')) {
 
+		//SERVERSIDE DATATABLE FOR STUDENT
+		function studentDatatable(room) {
+			room = (room || 'all')
+
+			$('#std_table').DataTable({
+				destroy: true,
+				lengthMenu: [50, 100, 250],
+				processing: true,
+				serverSide: true,
+				ajax: {
+					url: 'ajax_get_students',
+					method: 'POST',
+					data: {
+						room
+					},
+					dataSrc: response => {
+						let index = 1
+						for (let i in response.data) {
+							//Put New Object
+							response.data[i].Number = index
+							index++
+						}
+
+						return response.data
+					},
+					error: err => console.log(err)
+				},
+				columns: [{
+						data: 'Number',
+						orderable: false
+					},
+					{
+						data: 'IDNumber',
+						createdCell: response => response.setAttribute('align', 'center'),
+					},
+					{
+						data: 'Fullname'
+					},
+					{
+						data: 'NickName'
+					},
+					{
+						data: 'Gender',
+						orderable: false
+					},
+					{
+						data: 'DateofBirth',
+						createdCell: response => response.setAttribute('align', 'center'),
+						orderable: false
+					},
+					{
+						data: 'status',
+						createdCell: response => response.setAttribute('align', 'center'),
+						orderable: false
+					},
+					{
+						data: 'Kelas',
+						createdCell: response => response.setAttribute('align', 'center'),
+						orderable: false
+					},
+					{
+						data: 'Ruangan',
+						createdCell: response => response.setAttribute('align', 'center'),
+						orderable: false
+					},
+					{
+						data: response => {
+							return `<a class="btn font-white bg-blue text-center" style="min-height: 10px; min-width: 80px;" href="load_prof_std/${response.IDNumber}">
+										Profile
+									</a>
+									<a class="btn btn-primary text-center" style="min-height: 10px; min-width: 80px;" href="load_prof_std_update/${response.IDNumber}">
+										Edit
+									</a>
+									<a class="btn btn-danger text-center" style="min-height: 10px; min-width: 80px;" href="delete/${response.IDNumber}">
+										Delete
+									</a>`
+						},
+						createdCell: response => response.setAttribute('align', 'center'),
+						orderable: false
+					},
+				]
+			})
+		}
+
+		studentDatatable()
+
 		//SEARCH PERSON
 		$('.search_person').keyup(function () {
 			let output = $(this).val()
@@ -27,17 +113,7 @@ $(document).ready(function () {
 		$('.classes').change(function () {
 			let room = $(this).val()
 
-			$.ajax({
-				url: 'get_active_room_students',
-				method: 'POST',
-				data: {
-					room
-				},
-				success: data => {
-					$('.emp_t_body').empty()
-					$('.emp_t_body').append(data)
-				}
-			})
+			studentDatatable(room)
 		})
 
 		//TOGGLE VALUE FOR INSTITUTE CERTIFICATE

@@ -16,7 +16,7 @@ class Mdl_grade extends CI_Model
 
     public function model_get_table_by_subjects()
     {
-        $query = $this->db->get_where('tbl_05_subject', "Type IN ('Regular','Elective')")->result();
+        $query = $this->db->order_by('SubjName','ASC')->get_where('tbl_05_subject', "SubjID NOT IN('ELECTIVE','EXCUL','-', '0')")->result();
 
         return $query;
     }
@@ -61,20 +61,12 @@ class Mdl_grade extends CI_Model
 
     public function model_delete_kd($type, $code, $sem, $subj)
     {
-
         $this->db->delete('tbl_05_subject_kd', [
             'Type' => $type,
             'Code' => $code,
             'Semester' => $sem,
             'SubjName' => $subj
         ]);
-
-        // $this->db->delete('tbl_09_det_kd', [
-        //     'Semester' => $sem,
-        //     'SubjName' => $subj,
-        //     'Type' => $type,
-        //     'Code' => $code
-        // ]);
     }
 
     public function get_social_desc()
@@ -231,7 +223,8 @@ class Mdl_grade extends CI_Model
             "SELECT DISTINCT NIS, FullName, Room 
              FROM tbl_09_det_grades 
              WHERE Class = '$cls'
-             AND schoolyear = '$schYear'"
+             AND schoolyear = '$schYear'
+             ORDER BY FullName"
         );
 
         return $query->result();

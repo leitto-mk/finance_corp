@@ -31,12 +31,9 @@ $(document).ready(function () {
 				method: "GET",
 				datatype: "JSON",
 				success: function (data) {
-					console.log(`SD Table Load Succesfully`);
 					$('.sch_sd_classes').append(data);
 				},
-				error: function () {
-					console.log("AJAX Schedule doesn't work properly");
-				}
+				error: err => console.log(err.responseText)
 			});
 
 			//Load SMP Sidebar
@@ -45,12 +42,9 @@ $(document).ready(function () {
 				method: 'GET',
 				datatype: 'JSON',
 				success: function (data) {
-					console.log(`SMP Table Load Succesfully`);
 					$('.sch_smp_classes').html(data);
 				},
-				error: function () {
-					alert("AJAX Schedule doesn't work properly");
-				}
+				error: err => console.log(err.responseText)
 			});
 
 			//Load SMA Sidebar
@@ -59,12 +53,20 @@ $(document).ready(function () {
 				method: 'GET',
 				datatype: 'JSON',
 				success: function (data) {
-					console.log(`SMA Table Load Succesfully`);
 					$('.sch_sma_classes').html(data);
 				},
-				error: function () {
-					alert("AJAX Schedule doesn't work properly");
-				}
+				error: err => console.log(err.responseText)
+			});
+
+			//Load SMA Sidebar
+			$.ajax({
+				url: 'load_classes_sch_smk',
+				method: 'GET',
+				datatype: 'JSON',
+				success: function (data) {
+					$('.sch_smk_classes').html(data);
+				},
+				error: err => console.log(err.responseText)
 			});
 		}
 
@@ -634,16 +636,6 @@ $(document).ready(function () {
 
 						if (data == 'proceed') {
 							//POST TO DB, WHEN SELECTED TEACHER DOES NOT HAVE COLLLISION
-
-							console.table({
-								new_room,
-								new_day,
-								new_hour,
-								new_type,
-								new_subj,
-								new_teacher,
-								new_note
-							})
 
 							$.ajax({
 								url: 'save_add_sch',

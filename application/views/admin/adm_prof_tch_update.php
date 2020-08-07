@@ -184,7 +184,7 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Homeroom Teacher</label>
+                                                                <label class="control-label">Homeroom / Advisor</label>
                                                                 <select name="homeroom" class="form-control">
                                                                     <option id="homeroom" value="-">-- Choose --</option>
                                                                     <?php $i = 1; ?>

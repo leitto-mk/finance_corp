@@ -36,39 +36,8 @@
             <?= $this->session->flashdata('regismsg'); ?>
             <?= $this->session->flashdata('disp_err'); ?>
             <?= $this->session->flashdata('delmsg'); ?>
-
-
-            <!-- BEGIN PROFILE DATA SISWA-->
-            <div class="row">
-                <div class="col-md-2" style="padding-right: 0px">
-                    <div class="m-heading-1 border-green-meadow">
-                        <a href="<?= base_url('Admin/load_prof_std_add') ?>" class="btn green-meadow btn-md">
-                            <i class="fa fa-user-plus"></i> &nbsp;&nbsp;ADD STUDENT
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-1" style="padding-left: 0px; padding-right: 0px">
-                    <select class="form-control classes" id="form_control_1" placeholder="Search by...">
-                        <?php foreach($active_room as $rooms) : ?>
-                            <option value="<?= $rooms->RoomDesc ?>"> <?= $rooms->RoomDesc?> </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-3" style="padding-left: 15px">
-                    <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px; padding-top: 0px">
-                        <div class="input-icon">
-                            <input type="text" class="form-control search_person" data-emp="student" placeholder="Search student's name...">
-                            <div class="form-control-focus"> </div>
-                            <span class="help-block">search students by Name</span>
-                            <i class="fa fa-search"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="table-scrollable" style="margin-top: 0px">
+            
+            <!-- <div class="table-scrollable" style="margin-top: 0px">
                 <table class="table table-advance table-hover">
                     <thead>
                         <tr>
@@ -122,15 +91,55 @@
                             <?php endforeach; ?>
                         </tbody>
                     <?php endif; ?>
+                    <tbody>
+                                
+                    </tbody>
                 </table>
+            </div> -->
+
+            <div class="portlet light portlet-fit portlet-datatable bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class=" icon-layers font-red"></i>
+                        <span class="caption-subject font-red sbold uppercase">Students</span>
+                    </div>
+                    <div class="actions">
+                        <div class="border-green-meadow">
+                            <div class="col-md-6">
+                                <select class="form-control classes" id="form_control_1" placeholder="Search by...">
+                                    <option value="all"> Select Room </option>
+                                    <?php foreach($active_room as $rooms) : ?>
+                                        <option value="<?= $rooms->RoomDesc ?>"> <?= $rooms->RoomDesc?> </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="<?= base_url('Admin/load_prof_std_add') ?>" class="btn green-meadow btn-md">
+                                    <i class="fa fa-user-plus"></i> &nbsp;&nbsp;ADD STUDENT
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table id="std_table" class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_5">
+                        <thead>
+                            <tr>
+                                <th> No </th>
+                                <th> ID </th>
+                                <th> Name </th>
+                                <th> Nickname </th>
+                                <th> Gender </th>
+                                <th> Date of Birth </th>
+                                <th> Status</th>
+                                <th> Class </th>
+                                <th> Room </th>
+                                <th> Action </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
-            <!-- END PROFILE DATA SISWA-->
-
-
         </div>
-
-        <!-- END PAGE BASE CONTENT -->
-
     </div>
-
     <?php $this->load->view('_partials/_foot'); ?>

@@ -10,13 +10,22 @@ class Mdl_absent extends CI_Model
     public function model_get_classes()
     {
         $query = $this->db->query(
-            "SELECT t1.RoomDesc FROM tbl_04_class_rooms t1
+            "SELECT t1.RoomDesc 
+             FROM tbl_04_class_rooms t1
              JOIN tbl_02_school t2
-             ON t1.Type = t2.School_Desc
+                ON t1.Type = t2.School_Desc
              JOIN tbl_03_class t3 
-             ON t1.ClassID = t3.ClassID
+                ON t1.ClassID = t3.ClassID
              WHERE t2.isActive = 1
-             ORDER BY t3.ClassNumeric, t1.RoomDesc ASC"
+             UNION ALL
+             SELECT room.RoomDesc
+             FROM tbl_02_school school
+             LEFT JOIN tbl_03_b_class_vocational AS class 
+             	ON school.School_Desc = class.Type
+			 RIGHT JOIN tbl_04_class_rooms_vocational AS room
+             	ON class.ClassDesc = room.Simplified
+             WHERE school.isActive = 1
+             ORDER BY RoomDesc"
         );
 
         return $query->result();

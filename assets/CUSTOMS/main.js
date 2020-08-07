@@ -247,7 +247,7 @@ $(document).ready(function () {
 			},
 			success: function (data) {
 				$('.table').empty()
-				$('.table').append(data)
+				$('.table').html(data)
 			}
 		})
 	}
@@ -342,7 +342,7 @@ $(document).ready(function () {
 		})
 	})
 
-	//ADD ROOM
+	//ADD ROOM NON-SMK
 	$('.table').on('click', '.new_room', function () {
 		let cls = $(this).parents('th').attr('data-class');
 		let num = $(this).parents('th').attr('data-class-num');
@@ -369,7 +369,7 @@ $(document).ready(function () {
 		})
 	})
 
-	//REMOVE ROOM
+	//REMOVE ROOM NON-SMK
 	$('.table').on('click', '.remove_room', function () {
 		var room = $(this).attr('data-room')
 
@@ -416,6 +416,54 @@ $(document).ready(function () {
 					}
 				})
 			}
+		})
+	})
+
+	//ADD ROOM SMK
+	$('.table').on('click', '.new_smk_room', function () {
+		let cls = $(this).attr('data-class')
+		let subprogram = $(this).attr('data-subprogram')
+		let cls_numeric = $(this).attr('data-numeric')
+
+		$.ajax({
+			url: 'add_smk_room',
+			method: 'POST',
+			data: {
+				cls,
+				subprogram,
+				cls_numeric
+			},
+			success: response => {
+				if (response == 'success') {
+					classList(degree)
+				} else {
+					alert("SOMETHING'S WRONG")
+					console.log(response)
+				}
+			},
+			error: err => console.log(err.responseText)
+		})
+	})
+
+	//REMOVE ROOM SMK
+	$('.table').on('click', '.remove_smk_room', function () {
+		let room = $(this).attr('data-room')
+
+		$.ajax({
+			url: 'delete_smk_room',
+			method: 'POST',
+			data: {
+				room
+			},
+			success: response => {
+				if (response == 'success') {
+					classList(degree)
+				} else {
+					alert("SOMETHING'S WRONG")
+					console.log(response)
+				}
+			},
+			error: err => console.log(err.responseText)
 		})
 	})
 })

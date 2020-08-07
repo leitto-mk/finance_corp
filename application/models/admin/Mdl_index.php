@@ -107,6 +107,13 @@ class Mdl_index extends CI_Model
         return $head->result_array();
     }
 
+    public function model_get_smk_list(){
+        $count = $this->db->distinct()->select('Program')->get('tbl_03_a_mas_vocational');
+        $program = $this->db->select("Program, SubProgramID, CONCAT(SubProgram,' [<span class=\"sbold font-grey-mint\">',SubProgramID,'</span>]') AS SubProgram")->get('tbl_03_a_mas_vocational')->result();
+
+        return [$count, $program];
+    }
+
     public function model_get_rooms($degree, $row)
     {
         $ClassID = '';
@@ -140,6 +147,22 @@ class Mdl_index extends CI_Model
 
             return $query->result();
         }
+    }
+
+    public function model_get_smk_rooms($SubProgramID){
+        $x = $this->db->get_where('tbl_04_class_rooms_vocational', [
+                        'Simplified' => "X $SubProgramID"
+             ])->result();
+
+        $xi = $this->db->get_where('tbl_04_class_rooms_vocational', [
+                        'Simplified' => "XI $SubProgramID"
+             ])->result();
+
+        $xii = $this->db->get_where('tbl_04_class_rooms_vocational', [
+                        'Simplified' => "XII $SubProgramID"
+             ])->result();
+
+        return [$x, $xi, $xii];
     }
 
     public function model_add_room($degree, $cls, $num)
@@ -240,6 +263,59 @@ class Mdl_index extends CI_Model
         }
     }
 
+    public function model_add_smk_room($cls, $subprogram, $numeric){
+        $this->db->trans_start();
+
+        //Check class availability
+        $availability = $this->db->get_where('tbl_04_class_rooms_vocational', [
+            'Simplified' => "$cls $subprogram"
+        ])->num_rows();
+
+        $classid = 0;
+        switch($cls){
+            case 'X':
+                $classid = 1;
+            break;
+
+            case 'XI':
+                $classid = 2;
+            break;
+
+            case 'XII':
+                $classid = 3;
+            break;
+        }
+
+        $alph = range('A','Z');
+        $alph = $alph[$availability];
+
+        if($availability > 0){
+            $this->db->insert('tbl_04_class_rooms_vocational', [
+                'RoomID' => 'SMKR' . $availability . $subprogram,
+                'RoomDesc' => $cls . ' ' . $subprogram . ' ' . "($alph)",
+                'Simplified' => $cls . ' ' . $subprogram,
+                'SubProgramID' => $subprogram,
+                'ClassID' => "SMKC$classid", 
+                'RegBy' => 'SysAdmin',
+                'RegDate' => date('Y-m-d')
+            ]);
+        }else{
+            $this->db->insert('tbl_04_class_rooms_vocational', [
+                'RoomID' => 'SMKR1' . $subprogram,
+                'RoomDesc' => "$cls $subprogram (A)",
+                'Simplified' => $cls . ' ' . $subprogram,
+                'SubProgramID' => $subprogram,
+                'ClassID' => "SMKC$classid", 
+                'RegBy' => 'SysAdmin',
+                'RegDate' => date('Y-m-d')
+            ]);
+        }
+
+        $this->db->trans_complete();
+
+        return ($this->db->trans_status() ? 'success' : $this->db->error());
+    }
+
     public function model_delete_room($room)
     {
         $check = $this->db->get_where('tbl_06_schedule', ['RoomID' => $room]);
@@ -249,6 +325,14 @@ class Mdl_index extends CI_Model
 
             return 'success';
         }
+    }
+
+    public function model_remove_smk_room($room){
+        $this->db->delete('tbl_04_class_rooms_vocational', [
+            'RoomDesc' => $room
+        ]);
+
+        return ($this->db->affected_rows() ? 'success' : $this->db->error());
     }
 
     public function model_get_chart()

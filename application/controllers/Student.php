@@ -42,11 +42,11 @@ class Student extends CI_Controller
             'period' => $this->Mdl_student->get_period($id),
 
             //SCHEDULE
-            'mon' => $this->Mdl_student->get_schedule('Senin', $room),
-            'tue' => $this->Mdl_student->get_schedule('Selasa', $room),
-            'wed' => $this->Mdl_student->get_schedule('Rabu', $room),
-            'thu' => $this->Mdl_student->get_schedule('Kamis', $room),
-            'fri' => $this->Mdl_student->get_schedule('Jumat', $room),
+            'mon' => $this->Mdl_student->get_schedule($id, 'Senin', $room),
+            'tue' => $this->Mdl_student->get_schedule($id, 'Selasa', $room),
+            'wed' => $this->Mdl_student->get_schedule($id, 'Rabu', $room),
+            'thu' => $this->Mdl_student->get_schedule($id, 'Kamis', $room),
+            'fri' => $this->Mdl_student->get_schedule($id, 'Jumat', $room),
 
             //SCHOOL DETAILS
             'homeroom' => $homeroom,

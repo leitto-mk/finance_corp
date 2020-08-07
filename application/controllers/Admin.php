@@ -189,7 +189,7 @@ class Admin extends CI_Controller
     {
         $room = $_POST['room'];
 
-        $result = $this->Mdl_profile->model_get_active_room_studets($room);
+        $result = $this->Mdl_profile->model_get_active_room_students($room);
 
         $value = '';
         $i = 1;
@@ -448,6 +448,78 @@ class Admin extends CI_Controller
             }
             $value .= '     </tr>
                         </tbody>';
+        } elseif ($degree == 'SMK') {
+            [$count, $program] = $this->Mdl_index->model_get_smk_list();
+
+            //HEAD
+            $value .= '<thead>';
+            $value .= '     <tr>';
+            $value .= '         <td width="15%" align="center" class="sbold"> Program </td>';
+            $value .= '         <td width="15%" align="center" class="sbold"> SubProgram </td>';
+            $value .= '         <td width="20%" align="center" class="sbold"> X </td>';
+            $value .= '         <td width="20%" align="center" class="sbold"> XI </td>';
+            $value .= '         <td width="20%" align="center" class="sbold"> XII </td>';
+            $value .= '     </tr>';
+            $value .= '</thead>';
+
+            //BODY
+            $value .= '<tbody>';
+            foreach($program as $program){
+                [$x, $xi, $xii] = $this->Mdl_index->model_get_smk_rooms($program->SubProgramID);
+
+                $value .= '     <tr>';
+                $value .= '         <td> '.$program->Program.' </td>';
+                $value .= '         <td> '.$program->SubProgram.' </td>';
+                $value .= '         <td>';
+                $value .= '             <span style="padding-left: 1px"> 
+                                            <a href="javascript:;" class="sbold new_smk_room" data-class="X" data-subprogram="'.$program->SubProgramID.'" data-numeric="10">
+                                                <i class="fa fa-plus font-green-seagreen" style="font-size: 0.8em"></i>
+                                            </a> 
+                                        </span>&nbsp;';
+                                        if(!empty($x)){
+                                            foreach($x as $x){
+                                                $value .= '<span>';
+                                                $value .= ' <a href="javascript:;" class="btn btn-md blue remove_smk_room" data-room="'.$x->RoomDesc.'" style="padding-right: 5px;"> '.substr($x->RoomDesc, -3).'
+                                                                &nbsp;&nbsp;<i class="fa fa-times"></i> 
+                                                            </a>';
+                                                $value .= '</span>';
+                                            }
+                                        }
+                $value .= '          </td>';
+                $value .= '         <td>';
+                $value .= '             <span style="padding-left: 1px"> 
+                                            <a href="javascript:;" class="sbold new_smk_room" data-class="XI" data-subprogram="'.$program->SubProgramID.'" data-numeric="11">
+                                                <i class="fa fa-plus font-green-seagreen" style="font-size: 0.8em"></i>
+                                            </a>
+                                        </span>&nbsp;';
+                                        if(!empty($xi)){
+                                            foreach($xi as $xi){
+                                                $value .= '<span>';
+                                                $value .= ' <a href="javascript:;" class="btn btn-md blue remove_smk_room" data-room="'.$xi->RoomDesc.'" style="padding-right: 5px;"> '.substr($xi->RoomDesc, -3).'
+                                                                &nbsp;&nbsp;<i class="fa fa-times"></i> 
+                                                            </a>';
+                                                $value .= '</span>';
+                                            }
+                                        }
+                $value .= '          </td>';
+                $value .= '         <td>';
+                $value .= '             <span style="padding-left: 1px"> 
+                                            <a href="javascript:;" class="sbold new_smk_room" data-class="XII" data-subprogram="'.$program->SubProgramID.'" data-numeric="12">
+                                                <i class="fa fa-plus font-green-seagreen" style="font-size: 0.8em"></i>
+                                            </a> 
+                                        </span>&nbsp;';
+                                        if(!empty($xii)){
+                                            foreach($xii as $xii){
+                                                $value .= '<span>';
+                                                $value .= ' <a href="javascript:;" class="btn btn-md blue remove_smk_room" data-room="'.$xii->RoomDesc.'" style="padding-right: 5px;"> '.substr($xii->RoomDesc, -3).'
+                                                                &nbsp;&nbsp;<i class="fa fa-times"></i> 
+                                                            </a>';
+                                                $value .= '</span>';
+                                            }
+                                        }
+                $value .= '          </td>';
+            }
+            $value .= '</tbody>';
         }
 
         echo $value;
@@ -475,6 +547,24 @@ class Admin extends CI_Controller
 
             echo $result;
         }
+    }
+
+    public function add_smk_room(){
+        $cls = $_POST['cls'];
+        $subprogram = $_POST['subprogram'];
+        $numeric = $_POST['cls_numeric'];
+
+        $result = $this->Mdl_index->model_add_smk_room($cls, $subprogram, $numeric);
+
+        echo $result;
+    }
+
+    public function delete_smk_room(){
+        $room = $_POST['room'];
+
+        $result = $this->Mdl_index->model_remove_smk_room($room);
+
+        echo $result;
     }
 
     // ==================================================================================================================== \\
@@ -658,6 +748,19 @@ class Admin extends CI_Controller
     public function load_classes_sch_sma()
     {
         $sma = $this->Mdl_schedule->get_sma();
+
+        $value = '';
+
+        foreach ($sma as $row) {
+            $value .= '<button type="button" style="min-width: 100%; background-color: #fff; border-color: #fff; padding-left: 35px; text-align: left; line-height: 2.5;" 
+                            class="btn default detail_sche" data-room="' . $row->RoomDesc . '">CLASS ' . $row->RoomDesc . '</button><br>';
+        }
+
+        echo $value;
+    }
+
+    public function load_classes_sch_smk(){
+        $sma = $this->Mdl_schedule->get_smk();
 
         $value = '';
 
@@ -3396,8 +3499,8 @@ class Admin extends CI_Controller
         $table1 = [
             'IDNumber' => $id,
             'PersonalID' => $_POST['newktp'],
-            'FirstName' => ucfirst(strtolower($_POST['newfname'])),
-            'LastName' => ucfirst(strtolower($_POST['newlname'])),
+            'FirstName' => $_POST['newfname'],
+            'LastName' => $_POST['newlname'],
             'status' => $status,
             'Gender' => $_POST['gender'],
             'DateofBirth' => date("Y-m-d", strtotime($_POST['newtgllhr'])),
@@ -3460,8 +3563,8 @@ class Admin extends CI_Controller
 
         $table1 = [
             'PersonalID' => $_POST['newktp'],
-            'FirstName' => ucfirst(strtolower($_POST['newfname'])),
-            'LastName' => ucfirst(strtolower($_POST['newlname'])),
+            'FirstName' => $_POST['newfname'],
+            'LastName' => $_POST['newlname'],
             'status' => $_POST['status'],
             'Gender' => $_POST['gender'],
             'DateofBirth' => date("Y-m-d", strtotime($_POST['newtgllhr'])),
@@ -3566,11 +3669,35 @@ class Admin extends CI_Controller
             'lname' => $this->session->userdata('lname'),
             'status' => $this->session->userdata('status'),
             'photo' => $this->session->userdata('photo'),
-            'std_t' => $this->Mdl_profile->get_student($std),
             'active_room' => $this->Mdl_profile->model_get_dropdown_active_rooms(),
         ];
 
         $this->load->view('admin/adm_prof_std_edit', $data);
+    }
+
+    public function ajax_get_students(){
+        //FROM DATATABLE REQUEST HEADER
+        $header = [
+            'room' => $_POST['room'],
+            'limit' => $_POST['length'],
+            'start' => $_POST['start'],
+            'order' => $_POST['order'],
+            'search' => $_POST['search']['value'],
+            'order_by' => $_POST['order'][0]['column'],
+            'order_dir' => $_POST['order'][0]['dir']
+        ];
+
+        //DESTRUCTURING
+        [$query, $total] = $this->Mdl_profile->get_student($header);
+
+        $result = [
+            'draw' => $_POST['draw'],
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+            'data' => $query->result()
+        ];
+
+        echo json_encode($result);
     }
 
     public function load_prof_std()

@@ -72,6 +72,10 @@
 <!-- END CORE PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="<?= base_url(); ?>assets/global/scripts/datatable.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+<script src="<?= base_url(); ?>assets/pages/scripts/table-datatables-ajax.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/global/plugins/moment.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
@@ -123,7 +127,7 @@
 <script src="<?= base_url(); ?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
 
 <!-- CUSTOM PLUGIN -->
-<!-- <script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/DataTables/datatables.min.js" type="text/javascript"></script> -->
+<script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/DataTables/datatables.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/global/plugins/sweetalert2/dist/sweetalert2.all.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/daterangepicker-master/daterangepicker.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>

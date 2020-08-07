@@ -22,26 +22,26 @@ $(document).ready(function () {
 		}
 
 		//SELECT NON REGULAR SUBJECT ON SCHEDULE
-		$('.btn_nonregular').click(function () {
-			let nonregular = $(this).attr('data-type')
-			let hour = $(this).attr('data-hour')
+		// $('.btn_nonregular').click(function () {
+		// 	let nonregular = $(this).attr('data-type')
+		// 	let hour = $(this).attr('data-hour')
 
-			$('#modal_select_nonregular .modal-title').html(`SELECT ${nonregular.toUpperCase()}: <strong>${hour}</strong>`)
+		// 	$('#modal_select_nonregular .modal-title').html(`SELECT ${nonregular.toUpperCase()}: <strong>${hour}</strong>`)
 
-			fetch(`get_nonregular_subjects/${nonregular}`)
-				.then(response => response.json())
-				.then(response => {
-					let select = $('#select_nonregular')
-					select.empty()
-					for (var key in response) {
-						select.append(`<option value="${response[key].SubjName}"> ${response[key].SubjName} </option>`)
-					}
-				}).catch(err => {
-					console.log(JSON.parse(err))
-				})
+		// 	fetch(`get_nonregular_subjects/${nonregular}`)
+		// 		.then(response => response.json())
+		// 		.then(response => {
+		// 			let select = $('#select_nonregular')
+		// 			select.empty()
+		// 			for (var key in response) {
+		// 				select.append(`<option value="${response[key].SubjName}"> ${response[key].SubjName} </option>`)
+		// 			}
+		// 		}).catch(err => {
+		// 			console.log(JSON.parse(err))
+		// 		})
 
-			$('#modal_select_nonregular').modal('show')
-		})
+		// 	$('#modal_select_nonregular').modal('show')
+		// })
 
 		//================================================================================================\\
 		//										MODAL PROFILE SECTION

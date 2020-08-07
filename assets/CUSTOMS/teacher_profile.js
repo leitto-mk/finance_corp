@@ -401,7 +401,17 @@ $(document).ready(function () {
 				data: form,
 				success: response => {
 					if (response == 'success') {
-
+						Swal.fire({
+							type: 'success',
+							title: 'SUCCESS!',
+							text: 'Non-Regular has been successfully assigned'
+						})
+					} else if (response == 'SUBJ_REGISTERED') {
+						Swal.fire({
+							type: 'warning',
+							title: 'CANNOT PROCEED!',
+							text: 'Non-regular has been registered already for this day and hour of selected student'
+						})
 					} else {
 						console.log(response)
 					}

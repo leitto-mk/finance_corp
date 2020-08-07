@@ -76,6 +76,25 @@ class Mdl_schedule extends CI_Model
         }
     }
 
+    public function get_smk()
+    {
+        $result = $this->db->query(
+            "SELECT 
+                t1.SubProgram,
+                t2.RoomDesc
+             FROM tbl_03_a_mas_vocational AS t1
+             RIGHT JOIN tbl_04_class_rooms_vocational AS t2
+                USING(SubProgramID)
+             ORDER BY t2.RoomDesc"
+        );
+
+        if ($result) {
+            return $result->result();
+        } else {
+            return false;
+        }
+    }
+
     public function modal_sv_hconfig($hlevel, $hours)
     {
         extract($hours);
@@ -113,6 +132,17 @@ class Mdl_schedule extends CI_Model
             } else {
                 return 'false';
             }
+        } elseif ($hlevel == 'SMK') {
+            $query = $this->db->get('tbl_meta_hour_vocational');
+
+            if ($query->num_rows() < 1) {
+                for ($i = 0; $i < count($hours); $i++) {
+                    $data = $hours[$i];
+                    $this->db->query("INSERT INTO tbl_meta_hour_vocational(Hour) VALUES ('$data')");
+                }
+            } else {
+                return 'false';
+            }
         }
     }
 
@@ -129,6 +159,8 @@ class Mdl_schedule extends CI_Model
                 $table = 'tbl_meta_hour_junior';
             } elseif ($level == 'SMA') {
                 $table = 'tbl_meta_hour_high';
+            } elseif ($level == 'SMK') {
+                $table = 'tbl_meta_hour_vocational';
             }
 
             $this->db->truncate($table);
@@ -283,12 +315,21 @@ class Mdl_schedule extends CI_Model
     public function model_get_room_level($room)
     {
         $query = $this->db->query(
-            "SELECT t1.School_Desc FROM tbl_02_school t1
-             JOIN tbl_03_class t2
-             ON t2.SchoolID = t1.SchoolID
-             JOIN tbl_04_class_rooms t3
-             ON t3.ClassID = t2.ClassID
-             WHERE t3.RoomDesc = '$room'"
+            "SELECT t1.School_Desc, t3.RoomDesc 
+             FROM tbl_02_school t1
+             LEFT JOIN tbl_03_class t2
+                ON t1.SchoolID = t2.SchoolID
+             LEFT JOIN tbl_04_class_rooms t3
+                ON t2.ClassID = t3.ClassID
+             WHERE RoomDesc = '$room'
+             UNION ALL
+             SELECT t1.School_Desc, t3.RoomDesc 
+             FROM tbl_02_school t1
+             LEFT JOIN tbl_03_b_class_vocational t2
+                ON t1.School_Desc = t2.Type
+             LEFT JOIN tbl_04_class_rooms_vocational t3
+                ON t2.ClassDesc = t3.Simplified
+             WHERE RoomDesc = '$room'"
         )->row();
 
         return $query->School_Desc;
@@ -299,12 +340,21 @@ class Mdl_schedule extends CI_Model
         extract($data);
 
         $query = $this->db->query(
-            "SELECT t1.School_Desc FROM tbl_02_school t1
-             JOIN tbl_03_class t2
-             ON t2.SchoolID = t1.SchoolID
-             JOIN tbl_04_class_rooms t3
-             ON t3.ClassID = t2.ClassID
-             WHERE t3.RoomDesc = '$room'"
+            "SELECT t1.School_Desc, t3.RoomDesc 
+             FROM tbl_02_school t1
+             LEFT JOIN tbl_03_class t2
+                ON t1.SchoolID = t2.SchoolID
+             LEFT JOIN tbl_04_class_rooms t3
+                ON t2.ClassID = t3.ClassID
+             WHERE RoomDesc = '$room'
+             UNION ALL
+             SELECT t1.School_Desc, t3.RoomDesc 
+             FROM tbl_02_school t1
+             LEFT JOIN tbl_03_b_class_vocational t2
+                ON t1.School_Desc = t2.Type
+             LEFT JOIN tbl_04_class_rooms_vocational t3
+                ON t2.ClassDesc = t3.Simplified
+             WHERE RoomDesc = '$room'"
         )->row();
 
         if ($query->School_Desc == 'SD') {
@@ -313,6 +363,8 @@ class Mdl_schedule extends CI_Model
             $table = 'tbl_meta_hour_junior';
         } elseif ($query->School_Desc == 'SMA') {
             $table = 'tbl_meta_hour_high';
+        } elseif ($query->School_Desc == 'SMK') {
+            $table = 'tbl_meta_hour_vocational';
         }
 
         $semester = '';
@@ -375,17 +427,18 @@ class Mdl_schedule extends CI_Model
         return $result->num_rows();
     }
 
-    public function get_cls_lvl($val)
-    {
-        $query = $this->db->query(
-            "SELECT t2.RoomDesc FROM tbl_03_class t1
-            JOIN tbl_04_class_rooms t2
-            ON t2.ClassID = t1.ClassID
-            WHERE t1.ClassDesc = '$val'"
-        );
+    // public function get_cls_lvl($val)
+    // {
+    //     $query = $this->db->query(
+    //         "SELECT 
+    //             t2.RoomDesc FROM tbl_03_class t1
+    //          JOIN tbl_04_class_rooms t2
+    //             ON t2.ClassID = t1.ClassID
+    //          WHERE t1.ClassDesc = '$val'"
+    //     );
 
-        return $query->result();
-    }
+    //     return $query->result();
+    // }
 
     public function get_sche_spec($room, $hour, $day)
     {
@@ -400,10 +453,18 @@ class Mdl_schedule extends CI_Model
 
     public function get_dropdown_class()
     {
-        $query = $this->db->query("SELECT ClassDesc, RoomDesc 
-            FROM tbl_03_class AS t1
-            JOIN tbl_04_class_rooms AS t2
-            ON t2.ClassID = t1.ClassID");
+        $query = $this->db->query(
+            "SELECT ClassDesc, RoomDesc 
+             FROM tbl_03_class AS t1
+             JOIN tbl_04_class_rooms AS t2
+                ON t2.ClassID = t1.ClassID
+             UNION ALL
+             SELECT t1.ClassDesc, t2.RoomDesc
+             FROM tbl_03_b_class_vocational t1
+             LEFT JOIN tbl_04_class_rooms_vocational t2
+                ON t1.ClassDesc = t2.Simplified 
+             WHERE t2.RoomDesc IS NOT NULL
+             ORDER BY ClassDesc"); 
 
         return $query->result();
     }
@@ -453,12 +514,20 @@ class Mdl_schedule extends CI_Model
     {
         $query = $this->db->query(
             "SELECT t1.School_Desc, t3.RoomDesc 
-            FROM tbl_02_school t1
-            LEFT JOIN tbl_03_class t2
-            ON t1.SchoolID = t2.SchoolID
-            LEFT JOIN tbl_04_class_rooms t3
-            ON t2.ClassID = t3.ClassID
-            WHERE t3.RoomDesc = '$room'"
+             FROM tbl_02_school t1
+             LEFT JOIN tbl_03_class t2
+                ON t1.SchoolID = t2.SchoolID
+             LEFT JOIN tbl_04_class_rooms t3
+                ON t2.ClassID = t3.ClassID
+             WHERE RoomDesc = '$room'
+             UNION ALL
+             SELECT t1.School_Desc, t3.RoomDesc 
+             FROM tbl_02_school t1
+             LEFT JOIN tbl_03_b_class_vocational t2
+                ON t1.School_Desc = t2.Type
+             LEFT JOIN tbl_04_class_rooms_vocational t3
+                ON t2.ClassDesc = t3.Simplified
+             WHERE RoomDesc = '$room'"
         )->row();
 
         if ($query->School_Desc == 'SD') {
@@ -467,6 +536,8 @@ class Mdl_schedule extends CI_Model
             $table = 'tbl_meta_hour_junior';
         } elseif ($query->School_Desc == 'SMA') {
             $table = 'tbl_meta_hour_high';
+        } elseif ($query->School_Desc == 'SMK') {
+            $table = 'tbl_meta_hour_vocational';
         }
 
         $result = $this->db->query("SELECT Hour FROM (SELECT Hour FROM $table GROUP BY Hour DESC LIMIT 1, 30) Hours ORDER BY Hour ASC");
@@ -476,12 +547,14 @@ class Mdl_schedule extends CI_Model
 
     public function get_dropdown_teachers()
     {
-        $dat = $this->db->query("SELECT t1.IDNumber, CONCAT(t1.FirstName,' ',t1.LastName) AS FullName, t2.SubjectTeach 
-        FROM tbl_07_personal_bio AS t1
-        INNER JOIN tbl_08_job_info AS t2
-        ON t1.IDNumber = t2.IDNumber
-        WHERE status = 'teacher'
-        ORDER BY t1.IDNumber");
+        $dat = $this->db->query(
+            "SELECT t1.IDNumber, CONCAT(t1.FirstName,' ',t1.LastName) AS FullName, t2.SubjectTeach 
+             FROM tbl_07_personal_bio AS t1
+             INNER JOIN tbl_08_job_info AS t2
+             ON t1.IDNumber = t2.IDNumber
+             WHERE status = 'teacher'
+             ORDER BY t1.IDNumber"
+        );
 
         if ($dat->num_rows() > 0) {
             return $dat->result();
@@ -510,10 +583,18 @@ class Mdl_schedule extends CI_Model
             "SELECT t1.School_Desc, t3.RoomDesc 
              FROM tbl_02_school t1
              LEFT JOIN tbl_03_class t2
-             ON t1.SchoolID = t2.SchoolID
+                ON t1.SchoolID = t2.SchoolID
              LEFT JOIN tbl_04_class_rooms t3
-             ON t2.ClassID = t3.ClassID
-             WHERE t3.RoomDesc = '$room'"
+                ON t2.ClassID = t3.ClassID
+             WHERE RoomDesc = '$room'
+             UNION ALL
+             SELECT t1.School_Desc, t3.RoomDesc 
+             FROM tbl_02_school t1
+             LEFT JOIN tbl_03_b_class_vocational t2
+                ON t1.School_Desc = t2.Type
+             LEFT JOIN tbl_04_class_rooms_vocational t3
+                ON t2.ClassDesc = t3.Simplified
+             WHERE RoomDesc = '$room'"
         )->row();
 
         if ($level->School_Desc == 'SD') {
@@ -522,6 +603,8 @@ class Mdl_schedule extends CI_Model
             $table = 'tbl_meta_hour_junior';
         } elseif ($level->School_Desc == 'SMA') {
             $table = 'tbl_meta_hour_high';
+        } elseif ($level->School_Desc == 'SMK'){
+            $table = 'tbl_meta_hour_vocational';
         }
 
         $result = $this->db->query(
@@ -560,11 +643,17 @@ class Mdl_schedule extends CI_Model
     public function get_sche_roominfo($room)
     {
         $query = $this->db->query(
-            "SELECT t1.RoomDesc, t2.Hour, t2.Days 
-            FROM tbl_04_class_rooms t1 
-            JOIN tbl_06_schedule t2 
-            ON t1.RoomID = t2.RoomID 
-            WHERE t1.RoomDesc = '$room'"
+            "SELECT t2.RoomDesc, t1.Hour, t1.Days
+             FROM tbl_06_schedule t1
+             JOIN tbl_04_class_rooms t2
+                USING(RoomID)
+             WHERE t2.RoomDesc = '$room'
+             UNION ALL
+             SELECT t2.RoomDesc, t1.Hour, t1.Days
+             FROM tbl_06_schedule t1
+             JOIN tbl_04_class_rooms_vocational t2
+                USING(RoomID)
+             WHERE t2.RoomDesc = '$room'"
         );
 
         if ($query) {
@@ -591,15 +680,25 @@ class Mdl_schedule extends CI_Model
         }
 
         $level = $this->db->query(
-            "SELECT Type FROM tbl_04_class_rooms WHERE RoomDesc = '$room'"
+            "SELECT Type 
+             FROM tbl_04_class_rooms 
+             WHERE RoomDesc = '$room'
+             UNION ALL
+             SELECT t2.Type
+      		 FROM tbl_04_class_rooms_vocational t1
+             LEFT JOIN tbl_03_b_class_vocational t2
+             	ON t2.ClassDesc = t1.Simplified
+             WHERE RoomDesc = '$room'"
         )->row();
 
         if ($level->Type == 'SD') {
             $table = 'tbl_meta_hour_elementary';
         } elseif ($level->Type == 'SMP') {
             $table = 'tbl_meta_hour_junior';
-        } elseif ($level->Type == 'SMA' or $level->School_Desc == 'SMK') {
+        } elseif ($level->Type == 'SMA') {
             $table = 'tbl_meta_hour_high';
+        } elseif ($level->Type == 'SMK') {
+            $table = 'tbl_meta_hour_vocational';
         }
 
         $result = $this->db->query(
@@ -702,7 +801,15 @@ class Mdl_schedule extends CI_Model
         $Hour = date('H:i:s', strtotime($hour));
         $SubjName = $subj;
 
-        $RoomID = $this->db->query("SELECT RoomID FROM tbl_04_class_rooms WHERE RoomDesc = '$RoomDesc'")->row();
+        $RoomID = $this->db->query(
+                "SELECT RoomID 
+                 FROM tbl_04_class_rooms 
+                 WHERE RoomDesc = '$RoomDesc'
+                 UNION ALL
+                 SELECT RoomID
+                 FROM tbl_04_class_rooms_vocational
+                 WHERE RoomDesc = '$RoomDesc'"
+        )->row();
 
         if ($type == 'Non-Subject') {
             $IDNumber = '-';
@@ -722,7 +829,16 @@ class Mdl_schedule extends CI_Model
         }
 
         $query = $this->db->query(
-            "SELECT Type FROM tbl_04_class_rooms WHERE RoomDesc = '$room'"
+            "SELECT 
+                Type 
+             FROM tbl_04_class_rooms 
+             WHERE RoomDesc = '$room'
+             UNION ALL
+             SELECT t1.Type 
+             FROM tbl_03_b_class_vocational t1
+             LEFT JOIN tbl_04_class_rooms_vocational t2
+             ON t1.ClassDesc = t2.Simplified
+             WHERE t2.RoomDesc = '$room'"
         )->row();
 
         $semester = '';
@@ -908,6 +1024,7 @@ class Mdl_schedule extends CI_Model
                 if ($duplicate->num_rows() == 1) {
 
                     $this->db->update('tbl_09_det_grades', ['SubjName' => $subj], ['SubjName' => $subj, 'Room' => $room]);
+
                 } elseif ($duplicate->num_rows() == 0) {
 
                     $students = $this->db->query(

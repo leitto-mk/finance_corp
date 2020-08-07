@@ -308,13 +308,13 @@ class Teacher extends CI_Controller
 
     public function ajax_add_nonregular(){
         $data = [
-            'id' => $_POST['id'],
-            'cls' => $_POST['cls'],
-            'room' => $_POST['room'],
-            'type' => $_POST['assign_type'],
-            'day' => $_POST['assign_day'],
-            'subject' => $_POST['assign_subject'],
-            'hour' => $_POST['assign_hour']
+            'NIS' => $_POST['id'],
+            'Class' => $_POST['cls'],
+            'Room' => $_POST['room'],
+            'Type' => $_POST['assign_type'],
+            'Day' => $_POST['assign_day'],
+            'SubjName' => $_POST['assign_subject'],
+            'Hour' => $_POST['assign_hour']
         ];
         
         $result = $this->Mdl_nonstudent->add_nonregular($data);
