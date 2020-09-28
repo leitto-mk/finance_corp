@@ -272,6 +272,7 @@
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
+                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Hindu') : ?>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu" selected>Hindu</option>
@@ -279,6 +280,7 @@
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
+                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Islam') : ?>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu">Hindu</option>
@@ -286,6 +288,7 @@
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
+                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Katolik') : ?>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu">Hindu</option>
@@ -293,6 +296,7 @@
                                                                         <option value="Katolik" selected>Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
+                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Kong Hu Cu') : ?>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu">Hindu</option>
@@ -300,6 +304,7 @@
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu" selected>Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
+                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Kristen') : ?>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu">Hindu</option>
@@ -307,6 +312,15 @@
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen" selected>Kristen</option>
+                                                                        <option value="Advent">Advent</option>
+                                                                    <?php elseif ($datatoedit->Religion == 'Advent') : ?>
+                                                                        <option value="Budha">Budha</option>
+                                                                        <option value="Hindu">Hindu</option>
+                                                                        <option value="Islam">Islam</option>
+                                                                        <option value="Katolik">Katholik</option>
+                                                                        <option value="Kong Hu Cu">Kong Hu Cu</option>
+                                                                        <option value="Kristen">Kristen</option>
+                                                                        <option value="Advent" selected>Advent</option>
                                                                     <?php endif; ?>
                                                                 </select>
                                                                 <span class="help-block" style="z-index: 10;">Agama</span>

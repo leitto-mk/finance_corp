@@ -140,6 +140,7 @@ $(document).ready(function () {
 			let sess_type = sess;
 			let sess_code = $('.sess_code').val();
 			let sess_name = $('.sess_name').val();
+			let sess_degree = $('#sess_degree').val();
 
 			if (sess_type == '' || sess_name == '' || sess_code == '') {
 				Swal.fire({
@@ -156,7 +157,8 @@ $(document).ready(function () {
 					data: {
 						type: sess_type,
 						code: sess_code,
-						name: sess_name
+						name: sess_name,
+						degree: sess_degree
 					},
 					success: data => {
 						if (data == 'is_available') {
@@ -187,22 +189,10 @@ $(document).ready(function () {
 			if (e.keyCode == 13) {
 				e.preventDefault()
 
-				let old
-
-				if ($(this).attr('name') == 'code') {
-					old = $(this).attr('data-cur-id')
-				} else {
-					old = $(this).attr('data-cur-name')
-				}
-
 				let field = $(this).attr('data-field')
+				let old = $(this).attr('data-cur')
 				let newv = $(this).text()
-
-				console.table({
-					field,
-					old,
-					newv
-				})
+				let subj = (field == 'Degree' ? $(this).attr('data-subj') : '')
 
 				$.ajax({
 					url: 'edit_session',
@@ -210,7 +200,8 @@ $(document).ready(function () {
 					data: {
 						field,
 						old,
-						newv
+						newv,
+						subj
 					},
 					success: response => {
 						console.log(response)
@@ -236,6 +227,14 @@ $(document).ready(function () {
 								type: 'error',
 								title: 'UPDATE FAILED',
 								text: `YOU NEW ENTRY IS ALREADY AFFILIATED WITH ACTIVE SCHEDULE`
+							})
+
+							get_full_session()
+						} else if (response == 'is_undefined') {
+							Swal.fire({
+								type: 'error',
+								title: 'UPDATE FAILED',
+								text: `INPUT CAN ONLLY BE EITHER -> 'ALL', 'SD', 'SMP', 'SMA', 'SMK'`
 							})
 
 							get_full_session()
@@ -892,12 +891,13 @@ $(document).ready(function () {
 				method: 'POST',
 				dataType: 'JSON',
 				data: {
-					room: $(this).attr('data-room'),
-					type: $(this).attr('data-type'),
-					day: $(this).attr('data-day'),
-					hour: $(this).attr('data-hour')
+					room: $('#assign_room').val(),
+					type: $('#assign_type').val(),
+					day: $('#assign_day').val(),
+					hour: $('#assign_hour').val()
 				},
 				success: response => {
+					$('.listed').html(response.list)
 					$('#assign_subject').html(response.subj)
 					$('#assign_teacher').html(response.teacher)
 				},
@@ -946,6 +946,75 @@ $(document).ready(function () {
 				success: response => {
 					if (response == 'success') {
 						alert('SUCCESS...')
+
+						$.ajax({
+							url: 'ajax_get_nonregular_subject',
+							method: 'POST',
+							dataType: 'JSON',
+							data: {
+								room: $('#assign_room').val(),
+								type: $('#assign_type').val(),
+								day: $('#assign_day').val(),
+								hour: $('#assign_hour').val()
+							},
+							success: response => {
+								$('.listed').html(response.list)
+								$('#assign_subject').html(response.subj)
+								$('#assign_teacher').html(response.teacher)
+							},
+							error: err => console.log(err.responseText)
+						})
+					} else {
+						alert("SOMETHING'S WRONG")
+						console.log(response)
+					}
+				},
+				error: err => console.log(err.responseText)
+			})
+		})
+
+		//DELETE LISTED NON-REGULAR
+		$(document).on('click', '.listed_subj', function () {
+			var subj = $(this).attr('data-subj')
+			var room = $(this).attr('data-room')
+			var semester = $(this).attr('data-semester')
+			var period = $(this).attr('data-period')
+			var hour = $(this).attr('data-hour')
+			var day = $(this).attr('data-day')
+
+			$.ajax({
+				url: 'ajax_delete_nonregular',
+				method: 'POST',
+				data: {
+					subj,
+					room,
+					semester,
+					period,
+					hour,
+					day
+				},
+				success: response => {
+					if (response == 'success') {
+
+						//Delete the Data fields
+						$(this).parents('.listed').empty()
+
+						//Refresh the List
+						$.ajax({
+							url: 'ajax_get_nonregular_subject',
+							method: 'POST',
+							dataType: 'JSON',
+							data: {
+								room: $('#assign_room').val(),
+								type: $('#assign_type').val(),
+								day: $('#assign_day').val(),
+								hour: $('#assign_hour').val()
+							},
+							success: response => {
+								$('.listed').prepend(response.list)
+							},
+							error: err => console.log(err.responseText)
+						})
 					} else {
 						alert("SOMETHING'S WRONG")
 						console.log(response)

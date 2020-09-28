@@ -486,6 +486,7 @@
                             <th> Gender </th>
                             <th> Previous School </th>
                             <th> Address </th>
+                            <th> Applying </th>
                             <th> Registration Date </th>
                             <th> Action </th>
                         </tr>

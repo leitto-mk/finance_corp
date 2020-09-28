@@ -369,6 +369,20 @@
                  <!-- END WIDGET PROGRESS -->
              </div>
          </div>
+         <div class="row">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">School Calendar</span>
+                    </div>
+                    <div class="tools"> </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="calendar"></div>
+                </div>
+            </div>
+        </div>
          <div class="row widget-row">
              <div class="col-md-3">
                  <!-- BEGIN WIDGET THUMB -->
@@ -940,7 +954,7 @@
              <div class="modal-body">
                  <div class="row">
                      <div class="col-md-3">
-                         <div class="form-group form-md-line-input form-md-floating-label has-info">
+                         <div class="form-group form-md-line-input has-info">
                              <select class="form-control" id="select_period">
                                  <?php if (!empty($period)) : ?>
                                      <?php foreach ($period as $row) : ?>
@@ -970,9 +984,6 @@
                                  <li class="">
                                      <a href="#absence" data-toggle="tab" aria-expanded="false"> Absence </a>
                                  </li>
-                                 <!-- <li class="">
-                                    <a href="#old" data-toggle="tab" aria-expanded="false"> Old </a>
-                                </li> -->
                              </ul>
                              <div class="tab-content">
                                  <div class="tab-pane active" id="schedule">
@@ -1028,6 +1039,11 @@
                                                                  <a data-toggle="tab" href="#tab_3-3" aria-expanded="true">
                                                                      <i class="fa fa-user"></i> Character Report </a>
                                                              </li>
+                                                             
+                                                             <li class="">
+                                                                 <a data-toggle="tab" href="#tab_4-4" aria-expanded="true">
+                                                                     <i class="fa fa-book"></i> Prakerin/UKK </a>
+                                                             </li>
                                                              <!-- <li class="">
                                                                 <a data-toggle="tab" href="#tab_4-4" aria-expanded="true">
                                                                     <i class="fa fa-child"></i> Extra Cullicular </a>
@@ -1053,7 +1069,8 @@
                                                                                      <tr>
                                                                                          <th> # </th>
                                                                                          <th> Subject Name </th>
-                                                                                         <th> Grade </th>
+                                                                                         <th> Mid Grade </th>
+                                                                                         <th> Final Grade </th>
                                                                                          <th> Predicate </th>
                                                                                          <th> Description </th>
                                                                                      </tr>
@@ -1106,6 +1123,28 @@
 
                                                                                  </tbody>
                                                                                  <tbody class="spr_report_tbody">
+
+                                                                                 </tbody>
+                                                                             </table>
+                                                                         </div>
+                                                                     </div>
+                                                                 </div>
+                                                             </div>
+                                                             <div id="tab_4-4" class="tab-pane">
+                                                                 <div class="row">
+                                                                     <div class="col-md-12" style="padding-left: 0px">
+                                                                         <div class="table-scrollable" style="margin-top: 0px !important;">
+                                                                             <table class="table table-hover table-light">
+                                                                                 <thead>
+                                                                                     <tr>
+                                                                                         <th class="sbold"> # </th>
+                                                                                         <th class="sbold"> Subject Name </th>
+                                                                                         <th class="sbold"> Grade </th>
+                                                                                         <th class="sbold"> Predicate </th>
+                                                                                         <th class="sbold"> Description </th>
+                                                                                     </tr>
+                                                                                 </thead>
+                                                                                 <tbody class="voc_report_tbody">
 
                                                                                  </tbody>
                                                                              </table>
@@ -1175,7 +1214,7 @@
                  <h4 class="modal-title"></h4>
              </div>
              <div class="modal-body">
-                 <div class="form-group form-md-line-input form-md-floating-label has-info">
+                 <div class="form-group form-md-line-input has-info">
                      <select class="form-control" id="select_nonregular">
                          <option value="-"> - </option>
                      </select>

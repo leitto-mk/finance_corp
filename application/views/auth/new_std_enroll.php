@@ -292,6 +292,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                             <option value="Katolik">Katholik</option>
                                                                                             <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                                             <option value="Kristen">Kristen</option>
+                                                                                            <option value="Advent">Advent</option>
                                                                                         </select>
                                                                                         <span class="help-block" style="z-index: 10;">Agama</span>
                                                                                     </div>
@@ -1349,6 +1350,21 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
+                                                                <label class="control-label col-md-4">Jenjang Tujuan
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                                                        <select name="applying" class="form-control" id="form_control_1">
+                                                                            <?php foreach($applying as $row) : ?>
+                                                                                <option value="<?= $row->School_Desc ?>"> <?= $row->SchoolName ?> </option>
+                                                                            <?php endforeach;?>
+                                                                        </select>
+                                                                        <span class="help-block" style="z-index: 10;">Agama</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tanggal Masuk Sekolah
                                                                     <span class="required" aria-required="true"> * </span>
                                                                 </label>
@@ -1361,7 +1377,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Sekolah Asal
                                                                     <span class="required" aria-required="true"> * </span>

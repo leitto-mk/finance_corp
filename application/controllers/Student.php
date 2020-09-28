@@ -23,6 +23,8 @@ class Student extends CI_Controller
     {
         $id = $this->session->userdata('id');
         $room = $this->session->userdata('room');
+        $semester = $this->session->userdata('semester');
+        $period = $this->session->userdata('period');
 
         $detail = $this->Mdl_student->get_school_detail($room);
 
@@ -31,6 +33,8 @@ class Student extends CI_Controller
         $data = [
             'title' => 'Student Information',
             'id' => $this->session->userdata('id'),
+            'semester' => $semester,
+            'schyear' => $period,
             'room' => $room,
             'fname' => $this->session->userdata('fname'),
             'lname' => $this->session->userdata('lname'),
@@ -70,7 +74,7 @@ class Student extends CI_Controller
         $period = $_POST['period'];
 
         $schedule = $this->Mdl_student->get_schedule_full($id, $semester, $period);
-        $grades = $this->Mdl_student->model_get_full_acd_detail($id, $semester, $period);
+        [$grades, $voc] = $this->Mdl_student->model_get_full_acd_detail($id, $semester, $period);
         $absent = $this->Mdl_student->get_absence_full($id, $semester, $period);
 
         $sch = '';
@@ -88,16 +92,13 @@ class Student extends CI_Controller
         }
 
         $cog = '';
-        $i = 1;
-        $j = 1;
-        $k = 1;
-        $l = 1;
-        $m = 1;
+        $i = $j = $k = $l = $m = $n = 1;
 
         foreach ($grades as $row) {
             $cog .= '   <tr>
                             <td class="sbold uppercase"> ' . $i . ' </td>
                             <td class="sbold uppercase"> ' . $row->SubjName . ' </td>
+                            <td class="sbold uppercase"> ' . $row->MidRecap . ' </td>
                             <td class="sbold uppercase"> ' . $row->Report . ' </td>
                             <td class="sbold uppercase"> ' . $row->Predicate . ' </td>
                             <td class="sbold"> ' . $row->Description . ' </td>
@@ -107,7 +108,6 @@ class Student extends CI_Controller
         }
 
         $sk = '';
-        $i = 1;
         foreach ($grades as $row) {
             $sk .= '   <tr>
                             <td class="sbold uppercase"> ' . $j . ' </td>
@@ -121,7 +121,6 @@ class Student extends CI_Controller
         }
 
         $soc = '';
-        $i = 1;
         $soc .= '<tr class="sbold"><td colspan="5">Social</td></tr>';
         foreach ($grades as $row) {
             $soc .= '   <tr>
@@ -136,7 +135,6 @@ class Student extends CI_Controller
         }
 
         $spr = '';
-        $i = 1;
         $spr .= '<tr class="sbold"><td colspan="5">Spiritual</td></tr>';
         foreach ($grades as $row) {
             $spr .= '   <tr>
@@ -148,6 +146,19 @@ class Student extends CI_Controller
                         </tr>';
 
             $l++;
+        }
+
+        $voc_row = '';
+        foreach ($voc as $row) {
+            $voc_row .= '   <tr>
+                            <td class="sbold uppercase"> ' . $n . ' </td>
+                            <td class="sbold uppercase"> ' . $row->SubjName . ' </td>
+                            <td class="sbold uppercase"> ' . $row->Report . ' </td>
+                            <td class="sbold uppercase"> ' . $row->Predicate . ' </td>
+                            <td class="sbold"> ' . $row->Description . ' </td>
+                        </tr>';
+
+            $n++;
         }
 
         $abs = '';
@@ -180,6 +191,7 @@ class Student extends CI_Controller
             'SK' => $sk,
             'SOC' => $soc,
             'SPR' => $spr,
+            'VOC' => $voc_row,
 
             //ABSENT
             'ABS' => $abs
@@ -268,5 +280,18 @@ class Student extends CI_Controller
         )->result();
 
         echo json_encode($query);
+    }
+
+    public function ajax_get_school_event(){
+        $start = date('Y-01-01');
+        $end = date('Y-12-31');
+
+        $result = $this->db->query(
+            "SELECT Title, DateStart, DateEnd, Color FROM tbl_13_calendar
+             WHERE DateStart >= '$start'
+             AND DateEnd <= '$end'"
+        )->result();
+
+        echo json_encode($result);
     }
 }

@@ -16,19 +16,20 @@ class Mdl_grade extends CI_Model
 
     public function model_get_table_by_subjects()
     {
-        $query = $this->db->order_by('SubjName','ASC')->get_where('tbl_05_subject', "SubjID NOT IN('ELECTIVE','EXCUL','-', '0')")->result();
-
+        $query = $this->db->order_by('SubjName','ASC')
+                          ->where("SubjID NOT IN('ELECTIVE','EXCUL','-', '0')")
+                          ->where("Type NOT IN('','-','Non-Subject')")
+                          ->get('tbl_05_subject')->result();
         return $query;
     }
 
-    public function model_get_kd_by_subject($type, $cls, $subj, $val)
+    public function model_get_kd_by_subject($type, $cls, $subj, $semester)
     {
-
         $query = $this->db->query(
             "SELECT * FROM tbl_05_subject_kd 
              WHERE Type = '$type'
              AND SubjName = '$subj' 
-             AND Semester = '$val' 
+             AND Semester = '$semester' 
              AND Classes = '$cls' 
              ORDER BY CtrlNo"
         )->result();
@@ -93,12 +94,21 @@ class Mdl_grade extends CI_Model
     public function get_active_classes()
     {
         $query = $this->db->query(
-            "SELECT t2.ClassRomanic FROM tbl_02_school t1
-             JOIN tbl_03_class t2
-             ON t1.School_Desc = t2.Type
+            "SELECT t2.ClassDesc
+             FROM tbl_02_school t1
+             INNER JOIN tbl_03_class t2
+                ON t1.School_Desc = t2.Type
              WHERE t1.isActive = 1
-             GROUP BY t2.ClassNumeric
-             ORDER BY t2.ClassNumeric"
+             GROUP BY ClassDesc
+             UNION ALL
+             SELECT t2.ClassDesc
+             FROM tbl_02_school t1
+             INNER JOIN tbl_03_b_class_vocational t2
+                ON t1.School_Desc = t2.Type
+             RIGHT JOIN tbl_04_class_rooms_vocational t3
+             	ON t2.ClassDesc = t3.Simplified
+             WHERE t1.isActive = 1
+             GROUP BY ClassDesc"
         )->result();
 
         return $query;
@@ -107,13 +117,30 @@ class Mdl_grade extends CI_Model
     public function get_active_rooms()
     {
         $query = $this->db->query(
-            "SELECT t3.RoomDesc FROM tbl_02_school t1
+            "SELECT t3.RoomDesc 
+             FROM tbl_02_school t1
 			 JOIN tbl_03_class t2
              ON t1.School_Desc = t2.Type
              JOIN tbl_04_class_rooms t3
              ON t2.ClassID = t3.ClassID
              WHERE t1.isActive = 1
-             ORDER BY t2.ClassNumeric, t3.RoomDesc"
+             UNION ALL
+             SELECT RoomDesc
+             FROM tbl_04_class_rooms_vocational
+             ORDER BY RoomDesc"
+        )->result();
+
+        return $query;
+    }
+
+    public function get_active_rooms_voc()
+    {
+        $query = $this->db->query(
+            "SELECT room.RoomDesc 
+             FROM tbl_04_class_rooms_vocational AS room
+             LEFT JOIN tbl_03_b_class_vocational AS class 
+                ON class.ClassDesc = room.Simplified
+             WHERE class.ClassNumeric > 10"
         )->result();
 
         return $query;
@@ -199,6 +226,26 @@ class Mdl_grade extends CI_Model
         }
     }
 
+    public function get_smk()
+    {
+        $result = $this->db->query(
+            "SELECT 
+                class.ClassDesc, 
+                class.ClassID 
+             FROM tbl_03_b_class_vocational AS class
+             RIGHT JOIN tbl_04_class_rooms_vocational AS room
+             ON class.ClassDesc = room.Simplified
+             GROUP BY class.ClassDesc
+             ORDER BY class.ClassNumeric"
+        );
+
+        if ($result) {
+            return $result->result();
+        } else {
+            return false;
+        }
+    }
+
     public function model_classes_grade_total($cls)
     {
         $query = $this->db->query("SELECT DISTINCT NIS, FullName, Room FROM tbl_09_det_grades WHERE Class = '$cls'");
@@ -232,7 +279,18 @@ class Mdl_grade extends CI_Model
 
     public function model_get_sub_classes($cls)
     {
-        $data = $this->db->query("SELECT ClassID FROM tbl_03_class WHERE ClassDesc = '$cls'")->row();
+        $data = $this->db->query(
+            "SELECT 
+                ClassID 
+             FROM tbl_03_class 
+             WHERE ClassDesc = '$cls'
+             UNION ALL
+             SELECT 
+                ClassID
+             FROM tbl_03_b_class_vocational 
+             WHERE ClassDesc = '$cls'"
+        )->row();
+        
         $query = $this->db->query(
             "SELECT t2.RoomDesc FROM tbl_03_class t1
              JOIN tbl_04_class_rooms t2 
@@ -253,14 +311,21 @@ class Mdl_grade extends CI_Model
     public function model_get_full_kd_details($cls, $semester, $subj, $type)
     {
         $romanic = $this->db->query(
-            "SELECT t1.ClassRomanic FROM tbl_03_class t1
+            "SELECT t1.ClassDesc 
+             FROM tbl_03_class t1
              JOIN tbl_04_class_rooms t2
              ON t1.ClassID = t2.ClassID
-             WHERE RoomDesc = '$cls'"
+             WHERE RoomDesc = '$cls'
+             UNION ALL
+             SELECT t1.ClassDesc
+             FROM tbl_03_b_class_vocational t1
+             LEFT JOIN tbl_04_class_rooms_vocational t2
+             ON t1.ClassDesc = t2.Simplified
+             WHERE t2.RoomDesc = '$cls'"
         )->row();
 
         $query = $this->db->get_where('tbl_05_subject_kd', [
-            'Classes' => $romanic->ClassRomanic,
+            'Classes' => $romanic->ClassDesc,
             'Semester' => $semester,
             'SubjName' => $subj,
             'Type' => $type
@@ -277,8 +342,32 @@ class Mdl_grade extends CI_Model
              AND Semester = '$semester'
              AND schoolyear = '$year'
              AND SubjName = '$subj'
+             GROUP BY NIS
              ORDER BY FullName"
         );
+
+        return $query;
+    }
+
+    public function model_get_person_voc_details($cls, $year, $semester, $subj)
+    {
+        $query = $this->db->query(
+            "SELECT 
+                grade.NIS, 
+                grade.FullName, 
+                grade.Room,
+                voc.Report,
+                voc.Predicate,
+                voc.Description
+             FROM tbl_09_det_grades AS grade
+             LEFT JOIN tbl_09_det_voc_grades AS voc
+                USING(NIS)
+             WHERE grade.Room = '$cls' 
+             AND grade.Semester = '$semester'
+             AND grade.schoolyear = '$year'
+             AND grade.SubjName = '$subj'
+             ORDER BY FullName"
+        )->result();
 
         return $query;
     }
@@ -668,6 +757,73 @@ class Mdl_grade extends CI_Model
         return 'success';
     }
 
+    public function model_sv_std_voc_grades($nis, $year, $semester, $subj, $room, $value){
+        $schYear = '';
+
+        $time = date('d-m-Y');
+        $year = date('Y');
+
+        //VARIABLE FROM AJAX TEACHER-PERSONAL
+        $period = (isset($_POST['period']) ? $_POST['period'] : NULL);
+
+        if ($period === NULL) {
+            if (date('n', strtotime($time)) <= 6) {
+                $schYear = ($year - 1) . '/' . $year;
+            } else {
+                $schYear = $year . '/' . ($year + 1);
+            }
+        } else {
+            $schYear = $period;
+        }
+
+        $check = $this->db->get_where('tbl_09_det_voc_grades', [
+            'NIS' => $nis,
+            'Semester' => $semester,
+            'schoolyear' => $schYear,
+            'Room' => $room,
+            'SubjName' => $subj
+        ])->row();
+
+        if ($value == '') {
+            $value = NULL;
+        }
+
+        $this->db->trans_begin();
+
+        $meta_predicate = $this->db->select("Predicate, SKFirst, SKLast")->where("Maximum >= '$value' AND Minimum <= '$value'")->get('tbl_meta_predicate')->row();
+
+        if (empty($check)) {
+            $this->db->insert('tbl_09_det_voc_grades', [
+                'NIS' => $nis,
+                'FullName' => $this->db->select("CONCAT(FirstName,' ',LastName) AS FullName")->where('IDNumber', $nis)->get('tbl_07_personal_bio')->row()->FullName,
+                'Semester' => $semester,
+                'schoolyear' => $schYear,
+                'Class' => $this->db->select('Simplified')->where('RoomDesc', $room)->get('tbl_04_class_rooms_vocational')->row()->Simplified,
+                'Room' => $room,
+                'SubjName' => $subj,
+                'Report' => $value,
+                'Predicate' => $meta_predicate->Predicate,
+                'Description' => $meta_predicate->SKFirst .', '. $meta_predicate->SKLast
+            ]);
+        } else {
+            $this->db->update('tbl_09_det_voc_grades', [
+                'Report' => $value,
+                'Predicate' => $meta_predicate->Predicate,
+                'Description' => $meta_predicate->SKFirst .', '. $meta_predicate->SKLast
+            ], [
+                'NIS' => $nis,
+                'Semester' => $semester,
+                'schoolyear' => $schYear,
+                'Room' => $room,
+                'SubjName' => $subj
+            ]);
+        }
+
+        $this->db->trans_commit();
+
+        return ($this->db->trans_status() ? 'success' : $this->db->error());
+    }
+
     public function model_get_std_grades($nis)
     {
         $query = $this->db->query(
@@ -766,6 +922,30 @@ class Mdl_grade extends CI_Model
         return $query;
     }
 
+    public function model_get_voc_grade_compact($nis, $cls, $semester){
+        $schYear = '';
+
+        $time = date('d-m-Y');
+        $year = date('Y');
+
+        if (date('n', strtotime($time)) <= 6) {
+            $schYear = ($year - 1) . '/' . $year;
+        } else {
+            $schYear = $year . '/' . ($year + 1);
+        }
+
+        $query = $this->db->query(
+            "SELECT Report, Predicate, Description 
+             FROM tbl_09_det_voc_grades 
+             WHERE NIS = '$nis' 
+             AND Semester = '$semester' 
+             AND schoolyear = '$schYear' 
+             AND Class = '$cls'"
+        );
+
+        return ($query->num_rows() > 0 ? $query->row() : '');
+    }
+
     public function get_std_kd_det($nis, $subj, $semester)
     {
 
@@ -796,7 +976,6 @@ class Mdl_grade extends CI_Model
 
     public function get_std_exam_det($nis, $cls, $subj, $semester)
     {
-
         $schYear = '';
 
         $time = date('d-m-Y');
@@ -839,6 +1018,31 @@ class Mdl_grade extends CI_Model
              AND t1.SubjName = '$subj'
              GROUP BY t1.NIS"
         )->row();
+
+        return $query;
+    }
+
+    public function get_std_voc_det($nis, $cls, $subj, $semester){
+        $schYear = '';
+
+        $time = date('d-m-Y');
+        $year = date('Y');
+
+        if (date('n', strtotime($time)) <= 6) {
+            $schYear = ($year - 1) . '/' . $year;
+        } else {
+            $schYear = $year . '/' . ($year + 1);
+        }
+
+        $query = $this->db->query(
+            "SELECT Report, Predicate, Description
+             FROM tbl_09_det_voc_grades
+             WHERE NIS = '$nis'
+             AND Semester = '$semester'
+             AND schoolyear = '$schYear'
+             AND Class = '$cls'
+             AND SubjName = '$subj'"
+        );
 
         return $query;
     }
@@ -1033,9 +1237,6 @@ class Mdl_grade extends CI_Model
 
         /* RECAP AND SUMMARY START HERE */
 
-        //GET CLASS FOR tbl_05_subject_kd
-        $super_class = $this->db->get_where('tbl_03_class', ['ClassDesc' => $cls])->row();
-
         //UPDATE EACH KD's AVERAGE
         if ($type == 'cognitive') {
             $this->db->query(
@@ -1044,13 +1245,13 @@ class Mdl_grade extends CI_Model
                         IF(Grade1 IS NULL AND Grade2 IS NULL AND Grade3 IS NULL, NULL, 
                             CEIL(
                                 IF(Grade1 IS NULL, 0, 
-                                    Grade1 * (SELECT IF(Weight1 IS NULL, 0, Weight1) / 100 FROM tbl_05_subject_kd WHERE SubjName = '$subj' AND Classes = '$super_class->ClassRomanic' AND Type = '$type' AND Code = '$code' AND Semester = '$semester'))
+                                    Grade1 * (SELECT IF(Weight1 IS NULL, 0, Weight1) / 100 FROM tbl_05_subject_kd WHERE SubjName = '$subj' AND Classes = '$cls' AND Type = '$type' AND Code = '$code' AND Semester = '$semester'))
                                 +             
                                 IF(Grade2 IS NULL, 0, 
-                                    Grade2 * (SELECT IF(Weight2 IS NULL, 0, Weight2) / 100 FROM tbl_05_subject_kd WHERE SubjName = '$subj' AND Classes = '$super_class->ClassRomanic' AND Type = '$type' AND Code = '$code' AND Semester = '$semester'))
+                                    Grade2 * (SELECT IF(Weight2 IS NULL, 0, Weight2) / 100 FROM tbl_05_subject_kd WHERE SubjName = '$subj' AND Classes = '$cls' AND Type = '$type' AND Code = '$code' AND Semester = '$semester'))
                                 +
                                 IF(Grade3 IS NULL, 0, 
-                                    Grade3 * (SELECT IF(Weight3 IS NULL, 0, Weight3) / 100 FROM tbl_05_subject_kd WHERE SubjName = '$subj' AND Classes = '$super_class->ClassRomanic' AND Type = '$type' AND Code = '$code' AND Semester = '$semester'))
+                                    Grade3 * (SELECT IF(Weight3 IS NULL, 0, Weight3) / 100 FROM tbl_05_subject_kd WHERE SubjName = '$subj' AND Classes = '$cls' AND Type = '$type' AND Code = '$code' AND Semester = '$semester'))
                             )
                         )
                  WHERE NIS = '$nis' 
@@ -1329,18 +1530,48 @@ class Mdl_grade extends CI_Model
             "SELECT t1.Degree FROM tbl_05_subject_weight t1
              LEFT JOIN tbl_04_class_rooms t2
              ON t1.Degree = t2.Type
-             WHERE t1.Degree = '$degree'"
+             LEFT JOIN tbl_04_class_rooms t3
+             ON t1.Degree = t3.Type
+             WHERE t1.Degree = '$degree'
+             GROUP BY t1.Degree"
         )->result();
 
         //INSERT NEW IF EMPTY, AND UPDATE IF DATA ALREADY EXISTS
         if (empty($check)) {
+            //Get class list
+            $list = $this->db->query(
+                "SELECT RoomDesc, ClassNumeric 
+                 FROM tbl_04_class_rooms AS rooms
+                 LEFT JOIN tbl_03_class AS class
+                 USING(ClassID)
+                 UNION ALL 
+                 SELECT RoomDesc, ClassNumeric
+                 FROM tbl_04_class_rooms_vocational AS rooms
+                 LEFT JOIN tbl_03_b_class_vocational AS class
+                 ON class.ClassDesc = rooms.Simplified
+                 ORDER BY ClassNumeric"
+            )->row_array();
+
             $this->db->query(
-                "INSERT INTO tbl_05_subject_weight (Degree, Class, SubjName, $field)
-                 SELECT t2.Type, t2.RoomDesc, t3.SubjName, '$value'
-                 FROM tbl_04_class_rooms t2 
-                 CROSS JOIN tbl_05_subject t3
-                 WHERE t2.Type = '$degree'
-                 AND t3.SubjName NOT IN ('-','None','ELECTIVE','EXCUL')"
+                "INSERT INTO tbl_05_subject_weight 
+                 (Degree, Class, SubjName, $field)
+                 SELECT rooms.Type, rooms.RoomDesc, subj.SubjName, $value
+                 FROM tbl_04_class_rooms AS rooms
+                 LEFT JOIN tbl_03_class AS class
+                    USING(ClassID)
+                 LEFT JOIN tbl_05_subject AS subj
+                 	ON subj.Degree = rooms.Type
+                 WHERE rooms.Type = '$degree'
+                 AND subj.SubjName NOT IN('','-','None','ELECTIVE','EXCUL','0')
+                 UNION ALL
+                 SELECT rooms.Type, rooms.RoomDesc, subj.SubjName, $value
+                 FROM tbl_04_class_rooms_vocational AS rooms
+                 LEFT JOIN tbl_03_b_class_vocational AS class
+                    ON class.ClassDesc = rooms.Simplified
+                 LEFT JOIN tbl_05_subject AS subj
+                 	ON subj.Degree = rooms.Type
+                 WHERE rooms.Type = '$degree'
+                 AND subj.SubjName NOT IN('','-','None','ELECTIVE','EXCUL','0')"
             );
         } else {
             $this->db->update(
@@ -1494,7 +1725,8 @@ class Mdl_grade extends CI_Model
              AND t1.Semester = '$semester'
              AND t1.NIS = '$nis'
              AND t1.schoolyear = '$schYear'
-             AND t2.Type = 'cognitive'"
+             AND t2.Type = 'cognitive'
+             GROUP BY t1.SubjName"
         );
 
         $score = 0;

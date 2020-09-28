@@ -21,6 +21,50 @@ $(document).ready(function () {
 			});
 		}
 
+		$.ajax({
+			url: 'ajax_get_school_event',
+			dataType: 'JSON',
+			success: response => {
+				let obj = []
+				for (let key in response) {
+					obj.push({
+						name: response[key].Title,
+						startDate: new Date(response[key].DateStart),
+						endDate: new Date(response[key].DateEnd),
+					})
+				}
+
+				new Calendar('.calendar', {
+					dataSource: obj,
+					mouseOnDay: function (e) {
+						if (e.events.length > 0) {
+							var content = '';
+
+							for (var i in e.events) {
+								content += '<div class="event-tooltip-content">' +
+									'<div class="event-name" style="color:' + e.events[i].color + '">' + e.events[i].name + '</div>';
+							}
+
+							$(e.element).popover({
+								trigger: 'manual',
+								container: 'body',
+								html: true,
+								content: content
+							});
+
+							$(e.element).popover('show');
+						}
+					},
+					mouseOutDay: function (e) {
+						if (e.events.length > 0) {
+							$(e.element).popover('hide');
+						}
+					},
+				})
+			},
+			error: err => console.log(err)
+		})
+
 		//SELECT NON REGULAR SUBJECT ON SCHEDULE
 		// $('.btn_nonregular').click(function () {
 		// 	let nonregular = $(this).attr('data-type')
@@ -137,6 +181,7 @@ $(document).ready(function () {
 					$('.skills_report_tbody').html(data.SK)
 					$('.soc_report_tbody').html(data.SOC)
 					$('.spr_report_tbody').html(data.SPR)
+					$('.voc_report_tbody').html(data.VOC)
 
 					//ABSENCE
 					$('.abs_tbody').html(data.ABS)

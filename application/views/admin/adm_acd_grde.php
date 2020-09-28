@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-1">
-                        <div class="form-group form-md-line-input form-md-floating-label has-info">
+                        <div class="form-group form-md-line-input has-info">
                             <select class="form-control edited by_cls">
                                 <?php foreach ($rooms as $row) : ?>
                                     <option class="sbold" value="<?= $row->RoomDesc ?>"> <?= $row->RoomDesc ?> </option>
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group form-md-line-input form-md-floating-label has-info">
+                        <div class="form-group form-md-line-input has-info">
                             <select class="form-control edited by_year">
                                 <?php foreach($period as $period_cog) : ?>
                                     <option value="<?=$period_cog->schoolyear?>" data-semester="<?= $period_cog->Semester?>"><?= 'Semester ' . ($period_cog->Semester == 1 ? 'Ganjil' : 'Genap') .' - '. $period_cog->schoolyear ?></option>
@@ -102,7 +102,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-1">
-                        <div class="form-group form-md-line-input form-md-floating-label has-info">
+                        <div class="form-group form-md-line-input has-info">
                             <select class="form-control edited by_cls">
                                 <?php foreach ($rooms as $row) : ?>
                                     <option class="sbold" value="<?= $row->RoomDesc ?>"> <?= $row->RoomDesc ?> </option>
@@ -112,7 +112,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group form-md-line-input form-md-floating-label has-info">
+                        <div class="form-group form-md-line-input has-info">
                             <select class="form-control edited by_year">
                                 <?php foreach($period as $period_sk) : ?>
                                     <option value="<?=$period_sk->schoolyear?>" data-semester="<?=$period_sk->Semester?>"><?= 'Semester ' . ($period_sk->Semester == 1 ? 'Ganjil' : 'Genap') .' - '. $period_sk->schoolyear ?></option>
@@ -179,7 +179,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-1">
-                        <div class="form-group form-md-line-input form-md-floating-label has-info">
+                        <div class="form-group form-md-line-input has-info">
                             <select class="form-control edited by_cls">
                                 <?php foreach ($rooms as $row) : ?>
                                     <option class="sbold" value="<?= $row->RoomDesc ?>"> <?= $row->RoomDesc ?> </option>
@@ -189,7 +189,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group form-md-line-input form-md-floating-label has-info">
+                        <div class="form-group form-md-line-input has-info">
                             <select class="form-control edited by_year">
                                 <?php foreach($period as $period_char) : ?>
                                     <option value="<?=$period_char->schoolyear?>" data-semester="<?= $period_char->Semester ?>"><?= 'Semester ' . ($period_char->Semester == 1 ? 'Ganjil' : 'Genap') .' - '. $period_char->schoolyear ?></option>
@@ -260,35 +260,90 @@
                                     <div class="portlet light portlet-fit">
                                         <div class="portlet-body" style="padding-left: 0px; padding-right: 0px">
                                             <div class="table-scrollable">
-                                                <div class="table-scrollable">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <td colspan="2" class="text-center"><b>NOMOR</b></td>
-                                                                <td rowspan="2" class="text-center"><b>NAMA</b></td>
-                                                                <td colspan="5" class="text-center"><b>PENILAIAN SIKAP SPIRITUAL</b></td>
-                                                                <td rowspan="2" class="sbold text-center">NILAI</td>
-                                                                <td rowspan="2" class="sbold text-center">PREDIKAT</td>
-                                                                <td rowspan="2" class="sbold text-center">DESKRIPSI</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td rowspan="4" class="text-center"><b> URT </b></td>
-                                                                <td rowspan="4" class="text-center"><b> INDUK </b></td>
-                                                                <?php foreach ($spirit as $spirit) : ?>
-                                                                    <td><b><?= $spirit->Description ?></b></td>
-                                                                <?php endforeach; ?>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="tbody_spr">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <td colspan="2" class="text-center"><b>NOMOR</b></td>
+                                                            <td rowspan="2" class="text-center"><b>NAMA</b></td>
+                                                            <td colspan="5" class="text-center"><b>PENILAIAN SIKAP SPIRITUAL</b></td>
+                                                            <td rowspan="2" class="sbold text-center">NILAI</td>
+                                                            <td rowspan="2" class="sbold text-center">PREDIKAT</td>
+                                                            <td rowspan="2" class="sbold text-center">DESKRIPSI</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td rowspan="4" class="text-center"><b> URT </b></td>
+                                                            <td rowspan="4" class="text-center"><b> INDUK </b></td>
+                                                            <?php foreach ($spirit as $spirit) : ?>
+                                                                <td><b><?= $spirit->Description ?></b></td>
+                                                            <?php endforeach; ?>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="tbody_spr">
 
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL FULL GRADE DETAILS (PRAKERIN/UKK) -->
+<div id="responsive" class="modal fade in full_details_voc" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="width: 65%;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #2f373e">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title opt_title" style="color: white">PRAKERIN/UKK</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group form-md-line-input has-info">
+                            <select class="form-control edited by_cls">
+                                <?php foreach ($rooms_voc as $row) : ?>
+                                    <option class="sbold" value="<?= $row->RoomDesc ?>"> <?= $row->RoomDesc ?> </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <label for="form_control_1">Select Class</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-md-line-input has-info">
+                            <select class="form-control edited by_year">
+                                <?php foreach($period as $period_char) : ?>
+                                    <option value="<?=$period_char->schoolyear?>" data-semester="<?= $period_char->Semester ?>"><?= 'Semester ' . ($period_char->Semester == 1 ? 'Ganjil' : 'Genap') .' - '. $period_char->schoolyear ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <label for="form_control_1">Select Year</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-scrollable">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <td class="text-center text-center"><b>NOMOR</b></td>
+                                        <td class="text-center text-center sbold"><b>ID</b></td>
+                                        <td class="text-center text-center"><b>NAMA</b></td>
+                                        <td class="text-center text-center"><b>NILAI</b></td>
+                                        <td class="text-center text-center sbold"><b>PREDICATE</b></td>
+                                        <td class="text-center text-center sbold"><b>DESCRIPTION</b></td>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody_voc">
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -1005,6 +1060,13 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
+                                <table class="table table-light table-hover">
+                                    <thead class="report_voc">
+                                        
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="col-lg-12">
                                 <div class="col-sm-6">
                                     <table class="table table-light table-striped table-hover">
                                         <thead>
@@ -1103,6 +1165,10 @@
                                                 <a data-toggle="tab" href="#tab_5-5" aria-expanded="true">
                                                     <i class="fa fa-trophy"></i> Achievement </a>
                                             </li> -->
+                                            <li class="">
+                                                <a data-toggle="tab" href="#tab_5-5" aria-expanded="true">
+                                                    <i class="fa fa-book"></i> Prakerin/UKK (SMK) </a>
+                                            </li>
                                             <li class="">
                                                 <a data-toggle="tab" href="#tab_6-6" aria-expanded="true">
                                                     <i class="fa fa-list-ol"></i> Absence </a>
@@ -1269,27 +1335,13 @@
                                                             <table class="table table-hover table-light">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th> # </th>
-                                                                        <th> Achievement </th>
+                                                                        <th> Grade </th>
+                                                                        <th> Predicate </th>
                                                                         <th> Description </th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody class="skills_report_tbody">
-                                                                    <tr>
-                                                                        <td width="5%">1</td>
-                                                                        <td>...</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td width="5%">2</td>
-                                                                        <td>...</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td width="5%">3</td>
-                                                                        <td>...</td>
-                                                                        <td></td>
-                                                                    </tr>
+                                                                <tbody class="voc_report_tbody">
+                                                                    
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -1362,7 +1414,7 @@
                                     <h2 for="form_control_1"> Select Class </h2>
                                     <select class="form-control kd_classes" id="form_control_1" style="width: 50%">
                                         <?php foreach ($class as $row) : ?>
-                                            <option value="<?= $row->ClassRomanic ?>"> <?= $row->ClassRomanic  ?> </option>
+                                            <option value="<?= $row->ClassDesc ?>"> <?= $row->ClassDesc  ?> </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

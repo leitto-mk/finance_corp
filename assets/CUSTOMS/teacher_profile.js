@@ -4,6 +4,7 @@ $(document).ready(function () {
 
 		//EXECUTE LOAD ON START
 		get_student($('.compact_rooms').first().val())
+		getStudentReports()
 
 		//OPEN PROFILE FROM NAV-BAR
 		$('.nav_profile').click(function () {
@@ -35,17 +36,6 @@ $(document).ready(function () {
 			}
 
 			let date = $('#attd_absent_compact').val()
-
-			console.table({
-				semester,
-				period,
-				attd_room,
-				checked,
-				reason,
-				subj,
-				time,
-				date
-			})
 
 			submit_attendance(semester, period, attd_room, checked, reason, subj, time, date)
 		})
@@ -224,85 +214,94 @@ $(document).ready(function () {
 		}
 
 		//GET TABLE STUDENTS GRADE REPORTS
-		$('#student_reports').DataTable({
-			destroy: true,
-			processing: true,
-			serverSide: true,
-			lengthMenu: [10, 25, 50, 500],
-			ajax: {
-				url: 'ajx_datatable_get_student_reports',
-				method: 'GET',
-				dataSrc: response => {
-					let index = 1
-					for (let i in response.data) {
-						//Put New Object
-						response.data[i].Number = index
-						index++
-					}
+		function getStudentReports() {
+			$('#student_reports').DataTable({
+				destroy: true,
+				processing: true,
+				serverSide: true,
+				lengthMenu: [10, 25, 50, 500],
+				ajax: {
+					url: 'ajx_datatable_get_student_reports',
+					method: 'GET',
+					dataSrc: response => {
+						let index = 1
+						for (let i in response.data) {
+							//Put New Object
+							response.data[i].Number = index
+							index++
+						}
 
-					return response.data
+						return response.data
+					},
+					error: response => {
+						alert("CANNOT RETRIEVE DATA FROM SERVER")
+						console.log('%' + response.responseText, 'color: #fe346e')
+					}
 				},
-				error: response => {
-					alert("CANNOT RETRIEVE DATA FROM SERVER")
-					console.log('%' + response.responseText, 'color: #fe346e')
-				}
-			},
-			columns: [{
-					data: 'Number',
-					orderable: false,
-				},
-				{
-					data: 'IDNumber',
-					orderable: true,
-				},
-				{
-					data: 'FullName',
-					orderable: true,
-				},
-				{
-					data: 'Kelas',
-					orderable: false,
-					createdCell: response => response.setAttribute('align', 'center')
-				},
-				{
-					data: 'Ruangan',
-					orderable: false,
-					createdCell: response => response.setAttribute('align', 'center')
-				},
-				{
-					data: response => `
-						<a href="javascript:;"
-							class="std_assign btn blue btn-xs btn-outline"
-							data-name="${response.FullName}"
-							data-id="${response.IDNumber}"
-							data-cls="${response.Kelas}"
-							data-room="${response.Ruangan}">
-							<i class="fa fa-check"></i> Assign </a>
-						<div class="btn-group pull-right" style="margin-top: 0px">
-							<button class="btn green btn-xs btn-outline dropdown-toggle" data-toggle="dropdown" id="btn_report">Reports
-								<i class="fa fa-angle-down"></i>
-							</button>
-							<ul class="dropdown-menu pull-right">
-								<li>
-									<a href="javascript:;" target="_blank" 
-										class="print_mid"
-										data-id="${response.IDNumber}"
-										data-cls="${response.Kelas}">
-										<i class="fa fa-print"></i> Mid Report </a>
-								</li>
-								<li>
-									<a href="javascript:;" target="_blank" 
-										class="print_final"
-										data-id="${response.IDNumber}"
-										data-cls="${response.Kelas}">
-										<i class="fa fa-print"></i> Final Report </a>
-								</li>
-							</ul>
-						</div>`,
-					orderable: false
-				}
-			]
-		})
+				columns: [{
+						data: 'Number',
+						orderable: false,
+					},
+					{
+						data: 'IDNumber',
+						orderable: true,
+					},
+					{
+						data: 'FullName',
+						orderable: true,
+					},
+					{
+						data: 'Kelas',
+						orderable: false,
+						createdCell: response => response.setAttribute('align', 'center')
+					},
+					{
+						data: 'Ruangan',
+						orderable: false,
+						createdCell: response => response.setAttribute('align', 'center')
+					},
+					{
+						data: response => `
+							<a href="javascript:;"
+								class="std_assign btn blue btn-xs btn-outline"
+								data-name="${response.FullName}"
+								data-id="${response.IDNumber}"
+								data-cls="${response.Kelas}"
+								data-room="${response.Ruangan}">
+								<i class="fa fa-check"></i> Assign </a>
+							<a href="javascript:;"
+								class="promote btn purple-studio btn-xs btn-outline"
+								data-name="${response.FullName}"
+								data-id="${response.IDNumber}"
+								data-cls="${response.Kelas}"
+								data-room="${response.Ruangan}">
+								<i class="fa fa-toggle-up"></i> Promote </a>
+							<div class="btn-group pull-right" style="margin-top: 0px">
+								<button class="btn green btn-xs btn-outline dropdown-toggle" data-toggle="dropdown" id="btn_report">Reports
+									<i class="fa fa-angle-down"></i>
+								</button>
+								<ul class="dropdown-menu pull-right">
+									<li>
+										<a href="javascript:;" target="_blank" 
+											class="print_mid"
+											data-id="${response.IDNumber}"
+											data-cls="${response.Kelas}">
+											<i class="fa fa-print"></i> Mid Report </a>
+									</li>
+									<li>
+										<a href="javascript:;" target="_blank" 
+											class="print_final"
+											data-id="${response.IDNumber}"
+											data-cls="${response.Kelas}">
+											<i class="fa fa-print"></i> Final Report </a>
+									</li>
+								</ul>
+							</div>`,
+						orderable: false
+					}
+				]
+			})
+		}
 
 		function getNonRegular(type) {
 			$.ajax({
@@ -420,6 +419,36 @@ $(document).ready(function () {
 			})
 		})
 
+		//PROMOTE STUDENT TO NEXT CLASS
+		$('#student_reports').on('click', '.promote', function () {
+			let id = $(this).attr('data-id')
+			let cls = $(this).attr('data-cls')
+			let room = $(this).attr('data-room')
+
+			let promote = confirm("Promote this student ?")
+
+			if (promote) {
+				$.ajax({
+					url: 'ajax_promote_student',
+					method: 'POST',
+					data: {
+						id,
+						cls,
+						room
+					},
+					success: response => {
+						if (response == 'success') {
+							alert("Student has been promoted to upper class")
+							getStudentReports()
+						} else {
+							console.log(response)
+						}
+					},
+					error: err => console.log(err.responseText)
+				})
+			}
+		})
+
 		//DISPLAY PRINT MID SEMESTER RESULT
 		$('#student_reports').on('click', '.print_mid', function (e) {
 			e.preventDefault()
@@ -513,6 +542,56 @@ $(document).ready(function () {
 		//EXECUTE mid_recap
 		mid_recap()
 
+		//GET CALENDAR
+		$.ajax({
+			url: 'ajax_get_school_event',
+			dataType: 'JSON',
+			success: response => {
+				let obj = []
+				for (let key in response) {
+					obj.push({
+						name: response[key].Title,
+						startDate: new Date(response[key].DateStart),
+						endDate: new Date(response[key].DateEnd),
+						color: response[key].Color
+					})
+				}
+
+				new Calendar('.calendar', {
+					dataSource: obj,
+					mouseOnDay: function (e) {
+						if (e.events.length > 0) {
+							var content = '';
+
+							for (var i in e.events) {
+								content += `
+									<div class="event-tooltip-content">
+										<div class="event-name" style="color: ${e.events[i].color}">${e.events[i].name}</div>`;
+							}
+
+							$(e.element).popover({
+								trigger: 'manual',
+								container: 'body',
+								html: true,
+								content: content
+							});
+
+							$(e.element).popover('show');
+						}
+					},
+					mouseOutDay: function (e) {
+						if (e.events.length > 0) {
+							$(e.element).popover('hide');
+						}
+					},
+					style: 'background',
+					displayWeekNumber: true
+				})
+			},
+			error: err => console.log(err)
+		})
+
+
 		//================================================================================================\\
 		//										MODAL PROFILE SECTION
 		//================================================================================================\\
@@ -564,9 +643,15 @@ $(document).ready(function () {
 		//================================================================================================\\
 
 		//GET ACADEMIC DETAILS ON MODAL OPEN
-		$('a[href="#full2"]').click(() => get_full_acd_detail())
-		$('.full2 .selected_period').change(() => get_full_acd_detail())
-		$('.full2 .attd_rooms').change(() => get_full_acd_detail())
+		$('a[href="#full2"]').click(() => {
+			get_full_acd_detail()
+			get_voc_grading()
+		})
+
+		$('#grades').on('change', 'select', () => get_full_acd_detail())
+		$('#voc').on('change', 'select', () => get_voc_grading())
+
+		$('#absent > select').change(() => get_full_acd_detail())
 
 		//GET FULL GRADING ONLY
 		$('.selected_rooms, .selected_subj').change(() => get_full_grading())
@@ -660,9 +745,9 @@ $(document).ready(function () {
 			let semester = $('.selected_period option:selected').attr('data-sem')
 			let period = $('.selected_period option:selected').attr('data-period')
 
-			let room = $('.selected_rooms').val()
-			let subj = $('.selected_subj').val()
-			let type = $('input[name="grade_type"]:checked').val()
+			let room = $('#grades .selected_rooms').val()
+			let subj = $('#grades .selected_subj').val()
+			let type = $('#grades input[name="grade_type"]:checked').val()
 
 			let method = '';
 			if (type == 'cognitive') {
@@ -1019,6 +1104,76 @@ $(document).ready(function () {
 						}
 					})
 				}
+			}
+		})
+
+		/* 
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+							VOC GRADING SCRIPT
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+		*/
+
+		function get_voc_grading() {
+			let semester = $('.selected_period option:selected').attr('data-sem')
+			let period = $('.selected_period option:selected').attr('data-period')
+
+			let room = $('#voc .selected_voc_rooms').val()
+			let subj = $('#voc .selected_voc_subj').val()
+
+			$.ajax({
+				url: 'get_full_table_grading_voc',
+				method: 'POST',
+				data: {
+					semester,
+					period,
+					room,
+					subj
+				},
+				success: response => {
+					if (response) {
+						$('#voc tbody').html(response)
+					} else {
+						$('#voc tbody').html('<tr><td class="text-center sbold" colspan="6">No Date for this Semester</td></tr>')
+					}
+				},
+				error: err => console.log(err.responseText)
+			})
+		}
+
+		$('#voc').on('keypress', '.voc_grade_row', function (e) {
+			if (e.keyCode == 13) {
+				e.preventDefault()
+
+				let semester = $('.selected_period option:selected').attr('data-sem')
+				let period = $('.selected_period option:selected').attr('data-period')
+				let room = $('.selected_voc_rooms').val()
+				let subj = $('.selected_voc_subj').val()
+				let nis = $(this).siblings().eq(1).text()
+				let val = $(this).text()
+				val = val.replace(/\s+/g, '')
+
+				$.ajax({
+					url: 'sv_std_voc_grades',
+					method: 'POST',
+					data: {
+						semester,
+						period,
+						room,
+						subj,
+						nis,
+						val
+					},
+					success: response => {
+						if (response == 'success') {
+							get_voc_grading()
+						} else if (response == 'INVALID_PERIOD') {
+							alert("CANNOT UPDATE OLDER SEMESTER")
+						} else {
+							console.log(response)
+						}
+					},
+					error: err => console.log(err.responseText)
+				})
 			}
 		})
 

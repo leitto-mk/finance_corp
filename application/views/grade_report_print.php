@@ -258,6 +258,38 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                     </table>
                                 </div>
+                                <div class="col-md-12" style="margin-top: 15px">
+                                    <?php if($voc->num_rows() > 0 && $this->session->userdata('semester') == 2): ?>
+                                        <?php 
+                                            $result_voc = $voc->row(); 
+
+                                            if ($result_voc->Predicate == 'A') {
+                                                $col_voc = '#5edfff';
+                                            } elseif ($result_voc->Predicate == 'B') {
+                                                $col_voc = '#71a95a';
+                                            } elseif ($result_voc->Predicate == 'C') {
+                                                $col_voc = '#fbe555';
+                                            } elseif ($result_voc->Predicate == 'D') {
+                                                $col_voc = '#fb5b5a';
+                                            }
+                                        ?>
+                                        <table class="table table-striped table-hover">
+                                            <thead class="report_voc">
+                                                <tr style="background-color: #bac3d0">    
+                                                    <th class="text-center" rowspan="2" >PRAKERIN/UKK</th>    
+                                                    <th class="text-center"> NILAI</th>    
+                                                    <th class="text-center"> PREDIKAT</th>    
+                                                    <th class="text-center"> DESKRIPSI</th>
+                                                </tr>
+                                                <tr>    
+                                                    <td class="text-center sbold"><?= $result_voc->Report?></td>    
+                                                    <td class="text-center sbold" style="color: <?= $col_voc ?>"><?= $result_voc->Predicate?></td>    
+                                                    <td class="text-center"><?= $result_voc->Description?></td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    <?php endif; ?>
+                                </div>
                                 <div class="col-xs-12" style="margin-top: 15px">
                                     <table>
                                         <thead>

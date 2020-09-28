@@ -36,7 +36,7 @@ $(document).ready(function () {
         var ach_year; var sponsor; var ach_rank; var scholarship; var scholardesc; var scholarstart; var scholarfinish; var prosperity; var prospernumber; var prospernametag;
 
         //TAB 3
-        var competition; var registration; var nis; var schoolstarts; var previousschool; var unnumber; var diploma; var skhun;
+        var competition; var registration; var nis; var applying; var schoolstarts; var previousschool; var unnumber; var diploma; var skhun;
 
         //FORM VALIDATION SCRIPT
         $('input[type="text"], input[type="date"], input[type="number"], select option:selected').focusout(function () {
@@ -161,6 +161,7 @@ $(document).ready(function () {
             competition = $('input[name="competition"]').val();
             registration = $('input[name="registration"]:checked').val();
             nis = $('input[name="nis"]').val();
+            applying = $('[name="applying"]').val();
             schoolstarts = $('input[name="schoolstarts"]').val();
             previousschool = $('input[name="previousschool"]').val();
             unnumber = $('input[name="unnumber"]').val();
@@ -250,6 +251,7 @@ $(document).ready(function () {
             $('input[name="confirm_competition"]').val(`${competition}`);
             $(`input[name="confirm_registration"][value="${registration}"]`).attr('checked', 'checked');
             $('input[name="confirm_nis"]').val(`${nis}`);
+            $('input[name="confirm_applying"]').val(`${applying}`);
             $('input[name="confirm_schoolstarts"]').val(`${schoolstarts}`);
             $('input[name="confirm_previousschool"]').val(`${previousschool}`);
             $('input[name="confirm_unnumber"]').val(`${unnumber}`);
@@ -376,9 +378,8 @@ $(document).ready(function () {
 
                 if (result.value) {
                     $.ajax({
-                        url: enroll_confirmed,
+                        url: 'Enrollment/enroll_confirmed',
                         method: 'POST',
-                        datatype: 'JSON',
                         data: {
                             //TAB 1
                             fname, mname, lname, nname, gender, nisn, nik,
@@ -400,7 +401,7 @@ $(document).ready(function () {
                             scholarstart, scholarfinish, prosperity, prospernumber, prospernametag,
 
                             //TAB 3
-                            competition, registration, nis, schoolstarts, previousschool,
+                            competition, registration, nis, applying, schoolstarts, previousschool,
                             unnumber, diploma, skhun
                         },
                         success: function (data) {
@@ -411,15 +412,18 @@ $(document).ready(function () {
                                     text: 'Anda telah berhasil mendaftar lewat Sistem sekolah'
                                 })
                             } else {
-                                alert("SOMETHING'S WRONG");
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'Gagal mendaftarkan Diri Anda',
+                                    text: 'Pastikan Data yang anda masukan telah sesuai dengan form yang diminta'
+                                })
+
+                                console.log(data)
                             }
                         },
                         error: function (data) {
-                            Swal.fire({
-                                type: 'error',
-                                title: 'Gagal mendaftarkan Diri Anda',
-                                text: 'Pastikan Data yang anda masukan telah sesuai dengan form yang diminta'
-                            })
+                            alert("SOMETHING'S WRONG");
+                            console.log(data.responseText)
                         }
                     })
                 }

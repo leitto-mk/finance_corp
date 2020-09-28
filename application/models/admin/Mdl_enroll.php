@@ -12,7 +12,17 @@ class Mdl_enroll extends CI_Model
     {
         $room = $apply . 'C1';
 
-        $query = $this->db->query("SELECT RoomDesc FROM tbl_04_class_rooms WHERE ClassID LIKE '$room%'");
+        $query = $this->db->query(
+            "SELECT 
+                RoomDesc 
+             FROM tbl_04_class_rooms 
+             WHERE ClassID LIKE '$room%'
+             UNION ALL
+             SELECT 
+                RoomDesc
+             FROM tbl_04_class_rooms_vocational
+             WHERE ClassID LIKE '$room%'"
+        );
 
         return $query->result();
     }
@@ -22,9 +32,10 @@ class Mdl_enroll extends CI_Model
         extract($data);
 
         $result = $this->db->query("SELECT * FROM tbl_11_enrollment WHERE CtrlNo = '$uniq'")->row_array();
+        $ID = date('Y') . $this->session->userdata('semester') . $uniq;
 
         $transfer_bio = [
-            'IDNumber' => 'NEW_STD',
+            'IDNumber' => $ID,
             'PersonalID' => $result['NIK'],
             'FirstName' => $result['FirstName'],
             'MiddleName' => $result['MiddleName'],
@@ -62,7 +73,7 @@ class Mdl_enroll extends CI_Model
         )->row_array();
 
         $transfer_info = [
-            'NIS' => $newID,
+            'NIS' => $ID,
             'NISN' => $result['NISN'],
             'Kelas' => $class['Class'],
             'Ruangan' => $room,
@@ -109,9 +120,9 @@ class Mdl_enroll extends CI_Model
             'Sponsor' => $result['Sponsor'],
             'AchievementRank' => $result['AchievementRank'],
             'Scholarship' => $result['Scholarship'],
-            'ScholarDesc' => $result['ScholarDesc'],
-            'ScholarStart' => $result['ScholarStart'],
-            'ScholarFinish' => $result['ScholarFinish'],
+            'Scholardesc' => $result['Scholardesc'],
+            'Scholarstart' => $result['Scholarstart'],
+            'Scholarfinish' => $result['Scholarfinish'],
             'Prosperity' => $result['Prosperity'],
             'ProsperNumber' => $result['ProsperNumber'],
             'ProsperNameTag' => $result['ProsperNameTag'],
@@ -125,7 +136,7 @@ class Mdl_enroll extends CI_Model
         ];
 
         $credentials = [
-            'IDNumber' => $newID,
+            'IDNumber' => $ID,
             'status' => 'student',
             'password' => md5('123456')
         ];

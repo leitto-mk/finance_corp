@@ -54,6 +54,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="<?= base_url(); ?>assets/layouts/layout7/css/custom.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/global/plugins/cubeportfolio/css/cubeportfolio.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/pages/css/portfolio.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
 </head>

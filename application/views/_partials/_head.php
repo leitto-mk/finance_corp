@@ -72,6 +72,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="<?= base_url() ?>assets/CUSTOM-PLUGINS/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url() ?>assets/CUSTOM-PLUGINS/jqueryui-editable-1.5.1/css/jqueryui-editable.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url() ?>assets/CUSTOM-PLUGINS/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.css" />
     <!-- <link href="<?= base_url() ?>assets/CUSTOM-PLUGINS/interactive-toggle/dist/jquery.btnswitch.min.css" rel="stylesheet" type="text/css" /> -->
     <!-- <style>
         @media only screen and (max-width: 1366px) {

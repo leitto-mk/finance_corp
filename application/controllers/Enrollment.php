@@ -15,6 +15,7 @@ class Enrollment extends CI_Controller
     public function index()
     {
         $data['title'] = 'Form Registration';
+        $data['applying'] = $this->db->select('SchoolName, School_Desc')->where('isActive', 1)->get('tbl_02_school')->result();
 
         $this->load->view('auth/new_std_enroll', $data);
     }
@@ -22,7 +23,7 @@ class Enrollment extends CI_Controller
     public function enroll_confirmed()
     {
         $Birth =  date('Y-m-d', strtotime(strtr($_POST['tgllhr'], '/', '-')));
-        $SchoolStart = date('Y-m-d', strtotime(strtr($_POST['schoolstarts'], '/', '-')));
+        // $SchoolStart = date('Y-m-d', strtotime(strtr($_POST['schoolstarts'], '/', '-')));
 
         $data = [
             'FirstName' => $_POST['fname'],
@@ -93,7 +94,7 @@ class Enrollment extends CI_Controller
             'Sponsor' => $_POST['sponsor'],
             'AchievementRank' => $_POST['ach_rank'],
             'Scholarship' => $_POST['scholarship'],
-            'ScholarDesc' => $_POST['scholardesc'],
+            'Scholardesc' => $_POST['scholardesc'],
             'ScholarStart' => $_POST['scholarstart'],
             'ScholarFinish' => $_POST['scholarfinish'],
             'Prosperity' => $_POST['prosperity'],
@@ -101,7 +102,8 @@ class Enrollment extends CI_Controller
             'ProsperNameTag' => $_POST['prospernametag'],
             'Competition' => $_POST['competition'],
             'Registration' => $_POST['registration'],
-            'SchoolStarts' => $SchoolStart,
+            'Applying' => $_POST['applying'],
+            // 'SchoolStarts' => $SchoolStart,
             'PreviousSchool' => $_POST['previousschool'],
             'UNnumber' => $_POST['unnumber'],
             'Diploma' => $_POST['diploma'],

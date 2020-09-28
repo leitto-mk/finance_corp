@@ -142,14 +142,14 @@ class Mdl_nonstudent extends CI_Model
 		return [$queryTaught, $querySchedule];
 	}
 
-	public function get_teaching_schedule($id, $semester, $period)
+	public function get_teaching_schedule($id, $semester, $period, $room)
 	{
-
 		$query = $this->db->query(
 			"SELECT * FROM tbl_06_schedule 
 			 WHERE IDNumber = '$id'
 			 AND semester = '$semester'
 			 AND schoolyear = '$period'
+			 AND RoomDesc = '$room'
 			 ORDER BY FIELD(Days,'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'), Hour"
 		)->result();
 
@@ -165,14 +165,50 @@ class Mdl_nonstudent extends CI_Model
 			 JOIN tbl_03_class t3
 			 ON t1.Type = t3.Type AND t1.ClassID = t3.ClassID
 			 WHERE t2.isActive = 1
-			 ORDER BY t3.ClassNumeric, t1.RoomDesc"
+			 UNION ALL
+			 SELECT DISTINCT t3.ClassDesc, t1.RoomDesc FROM tbl_04_class_rooms_vocational t1
+			 JOIN tbl_02_school t2
+			 ON t1.Type = t2.School_Desc
+			 JOIN tbl_03_b_class_vocational t3
+			 ON t1.Simplified = t3.ClassDesc
+			 WHERE t2.isActive = 1
+             ORDER BY ClassDesc"
 		);
 
 		return $query;
 	}
 
-	public function get_full_table_grading()
-	{
+	public function get_active_voc_only_room(){
+		return $this->db->query(
+			"SELECT room.RoomDesc 
+			 FROM tbl_04_class_rooms_vocational AS room
+			 JOIN tbl_02_school AS school
+				ON school.School_Desc = room.Type
+			 WHERE school.isActive = 1
+			 AND room.ClassID != 'SMKC1'
+			 ORDER BY RoomDesc ASC"
+		)->result();
+	}
+
+	public function get_full_table_voc($semester, $period, $room, $subj){
+		$query = $this->db->query(
+            "SELECT 
+                std.NIS,
+                std.FullName,
+                voc.Report,
+                voc.Predicate,
+                voc.Description
+             FROM tbl_09_det_grades AS std
+             JOIN tbl_09_det_voc_grades AS voc
+                USING(NIS)
+             WHERE voc.Semester = '$semester'
+             AND voc.schoolyear = '$period'
+             AND voc.Room = '$room'
+             AND voc.SubjName = '$subj'
+             ORDER BY std.FullName"
+		)->result();
+		
+		return $query;
 	}
 
 	public function model_get_kd_details($room, $subj){
@@ -390,6 +426,90 @@ class Mdl_nonstudent extends CI_Model
 		}
 	}
 
+	public function promote_student($id, $cls, $room){
+		$this->db->trans_begin();
+
+        $degree = $this->db->query(
+            "SELECT 
+                ClassID, 
+                Type,
+                ClassNumeric 
+             FROM tbl_03_class 
+             WHERE ClassDesc = '$cls'
+             UNION ALL
+             SELECT 
+                ClassID, 
+                Type,
+                ClassNumeric
+             FROM tbl_03_b_class_vocational
+             WHERE ClassDesc = '$cls'"
+        )->row();
+
+        if($degree == 'SD'){
+            if($degree->ClassNumeric == 6){
+                $newcls = 'GRADUATED';
+                $newroom = 'GRADUATED';
+            }else{
+                $level = substr($degree->ClassID, 3, 1) + 1;
+                $newcls = str_replace(substr($degree->ClassID, 3, 1), $level, $degree->ClassID);
+				$newroom = 'SDR'.$level.'A';
+				
+				$newcls = $this->db->select('ClassDesc')->where('ClassID', $newcls)->get('tbl_03_class')->row()->ClassDesc;
+				$newroom = $this->db->select('RoomDesc')->where('RoomID', $newroom)->get('tbl_04_class_rooms')->row()->RoomDesc;
+            }
+        }elseif($degree->Type == 'SMP'){
+            if($degree->ClassNumeric == 9){
+                $newcls = 'GRADUATED';
+                $newroom = 'GRADUATED';
+            }else{
+                $level = substr($degree->ClassID, 4, 1) + 1;
+                $newcls = str_replace(substr($degree->ClassID, 4, 1), $level, $degree->ClassID);
+				$newroom = 'SMPR'.$level.'A';
+				
+				$newcls = $this->db->select('ClassDesc')->where('ClassID', $newcls)->get('tbl_03_class')->row()->ClassDesc;
+				$newroom = $this->db->select('RoomDesc')->where('RoomID', $newroom)->get('tbl_04_class_rooms')->row()->RoomDesc;
+            }
+        }elseif($degree->Type == 'SMA'){
+            if($degree->ClassNumeric == 12){
+                $newcls = 'GRADUATED';
+                $newroom = 'GRADUATED';
+            }else{
+                $level = substr($degree->ClassID, 4, 1) + 1;
+                $newcls = str_replace(substr($degree->ClassID, 4, 1), $level, $degree->ClassID);
+				$newroom = 'SMAR'.$level.''.substr($degree->ClassID, 5).'A';
+				
+				$newcls = $this->db->select('ClassDesc')->where('ClassID', $newcls)->get('tbl_03_class')->row()->ClassDesc;
+				$newroom = $this->db->select('RoomDesc')->where('RoomID', $newroom)->get('tbl_04_class_rooms')->row()->RoomDesc;
+            }
+        }elseif($degree->Type == 'SMK'){
+            $level = explode(' ', $cls);
+
+            if($level[0] == 'X'){
+                $newcls = 'XI'.' '.$level[1];
+                $newroom = 'XI'.' '.$level[1].' (A)';
+            }elseif($level[0] == 'XI'){
+                $newcls = 'XII'.' '.$level[1];
+                $newroom = 'XII'.' '.$level[1].' (A)';
+            }elseif($level[0] == 'XII'){
+                $newcls = 'GRADUATED';
+                $newroom = 'GRADUATED';
+            }
+        }
+
+        $result = $this->db->query(
+            "UPDATE tbl_08_job_info_std
+             SET 
+                Kelas = '$newcls',
+                Ruangan = '$newroom' 
+             WHERE NIS = '$id'
+             AND Ruangan = '$room'"
+        );
+
+        $this->db->trans_complete();
+
+        return ($this->db->trans_status() ? 'success' : $this->db->error());
+	}
+
 	public function model_get_absn_det($id, $semester, $period, $room)
 	{
 		$query = $this->db->query(
@@ -554,7 +674,7 @@ class Mdl_nonstudent extends CI_Model
 	{
 		extract($header);
 
-		$WHERE_NAME = ($search == '') ? '' : "WHERE t1.FirstNAme LIKE '$search%' OR t1.LastName LIKE '$search%' OR t1.IDNumber LIKE '$search%' OR t2.Kelas LIKE '$search%' OR t2.Ruangan LIKE '$search%'";
+		$WHERE_NAME = ($search == '') ? 'WHERE t1.FirstName IS NOT NULL' : "WHERE t1.FirstName LIKE '$search%' OR t1.LastName LIKE '$search%' OR t1.IDNumber LIKE '$search%' OR t2.Kelas LIKE '$search%' OR t2.Ruangan LIKE '$search%'";
 		$ORDER = ($order_by == 0) ? "FullName ASC" : "$order_by $order_dir";
 
 		$query = $this->db->query(
@@ -570,7 +690,20 @@ class Mdl_nonstudent extends CI_Model
              ON t2.Kelas = t3.ClassDesc
 			 $WHERE_NAME
 			 AND t2.Ruangan = (SELECT Homeroom FROM tbl_08_job_info WHERE IDNumber = '$id')
-			 ORDER BY t3.ClassNumeric, $ORDER
+			 UNION ALL
+			 SELECT 
+                t1.IDNumber,
+                CONCAT(t1.FirstName,' ',t1.LastName) As FullName,
+                t2.Kelas, 
+                t2.Ruangan 
+             FROM tbl_07_personal_bio t1
+             JOIN tbl_08_job_info_std t2
+			 ON t1.IDNumber = t2.NIS
+			 JOIN tbl_03_b_class_vocational t4
+			 ON t2.Kelas = t4.ClassDesc
+			 $WHERE_NAME
+			 AND t2.Ruangan = (SELECT Homeroom FROM tbl_08_job_info WHERE IDNumber = '$id')
+			 ORDER BY $ORDER
 			 LIMIT $limit OFFSET $start"
 		);
 
@@ -587,7 +720,20 @@ class Mdl_nonstudent extends CI_Model
              ON t2.Kelas = t3.ClassDesc
 			 $WHERE_NAME
 			 AND t2.Ruangan = (SELECT Homeroom FROM tbl_08_job_info WHERE IDNumber = '$id')
-			 ORDER BY t3.ClassNumeric, $ORDER"
+			 UNION ALL
+			 SELECT 
+                t1.IDNumber,
+                CONCAT(t1.FirstName,' ',t1.LastName) As FullName,
+                t2.Kelas, 
+                t2.Ruangan 
+             FROM tbl_07_personal_bio t1
+             JOIN tbl_08_job_info_std t2
+			 ON t1.IDNumber = t2.NIS
+			 JOIN tbl_03_b_class_vocational t4
+			 ON t2.Kelas = t4.ClassDesc
+			 $WHERE_NAME
+			 AND t2.Ruangan = (SELECT Homeroom FROM tbl_08_job_info WHERE IDNumber = '$id')
+			 ORDER BY $ORDER"
 		)->num_rows();
 
 		return [$query, $total];

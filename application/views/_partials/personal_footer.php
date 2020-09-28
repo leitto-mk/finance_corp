@@ -48,6 +48,7 @@
 <script src="<?= base_url(); ?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/global/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/pages/scripts/portfolio-1.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.js"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <!-- CUSTOM SCRIPTS -->

@@ -92,6 +92,19 @@
                                                     <option id="marital" value="Duda/Janda">Widower</option>
                                                 </select>
                                             </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Religion</label>
+                                                <select name="Religion" class="form-control" name="Religion" id="Religion">
+                                                    <option value="-">-- Choose --</option>
+                                                    <option value="Budha" selected>Budha</option>
+                                                    <option value="Hindu">Hindu</option>
+                                                    <option value="Islam">Islam</option>
+                                                    <option value="Katolik">Katholik</option>
+                                                    <option value="Kong Hu Cu">Kong Hu Cu</option>
+                                                    <option value="Kristen">Kristen</option>
+                                                    <option value="Advent">Advent</option>
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="col-md-5">
                                             <div class="row">

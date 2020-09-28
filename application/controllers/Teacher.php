@@ -44,6 +44,7 @@ class Teacher extends CI_Controller
             //MODAL AKADEMIK
             'period' => $this->Mdl_nonstudent->get_period($this->session->userdata('id')),
             'rooms' => $this->Mdl_nonstudent->get_active_room()->result(),
+            'voc_rooms' => $this->Mdl_nonstudent->get_active_voc_only_room(),
             'taught' => $taught
         ];
 
@@ -86,11 +87,12 @@ class Teacher extends CI_Controller
         $i = 1;
         $sch = '';
         foreach ($sch_room as $row) {
+            $room = $row->RoomDesc;
             $sch .= '<tr>';
             $sch .= '    <td colspan="5" class="sbold uppercase" style="background-color: #FAFAFA; padding-left: 15px"> ' . $row->RoomDesc . ' </td>';
             $sch .= '</tr>';
 
-            $sch_full = $this->Mdl_nonstudent->get_teaching_schedule($id, $semester, $period);
+            $sch_full = $this->Mdl_nonstudent->get_teaching_schedule($id, $semester, $period, $room);
 
             foreach ($sch_full as $dat) {
                 if ($dat->Days == 'Senin') {
@@ -780,6 +782,30 @@ class Teacher extends CI_Controller
         echo json_encode($response);
     }
 
+    public function get_full_table_grading_voc(){
+        $semester = $_POST['semester'];
+        $period = $_POST['period'];
+        $room = $_POST['room'];
+        $subj = $_POST['subj'];
+
+        $result = $this->Mdl_nonstudent->get_full_table_voc($semester, $period, $room, $subj);
+
+        $html = '';
+        $i = 1;
+        foreach($result as $row){
+            $html .= '<tr>';
+            $html .= '   <td width="1%">'.$i.'</td>';
+            $html .= '   <td class="text-center sbold" width="1%">'.$row->NIS.'</td>';
+            $html .= '   <td class="sbold" width="15%">'.$row->FullName.'</td>';
+            $html .= '   <td class="text-center voc_grade_row" contenteditable="true" width="5%">'.$row->Report.'</td>';
+            $html .= '   <td class="text-center sbold "width="5%">'.$row->Predicate.'</td>';
+            $html .= '   <td width="25%">'.$row->Description.'</td>';
+            $html .= '</td>';
+        }
+
+        echo $html;
+    }
+
     public function get_full_table_grading_character()
     {
         $room = $_POST['cls'];
@@ -948,6 +974,26 @@ class Teacher extends CI_Controller
         echo $result;
     }
 
+    public function sv_std_voc_grades(){
+        $nis = $_POST['nis'];
+        $semester = $_POST['semester'];
+        $year = $_POST['period'];
+        $room = $_POST['room'];
+        $subj = $_POST['subj'];
+        $value = $_POST['val'];
+
+        $current_period = $this->session->userdata('period');
+        $current_semester = $this->session->userdata('semester');
+
+        if($year == $current_period && $semester == $current_semester){
+            $result = $this->Mdl_grade->model_sv_std_voc_grades($nis, $year, $semester, $subj, $room, $value);
+        }else{
+            $result = 'INVALID_PERIOD';
+        }
+
+        echo $result;
+    }
+
     public function sv_std_char_grades()
     {
         $nis = $_POST['nis'];
@@ -1014,6 +1060,27 @@ class Teacher extends CI_Controller
         $room = $_POST['room'];
 
         $result = $this->Mdl_nonstudent->model_get_absn_det($id, $semester, $period, $room);
+
+        echo json_encode($result);
+    }
+
+    public function ajax_promote_student(){
+        $id = $_POST['id'];
+        $cls = $_POST['cls'];
+        $room = $_POST['room'];
+
+        echo $this->Mdl_nonstudent->promote_student($id, $cls, $room);
+    }
+
+    public function ajax_get_school_event(){
+        $start = date('Y-01-01');
+        $end = date('Y-12-31');
+
+        $result = $this->db->query(
+            "SELECT Title, DateStart, DateEnd, Color FROM tbl_13_calendar
+             WHERE DateStart >= '$start'
+             AND DateEnd <= '$end'"
+        )->result();
 
         echo json_encode($result);
     }

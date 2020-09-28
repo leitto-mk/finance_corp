@@ -236,6 +236,7 @@
                                                                                     <option value="Katolik">Katholik</option>
                                                                                     <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                                     <option value="Kristen">Kristen</option>
+                                                                                    <option value="Advent">Kristen (Advent)</option>
                                                                                 </select>
                                                                                 <span class="help-block" style="z-index: 10;">Agama</span>
                                                                             </div>

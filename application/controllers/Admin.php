@@ -29,7 +29,6 @@ class Admin extends CI_Controller
         }
     }
 
-
     // ==================================================================================================================== \\
     // ==============================                    PUBLIC CONTROLLER                   ============================== \\
     // ==================================================================================================================== \\
@@ -284,6 +283,1192 @@ class Admin extends CI_Controller
         }
     }
 
+    public function ajax_get_school_event(){
+        $start = date('Y-01-01');
+        $end = date('Y-12-31');
+
+        $result = $this->db->query(
+            "SELECT Title, DateStart, DateEnd, Color FROM tbl_13_calendar
+             WHERE DateStart >= '$start'
+             AND DateEnd <= '$end'"
+        )->result();
+
+        echo json_encode($result);
+    }
+
+    public function ajax_sv_school_event(){
+        $title = $_POST['title'];
+        $date_start = $_POST['date_start'];
+        $date_end = $_POST['date_end'];
+        $color = $_POST['color'];
+
+        $this->db->insert('tbl_13_calendar',[
+            'Title' => $title,
+            'DateStart' => $date_start,
+            'DateEnd' => $date_end,
+            'Color' => $color
+        ]);
+    }
+
+    public function ajax_update_school_event(){
+        $event = $_POST['eventchange'];
+        $title = $_POST['title'];
+        $new_title = $_POST['newtitle'];
+        $date_start = $_POST['start'];
+        $date_end = $_POST['end'];
+        $new_date_start = isset($_POST['newstart']) ? $_POST['newstart'] : '';
+        $new_date_end = isset($_POST['newend']) ? $_POST['newend'] : '';
+        $new_color = $_POST['newcolor'];
+
+        if($event == 'delete'){
+            $this->db->delete('tbl_13_calendar', [
+                'Title' => $title,
+                'DateStart' => $date_start,
+                'DateEnd' => $date_end,
+            ]);
+        }else{
+            $this->db->update('tbl_13_calendar', [
+                'Title' => $new_title,
+                'DateStart' => $new_date_start,
+                'DateEnd' => $new_date_end,
+                'Color' => $new_color
+            ], [
+                'Title' => $title,
+                'DateStart' => $date_start,
+                'DateEnd' => $date_end,
+            ]);
+        }
+
+        echo 'success';
+    }
+
+    public function ajax_save_report(){
+        $field = $_POST['field'];
+        $value = $_POST['val'];
+
+        echo $result = $this->Mdl_index->Mdl_save_report($field, $value);
+    }
+
+    public function export_closing_report(){
+        $degree = $this->input->get('degree');
+
+        // LOAD PLUGIN
+        include APPPATH.'third_party\PHPExcel.php';
+
+        $excel = new PHPExcel();
+
+        $overall = $this->db->get_where('tbl_02_school', ['isActive' => 1, 'School_Desc' => $degree])->first_row();
+        $other_school = $this->db->where("isActive = 1 AND School_Desc != '$degree'")->get('tbl_02_school')->row();
+        $period = (date('Y')-1) . '-' . date('Y');
+        $filename = "CLOSING REPORT $degree - $period.xlsx";
+        
+        $style_col = [
+            'font' => [
+                'bold' => true
+            ],
+            'alignment' => [
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
+            ],
+            'borders' => [
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+            ]
+        ];
+        
+        $style_row = array(
+            'alignment' => array(
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+            ),
+            'borders' => array(
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), 
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        );
+        
+        $excel->setActiveSheetIndex(0)->setCellValue('B1', "LAPORAN PENDIDIKAN $period: " . $overall->ConferenceZone);
+        $excel->getActiveSheet()->getStyle('B1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('B1')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $excel->getActiveSheet()->mergeCells('B1:I1');
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(35);
+
+        $excel->setActiveSheetIndex(0)->setCellValue('A2', "I. Informasi Umum");
+        $excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $excel->getActiveSheet()->mergeCells('A2:B2');
+
+        $excel->setActiveSheetIndex(0)->setCellValue('B3', 'Nama Daerah');
+        $excel->getActiveSheet()->getStyle('B3:J3')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C3', $overall->ConferenceZone);
+        $excel->getActiveSheet()->getStyle('C3:J3')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B4', 'Nama Sekolah');
+        $excel->getActiveSheet()->getStyle('B4:J4')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C4', $overall->DegreeName);
+        $excel->getActiveSheet()->getStyle('C4:J4')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B5', 'Nama-nama Sekolah yg selokasi');
+        $excel->getActiveSheet()->getStyle('B5:J5')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C5', $other_school->DegreeName);
+        $excel->getActiveSheet()->getStyle('C5:J5')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B6', 'Thn Akreditasi Gereja');
+        $excel->getActiveSheet()->getStyle('B6:J6')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C6', '');
+        $excel->getActiveSheet()->getStyle('C6:J6')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B7', 'Thn Akreditasi Pemerintah');
+        $excel->getActiveSheet()->getStyle('B7:J7')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C7', '');
+        $excel->getActiveSheet()->getStyle('C7:J7')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B8', 'Alamat Surat Sekolah');
+        $excel->getActiveSheet()->getStyle('B8:J8')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C8', $overall->Address .' '. $overall->District);
+        $excel->getActiveSheet()->getStyle('C8:J8')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B9', 'Email Sekolah');
+        $excel->getActiveSheet()->getStyle('B9:J9')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C9', $overall->Email);
+        $excel->getActiveSheet()->getStyle('C9:J9')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B10', 'No Telpon Sekolah/No HP Sek');
+        $excel->getActiveSheet()->getStyle('B10:J10')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C10', $overall->Phone);
+        $excel->getActiveSheet()->getStyle('C10:J10')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B11', 'No Fax Sekolah');
+        $excel->getActiveSheet()->getStyle('B11:J11')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C11', '');
+        $excel->getActiveSheet()->getStyle('C11:J11')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B12', 'Kepala Sekolah/ Administrator');
+        $excel->getActiveSheet()->getStyle('B12:J12')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C12', '');
+        $excel->getActiveSheet()->getStyle('C12:J12')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B13', 'Hp dan Email Kepala Sekolah');
+        $excel->getActiveSheet()->getStyle('B13:J13')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C13', '');
+        $excel->getActiveSheet()->getStyle('C13:J13')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('B14', 'No Sertifikat Tanah');
+        $excel->getActiveSheet()->getStyle('B14:J14')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C14', $overall->SchoolConstructionCertificate);
+        $excel->getActiveSheet()->getStyle('C14:J14')->applyFromArray($style_row);
+
+        $excel->getActiveSheet()->mergeCells('C3:J3');
+        $excel->getActiveSheet()->mergeCells('C4:J4');
+        $excel->getActiveSheet()->mergeCells('C5:J5');
+        $excel->getActiveSheet()->mergeCells('C6:J6');
+        $excel->getActiveSheet()->mergeCells('C7:J7');
+        $excel->getActiveSheet()->mergeCells('C8:J8');
+        $excel->getActiveSheet()->mergeCells('C9:J9');
+        $excel->getActiveSheet()->mergeCells('C10:J10');
+        $excel->getActiveSheet()->mergeCells('C11:J11');
+        $excel->getActiveSheet()->mergeCells('C12:J12');
+        $excel->getActiveSheet()->mergeCells('C13:J13');
+        $excel->getActiveSheet()->mergeCells('C14:J14');
+        
+        $excel->setActiveSheetIndex(0)->setCellValue('A16', "II. Database Guru");
+        $excel->getActiveSheet()->getStyle('A16')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('A16')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('A16')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        
+        $excel->setActiveSheetIndex(0)->setCellValue('A17', "No");
+        $excel->getActiveSheet()->getStyle('A17:A19')->applyFromArray($style_row);
+        $excel->getActiveSheet()->mergeCells('A17:A19');
+        $excel->setActiveSheetIndex(0)->setCellValue('B17', "Nama Sekolah");
+        $excel->getActiveSheet()->getStyle('B17:B19')->applyFromArray($style_row);
+        $excel->getActiveSheet()->mergeCells('B17:B19');
+        $excel->setActiveSheetIndex(0)->setCellValue('C17', "1");
+        $excel->getActiveSheet()->getStyle('C17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C18', "Jumlah");
+        $excel->getActiveSheet()->getStyle('C18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('C19', "Guru");
+        $excel->getActiveSheet()->getStyle('C19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('D17', "2");
+        $excel->getActiveSheet()->getStyle('D17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('D18', "Jumlah");
+        $excel->getActiveSheet()->getStyle('D18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('D19', "Non-Guru");
+        $excel->getActiveSheet()->getStyle('D19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('E17', "3");
+        $excel->getActiveSheet()->getStyle('E17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('E18', "Guru/Ijazah Terakhir");
+        $excel->getActiveSheet()->getStyle('E18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('E19', 'SMA');
+        $excel->getActiveSheet()->getStyle('E19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('F17', "4");
+        $excel->getActiveSheet()->getStyle('F17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('F18', "Guru/Ijazah Terakhir");
+        $excel->getActiveSheet()->getStyle('F18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('F19', 'D1/SPG');
+        $excel->getActiveSheet()->getStyle('F19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('G17', "5");
+        $excel->getActiveSheet()->getStyle('G17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('G18', "Guru/Ijazah Terakhir");
+        $excel->getActiveSheet()->getStyle('G18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('G19', 'D2');
+        $excel->getActiveSheet()->getStyle('G19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('H17', "6");
+        $excel->getActiveSheet()->getStyle('H17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('H18', "Guru/Ijazah Terakhir");
+        $excel->getActiveSheet()->getStyle('H18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('H19', 'D3');
+        $excel->getActiveSheet()->getStyle('H19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('I17', "7");
+        $excel->getActiveSheet()->getStyle('I17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('I18', "Guru/Ijazah Terakhir");
+        $excel->getActiveSheet()->getStyle('I18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('I19', 'S1');
+        $excel->getActiveSheet()->getStyle('I19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('J17', "8");
+        $excel->getActiveSheet()->getStyle('J17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('J18', "Guru/Ijazah Terakhir");
+        $excel->getActiveSheet()->getStyle('J18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('J19', 'S2');
+        $excel->getActiveSheet()->getStyle('J19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('K17', "9");
+        $excel->getActiveSheet()->getStyle('K17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('K18', "Jumlah");
+        $excel->getActiveSheet()->getStyle('K18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('K19', 'Non-Gelar');
+        $excel->getActiveSheet()->getStyle('K19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('L17', "10");
+        $excel->getActiveSheet()->getStyle('L17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('L18', "Jumlah Siswa");
+        $excel->getActiveSheet()->mergeCells('L18:N18');
+        $excel->getActiveSheet()->getStyle('L18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('L19', 'Lk');
+        $excel->getActiveSheet()->getStyle('L19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('M17', "11");
+        $excel->getActiveSheet()->getStyle('M17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('M18', "");
+        $excel->getActiveSheet()->getStyle('M18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('M19', 'Pr');
+        $excel->getActiveSheet()->getStyle('M19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('N17', "12");
+        $excel->getActiveSheet()->getStyle('N17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('N18', "");
+        $excel->getActiveSheet()->getStyle('N18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('N19', 'Total');
+        $excel->getActiveSheet()->getStyle('N19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('O17', "13");
+        $excel->getActiveSheet()->getStyle('O17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('O18', "Total");
+        $excel->getActiveSheet()->getStyle('O18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('O19', 'Guru & Non-Guru');
+        $excel->getActiveSheet()->getStyle('O19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('P17', "14");
+        $excel->getActiveSheet()->getStyle('P17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('P18', "Jlh Index & Non-Index");
+        $excel->getActiveSheet()->mergeCells('P18:R18');
+        $excel->getActiveSheet()->getStyle('P18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('P19', 'Index');
+        $excel->getActiveSheet()->getStyle('P19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('Q17', "15");
+        $excel->getActiveSheet()->getStyle('Q17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('Q18', "Jlh Index & Non-Index");
+        $excel->getActiveSheet()->getStyle('Q18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('Q19', 'Non-Index');
+        $excel->getActiveSheet()->getStyle('Q19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('R17', "16");
+        $excel->getActiveSheet()->getStyle('R17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('R18', "Jlh Index & Non-Index");
+        $excel->getActiveSheet()->getStyle('R18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('R19', 'TTL');
+        $excel->getActiveSheet()->getStyle('R19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('S17', "17");
+        $excel->getActiveSheet()->getStyle('S17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('S18', "PNS");
+        $excel->getActiveSheet()->mergeCells('S18:T18');
+        $excel->getActiveSheet()->getStyle('S18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('S19', 'Advent');
+        $excel->getActiveSheet()->getStyle('S19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('T17', "18");
+        $excel->getActiveSheet()->getStyle('T17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('T18', "PNS");
+        $excel->getActiveSheet()->getStyle('T18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('T19', 'Non');
+        $excel->getActiveSheet()->getStyle('T19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('U17', "19");
+        $excel->getActiveSheet()->mergeCells('U18:V18');
+        $excel->getActiveSheet()->getStyle('U17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('U18', "Index");
+        $excel->getActiveSheet()->getStyle('U18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('U19', 'Advent');
+        $excel->getActiveSheet()->getStyle('U19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('V17', "20");
+        $excel->getActiveSheet()->getStyle('V17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('V18', "Index");
+        $excel->getActiveSheet()->getStyle('V18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('V19', 'Non');
+        $excel->getActiveSheet()->getStyle('V19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('W17', "21");
+        $excel->getActiveSheet()->mergeCells('W18:X18');
+        $excel->getActiveSheet()->getStyle('W17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('W18', "Honor");
+        $excel->getActiveSheet()->getStyle('W18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('W19', 'Advent');
+        $excel->getActiveSheet()->getStyle('W19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('X17', "22");
+        $excel->getActiveSheet()->getStyle('X17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('X18', "Honor");
+        $excel->getActiveSheet()->getStyle('X18')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('X19', 'Non');
+        $excel->getActiveSheet()->getStyle('X19')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('Y17', "23");
+        $excel->getActiveSheet()->getStyle('Y17')->applyFromArray($style_row);
+        $excel->setActiveSheetIndex(0)->setCellValue('Y18', "Total Advent/Non-Advent");
+        $excel->getActiveSheet()->getStyle('Y18:Y19')->applyFromArray($style_row);
+        $excel->getActiveSheet()->mergeCells('Y18:Y19');
+
+        $teacher = $this->Mdl_index->get_closing_report();
+
+        $excel->getActiveSheet()->setCellValue('A20', "1");
+        $excel->getActiveSheet()->getStyle('A20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('B20', $overall->DegreeName);
+        $excel->getActiveSheet()->getStyle('B20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('C20', $teacher->teacher);
+        $excel->getActiveSheet()->getStyle('C20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('D20', $teacher->nonteacher);
+        $excel->getActiveSheet()->getStyle('D20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('E20', $teacher->sma);
+        $excel->getActiveSheet()->getStyle('E20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('F20', $teacher->d1);
+        $excel->getActiveSheet()->getStyle('F20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('G20', $teacher->d2);
+        $excel->getActiveSheet()->getStyle('G20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('H20', $teacher->d3);
+        $excel->getActiveSheet()->getStyle('H20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('I20', $teacher->s1);
+        $excel->getActiveSheet()->getStyle('I20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('J20', $teacher->s2);
+        $excel->getActiveSheet()->getStyle('J20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('K20', $teacher->nondegree);
+        $excel->getActiveSheet()->getStyle('K20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('L20', $teacher->male);
+        $excel->getActiveSheet()->getStyle('L20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('M20', $teacher->female);
+        $excel->getActiveSheet()->getStyle('M20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('N20', $teacher->std_total);
+        $excel->getActiveSheet()->getStyle('N20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('O20', $teacher->non_std_total);
+        $excel->getActiveSheet()->getStyle('O20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('P20', $teacher->idx);
+        $excel->getActiveSheet()->getStyle('P20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('Q20', $teacher->nonidx);
+        $excel->getActiveSheet()->getStyle('Q20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('R20', $teacher->total_idx);
+        $excel->getActiveSheet()->getStyle('R20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('S20', $teacher->advent_pns);
+        $excel->getActiveSheet()->getStyle('S20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('T20', $teacher->non_advent_pns);
+        $excel->getActiveSheet()->getStyle('T20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('U20', $teacher->advent_idx);
+        $excel->getActiveSheet()->getStyle('U20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('V20', $teacher->non_advent_idx);
+        $excel->getActiveSheet()->getStyle('V20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('W20', $teacher->advent_honor);
+        $excel->getActiveSheet()->getStyle('W20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('X20', $teacher->non_advent_honor);
+        $excel->getActiveSheet()->getStyle('X20')->applyFromArray($style_row);
+        $excel->getActiveSheet()->setCellValue('Y20', $teacher->religion_total);
+        $excel->getActiveSheet()->getStyle('Y20')->applyFromArray($style_row);
+
+        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('D')->setWidth(12);
+        $excel->getActiveSheet()->getColumnDimension('E')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('F')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('G')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('H')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('I')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('J')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('K')->setWidth(12);
+        $excel->getActiveSheet()->getColumnDimension('L')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('M')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('N')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('O')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('P')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('Q')->setWidth(10);
+        $excel->getActiveSheet()->getColumnDimension('R')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('S')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('T')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('U')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('V')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('W')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('X')->setWidth(8);
+        $excel->getActiveSheet()->getColumnDimension('Y')->setWidth(25);
+
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+    
+        $excel->getActiveSheet(0)->setTitle("CLOSING REPORT $degree");
+        $excel->setActiveSheetIndex(0);
+    
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+
+        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $write->save('php://output');
+    }
+
+    public function export_labul(){
+        // LOAD PLUGIN
+        include APPPATH.'third_party\PHPExcel.php';
+
+        $excel = new PHPExcel();
+
+        $data = $this->Mdl_index->Mdl_get_report();
+        $filename = 'LABUL-'.date('F-Y').'.xlsx';
+        
+        // $excel->getProperties()->setCreator('My Notes Code')
+        //             ->setLastModifiedBy('My Notes Code')
+        //             ->setTitle("Data Siswa")
+        //             ->setSubject("Siswa")
+        //             ->setDescription("Laporan Semua Data Siswa")
+        //             ->setKeywords("Data Siswa");
+        
+        $style_col = [
+            'font' => [
+                'bold' => true
+            ],
+            'alignment' => [
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
+            ],
+            'borders' => [
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+            ]
+        ];
+        
+        $style_row = array(
+            'alignment' => array(
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+            ),
+            'borders' => array(
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), 
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        );
+        
+        $excel->setActiveSheetIndex(0)->setCellValue('A1', "ITEM");
+        $excel->setActiveSheetIndex(0)->setCellValue('B1', "VALUE");
+        $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('B1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('B1')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        $excel->setActiveSheetIndex(0)->setCellValue('A2', 'Nama Sekolah');
+        $excel->setActiveSheetIndex(0)->setCellValue('A3', 'Alamat');
+        $excel->setActiveSheetIndex(0)->setCellValue('A4', 'Kota/Kabupaten');
+        $excel->setActiveSheetIndex(0)->setCellValue('A5', 'Provinsi');
+        $excel->setActiveSheetIndex(0)->setCellValue('A6', 'NSS/NSPN');
+        $excel->setActiveSheetIndex(0)->setCellValue('A7', 'No. Telp Sekolah');
+        $excel->setActiveSheetIndex(0)->setCellValue('A8', 'Email Sekolah');
+        $excel->setActiveSheetIndex(0)->setCellValue('A9', 'No. Kode Pos');
+        $excel->setActiveSheetIndex(0)->setCellValue('A10', 'Pemerintah');
+        $excel->setActiveSheetIndex(0)->setCellValue('A11', 'Yayasan/Organisasi');
+        $excel->setActiveSheetIndex(0)->setCellValue('A12', 'Bentuk Gedung Sekolah');
+        $excel->setActiveSheetIndex(0)->setCellValue('A13', 'Tanah');
+        $excel->setActiveSheetIndex(0)->setCellValue('A14', 'Akte No. (Jika Miliki Sendiri)');
+        $excel->setActiveSheetIndex(0)->setCellValue('A15', 'Gedung Sekolah');
+        $excel->setActiveSheetIndex(0)->setCellValue('A16', 'Nama Badan Penyelanggara');
+        $excel->setActiveSheetIndex(0)->setCellValue('A17', 'Waktu Penyelenggara');
+        $excel->setActiveSheetIndex(0)->setCellValue('A18', 'Jumlah Hari Efektif Sekolah');
+        $excel->setActiveSheetIndex(0)->setCellValue('A19', 'No. Akte Pendirian Sekolah');
+        $excel->setActiveSheetIndex(0)->setCellValue('A20', 'No. Ijin Operasional Sekolah');
+
+        $excel->setActiveSheetIndex(0)->setCellValue('B2', $data->SchoolName);
+        $excel->setActiveSheetIndex(0)->setCellValue('B3', $data->Address);
+        $excel->setActiveSheetIndex(0)->setCellValue('B4', $data->Region);
+        $excel->setActiveSheetIndex(0)->setCellValue('B5', $data->Province);
+        $excel->setActiveSheetIndex(0)->setCellValue('B6', $data->NSS_NSPN);
+        $excel->setActiveSheetIndex(0)->setCellValue('B7', $data->Phone);
+        $excel->setActiveSheetIndex(0)->setCellValue('B8', $data->Email);
+        $excel->setActiveSheetIndex(0)->setCellValue('B9', $data->PostCode);
+        $excel->setActiveSheetIndex(0)->setCellValue('B10', $data->GovtCertificate);
+        $excel->setActiveSheetIndex(0)->setCellValue('B11', $data->BoardCertificate);
+        $excel->setActiveSheetIndex(0)->setCellValue('B12', $data->BuildingType);
+        $excel->setActiveSheetIndex(0)->setCellValue('B13', $data->LandOwnership);
+        $excel->setActiveSheetIndex(0)->setCellValue('B14', $data->OwnershipCertificate);
+        $excel->setActiveSheetIndex(0)->setCellValue('B15', $data->BuildingOwnership);
+        $excel->setActiveSheetIndex(0)->setCellValue('B16', $data->FoundationName);
+        $excel->setActiveSheetIndex(0)->setCellValue('B17', $data->ConferenceZone);
+        $excel->setActiveSheetIndex(0)->setCellValue('B18', $data->SchoolActiveDays);
+        $excel->setActiveSheetIndex(0)->setCellValue('B19', $data->SchoolConstructionCertificate);
+        $excel->setActiveSheetIndex(0)->setCellValue('B20', $data->NoOperation);
+        
+        
+        $excel->getActiveSheet()->getStyle('A2')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A3')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A4')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A5')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A6')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A7')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A8')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A9')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A10')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A11')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A12')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A13')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A14')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A15')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A16')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A17')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A18')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A19')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('A20')->applyFromArray($style_row);
+
+        $excel->getActiveSheet()->getStyle('B2')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B3')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B4')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B5')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B6')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B7')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B8')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B9')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B10')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B11')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B12')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B13')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B14')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B15')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B16')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B17')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B18')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B19')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B20')->applyFromArray($style_row);
+
+        $alp = 'E';
+        $index = 1;
+        
+        $report_school = $this->Mdl_index->get_report_school();
+
+        foreach($report_school as $school){
+            $sch = $school->School_Desc;
+            
+            $room = $this->Mdl_index->get_report_class($sch);
+
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . $index, $sch);
+            $excel->getActiveSheet()
+                ->getStyle('D' . $index)->getFont()->setBold(TRUE);
+            $excel->getActiveSheet()
+                ->getStyle('D' . $index)->getFont()->setSize(12);
+            $excel->getActiveSheet()
+                ->getStyle('D' . $index)->getAlignment()
+                ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+            foreach($room as $room){
+                $excel->setActiveSheetIndex(0)->setCellValue('D'.($index+1), 'ITEM');
+                $excel->getActiveSheet()->getStyle('D'.($index+1))->applyFromArray($style_row);
+                $excel->setActiveSheetIndex(0)->setCellValue($alp. ($index+1), $room->ClassDesc);
+                $excel->getActiveSheet()->getStyle($alp. ($index+1))->applyFromArray($style_row);
+                $excel->setActiveSheetIndex(0)->setCellValue('D'.($index+2), 'ROMBEL');
+                $excel->getActiveSheet()->getStyle('D'.($index+2))->applyFromArray($style_row);
+                $excel->setActiveSheetIndex(0)->setCellValue($alp. ($index+2), $room->Total);
+                $excel->getActiveSheet()->getStyle($alp. ($index+2))->applyFromArray($style_row);
+                $excel->setActiveSheetIndex(0)->setCellValue('D'.($index+3), 'JAM/MINGGU');
+                $excel->getActiveSheet()->getStyle('D'.($index+3))->applyFromArray($style_row);
+                $excel->setActiveSheetIndex(0)->setCellValue($alp. ($index+3), $room->Hour);
+                $excel->getActiveSheet()->getStyle($alp. ($index+3))->applyFromArray($style_row);
+                
+                $excel->getActiveSheet()->getColumnDimension($alp)->setWidth(15);
+
+                ++$alp;
+            }
+
+            $excel->getActiveSheet()->mergeCells('D' . $index . ':' . (--$alp) . $index);
+            $excel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+
+            $alp = 'E';
+            $index += 5;
+        }
+    
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(50);
+    
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+    
+        $excel->getActiveSheet(0)->setTitle('LABUL - ' . date('F Y'));
+        $excel->setActiveSheetIndex(0);
+    
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+
+        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $write->save('php://output');
+    }
+
+    public function export_labul_student(){
+        // LOAD PLUGIN
+        include APPPATH.'third_party\PHPExcel.php';
+
+        $excel = new PHPExcel();
+
+        $data = $this->Mdl_index->Mdl_get_report();
+        $filename = 'LABUL - '.date('F-Y').' [STUDENT].xlsx';
+        
+        $style_col = [
+            'font' => [
+                'bold' => true
+            ],
+            'alignment' => [
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
+            ],
+            'borders' => [
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+            ]
+        ];
+        
+        $style_row = array(
+            'alignment' => array(
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+            ),
+            'borders' => array(
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), 
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        );
+
+        $index = 1;
+
+        $sch = $this->Mdl_index->get_report_school();       
+        
+        foreach($sch as $sch){
+            $school = $sch->School_Desc;
+            
+            [$all_std, $adventist, $non_adventist, $attendance, $sick, $on_permit, $absent] = $this->Mdl_index->get_report_student($school);
+
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . $index, $school);
+            $excel->getActiveSheet()->mergeCells('A' . $index . ':' . 'D' . $index);
+            $excel->getActiveSheet()->getStyle('A' . $index)->getFont()->setBold(TRUE);
+            $excel->getActiveSheet()->getStyle('A' . $index)->getFont()->setSize(15);
+            $excel->getActiveSheet()->getStyle('A' . $index)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('B' . $index)->getFont()->setBold(TRUE);
+            
+            $excel->setActiveSheetIndex(0)->setCellValue('A'.($index+1), "ITEM");
+            $excel->setActiveSheetIndex(0)->setCellValue('B'.($index+1), "LAKI-LAKI");
+            $excel->setActiveSheetIndex(0)->setCellValue('C'.($index+1), "PEREMPUAN");
+            $excel->setActiveSheetIndex(0)->setCellValue('D'.($index+1), "TOTAL");
+            $excel->getActiveSheet()->getStyle('A' . ($index+1))->getFont()->setBold(TRUE);
+            $excel->getActiveSheet()->getStyle('A' . ($index+1))->getFont()->setSize(15);
+            $excel->getActiveSheet()->getStyle('A' . ($index+1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('B' . ($index+1))->getFont()->setBold(TRUE);
+            $excel->getActiveSheet()->getStyle('B' . ($index+1))->getFont()->setSize(15);
+            $excel->getActiveSheet()->getStyle('B' . ($index+1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('C' . ($index+1))->getFont()->setBold(TRUE);
+            $excel->getActiveSheet()->getStyle('C' . ($index+1))->getFont()->setSize(15);
+            $excel->getActiveSheet()->getStyle('C' . ($index+1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('D' . ($index+1))->getFont()->setBold(TRUE);
+            $excel->getActiveSheet()->getStyle('D' . ($index+1))->getFont()->setSize(15);
+            $excel->getActiveSheet()->getStyle('D' . ($index+1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+2),"Jumlah Siswa Seluruhnya");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+2),$all_std->Male);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+2),$all_std->Female);
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+2),$all_std->Total);
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+3),"Advent");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+3),$adventist->Male);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+3),$adventist->Female);
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+3),$adventist->Total);
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+4),"Non-Adventist");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+4),$non_adventist->Male);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+4),$non_adventist->Female);
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+4),$non_adventist->Total);
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+5),"Jumlah Absen Bulan Ini");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+5),$attendance->Male);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+5),$attendance->Female);
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+5),$attendance->Total);
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+6),"Sakit");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+6),$sick->Male);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+6),$sick->Female);
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+6),$sick->Total);
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+7),"Izin");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+7),$on_permit->Male);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+7),$on_permit->Female);
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+7),$on_permit->Total);
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+8),"Alpa");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+8),$absent->Male);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+8),$absent->Female);
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+8),$absent->Total);
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+9),"Jumlah Siswa Mutasi/DO");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+9),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+9),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+9),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+10),"Masuk");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+10),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+10),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+10),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+11),"Keluar/Pindah");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+11),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+11),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+11),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+12),"Jumlah Siswa yang sudah dibaptis");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+12),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+12),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+12),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+13),"Jumlah Siswa yang sudah dibaptis sampai bulan ini");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+13),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+13),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+13),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+14),"Jumlah Siswa yang belum dibaptis (Usia Baptis mengikuti Bible Study)");
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+14),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+14),'');
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+54),'');
+            
+            // $excel->getActiveSheet()->getStyle('A2')->applyFromArray($style_row);
+            // $excel->getActiveSheet()->getStyle('B2')->applyFromArray($style_row);
+            // $excel->getActiveSheet()->getStyle('C2')->applyFromArray($style_row);
+            // $excel->getActiveSheet()->getStyle('D2')->applyFromArray($style_row);
+
+            $index += 16;
+        }
+
+        [$overall_all_std, $overall_adventist, $overall_non_adventist, $overall_attendance, $overall_sick, $overall_on_permit, $overall_absent] = $this->Mdl_index->get_report_student_overall();
+
+        $excel->setActiveSheetIndex(0)->setCellValue('F1', 'ALL');
+        $excel->getActiveSheet()->mergeCells('F1:I1');
+        $excel->getActiveSheet()->getStyle('F1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('F1')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('F1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        
+        $excel->setActiveSheetIndex(0)->setCellValue('F2', "ITEM");
+        $excel->setActiveSheetIndex(0)->setCellValue('G2', "LAKI-LAKI");
+        $excel->setActiveSheetIndex(0)->setCellValue('H2', "PEREMPUAN");
+        $excel->setActiveSheetIndex(0)->setCellValue('I2', "TOTAL");
+        $excel->getActiveSheet()->getStyle('F2')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('F2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('F2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('G2')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('G2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('G2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('H2')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('H2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('H2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('I2')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('I2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('I2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        
+        $excel->setActiveSheetIndex(0)->setCellValue('F2', "Jumlah Siswa Seluruhnya");
+        $excel->setActiveSheetIndex(0)->setCellValue('G2',$overall_all_std->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('H2',$overall_all_std->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('I2',$overall_all_std->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('F3', "Advent");
+        $excel->setActiveSheetIndex(0)->setCellValue('G3',$overall_adventist->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('H3',$overall_adventist->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('I3',$overall_adventist->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('F4', "Non-Adventist");
+        $excel->setActiveSheetIndex(0)->setCellValue('G4',$overall_non_adventist->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('H4',$overall_non_adventist->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('I4',$overall_non_adventist->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('F5', "Jumlah Absen Bulan Ini");
+        $excel->setActiveSheetIndex(0)->setCellValue('G5',$overall_attendance->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('H5',$overall_attendance->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('I5',$overall_attendance->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('F6', "Sakit");
+        $excel->setActiveSheetIndex(0)->setCellValue('G6',$overall_sick->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('H6',$overall_sick->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('I6',$overall_sick->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('F7', "Izin");
+        $excel->setActiveSheetIndex(0)->setCellValue('G7',$overall_on_permit->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('H7',$overall_on_permit->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('I7',$overall_on_permit->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('F8', "Alpa");
+        $excel->setActiveSheetIndex(0)->setCellValue('G8',$overall_absent->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('H8',$overall_absent->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('I8',$overall_absent->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('F9', "Jumlah Siswa Mutasi/DO");
+        $excel->setActiveSheetIndex(0)->setCellValue('G9','');
+        $excel->setActiveSheetIndex(0)->setCellValue('H9','');
+        $excel->setActiveSheetIndex(0)->setCellValue('I9','');
+        $excel->setActiveSheetIndex(0)->setCellValue('F10',"Masuk");
+        $excel->setActiveSheetIndex(0)->setCellValue('G10','');
+        $excel->setActiveSheetIndex(0)->setCellValue('H10','');
+        $excel->setActiveSheetIndex(0)->setCellValue('I10','');
+        $excel->setActiveSheetIndex(0)->setCellValue('F11',"Keluar/Pindah");
+        $excel->setActiveSheetIndex(0)->setCellValue('G11','');
+        $excel->setActiveSheetIndex(0)->setCellValue('H11','');
+        $excel->setActiveSheetIndex(0)->setCellValue('I11','');
+        $excel->setActiveSheetIndex(0)->setCellValue('F12',"Jumlah Siswa yang sudah dibaptis");
+        $excel->setActiveSheetIndex(0)->setCellValue('G12','');
+        $excel->setActiveSheetIndex(0)->setCellValue('H12','');
+        $excel->setActiveSheetIndex(0)->setCellValue('I12','');
+        $excel->setActiveSheetIndex(0)->setCellValue('F13',"Jumlah Siswa yang sudah dibaptis sampai bulan ini");
+        $excel->setActiveSheetIndex(0)->setCellValue('G13','');
+        $excel->setActiveSheetIndex(0)->setCellValue('H13','');
+        $excel->setActiveSheetIndex(0)->setCellValue('I13','');
+        $excel->setActiveSheetIndex(0)->setCellValue('F14',"Jumlah Siswa yang belum dibaptis (Usia Baptis mengikuti Bible Study)");
+        $excel->setActiveSheetIndex(0)->setCellValue('G14','');
+        $excel->setActiveSheetIndex(0)->setCellValue('H14','');
+        $excel->setActiveSheetIndex(0)->setCellValue('I14','');
+    
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(60);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('F')->setWidth(60);
+        $excel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('I')->setWidth(20);
+    
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+    
+        $excel->getActiveSheet(0)->setTitle('STUDENT');
+        $excel->setActiveSheetIndex(0);
+    
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+
+        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $write->save('php://output');
+    }
+
+    public function export_labul_teacher(){
+        // LOAD PLUGIN
+        include APPPATH.'third_party\PHPExcel.php';
+
+        $excel = new PHPExcel();
+
+        $data = $this->Mdl_index->Mdl_get_report();
+        $filename = 'LABUL - '.date('F Y').' [TEACHER].xlsx';
+        
+        $style_col = [
+            'font' => [
+                'bold' => true
+            ],
+            'alignment' => [
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
+            ],
+            'borders' => [
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+            ]
+        ];
+        
+        $style_row = array(
+            'alignment' => array(
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+            ),
+            'borders' => array(
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), 
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        );
+        
+        $excel->setActiveSheetIndex(0)->setCellValue('A1', "ITEM");
+        $excel->setActiveSheetIndex(0)->setCellValue('B1', "LAKI-LAKI");
+        $excel->setActiveSheetIndex(0)->setCellValue('C1', "PEREMPUAN");
+        $excel->setActiveSheetIndex(0)->setCellValue('D1', "TOTAL");
+        $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('B1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('B1')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('C1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('C1')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('D1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('D1')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('D1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        
+        [$nonstd, $gty, $asn, $gtt, $nontch, $acc, $adm, $others, $adv, $nonadv, $nonstrat, $strat1, $strat2, $attd, $sck, $onpermit, $abs] = $this->Mdl_index->get_report_nonstudent();    
+
+        $excel->setActiveSheetIndex(0)->setCellValue('A2', "Jumlah Guru/Pegawai Seluruhnya");
+        $excel->setActiveSheetIndex(0)->setCellValue('B2', $nonstd->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C2', $nonstd->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D2', $nonstd->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A3', "Index (GTY)");
+        $excel->setActiveSheetIndex(0)->setCellValue('B3', $gty->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C3', $gty->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D3', $gty->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A4', "Aparat Sipil Negara (ASN)");
+        $excel->setActiveSheetIndex(0)->setCellValue('B4', $asn->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C4', $asn->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D4', $asn->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A5', "Jumlah Staff Non-Guru");
+        $excel->setActiveSheetIndex(0)->setCellValue('B5', $nontch->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C5', $nontch->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D5', $nontch->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A6', "Keuangan");
+        $excel->setActiveSheetIndex(0)->setCellValue('B6', $acc->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C6', $acc->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D6', $acc->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A7', "Tata Usaha / Administrasi");
+        $excel->setActiveSheetIndex(0)->setCellValue('B7', $adm->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C7', $adm->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D7', $adm->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A8', "Satpam, DLL");
+        $excel->setActiveSheetIndex(0)->setCellValue('B8', $others->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C8', $others->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D8', $others->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A9', "Jumlah Guru/Pegawai Menurut Agama");
+        $excel->setActiveSheetIndex(0)->setCellValue('B9', $nonstd->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C9', $nonstd->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D9', $nonstd->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A10', "Advent");
+        $excel->setActiveSheetIndex(0)->setCellValue('B10', $adv->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C10', $adv->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D10', $adv->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A11', "Non-Advent");
+        $excel->setActiveSheetIndex(0)->setCellValue('B11', $nonadv->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C11', $nonadv->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D11', $nonadv->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A12', "Jumlah Guru Menurut Jenjang");
+        $excel->setActiveSheetIndex(0)->setCellValue('B12', $nonstd->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C12', $nonstd->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D12', $nonstd->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A13', "SMA/SPG/PGSLP/D1/D2/D3");
+        $excel->setActiveSheetIndex(0)->setCellValue('B13', $nonstrat->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C13', $nonstrat->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D13', $nonstrat->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A14', "Strata 1 (S1)");
+        $excel->setActiveSheetIndex(0)->setCellValue('B14', $strat1->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C14', $strat1->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D14', $strat1->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A15', "Strata 2 (S2)");
+        $excel->setActiveSheetIndex(0)->setCellValue('B15', $strat2->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C15', $strat2->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D15', $strat2->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A16', "Guru/Pegawai yang tamat Perguruan Tinggi");
+        $excel->setActiveSheetIndex(0)->setCellValue('B16', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('C16', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('D16', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('A17', "Perguruan Tinggi Advent");
+        $excel->setActiveSheetIndex(0)->setCellValue('B17', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('C17', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('D17', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('A18', "Perguruan Tinggi Non-Advent");
+        $excel->setActiveSheetIndex(0)->setCellValue('B18', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('C18', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('D18', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('A19', "Jumlah Guru Tersertifikasi Gereja (Yayasan)");
+        $excel->setActiveSheetIndex(0)->setCellValue('B19', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('C19', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('D19', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('A20', "Pemerintah");
+        $excel->setActiveSheetIndex(0)->setCellValue('B20', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('C20', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('D20', '');
+        $excel->setActiveSheetIndex(0)->setCellValue('A21', "Jumlah Absent Guru dan Pegawai");
+        $excel->setActiveSheetIndex(0)->setCellValue('B21', $attd->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C21', $attd->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D21', $attd->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A22', "Sakit");
+        $excel->setActiveSheetIndex(0)->setCellValue('B22', $sck->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C22', $sck->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D22', $sck->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A23', "Izin");
+        $excel->setActiveSheetIndex(0)->setCellValue('B23', $onpermit->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C23', $onpermit->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D23', $onpermit->Total);
+        $excel->setActiveSheetIndex(0)->setCellValue('A24', "Alpa");
+        $excel->setActiveSheetIndex(0)->setCellValue('B24', $abs->Male);
+        $excel->setActiveSheetIndex(0)->setCellValue('C24', $abs->Female);
+        $excel->setActiveSheetIndex(0)->setCellValue('D24', $abs->Total);
+    
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(70);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+    
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+    
+        $excel->getActiveSheet(0)->setTitle('TEACHER');
+        $excel->setActiveSheetIndex(0);
+    
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+
+        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $write->save('php://output');
+    }
+
+    public function export_labul_staff(){
+        // LOAD PLUGIN
+        include APPPATH.'third_party\PHPExcel.php';
+
+        $excel = new PHPExcel();
+
+        $data = $this->Mdl_index->Mdl_get_report();
+        $filename = 'LABUL - '.date('F Y').' [NOMINATIF].xlsx';
+        
+        $style_col = [
+            'font' => [
+                'bold' => true
+            ],
+            'alignment' => [
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
+            ],
+            'borders' => [
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+            ]
+        ];
+        
+        $style_row = array(
+            'alignment' => array(
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+            ),
+            'borders' => array(
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), 
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        );
+        
+        $excel->setActiveSheetIndex(0)->setCellValue('A1', "NO");
+        $excel->setActiveSheetIndex(0)->setCellValue('B1', "NAMA/NIP");
+        $excel->setActiveSheetIndex(0)->setCellValue('C1', "L/P");
+        $excel->setActiveSheetIndex(0)->setCellValue('D1', "GTY/PNS | PTY/GTT/PTT");
+        $excel->setActiveSheetIndex(0)->setCellValue('E1', "TTL");
+        $excel->setActiveSheetIndex(0)->setCellValue('F1', "Ijazah Terakhir");
+        $excel->setActiveSheetIndex(0)->setCellValue('G1', "Tahun Tamat");
+        $excel->setActiveSheetIndex(0)->setCellValue('H1', "Jabatan");
+        $excel->setActiveSheetIndex(0)->setCellValue('I1', "Mulai Kerja (TMT)");
+        $excel->setActiveSheetIndex(0)->setCellValue('J1', "Masa dinas di Yayasan");
+        $excel->setActiveSheetIndex(0)->setCellValue('K1', "Alamat");
+        $excel->setActiveSheetIndex(0)->setCellValue('L1', "sertifikasi Pemerintah");
+        $excel->setActiveSheetIndex(0)->setCellValue('M1', "Sertifikas Yayasan");
+        
+        $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('B1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('B1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('C1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('C1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('D1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('D1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('D1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('E1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('E1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('E1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('F1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('F1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('F1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('G1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('G1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('G1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('H1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('H1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('H1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('I1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('I1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('I1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('J1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('J1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('J1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('K1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('K1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('K1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('L1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('L1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('L1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('M1')->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('M1')->getFont()->setSize(12);
+        $excel->getActiveSheet()->getStyle('M1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        
+        [$teacher, $nonteacher] = $this->Mdl_index->get_report_full_nonstudent();
+
+        $i = 1;
+        $index = 2;
+        foreach($teacher as $tch){
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . $index, $i);
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . $index, $tch->FullName . ', ' . $tch->IDNumber);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . $index, $tch->Gender);
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . $index, $tch->Emp_Type);
+            $excel->setActiveSheetIndex(0)->setCellValue('E' . $index, $tch->Birth);
+            $excel->setActiveSheetIndex(0)->setCellValue('F' . $index, '');
+            $excel->setActiveSheetIndex(0)->setCellValue('G' . $index, '');
+            $excel->setActiveSheetIndex(0)->setCellValue('H' . $index, $tch->JobDesc);
+            $excel->setActiveSheetIndex(0)->setCellValue('I' . $index, $tch->YearStarts);
+            $excel->setActiveSheetIndex(0)->setCellValue('J' . $index, '');
+            $excel->setActiveSheetIndex(0)->setCellValue('K' . $index, $tch->Address);
+            $excel->setActiveSheetIndex(0)->setCellValue('L' . $index, $tch->Govt_Cert);
+            $excel->setActiveSheetIndex(0)->setCellValue('M' . $index, $tch->Institute_Cert);
+
+            $i++;
+            $index += 1;
+        }
+
+        $excel->setActiveSheetIndex(0)->setCellValue('A' . $index , "ADMINISTRASI");
+        $excel->getActiveSheet()->getStyle('A' . $index)->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('A' . $index)->getFont()->setBold(TRUE);
+        $excel->getActiveSheet()->getStyle('A' . $index)->getFont()->setSize(10);
+        $excel->getActiveSheet()->getStyle('A' . $index)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->mergeCells('A' . $index . ':' . 'M' . $index);
+
+        foreach($nonteacher as $nontch){
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+1), $i);
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+1), $nontch->FullName . ', ' . $nontch->IDNumber);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+1), $nontch->Gender);
+            $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+1), $nontch->Emp_Type);
+            $excel->setActiveSheetIndex(0)->setCellValue('E' . ($index+1), $nontch->Birth);
+            $excel->setActiveSheetIndex(0)->setCellValue('F' . ($index+1), '');
+            $excel->setActiveSheetIndex(0)->setCellValue('G' . ($index+1), '');
+            $excel->setActiveSheetIndex(0)->setCellValue('H' . ($index+1), $nontch->JobDesc);
+            $excel->setActiveSheetIndex(0)->setCellValue('I' . ($index+1), $nontch->YearStarts);
+            $excel->setActiveSheetIndex(0)->setCellValue('J' . ($index+1), '');
+            $excel->setActiveSheetIndex(0)->setCellValue('K' . ($index+1), $nontch->Address);
+            $excel->setActiveSheetIndex(0)->setCellValue('L' . ($index+1), $nontch->Govt_Cert);
+            $excel->setActiveSheetIndex(0)->setCellValue('M' . ($index+1), $nontch->Institute_Cert);
+
+            $i++;
+            $index +=1;
+        }
+        
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(40);
+        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+        $excel->getActiveSheet()->getColumnDimension('D')->setWidth(10);
+        $excel->getActiveSheet()->getColumnDimension('E')->setWidth(30);
+        $excel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+        $excel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
+        $excel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+        $excel->getActiveSheet()->getColumnDimension('I')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('J')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('K')->setWidth(45);
+        $excel->getActiveSheet()->getColumnDimension('L')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('M')->setWidth(20);
+    
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+    
+        $excel->getActiveSheet(0)->setTitle('NOMINATIF PEGAWAI');
+        $excel->setActiveSheetIndex(0);
+    
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+
+        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $write->save('php://output');
+    }
+
     // ==================================================================================================================== \\
     // ==============================                     CONTROL PANEL CONTROLLER           ============================== \\
     // ==================================================================================================================== \\
@@ -292,8 +1477,183 @@ class Admin extends CI_Controller
         $tch = 'teacher';
         $std = 'student';
         $stf = 'staff';
+        $report = '';
+        $report_student = '';
+
+        $report_school = $this->Mdl_index->get_report_school();
+
+        //REPORT
+        foreach($report_school as $school){
+            $sch = $school->School_Desc;
+            
+            //LABUL
+            $report_class = $this->Mdl_index->get_report_class($sch);
+
+            $report .= '<div class="col-md-12">';
+            $report .= '  <div class="portlet light portlet-fit bordered">';
+            $report .= '      <div class="portlet-title">';
+            $report .= '          <div class="caption">';
+            $report .= '              <i class="icon-bubble font-dark"></i>';
+            $report .= '              <span class="caption-subject font-dark bold uppercase">'.$school->School_Desc.'</span>';
+            $report .= '          </div>';
+            $report .= '      </div>';
+            $report .= '      <div class="portlet-body">';
+            $report .= '          <div class="table-scrollable">';
+            $report .= '              <table class="table table-bordered table-hover">';
+            $report .= '                  <thead>';
+            $report .= '                      <tr>';
+            $report .= '                          <th> Item </th>';
+            foreach($report_class as $cls){
+                $report .= '                          <th> '.$cls->ClassDesc.' </th>';
+            }
+            $report .= '                      </tr>';
+            $report .= '                  </thead>';
+            $report .= '                  <tbody>';
+            $report .= '                      <tr>';
+            $report .= '                          <td width="15%"> ROMBEL </td>';
+            foreach($report_class as $room){
+                $report .= '                      <td> '.$room->Total.' </td>';
+            }
+            $report .= '                      </tr>';
+            $report .= '                      <tr>';
+            $report .= '                          <td width="15%"> Jam/Minggu </td>';
+            foreach($report_class as $hour){
+                $report .= '                      <td> '.$hour->Hour.' </td>';
+            }
+            $report .= '                      </tr>';
+            $report .= '                  </tbody>';
+            $report .= '              </table>';
+            $report .= '          </div>';
+            $report .= '      </div>';
+            $report .= '  </div>';
+            $report .= '</div>';
+
+            //STUDENT 
+            //BY SCHOOL
+            [$all_std, $adventist, $non_adventist, $attendance, $sick, $on_permit, $absent] = $this->Mdl_index->get_report_student($sch);
+
+            $report_student .= '<div class="col-md-12">';
+            $report_student .= '    <div class="portlet light portlet-fit bordered">';
+            $report_student .= '        <div class="portlet-title">';
+            $report_student .= '            <div class="caption">';
+            $report_student .= '                <i class="icon-settings font-dark"></i>';
+            $report_student .= '                <span class="caption-subject font-dark bold uppercase">KEADAAN MURID '.$sch.' - '.date('F Y').'</span>';
+            $report_student .= '            </div>';
+            $report_student .= '        </div>';
+            $report_student .= '        <div class="portlet-body">';
+            $report_student .= '            <div class="table-scrollable">';
+            $report_student .= '            <table class="table table-striped table-hover">';
+            $report_student .= '                <thead>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <th> Item </th>';
+            $report_student .= '                        <th> Laki-Laki </th>';
+            $report_student .= '                        <th> Perempuan </th>';
+            $report_student .= '                        <th> Jumlah </th>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                </thead>';
+            $report_student .= '                <tbody>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Jumlah Siswa Seluruhnya </td>';
+            $report_student .= '                        <td> '.$all_std->Male.' </td>';
+            $report_student .= '                        <td> '.$all_std->Female.' </td>';
+            $report_student .= '                        <td> '.$all_std->Total.' </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Advent </td>';
+            $report_student .= '                        <td> '.$adventist->Male.' </td>';
+            $report_student .= '                        <td> '.$adventist->Female.' </td>';
+            $report_student .= '                        <td> '.$adventist->Total.' </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Non-Adventist </td>';
+            $report_student .= '                        <td> '.$non_adventist->Male.' </td>';
+            $report_student .= '                        <td> '.$non_adventist->Female.' </td>';
+            $report_student .= '                        <td> '.$non_adventist->Total.' </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Jumlah Absen Bulan Ini </td>';
+            $report_student .= '                        <td> '.$attendance->Male.' </td>';
+            $report_student .= '                        <td> '.$attendance->Female.' </td>';
+            $report_student .= '                        <td> '.$attendance->Total.' </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Sakit </td>';
+            $report_student .= '                        <td> '.$sick->Male.' </td>';
+            $report_student .= '                        <td> '.$sick->Female.' </td>';
+            $report_student .= '                        <td> '.$sick->Total.' </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Izin </td>';
+            $report_student .= '                        <td> '.$on_permit->Male.' </td>';
+            $report_student .= '                        <td> '.$on_permit->Female.' </td>';
+            $report_student .= '                        <td> '.$on_permit->Total.' </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Alpa </td>';
+            $report_student .= '                        <td> '.$absent->Male.' </td>';
+            $report_student .= '                        <td> '.$absent->Female.' </td>';
+            $report_student .= '                        <td> '.$absent->Total.' </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Jumlah Siswa Mutasi/DO </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Masuk </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Keluar/Pindah </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                        <td> Drop Out (DO) </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Jumlah Siswa yang sudah dibaptis </td>';
+            $report_student .= '                        <td contenteditable="0"> 0 </td>';
+            $report_student .= '                        <td contenteditable="0"> 0 </td>';
+            $report_student .= '                        <td contenteditable="0"> 0 </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Jumlah Siswa yang sudah dibaptis sampai bulan ini </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                    <tr>';
+            $report_student .= '                        <td> Jumlah Siswa yang belum dibaptis <br> (Usia Baptis mengikuti Bible Study) </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                        <td contenteditable="true"> 0 </td>';
+            $report_student .= '                    </tr>';
+            $report_student .= '                </tbody>';
+            $report_student .= '            </table>';
+            $report_student .= '        </div>';
+            $report_student .= '        </div>';
+            $report_student .= '    </div>';
+            $report_student .= '</div>';
+        }
+
+        //STUDENT
+        //BY OVERALL
+        [$overall_all_std, $overall_adventist, $overall_non_adventist, $overall_attendance, $overall_sick, $overall_on_permit, $overall_absent] = $this->Mdl_index->get_report_student_overall();
+
+        //NON-STUDENT
+        [$nonstd, $gty, $asn, $gtt, $nontch, $acc, $adm, $others, $adv, $nonadv, $nonstrat, $strat1, $strat2, $attd, $sck, $onpermit, $abs] = $this->Mdl_index->get_report_nonstudent();
+
+        //NOMINATIVE
+        [$teacher, $nonteacher] = $this->Mdl_index->get_report_full_nonstudent();
 
         $data = [
+            //MAIN
             'title' => 'Admin Control Panel',
             'fname' => $this->session->userdata('fname'),
             'lname' => $this->session->userdata('lname'),
@@ -305,8 +1665,48 @@ class Admin extends CI_Controller
             'count' => $this->Mdl_index->count_total(),
             'tch_t' => $this->Mdl_index->get_teachers($tch),
             'std_t' => $this->Mdl_index->get_student($std),
-            'stf_t' => $this->Mdl_index->get_staff($stf)
+            'stf_t' => $this->Mdl_index->get_staff($stf),
+            'degree_active' => $this->db->select('School_Desc')->where('isActive', 1)->get('tbl_02_school')->result(),
+
+            /* REPORT */
+                //LABUL
+                'report_input' => $this->Mdl_index->Mdl_get_report(),
+                'report' => $report,
+
+                //STUDENT
+                'report_std' => $report_student,
+                'report_overall' => $overall_all_std,
+                'report_adventist' => $overall_adventist,
+                'report_non_adventist' => $overall_non_adventist,
+                'report_attendance' => $overall_attendance,
+                'report_sick' => $overall_sick,
+                'report_on_permit' => $overall_on_permit,
+                'report_absent' => $overall_absent,
+
+                //NON-STUDENT
+                'overall' => $nonstd,
+                'gty' => $gty,
+                'asn' => $asn,
+                'gtt' => $gtt,
+                'nontch' => $nontch,
+                'acc' => $acc,
+                'adm' => $adm,
+                'other' => $others,
+                'adv' => $adv,
+                'nonadv' => $nonadv,
+                'nonstrat' => $nonstrat,
+                'strat1' => $strat1,
+                'strat2' => $strat2,
+                'attd' => $attd,
+                'sick' => $sck,
+                'onpermit' => $onpermit,
+                'abs' => $abs,
+
+                //NOMINATIVE
+                'nom_t' => $teacher,
+                'nom_s' => $nonteacher
         ];
+        
 
         $this->load->view('admin/index', $data);
     }
@@ -710,7 +2110,7 @@ class Admin extends CI_Controller
 
             //Get Dropdown for Modal ADD SCHEDULE
             'class' => $this->Mdl_schedule->get_dropdown_class(),
-            'subj' => $this->Mdl_schedule->get_dropdown_subject(),
+            'subj' => $this->Mdl_schedule->get_dropdown_subject(null),
             'tch' => $this->Mdl_schedule->get_dropdown_teachers()
         ];
 
@@ -1118,8 +2518,9 @@ class Admin extends CI_Controller
         foreach ($reg as $row) {
             $regular .= '<tr>
                             <td> ' . $i . ' </th>
-                            <td name="code" contenteditable="true" data-field="SubjID" data-cur-id="' . $row->SubjID . '">' . $row->SubjID . '</th>
-                            <td name="subj" contenteditable="true" data-field="SubjName" data-cur-name="' . $row->SubjName . '">' . $row->SubjName . '</th>
+                            <td name="code" contenteditable="true" data-field="SubjID" data-cur="' . $row->SubjID . '">' . $row->SubjID . '</th>
+                            <td name="subj" contenteditable="true" data-field="SubjName" data-cur="' . $row->SubjName . '">' . $row->SubjName . '</th>
+                            <td name="degree" contenteditable="true" data-subj="'.$row->SubjID.'" data-field="Degree" data-cur="' . $row->Degree . '">' . $row->Degree . '</th>
                             <td>
                                 <a href="javascript:;" data-subj="' . $row->SubjName . '" class="btn btn-icon-only red del_sess">
                                     <i class="fa fa-times"></i>
@@ -1134,8 +2535,9 @@ class Admin extends CI_Controller
         foreach ($elc as $row) {
             $elective .= '<tr>
                             <td> ' . $j . ' </th>
-                            <td name="code" contenteditable="true" data-field="SubjID" data-cur-id="' . $row->SubjID . '">' . $row->SubjID . '</th>
-                            <td name="subj" contenteditable="true" data-field="SubjName" data-cur-name="' . $row->SubjName . '">' . $row->SubjName . '</th>
+                            <td name="code" contenteditable="true" data-field="SubjID" data-cur="' . $row->SubjID . '">' . $row->SubjID . '</th>
+                            <td name="subj" contenteditable="true" data-field="SubjName" data-cur="' . $row->SubjName . '">' . $row->SubjName . '</th>
+                            <td name="degree" contenteditable="true" data-subj="'.$row->SubjID.'" data-field="Degree" data-cur="' . $row->Degree . '">' . $row->Degree . '</th>
                             <td>
                                 <a href="javascript:;" data-subj="' . $row->SubjName . '" class="btn btn-icon-only red del_sess">
                                     <i class="fa fa-times"></i>
@@ -1150,8 +2552,9 @@ class Admin extends CI_Controller
         foreach ($exc as $row) {
             $excul .= ' <tr>
                             <td> ' . $k . ' </th>
-                            <td name="code" contenteditable="true" data-field="SubjID" data-cur-id="' . $row->SubjID . '">' . $row->SubjID . '</th>
-                            <td name="subj" contenteditable="true" data-field="SubjName" data-cur-name="' . $row->SubjName . '">' . $row->SubjName . '</th>
+                            <td name="code" contenteditable="true" data-field="SubjID" data-cur="' . $row->SubjID . '">' . $row->SubjID . '</th>
+                            <td name="subj" contenteditable="true" data-field="SubjName" data-cur="' . $row->SubjName . '">' . $row->SubjName . '</th>
+                            <td name="degree" contenteditable="true" data-subj="'.$row->SubjID.'" data-field="Degree" data-cur="' . $row->Degree . '">' . $row->Degree . '</th>
                             <td>
                                 <a href="javascript:;" data-subj="' . $row->SubjName . '" class="btn btn-icon-only red del_sess">
                                     <i class="fa fa-times"></i>
@@ -1166,8 +2569,9 @@ class Admin extends CI_Controller
         foreach ($non as $row) {
             $nonsubj .= '<tr>
                             <td> ' . $l . ' </th>
-                            <td name="code" contenteditable="true" data-field="SubjID" data-cur-id="' . $row->SubjID . '">' . $row->SubjID . '</th>
-                            <td name="subj" contenteditable="true" data-field="SubjName" data-cur-name="' . $row->SubjName . '">' . $row->SubjName . '</th>
+                            <td name="code" contenteditable="true" data-field="SubjID" data-cur="' . $row->SubjID . '">' . $row->SubjID . '</th>
+                            <td name="subj" contenteditable="true" data-field="SubjName" data-cur="' . $row->SubjName . '">' . $row->SubjName . '</th>
+                            <td name="degree" contenteditable="true" data-subj="'.$row->SubjID.'" data-field="Degree" data-cur="' . $row->Degree . '">' . $row->Degree . '</th>
                             <td>
                                 <a href="javascript:;" data-subj="' . $row->SubjName . '" class="btn btn-icon-only red del_sess">
                                     <i class="fa fa-times"></i>
@@ -1193,8 +2597,9 @@ class Admin extends CI_Controller
         $type = $_POST['type'];
         $code = $_POST['code'];
         $name = $_POST['name'];
+        $degree = $_POST['degree'];
 
-        $result = $this->Mdl_schedule->model_sv_new_session($type, $code, $name);
+        $result = $this->Mdl_schedule->model_sv_new_session($type, $code, $name, $degree);
 
         echo $result;
     }
@@ -1204,8 +2609,9 @@ class Admin extends CI_Controller
         $field = $_POST['field'];
         $old = $_POST['old'];
         $new = $_POST['newv'];
+        $subj = $_POST['subj'];
 
-        $result = $this->Mdl_schedule->model_edit_session($field, $old, $new);
+        $result = $this->Mdl_schedule->model_edit_session($field, $old, $new, $subj);
 
         echo $result;
     }
@@ -1225,7 +2631,7 @@ class Admin extends CI_Controller
         $room = $_POST['room'];
 
         $query = $this->Mdl_schedule->check_students($room);
-        $subj = $this->Mdl_schedule->get_dropdown_subject();
+        $subj = $this->Mdl_schedule->get_dropdown_subject($room);
         $tch = $this->Mdl_schedule->get_dropdown_teachers();
 
         $h = $this->Mdl_schedule->get_dropdown_hour($room);
@@ -1598,10 +3004,50 @@ class Admin extends CI_Controller
         $day = $_POST['day'];
         $hour = $_POST['hour'];
 
-        [$subjects, $teacher] = $this->Mdl_schedule->get_nonregular_subject($room, $type, $day, $hour);
+        [$subjects, $teacher, $list] = $this->Mdl_schedule->get_nonregular_subject($room, $type, $day, $hour);
              
+        $v_list = '';
         $v_subj = '<option value=""> Select Subject </option>';
         $v_teacher = '<option value=""> Select Teacher </option>';
+
+        if($list){
+            foreach($list as $list){
+                $v_list .= '<div data-repeater-list="group-c">';
+                $v_list .= '    <div data-repeater-item class="mt-repeater-item">';
+                $v_list .= '        <div class="row mt-repeater-row">';
+                $v_list .= '            <label class="col-md-4 control-label"></label>';
+                $v_list .= '            <div class="col-md-8">';
+                $v_list .= '                <div class="col-md-5" style="padding-right: 0px">';
+                $v_list .= '                    <label class="control-label">Subject</label>';
+                $v_list .= '                    <select type="text" name="assign_subject" class="form-control subject_repeater" required> ';
+                $v_list .= '                        <option value="'.$list->SubjName.'" selected>'.$list->SubjName.'</option>';
+                $v_list .= '                    </select>';
+                $v_list .= '                </div>';
+                $v_list .= '                <div class="col-md-5" style="padding-right: 0px">';
+                $v_list .= '                    <label class="control-label">Teacher</label>';
+                $v_list .= '                    <select type="text" name="assign_teacher" class="form-control teacher_repeater" required> ';
+                $v_list .= '                        <option value="'.$list->IDNumber.'" selected>'.$list->TeacherName.'</option>';
+                $v_list .= '                    </select>';
+                $v_list .= '                </div>';
+                $v_list .= '                <div class="col-md-1">';
+                $v_list .= '                    <a href="javascript:;" data-repeater-delete class="btn btn-danger mt-repeater-delete listed_subj" 
+                                                    data-subj="'.$list->SubjName.'"
+                                                    data-id="'.$list->IDNumber.'"
+                                                    data-semester="'.$list->semester.'"
+                                                    data-period="'.$list->schoolyear.'"
+                                                    data-room="'.$list->RoomDesc.'" 
+                                                    data-hour="'.$list->Hour.'"
+                                                    data-day="'.$list->Days.'"
+                                                    data->';
+                $v_list .= '                        <i class="fa fa-close"></i>';
+                $v_list .= '                    </a>';
+                $v_list .= '                </div>';
+                $v_list .= '            </div>';
+                $v_list .= '        </div>';
+                $v_list .= '    </div>';
+                $v_list .= '</div>';
+            }
+        }
 
         foreach($subjects as $subj){
             $v_subj .= '<option value="'.$subj->SubjName.'"> '. $subj->SubjName .' </option>';
@@ -1613,7 +3059,8 @@ class Admin extends CI_Controller
 
         $data = [
             'subj' => $v_subj,
-            'teacher' => $v_teacher
+            'teacher' => $v_teacher,
+            'list' => $v_list
         ];
 
         echo json_encode($data);
@@ -1631,6 +3078,19 @@ class Admin extends CI_Controller
         echo $result;
     }
 
+    public function ajax_delete_nonregular(){
+        $subj = $_POST['subj'];
+        $room = $_POST['room'];
+        $semester = $_POST['semester'];
+        $period = $_POST['period'];
+        $hour = $_POST['hour'];
+        $day = $_POST['day'];
+
+        $result = $this->Mdl_schedule->delete_nonregular($subj, $room, $semester, $period, $hour, $day);
+
+        echo $result;
+    }
+
     // ==================================================================================================================== \\
     // ==============================                     STUDENT GRADES CONTROLLER          ============================== \\
     // ==================================================================================================================== \\
@@ -1642,13 +3102,14 @@ class Admin extends CI_Controller
             'lname' => $this->session->userdata('lname'),
             'status' => $this->session->userdata('status'),
             'photo' => $this->session->userdata('photo'),
+            'rooms' => $this->Mdl_grade->get_active_rooms(),
+            'rooms_voc' => $this->Mdl_grade->get_active_rooms_voc(),
 
             //Period (Semester List) for all Modal
             'period' => $this->Mdl_grade->get_period(),
 
             //For Modal Material (KD)
             'class' => $this->Mdl_grade->get_active_classes(),
-            'rooms' => $this->Mdl_grade->get_active_rooms(),
             'subject' => $this->Mdl_grade->get_dd_subjects(),
 
             //For Modal Grade Option
@@ -1722,6 +3183,7 @@ class Admin extends CI_Controller
                                         <th> CODE </th>
                                         <th> Subject </th>
                                         <th> Subject Type </th>
+                                        <th> Degree </th>
                                         <th> Action </th>
                                     </tr>
                                 </thead>
@@ -1733,17 +3195,23 @@ class Admin extends CI_Controller
             $value .= '                 <td> ' . $row->SubjID . ' </td>';
             $value .= '                 <td> ' . $row->SubjName . ' </td>';
             $value .= '                 <td> ' . $row->Type . ' </td>';
+            $value .= '                 <td> ' . $row->Degree . ' </td>';
             $value .= '                 <td> 
-                                            <a type="submit" class="btn blue-ebonyclay btn-md btn-outline btn_grade" data-subject="' . $row->SubjName . '" data-type="cognitive" style="min-width: 100px"> 
+                                            <a type="submit" class="btn blue-ebonyclay btn-md btn-outline btn_grade" data-degree="'.$row->Degree.'" data-subject="' . $row->SubjName . '" data-type="cognitive" style="min-width: 100px"> 
                                                 <i class="fa fa-edit"></i> Cognitive
                                             </a>
-                                            <a type="submit" class="btn blue-ebonyclay btn-md btn-outline btn_grade" data-subject="' . $row->SubjName . '" data-type="skills" style="min-width: 100px"> 
+                                            <a type="submit" class="btn blue-ebonyclay btn-md btn-outline btn_grade" data-degree="'.$row->Degree.'" data-subject="' . $row->SubjName . '" data-type="skills" style="min-width: 100px"> 
                                                 <i class="fa fa-edit"></i> Skill
                                             </a>
-                                            <a type="submit" class="btn blue-ebonyclay btn-md btn-outline btn_grade" data-subject="' . $row->SubjName . '" data-type="character" style="min-width: 100px"> 
+                                            <a type="submit" class="btn blue-ebonyclay btn-md btn-outline btn_grade" data-degree="'.$row->Degree.'" data-subject="' . $row->SubjName . '" data-type="character" style="min-width: 100px"> 
                                                 <i class="fa fa-edit"></i> Character
-                                            </a>
-                                        </td>';
+                                            </a>';
+            if($row->Degree == 'SMK'){
+                $value .= '                     <a type="submit" class="btn blue-ebonyclay btn-md btn-outline btn_grade" data-degree="'.$row->Degree.'" data-subject="' . $row->SubjName . '" data-type="voc" style="min-width: 100px"> 
+                                                    <i class="fa fa-edit"></i> Prakerin/UKK
+                                                </a>';
+            }
+            $value .= '                 </td>';
             $value .= '             </tr>';
 
             $index++;
@@ -1917,6 +3385,20 @@ class Admin extends CI_Controller
     public function load_classes_sma()
     {
         $sma = $this->Mdl_grade->get_sma();
+
+        $value = '';
+
+        foreach ($sma as $row) {
+            $value .= '<button type="button" style="min-width: 100%; background-color: #fff; border-color: #fff; padding-left: 35px; text-align: left; line-height: 2.5;" 
+                            class="btn default cls_grade" data-room="' . $row->ClassDesc . '">CLASS ' . $row->ClassDesc . '</button><br>';
+        }
+
+        echo $value;
+    }
+
+    public function load_classes_smk()
+    {
+        $sma = $this->Mdl_grade->get_smk();
 
         $value = '';
 
@@ -2597,6 +4079,51 @@ class Admin extends CI_Controller
         echo json_encode($response);
     }
 
+    //PRAKERIN (XI) / UKK (XII)
+    public function get_full_table_details_voc(){
+        $cls = $_POST['cls'];
+        $year = $_POST['year'];
+        $semester = $_POST['semester'];
+        $subj = $_POST['subj'];
+
+        $result = $this->Mdl_grade->model_get_person_voc_details($cls, $year, $semester, $subj);
+
+        $i = 1;
+        $value = '';
+        if($result){
+            foreach($result as $row){
+                if ($row->Predicate == 'A') {
+                    $color = '#5edfff';
+                } elseif ($row->Predicate == 'B') {
+                    $color = '#71a95a';
+                } elseif ($row->Predicate == 'C') {
+                    $color = '#fbe555';
+                } elseif ($row->Predicate == 'D') {
+                    $color = '#fb5b5a';
+                } else {
+                    $color = 'black';
+                }
+
+                $value .= '<tr>';
+                $value .= '<td class="text-center" width="1%">'.$i.'</td>';
+                $value .= '<td class="text-center sbold" width="1%">'.$row->NIS.'</td>';
+                $value .= '<td class="text-center" width="10%">'.$row->FullName.'</td>';
+                $value .= '<td class="text-center sbold voc_grade" width="1%" contenteditable="true" data-nis="'.$row->NIS.'" data-semester="'.$semester.'" data-period="'.$year.'" data-room="'.$row->Room.'" data-subjname="'.$subj.'">'.$row->Report.'</td>';
+                $value .= '<td class="text-center sbold" width="1%" style="color: '.$color.'">'.$row->Predicate.'</td>';
+                $value .= '<td class="text-center" width="10%">'.$row->Description.'</td>';
+                $value .= '</tr>';
+
+                $i++;
+            }
+        }
+
+        $data = [
+            'voc' => $value
+        ];
+
+        echo json_encode($data);
+    }
+
     public function update_kd_weight()
     {
         $room = $_POST['room'];
@@ -2739,6 +4266,26 @@ class Admin extends CI_Controller
         echo $result;
     }
 
+    public function sv_std_voc_grades(){
+        $nis = $_POST['nis'];
+        $semester = $_POST['semester'];
+        $year = $_POST['period'];
+        $room = $_POST['room'];
+        $subj = $_POST['subj'];
+        $value = $_POST['value'];
+
+        $current_period = $this->session->userdata('period');
+        $current_semester = $this->session->userdata('semester');
+
+        if($year == $current_period && $semester == $current_semester){
+            $result = $this->Mdl_grade->model_sv_std_voc_grades($nis, $year, $semester, $subj, $room, $value);
+        }else{
+            $result = 'INVALID_PERIOD';
+        }
+
+        echo $result;
+    }
+
     public function load_std_grades_dt()
     {
         $nis = $this->input->post('nis');
@@ -2871,6 +4418,35 @@ class Admin extends CI_Controller
         $exam .= '    <td colspan="1" class="sbold">' . $result_exam->FinalRecap . '</td>';
         $exam .= '</tr>';
 
+        $result_voc = $this->Mdl_grade->get_std_voc_det($nis, $cls, $subj, $semester);
+
+        $voc = '';
+        if($result_voc->num_rows() > 0){
+            $result_voc = $result_voc->row();
+
+            if ($result_voc->Predicate == 'A') {
+                $col_voc = '#5edfff';
+            } elseif ($result_voc->Predicate == 'B') {
+                $col_voc = '#71a95a';
+            } elseif ($result_voc->Predicate == 'C') {
+                $col_voc = '#fbe555';
+            } elseif ($result_voc->Predicate == 'D') {
+                $col_voc = '#fb5b5a';
+            }
+
+            $voc .= '<tr>';
+            $voc .= '    <th class="text-center" rowspan="2">PRAKERIN/UKK</th>';
+            $voc .= '    <th class="text-center"> NILAI</th>';
+            $voc .= '    <th class="text-center"> PREDIKAT</th>';
+            $voc .= '    <th class="text-center"> DESKRIPSI</th>';
+            $voc .= '</tr>';
+            $voc .= '<tr>';
+            $voc .= '    <td class="text-center sbold">'.$result_voc->Report.'</td>';
+            $voc .= '    <td class="text-center sbold" style="color: '.$col_voc.'">'.$result_voc->Predicate.'</td>';
+            $voc .= '    <td class="text-center">'.$result_voc->Description.'</td>';
+            $voc .= '</tr>';
+        }
+
         $result_report = $this->Mdl_grade->get_std_report_det($nis, $cls, $subj, $semester);
 
         $col = '';
@@ -2934,6 +4510,7 @@ class Admin extends CI_Controller
             'KDCog' => $kd_cog,
             'KDSK' => $kd_sk,
             'EXM' => $exam,
+            'VOC' => $voc,
             'REPCog' => $report,
             'REPSK' => $report_sk,
             'DESCCog' => $desc_cog,
@@ -2954,6 +4531,7 @@ class Admin extends CI_Controller
         $row = $this->Mdl_grade->model_get_grade_report($nis, $cls, $semester)->result();
         $matrix = $this->Mdl_grade->get_spectrum();
         $character = $this->Mdl_grade->model_get_character_grade_compact($nis, $semester);
+        $voc = $this->Mdl_grade->model_get_voc_grade_compact($nis, $cls, $semester);
         $absence = $this->Mdl_grade->get_absent($nis, $cls, $semester);
 
         $cognitive = '';
@@ -3084,6 +4662,25 @@ class Admin extends CI_Controller
                             </tr>';
         }
 
+        $voc_result = '';
+        if($voc){
+            if ($voc->Predicate == 'A') {
+                $col_voc = '#5edfff';
+            } elseif ($voc->Predicate == 'B') {
+                $col_voc = '#71a95a';
+            } elseif ($voc->Predicate == 'C') {
+                $col_voc = '#fbe555';
+            } elseif ($voc->Predicate == 'D') {
+                $col_voc = '#fb5b5a';
+            }
+
+            $voc_result .= '<tr>';
+            $voc_result .= '    <td class="text-center sbold">'.$voc->Report.'</td>';
+            $voc_result .= '    <td class="text-center sbold" style="color: '.$col_voc.'">'.$voc->Predicate.'</td>';
+            $voc_result .= '    <td>'.$voc->Description.'</td>';
+            $voc_result .= '</tr>';
+        }
+
         $absent = '';
         if ($absence->num_rows() != 0) {
             foreach ($absence->result() as $row) {
@@ -3106,6 +4703,7 @@ class Admin extends CI_Controller
             'Spectrum' => $spectrum,
             'SOC' => $soc,
             'SPR' => $spr,
+            'VOC' => $voc_result,
             'Absent' => $absent
         ];
 
@@ -3123,7 +4721,7 @@ class Admin extends CI_Controller
         $result = $this->Mdl_grade->model_get_subject_list($nis, $cls, $semester);
 
         $dd_list_subj = '';
-        $dd_list_subj .= '   <div class="form-group form-md-line-input form-md-floating-label has-info">';
+        $dd_list_subj .= '   <div class="form-group form-md-line-input has-info">';
         $dd_list_subj .= '       <select class="form-control avail_subj" id="form_control_1">';
         foreach ($result as $row) {
             if ($row->SubjName == $subj) {
@@ -3152,6 +4750,7 @@ class Admin extends CI_Controller
             'info' => $this->Mdl_grade->get_report_print_info($nis, $cls, $subj, $semester, $report_type),
             'kd' => $this->Mdl_grade->get_std_kd_det($nis, $subj, $semester),
             'exam' => $this->Mdl_grade->get_std_exam_det($nis, $cls, $subj, $semester),
+            'voc' => $this->Mdl_grade->get_std_voc_det($nis, $cls, $subj, $semester),
             'rep' => $this->Mdl_grade->get_std_report_det($nis, $cls, $subj, $semester),
             'sick' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'Sick'),
             'permit' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'On Permit'),
@@ -3431,7 +5030,7 @@ class Admin extends CI_Controller
 
             //Dropdown
             'room' => $this->Mdl_profile->get_classrooms(),
-            'subj' => $this->Mdl_profile->get_dropdown_subject()
+            'subj' => $this->Mdl_profile->get_dropdown_subject(null)
         ];
 
         $this->load->view('admin/adm_prof_tch_add', $data);
@@ -3452,7 +5051,7 @@ class Admin extends CI_Controller
 
             //Dropdown
             'room' => $this->Mdl_profile->get_classrooms(),
-            'subj' => $this->Mdl_profile->get_dropdown_subject(),
+            'subj' => $this->Mdl_profile->get_dropdown_subject(null),
 
             //Get data from ID that will be editted
             'datatoedit' => $this->Mdl_profile->get_full_info($selected_id)
@@ -3503,6 +5102,7 @@ class Admin extends CI_Controller
             'LastName' => $_POST['newlname'],
             'status' => $status,
             'Gender' => $_POST['gender'],
+            'Religion' => $_POST['Religion'],
             'DateofBirth' => date("Y-m-d", strtotime($_POST['newtgllhr'])),
             'PointofBirth' => $_POST['newtmplhr'],
             'Address' => $_POST['newaddr'],
@@ -3567,6 +5167,7 @@ class Admin extends CI_Controller
             'LastName' => $_POST['newlname'],
             'status' => $_POST['status'],
             'Gender' => $_POST['gender'],
+            'Religion' => $_POST['Religion'],
             'DateofBirth' => date("Y-m-d", strtotime($_POST['newtgllhr'])),
             'PointofBirth' => $_POST['newtmplhr'],
             'Address' => $_POST['newaddr'],
@@ -4270,11 +5871,12 @@ class Admin extends CI_Controller
                             <td> ' . $gender . ' </td>
                             <td> ' . $row->PreviousSchool . ' </td>
                             <td> ' . $row->Address . ' </td>
+                            <td> ' . $row->Applying . ' </td>
                             <td> ' . date('d-m-Y', strtotime($row->RegDate)) . ' </td>
                             <td>
                                 <div class="btn-group btn-group-solid">
                                     <button type="button" class="btn green detail" data-id="' . $row->CtrlNo . '" data-apply="SMA" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Details</button>
-                                    <button type="button" class="btn blue approve" data-apply="SMA" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Approve</button>
+                                    <button type="button" class="btn blue approve" data-apply="'.$row->Applying.'" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Approve</button>
                                     <button type="button" class="btn red cancel" style="min-width: 80px;"> Delete </button>
                                 </div>
                             </td>
@@ -4299,7 +5901,7 @@ class Admin extends CI_Controller
         $query = $this->Mdl_enroll->model_get_dropdown_apply($apply);
 
         $value = '';
-        $value .= '<div class="form-group form-md-line-input form-md-floating-label has-info" style="width: 60%;">
+        $value .= '<div class="form-group form-md-line-input has-info" style="width: 60%;">
                         <select class="form-control" name="room" id="form_control_1">';
         foreach ($query as $row) {
             $value .= '         <option value="' . $row->RoomDesc . '">' . $row->RoomDesc . '</option>';
@@ -4333,259 +5935,5 @@ class Admin extends CI_Controller
         $total = $this->Mdl_enroll->count_total();
 
         echo $total;
-    }
-
-    // =============================================================================================================================== \\
-    // ==============================                     FINANCE TEACHER / STAFF CONTROLLER            ============================== \\
-    // =============================================================================================================================== \\
-
-    public function load_fnc_tch()
-    {
-        $data = [
-            'title' => 'Finance Student',
-            'fname' => $this->session->userdata('fname'),
-            'lname' => $this->session->userdata('lname'),
-            'status' => $this->session->userdata('status'),
-            'photo' => $this->session->userdata('photo'),
-        ];
-
-        $this->load->view('admin/adm_fnc_tch', $data);
-    }
-
-    // ==================================================================================================================== \\
-    // ==============================                     FINANCE STUDENT CONTROLLER         ============================== \\
-    // ==================================================================================================================== \\
-
-    public function load_fnc_std()
-    {
-        $data = [
-            'title' => 'Finance Student',
-            'fname' => $this->session->userdata('fname'),
-            'lname' => $this->session->userdata('lname'),
-            'status' => $this->session->userdata('status'),
-            'photo' => $this->session->userdata('photo'),
-
-            'tuition_a' => $this->Mdl_finance->get_all_tuition('A'),
-            'tuition_b' => $this->Mdl_finance->get_all_tuition('B'),
-            'tuition_c' => $this->Mdl_finance->get_all_tuition('C'),
-            'tuition_d' => $this->Mdl_finance->get_all_tuition('D'),
-            'tuition_e' => $this->Mdl_finance->get_all_tuition('E'),
-
-            'degrees' => $this->Mdl_finance->get_all_degrees(),
-        ];
-
-        $this->load->view('admin/adm_fnc_std', $data);
-    }
-
-    public function get_cat_tuition()
-    {
-        $degree = $_POST['degree'];
-        $cat = $_POST['cat'];
-
-        $result = $this->Mdl_finance->get_cat_tuition($degree, $cat);
-
-        $tuition = number_format($result['Tuition'], 2, ",", ".");
-
-        echo $tuition;
-    }
-
-    public function save_cat_tuition()
-    {
-        $degree = $_POST['degree'];
-        $cat = $_POST['cat'];
-        $newinput = $_POST['newinput'];
-
-        $result = $this->Mdl_finance->model_save_cat_tuition($degree, $cat, $newinput);
-
-        echo $result;
-    }
-
-    public function get_fnc_by_id()
-    {
-        $selected = $_POST['id'];
-
-        $degrees = $this->Mdl_finance->model_get_fnc_data_by_id($selected);
-
-        $value = '';
-        if (!empty($degrees->result())) {
-            foreach ($degrees->result() as $row) {
-                $value .= ' <tr role="row" class="odd">';
-                //$value .= '     <td><label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input name="id[]" type="checkbox" class="checkboxes" value="1"><span></span></label></td>';
-                $value .= '     <td> ' . $row->NIS . ' </td>';
-                $value .= '     <td><a href=""> ' . $row->FullName . ' </a></td>';
-                if ($row->Degree == 'SD') {
-                    $value .= '     <td><span class="label label-sm label-danger"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                } elseif ($row->Degree == 'SMP') {
-                    $value .= '     <td><span class="label label-sm label-info"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                } elseif ($row->Degree == 'SMA') {
-                    $value .= '     <td><span class="label label-sm label-secondary" style="background-color: #ACB5C3"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                }
-                $value .= '     <td> ' . $row->Kelas . ' </td>';
-                $value .= '     <td> ' . $row->Ruangan . ' </td>';
-                $value .= ' </tr>';
-            }
-        } else {
-            $value .= ' <tr role="row" class="odd">';
-            $value .= '     <td colspan="5"> NO STUDENTS LISTED IN THIS CLASS </td>';
-            $value .= '</tr>';
-        }
-
-        echo $value;
-    }
-
-    public function get_fnc_by_name()
-    {
-        $selected = $_POST['name'];
-
-        $degrees = $this->Mdl_finance->model_get_fnc_data_by_name($selected);
-
-        $value = '';
-        if (!empty($degrees->result())) {
-            foreach ($degrees->result() as $row) {
-                $value .= ' <tr role="row" class="odd">';
-                //$value .= '     <td><label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input name="id[]" type="checkbox" class="checkboxes" value="1"><span></span></label></td>';
-                $value .= '     <td> ' . $row->NIS . ' </td>';
-                $value .= '     <td><a href=""> ' . $row->FullName . ' </a></td>';
-                if ($row->Degree == 'SD') {
-                    $value .= '     <td><span class="label label-sm label-danger"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                } elseif ($row->Degree == 'SMP') {
-                    $value .= '     <td><span class="label label-sm label-info"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                } elseif ($row->Degree == 'SMA') {
-                    $value .= '     <td><span class="label label-sm label-secondary" style="background-color: #ACB5C3"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                }
-                $value .= '     <td> ' . $row->Kelas . ' </td>';
-                $value .= '     <td> ' . $row->Ruangan . ' </td>';
-                $value .= ' </tr>';
-            }
-        } else {
-            $value .= ' <tr role="row" class="odd">';
-            $value .= '     <td colspan="5"> NO STUDENTS LISTED IN THIS CLASS </td>';
-            $value .= '</tr>';
-        }
-
-        echo $value;
-    }
-
-    public function get_fnc_degrees()
-    {
-        $selected = $_POST['selected'];
-
-        $degrees = $this->Mdl_finance->model_get_fnc_data_by_degree($selected);
-        $class = $this->Mdl_finance->model_get_fnc_classes($selected);
-
-        $classes = '';
-        $classes .= '<option value="-"> Classes </option>';
-        foreach ($class->result() as $row) {
-            $classes .= '<option value="' . $row->ClassDesc . '"> ' . $row->ClassDesc . ' </option>';
-        }
-
-        $value = '';
-        if (!empty($degrees->result())) {
-            foreach ($degrees->result() as $row) {
-                $value .= ' <tr role="row" class="odd">';
-                //$value .= '     <td><label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input name="id[]" type="checkbox" class="checkboxes" value="1"><span></span></label></td>';
-                $value .= '     <td> ' . $row->NIS . ' </td>';
-                $value .= '     <td><a href=""> ' . $row->FullName . ' </a></td>';
-                if ($row->Degree == 'SD') {
-                    $value .= '     <td><span class="label label-sm label-danger"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                } elseif ($row->Degree == 'SMP') {
-                    $value .= '     <td><span class="label label-sm label-info"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                } elseif ($row->Degree == 'SMA') {
-                    $value .= '     <td><span class="label label-sm label-secondary" style="background-color: #ACB5C3"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                }
-                $value .= '     <td> ' . $row->Kelas . ' </td>';
-                $value .= '     <td> ' . $row->Ruangan . ' </td>';
-                $value .= ' </tr>';
-            }
-        } else {
-            $value .= ' <tr role="row" class="odd">';
-            $value .= '     <td colspan="5"> NO STUDENTS LISTED IN THIS CLASS </td>';
-            $value .= '</tr>';
-        }
-
-        $data = [
-            'classes' => $classes,
-            'row' => $value
-        ];
-
-        echo json_encode($data);
-    }
-
-    public function get_fnc_classes()
-    {
-        $selected = $_POST['cls'];
-
-        $degrees = $this->Mdl_finance->model_get_fnc_data_by_class($selected);
-        $rooms = $this->Mdl_finance->model_get_fnc_rooms($selected);
-
-        $room = '';
-        $room .= '<option value="-"> Rooms </option>';
-        foreach ($rooms->result() as $row) {
-            $room .= '<option value="' . $row->RoomDesc . '"> ' . $row->RoomDesc . ' </option>';
-        }
-
-        $value = '';
-        if (!empty($degrees->result())) {
-            foreach ($degrees->result() as $row) {
-                $value .= ' <tr role="row" class="odd">';
-                //$value .= '     <td><label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input name="id[]" type="checkbox" class="checkboxes" value="1"><span></span></label></td>';
-                $value .= '     <td> ' . $row->NIS . ' </td>';
-                $value .= '     <td><a href=""> ' . $row->FullName . ' </a></td>';
-                if ($row->Degree == 'SD') {
-                    $value .= '     <td><span class="label label-sm label-danger"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                } elseif ($row->Degree == 'SMP') {
-                    $value .= '     <td><span class="label label-sm label-info"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                } elseif ($row->Degree == 'SMA') {
-                    $value .= '     <td><span class="label label-sm label-secondary" style="background-color: #ACB5C3"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                }
-                $value .= '     <td> ' . $row->Kelas . ' </td>';
-                $value .= '     <td> ' . $row->Ruangan . ' </td>';
-                $value .= ' </tr>';
-            }
-        } else {
-            $value .= ' <tr role="row" class="odd">';
-            $value .= '     <td colspan="5"> NO STUDENTS LISTED IN THIS CLASS </td>';
-            $value .= '</tr>';
-        }
-
-        $data = [
-            'classes' => $room,
-            'row' => $value
-        ];
-
-        echo json_encode($data);
-    }
-
-    public function get_fnc_rooms()
-    {
-        $selected = $_POST['room'];
-
-        $degrees = $this->Mdl_finance->model_get_fnc_data_by_rooms($selected);
-
-        $value = '';
-        if (!empty($degrees->result())) {
-            foreach ($degrees->result() as $row) {
-                $value .= ' <tr role="row" class="odd">';
-                //$value .= '     <td><label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input name="id[]" type="checkbox" class="checkboxes" value="1"><span></span></label></td>';
-                $value .= '     <td> ' . $row->NIS . ' </td>';
-                $value .= '     <td><a href=""> ' . $row->FullName . ' </a></td>';
-                if ($row->Degree == 'SD') {
-                    $value .= '     <td><span class="label label-sm label-danger"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                } elseif ($row->Degree == 'SMP') {
-                    $value .= '     <td><span class="label label-sm label-info"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                } elseif ($row->Degree == 'SMA') {
-                    $value .= '     <td><span class="label label-sm label-secondary" style="background-color: #ACB5C3"> &nbsp;&nbsp; ' . $row->Degree . ' &nbsp;&nbsp; </span></td>';
-                }
-                $value .= '     <td> ' . $row->Kelas . ' </td>';
-                $value .= '     <td> ' . $row->Ruangan . ' </td>';
-                $value .= ' </tr>';
-            }
-        } else {
-            $value .= ' <tr role="row" class="odd">';
-            $value .= '     <td colspan="5"> NO STUDENTS LISTED IN THIS CLASS </td>';
-            $value .= '</tr>';
-        }
-
-        echo $value;
     }
 }

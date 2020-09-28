@@ -37,7 +37,20 @@ class Mdl_student extends CI_Model
     {
 
         $level = $this->db->query(
-            "SELECT t1.Type, t2.Room FROM tbl_04_class_rooms t1
+            "SELECT 
+                t1.Type, 
+                t2.Room 
+             FROM tbl_04_class_rooms t1
+             JOIN tbl_09_det_grades t2
+             ON t1.RoomDesc = t2.Room
+             WHERE t2.NIS = '$id'
+             AND Semester = '$semester'
+             AND schoolyear = '$period'
+             UNION ALL
+             SELECT 
+                t1.Type, 
+                t2.Room 
+             FROM tbl_04_class_rooms_vocational t1
              JOIN tbl_09_det_grades t2
              ON t1.RoomDesc = t2.Room
              WHERE t2.NIS = '$id'
@@ -51,6 +64,8 @@ class Mdl_student extends CI_Model
             $table = 'tbl_meta_hour_junior';
         } elseif ($level->Type == 'SMA') {
             $table = 'tbl_meta_hour_high';
+        } elseif ($level->Type == 'SMK') {
+            $table = 'tbl_meta_hour_vocational';
         }
 
         $result = $this->db->query(
@@ -159,16 +174,26 @@ class Mdl_student extends CI_Model
     public function get_school_detail($room)
     {
         $homeroom = $this->db->query(
-            "SELECT t1.FirstName, t1.LastName, t2.Homeroom FROM tbl_07_personal_bio t1
+            "SELECT 
+                t1.FirstName, 
+                t1.LastName, 
+                t2.Homeroom 
+             FROM tbl_07_personal_bio t1
              JOIN tbl_08_job_info t2
              ON t1.IDNumber = t2.IDNumber
              WHERE Homeroom = '$room'"
         )->row();
 
+        if(empty($homeroom)){
+            $homeroom = '-';
+        }else{
+            $homeroom = "$homeroom->FirstName $homeroom->LastName";
+        }
+
         $total = $this->db->query("SELECT COUNT(NIS) AS Total FROM tbl_08_job_info_std WHERE Ruangan = '$room'")->row();
 
         $data = [
-            'homeroom' => "$homeroom->FirstName $homeroom->LastName",
+            'homeroom' => $homeroom,
             'total' => $total->Total
         ];
 
@@ -205,15 +230,42 @@ class Mdl_student extends CI_Model
 
     public function model_get_full_acd_detail($id, $semester, $period)
     {
-        $query = $this->db->query(
-            "SELECT SubjName, Report, Report_SK, Report_SOC, Report_SPR, Predicate, Predicate_SK, Predicate_SOC, Predicate_SPR, Description, Description_SK, Description_SOC, Description_SPR
+        $grade = $this->db->query(
+            "SELECT 
+                SubjName,
+                Report,
+                Report_SK,
+                Report_SOC,
+                Report_SPR,
+                Predicate,
+                Predicate_SK,
+                Predicate_SOC,
+                Predicate_SPR,
+                Description,
+                Description_SK,
+                Description_SOC,
+                Description_SPR
              FROM tbl_09_det_grades 
              WHERE NIS = '$id' 
              AND Semester = '$semester' 
-             AND schoolyear = '$period'"
+             AND schoolyear = '$period'
+             GROUP BY SubjName"
         )->result();
 
-        return $query;
+        $voc = $this->db->query(
+            "SELECT 
+                SubjName,
+                Report, 
+                Predicate,
+                Description
+             FROM tbl_09_det_voc_grades 
+             WHERE NIS = '$id'
+             AND Semester = '$semester' 
+             AND schoolyear = '$period'
+             GROUP BY SubjName"
+        )->result();
+        
+        return [$grade, $voc];
     }
 
     public function sv_pass($id, $newpass)

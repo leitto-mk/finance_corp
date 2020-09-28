@@ -121,15 +121,6 @@ $(document).ready(function () {
 			let code = $('#code').val()
 			let adjust = $('#adjust').val()
 
-			console.table({
-				cls,
-				subj,
-				semester,
-				material,
-				code,
-				adjust
-			})
-
 			$('.semester_body').css("display", "block")
 
 			$.ajax({
@@ -297,6 +288,19 @@ $(document).ready(function () {
 				datatype: 'JSON',
 				success: function (data) {
 					$('.sma_classes').html(data);
+				},
+				error: function () {
+					alert("AJAX Schedule doesn't work properly");
+				}
+			});
+
+			//Load SMA Sidebar
+			$.ajax({
+				url: 'load_classes_smk',
+				method: 'GET',
+				datatype: 'JSON',
+				success: function (data) {
+					$('.smk_classes').html(data);
 				},
 				error: function () {
 					alert("AJAX Schedule doesn't work properly");
@@ -736,8 +740,10 @@ $(document).ready(function () {
 				$('.full_details_skills').modal('show')
 			} else if (grade_type == 'cognitive') {
 				$('.full_details_cognitive').modal('show')
-			} else {
+			} else if (grade_type == 'character') {
 				$('.full_details_character').modal('show')
+			} else if (grade_type == 'voc') {
+				$('.full_details_voc').modal('show')
 			}
 
 			get_full_details(grade_cls, grade_year, grade_semester, grade_subj, grade_type)
@@ -750,18 +756,11 @@ $(document).ready(function () {
 				controller = 'get_full_table_details_cognitive'
 			} else if (grade_type == 'skills') {
 				controller = 'get_full_table_details_skills'
-			} else {
+			} else if (grade_type == 'character') {
 				controller = 'get_full_table_details_character'
+			} else if (grade_type == 'voc') {
+				controller = 'get_full_table_details_voc'
 			}
-
-			console.table({
-				grade_cls,
-				grade_year,
-				grade_semester,
-				grade_subj,
-				grade_type,
-				controller
-			})
 
 			$.ajax({
 				url: controller,
@@ -775,6 +774,7 @@ $(document).ready(function () {
 					type: grade_type
 				},
 				success: data => {
+					console.log(grade_type)
 					if (grade_type == 'cognitive') {
 						$('.tbl_detailed_cognitive').html(data.full)
 						$('.tbl_recap_cognitive').html(data.recap)
@@ -782,9 +782,11 @@ $(document).ready(function () {
 					} else if (grade_type == 'skills') {
 						$('.tbl_detailed_skills').html(data.recap)
 						$('.tbl_summary_skills').html(data.summary)
-					} else if ('.tbl_summary_character') {
+					} else if (grade_type == 'character') {
 						$('.tbody_soc').html(data.SOC)
 						$('.tbody_spr').html(data.SPR)
+					} else if (grade_type == 'voc') {
+						$('.tbody_voc').html(data.voc)
 					}
 				},
 				error: data => {
@@ -955,6 +957,8 @@ $(document).ready(function () {
 					$('.exam_cog').html(data['EXM'])
 					$('.exam_sk').html(data['EXM'])
 
+					$('.report_voc').html(data.VOC)
+
 					$('.report_cog').html(data['REPCog'])
 					$('.report_sk').html(data['REPSK'])
 
@@ -989,13 +993,14 @@ $(document).ready(function () {
 					semester: rep_semester
 				},
 				success: data => {
-					console.log(data)
 					cognitive.html(data.COG)
 					skills.html(data.SK)
 					spectrum.html(data.Spectrum)
 
 					$('.soc_report_tbody').html(data.SOC)
 					$('.spr_report_tbody').html(data.SPR)
+
+					$('.voc_report_tbody').html(data.VOC)
 
 					if (data['Absent'] != '') {
 						absent.html(data['Absent'])
@@ -1258,17 +1263,6 @@ $(document).ready(function () {
 				let value = $(this).text()
 				value = value.replace(/\s+/g, '')
 
-				console.table({
-					nis,
-					name,
-					semester,
-					subj,
-					room,
-					type,
-					desc,
-					value
-				})
-
 				if (isNaN(value) || value < 1 || value > 4) {
 					alert("only number 1 - 4 is allowed")
 				} else {
@@ -1296,6 +1290,43 @@ $(document).ready(function () {
 						}
 					})
 				}
+			}
+		})
+
+		//ADD / EDIT VOC (PRAKERIN/UKK) GRADES
+		$('.tbody_voc').on('keypress', '.voc_grade', function (e) {
+			if (e.keyCode == 13) {
+				e.preventDefault()
+
+				let nis = $(this).attr('data-nis')
+				let semester = $(this).attr('data-semester')
+				let period = $(this).attr('data-period')
+				let room = $(this).attr('data-room')
+				let subj = $(this).attr('data-subjname')
+				let value = $(this).text()
+				value = value.replace(/\s+/g, '')
+
+				$.ajax({
+					url: 'sv_std_voc_grades',
+					method: 'POST',
+					data: {
+						nis,
+						semester,
+						period,
+						room,
+						subj,
+						value
+					},
+					error: err => console.log(err.responseText)
+				}).then(data => {
+					if (data == 'success') {
+						get_full_details(room, period, semester, subj, 'voc')
+					} else if (data == 'INVALID_PERIOD') {
+						alert('CANNOT UPDATE OLD PERIOD!')
+					} else {
+						console.log(data)
+					}
+				})
 			}
 		})
 	}

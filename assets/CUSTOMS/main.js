@@ -16,66 +16,161 @@ $(document).ready(function () {
 		}
 	})
 
-	//Destroy Calendar
-	//$('#calendar').fullCalendar('destroy')
-	//CALENDAR API
-	// var date = new Date()
-	// var d = date.getDate()
-	// var m = date.getMonth()
-	// var y = date.getFullYear()
-	// var API_KEY = '938b51d56e94fabc3d5d1657257ba638dadf0bfc'
-	// $.get(`https://calendarific.com/api/v2/holidays?&api_key=${API_KEY}&country=ID&year=${y}`) //Get JSON
-	// 	.then(data => {
-	// 		for (let i = 0; i < data.response.holidays.length; i++) {
-	// 			//Push Object from retrieved JSON to Array
-	// 			if (data.response.holidays[i].type == 'National holiday') {
-	// 				holidays.push({
-	// 					title: data.response.holidays[i].name,
-	// 					start: data.response.holidays[i].date.iso,
-	// 					backgroundColor: App.getBrandColor('red')
-	// 				})
-	// 			}
-	// 		}
-	// 		$('#calendar').fullCalendar({
-	// 			disableDragging: false,
-	// 			header: {
-	// 				left: 'title',
-	// 				center: '',
-	// 				right: 'prev,next,today,month'
-	// 			},
-	// 			editable: true,
-	// 			events: holidays, //Set arrray holidays to events
-	// 		});
-	// 	})
+	//SUBMIT NEW EVENT(S) FOR SCHOOL CALENDAR
+	$('#submit_calendar').on('click', function (e) {
+		e.preventDefault()
 
-	$('#calendar').fullCalendar()
+		let title = $('#event_title').val()
+		let date_start = $('#event_date_start').val()
+		let date_end = $('#event_date_end').val()
+		let color = $('#event_color').val()
 
-	$.get('https://raw.githubusercontent.com/guangrei/Json-Indonesia-holidays/master/calendar.json') //Get JSON
-		.then(data => {
-			let holidays = []
-			let parsed = JSON.parse(data)
+		let begin = new Date(date_start)
+		let end = new Date(date_end)
 
-			for (var key in parsed) {
-				holidays.push({
-					title: parsed[key].deskripsi,
-					start: key.slice(0, 4) + '-' + key.slice(4, 6) + '-' + key.slice(6, 8),
-					backgroundColor: '#fd5c63'
+		if (begin > end) {
+			alert("START MUST BE HIGHER THAN END")
+		} else {
+			$.ajax({
+				url: 'ajax_sv_school_event',
+				method: 'POST',
+				data: {
+					title,
+					date_start,
+					date_end,
+					color
+				},
+				success: () => getCalendar(),
+				error: err => console.log(err.responseText)
+			})
+		}
+	})
+
+	getCalendar()
+
+	function getCalendar() {
+		// $.get('https://raw.githubusercontent.com/guangrei/Json-Indonesia-holidays/master/calendar.json') //Get JSON
+		// 	.then(data => {
+		// 		let holidays = []
+		// 		let parsed = JSON.parse(data)
+
+		// 		for (var key in parsed) {
+		// 			holidays.push({
+		// 				title: parsed[key].deskripsi,
+		// 				start: key.slice(0, 4) + '-' + key.slice(4, 6) + '-' + key.slice(6, 8),
+		// 				backgroundColor: '#fd5c63'
+		// 			})
+		// 		}
+
+		// 		$('#calendar').fullCalendar('destroy')
+		// 		$('#calendar').fullCalendar({
+		// 			disableDragging: true,
+		// 			header: {
+		// 				left: 'title',
+		// 				center: '',
+		// 				right: 'prev,next,today,month'
+		// 			},
+		// 			contentHeight: 550,
+		// 			events: holidays, //Set arrray holidays to events
+		// 		})
+		// 	})
+
+		$.ajax({
+			url: 'ajax_get_school_event',
+			dataType: 'JSON',
+			success: response => {
+				let sch_event = []
+
+				for (var key in response) {
+					sch_event.push({
+						title: response[key].Title,
+						start: response[key].DateStart,
+						end: response[key].DateEnd,
+						backgroundColor: response[key].Color
+					})
+				}
+
+				$('#calendar').fullCalendar('destroy')
+				$('#calendar').fullCalendar({
+					// editable: true,
+					header: {
+						left: 'month, basicDay, basicWeek, today',
+						center: '',
+						right: 'title, prev, next',
+					},
+					contentHeight: 550,
+					events: sch_event, //Set arrray sch_event to events
+					eventClick: info => {
+						let title = info.title
+						let start = info.start._i
+						let end = (info.end == null ? info.start._i : info.end._i) //Use start value if selected event only a single day
+						let color = info.backgroundColor
+
+						$('#calendar_action').modal('show')
+						$('#eventchange_title').val(title)
+						$('#eventchange_date_start').val(start)
+						$('#eventchange_date_end').val(end)
+						$('#eventchange_color').val(color)
+
+						submitCalendarChange(title, start, end)
+					}
+				})
+			},
+			error: err => console.log(err.responseText)
+		})
+	}
+
+	//CHANGE/DELETE CALENDAR EVENT
+	$('[name="calendarradio"]').change(function () {
+		if ($(this).val() == 'delete') {
+			$('#eventchange').prop('hidden', true)
+		} else {
+			$('#eventchange').prop('hidden', false)
+		}
+	})
+
+	function submitCalendarChange(title, start, end) {
+		$('#submitcalendarchange').click(function () {
+			let eventchange = $('[name="calendarradio"]:checked').val()
+
+			let newtitle = $('#eventchange_title').val()
+			let newstart = $('#eventchange_date_start').val()
+			let newend = $('#eventchange_date_end').val()
+			let newcolor = $('#eventchange_color').val()
+
+			let newchangestart = new Date(newstart)
+			let newchangeend = new Date(newend)
+
+			if (newchangestart > newchangeend) {
+				alert("START MUST BE HIGHER THAN END")
+			} else {
+				$.ajax({
+					url: 'ajax_update_school_event',
+					method: 'POST',
+					data: {
+						eventchange,
+						title,
+						newtitle,
+						start,
+						newstart,
+						end,
+						newend,
+						newcolor
+					},
+					success: response => {
+						if (response == 'success') {
+							getCalendar()
+						} else {
+							alert("SOMETHING'S WRONG")
+							console.log(response)
+						}
+						$('#calendar_action').modal('hide')
+					},
+					error: err => console.log(err.responseText)
 				})
 			}
-
-			$('#calendar').fullCalendar('destroy')
-			$('#calendar').fullCalendar({
-				disableDragging: true,
-				header: {
-					left: 'title',
-					center: '',
-					right: 'prev,next,today,month'
-				},
-				contentHeight: 550,
-				events: holidays, //Set arrray holidays to events
-			})
 		})
-
+	}
 
 	$.get('getChart')
 		.then(data => {
@@ -251,6 +346,30 @@ $(document).ready(function () {
 			}
 		})
 	}
+
+	//SAVE REPORT INPUT
+	$('.save_report').click(function () {
+		let field = $(this).attr('name')
+		let val = $(this).parents().find(`input[name="${field}"]`).val()
+
+		$.ajax({
+			url: 'ajax_save_report',
+			method: 'POST',
+			data: {
+				field,
+				val
+			},
+			success: data => {
+				if (data == 'success') {
+					alert("INFORMATION HAS BEEN UPDATED")
+				} else {
+					alert("SOMETHING'S WRONG")
+					console.log(data)
+				}
+			},
+			error: err => console.log(err.responseText)
+		})
+	})
 
 	var degree
 	//OPEN MODAL SELECTED DEGREE

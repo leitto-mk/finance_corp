@@ -168,10 +168,11 @@ class Mdl_profile extends CI_Model
     {
         extract($header);
 
-        $room = ($room == 'all' ? 'IS NOT NULL' : "= '$room'");
+        $where_room = ($room == 'all' ? 'IS NOT NULL' : "= '$room'");
         $search = ($search ? "LIKE '%$search%'" : "IS NOT NULL");
         $order_by = ($order_by ? $order_by : 'Fullname');
         $order_dir = ($order_dir ? $order_dir : 'ASC');
+        $limit_condition = ($room == 'all' ? '' : "LIMIT $limit OFFSET $start");
 
         $query = $this->db->query(
             "SELECT 
@@ -185,11 +186,11 @@ class Mdl_profile extends CI_Model
              FROM tbl_07_personal_bio AS t1
              INNER JOIN tbl_08_job_info_std AS t2
                 ON t1.IDNumber = t2.NIS 
-                AND t2.Ruangan $room
+                AND t2.Ruangan $where_room
              WHERE status = 'student'
              AND t1.IDNumber $search OR t1.FirstName $search OR t1.MiddleName $search OR t1.LastName $search
              ORDER BY $order_by $order_dir
-             LIMIT $limit OFFSET $start"
+             $limit_condition"
         );
         
         $total = $query->num_rows();

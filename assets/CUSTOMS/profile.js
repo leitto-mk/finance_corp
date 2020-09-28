@@ -155,7 +155,7 @@ $(document).ready(function () {
 
 		//LOAD COUNTRIES (AJAX FORM), FOR COUNTRY DROPDOWN FORM
 		$.ajax({
-			url: '/academic/assets/CUSTOMS/countries.json',
+			url: `${base_url}assets/CUSTOMS/countries.json`,
 			method: 'POST',
 			dataType: 'JSON',
 			success: function (data) {

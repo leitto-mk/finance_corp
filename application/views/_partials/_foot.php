@@ -138,6 +138,7 @@
 <script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/jquery.inputmask.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/bindings/inputmask.binding.js" type="text/javascript"></script>
 <!-- <script src="<?= base_url(); ?>assets/CUSTOM-PLUGINS/interactive-toggle/dist/jquery.btnswitch.min.js" type="text/javascript"></script> -->
+<script src="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.js"></script>
 
 <script>
     var base_url = `<?= base_url() ?>`

@@ -355,6 +355,17 @@
                                                 <br>
                                                 <input class="input-group form-control form-control-inline sess_name" size="25" type="text" name="group-a[0][date-input]" placeholder="Name"></div>
                                             <div class="mt-repeater-input">
+                                                <label class="control-label">Degree Type</label>
+                                                <br>
+                                                <select id="sess_degree" class="form-control">
+                                                    <option value="All">All</option>
+                                                    <option value="SD">SD</option>
+                                                    <option value="SMP">SMP</option>
+                                                    <option value="SMA">SMA</option>
+                                                    <option value="SMK">SMK</option>
+                                                </select>
+                                            </div>
+                                            <div class="mt-repeater-input">
                                                 <a href="javascript:;" class="btn btn-success mt-repeater-delete new_sess">
                                                     <i class="fa fa-plus"></i> Add Session </a>
                                             </div>
@@ -377,6 +388,7 @@
                                                         <th> # </th>
                                                         <th> CODE </th>
                                                         <th> Regular Subjects </th>
+                                                        <th> Degree </th>
                                                         <th> Actions </th>
                                                     </tr>
                                                 </thead>
@@ -403,6 +415,7 @@
                                                         <th> # </th>
                                                         <th> CODE </th>
                                                         <th> Elective Subjects </th>
+                                                        <th> Degree </th>
                                                         <th> Actions </th>
                                                     </tr>
                                                 </thead>
@@ -429,6 +442,7 @@
                                                         <th> # </th>
                                                         <th> CODE </th>
                                                         <th> Extra-Cullicular Subjects </th>
+                                                        <th> Degree </th>
                                                         <th> Actions </th>
                                                     </tr>
                                                 </thead>
@@ -455,6 +469,7 @@
                                                         <th> # </th>
                                                         <th> CODE </th>
                                                         <th> Session </th>
+                                                        <th> Degree </th>
                                                         <th> Actions </th>
                                                     </tr>
                                                 </thead>
@@ -508,8 +523,14 @@
                                 <input type="text" id="assign_hour" name="assign_hour" class="form-control" required readonly>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Subjects</label>
+                            <div class="col-md-8"></div>
+                        </div>
                         <div class="form-group mt-repeater">
-                            <div data-repeater-list="group-c">
+                            <div class="listed">
+                            </div>
+                            <div class="unlisted" data-repeater-list="group-c">
                                 <div data-repeater-item class="mt-repeater-item">
                                     <div class="row mt-repeater-row">
                                         <label class="col-md-4 control-label"></label>

@@ -171,10 +171,10 @@ class Mdl_schedule extends CI_Model
 
     public function modal_get_full_tbl_session()
     {
-        $reg = $this->db->query("SELECT SubjID, SubjName FROM tbl_05_subject WHERE Type = 'Regular' AND SubjName != '-'")->result();
-        $elc = $this->db->query("SELECT SubjID, SubjName FROM tbl_05_subject WHERE Type = 'Elective' AND SubjName NOT IN ('-','ELECTIVE')")->result();
-        $exc = $this->db->query("SELECT SubjID, SubjName FROM tbl_05_subject WHERE Type = 'Excul' AND SubjName NOT IN ('-','ECXUL')")->result();
-        $non = $this->db->query("SELECT SubjID, SubjName FROM tbl_05_subject WHERE Type = 'Non-Subject' AND SubjName != '-'")->result();
+        $reg = $this->db->query("SELECT SubjID, SubjName, Degree FROM tbl_05_subject WHERE Type = 'Regular' AND SubjName != '-'")->result();
+        $elc = $this->db->query("SELECT SubjID, SubjName, Degree FROM tbl_05_subject WHERE Type = 'Elective' AND SubjName NOT IN ('-','ELECTIVE')")->result();
+        $exc = $this->db->query("SELECT SubjID, SubjName, Degree FROM tbl_05_subject WHERE Type = 'Excul' AND SubjName NOT IN ('-','ECXUL')")->result();
+        $non = $this->db->query("SELECT SubjID, SubjName, Degree FROM tbl_05_subject WHERE Type = 'Non-Subject' AND SubjName != '-'")->result();
 
         $data = [
             'reg' => $reg,
@@ -186,7 +186,7 @@ class Mdl_schedule extends CI_Model
         return $data;
     }
 
-    public function model_sv_new_session($type, $code, $name)
+    public function model_sv_new_session($type, $code, $name, $degree)
     {
         if ($type == 'reg_subj') {
             $type = 'Regular';
@@ -204,7 +204,8 @@ class Mdl_schedule extends CI_Model
             $this->db->insert('tbl_05_subject', [
                 'SubjID' => $code,
                 'SubjName' => $name,
-                'Type' => $type
+                'Type' => $type,
+                'Degree' => $degree
             ]);
 
             return 'success';
@@ -213,7 +214,7 @@ class Mdl_schedule extends CI_Model
         }
     }
 
-    public function model_edit_session($field, $old, $new)
+    public function model_edit_session($field, $old, $new, $subj)
     {
         $this->db->trans_begin();
 
@@ -241,9 +242,20 @@ class Mdl_schedule extends CI_Model
                         "UPDATE tbl_05_subject t1
                          LEFT JOIN tbl_05_subject_kd t2
                          ON t1.SubjName = t2.SubjName
+                         LEFT JOIN tbl_06_schedule t3
+                         ON t1.SubjName = t3.SubjName
+                         LEFT JOIN tbl_06_schedule_nonregular t4
+                         ON t1.SubjName = t4.SubjName
+                         LEFT JOIN tbl_09_det_grades t5
+                         ON t1.SubjName = t5.SubjName
+                         LEFT JOIN tbl_09_det_character t6
+                         ON t1.SubjName = t6.SubjName
+                         LEFT JOIN tbl_09_det_kd t7
+                         ON t1.SubjName = t7.SubjName
+                         ON 
                          SET 
                             t1.SubjName = '$new',
-                            t2.SubjName = '$new',
+                            t2.SubjName = '$new'
                          WHERE t1.SubjName = '$old'"
                     );
 
@@ -284,6 +296,22 @@ class Mdl_schedule extends CI_Model
             //             t7.SubjName = '$new'
             //          WHERE t1.SubjName = '$old'"
             //     );
+        } elseif ($field == 'Degree'){
+            $new = strtoupper($new);
+
+            if ($new == 'ALL' || $new == 'SD' || $new == 'SMP' || $new == 'SMA' || $new == 'SMK') {
+                $this->db->query(
+                    "UPDATE tbl_05_subject 
+                     SET Degree = '$new' 
+                     WHERE Degree = '$old'
+                     AND SubjID = '$subj'");
+
+                $this->db->trans_commit();
+
+                return 'success';
+            } else {
+                return 'is_undefined';
+            }
         }
     }
 
@@ -476,9 +504,29 @@ class Mdl_schedule extends CI_Model
         return $result->result();
     }
 
-    public function get_dropdown_subject()
+    public function get_dropdown_subject($room)
     {
-        $query = $this->db->query("SELECT SubjName FROM tbl_05_subject WHERE Type = 'Regular' ORDER BY SubjName ASC");
+        if($room){
+            $degree = $this->db->query(
+                "SELECT Type 
+                 FROM tbl_04_class_rooms
+                 WHERE RoomDesc = '$room'
+                 UNION ALL
+                 SELECT Type 
+                 FROM tbl_04_class_rooms_vocational
+                 WHERE RoomDesc = '$room'"
+            )->row()->Type;
+        }else{
+            $degree = '';
+        }
+
+        $query = $this->db->query(
+            "SELECT SubjName 
+             FROM tbl_05_subject 
+             WHERE Type = 'Regular' 
+             AND Degree IN('ALL', '$degree')
+             ORDER BY SubjName ASC"
+        );
 
         return $query->result();
     }
@@ -815,11 +863,11 @@ class Mdl_schedule extends CI_Model
             $IDNumber = '-';
             $TeacherName = '-';
         } elseif ($type == 'Elective') {
-            $SubjName = 'ELECTIVE';
+            $SubjName = 'Elective';
             $IDNumber = '-';
             $TeacherName = '-';
         } elseif ($type == 'Excul') {
-            $SubjName = 'EXCUL';
+            $SubjName = 'Excul';
             $IDNumber = '-';
             $TeacherName = '-';
         } else {
@@ -958,20 +1006,28 @@ class Mdl_schedule extends CI_Model
             $TeacherName = $tch->FullName;
         }
 
+        $previous_session = $this->db->get_where('tbl_06_schedule', [
+                'RoomDesc' => $room,
+                'semester' => $semester,
+                'schoolyear' => $schYear,
+                'Days' => $day,
+                'Hour' => $hour
+        ])->row()->SubjName;
+
         $this->db->trans_begin();
 
-        $this->db->set('SubjName', $subj);
-        $this->db->set('IDNumber', $IDNumber);
-        $this->db->set('TeacherName', $TeacherName);
-        $this->db->set('Note', $note);
-
-        $this->db->where('RoomDesc', $room);
-        $this->db->where('Days', $day);
-        $this->db->where('Hour', $hour);
-        $this->db->where('semester', $semester);
-        $this->db->where('schoolyear', $schYear);
-
-        $this->db->update('tbl_06_schedule');
+        $this->db->update('tbl_06_schedule', [
+            'SubjName' => $subj,
+            'IDNumber' => $IDNumber,
+            'TeacherName' => $TeacherName,
+            'Note' => $note
+        ], [
+            'RoomDesc' => $room,
+            'Days' => $day,
+            'Hour' => $hour,
+            'semester' => $semester,
+            'schoolyear' => $schYear
+        ]);
 
         $tch_avail = $this->db->get_where('tbl_06_schedule', [
             'IDNumber' => $IDNumber,
@@ -989,15 +1045,6 @@ class Mdl_schedule extends CI_Model
             'schoolyear' => $schYear
         ])->row();
 
-        $unmatched = $this->db->query(
-                "SELECT SubjName FROM tbl_09_det_grades 
-                 WHERE SubjName 
-                 NOT IN 
-                    (SELECT SubjName 
-                     FROM tbl_06_schedule
-                     WHERE semester = '$semester'
-                     AND schoolyear = '$schYear')");
-
         if ($type == 'Regular') {
             if ($tch_avail == 0 ||  $IDNumber == $tch_current->IDNumber) {
                 //Get current Subject before Update
@@ -1009,24 +1056,16 @@ class Mdl_schedule extends CI_Model
                      AND schoolyear = '$schYear'"
                 );
 
-                //FIND UNMATCHED DATA FOR BOTH SCH & GRD HERE
-                if ($unmatched->num_rows() > 0) {
-                    $this->db->query(
-                        "DELETE FROM `tbl_09_det_grades` 
-                         WHERE SubjName 
-                         NOT IN 
-                            (SELECT SubjName 
-                             FROM tbl_06_schedule
-                             WHERE semester = '$semester'
-                             AND schoolyear = '$schYear')");
-                }
-
                 if ($duplicate->num_rows() == 1) {
 
-                    $this->db->update('tbl_09_det_grades', ['SubjName' => $subj], ['SubjName' => $subj, 'Room' => $room]);
+                    $this->db->update('tbl_09_det_grades', ['SubjName' => $subj], [
+                        'SubjName' => $subj, 
+                        'Room' => $room,
+                        'semester' => $semester,
+                        'schoolyear' => $schYear
+                    ]);
 
                 } elseif ($duplicate->num_rows() == 0) {
-
                     $students = $this->db->query(
                         "SELECT t1.IDNumber, CONCAT(FirstName,' ',LastName) AS FullName, t2.Kelas, t2.Ruangan 
                          FROM tbl_07_personal_bio t1
@@ -1036,6 +1075,7 @@ class Mdl_schedule extends CI_Model
                     )->result();
 
                     $i = 0;
+
                     //Insert same Schedule Details for each student's for said class
                     foreach ($students as $row) {
                         $grade[$i]['NIS'] = $row->IDNumber;
@@ -1051,26 +1091,93 @@ class Mdl_schedule extends CI_Model
 
                     $this->db->insert_batch('tbl_09_det_grades', $grade);
                 }
+
+                //If schedule changed from Regular to Non-Regular And the regular
+                //subject is no on the schedule list on the same day, then
+                //Delete it as it is unused aka UNMATCH
+                $regular_unmatch = $this->db->query(
+                    "SELECT SubjName FROM tbl_09_det_grades 
+                     WHERE SubjName 
+                     NOT IN 
+                        (SELECT SubjName 
+                        FROM tbl_06_schedule
+                        WHERE semester = '$semester'
+                        AND schoolyear = '$schYear'
+                        AND RoomDesc = '$room')
+                     GROUP BY SubjName"
+                );
+
+                //Delete the unmatch
+                if ($regular_unmatch->num_rows() > 0) {
+                    $this->db->delete('tbl_06_schedule_nonregular', [
+                        'SubjName' => $regular_unmatch->row()->SubjName,
+                        'semester' => $semester,
+                        'schoolyear' => $schYear,
+                        'Days' => $day,
+                        'Hour' => date('H:i', strtotime($hour)),
+                        'RoomDesc' => $room
+                    ]);
+
+                    $this->db->delete('tbl_09_det_grades', [
+                        'SubjName' => $regular_unmatch->row()->SubjName,
+                        'semester' => $semester,
+                        'schoolyear' => $schYear,
+                        'Room' => $room
+                    ]);
+                }
             } else {
                 return 'unproceed';
             }
         } else {
-            if ($unmatched->num_rows() > 0) {
-                $this->db->query(
-                    "DELETE FROM `tbl_09_det_grades` 
-                         WHERE SubjName 
-                         NOT IN 
-                            (SELECT SubjName 
-                             FROM tbl_06_schedule
-                             WHERE semester = '$semester'
-                             AND schoolyear = '$schYear')"
-                );
+            //If schedule changed from Regular to Non-Regular And the regular
+            //subject is no on the schedule list on the same day, then
+            //Delete it as it is unused aka UNMATCH
+            $nonregular_unmatch = $this->db->query(
+                "SELECT SubjName FROM tbl_09_det_grades 
+                 WHERE SubjName 
+                 NOT IN 
+                    (SELECT SubjName 
+                     FROM tbl_06_schedule
+                     WHERE semester = '$semester'
+                     AND schoolyear = '$schYear'
+                     AND Room = '$room')
+                 GROUP BY SubjName"
+            );
+
+            //Delete the Unmatch
+            if ($nonregular_unmatch->num_rows() > 0) {
+                $this->db->delete('tbl_09_det_grades', [
+                    'SubjName' => $nonregular_unmatch->row()->SubjName,
+                    'semester' => $semester,
+                    'schoolyear' => $schYear,
+                    'Room' => $room
+                ]);
             }
+
+            //Delete Non-Regular subject if available
+            $this->db->query(
+                "DELETE FROM tbl_06_schedule_nonregular
+                 WHERE RoomDesc = '$room'
+                 AND semester = '$semester'
+                 AND schoolyear = '$schYear'
+                 AND Days = '$day'
+                 AND Hour = TIME_FORMAT('$hour', '%H:%i')
+                 AND Type = '$previous_session'"
+            );
+
+            //Delete Student's Non-Regular grades if available
+            $this->db->query(
+                "DELETE FROM `tbl_09_det_grades` 
+                 WHERE SubjName = '$SubjName'
+                 AND Room = '$room'
+                 AND semester = '$semester'
+                 AND schoolyear = '$schYear'"
+            );
         }
 
         $this->db->trans_commit();
 
-        return 'success';
+        return ($this->db->trans_status() ? 'success' : $this->db->error());
     }
 
     public function model_delete_sche($room)
@@ -1093,6 +1200,13 @@ class Mdl_schedule extends CI_Model
 
         $this->db->query(
             "DELETE FROM tbl_06_schedule 
+             WHERE semester = '$semester'
+             AND schoolyear = '$schYear' 
+             AND RoomDesc = '$room'"
+        );
+
+        $this->db->query(
+            "DELETE FROM tbl_06_schedule_nonregular 
              WHERE semester = '$semester'
              AND schoolyear = '$schYear' 
              AND RoomDesc = '$room'"
@@ -1158,7 +1272,18 @@ class Mdl_schedule extends CI_Model
                                                 AND Hour = '$hour')
               ORDER BY t1.IDNumber")->result();
 
-        return [$subjects, $teacher];
+        //Get Already listed non-regular
+        $list = $this->db->query(
+            "SELECT SubjName, RoomDesc, semester, schoolyear, Hour, Days, IDNumber, TeacherName
+             FROM tbl_06_schedule_nonregular
+             WHERE semester = '$semester'
+             AND schoolyear = '$schYear'
+             AND RoomDesc = '$room'
+             AND Days = '$day'
+             AND Hour = '$hour'"
+        )->result();
+
+        return [$subjects, $teacher, $list];
     }
 
     public function submit_nonregular($assign_room, $assign_type, $assign_day, $assign_hour, $subjects){
@@ -1177,10 +1302,17 @@ class Mdl_schedule extends CI_Model
             $semester = 1;
         }
 
-        $roominfo = $this->db
-                            ->select('Type, RoomID')
-                            ->where('RoomDesc', $assign_room)
-                            ->get('tbl_04_class_rooms')->row();
+        $roominfo = $this->db->query(
+            "SELECT RoomID, Type
+             FROM tbl_04_class_rooms
+             WHERE RoomDesc = '$assign_room'
+             UNION ALL
+             SELECT t1.RoomID, t2.Type
+             FROM tbl_04_class_rooms_vocational t1
+             LEFT JOIN tbl_03_b_class_vocational t2
+             ON t1.Simplified = t2.ClassDesc
+             WHERE t1.RoomDesc = '$assign_room'"
+        )->row();
 
         $this->db->trans_start();
 
@@ -1209,5 +1341,19 @@ class Mdl_schedule extends CI_Model
         }else{
             return $this->db->error();
         }
+    }
+
+    public function delete_nonregular($subj, $room, $semester, $period, $hour, $day){
+        $this->db->query(
+            "DELETE FROM tbl_06_schedule_nonregular 
+             WHERE SubjName = '$subj' 
+             AND RoomDesc = '$room' 
+             AND semester = $semester 
+             AND schoolyear = '$period' 
+             AND Hour = '$hour' 
+             AND Days = '$day'"
+        );
+
+        return ($this->db->affected_rows() ? 'success' : $this->db->error());
     }
 }

@@ -395,7 +395,7 @@
                                     <th width="10%">Name</th>
                                     <th width="1%">Class</th>
                                     <th width="1%">Room</th>
-                                    <th width="1%">Action</th>
+                                    <th width="5%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -427,6 +427,20 @@
                             
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">School Calendar</span>
+                    </div>
+                    <div class="tools"> </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="calendar"></div>
                 </div>
             </div>
         </div>
@@ -773,6 +787,9 @@
                                     <a href="#grades" data-toggle="tab" aria-expanded="false"> Student Grades </a>
                                 </li>
                                 <li class="">
+                                    <a href="#voc" data-toggle="tab" aria-expanded="false"> UKK/Prakerin </a>
+                                </li>
+                                <li class="">
                                     <a href="#absent" data-toggle="tab" aria-expanded="false"> Absence </a>
                                 </li>
                             </ul>
@@ -913,6 +930,70 @@
                                                                 </table>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="voc">
+                                    <div class="portlet light portlet-fit">
+                                        <div class="portlet-body" style="padding-left: 0px; padding-right: 0px; padding-top: 0px">
+                                            <div class="portlet light bordered">
+                                                <div class="portlet-title tabbable-line">
+                                                    <div class="col-md-1" style="padding: 0px">
+                                                        <div class="caption">
+                                                            <i class="icon-user font-dark"></i>
+                                                            <span class="caption-subject font-dark bold uppercase">&nbsp;Full Grade</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group form-md-line-input form-md-floating-label has-info" style="padding-top: 0px">
+                                                            <select class="form-control edited selected_voc_rooms" id="form_control_1">
+                                                                <?php if (!empty($voc_rooms)) : ?>
+                                                                    <?php foreach ($voc_rooms as $row) : ?>
+                                                                        <option class="sbold" value="<?= $row->RoomDesc ?>">
+                                                                            <?= $row->RoomDesc ?>
+                                                                        </option>
+                                                                    <?php endforeach; ?>
+                                                                <?php else : ?>
+                                                                    <option value=""> No Room is/was taught at this period </option>
+                                                                <?php endif; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group form-md-line-input form-md-floating-label has-info taught_subject" style="padding-top: 0px">
+                                                            <select class="form-control edited selected_voc_subj" id="form_control_1">
+                                                                <?php if (!empty($taught)) : ?>
+                                                                    <?php foreach ($taught as $row) : ?>
+                                                                        <option class="sbold" value="<?= $row->SubjName ?>">
+                                                                            <?= $row->SubjName ?>
+                                                                        </option>
+                                                                    <?php endforeach; ?>
+                                                                <?php else : ?>
+                                                                    <option value=""> No Subject is/was taught at this period </option>
+                                                                <?php endif; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <div class="table-scrollable">
+                                                        <table class="table table-condensed table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th> # </th>
+                                                                    <th> NIS </th>
+                                                                    <th> Name </th>
+                                                                    <th class="text-center"> Grade </th>
+                                                                    <th class="text-center"> Predicate </th>
+                                                                    <th class="text-center"> Description </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="">
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
