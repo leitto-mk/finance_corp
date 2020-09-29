@@ -20,12 +20,14 @@ class Teacher extends CI_Controller
 
     public function index()
     {
+        $id = $this->session->userdata('id');
+
         //Destructuring 'array' return from model_get_taught_subject as seperate var
         [$taught, $schedule] = $this->Mdl_nonstudent->model_get_taught_subject($this->session->userdata('id'));
 
         $data = [
             'title' => 'Student Information',
-            'id' => $this->session->userdata('id'),
+            'id' => $id,
             'fname' => $this->session->userdata('fname'),
             'lname' => $this->session->userdata('lname'),
             'status' => $this->session->userdata('status'),
@@ -39,11 +41,11 @@ class Teacher extends CI_Controller
             'schedule' => $schedule,
 
             //FOR MODAL PROFILE
-            'profile' => $this->Mdl_nonstudent->get_all_info($this->session->userdata('id')),
+            'profile' => $this->Mdl_nonstudent->get_all_info($id),
 
             //MODAL AKADEMIK
-            'period' => $this->Mdl_nonstudent->get_period($this->session->userdata('id')),
-            'rooms' => $this->Mdl_nonstudent->get_active_room()->result(),
+            'period' => $this->Mdl_nonstudent->get_period($id),
+            'rooms' => $this->Mdl_nonstudent->get_active_room($id)->result(),
             'voc_rooms' => $this->Mdl_nonstudent->get_active_voc_only_room(),
             'taught' => $taught
         ];
@@ -79,7 +81,7 @@ class Teacher extends CI_Controller
         $semester = $_POST['semester'];
         $period = $_POST['period'];
 
-        $room = $_POST['room'];
+        $room = $this->session->userdata('homeroom');
 
         //===================================== SCHEDULE ==============================================\\
         $sch_room = $this->Mdl_nonstudent->get_teaching_room($id, $semester, $period);
@@ -1008,6 +1010,16 @@ class Teacher extends CI_Controller
         $result = $this->Mdl_grade->model_sv_std_char_grades($nis, $name, $semester, $subj, $room, $type, $desc, $value);
 
         echo $result;
+    }
+
+    public function ajax_change_room(){
+        $room = $_POST['room'];
+        $semester = $this->session->userdata('semester');
+        $period = $this->session->userdata('period');
+
+        $result = $this->Mdl_nonstudent->modal_get_full_attendance($semester, $period, $room);
+
+        echo json_encode($result);
     }
 
     public function add_absent_std()

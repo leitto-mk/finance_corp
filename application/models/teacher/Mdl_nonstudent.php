@@ -158,21 +158,29 @@ class Mdl_nonstudent extends CI_Model
 
 	public function get_active_room()
 	{
+		$id = $this->session->userdata('id');
+		
 		$query = $this->db->query(
-			"SELECT DISTINCT t3.ClassDesc, t1.RoomDesc FROM tbl_04_class_rooms t1
-			 JOIN tbl_02_school t2
+			"SELECT DISTINCT t3.ClassNumeric, t3.ClassDesc, t1.RoomDesc FROM tbl_04_class_rooms t1
+			 LEFT JOIN tbl_02_school t2
 			 ON t1.Type = t2.School_Desc
-			 JOIN tbl_03_class t3
+			 LEFT JOIN tbl_03_class t3
 			 ON t1.Type = t3.Type AND t1.ClassID = t3.ClassID
+			 LEFT JOIN tbl_06_schedule t4
+			 ON t1.RoomDesc = t4.RoomDesc
 			 WHERE t2.isActive = 1
+			 AND t4.IDNumber = '$id'
 			 UNION ALL
-			 SELECT DISTINCT t3.ClassDesc, t1.RoomDesc FROM tbl_04_class_rooms_vocational t1
-			 JOIN tbl_02_school t2
+			 SELECT DISTINCT t3.ClassNumeric, t3.ClassDesc, t1.RoomDesc FROM tbl_04_class_rooms_vocational t1
+			 LEFT JOIN tbl_02_school t2
 			 ON t1.Type = t2.School_Desc
-			 JOIN tbl_03_b_class_vocational t3
+			 LEFT JOIN tbl_03_b_class_vocational t3
 			 ON t1.Simplified = t3.ClassDesc
+			 LEFT JOIN tbl_06_schedule t4
+			 ON t1.RoomDesc = t4.RoomDesc
 			 WHERE t2.isActive = 1
-             ORDER BY ClassDesc"
+			 AND t4.IDNumber = '$id'
+             ORDER BY ClassNumeric"
 		);
 
 		return $query;

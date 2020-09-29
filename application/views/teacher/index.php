@@ -268,23 +268,27 @@
                     <div class="portlet-body">
                         <div class="form-body">
                             <div class="form-group" style="margin-top: 7px">
-                                <label>PILIH KELAS</label>
+                                <label>PILIH KELAS </label>
                                 <select class="form-control compact_rooms" id="attd_rooms_compact" style="width: 100%">
-                                    <?php if (!empty($rooms)) : ?>
-                                        <?php foreach ($rooms as $row) : ?>
-                                            <option class="sbold" value="<?= $row->RoomDesc ?>">
-                                                <?= $row->RoomDesc ?>
-                                            </option>
-                                        <?php endforeach; ?>
+                                    <?php if (!empty($rooms) && $homeroom != '-') : ?>
+                                        <option class="sbold" value="<?= $homeroom ?>">
+                                            <?= $homeroom ?>
+                                        </option>
                                     <?php else : ?>
-                                        <option value=""> No Room is/was taught at this period </option>
+                                        <option value=""> This ID is not an homeroom teacher </option>
                                     <?php endif; ?>
                                 </select>
                             </div>
                             <div class="form-grop">
                                 <label>NAMA SISWA</label>
-                                <select class="form-control selectpicker compact_students" id="attd_student" data-live-search="true" data-size="8">
-                                </select>
+                                <?php if (!empty($rooms) && $homeroom != '-') : ?>
+                                    <select class="form-control selectpicker compact_students" id="attd_student" data-live-search="true" data-size="8">
+                                    </select>
+                                <?php else : ?>
+                                    <select class="form-control">
+                                        <option value=""> This ID is not an homeroom teacher </option>
+                                    </select>
+                                <?php endif; ?>
                             </div>
                             <div class="form-group form-md-line-input">
                                 <label> ALASAN </label>
@@ -381,7 +385,7 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Daftar Siswa</span>
+                        <span class="caption-subject bold uppercase">Daftar Siswa Perwalian</span>
                     </div>
                     <div class="tools"> </div>
                 </div>
@@ -1010,129 +1014,133 @@
                                             </div>
                                         </div>
                                         <div class="portlet-body">
-                                            <div class="form-group">
-                                                <label>PILIH KELAS</label>
-                                                <select class="form-control attd_rooms" style="width: 20%">
-                                                    <?php if (!empty($rooms)) : ?>
-                                                        <?php foreach ($rooms as $row) : ?>
-                                                            <option class="sbold" value="<?= $row->RoomDesc ?>">
-                                                                <?= $row->RoomDesc ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
-                                                    <?php else : ?>
-                                                        <option value=""> No Room is/was taught at this period </option>
-                                                    <?php endif; ?>
-                                                </select>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <table class="table table-striped table-bordered table-hover table-checkable dt-responsive" id="abs_table" style="width: 100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th></th>
-                                                                <th> No. </th>
-                                                                <th> ID </th>
-                                                                <th> Nama </th>
-                                                                <th> Total </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                        </tbody>
-                                                    </table>
+                                            <?php if($homeroom && $homeroom != '-') : ?>
+                                                <div class="form-group">
+                                                    <label>PILIH KELAS</label>
+                                                    <select class="form-control attd_rooms" style="width: 20%">
+                                                        <?php if (!empty($rooms)) : ?>
+                                                            <?php foreach ($rooms as $row) : ?>
+                                                                <option class="sbold" value="<?= $row->RoomDesc ?>">
+                                                                    <?= $row->RoomDesc ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
+                                                        <?php else : ?>
+                                                            <option value=""> No Room is/was taught at this period </option>
+                                                        <?php endif; ?>
+                                                    </select>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <div class="portlet light bordered">
-                                                        <div class="form-group form-md-line-input">
-                                                            <label> KETERANGAN </label>
-                                                            <div class="md-radio-inline has-info">
-                                                                <div class="md-radio">
-                                                                    <input type="radio" id="sick" name="attendance" class="md-radiobtn" value="Sick">
-                                                                    <label for="sick" style="color: #333">
-                                                                        <span class="inc"></span>
-                                                                        <span class="check"></span>
-                                                                        <span class="box"></span> Sick
-                                                                    </label>
-                                                                </div>
-                                                                <div class="md-radio">
-                                                                    <input type="radio" id="onpermit" name="attendance" class="md-radiobtn" value="On Permit">
-                                                                    <label for="onpermit" style="color: #333">
-                                                                        <span class="inc"></span>
-                                                                        <span class="check"></span>
-                                                                        <span class="box"></span> On Permit
-                                                                    </label>
-                                                                </div>
-                                                                <div class="md-radio">
-                                                                    <input type="radio" id="abs" name="attendance" class="md-radiobtn" value="Absent">
-                                                                    <label for="abs" style="color: #333">
-                                                                        <span class="inc"></span>
-                                                                        <span class="check"></span>
-                                                                        <span class="box"></span> Absent
-                                                                    </label>
-                                                                </div>
-                                                                <div class="md-radio">
-                                                                    <input type="radio" id="truant" name="attendance" class="md-radiobtn" value="Truant">
-                                                                    <label for="truant" style="color: #333">
-                                                                        <span class="inc"></span>
-                                                                        <span class="check"></span>
-                                                                        <span class="box"></span> Truant
-                                                                    </label>
-                                                                </div>
-                                                                <div class="md-radio">
-                                                                    <input type="radio" id="late" name="attendance" class="md-radiobtn" value="Late">
-                                                                    <label for="late" style="color: #333">
-                                                                        <span class="inc"></span>
-                                                                        <span class="check"></span>
-                                                                        <span class="box"></span> Late
-                                                                    </label>
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <table class="table table-striped table-bordered table-hover table-checkable dt-responsive" id="abs_table" style="width: 100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th> No. </th>
+                                                                    <th> ID </th>
+                                                                    <th> Nama </th>
+                                                                    <th> Total </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="portlet light bordered">
+                                                            <div class="form-group form-md-line-input">
+                                                                <label> KETERANGAN </label>
+                                                                <div class="md-radio-inline has-info">
+                                                                    <div class="md-radio">
+                                                                        <input type="radio" id="sick" name="attendance" class="md-radiobtn" value="Sick">
+                                                                        <label for="sick" style="color: #333">
+                                                                            <span class="inc"></span>
+                                                                            <span class="check"></span>
+                                                                            <span class="box"></span> Sick
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="md-radio">
+                                                                        <input type="radio" id="onpermit" name="attendance" class="md-radiobtn" value="On Permit">
+                                                                        <label for="onpermit" style="color: #333">
+                                                                            <span class="inc"></span>
+                                                                            <span class="check"></span>
+                                                                            <span class="box"></span> On Permit
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="md-radio">
+                                                                        <input type="radio" id="abs" name="attendance" class="md-radiobtn" value="Absent">
+                                                                        <label for="abs" style="color: #333">
+                                                                            <span class="inc"></span>
+                                                                            <span class="check"></span>
+                                                                            <span class="box"></span> Absent
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="md-radio">
+                                                                        <input type="radio" id="truant" name="attendance" class="md-radiobtn" value="Truant">
+                                                                        <label for="truant" style="color: #333">
+                                                                            <span class="inc"></span>
+                                                                            <span class="check"></span>
+                                                                            <span class="box"></span> Truant
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="md-radio">
+                                                                        <input type="radio" id="late" name="attendance" class="md-radiobtn" value="Late">
+                                                                        <label for="late" style="color: #333">
+                                                                            <span class="inc"></span>
+                                                                            <span class="check"></span>
+                                                                            <span class="box"></span> Late
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div id="specific_attd" hidden>
-                                                            <div class="form-group">
-                                                                <label> MATA PELAJARAN </label>
-                                                                <select class="form-control edited abs_subj" id="form_control_1">
-                                                                    <?php if (!empty($taught)) : ?>
-                                                                        <?php foreach ($taught as $row) : ?>
-                                                                            <option class="sbold" value="<?= $row->SubjName ?>">
-                                                                                <?= $row->SubjName ?>
-                                                                            </option>
-                                                                        <?php endforeach; ?>
-                                                                    <?php else : ?>
-                                                                        <option value=""> No Subject is/was taught at this period </option>
-                                                                    <?php endif; ?>
-                                                                </select>
+                                                            <div id="specific_attd" hidden>
+                                                                <div class="form-group">
+                                                                    <label> MATA PELAJARAN </label>
+                                                                    <select class="form-control edited abs_subj" id="form_control_1">
+                                                                        <?php if (!empty($taught)) : ?>
+                                                                            <?php foreach ($taught as $row) : ?>
+                                                                                <option class="sbold" value="<?= $row->SubjName ?>">
+                                                                                    <?= $row->SubjName ?>
+                                                                                </option>
+                                                                            <?php endforeach; ?>
+                                                                        <?php else : ?>
+                                                                            <option value=""> No Subject is/was taught at this period </option>
+                                                                        <?php endif; ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label> WAKTU </label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" name="time_abs" class="form-control timepicker timepicker-24">
+                                                                        <span class="input-group-btn">
+                                                                            <button class="btn default" type="button">
+                                                                                <i class="fa fa-clock-o"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label> WAKTU </label>
-                                                                <div class="input-group">
-                                                                    <input type="text" name="time_abs" class="form-control timepicker timepicker-24">
+                                                                <label> TANGGAL </label>
+                                                                <div class="input-group input-medium date date-picker" data-date="<?= date('d-M-Y') ?>" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                                                    <input type="text" name="date_abs" class="form-control">
                                                                     <span class="input-group-btn">
                                                                         <button class="btn default" type="button">
-                                                                            <i class="fa fa-clock-o"></i>
+                                                                            <i class="fa fa-calendar"></i>
                                                                         </button>
                                                                     </span>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label> TANGGAL </label>
-                                                            <div class="input-group input-medium date date-picker" data-date="<?= date('d-M-Y') ?>" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                                                                <input type="text" name="date_abs" class="form-control">
-                                                                <span class="input-group-btn">
-                                                                    <button class="btn default" type="button">
-                                                                        <i class="fa fa-calendar"></i>
-                                                                    </button>
-                                                                </span>
+                                                            <div class="form-actions" style="padding-top: 25px">
+                                                                <button type="submit" class="btn blue">Submit</button>
+                                                                <button type="button" class="btn default">Cancel</button>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-actions" style="padding-top: 25px">
-                                                            <button type="submit" class="btn blue">Submit</button>
-                                                            <button type="button" class="btn default">Cancel</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            <?php else : ?>
+                                                <h4> Only Homeroom Teacher can assign attendance...</h4>
+                                            <?php endif;?>
                                         </div>
                                     </div>
                                 </div>

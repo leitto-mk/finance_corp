@@ -663,9 +663,6 @@ $(document).ready(function () {
 			let semester = $('.selected_period option:selected').attr('data-sem')
 			let period = $('.selected_period option:selected').attr('data-period')
 
-			let attd_room = $('.attd_rooms').val()
-
-			// console.log(attd_room)
 			$('.sch_caption').html(`TIMETABLE - ${fullname}, Semester ${semester} - Period ${period}`)
 
 			//DESTROY PREVIOUS DATATABLE
@@ -677,8 +674,7 @@ $(document).ready(function () {
 				dataType: 'JSON',
 				data: {
 					semester,
-					period,
-					room: attd_room //FOR ATTENDANCE
+					period
 				},
 				success: data => {
 					//SCHEDULE
@@ -703,6 +699,7 @@ $(document).ready(function () {
 				}
 			}).then(data => {
 				$('#abs_table').DataTable({
+					destroy: true,
 					colReorder: true,
 					//responsive: true,
 					data: data.attendance,
@@ -1183,6 +1180,64 @@ $(document).ready(function () {
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 		*/
 
+		//CHANGE ROOMS
+		$('.attd_rooms').change(function () {
+			$('#abs_table').DataTable({
+				colReorder: true,
+				destroy: true,
+				ajax: {
+					url: 'ajax_change_room',
+					method: 'POST',
+					data: {
+						room: $(this).val()
+					},
+					dataSrc: response => {
+
+						//Add New Property (Index, Check) to Object 'data.attendance'
+						for (let i = 0; i < response.length; i++) {
+							Object.assign(response[i], {
+								'Check': `	<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+        						            	<input type="checkbox" class="checkboxes" value="${response[i].NIS}" />
+        						            	<span></span>
+        						        	</label>`,
+								'Number': i + 1
+							})
+						}
+
+						return response
+					},
+					error: response => {
+						alert("CANNOT RETRIEVE DATA FROM SERVER")
+						console.log('%' + response.responseText, 'color: #fe346e')
+					}
+				},
+				columns: [{
+						data: 'Check'
+					},
+					{
+						data: 'Number'
+					},
+					{
+						data: 'NIS',
+						render: rows => {
+							return `<a href="javascript:;" class="fa fa-plus-circle abs_row" data-id="${rows}" style="text-decoration: none">
+                                        </a> &nbsp;&nbsp;${rows}`
+						}
+					},
+					{
+						data: 'FullName'
+					},
+					{
+						data: 'Total'
+					}
+				],
+				columnDefs: [{
+					targets: 0,
+					orderable: false
+				}]
+			})
+		})
+
 		//SHOW ADDITIONAL FORM ON SPECIFIC RADIO SELECTED (COMPACT + FULL)
 		$('#absent [name="attendance"], [name="absent_reason"]').click(function () {
 			if ($(this).val() == 'Truant' || $(this).val() == 'Late') {
@@ -1317,30 +1372,34 @@ $(document).ready(function () {
 		})
 
 		function submit_attendance(semester, period, attd_room, checked, reason, subj, time, date) {
-			$.ajax({
-				url: 'add_absent_std',
-				method: 'POST',
-				dataType: 'JSON',
-				data: {
-					semester,
-					period,
-					room: attd_room,
-					checked,
-					reason,
-					subj,
-					time,
-					date
-				},
-				success: data => {
-					console.log(data)
-					if (data == 'success') {
-						call_swal('success', 'SUBMITED', 'New Absent has been added')
+			if (attd_room) {
+				$.ajax({
+					url: 'add_absent_std',
+					method: 'POST',
+					dataType: 'JSON',
+					data: {
+						semester,
+						period,
+						room: attd_room,
+						checked,
+						reason,
+						subj,
+						time,
+						date
+					},
+					success: data => {
+						console.log(data)
+						if (data == 'success') {
+							call_swal('success', 'SUBMITED', 'New Absent has been added')
+						}
+					},
+					error: data => {
+						console.log(data.responseText)
 					}
-				},
-				error: data => {
-					console.log(data.responseText)
-				}
-			}).then(() => get_full_acd_detail())
+				}).then(() => get_full_acd_detail())
+			} else {
+				call_swal('error', 'SUBMIT FAILED', 'make sure to fill all the form and input properly')
+			}
 		}
 
 		//DELETE ABSENT
