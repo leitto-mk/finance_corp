@@ -225,7 +225,8 @@
                                     <div class="form-group">
                                         <label>KD</label>
                                         <select class="bs-select form-control" id="grade_type_compact">
-                                            <optgroup label="Pengetahuan">
+                                            <option value="">Choose KD</option>
+                                            <optgroup label="Pengetahuan" selected>
                                             </optgroup>
                                             <optgroup label="Keterampilan">
                                             </optgroup>

@@ -105,13 +105,18 @@ $(document).ready(function () {
 				let renderCog = ''
 				let renderSK = ''
 
-				data.forEach(row => {
-					if (row.Type == 'cognitive') {
-						renderCog += `<option data-type="cognitive" value="${row.Code}"><strong>${row.Code}<strong> | ${row.KD} </option>`
-					} else {
-						renderSK += `<option data-type="skills" value="${row.Code}"><strong>${row.Code}<strong> | ${row.KD} </option>`
-					}
-				})
+				if (data.Type) {
+					data.forEach(row => {
+						if (row.Type == 'cognitive') {
+							renderCog += `<option data-type="cognitive" value="${row.Code}"><strong>${row.Code}<strong> | ${row.KD} </option>`
+						} else if (row.Type == 'skill') {
+							renderSK += `<option data-type="skills" value="${row.Code}"><strong>${row.Code}<strong> | ${row.KD} </option>`
+						}
+					})
+				} else {
+					renderCog += `<option data-type="cognitive" value="-">No KD has been set yet</option>`
+					renderSK += `<option data-type="skills" value="-">No KD has been set yet</option>`
+				}
 
 				$('#grade_type_compact optgroup[label="Pengetahuan"]').html(renderCog)
 				$('#grade_type_compact optgroup[label="Keterampilan"]').html(renderSK)
@@ -138,7 +143,7 @@ $(document).ready(function () {
 				success: data => {
 					let sel_kd_type = $('#grade_type_compact option:selected').attr('data-type')
 					let sel_kd_code = $('#grade_type_compact').val()
-					let renderCat = ''
+					let renderCat = `<option value="">Choose Category</option>`
 
 					data.forEach(row => {
 						if (row.Code == sel_kd_code && row.Type == sel_kd_type) {
@@ -173,12 +178,10 @@ $(document).ready(function () {
 				val: $('#input_grade_compact').val()
 			}
 
-			//console.table(obj)
-
 			let i = 0
 			let proceed = true
 			for (i in obj) {
-				if (obj[i] == '') {
+				if (obj[i] == '' || obj[i] == '-') {
 					proceed = false
 				}
 			}
