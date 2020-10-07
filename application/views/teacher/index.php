@@ -1018,12 +1018,10 @@
                                                 <div class="form-group">
                                                     <label>PILIH KELAS</label>
                                                     <select class="form-control attd_rooms" style="width: 20%">
-                                                        <?php if (!empty($rooms)) : ?>
-                                                            <?php foreach ($rooms as $row) : ?>
-                                                                <option class="sbold" value="<?= $row->RoomDesc ?>">
-                                                                    <?= $row->RoomDesc ?>
-                                                                </option>
-                                                            <?php endforeach; ?>
+                                                        <?php if (!empty($rooms) && $homeroom != '-') : ?>
+                                                            <option class="sbold" value="<?= $homeroom ?>">
+                                                                <?= $homeroom ?>
+                                                            </option>
                                                         <?php else : ?>
                                                             <option value=""> No Room is/was taught at this period </option>
                                                         <?php endif; ?>

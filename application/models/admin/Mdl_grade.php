@@ -94,21 +94,22 @@ class Mdl_grade extends CI_Model
     public function get_active_classes()
     {
         $query = $this->db->query(
-            "SELECT t2.ClassDesc
+            "SELECT t2.ClassDesc, t2. ClassNumeric
              FROM tbl_02_school t1
              INNER JOIN tbl_03_class t2
                 ON t1.School_Desc = t2.Type
              WHERE t1.isActive = 1
              GROUP BY ClassDesc
              UNION ALL
-             SELECT t2.ClassDesc
+             SELECT t2.ClassDesc, t2. ClassNumeric
              FROM tbl_02_school t1
              INNER JOIN tbl_03_b_class_vocational t2
                 ON t1.School_Desc = t2.Type
              RIGHT JOIN tbl_04_class_rooms_vocational t3
              	ON t2.ClassDesc = t3.Simplified
              WHERE t1.isActive = 1
-             GROUP BY ClassDesc"
+             GROUP BY ClassDesc
+             ORDER BY ClassNumeric"
         )->result();
 
         return $query;

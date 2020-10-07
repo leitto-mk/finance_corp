@@ -252,7 +252,6 @@ class Mdl_schedule extends CI_Model
                          ON t1.SubjName = t6.SubjName
                          LEFT JOIN tbl_09_det_kd t7
                          ON t1.SubjName = t7.SubjName
-                         ON 
                          SET 
                             t1.SubjName = '$new',
                             t2.SubjName = '$new'
@@ -268,34 +267,6 @@ class Mdl_schedule extends CI_Model
             } else {
                 return 'is_available';
             }
-
-            // $subjname = $this->db->get_where('tbl_05_subject', ['SubjName' => $new])->result();
-
-            // if (empty($subjname)) {
-            //     $this->db->query(
-            //         "UPDATE tbl_05_subject t1
-            //          LEFT JOIN tbl_05_subject_kd t2
-            //          ON t1.SubjName = t2.SubjName
-            //          LEFT JOIN tbl_05_subject_weight t3
-            //          ON t1.SubjName = t3.SubjName
-            //          LEFT JOIN tbl_06_schedule t4
-            //          ON t1.SubjName = t4.SubjName
-            //          LEFT JOIN tbl_09_det_character t5
-            //          ON t1.SubjName = t5.SubjName
-            //          LEFT JOIN tbl_09_det_grades t6
-            //          ON t1.SubjName = t6.SubjName
-            //          LEFT JOIN tbl_09_det_kd t7
-            //          ON t1.SubjName = t7.SubjName
-            //          SET 
-            //             t1.SubjName = '$new',
-            //             t2.SubjName = '$new',
-            //             t3.SubjName = '$new',
-            //             t4.SubjName = '$new',
-            //             t5.SubjName = '$new',
-            //             t6.SubjName = '$new',
-            //             t7.SubjName = '$new'
-            //          WHERE t1.SubjName = '$old'"
-            //     );
         } elseif ($field == 'Degree'){
             $new = strtoupper($new);
 

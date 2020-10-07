@@ -505,15 +505,12 @@ $(document).ready(function () {
 			let ajx_data = await head.json()
 
 			let dt_column = [{
-				data: 'Number'
-			}, {
 				data: 'NIS',
 			}, {
 				data: 'FullName'
 			}]
 
 			//Arrange the Columns' name
-			let i = 1
 			for (var row in ajx_data.header) {
 				//Append column Name into the view
 				$('#full_mid_recap tr:last-child').append(`<th class="desktop"> ${ajx_data.header[row].SubjName} </th>`)
@@ -523,8 +520,6 @@ $(document).ready(function () {
 					data: ajx_data.header[row].SubjName.split(' ').join('_'),
 					createdCell: response => response.setAttribute('align', 'center')
 				})
-
-				i++
 			}
 
 			// $('#full_mid_recap tr:last-child').append(`<th class="all"> Mid-Grade </th><th class="all"> Peringkat </th>`)
@@ -532,7 +527,7 @@ $(document).ready(function () {
 			$('#full_mid_recap').DataTable({
 				responsive: true,
 				processing: true,
-				lengthMenu: [30, 50],
+				lengthMenu: [10, 30, 50],
 				columns: dt_column,
 				data: ajx_data.pivot
 			})
@@ -589,7 +584,6 @@ $(document).ready(function () {
 			},
 			error: err => console.log(err)
 		})
-
 
 		//================================================================================================\\
 		//										MODAL PROFILE SECTION
