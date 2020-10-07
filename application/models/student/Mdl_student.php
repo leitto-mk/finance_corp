@@ -233,6 +233,7 @@ class Mdl_student extends CI_Model
         $grade = $this->db->query(
             "SELECT 
                 SubjName,
+                MidRecap,
                 Report,
                 Report_SK,
                 Report_SOC,

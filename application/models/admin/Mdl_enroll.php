@@ -5,6 +5,14 @@ class Mdl_enroll extends CI_Model
 {
     public function model_insert_enrolled($data)
     {
+        //Reset Auto_Inc Numbers
+        $total = $this->db->get('tbl_11_enrollment')->num_rows();
+
+        if($total > 999){
+            $this->db->query("ALTER TABLE tbl_11_enrollment AUTO_INCREMENT = '$total+1'");
+        }
+        
+        //Insert Data
         $this->db->insert('tbl_11_enrollment', $data);
     }
 
@@ -142,10 +150,13 @@ class Mdl_enroll extends CI_Model
         ];
 
         $this->db->trans_begin();
+
+        //Exporting the Data
         $this->db->insert('tbl_07_personal_bio', $transfer_bio);
         $this->db->insert('tbl_08_job_info_std', $transfer_info);
         $this->db->insert('tbl_credentials', $credentials);
         $this->db->delete('tbl_11_enrollment', "CtrlNo = '$uniq'");
+        
         $this->db->trans_commit();
     }
 

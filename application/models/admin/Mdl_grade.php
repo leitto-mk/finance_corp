@@ -117,7 +117,7 @@ class Mdl_grade extends CI_Model
     public function get_active_rooms()
     {
         $query = $this->db->query(
-            "SELECT t3.RoomDesc 
+            "SELECT t3.RoomDesc, t2.ClassNumeric 
              FROM tbl_02_school t1
 			 JOIN tbl_03_class t2
              ON t1.School_Desc = t2.Type
@@ -125,9 +125,14 @@ class Mdl_grade extends CI_Model
              ON t2.ClassID = t3.ClassID
              WHERE t1.isActive = 1
              UNION ALL
-             SELECT RoomDesc
-             FROM tbl_04_class_rooms_vocational
-             ORDER BY RoomDesc"
+             SELECT t3.RoomDesc, t2.ClassNumeric
+             FROM tbl_02_school t1
+			 JOIN tbl_03_b_class_vocational t2
+             ON t1.School_Desc = t2.Type
+             JOIN tbl_04_class_rooms_vocational t3
+             ON t2.ClassID = t3.ClassID
+             WHERE t1.isActive = 1
+             ORDER BY ClassNumeric, RoomDesc"
         )->result();
 
         return $query;

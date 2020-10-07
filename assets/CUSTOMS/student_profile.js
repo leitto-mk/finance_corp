@@ -60,6 +60,8 @@ $(document).ready(function () {
 							$(e.element).popover('hide');
 						}
 					},
+					style: 'background',
+					displayWeekNumber: true
 				})
 			},
 			error: err => console.log(err)

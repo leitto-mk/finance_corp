@@ -748,18 +748,22 @@ class Mdl_nonstudent extends CI_Model
 	}
 
 	public function model_get_class_full_mid_recap($homeroom, $semester, $period){
+
+		//GET HEADER
+		$head = $this->db->query(
+			"SELECT DISTINCT SubjName 
+			 FROM tbl_09_det_grades 
+			 WHERE SubjName NOT IN('None','-')
+			 AND Room = '$homeroom'
+			 AND Semester = '$semester'
+			 AND schoolyear = '$period'"
+		)->result();
+
+		//CALL STORED PROCEDURE
 		$query = $this->db->query(
-            "SELECT DISTINCT t1.SubjName FROM tbl_05_subject t1
-             JOIN tbl_06_schedule t2
-             ON t1.SubjName = t2.SubjName
-             WHERE t2.RoomDesc = '$homeroom'
-             AND t2.semester = '$semester'
-             AND t2.schoolyear = '$period'
-             AND t1.Type != 'Non-Subject'
-             AND t2.SubjName NOT IN ('EXCUL','ELECTIVE','None','')
-             ORDER BY t1.SubjName ASC"
+            "CALL SubjectColumn('$homeroom', '$semester', '$period')"
 		)->result();
 		
-		return $query;
+		return [$head, $query];
 	}
 }

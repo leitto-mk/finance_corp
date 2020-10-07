@@ -415,7 +415,7 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Recap Mid-Semester Siswa</span>
+                        <span class="caption-subject bold uppercase">Recap Mid-Semester Siswa Kelas <?= $homeroom ?></span>
                     </div>
                     <div class="tools"> </div>
                 </div>
@@ -423,9 +423,8 @@
                     <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="full_mid_recap">
                         <thead>
                             <tr>
-                                <th class="all">No</th>
-                                <th class="all">NIS</th>
-                                <th class="all">Name</th>
+                                <th class="all" width="1%">NIS</th>
+                                <th class="all" width="35%">Name</th>
                             </tr>
                         </thead>
                         <tbody>

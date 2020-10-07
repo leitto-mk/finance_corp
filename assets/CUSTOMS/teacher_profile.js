@@ -3,7 +3,9 @@ $(document).ready(function () {
 	if ($('body').attr('data-status') !== 'student') {
 
 		//EXECUTE LOAD ON START
-		get_student($('.compact_rooms').first().val())
+		get_student($('#grade_rooms_compact').val(), 'grade_rooms_compact')
+		get_student($('#attd_rooms_compact').val(), 'attd_rooms_compact')
+
 		getStudentReports()
 
 		//OPEN PROFILE FROM NAV-BAR
@@ -499,46 +501,40 @@ $(document).ready(function () {
 		//SHOW FULL MID SEMESTER RECAP
 		let mid_recap = async () => {
 
-			let head = await fetch('ajax_get_class_full_mid_recap_head')
-			let data = await head.json()
+			let head = await fetch('ajax_get_class_full_mid_recap')
+			let ajx_data = await head.json()
 
 			let dt_column = [{
-					data: 'No',
-				}, {
-					data: 'IDNumber',
-				}, {
-					data: 'FullName',
-				},
-				{
-					data: 'MidRecap',
-				}, {
-					data: 'Score',
-				}
-			]
+				data: 'Number'
+			}, {
+				data: 'NIS',
+			}, {
+				data: 'FullName'
+			}]
 
-			for (var row in data) {
-				$('#full_mid_recap tr:last-child').append(`<th class="desktop"> ${data[row].SubjName} </th>`)
+			//Arrange the Columns' name
+			let i = 1
+			for (var row in ajx_data.header) {
+				//Append column Name into the view
+				$('#full_mid_recap tr:last-child').append(`<th class="desktop"> ${ajx_data.header[row].SubjName} </th>`)
 
+				//Append Columns' Header as object for Datatable
 				dt_column.push({
-					data: data[row].SubjName,
+					data: ajx_data.header[row].SubjName.split(' ').join('_'),
+					createdCell: response => response.setAttribute('align', 'center')
 				})
+
+				i++
 			}
 
-			$('#full_mid_recap tr:last-child').append(`<th class="all"> Mid-Grade </th><th class="all"> Peringkat </th>`)
+			// $('#full_mid_recap tr:last-child').append(`<th class="all"> Mid-Grade </th><th class="all"> Peringkat </th>`)
 
 			$('#full_mid_recap').DataTable({
 				responsive: true,
 				processing: true,
-				lengthMenu: [10, 25, 50, 100, 300, 'All'],
-				// ajax: {
-				// 	url: 'public function ajax_get_class_full_mid_recap',
-				// 	dataSrc: '',
-				// 	error: response => {
-				// 		alert('CANNOT RETRIEVE DATA FROM SERVER')
-				// 		console.log(response.responseText)
-				// 	}
-				// },
-				column: dt_column,
+				lengthMenu: [30, 50],
+				columns: dt_column,
+				data: ajx_data.pivot
 			})
 		}
 

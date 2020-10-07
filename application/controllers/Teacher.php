@@ -124,7 +124,7 @@ class Teacher extends CI_Controller
             $i = 1;
         }
 
-        //===================================== SCHEDULE ==============================================\\
+        //===================================== ATTENDANCE ==============================================\\
 
         $attd_full = $this->Mdl_nonstudent->modal_get_full_attendance($semester, $period, $room);
 
@@ -370,18 +370,19 @@ class Teacher extends CI_Controller
         $this->load->view('grade_report_mid_print', $data);
     }
 
-    public function ajax_get_class_full_mid_recap_head(){
+    public function ajax_get_class_full_mid_recap(){
         $homeroom = $this->session->userdata('homeroom');
         $semester = $this->session->userdata('semester');
         $period = $this->session->userdata('period');
 
-        $result = $this->Mdl_nonstudent->model_get_class_full_mid_recap($homeroom, $semester, $period);
+        [$head, $result] = $this->Mdl_nonstudent->model_get_class_full_mid_recap($homeroom, $semester, $period);
+        
+        $data = [
+            'header' => $head,
+            'pivot' => $result
+        ];
 
-        echo json_encode($result);
-    }
-
-    public function ajax_get_class_full_mid_recap(){
-        //
+        echo json_encode($data);
     }
 
     /* 
