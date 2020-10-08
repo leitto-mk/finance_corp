@@ -40,7 +40,15 @@ $(document).ready(function () {
 					date_end,
 					color
 				},
-				success: () => getCalendar(),
+				success: response => {
+					if (response == 'success') {
+						alert("NEW EVENT HAS BEEN ADDED !")
+						getCalendar()
+					} else {
+						alert("SOMETHING'S WRONG")
+						console.log(response)
+					}
+				},
 				error: err => console.log(err.responseText)
 			})
 		}

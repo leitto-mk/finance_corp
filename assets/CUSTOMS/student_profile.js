@@ -31,6 +31,7 @@ $(document).ready(function () {
 						name: response[key].Title,
 						startDate: new Date(response[key].DateStart),
 						endDate: new Date(response[key].DateEnd),
+						color: response[key].Color
 					})
 				}
 

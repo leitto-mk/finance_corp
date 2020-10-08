@@ -284,14 +284,8 @@ class Admin extends CI_Controller
     }
 
     public function ajax_get_school_event(){
-        $start = date('Y-01-01');
-        $end = date('Y-12-31');
 
-        $result = $this->db->query(
-            "SELECT Title, DateStart, DateEnd, Color FROM tbl_13_calendar
-             WHERE DateStart >= '$start'
-             AND DateEnd <= '$end'"
-        )->result();
+        $result = $this->Mdl_index->get_school_event();
 
         echo json_encode($result);
     }
@@ -302,12 +296,9 @@ class Admin extends CI_Controller
         $date_end = $_POST['date_end'];
         $color = $_POST['color'];
 
-        $this->db->insert('tbl_13_calendar',[
-            'Title' => $title,
-            'DateStart' => $date_start,
-            'DateEnd' => $date_end,
-            'Color' => $color
-        ]);
+        $result = $this->Mdl_index->sv_school_event($title, $date_start, $date_end, $color);
+
+        echo $result;
     }
 
     public function ajax_update_school_event(){
@@ -320,26 +311,11 @@ class Admin extends CI_Controller
         $new_date_end = isset($_POST['newend']) ? $_POST['newend'] : '';
         $new_color = $_POST['newcolor'];
 
-        if($event == 'delete'){
-            $this->db->delete('tbl_13_calendar', [
-                'Title' => $title,
-                'DateStart' => $date_start,
-                'DateEnd' => $date_end,
-            ]);
-        }else{
-            $this->db->update('tbl_13_calendar', [
-                'Title' => $new_title,
-                'DateStart' => $new_date_start,
-                'DateEnd' => $new_date_end,
-                'Color' => $new_color
-            ], [
-                'Title' => $title,
-                'DateStart' => $date_start,
-                'DateEnd' => $date_end,
-            ]);
-        }
+        $result = $this->Mdl_index->update_school_event($event, $title, $new_title, $date_start, $date_end, $new_date_start, $new_date_end, $new_color);
 
-        echo 'success';
+        print_r($result);
+        die();
+        echo $result;
     }
 
     public function ajax_save_report(){

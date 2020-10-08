@@ -358,6 +358,50 @@ class Mdl_index extends CI_Model
         return [$pie, $bar];
     }
 
+    public function get_school_event(){
+        return $this->db->query(
+            "SELECT Title, DateStart, DateEnd, Color FROM tbl_13_calendar"
+        )->result();
+    }
+
+    public function sv_school_event($title, $date_start, $date_end, $color){
+        $this->db->insert('tbl_13_calendar',[
+            'Title' => $title,
+            'DateStart' => $date_start,
+            'DateEnd' => $date_end,
+            'Color' => $color
+        ]);
+
+        return ($this->db->affected_rows() ? 'success' : $this->db->error());
+    }
+
+    public function update_school_event($event, $title, $new_title, $date_start, $date_end, $new_date_start, $new_date_end, $new_color){
+        $this->db->trans_begin();
+
+        if($event == 'delete'){
+            $this->db->delete('tbl_13_calendar', [
+                'Title' => $title,
+                'DateStart' => $date_start,
+                'DateEnd' => $date_end,
+            ]);
+        }else{
+            $this->db->update('tbl_13_calendar', [
+                'Title' => $new_title,
+                'DateStart' => $new_date_start,
+                'DateEnd' => $new_date_end,
+                'Color' => $new_color
+            ], [
+                'Title' => $title,
+                'DateStart' => $date_start,
+                'DateEnd' => $date_end,
+            ]);
+        }
+
+        $this->db->trans_complete();
+        
+        return ($this->db->trans_status() ? 'success' : $this->db->error());
+    }
+
     public function get_closing_report(){
         $teacher = $this->db->query(
             "SELECT
