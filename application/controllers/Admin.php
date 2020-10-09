@@ -313,8 +313,6 @@ class Admin extends CI_Controller
 
         $result = $this->Mdl_index->update_school_event($event, $title, $new_title, $date_start, $date_end, $new_date_start, $new_date_end, $new_color);
 
-        print_r($result);
-        die();
         echo $result;
     }
 

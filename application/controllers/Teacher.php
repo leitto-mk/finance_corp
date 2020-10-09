@@ -385,6 +385,76 @@ class Teacher extends CI_Controller
         echo json_encode($data);
     }
 
+    public function print_recap_mid(){
+        $homeroom = $this->session->userdata('homeroom');
+        $semester = $this->session->userdata('semester');
+        $period = $this->session->userdata('period');
+
+        [$head, $result] = $this->Mdl_nonstudent->model_get_class_full_mid_recap($homeroom, $semester, $period);
+
+        // LOAD PLUGIN
+        include APPPATH.'third_party\PHPExcel.php';
+
+        $excel = new PHPExcel();
+
+        $filename = 'MID RECAP ' .$homeroom . ' - ' .date('F-Y').'.xlsx';
+
+        $excel->setActiveSheetIndex(0)->setCellValue('A2', 'No');
+        $excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(TRUE);
+        // $excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->setActiveSheetIndex(0)->setCellValue('B2', 'NIS');
+        $excel->getActiveSheet()->getStyle('B2')->getFont()->setBold(TRUE);
+        // $excel->getActiveSheet()->getStyle('B2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->setActiveSheetIndex(0)->setCellValue('C2', 'NAMA');
+        $excel->getActiveSheet()->getStyle('C2')->getFont()->setBold(TRUE);
+        // $excel->getActiveSheet()->getStyle('C2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('C2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        $alp = 'D';
+        $i = 1;
+        
+        foreach($result as $row){
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($i+2), $i);
+            $excel->getActiveSheet()->getStyle('A' . ($i+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($i+2), $row->NIS);
+            $excel->getActiveSheet()->getStyle('B' . ($i+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($i+2), '  ' . $row->FullName);
+
+            foreach($head as $row2){
+                $cur_subj = str_replace(' ','_', $row2->SubjName);
+                $excel->setActiveSheetIndex(0)->setCellValue($alp . '2', $row2->SubjName);
+                $excel->getActiveSheet()->getStyle($alp . '2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $excel->getActiveSheet()->getColumnDimension($alp)->setWidth(strlen($row2->SubjName)+4);    
+                
+                $excel->setActiveSheetIndex(0)->setCellValue($alp . ($i+2), $row->{$cur_subj});
+                $excel->getActiveSheet()->getStyle($alp . ($i+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+                ++$alp;
+            }
+
+            $alp = 'D';
+            ++$i;
+        }
+
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(35);
+    
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+    
+        $excel->getActiveSheet(0)->setTitle('MID RECAP - ' . $homeroom);
+        $excel->setActiveSheetIndex(0);
+    
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+
+        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $write->save('php://output');
+    }
+
     /* 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                 MODAL
