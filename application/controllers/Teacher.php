@@ -482,7 +482,7 @@ class Teacher extends CI_Controller
 
         $excel = new PHPExcel();
 
-        $filename = 'MID RECAP ' .$homeroom . ' - ' .date('F-Y').'.xlsx';
+        $filename = 'ATTENDANCE RECAP ' .$homeroom . ' - ' .strtoupper(date('F Y')).'.xlsx';
 
         $excel->setActiveSheetIndex(0)->setCellValue('A2', 'No');
         $excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(TRUE);
@@ -546,6 +546,7 @@ class Teacher extends CI_Controller
             for($i = 3; $i <= $month_days+2; $i++){
                 $excel->setActiveSheetIndex(0)->setCellValue($alp[$i] . '2', $i-2);
                 $excel->getActiveSheet()->getStyle($alp[$i] . '2')->getFont()->setBold(TRUE);
+                $excel->getActiveSheet()->getStyle($alp[$i] . '2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
                 if($row->{$date_alias[$i-2]} == 'Sick'){
                     $attd = 'S';

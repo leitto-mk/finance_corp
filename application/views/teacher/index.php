@@ -441,7 +441,7 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Recap Absent Siswa Kelas <?= $homeroom ?> SEMESTER <?= $this->session->userdata('semester') ?> TAHUN AJARAN <?= $this->session->userdata('period') ?></span>
+                        <span class="caption-subject bold uppercase">Recap Absent Siswa Kelas <?= $homeroom ?> BULAN <?= date('F')?> SEMESTER <?= $this->session->userdata('semester') ?> TAHUN AJARAN <?= $this->session->userdata('period') ?></span>
                     </div>
                     <div class="actions">
                         <a href="<?= base_url('Teacher/print_attendance_recap')?>" class="btn green-jungle btn-xs btn-outline">
