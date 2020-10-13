@@ -766,4 +766,41 @@ class Mdl_nonstudent extends CI_Model
 		
 		return [$head, $query];
 	}
+
+	public function get_class_attendance_recap($homeroom, $semester, $period){
+		$query_var = '';
+        $query_join = '';
+        $date_alias = [
+            'zero','one','two','three','four','five','six','seven','eight','nine','ten',
+            'eleven','twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty',
+            'twentyone','twentytwo','twentythree','twentyfour','twentyfive','twentysix','twentyseven','twentyeight','twentynine','thirty','thirtyone'
+        ];
+
+        $month_days = $this->db->query("SELECT DAYOFMONTH(LAST_DAY(CURDATE())) AS Day")->row()->Day;
+
+        for($i = 1; $i <= $month_days; $i++){
+            if($i != $month_days){
+                $query_var .= 'IF('.$date_alias[$i].'.Ket IS NULL, "-", '.$date_alias[$i].'.Ket) AS `'.$date_alias[$i].'`, ';
+            }else{
+                $query_var .= 'IF('.$date_alias[$i].'.Ket IS NULL, "-", '.$date_alias[$i].'.Ket) AS `'.$date_alias[$i].'` ';
+            }
+
+            $query_join .= 'LEFT JOIN (SELECT NIS,Ket FROM tbl_10_absent_std WHERE Absent = "'.date("Y-m-$i").'") AS '.$date_alias[$i].' ON t1.NIS = '.$date_alias[$i].'.NIS ';
+        }
+
+        $query = $this->db->query(
+            "SELECT 
+                t1.NIS, 
+                t1.FullName,
+                $query_var
+             FROM tbl_09_det_grades AS t1
+             $query_join
+             WHERE t1.Room = '$homeroom'
+             AND t1.Semester = '$semester'
+             AND t1.schoolyear = '$period'
+             GROUP BY t1.FullName"
+		)->result();
+
+		return [$month_days, $query];
+	}
 }

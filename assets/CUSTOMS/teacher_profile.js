@@ -525,6 +525,7 @@ $(document).ready(function () {
 			// $('#full_mid_recap tr:last-child').append(`<th class="all"> Mid-Grade </th><th class="all"> Peringkat </th>`)
 
 			$('#full_mid_recap').DataTable({
+				destroy: true,
 				responsive: true,
 				processing: true,
 				lengthMenu: [10, 30, 50],
@@ -533,8 +534,75 @@ $(document).ready(function () {
 			})
 		}
 
+		//SHOW FULL ATTENDANCE
+		let attd_recap = async () => {
+
+			let head = await fetch('ajax_get_class_attendance_recap')
+			let ajx_data = await head.json()
+
+			console.log(ajx_data)
+
+			let dt_column = [{
+				data: 'NIS',
+			}, {
+				data: 'FullName'
+			}]
+
+			$('#attd_recap tr').empty()
+			$('#attd_recap tr:last-child').append(
+				`<th class="all" width="1%">NIS</th>
+				 <th class="all" width="35%">Name</th>`
+			)
+
+			let date_alias = [
+				'zero','one','two','three','four','five','six','seven','eight','nine','ten',
+				'eleven','twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty',
+				'twentyone','twentytwo','twentythree','twentyfour','twentyfive','twentysix','twentyseven','twentyeight','twentynine','thirty','thirtyone'
+			];
+
+			//Arrange the Columns' name
+			for (let i = 1; i <= +ajx_data.header; i++) {
+				//Append column Name into the view
+				$('#attd_recap tr:last-child').append(`<th class="desktop"> ${i} </th>`)
+
+				//Append Columns' Header as object for Datatable
+				dt_column.push({
+					data: date_alias[i],
+					createdCell: response => {
+						response.setAttribute('align', 'center')
+						if($(response).text() == 'Sick'){
+							response.classList.add('bg-yellow-saffron')
+							$(response).text('S')
+						}else if($(response).text() == 'On Permit'){
+							response.classList.add('bg-purple')
+							$(response).text('I')
+						}else if($(response).text() == 'Absent'){
+							response.classList.add('bg-red')
+							$(response).text('A')
+						}else{
+							response.classList.add('bg-default')
+							$(response).text('-')
+						}
+					}
+				})
+			}
+
+			$('#attd_recap').DataTable({
+				destroy: true,
+				responsive: true,
+				processing: true,
+				ordering: false,
+				lengthMenu: [10, 30, 50],
+				columns: dt_column,
+				data: ajx_data.pivot,
+			})
+		}
+
 		//EXECUTE mid_recap
 		mid_recap()
+
+		//EXECUTE attd_recap
+		attd_recap()
 
 		//GET CALENDAR
 		$.ajax({
@@ -1346,17 +1414,6 @@ $(document).ready(function () {
 				checked[i] = $(this).val()
 			})
 
-			console.table({
-				semester,
-				period,
-				attd_room,
-				checked,
-				reason,
-				subj,
-				time,
-				date
-			})
-
 			if (checked.length == 0 || reason == '' || date == '') {
 				call_swal('error', 'CANNOT PROCEED', 'Make sure the requested form are filled and have at least 1 student selected from the table')
 			} else {
@@ -1384,6 +1441,7 @@ $(document).ready(function () {
 						console.log(data)
 						if (data == 'success') {
 							call_swal('success', 'SUBMITED', 'New Absent has been added')
+							attd_recap()
 						}
 					},
 					error: data => {

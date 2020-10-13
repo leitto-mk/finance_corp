@@ -415,7 +415,7 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Recap Mid-Semester Siswa Kelas <?= $homeroom ?></span>
+                        <span class="caption-subject bold uppercase">Recap Mid-Semester Siswa Kelas <?= $homeroom ?> SEMESTER <?= $this->session->userdata('semester') ?> TAHUN AJARAN <?= $this->session->userdata('period') ?></span>
                     </div>
                     <div class="actions">
                         <a href="<?= base_url('Teacher/print_recap_mid')?>" class="btn green-jungle btn-xs btn-outline">
@@ -427,6 +427,30 @@
                             <tr>
                                 <th class="all" width="1%">NIS</th>
                                 <th class="all" width="35%">Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">Recap Absent Siswa Kelas <?= $homeroom ?> SEMESTER <?= $this->session->userdata('semester') ?> TAHUN AJARAN <?= $this->session->userdata('period') ?></span>
+                    </div>
+                    <div class="actions">
+                        <a href="<?= base_url('Teacher/print_attendance_recap')?>" class="btn green-jungle btn-xs btn-outline">
+					    <i class="fa fa-file-excel-o"></i>&nbsp;Export Recap</a>
+                </div>
+                <div class="portlet-body">
+                    <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="attd_recap">
+                        <thead>
+                            <tr>
                             </tr>
                         </thead>
                         <tbody>
