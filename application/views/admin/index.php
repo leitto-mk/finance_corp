@@ -1426,6 +1426,111 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-dark">
+                            <i class="icon-settings font-dark"></i>
+                            <span class="caption-subject bold uppercase">Recap Mid-Semester Siswa SEMESTER <?= $this->session->userdata('semester') ?> TAHUN AJARAN <?= $this->session->userdata('period') ?></span>
+                        </div>
+                        <div class="actions">
+                            <a id="print_recap_mid" href="javascript:;" class="btn green-jungle btn-xs btn-outline">
+                            <i class="fa fa-file-excel-o"></i>&nbsp;Export Recap</a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-body">
+                            <div class="form-group col-md-2" style="padding-left: 0px">
+                                <label>Select Rooms</label>
+                                <select class="form-control" id="recap_rooms_mid">
+                                    <?php if($active_rooms) : ?>
+                                        <?php foreach($active_rooms as $row) : ?>
+                                            <option value="<?= $row->RoomDesc?>"><?= $row->RoomDesc?></option>
+                                        <?php endforeach; ?>
+                                    <?php else : ?>
+                                        <option value="">No Rooms available</option>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="full_mid_recap">
+                                    <thead>
+                                        <tr>
+                                            <th class="all" width="1%">NIS</th>
+                                            <th class="all" width="35%">Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-dark">
+                            <i class="icon-settings font-dark"></i>
+                            <span class="caption-subject bold uppercase">Recap Absent Siswa Kelas Tahun <?= date('Y')?></span>
+                        </div>
+                        <div class="actions">
+                            <a id="print_attd" href="javascript:;" class="btn green-jungle btn-xs btn-outline">
+                            <i class="fa fa-file-excel-o"></i>&nbsp;Export Recap</a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-body">
+                            <div class="col-md-2" style="padding-left: 0px">
+                                <div class="form-group" style="padding-left: 0px">
+                                    <label>Select Rooms</label>
+                                    <select class="form-control" id="recap_rooms_attd">
+                                        <?php if($active_rooms) : ?>
+                                            <?php foreach($active_rooms as $row) : ?>
+                                                <option value="<?= $row->RoomDesc?>"><?= $row->RoomDesc?></option>
+                                            <?php endforeach; ?>
+                                        <?php else : ?>
+                                            <option value="">No Rooms available</option>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group" style="padding-left: 0px">
+                                    <label>Select Month</label>
+                                    <select class="form-control" id="attd_month">
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="attd_recap">
+                                    <thead>
+                                        <tr>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
 
         <?php $this->load->view('_partials/_foot'); ?>

@@ -420,6 +420,7 @@
                     <div class="actions">
                         <a href="<?= base_url('Teacher/print_recap_mid')?>" class="btn green-jungle btn-xs btn-outline">
 					    <i class="fa fa-file-excel-o"></i>&nbsp;Export Recap</a>
+                    </div>
                 </div>
                 <div class="portlet-body">
                     <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="full_mid_recap">
@@ -446,6 +447,7 @@
                     <div class="actions">
                         <a href="<?= base_url('Teacher/print_attendance_recap')?>" class="btn green-jungle btn-xs btn-outline">
 					    <i class="fa fa-file-excel-o"></i>&nbsp;Export Recap</a>
+                    </div>
                 </div>
                 <div class="portlet-body">
                     <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="attd_recap">

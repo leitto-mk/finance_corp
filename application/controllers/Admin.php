@@ -1678,7 +1678,10 @@ class Admin extends CI_Controller
 
                 //NOMINATIVE
                 'nom_t' => $teacher,
-                'nom_s' => $nonteacher
+                'nom_s' => $nonteacher,
+
+            //MID-RECAP
+            'active_rooms' => $this->Mdl_grade->get_active_rooms()
         ];
         
 
@@ -1939,6 +1942,230 @@ class Admin extends CI_Controller
         $result = $this->Mdl_index->model_remove_smk_room($room);
 
         echo $result;
+    }
+
+    public function ajax_get_class_full_mid_recap(){
+        $room = $_GET['room'];
+        $semester = $this->session->userdata('semester');
+        $period = $this->session->userdata('period');
+
+        [$head, $result] = $this->Mdl_index->model_get_class_full_mid_recap($room, $semester, $period);
+        
+        $data = [
+            'header' => $head,
+            'pivot' => $result
+        ];
+
+        echo json_encode($data);
+    }
+
+    public function print_recap_mid(){
+        $room = $_GET['room'];
+        $semester = $this->session->userdata('semester');
+        $period = $this->session->userdata('period');
+
+        [$head, $result] = $this->Mdl_index->model_get_class_full_mid_recap($room, $semester, $period);
+
+        // LOAD PLUGIN
+        include APPPATH.'third_party\PHPExcel.php';
+
+        $excel = new PHPExcel();
+
+        $filename = 'MID RECAP ' .$room . ' - ' .date('F-Y').'.xlsx';
+
+        $excel->setActiveSheetIndex(0)->setCellValue('A2', 'No');
+        $excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(TRUE);
+        // $excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->setActiveSheetIndex(0)->setCellValue('B2', 'NIS');
+        $excel->getActiveSheet()->getStyle('B2')->getFont()->setBold(TRUE);
+        // $excel->getActiveSheet()->getStyle('B2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->setActiveSheetIndex(0)->setCellValue('C2', 'NAMA');
+        $excel->getActiveSheet()->getStyle('C2')->getFont()->setBold(TRUE);
+        // $excel->getActiveSheet()->getStyle('C2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('C2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        $alp = 'D';
+        $i = 1;
+        
+        foreach($result as $row){
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($i+2), $i);
+            $excel->getActiveSheet()->getStyle('A' . ($i+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($i+2), $row->NIS);
+            $excel->getActiveSheet()->getStyle('B' . ($i+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($i+2), '  ' . $row->FullName);
+
+            foreach($head as $row2){
+                $cur_subj = str_replace(' ','_', $row2->SubjName);
+                $excel->setActiveSheetIndex(0)->setCellValue($alp . '2', $row2->SubjName);
+                $excel->getActiveSheet()->getStyle($alp . '2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $excel->getActiveSheet()->getColumnDimension($alp)->setWidth(strlen($row2->SubjName)+4);    
+                
+                $excel->setActiveSheetIndex(0)->setCellValue($alp . ($i+2), $row->{$cur_subj});
+                $excel->getActiveSheet()->getStyle($alp . ($i+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+                ++$alp;
+            }
+
+            $alp = 'D';
+            ++$i;
+        }
+
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(35);
+    
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+    
+        $excel->getActiveSheet(0)->setTitle('MID RECAP - ' . $room);
+        $excel->setActiveSheetIndex(0);
+    
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+
+        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $write->save('php://output');
+    }
+
+    public function ajax_get_class_attendance_recap(){
+        $room = $_GET['room'];
+        $month = $_GET['month'];
+        $semester = $this->session->userdata('semester');
+        $period = $this->session->userdata('period');
+
+        [$month_days, $pivot] = $this->Mdl_index->get_class_attendance_recap($room, $month, $semester, $period);
+
+        $data = [
+            'header' => $month_days,
+            'pivot' => $pivot
+        ];
+
+        echo json_encode($data);
+    }
+
+    public function print_attendance_recap(){
+        $room = $_GET['room'];
+        $month = $_GET['month'];
+        $semester = $this->session->userdata('semester');
+        $period = $this->session->userdata('period');
+
+        [$month_days, $pivot] = $this->Mdl_index->get_class_attendance_recap($room, $month, $semester, $period);
+
+        $alp_month = DateTime::createFromFormat('m', $month)->format('F');
+
+        // LOAD PLUGIN
+        include APPPATH.'third_party\PHPExcel.php';
+
+        $excel = new PHPExcel();
+
+        $filename = 'ATTENDANCE RECAP ' .$room . ' - '. $alp_month .' '.date('Y').'.xlsx';
+
+        $excel->setActiveSheetIndex(0)->setCellValue('A2', 'No');
+        $excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(TRUE);
+        // $excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->setActiveSheetIndex(0)->setCellValue('B2', 'NIS');
+        $excel->getActiveSheet()->getStyle('B2')->getFont()->setBold(TRUE);
+        // $excel->getActiveSheet()->getStyle('B2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->setActiveSheetIndex(0)->setCellValue('C2', 'NAMA');
+        $excel->getActiveSheet()->getStyle('C2')->getFont()->setBold(TRUE);
+        // $excel->getActiveSheet()->getStyle('C2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('C2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        $alph = 'A';
+        $alp = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH'];
+
+        $date_alias = [
+            'zero','one','two','three','four','five','six','seven','eight','nine','ten',
+            'eleven','twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty',
+            'twentyone','twentytwo','twentythree','twentyfour','twentyfive','twentysix','twentyseven','twentyeight','twentynine','thirty','thirtyone'
+        ];
+
+        $sick = [
+            'fill' => [
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => ['argb' => 'F4D03F']
+            ]
+        ];
+
+        $on_permit = [
+            'fill' => [
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => ['argb' => '8E44AD']
+            ]
+        ];
+
+        $absent = [
+            'fill' => [
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => ['argb' => 'e7505a']
+            ]
+        ];
+
+        $default = [
+            'fill' => [
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => ['argb' => 'e1e5ec']
+            ]
+        ];
+
+        $index = 1;
+        
+        foreach($pivot as $row){
+            $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+2), $index);
+            $excel->getActiveSheet()->getStyle('A' . ($index+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+2), $row->NIS);
+            $excel->getActiveSheet()->getStyle('B' . ($index+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+2), '  ' . $row->FullName);
+
+            for($i = 3; $i <= $month_days+2; $i++){
+                $excel->setActiveSheetIndex(0)->setCellValue($alp[$i] . '2', $i-2);
+                $excel->getActiveSheet()->getStyle($alp[$i] . '2')->getFont()->setBold(TRUE);
+                $excel->getActiveSheet()->getStyle($alp[$i] . '2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+                if($row->{$date_alias[$i-2]} == 'Sick'){
+                    $attd = 'S';
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getFont()->setBold(TRUE);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->applyFromArray($sick);
+                }else if($row->{$date_alias[$i-2]} == 'On Permit'){
+                    $attd = 'I';
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getFont()->setBold(TRUE);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->applyFromArray($on_permit);
+                }else if($row->{$date_alias[$i-2]} == 'Absent'){
+                    $attd = 'A';
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getFont()->setBold(TRUE);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->applyFromArray($absent);
+                }else{
+                    $attd = '-';
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->applyFromArray($default);
+                }
+                
+                $excel->setActiveSheetIndex(0)->setCellValue($alp[$i] . ($index+2), $attd);
+                $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+            }
+
+            ++$index;
+        }
+
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(35);
+    
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+    
+        $excel->getActiveSheet(0)->setTitle('ATTENDANCE - ' . $alp_month . ' ' . date('Y'));
+        $excel->setActiveSheetIndex(0);
+    
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+
+        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $write->save('php://output');
     }
 
     // ==================================================================================================================== \\

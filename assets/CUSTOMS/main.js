@@ -379,6 +379,150 @@ $(document).ready(function () {
 		})
 	})
 
+	//SHOW FULL MID SEMESTER RECAP
+	let mid_recap = async () => {
+
+		let room = $('#recap_rooms_mid').val()
+		let head = await fetch(`ajax_get_class_full_mid_recap?room=${room}`)
+		let ajx_data = await head.json()
+
+		let dt_column = [{
+			data: 'NIS',
+		}, {
+			data: 'FullName'
+		}]
+
+		$('#full_mid_recap tr').empty()
+		$('#full_mid_recap tr:last-child').append(
+			`<th class="all" width="1%">NIS</th>
+			 <th class="all" width="35%">Name</th>`
+		)
+
+		//Arrange the Columns' name
+		for (var row in ajx_data.header) {
+			//Append column Name into the view
+			$('#full_mid_recap tr:last-child').append(`<th class="desktop"> ${ajx_data.header[row].SubjName} </th>`)
+
+			//Append Columns' Header as object for Datatable
+			dt_column.push({
+				data: ajx_data.header[row].SubjName.split(' ').join('_'),
+				createdCell: response => response.setAttribute('align', 'center')
+			})
+		}
+
+		// $('#full_mid_recap tr:last-child').append(`<th class="all"> Mid-Grade </th><th class="all"> Peringkat </th>`)
+
+		$('#full_mid_recap').DataTable({
+			destroy: true,
+			responsive: true,
+			processing: true,
+			lengthMenu: [30, 50],
+			columns: dt_column,
+			data: ajx_data.pivot
+		})
+	}
+
+	//CHANGE ROOM OF MID RECAP
+	$('#recap_rooms_mid').change(function(){
+		mid_recap()
+	})
+
+	//PRINT MID RECAP
+	$('#print_recap_mid').click(function(e){
+		e.preventDefault()
+
+		let room = $('#recap_rooms_mid').val()
+
+		window.location.replace(`print_recap_mid?room=${room}`)
+	})
+
+	//SHOW FULL ATTENDANCE
+	let attd_recap = async () => {
+
+		let room = $('#recap_rooms_attd').val()
+		let month = $('#attd_month').val()
+		let head = await fetch(`ajax_get_class_attendance_recap?room=${room}&month=${month}`)
+		let ajx_data = await head.json()
+
+		console.log(ajx_data)
+
+		let dt_column = [{
+			data: 'NIS',
+		}, {
+			data: 'FullName'
+		}]
+
+		$('#attd_recap tr').empty()
+		$('#attd_recap tr:last-child').append(
+			`<th class="all" width="1%">NIS</th>
+				<th class="all" width="35%">Name</th>`
+		)
+
+		let date_alias = [
+			'zero','one','two','three','four','five','six','seven','eight','nine','ten',
+			'eleven','twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty',
+			'twentyone','twentytwo','twentythree','twentyfour','twentyfive','twentysix','twentyseven','twentyeight','twentynine','thirty','thirtyone'
+		];
+
+		//Arrange the Columns' name
+		for (let i = 1; i <= +ajx_data.header; i++) {
+			//Append column Name into the view
+			$('#attd_recap tr:last-child').append(`<th class="desktop"> ${i} </th>`)
+
+			//Append Columns' Header as object for Datatable
+			dt_column.push({
+				data: date_alias[i],
+				createdCell: response => {
+					response.setAttribute('align', 'center')
+					if($(response).text() == 'Sick'){
+						response.classList.add('bg-yellow-saffron')
+						$(response).text('S')
+					}else if($(response).text() == 'On Permit'){
+						response.classList.add('bg-purple')
+						$(response).text('I')
+					}else if($(response).text() == 'Absent'){
+						response.classList.add('bg-red')
+						$(response).text('A')
+					}else{
+						response.classList.add('bg-default')
+						$(response).text('-')
+					}
+				}
+			})
+		}
+
+		$('#attd_recap').DataTable({
+			destroy: true,
+			responsive: true,
+			processing: true,
+			ordering: false,
+			lengthMenu: [10, 30, 50],
+			columns: dt_column,
+			data: ajx_data.pivot,
+		})
+	}
+
+	//CHANGE SELECT OF ATTENDANCE RECAP
+	$('#recap_rooms_attd, #attd_month').change(function(){
+		attd_recap()
+	})
+
+	//PRINT MONTHLY ATTENDANCE
+	$('#print_attd').click(function(e){
+		e.preventDefault()
+
+		let room = $('#recap_rooms_attd').val()
+		let month = $('#attd_month').val()
+		
+		window.location.replace(`print_attendance_recap?room=${room}&month=${month}`)
+	})
+
+	//EXECUTE mid_recap
+	mid_recap()
+
+	//EXECUTE attd_recap
+	attd_recap()
+
 	var degree
 	//OPEN MODAL SELECTED DEGREE
 	$('.toggle_sd, .toggle_smp, .toggle_sma, .toggle_smk').click(function () {
