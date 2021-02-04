@@ -1,443 +1,595 @@
 <?php $this->load->view('admin/navbar/adm_navbar'); ?>
-
 <div class="container-fluid profiles">
     <div class="page-content">
-
+        <?= $this->session->flashdata('addmsg'); ?>
         <!-- BEGIN PAGE BASE CONTENT -->
-        <div class="row">
-            <div class="row profile">
-                <div class="col-md-2">
-                    <div class="profile-sidebar">
-
-                        <!-- SIDEBAR USERPIC -->
-                        <div class="profile-userpic" style="margin: auto;">
-                            <img src="<?= base_url() . 'assets/photos/student/' . $std_t->Photo; ?>" class="img-responsive thumbnail img-circle" style="max-width: 100%;">
-                        </div>
-                        <!-- END SIDEBAR USERPIC -->
-
-                        <!-- SIDEBAR USER TITLE -->
-                        <div class="profile-usertitle text-center">
-                            <div class="profile-usertitle-name text-uppercase h4">
-                                <?= $std_t->FirstName . ' ' . $std_t->LastName; ?>
+        <div class="portlet light"> 
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: #e9edef; margin-top: -20px">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px; padding-right: 0px">
+                            <div class="portlet light" style="background-color: white; height: 580px">
+                                <div class="text-center profile-userpic">
+                                    <img src="<?= base_url() . 'assets/photos/student/' . $std_t->Photo; ?>" alt="" style="width:auto; height: 135px"/>                                                   
+                                </div>
+                                <hr>
+                                <div class="text-center">
+                                    <h5  class="img-rounded zoom bold"><?= $std_t->FirstName . ' ' . $std_t->MiddleName . ' ' . $std_t->LastName; ?></h5>
+                                </div>
+                                <hr style="margin: 9px 0;">
+                                <table class="table" style="margin-bottom: 30px;">
+                                    <tbody>
+                                        <tr>
+                                            <td width="28%" style="border-top: none;"><center><?= $std_t->status; ?></center></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold font-yellow" style="border-top: none;"><center>Class: <?= $std_t->Ruangan ?></center></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr>
+                                <div class="profile-userbuttons text-center" style="margin-top: 10px;">
+                                    <a href="<?= base_url('Admin/load_prof_std_update/') . $std_t->IDNumber; ?>" class="btn btn-success btn-sm" style="min-width: 55px;">Edit</a>
+                                    <a href="<?= base_url('Admin/delete/') . $std_t->IDNumber; ?>" class="btn btn-danger btn-sm" style="min-width: 45px;">Delete</a>
+                                </div>
                             </div>
-                            <div class="profile-usertitle-job text-uppercase h5" style="margin-top: 5px;">
-                                <?= $std_t->status; ?> <br> Class: <?= $std_t->Ruangan ?>
+                        </div>
+                        <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px; padding: 0px">
+                            <div class="col-md-12">
+                                <div class="portlet light" style="background-color: white">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-blue-chambray bold uppercase"><i class="fa fa-user"></i> Personal Data</span>
+                                        </div>
+                                       <!--  <div class="actions">
+                                            <a href="#" class="btn yellow btn-outline btn-sm edit-stock">
+                                                <i class="fa fa-pencil"></i> Edit
+                                            </a>
+                                            <a id="i_label" href="#" class="btn blue btn-outline btn-sm">
+                                                <i class="fa fa-barcode"></i> Label
+                                            </a>
+                                        </div> -->
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="table-responsive">
+                                                    <table class="table" id="detail_table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;"> ID<font color="white">_</font>Number </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="bold" id="stock_detail_1" style="border-top: none;"><?= $std_t->IDNumber; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> First Name </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->FirstName; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Middle Name </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->MiddleName; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Last Name </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->LastName; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Nick Name </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->NickName; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Gender </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->Gender; ?></td>
+                                                            </tr>  
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody>  
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;"> Date of Birth </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="sbold" style="border-top: none;"> <?= $std_t->DateofBirth; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Point of Birth </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"><?= $std_t->PointofBirth; ?></td>
+                                                            </tr>                                 
+                                                            <tr>
+                                                                <td width="28%"> Religion </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"><?= $std_t->Religion; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Height </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"><?= $std_t->Height; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Weight </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"><?= $std_t->Weight; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Head Size </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"><?= $std_t->HeadDiameter; ?></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="portlet light" style="background-color: white">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-blue-chambray bold uppercase"><i class="fa fa-book"></i> Academic Info</span>
+                                        </div>
+                                       <!--  <div class="actions">
+                                            <a href="#" class="btn yellow btn-outline btn-sm edit-stock">
+                                                <i class="fa fa-pencil"></i> Edit
+                                            </a>
+                                            <a id="i_label" href="#" class="btn blue btn-outline btn-sm">
+                                                <i class="fa fa-barcode"></i> Label
+                                            </a>
+                                        </div> -->
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="table-responsive">
+                                                    <table class="table" id="detail_table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;"> NIS </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="bold" id="stock_detail_1" style="border-top: none;"><?= $std_t->NIS; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> NISN </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->NISN; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Class</td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->Kelas; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Room </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->Ruangan; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Position </td>
+                                                                <td width="1%"> : </td>
+                                                                <?php if ($std_t->Position == '') : ?>
+                                                                    <td class="sbold"> - </td>
+                                                                <?php else : ?>
+                                                                    <td class="sbold"> <?= $std_t->Position; ?> </td>
+                                                                <?php endif; ?>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Competent </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->Competition; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Previous School </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->PreviousSchool; ?></td>
+                                                            </tr>  
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="table-responsive">
+                                                    <table class="table" id="detail_table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;"> ID<font color="white">_</font>Diploma Number </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="bold" id="stock_detail_1" style="border-top: none;"><?= $std_t->Diploma; ?></td>
+                                                            </tr> 
+                                                            <tr>
+                                                                <td width="28%"> Achievement </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->Achievement; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Achievement Level </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->AchievementLVL; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> AchievementName </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->AchievementName; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> AchievementYear </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->AchievementYear; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Sponsored By </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->Sponsor; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Achievement Rank </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->AchievementRank; ?></td>
+                                                            </tr>  
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top: -20px">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody>  
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;"> Scholarship </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="sbold" style="border-top: none;"> <?= $std_t->Scholarship; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Scholarship Description </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"><?= $std_t->ScholarDesc; ?></td>
+                                                            </tr>                                 
+                                                            <tr>
+                                                                <td width="28%"> Scholarship Year Starts </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"><?= $std_t->ScholarStart; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Scholarship Year Finishes </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"><?= $std_t->ScholarFinish; ?></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top: -20px">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody>  
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;">  Prosperity Type </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="sbold" style="border-top: none;"> <?= $std_t->Prosperity; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Prosper Number </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"><?= $std_t->ProsperNumber; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Printed Name in Prosper Cards </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"><?= $std_t->ProsperNameTag; ?></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="margin-top: -5px">
+                                <div class="portlet light" style="background-color: white">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase"><i class="fa fa-phone"></i> Contact Detail</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body ">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table" style="margin-top: -10px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="15%">Mobile :</th>
+                                                                <th width="15%"> House Phone :</th>
+                                                                <th width="15%">Phone :</th>
+                                                                <th width="15%">WA :</th>
+                                                                <th width="40%">Email :</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><?= $std_t->Phone; ?></td>
+                                                                <td><?= $std_t->HousePhone; ?></td>
+                                                                <td><?= $std_t->Phone; ?></td>
+                                                                <td><?= $std_t->Phone; ?></td>
+                                                                <td><?= $std_t->Email; ?></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="margin-top: -5px;">
+                                <div class="portlet light" style="background-color: white">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-dark bold uppercase"><i class="fa fa-map-marker"></i> Address Detail</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body ">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table" style="margin-top: -10px">
+                                                        <!-- <thead>
+                                                            <tr>
+                                                                <th width="100%">Address :</th>
+                                                                <th width="15%">City :</th>
+                                                                <th width="15%">Sub District :</th>
+                                                                <th width="10%">District :</th>
+                                                                <th width="10%">Region :</th>
+                                                                <th width="10%">Province :</th>
+                                                                <th width="10%">Country :</th>
+                                                            </tr>
+                                                        </thead> -->
+                                                            <tr>
+                                                                <td class="bold"><u><?= $std_t->Address; ?>, <?= $std_t->RT; ?>, <?= $std_t->RW; ?>, <?= $std_t->Village; ?>, <?= $std_t->District; ?>, <?= $std_t->Region; ?>, <?= $std_t->Country; ?></u></td>
+                                                                <!-- <td>Manado</td>
+                                                                <td>Tuminting</td>
+                                                                <td>Tuminting</td>
+                                                                <td>Kota Manado</td>
+                                                                <td>Sulawesi Utara</td>
+                                                                <td>Indonesia</td> -->
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="col-md-12" style="margin-top: -50px">
+                                <div class="portlet light" style="background-color: white">
+                                    <div class="portlet-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="table-responsive">
+                                                    <table class="table" id="detail_table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;"> LiveWith </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="bold" id="stock_detail_1" style="border-top: none;"><?= $std_t->LiveWith; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Transportation </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->Transportation; ?></td>
+                                                            </tr> 
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="table-responsive">
+                                                    <table class="table" id="detail_table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;"> Exact<font color="white">_</font>House<font color="white">_</font>Range </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="bold" id="stock_detail_1" style="border-top: none;"><?= $std_t->ExactRange; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Travel Time </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->TimeRange; ?></td>
+                                                            </tr>
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="table-responsive">
+                                                    <table class="table" id="detail_table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;"> Latitude </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="bold" id="stock_detail_1" style="border-top: none;"><?= $std_t->Latitude; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Longitude </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->Longitude; ?></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                            <div class="col-md-12">
+                                <div class="portlet light" style="background-color: white">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-blue-chambray bold uppercase"><i class="fa fa-user"></i> Relationship</span>
+                                        </div>
+                                       <!--  <div class="actions">
+                                            <a href="#" class="btn yellow btn-outline btn-sm edit-stock">
+                                                <i class="fa fa-pencil"></i> Edit
+                                            </a>
+                                            <a id="i_label" href="#" class="btn blue btn-outline btn-sm">
+                                                <i class="fa fa-barcode"></i> Label
+                                            </a>
+                                        </div> -->
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="table-responsive">
+                                                    <table class="table" id="detail_table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;"> Father's Name </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="bold" id="stock_detail_1" style="border-top: none;"><?= $std_t->Father; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> NIK </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->FatherNIK; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Born </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->FatherBorn; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Degree </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->FatherDegree; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Occupation </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->FatherJob; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Monthly Earning </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->FatherIncome; ?></td>
+                                                            </tr> 
+                                                            <tr>
+                                                                <td width="28%"> Disability </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->FatherDisability; ?></td>
+                                                            </tr> 
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="table-responsive">
+                                                    <table class="table" id="detail_table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;"> Mother's Name </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="bold" id="stock_detail_1" style="border-top: none;"><?= $std_t->Mother; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> NIK </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->MotherNIK; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Born </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->MotherBorn; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Degree </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->MotherDegree; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Occupation </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->MotherJob; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Monthly Earning </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->MotherIncome; ?></td>
+                                                            </tr> 
+                                                            <tr>
+                                                                <td width="28%"> Disability </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->MotherDisability; ?></td>
+                                                            </tr> 
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="table-responsive">
+                                                    <table class="table" id="detail_table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="38%" style="border-top: none;">Guardian's Name </td>
+                                                                <td width="1%" style="border-top: none;"> : </td>
+                                                                <td class="bold" id="stock_detail_1" style="border-top: none;"><?= $std_t->Guardian; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> NIK </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->GuardianNIK; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Born </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"> <?= $std_t->GuardianBorn; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Degree </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->GuardianDegree; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="28%"> Occupation </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->GuardianJob; ?></td>
+                                                            </tr>  
+                                                            <tr>
+                                                                <td width="28%"> Monthly Earning </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->GuardianIncome; ?></td>
+                                                            </tr> 
+                                                            <tr>
+                                                                <td width="28%"> Disability </td>
+                                                                <td width="1%"> : </td>
+                                                                <td class="sbold"> <?= $std_t->GuardianDisability; ?></td>
+                                                            </tr> 
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                                      
                         </div>
-                        <!-- END SIDEBAR USER TITLE -->
-
-                        <!-- SIDEBAR BUTTONS -->
-                        <div class="profile-userbuttons text-center" style="margin-top: 10px;">
-                            <a href="<?= base_url('Admin/load_prof_std_update/') . $std_t->IDNumber; ?>" class="btn btn-circle btn-sm blue btn_add_absn" style="min-width: 60px;">Edit</a>
-                            <a href="<?= base_url('Admin/delete/') . $std_t->IDNumber; ?>" class="btn btn-circle btn-sm red btn_add_absn" style="min-width: 60px;">Delete</a>
-                        </div>
-                        <!-- END SIDEBAR BUTTONS -->
-
                     </div>
                 </div>
-
-                <?= $this->session->flashdata('updmsg') ?>
-                <div class="col-md-10">
-                    <div class="row">
-                        <div class="col-sm-7">
-                            <div class="row">
-                                <div class="portlet light portlet-fit ">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-user font-red font-red"></i>
-                                            <span class="caption-subject font-red sbold uppercase">Student's Bio</span>
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body">
-                                        <div class="table-scrollable table-scrollable-borderless">
-                                            <table class="table table-hover table-light">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Fullname </th>
-                                                        <td> <?= "$std_t->FirstName $std_t->MiddleName $std_t->LastName"; ?> </td>
-                                                        <th class="uppercase"> Birth Place </th>
-                                                        <td> <?= $std_t->PointofBirth; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Nickname </th>
-                                                        <td> <?= $std_t->NickName; ?> </td>
-                                                        <th class="uppercase"> Religion </th>
-                                                        <td> <?= $std_t->Religion; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> NIK </th>
-                                                        <td> <?= $std_t->PersonalID; ?> </td>
-                                                        <th class="uppercase"> Height </th>
-                                                        <td> <?= $std_t->Height; ?> cm </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Gender </th>
-                                                        <td> <?= $std_t->Gender; ?> </td>
-                                                        <th class="uppercase"> Weight </th>
-                                                        <td> <?= $std_t->Weight; ?> Kg </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Date of Birth </th>
-                                                        <td> <?= $std_t->DateofBirth; ?> </td>
-                                                        <th class="uppercase"> Head Size </th>
-                                                        <td> <?= $std_t->HeadDiameter; ?> cm </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr></tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top: -40px;">
-                                <div class="portlet light portlet-fit ">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-user font-red font-red"></i>
-                                            <span class="caption-subject font-red sbold uppercase">Student's Address</span>
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body">
-                                        <div class="table-scrollable table-scrollable-borderless">
-                                            <table class="table table-hover table-light">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> LiveWith </th>
-                                                        <td style="width: 25%"> <?= $std_t->LiveWith; ?> </td>
-                                                        <th class="uppercase"> Postal </th>
-                                                        <td> <?= $std_t->Postal; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Transportation </th>
-                                                        <td> <?= $std_t->Transportation; ?> </td>
-                                                        <th class="uppercase"> House Range </th>
-                                                        <td> <?= $std_t->Range; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Address </th>
-                                                        <td> <?= $std_t->Address; ?> </td>
-                                                        <th class="uppercase"> Exact House Range </th>
-                                                        <td> <?= $std_t->ExactRange; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> RT </th>
-                                                        <td> <?= $std_t->RT; ?> </td>
-                                                        <th class="uppercase"> Travel Time </th>
-                                                        <td> <?= $std_t->TimeRange; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> RW </th>
-                                                        <td> <?= $std_t->RW; ?> </td>
-                                                        <th class="uppercase"> Latitude </th>
-                                                        <td> <?= $std_t->Latitude; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Village </th>
-                                                        <td> <?= $std_t->Village; ?> </td>
-                                                        <th class="uppercase"> Longitude </th>
-                                                        <td> <?= $std_t->Longitude; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> District </th>
-                                                        <td> <?= $std_t->District; ?> </td>
-                                                        <th class="uppercase"> Email </th>
-                                                        <td> <?= $std_t->Email; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Region </th>
-                                                        <td> <?= $std_t->Region; ?> </td>
-                                                        <th class="uppercase"> HouseNumber </th>
-                                                        <td> <?= $std_t->HousePhone; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Country </th>
-                                                        <td> <?= $std_t->Country; ?> </td>
-                                                        <th class="uppercase"> PhoneNumber </th>
-                                                        <td> <?= $std_t->Phone; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr></tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-5">
-                            <div class="row">
-                                <div class="portlet light portlet-fit ">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-user font-red font-red"></i>
-                                            <span class="caption-subject font-red sbold uppercase">Academic Info</span>
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body">
-                                        <div class="table-scrollable table-scrollable-borderless">
-                                            <table class="table table-hover table-light">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> NIS </th>
-                                                        <td> <?= $std_t->NIS; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Class </th>
-                                                        <td> <?= $std_t->Kelas; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Ruang </th>
-                                                        <td> <?= $std_t->Ruangan; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Position </th>
-                                                        <?php if ($std_t->Position == '') : ?>
-                                                            <td> - </td>
-                                                        <?php else : ?>
-                                                            <td> <?= $std_t->Position; ?> </td>
-                                                        <?php endif; ?>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Competent </th>
-                                                        <td> <?= $std_t->Competition; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Previous School </th>
-                                                        <td> <?= $std_t->PreviousSchool; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Diploma Number </th>
-                                                        <td> <?= $std_t->Diploma; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Achievement </th>
-                                                        <td> <?= $std_t->Achievement; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Achievement Level </th>
-                                                        <td> <?= $std_t->AchievementLVL; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> AchievementName </th>
-                                                        <td> <?= $std_t->AchievementName; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> AchievementYear </th>
-                                                        <td> <?= $std_t->AchievementYear; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Sponsored By </th>
-                                                        <td> <?= $std_t->Sponsor; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Achievement Rank </th>
-                                                        <td> <?= $std_t->AchievementRank; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Scholarship </th>
-                                                        <td> <?= $std_t->Scholarship; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Scholarship Description </th>
-                                                        <td> <?= $std_t->ScholarDesc; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Scholarship Year Starts </th>
-                                                        <td> <?= $std_t->ScholarStart; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Scholarship Year Finishes </th>
-                                                        <td> <?= $std_t->ScholarFinish; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Prosperity Type </th>
-                                                        <td> <?= $std_t->Prosperity; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Prosper Number </th>
-                                                        <td> <?= $std_t->ProsperNumber; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="uppercase"> Printed Name in Prosper Card </th>
-                                                        <td> <?= $std_t->ProsperNameTag; ?> </td>
-                                                    </tr>
-                                                </thead>
-                                                <thead>
-                                                    <tr></tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style=" margin-top: -20px;">
-                                <!-- RESERVED FOR ADDITIONAL DATA -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="portlet light portlet-fit ">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-user font-red"></i>
-                                        <span class="caption-subject font-red sbold uppercase">Family Relationship</span>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="table-scrollable table-scrollable-borderless">
-                                        <table class="table table-hover table-light">
-                                            <thead>
-                                                <tr>
-                                                    <th class="uppercase"> Father's Name </th>
-                                                    <td> <?= $std_t->Father; ?> </td>
-                                                    <th class="uppercase"> Mother's Name </th>
-                                                    <td> <?= $std_t->Mother; ?> </td>
-                                                    <th class="uppercase"> Guardian's Name </th>
-                                                    <td> <?= $std_t->Guardian; ?> </td>
-                                                </tr>
-                                            </thead>
-                                            <thead>
-                                                <tr>
-                                                    <th class="uppercase"> NIK </th>
-                                                    <td> <?= $std_t->FatherNIK; ?> </td>
-                                                    <th class="uppercase"> NIK </th>
-                                                    <td> <?= $std_t->MotherNIK; ?> </td>
-                                                    <th class="uppercase"> NIK </th>
-                                                    <td> <?= $std_t->GuardianNIK; ?> </td>
-                                                </tr>
-                                            </thead>
-                                            <thead>
-                                                <tr>
-                                                    <th class="uppercase"> Born </th>
-                                                    <td> <?= $std_t->FatherBorn; ?> </td>
-                                                    <th class="uppercase"> Born </th>
-                                                    <td> <?= $std_t->MotherBorn; ?> </td>
-                                                    <th class="uppercase"> Born </th>
-                                                    <td> <?= $std_t->GuardianBorn; ?> </td>
-                                                </tr>
-                                            </thead>
-                                            <thead>
-                                                <tr>
-                                                    <th class="uppercase"> Degree </th>
-                                                    <td> <?= $std_t->FatherDegree; ?> </td>
-                                                    <th class="uppercase"> Degree </th>
-                                                    <td> <?= $std_t->MotherDegree; ?> </td>
-                                                    <th class="uppercase"> Degree </th>
-                                                    <td> <?= $std_t->GuardianDegree; ?> </td>
-                                                </tr>
-                                            </thead>
-                                            <thead>
-                                                <tr>
-                                                    <th class="uppercase"> Occupation </th>
-                                                    <td> <?= $std_t->FatherJob; ?> </td>
-                                                    <th class="uppercase"> Occupation </th>
-                                                    <td> <?= $std_t->MotherJob; ?> </td>
-                                                    <th class="uppercase"> Occupation </th>
-                                                    <td> <?= $std_t->GuardianJob; ?> </td>
-                                                </tr>
-                                            </thead>
-                                            <thead>
-                                                <tr>
-                                                    <th class="uppercase"> Monthly Earning </th>
-                                                    <td> <?= $std_t->FatherIncome; ?> </td>
-                                                    <th class="uppercase"> Monthly Earning </th>
-                                                    <td> <?= $std_t->MotherIncome; ?> </td>
-                                                    <th class="uppercase"> Monthly Earning </th>
-                                                    <td> <?= $std_t->GuardianIncome; ?> </td>
-                                                </tr>
-                                            </thead>
-                                            <thead>
-                                                <tr>
-                                                    <th class="uppercase"> Disability </th>
-                                                    <td> <?= $std_t->FatherDisability; ?> </td>
-                                                    <th class="uppercase"> Disability </th>
-                                                    <td> <?= $std_t->MotherDisability; ?> </td>
-                                                    <th class="uppercase"> Disability </th>
-                                                    <td> <?= $std_t->GuardianDisability; ?> </td>
-                                                </tr>
-                                            </thead>
-                                            <thead>
-                                                <tr></tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            </div>                            
         </div>
-        <!-- END PAGE BASE CONTENT -->
-
-        <?php $this->load->view('_partials/_foot'); ?>
+    </div>
+    <!-- END PAGE BASE CONTENT -->
+</div>
+<?php $this->load->view('_partials/_foot'); ?>

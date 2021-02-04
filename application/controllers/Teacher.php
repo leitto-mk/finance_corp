@@ -10,6 +10,7 @@ class Teacher extends CI_Controller
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->model('teacher/Mdl_nonstudent');
+        $this->load->model('duty/Mdl_duty');
         $this->load->model('admin/Mdl_grade');
 
         //If there is no known user and role is wrong
@@ -1303,9 +1304,11 @@ class Teacher extends CI_Controller
         echo json_encode($result);
     }
 
-    //Start - Teacher Portal New Build
+     //Start - Teacher Portal New Build
     public function home()
     {
+        $id = $this->session->userdata('id');
+        $status = $this->session->userdata('status');
         //Destructuring 'array' return from model_get_taught_subject as seperate var
         [$taught, $schedule] = $this->Mdl_nonstudent->model_get_taught_subject($this->session->userdata('id'));
 
@@ -1315,6 +1318,8 @@ class Teacher extends CI_Controller
             'fname' => $this->session->userdata('fname'),
             'lname' => $this->session->userdata('lname'),
             'status' => $this->session->userdata('status'),
+            'semester' => $this->session->userdata('semester'),
+            'schyear' => $this->session->userdata('period'),
             'photo' => $this->session->userdata('photo'),
             'jobdesc' => $this->session->userdata('jobdesc'),
             'homeroom' => $this->session->userdata('homeroom'),
@@ -1328,40 +1333,132 @@ class Teacher extends CI_Controller
             //MODAL AKADEMIK
             'period' => $this->Mdl_nonstudent->get_period($this->session->userdata('id')),
             'rooms' => $this->Mdl_nonstudent->get_active_room()->result(),
-            'taught' => $taught
+            'voc_rooms' => $this->Mdl_nonstudent->get_active_voc_only_room(),
+            'taught' => $taught,
+
+            //Duty
+            'data_duty' => $this->Mdl_duty->get_list_data_duty('',$status,'','',$id)
+
         ];
-        
+
         $this->load->view('teacher/home', $data);
     }
 
-    public function view_my_profile()
-    {
-        //Destructuring 'array' return from model_get_taught_subject as seperate var
-        [$taught, $schedule] = $this->Mdl_nonstudent->model_get_taught_subject($this->session->userdata('id'));
-
-        $data = [
-            'title' => 'Teacher Information',
-            'id' => $this->session->userdata('id'),
-            'fname' => $this->session->userdata('fname'),
-            'lname' => $this->session->userdata('lname'),
-            'status' => $this->session->userdata('status'),
-            'photo' => $this->session->userdata('photo'),
-            'jobdesc' => $this->session->userdata('jobdesc'),
-            'homeroom' => $this->session->userdata('homeroom'),
-            'subject' => $this->session->userdata('subject'),
-            'degree' => $this->session->userdata('degree'),
-            'schedule' => $schedule,
-
-            //FOR MODAL PROFILE
-            'profile' => $this->Mdl_nonstudent->get_all_info($this->session->userdata('id')),
-
-            //MODAL AKADEMIK
-            'period' => $this->Mdl_nonstudent->get_period($this->session->userdata('id')),
-            'rooms' => $this->Mdl_nonstudent->get_active_room()->result(),
-            'taught' => $taught
-        ];
+    function get_detail_data_news_assigments(){
+        $idctrlno =  $this->input->post('id_ctrlno');
+        $data_duty_detail = $this->Mdl_duty->get_data_detail_news_assigments($idctrlno);
         
-        $this->load->view('teacher/v_my_profile', $data);
+        $value = '';
+        if ($data_duty_detail != false){
+            foreach ($data_duty_detail as $dda){            
+                $value.='<div class="col-md-9" style="margin-top: -10px">';
+                $value.='<div class="col-md-12">';
+                $value.='<div class="portlet-body">';
+                $value.='<div class="form-body">';
+                $value.='<div class="form-group">';
+                $value.='<label class="col-md-2 control-label"><b>Document No<span><font color="red">*</font>:</span></b></label>';
+                $value.='<div class="col-md-3">';
+                $value.='<input  class="form-control" value='.$dda->CtrlNo.' readonly>';                                            
+                $value.='</div>';
+                $value.='<label class="col-md-2 control-label"><b>Due Date<span><font color="red">*</font>:</span></b></label>';
+                $value.='<div class="col-md-3">';
+                $value.='<input class="form-control font-red bold" value="'.date('d-M-Y', strtotime($dda->DueDate)).'" readonly>';                                      
+                $value.='</div>';
+                $value.='</div>';
+                $value.='</div>';                                                                                               
+                $value.='</div>';
+                $value.='</div>';
+                $value.='<div class="portlet light" style="background-color: #f6f6f6">';
+                $value.='<div class="row">';
+                $value.='<div class="portlet-title">';
+                $value.='<div class="caption">';
+                $value.='<span class="caption-subject font-dark sbold uppercase" ><i class="fa fa-warning"></i>  Description</span>';
+                $value.='<p style="border: solid 1px;color: #555; margin-top: 5px"></p>';
+                $value.='</div>';
+                $value.='</div>';
+                $value.='<div class="col-md-12" style="margin-top: -15px">';
+                $value.='<div class="portlet-body">';
+                $value.='<div class="form-body">';
+                $value.='<div class="form-group">';
+                $value.='<label class="col-md-2 control-label"><b>Type<span><font color="red">*</font>:</span></b></label>';
+                $value.='<div class="col-md-3">';
+                $value.='<input  class="form-control" style="background-color: white" value="'.$dda->AssignmentType.'" readonly>';                           
+                $value.='</div>';                                                                   
+                $value.='</div>';                                                    
+                $value.='</div>';
+                $value.='</div>';
+                $value.='</div>';                                         
+                $value.='</div>';
+                $value.='</div>';
+                $value.='<div class="portlet light" style="background-color: #f6f6f6">';
+                $value.='<div class="row">';
+                $value.='<div class="col-md-12" style="margin-top: -55px">';
+                $value.='<div class="portlet-body">';
+                $value.='<div class="form-body">';
+                $value.='<div class="form-group">';
+                $value.='<label class="col-md-2 control-label"><b>Title<span><font color="red">*</font>:</span></b></label>';
+                $value.='<div class="col-md-10">';
+                $value.='<input  class="form-control" rows="2" style="background-color: white" value="'.$dda->AssignmentTitle.'" readonly>';                               
+                $value.='</div>';                                                                 
+                $value.='</div>';                                                      
+                $value.='</div>';
+                $value.='</div>';
+                $value.='</div>';                                           
+                $value.='</div>';
+                $value.='</div>';
+                $value.='<div class="portlet light" style="background-color: #f6f6f6">';
+                $value.='<div class="row">';
+                $value.='<div class="col-md-12" style="margin-top: -55px">';
+                $value.='<div class="portlet-body">';
+                $value.='<div class="form-body">';
+                $value.='<div class="form-group">';
+                $value.='<label class="col-md-2 control-label"><b>Details <span><font color="red">*</font>:</span></b></label>';
+                $value.='<div class="col-md-10 bold">"'.$dda->AssignmentDetail.'"</div>';
+                $value.='</div>';                                                    
+                $value.='</div>';
+                $value.='</div>';
+                $value.='</div>';
+                $value.='</div>';
+                $value.='</div>';
+                $value.='</div>';                                          
+                $value.='<div class="col-md-3" style="border-left: solid; border-width: 1px; border-color: white; height: 400px">';
+                $value.='<div class="col-md-12 col-sm-12 col-xs-12 invoice-payment" style="background-color: white; border-style: solid; border-width: 1px; border-color: #f1f3fa">';
+                $value.='<h3>Submited Status:</h3>';
+                $value.='<ul class="list-unstyled">';
+                $value.='<li>';
+                $value.='<strong>Category <b style="margin-left: 7px">:</b></strong> '.$dda->SubmitTo.' </li>';
+                if ($dda->TypeSchool != 'All') {
+                $value.='<li>';
+                $value.='<strong>School <b style="margin-left: 20px">:</b></strong> '.$dda->SchoolName.' </li>';
+                }else{
+                $value.='<li>';
+                $value.='<strong>School <b style="margin-left: 20px">:</b></strong> All </li>';  
+                }
+                $value.='<li>';
+                $value.='<strong>Class <b style="margin-left: 28px">:</b></strong> '.$dda->Class.' </li>';
+                $value.='<li>';
+                $value.='<strong>Room <b style="margin-left: 26px">:</b></strong> '.$dda->Room.' </li>';
+                $value.='<li>';
+                $value.='<strong>To <b style="margin-left: 49px">:</b></strong> '.$dda->IDNumber.' </li>';
+                $value.='</ul>';
+                $value.='</div>';
+                $value.='<div class="col-md-12 col-sm-12 col-xs-12 invoice-payment" style="margin-top: 30px; background-color: white; border-style: solid; border-width: 1px; border-color: #f1f3fa">';
+                $value .='<h3>Submited:</h3>';
+                $value .='<ul class="list-unstyled">';
+                $value .='<li>';
+                $value .='<strong>By <b style="margin-left: 49px">:</b></strong> '.$dda->SubmitBy.'</li>';
+                $value .='<li>';
+                $value .='<strong>Date <b style="margin-left: 35px">:</b></strong>';
+                $value .='<input type="date" name="submitdate" class="form-control hidden" value="'.$date.'" required> '.date('d-M-Y', strtotime($dda->SubmitDate)).'';
+                $value .='</li>';
+                $value .='</ul>';
+                $value .='</div>';
+                $value .='</div>';
+            } 
+        } else { 
+            $value .='<h2 align="center"  class="font-red bold">No Data News & Assignment!</h2>';
+        }
+        echo $value;
     }
     //End - Teacher Portal New Build
 }

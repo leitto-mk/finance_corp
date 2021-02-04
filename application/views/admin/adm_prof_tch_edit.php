@@ -39,8 +39,8 @@
             <!-- BEGIN PROFILE DATA GURU-->
             <div class="row">
                 <div class="col-md-3" style="padding-right: 0px">
-                    <div class="m-heading-1 border-green-meadow">
-                        <a href="<?= base_url('Admin/load_prof_tch_add') ?>" class="btn green-meadow btn-md">
+                    <div class="m-heading-1 border-green">
+                        <a href="<?= base_url('Admin/load_prof_tch_add') ?>" class="btn green btn-md">
                             <i class="fa fa-user-plus"></i> &nbsp;&nbsp;ADD TEACHER / STAFF
                         </a>
                     </div>
@@ -58,21 +58,22 @@
             </div>
 
             <div class="table-scrollable">
-                <table class="table table-advance table-hover">
-                    <thead>
-                        <tr>
-                            <th> No </th>
-                            <th> ID </th>
-                            <th> Fullname </th>
-                            <th> Gender </th>
-                            <th> Date of Birth</th>
-                            <th> Occupation </th>
-                            <th> Job Description </th>
-                            <th> Honorer </th>
-                            <th> Employee Type </th>
-                            <th> Homeroom </th>
-                            <th> Teaches </th>
-                            <th> Action </th>
+                <!-- <table class="table table-advance table-hover"> -->
+                <table class="table table-hover">
+                    <thead class="font-dark bg-grey-salt">
+                       <tr>
+                            <th class="text-center" width="2%"> No </th>
+                            <th class="text-center" width="3%"> ID </th>
+                            <th class="text-center" width="25%"> Fullname </th>
+                            <th class="text-center" width="5%"> Gender </th>
+                            <th class="text-center" width="5%"> Date of Birth</th>
+                            <th class="text-center" width="5%"> Occupation </th>
+                            <th class="text-center" width="25%"> Job Description </th>
+                            <th class="text-center" width="5%"> Honorer </th>
+                            <th class="text-center" width="5%"> Employee Type </th>
+                            <th class="text-center" width="5%"> Homeroom </th>
+                           <!--  <th class="text-center" width="23%"> Teaches </th> -->
+                            <th class="text-center" width="15%"> Action </th>
                         </tr>
                     </thead>
                     <?php if (empty($tch_t)) : ?>
@@ -84,31 +85,33 @@
                             <?php $i = 1; ?>
                             <?php foreach ($tch_t as $row) : ?>
                                 <tr>
-                                    <td class="hiddex-xs"><?= $i; ?></td>
-                                    <td class="hiddex-xs">
+                                    <td class="hiddex-xs" align="center"><?= $i; ?></td>
+                                    <td class="hiddex-xs" align="center">
                                         <a href="<?= base_url('Admin/load_prof_tch/') . $row->IDNumber; ?>">
                                             <?= $row->IDNumber; ?>
                                         </a>
                                     </td>
                                     <td class="hiddex-xs"><?= ucfirst($row->Fullname); ?></td>
                                     <td class="hiddex-xs"><?= $row->Gender; ?></td>
-                                    <td class="hiddex-xs"><?= $row->DateofBirth; ?></td>
-                                    <td class="hiddex-xs"><?= ucfirst($row->Occupation); ?></td>
+                                    <td class="hiddex-xs" align="center"><?= $row->DateofBirth; ?></td>
+                                    <td class="hiddex-xs" align="center"><?= ucfirst($row->Occupation); ?></td>
                                     <td class="hiddex-xs"><?= $row->JobDesc; ?></td>
                                     <td class="hiddex-xs"><?= $row->Honorer; ?></td>
-                                    <td class="hiddex-xs"><?= $row->Emp_Type; ?></td>
-                                    <td class="hiddex-xs"><?= $row->Homeroom; ?></td>
-                                    <td class="hiddex-xs"><?= $row->SubjectTeach; ?></td>
-                                    <td>
-                                        <a class="btn font-white bg-blue text-center" style="min-height: 10px; min-width: 80px;" data-toggle="modal" href="<?= base_url('Admin/load_prof_tch/') . $row->IDNumber; ?>">
-                                            &nbsp;&nbsp;Profile&nbsp;&nbsp;
-                                        </a>
-                                        <a class="btn btn-primary text-center" style="min-height: 10px; min-width: 80px;" data-toggle="modal" href="<?= base_url('Admin/load_prof_tch_update/') . $row->IDNumber; ?>">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;
-                                        </a>
-                                        <a class="btn btn-danger text-center" style="min-height: 10px; min-width: 80px;" data-toggle="modal" href="<?= base_url('Admin/delete/') . $row->IDNumber; ?>">
-                                            &nbsp;Delete&nbsp;
-                                        </a>
+                                    <td class="hiddex-xs" align="center"><?= $row->Emp_Type; ?></td>
+                                    <td class="hiddex-xs" align="center"><?= $row->Homeroom; ?></td>
+                                    <!-- <td class="hiddex-xs"><?= $row->SubjectTeach; ?></td> -->
+                                    <td class="hidden-xs">
+                                        <center>
+                                            <a class="btn btn-xs font-white bg-blue text-center"  data-toggle="modal" href="<?= base_url('Admin/load_prof_tch/') . $row->IDNumber; ?>">
+                                               Profile
+                                            </a>
+                                            <a class="btn btn-xs font-white bg-green text-center" data-toggle="modal" href="<?= base_url('Admin/load_prof_tch_update/') . $row->IDNumber; ?>">
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-xs font-white bg-red text-center"  data-toggle="modal" href="<?= base_url('Admin/delete/') . $row->IDNumber; ?>">
+                                                Del
+                                            </a>
+                                        </center>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>

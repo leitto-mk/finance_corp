@@ -1069,8 +1069,8 @@
                                                                                      <tr>
                                                                                          <th> # </th>
                                                                                          <th> Subject Name </th>
-                                                                                         <th> Mid Grade </th>
-                                                                                         <th> Final Grade </th>
+                                                                                         <th> MidRecap </th>
+                                                                                         <th> Grade </th>
                                                                                          <th> Predicate </th>
                                                                                          <th> Description </th>
                                                                                      </tr>

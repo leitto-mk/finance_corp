@@ -69,7 +69,25 @@ class Auth extends CI_Controller
 
                     $this->session->set_userdata($data);
 
-                    redirect('Admin/index');
+                    redirect('Admin/home');
+                } elseif ($user->status == 'board') {
+                    $data = [
+                        'id' => $user->IDNumber,
+                        'fname' => $user->FirstName,
+                        'lname' => $user->LastName,
+                        'status' => $user->status,
+                        'period' => $schYear,
+                        'semester' => $semester,
+                        'photo' => $user->Photo,
+                        'jobdesc' => $user->JobDesc,
+                        'homeroom' => $user->Homeroom,
+                        'subjteach' => $user->SubjectTeach,
+                        'studyfocus' => $user->StudyFocus
+                    ];
+
+                    $this->session->set_userdata($data);
+
+                    redirect('Board/home');
                 } elseif ($user->status == 'teacher' || $user->status == 'staff') {
                     $data = [
                         'id' => $user->IDNumber,
@@ -87,7 +105,7 @@ class Auth extends CI_Controller
 
                     $this->session->set_userdata($data);
 
-                    redirect('Teacher/index');
+                    redirect('Teacher/home');
                 } elseif ($user->status == 'student') {
                     $data = [
                         'id' => $user->IDNumber,
@@ -103,12 +121,12 @@ class Auth extends CI_Controller
 
                     $this->session->set_userdata($data);
 
-                    redirect('Student/index');
+                    redirect('Student/home');
                 } else {
-                    redirect('auth/index');
+                    redirect('Auth/index');
                 }
             } else {
-                redirect('auth/index');
+                redirect('Auth/index');
             }
         }
     }

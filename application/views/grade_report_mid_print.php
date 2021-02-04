@@ -203,8 +203,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="col-xs-6">
                                     <p style="padding-left: 30%">
-                                        
-                                        Manado, <?= date('d F Y')?><br>
+                                        <?php
+                                            $month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                                            $date = explode('0',date('m'));
+                                            
+                                            $month = date('d') .' '. $month[$date[1] - 2] .' '. date('Y');
+                                        ?>
+                                        Manado, <?= $month ?><br>
                                         Wali Kelas
                                         <br>
                                         <br>

@@ -1,5 +1,13 @@
 <?php $this->load->view('admin/navbar/adm_navbar'); ?>
+<style>
+#font-count-total {
+    font-size: 28px;
+}
 
+#font-button{
+    font-size: 16px;
+}
+</style>
 <div class="modal fade degree_opt" tabindex="-1" role="basic" aria-hidden="true" style="display: none; padding-right: 17px;">
     <div class="modal-dialog modal-full" style="width: 95%">
         <div class="modal-content">
@@ -227,82 +235,136 @@
 <div class="container-fluid dashboard_pg">
     <div class="page-content">
         <div class="page-content-wrapper">
-            <div class="row" class="degrees">
-                <div class="col-md-3">
-                    <button type="button" class="btn red sbold btn-lg uppercase toggle_sd" data-degree="SD" style="width: 100%; height: 75px;"> <span> Elementary </span> </button>
+            <div class="portlet light bg-grey-steel" style="margin-top: -20px">
+                <div class="row" class="degrees">
+                    <div class="col-md-3">
+                        <button type="button" class="btn red sbold btn-lg uppercase toggle_sd" data-degree="SD" style="width: 100%; height: 75px;"> <span> Elementary </span> </button>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn blue-steel sbold btn-lg uppercase toggle_smp" data-degree="SMP" style="width: 100%; height: 75px;"> <span> Junior High </span> </button>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn grey-silver sbold btn-lg uppercase toggle_sma" data-degree="SMA" style="width: 100%; height: 75px;"> <span> High </span> </button>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn dark red-haze btn-lg uppercase toggle_smk" data-degree="SMK" style="width: 100%; height: 75px;"> <span> Vocational High </span> </button>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn blue-steel sbold btn-lg uppercase toggle_smp" data-degree="SMP" style="width: 100%; height: 75px;"> <span> Junior High </span> </button>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn grey-silver sbold btn-lg uppercase toggle_sma" data-degree="SMA" style="width: 100%; height: 75px;"> <span> High </span> </button>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn dark red-haze btn-lg uppercase toggle_smk" data-degree="SMK" style="width: 100%; height: 75px;"> <span> Vocational High </span> </button>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 30px;">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <a class="dashboard-stat dashboard-stat-v2 red" href="<?= base_url('Admin/load_prof_std_edit'); ?>">
-                        <div class="visual">
-                            <i class="fa fa-graduation-cap"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number">
-                                <span data-counter="counterup" data-value="<?= $std; ?>"></span>
+                <div class="row" style="margin-top: 15px;">
+                    <!--  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a class="dashboard-stat dashboard-stat-v2 red" href="<?= base_url('Admin/load_prof_std_edit'); ?>">
+                            <div class="visual">
+                                <i class="fa fa-graduation-cap"></i>
                             </div>
-                            <br>
-                            <div class="desc"> STUDENTS </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <a class="dashboard-stat dashboard-stat-v2 blue" href="<?= base_url('Admin/load_prof_tch_edit'); ?>">
-                        <div class="visual">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number">
-                                <span data-counter="counterup" data-value="<?= $tch; ?>"></span>
+                            <div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="<?= $std; ?>"></span>
+                                </div>
+                                <br>
+                                <div class="desc"> STUDENTS </div>
                             </div>
-                            <br>
-                            <div class="desc"> TEACHERS </div>
+                        </a>
+                    </div> -->
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
+                            <a href="#">
+                                <div class="widget-thumb-wrap">
+                                    <i class="widget-thumb-icon bg-blue-dark fa fa-users"></i>
+                                    <div class="widget-thumb-body">
+                                        <span class="widget-thumb-subtitle desc">STUDENTS</span>
+                                        <span class="widget-thumb-body-stat" id="font-count-total" data-counter="counterup" data-value="<?= $std; ?>"></span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <a class="dashboard-stat dashboard-stat-v2 green" href="<?= base_url('Admin/load_prof_tch_edit'); ?>">
-                        <div class="visual">
-                            <i class="fa fa-list-alt"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number">
-                                <span data-counter="counterup" data-value="<?= $stf; ?>"></span>
+                    </div>
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a class="dashboard-stat dashboard-stat-v2 blue" href="<?= base_url('Admin/load_prof_tch_edit'); ?>">
+                            <div class="visual">
+                                <i class="fas fa-user-tie"></i>
                             </div>
-                            <br>
-                            <div class="desc"> STAFFS </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
-                        <div class="visual">
-                            <i class="fas fa-school"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number">
-                                <span data-counter="counterup" data-value="<?= $count; ?>"></span>
+                            <div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="<?= $tch; ?>"></span>
+                                </div>
+                                <br>
+                                <div class="desc"> TEACHERS </div>
                             </div>
-                            <br>
-                            <div class="desc"> Total </div>
+                        </a>
+                    </div> -->
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
+                            <a href="#">
+                                <div class="widget-thumb-wrap">
+                                    <i class="widget-thumb-icon bg-blue-sharp fa fa-graduation-cap"></i>
+                                    <div class="widget-thumb-body">
+                                        <span class="widget-thumb-subtitle desc">TEACHERS</span>
+                                        <span class="widget-thumb-body-stat" id="font-count-total" data-counter="counterup" data-value="<?= $tch; ?>"></span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    </div>
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a class="dashboard-stat dashboard-stat-v2 green" href="<?= base_url('Admin/load_prof_tch_edit'); ?>">
+                            <div class="visual">
+                                <i class="fa fa-list-alt"></i>
+                            </div>
+                            <div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="<?= $stf; ?>"></span>
+                                </div>
+                                <br>
+                                <div class="desc"> STAFFS </div>
+                            </div>
+                        </a>
+                    </div> -->
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
+                            <a href="#">
+                                <div class="widget-thumb-wrap">
+                                    <i class="widget-thumb-icon bg-green fa fa-male"></i>
+                                    <div class="widget-thumb-body">
+                                        <span class="widget-thumb-subtitle desc">STAFFS</span>
+                                        <span class="widget-thumb-body-stat" id="font-count-total" data-counter="counterup" data-value="<?= $stf; ?>"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+                            <div class="visual">
+                                <i class="fas fa-school"></i>
+                            </div>
+                            <div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="<?= $count; ?>"></span>
+                                </div>
+                                <br>
+                                <div class="desc"> Total </div>
+                            </div>
+                        </a>
+                    </div> -->
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
+                            <a href="#">
+                                <div class="widget-thumb-wrap">
+                                    <i class="widget-thumb-icon bg-blue-ebonyclay fa fa-check"></i>
+                                    <div class="widget-thumb-body">
+                                        <span class="widget-thumb-subtitle desc">Total</span>
+                                        <span class="widget-thumb-body-stat" id="font-count-total" data-counter="counterup" data-value="<?= $count; ?>"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="clearfix"></div>
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="background-color: #f6f6f6">
                         <h4 class="widget-thumb-heading">ACTIVE USER</h4>
                         <div class="widget-thumb-wrap">
                             <img class="widget-thumb-icon" src="<?= base_url('assets/photos/adm/' . $photo) ?>" alt="" style="padding: 1px">
@@ -318,7 +380,7 @@
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="icon-share font-dark hide"></i>
-                                <span class="caption-subject font-dark bold uppercase">News & Events</span>
+                                <span class="caption-subject font-dark bold uppercase">News & Assigments</span>
                             </div>
                             <div class="actions">
                                 <div class="btn-group">
@@ -373,62 +435,7 @@
                                         <div class="col2">
                                             <div class="date"> Just now </div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <div class="col1">
-                                                <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-success">
-                                                            <i class="fa fa-bar-chart-o"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="cont-col2">
-                                                        <div class="desc"> Finance Report for year 2013 has been released. </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col2">
-                                                <div class="date"> 20 mins </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-danger">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> You have 5 pending membership that requires a quick review. </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> 24 mins </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-info">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> New order received with
-                                                        <span class="label label-sm label-success"> Reference Number: DR23923 </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> 30 mins </div>
-                                        </div>
-                                    </li>
+                                    </li>                                  
                                     <li>
                                         <div class="col1">
                                             <div class="cont">
@@ -445,44 +452,6 @@
                                         <div class="col2">
                                             <div class="date"> 24 mins </div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-default">
-                                                        <i class="fa fa-bell-o"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> Web server hardware needs to be upgraded.
-                                                        <span class="label label-sm label-default "> Overdue </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> 2 hours </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <div class="col1">
-                                                <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-default">
-                                                            <i class="fa fa-briefcase"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="cont-col2">
-                                                        <div class="desc"> IPO Report for year 2013 has been released. </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col2">
-                                                <div class="date"> 20 mins </div>
-                                            </div>
-                                        </a>
                                     </li>
                                     <li>
                                         <div class="col1">
@@ -504,62 +473,7 @@
                                         <div class="col2">
                                             <div class="date"> Just now </div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <div class="col1">
-                                                <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-danger">
-                                                            <i class="fa fa-bar-chart-o"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="cont-col2">
-                                                        <div class="desc"> Finance Report for year 2013 has been released. </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col2">
-                                                <div class="date"> 20 mins </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-default">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> You have 5 pending membership that requires a quick review. </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> 24 mins </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-info">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> New order received with
-                                                        <span class="label label-sm label-success"> Reference Number: DR23923 </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> 30 mins </div>
-                                        </div>
-                                    </li>
+                                    </li>                                  
                                     <li>
                                         <div class="col1">
                                             <div class="cont">
@@ -581,39 +495,77 @@
                                         <div class="col1">
                                             <div class="cont">
                                                 <div class="cont-col1">
-                                                    <div class="label label-sm label-warning">
-                                                        <i class="fa fa-bell-o"></i>
+                                                    <div class="label label-sm label-info">
+                                                        <i class="fa fa-check"></i>
                                                     </div>
                                                 </div>
                                                 <div class="cont-col2">
-                                                    <div class="desc"> Web server hardware needs to be upgraded.
-                                                        <span class="label label-sm label-default "> Overdue </span>
+                                                    <div class="desc"> You have 4 pending tasks.
+                                                        <span class="label label-sm label-warning "> Take action
+                                                            <i class="fa fa-share"></i>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col2">
-                                            <div class="date"> 2 hours </div>
+                                            <div class="date"> Just now </div>
+                                        </div>
+                                    </li>                                  
+                                    <li>
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-user"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc"> You have 5 pending membership that requires a quick review. </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col2">
+                                            <div class="date"> 24 mins </div>
                                         </div>
                                     </li>
                                     <li>
-                                        <a href="javascript:;">
-                                            <div class="col1">
-                                                <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-info">
-                                                            <i class="fa fa-briefcase"></i>
-                                                        </div>
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-info">
+                                                        <i class="fa fa-check"></i>
                                                     </div>
-                                                    <div class="cont-col2">
-                                                        <div class="desc"> IPO Report for year 2013 has been released. </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc"> You have 4 pending tasks.
+                                                        <span class="label label-sm label-warning "> Take action
+                                                            <i class="fa fa-share"></i>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col2">
-                                                <div class="date"> 20 mins </div>
+                                        </div>
+                                        <div class="col2">
+                                            <div class="date"> Just now </div>
+                                        </div>
+                                    </li>                                  
+                                    <li>
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-user"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc"> You have 5 pending membership that requires a quick review. </div>
+                                                </div>
                                             </div>
-                                        </a>
+                                        </div>
+                                        <div class="col2">
+                                            <div class="date"> 24 mins </div>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -1470,7 +1422,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="portlet light bordered">
+                <div class="portlet light">
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <i class="icon-settings font-dark"></i>
@@ -1516,21 +1468,24 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="attd_recap">
-                                    <thead>
-                                        <tr>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                            <div class="col-md-12" style="padding: 0px">
+                                <div class="form-group">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="attd_recap">
+                                            <thead>
+                                                <tr>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
 
         <?php $this->load->view('_partials/_foot'); ?>

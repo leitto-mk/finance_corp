@@ -70,13 +70,13 @@ $(document).ready(function () {
 					},
 					{
 						data: response => {
-							return `<a class="btn font-white bg-blue text-center" style="min-height: 10px; min-width: 80px;" href="load_prof_std/${response.IDNumber}">
+							return `<a class="btn btn-xs font-white bg-blue text-center" href="load_prof_std/${response.IDNumber}">
 										Profile
 									</a>
-									<a class="btn btn-primary text-center" style="min-height: 10px; min-width: 80px;" href="load_prof_std_update/${response.IDNumber}">
+									<a class="btn btn-xs font-white bg-green text-center" href="load_prof_std_update/${response.IDNumber}">
 										Edit
 									</a>
-									<a class="btn btn-danger text-center" style="min-height: 10px; min-width: 80px;" href="delete/${response.IDNumber}">
+									<a class="btn btn-xs font-white bg-red text-center" href="delete/${response.IDNumber}">
 										Delete
 									</a>`
 						},

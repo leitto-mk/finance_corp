@@ -5,7 +5,7 @@
         <li class="dropdown dropdown-fw dropdown-fw-disabled main dashb">
             <a class="text-uppercase">
                 <i class="fa fa-window-restore"></i> Dashboard </a>
-            <ul class="dropdown-menu dropdown-menu-fw">
+            <ul class="dropdown-menu dropdown-menu-fw uppercase">
                 <li>
                     <a class="subnav" id="full_det" href="<?= base_url('Admin/index'); ?>">
                         <i class="icon-bar-chart"></i> School Details </a>
@@ -16,7 +16,7 @@
         <li class="dropdown dropdown-fw dropdown-fw-disabled main profile">
             <a class="text-uppercase">
                 <i class="fa fa-users"></i> &nbsp;Profile </a>
-            <ul class="dropdown-menu dropdown-menu-fw">
+            <ul class="dropdown-menu dropdown-menu-fw uppercase">
                 <li>
                     <a class="subnav" id="adm" href="<?= base_url('Admin/load_prof_adm'); ?>">
                         <i class="fa fa-id-badge"></i> Admin Profile </a>
@@ -39,7 +39,7 @@
         <li class="dropdown dropdown-fw dropdown-fw-disabled main akademik">
             <a class="text-uppercase">
                 <i class="fa fa-building"></i> Academic </a>
-            <ul class="dropdown-menu dropdown-menu-fw">
+            <ul class="dropdown-menu dropdown-menu-fw uppercase">
                 <!-- <li>
                     <a id="kelas" href="<?= base_url(''); ?>">
                         <i class="fas fa-school"></i> &nbsp;Kelas </a>
@@ -62,7 +62,7 @@
         <li class="dropdown dropdown-fw dropdown-fw-disabled main">
             <a class="text-uppercase">
                 <i class="fa fa-list-alt"></i> &nbsp;Enrollment </a>
-            <ul class="dropdown-menu dropdown-menu-fw">
+            <ul class="dropdown-menu dropdown-menu-fw uppercase">
                 <li>
                     <a class="subnav" href="<?= base_url('Admin/load_enroll'); ?>">
                         <i class="icon-bar-chart"></i> Enrollment </a>

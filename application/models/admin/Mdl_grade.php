@@ -133,6 +133,7 @@ class Mdl_grade extends CI_Model
              JOIN tbl_04_class_rooms_vocational t3
              ON t2.ClassID = t3.ClassID
              WHERE t1.isActive = 1
+             GROUP BY RoomDesc
              ORDER BY ClassNumeric, RoomDesc"
         )->result();
 
@@ -1724,7 +1725,7 @@ class Mdl_grade extends CI_Model
 
         $query = $this->db->query(
             "SELECT DISTINCT t1.SubjName, t2.KKM, t1.MidRecap FROM tbl_09_det_grades t1
-             JOIN tbl_05_subject_kd t2 
+             LEFT JOIN tbl_05_subject_kd t2 
              ON t1.SubjName = t2.SubjName
              WHERE t1.Class = '$cls'
              AND t2.Classes = '$cls_romanic'

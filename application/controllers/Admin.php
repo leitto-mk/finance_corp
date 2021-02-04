@@ -21,12 +21,52 @@ class Admin extends CI_Controller
         $this->load->model('admin/Mdl_grade');
         $this->load->model('admin/Mdl_absent');
         $this->load->model('admin/Mdl_enroll');
-
+        $this->load->model('duty/Mdl_duty');
         //If there is no known user and role is wrong
         //redirect back to login page
         if ($this->session->userdata('status') != 'admin') {
             redirect('Auth/index');
         }
+    }
+
+    public function new_id(){
+        $id = $_GET['id'];
+        $newid = $id - 2000;
+
+        $data = $this->db->query("SELECT IDNumber FROM tbl_07_personal_bio WHERE IDNumber LIKE CONCAT('$id','%')")->result_array();
+
+        $this->db->trans_begin();
+
+        for($i = 0; $i <= count($data); $i++){
+            $row = $data[$i]['IDNumber'];
+            $val = $i + 1;
+
+            $this->db->query("
+                UPDATE tbl_07_personal_bio AS t1
+                LEFT JOIN tbl_08_job_info_std AS t2 ON t1.IDNumber = t2.NIS AND t1.IDNumber = '$row'
+                LEFT JOIN tbl_09_det_character AS t3 ON t1.IDNumber = t3.NIS AND t1.IDNumber = '$row'
+                LEFT JOIN tbl_09_det_grades AS t4 ON t1.IDNumber = t4.NIS AND t1.IDNumber = '$row'
+                LEFT JOIN tbl_09_det_kd AS t5 ON t1.IDNumber = t5.NIS AND t1.IDNumber = '$row'
+                LEFT JOIN tbl_09_det_voc_grades AS t6 ON t1.IDNumber = t6.NIS AND t1.IDNumber = '$row'
+                LEFT JOIN tbl_10_absent_std AS t7 ON t1.IDNumber = t7.NIS AND t1.IDNumber = '$row'
+                LEFT JOIN tbl_credentials AS t8 ON t1.IDNumber = t8.IDNumber AND t1.IDNumber = '$row'
+                SET 
+                    t1.IDNumber = CONCAT('$newid', LPAD($val, 3, 0)),
+                    t2.NIS = CONCAT('$newid', LPAD($val, 3, 0)),
+                    t3.NIS = CONCAT('$newid', LPAD($val, 3, 0)),
+                    t4.NIS = CONCAT('$newid', LPAD($val, 3, 0)),
+                    t5.NIS = CONCAT('$newid', LPAD($val, 3, 0)),
+                    t6.NIS = CONCAT('$newid', LPAD($val, 3, 0)),
+                    t7.NIS = CONCAT('$newid', LPAD($val, 3, 0)),
+                    t8.IDNumber = CONCAT('$newid', LPAD($val, 3, 0))
+                WHERE t1.status = 'student'
+                AND t1.IDNumber = '$row'
+            ");
+        }
+
+        $this->db->trans_complete();
+        
+        echo $this->db->trans_status() ? 'success' : $this->db->error();
     }
 
     // ==================================================================================================================== \\
@@ -133,17 +173,18 @@ class Admin extends CI_Controller
                                 <td class="hiddex-xs">' . $row->Kelas . '</td>
                                 <td class="hiddex-xs">' . $row->Ruangan . '</td>
                                 <td>
-                                    <a class="btn font-white bg-blue text-center" style="min-height: 10px; min-width: 80px;" data-toggle="modal" href=" ' . base_url('Admin/load_prof_std/') . $row->IDNumber . '">
-                                        &nbsp;&nbsp;Profile&nbsp;&nbsp;
+                                    <a class="btn btn-xs font-white bg-blue text-center" data-toggle="modal" href=" ' . base_url('Admin/load_prof_std/') . $row->IDNumber . '">
+                                        Profile
                                     </a>
-                                    <a class="btn btn-primary text-center" style="min-height: 10px; min-width: 80px;" data-toggle="modal" href=" ' . base_url('Admin/load_prof_std_update/') . $row->IDNumber . '">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;
+                                    <a class="btn btn-xs font-white bg-green text-center" data-toggle="modal" href=" ' . base_url('Admin/load_prof_std_update/') . $row->IDNumber . '">
+                                        Edit
                                     </a>
-                                    <a class="btn btn-danger text-center" style="min-height: 10px; min-width: 80px;" data-toggle="modal" href="' . base_url('Admin/delete/') . $row->IDNumber . ';">
-                                        &nbsp;Delete&nbsp;
+                                    <a class="btn btn-xs font-white bg-red text-center" data-toggle="modal" href="' . base_url('Admin/delete/') . $row->IDNumber . ';">
+                                        Del
                                     </a>
                                 </td>
                             </tr>';
+                            //<td class="hiddex-xs">' . $row->SubjectTeach . '</td>
             } else {
                 $value .= ' <tr data-id=" ' . $row->IDNumber . '">
                                 <td class="hiddex-xs">' . $i . '</td>
@@ -161,17 +202,16 @@ class Admin extends CI_Controller
                                 <td class="hiddex-xs">' . $row->Honorer . '</td>
                                 <td class="hiddex-xs">' . $row->Emp_Type . '</td>
                                 <td class="hiddex-xs">' . $row->Homeroom . '</td>
-                                <td class="hiddex-xs">' . $row->SubjectTeach . '</td>
 
                                 <td>
-                                    <a class="btn font-white bg-blue text-center" style="min-height: 10px; min-width: 80px;" data-toggle="modal" href=" ' . base_url('Admin/load_prof_tch/') . $row->IDNumber . '">
+                                    <a class="btn btn-xs font-white bg-blue text-center" data-toggle="modal" href=" ' . base_url('Admin/load_prof_tch/') . $row->IDNumber . '">
                                         Profile
                                     </a>
-                                    <a class="btn btn-primary text-center" style="min-height: 10px; min-width: 80px;" data-toggle="modal" href=" ' . base_url('Admin/load_prof_tch_update/') . $row->IDNumber . '">
+                                    <a class="btn btn-xs font-white bg-green text-center" data-toggle="modal" href=" ' . base_url('Admin/load_prof_tch_update/') . $row->IDNumber . '">
                                         Edit
                                     </a>
-                                    <a class="btn btn-danger text-center" style="min-height: 10px; min-width: 80px;" data-toggle="modal" href=" ' . base_url('Admin/delete/') . $row->IDNumber . '">
-                                        Delete
+                                    <a class="btn btn-xs font-white bg-red text-center" data-toggle="modal" href=" ' . base_url('Admin/delete/') . $row->IDNumber . '">
+                                        Del
                                     </a>
                                 </td>
                             </tr>';
@@ -313,6 +353,8 @@ class Admin extends CI_Controller
 
         $result = $this->Mdl_index->update_school_event($event, $title, $new_title, $date_start, $date_end, $new_date_start, $new_date_end, $new_color);
 
+        print_r($result);
+        die();
         echo $result;
     }
 
@@ -6137,4 +6179,14 @@ class Admin extends CI_Controller
 
         echo $total;
     }
+
+    //Start - Admin New Build
+    public function home()
+    {
+        $query['title'] = 'Main Dashboard';
+        $query ['currentdate'] = $curdate = date('Y-m-d');
+        $query['data_duty_all_by_date'] = $this->Mdl_duty->get_list_data_duty_all_by_date($curdate);
+        $this->load->view('admin/home', $query);
+    }
+    //End - Admin New Build
 }

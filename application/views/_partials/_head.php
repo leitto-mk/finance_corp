@@ -122,7 +122,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <!-- BEGIN LOGO -->
                         <a id="index" class="page-logo" href="<?= base_url($status) . '/index'; ?>" style="text-decoration: none;">
                             <!-- <img src="<?= base_url() ?>assets/pages/media/email/logo.png" alt="Logo" style="width: 10%"> -->
-                            <h4 class="uppercase" style="color: #fff;"> School Information System </h4>
+                            <h4 class="uppercase" style="color: #fff;"> Education Self Service (ESS) </h4>
                         </a>
                         <!-- END LOGO -->
                         <!-- BEGIN TOPBAR ACTIONS -->
@@ -143,7 +143,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <ul class="dropdown-menu-v2" role="menu">
                                 <li>
                                     <?php if ($status == 'admin') : ?>
-                                        <a href="<?= base_url($status) . '/load_prof_adm'; ?>">
+                                        <a href="<?= base_url() . 'Admin/load_prof_adm'; ?>">
                                         <?php else : ?>
                                             <a href="<?= base_url($status) . '/load_profile'; ?>">
                                             <?php endif; ?>
@@ -155,9 +155,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>
                                 <li>
                                     <?php if ($status == 'admin') : ?>
-                                        <a href="<?= base_url() . 'admin/load_prof_adm#tab_3'; ?>">
+                                        <a href="<?= base_url() . 'Admin/load_prof_adm#changepassword'; ?>">
                                         <?php else : ?>
-                                            <a href="<?= base_url() . '/load_profile#tab_3'; ?>">
+                                            <a href="<?= base_url($status) . '/load_profile#changepassword'; ?>">
                                             <?php endif; ?>
                                             <i class="icon-eye"></i> Change Password </a>
                                 </li>

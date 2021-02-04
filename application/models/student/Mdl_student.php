@@ -173,27 +173,31 @@ class Mdl_student extends CI_Model
 
     public function get_school_detail($room)
     {
-        $homeroom = $this->db->query(
+        $homeroom = '';
+
+        $query = $this->db->query(
             "SELECT 
                 t1.FirstName, 
                 t1.LastName, 
-                t2.Homeroom 
+                t2.Homeroom,
+                t1.isActive
              FROM tbl_07_personal_bio t1
              JOIN tbl_08_job_info t2
              ON t1.IDNumber = t2.IDNumber
              WHERE Homeroom = '$room'"
         )->row();
 
-        if(empty($homeroom)){
+        if(empty($query)){
             $homeroom = '-';
         }else{
-            $homeroom = "$homeroom->FirstName $homeroom->LastName";
+            $homeroom = "$query->FirstName $query->LastName";
         }
 
         $total = $this->db->query("SELECT COUNT(NIS) AS Total FROM tbl_08_job_info_std WHERE Ruangan = '$room'")->row();
 
         $data = [
             'homeroom' => $homeroom,
+            'isActive' => $query->isActive,
             'total' => $total->Total
         ];
 
@@ -280,4 +284,113 @@ class Mdl_student extends CI_Model
 
         return 'success';
     }
+
+
+    //Finance Student Start
+    function get_list_class_desc($sup)
+    {
+       $query = $this->db->query("SELECT
+            a.NIS ,a.Kelas, a.Ruangan , b.FirstName, b.LastName, b.PersonalID
+       FROM
+            tbl_08_job_info_std a
+       LEFT JOIN
+            tbl_07_personal_bio b ON a.NIS = b.IDNumber
+       WHERE
+            a.NIS IS NOT NULL
+       AND 
+            a.NIS = '$sup'
+       ");
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
+    function get_inv_details_stu_add($stu)
+    {
+        $query = $this->db->query("SELECT 
+            a.sale_doc_no, a.CustomerID, a.sale_remark, a.sale_date, a.total_sale, a.due_date, a.COStatus, a.remain_value, a.Total_N_payment, a.end_balance, a.roomdesc, a.schools, a.submit_date, a.AccNo
+        FROM 
+            tbl_sale_pos_fin a
+        WHERE 
+            a.CustomerID = '$stu' 
+        AND 
+            a.payment_status = 'charges_append' 
+        AND 
+            COStatus = 'Beginning Student' 
+        AND 
+            payment_type = 'BB'
+        GROUP BY 
+            a.CustomerID"); 
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
+    function get_inv_details_stu_pay($stu)
+    {
+        $query = $this->db->query("SELECT 
+                a.sale_doc_no, a.CustomerID, a.sale_remark, a.sale_date, a.total_sale, a.due_date, a.COStatus, a.remain_value, a.Total_N_payment, a.end_balance, a.roomdesc, a.schools, a.submit_date, a.AccNo
+        FROM 
+            tbl_sale_pos_fin a
+        WHERE 
+            a.CustomerID = '$stu' 
+        AND 
+            a.payment_status = 'paid' 
+        AND 
+            payment_type = 'debit' 
+        AND 
+            COStatus = 'OnProcess'
+        ORDER BY 
+            a.ctrl_no");
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+
+    function get_details_stu_pay_charges($stu)
+    {
+        $query = $this->db->query("SELECT 
+            a.sale_doc_no, a.CustomerID, a.sale_remark, a.sale_date, a.total_sale, a.due_date, a.COStatus, a.remain_value, a.Total_N_payment, a.end_balance, a.roomdesc, a.schools, a.submit_date, a.AccNo
+        FROM 
+            tbl_sale_pos_fin a
+        WHERE 
+            a.CustomerID = '$stu' 
+        AND 
+            a.payment_status = 'charges' 
+        AND 
+            payment_type = 'debit'
+        ORDER BY 
+            a.ctrl_no");
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getaccno_nis_bb($nis)
+    {
+        $data = $this->db->query("SELECT * FROM tbl_fa_trans_bb_student WHERE NIS = '$nis'");
+        if ($data->num_rows() > 0) {
+            return $data->row();
+        } else {
+            return false;
+        }
+    }
+      function get_acc_name_ar($acn)
+    {
+        $this->db->select('Acc_Name');
+        $this->db->from('tbl_fa_mas_account');
+        $this->db->where('Acc_No', $acn);
+        $query = $this->db->get();
+        $data = $query->row();
+        return $data->Acc_Name;
+    }
+    //Finance Student End
 }

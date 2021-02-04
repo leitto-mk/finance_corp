@@ -52,6 +52,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="<?= base_url() ?>assets/CUSTOM-PLUGINS/jqueryui-editable-1.5.1/css/jqueryui-editable.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url() ?>assets/CUSTOM-PLUGINS/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url() ?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url('assets')?>/dropify-upload/css/dropify.min.css" rel="stylesheet" type="text/css" />
 
     <!-- END THEME LAYOUT STYLES -->
     <!-- <link rel="shortcut icon" href="favicon.ico" /> -->
@@ -1429,6 +1430,46 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="form-group" style="margin-bottom: 5px;">
+                                                                <label class="control-label col-md-4">File Ijasah
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                                                        <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin-bottom: 5px;">
+                                                                <label class="control-label col-md-4">File Akte Kelahiran
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                                                        <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin-bottom: 5px;">
+                                                                <label class="control-label col-md-4">File KK
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                                                        <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin-bottom: 5px;">
+                                                                <label class="control-label col-md-4">File Foto 3x4
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                                                        <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             <div class="row">
                                                                 <div class="col-md-offset-3 col-md-9" style="margin-top: 20px;">
                                                                     <a class="btn default button-previous btn-lg button-back">
@@ -2574,6 +2615,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="<?= base_url(); ?>assets/global/plugins/sweetalert2/dist/sweetalert2.all.min.js" type="text/javascript"></script>
     <script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/jquery.inputmask.min.js" type="text/javascript"></script>
     <script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/bindings/inputmask.binding.js" type="text/javascript"></script>
+    <script src="<?=base_url('assets')?>/dropify-upload/js/dropify.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         var enroll_confirmed = '<?= base_url('Enrollment/enroll_confirmed') ?>';
@@ -2582,6 +2624,15 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="<?= base_url() ?>assets/CUSTOMS/new_enroll.js" type="text/javascript"></script>
     <script>
         var base_url = '<?= base_url() ?>'
+    </script>
+    <script type="text/javascript">
+        window.onload = load_function;
+
+        function load_function() {
+            $(document).ready(function(){
+                $('.dropify').dropify();
+            });  
+        }
     </script>
 </body>
 

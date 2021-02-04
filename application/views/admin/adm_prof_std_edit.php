@@ -100,8 +100,8 @@
             <div class="portlet light portlet-fit portlet-datatable bordered">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class=" icon-layers font-red"></i>
-                        <span class="caption-subject font-red sbold uppercase">Students</span>
+                        <i class=" icon-layers font-green"></i>
+                        <span class="caption-subject font-green sbold uppercase">Students</span>
                     </div>
                     <div class="actions">
                         <div class="border-green-meadow">
@@ -114,7 +114,7 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <a href="<?= base_url('Admin/load_prof_std_add') ?>" class="btn green-meadow btn-md">
+                                <a href="<?= base_url('Admin/load_prof_std_add') ?>" class="btn green btn-md">
                                     <i class="fa fa-user-plus"></i> &nbsp;&nbsp;ADD STUDENT
                                 </a>
                             </div>
@@ -122,22 +122,24 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <table id="std_table" class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_5">
-                        <thead>
-                            <tr>
-                                <th> No </th>
-                                <th> ID </th>
-                                <th> Name </th>
-                                <th> Nickname </th>
-                                <th> Gender </th>
-                                <th> Date of Birth </th>
-                                <th> Status</th>
-                                <th> Class </th>
-                                <th> Room </th>
-                                <th> Action </th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <div class="table-scrollable">
+                        <table id="std_table" class="table table-striped table-bordered table-hover table-checkable order-column font-dark bg-grey-salt" id="sample_5">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"> No </th>
+                                    <th class="text-center"> ID </th>
+                                    <th class="text-center"> Name </th>
+                                    <th class="text-center"> Nickname </th>
+                                    <th class="text-center"> Gender </th>
+                                    <th class="text-center"> Date of Birth </th>
+                                    <th class="text-center"> Status</th>
+                                    <th class="text-center"> Class </th>
+                                    <th class="text-center"> Room </th>
+                                    <th class="text-center"> Action </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

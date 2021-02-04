@@ -415,44 +415,17 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Recap Mid-Semester Siswa Kelas <?= $homeroom ?> SEMESTER <?= $this->session->userdata('semester') ?> TAHUN AJARAN <?= $this->session->userdata('period') ?></span>
+                        <span class="caption-subject bold uppercase">Recap Mid-Semester Siswa</span>
                     </div>
-                    <div class="actions">
-                        <a href="<?= base_url('Teacher/print_recap_mid')?>" class="btn green-jungle btn-xs btn-outline">
-					    <i class="fa fa-file-excel-o"></i>&nbsp;Export Recap</a>
-                    </div>
+                    <div class="tools"> </div>
                 </div>
                 <div class="portlet-body">
                     <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="full_mid_recap">
                         <thead>
                             <tr>
-                                <th class="all" width="1%">NIS</th>
-                                <th class="all" width="35%">Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="portlet light bordered">
-                <div class="portlet-title">
-                    <div class="caption font-dark">
-                        <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Recap Absent Siswa Kelas <?= $homeroom ?> BULAN <?= date('F')?> SEMESTER <?= $this->session->userdata('semester') ?> TAHUN AJARAN <?= $this->session->userdata('period') ?></span>
-                    </div>
-                    <div class="actions">
-                        <a href="<?= base_url('Teacher/print_attendance_recap')?>" class="btn green-jungle btn-xs btn-outline">
-					    <i class="fa fa-file-excel-o"></i>&nbsp;Export Recap</a>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="attd_recap">
-                        <thead>
-                            <tr>
+                                <th class="all">No</th>
+                                <th class="all">NIS</th>
+                                <th class="all">Name</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1046,10 +1019,12 @@
                                                 <div class="form-group">
                                                     <label>PILIH KELAS</label>
                                                     <select class="form-control attd_rooms" style="width: 20%">
-                                                        <?php if (!empty($rooms) && $homeroom != '-') : ?>
-                                                            <option class="sbold" value="<?= $homeroom ?>">
-                                                                <?= $homeroom ?>
-                                                            </option>
+                                                        <?php if (!empty($rooms)) : ?>
+                                                            <?php foreach ($rooms as $row) : ?>
+                                                                <option class="sbold" value="<?= $row->RoomDesc ?>">
+                                                                    <?= $row->RoomDesc ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
                                                         <?php else : ?>
                                                             <option value=""> No Room is/was taught at this period </option>
                                                         <?php endif; ?>

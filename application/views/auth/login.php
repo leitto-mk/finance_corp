@@ -21,14 +21,13 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <head>
     <meta charset="utf-8" />
-    <title>Metronic Admin Theme #6 | User Login 6</title>
+    <title>Klabat Adventist Academy</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Preview page of Metronic Admin Theme #6 for " name="description" />
     <meta content="" name="author" />
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/photos/abase-logo.png" />
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/photos/abase-logo.png" /> -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <link href="<?= base_url('assets'); ?>/global/plugins/font-awesome/css/all.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url('assets'); ?>/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url('assets'); ?>/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -47,7 +46,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- END PAGE LEVEL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
     <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="pda-bgwhite.ico" />
 </head>
 <!-- END HEAD -->
 
@@ -56,10 +55,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <div class="user-login-5">
         <div class="row bs-reset">
             <div class="col-md-6 login-container bs-reset">
-                <img class="login-logo login-6" src="<?= base_url('assets'); ?>/pages/img/login/login-invert.png" width="250" />
+                <img class="login-logo login-6" src="<?= base_url('assets'); ?>/abase.png" width="280" />
                 <div class="login-content">
-                    <h1>School Information System</h1>
-                    <p> Welcome to School Information System (SIS) by ABase. the current stage of this system is on development. this project has been on developmet for 6 months started on August 2019 </p>
+                    <h1 style="font-family: Times New Roman; font-size: 50px; margin-top: -50px">Klabat Adventist Academy</h1>
+                    <p> Welcome to Education Self Service (ESS) by ABase. Memberi kesempatan kepada Sekolah-Sekolah untuk memulai dan membangun
+                    Education Online Mastery sendiri yang terintegrasi berbasis ESS (Education Self Service Technology).</p>
                     <form action="<?= base_url('auth/login'); ?>" class="login-form" method="post">
                         <div class="alert alert-danger display-hide">
                             <button class="close" data-close="alert"></button>
