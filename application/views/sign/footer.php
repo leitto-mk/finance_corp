@@ -28,6 +28,7 @@
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <!-- END THEME LAYOUT SCRIPTS -->
+        <script src="<?=base_url('assets/CUSTOMS/signin.js')?>"></script>
     </body>
 
 </html>

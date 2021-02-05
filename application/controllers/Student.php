@@ -19,54 +19,54 @@ class Student extends CI_Controller
         }
     }
 
-    public function index()
-    {
-        $id = $this->session->userdata('id');
-        $room = $this->session->userdata('room');
-        $semester = $this->session->userdata('semester');
-        $period = $this->session->userdata('period');
+    // public function index()
+    // {
+    //     $id = $this->session->userdata('id');
+    //     $room = $this->session->userdata('room');
+    //     $semester = $this->session->userdata('semester');
+    //     $period = $this->session->userdata('period');
 
-        $detail = $this->Mdl_student->get_school_detail($room);
+    //     $detail = $this->Mdl_student->get_school_detail($room);
 
-        extract($detail);
+    //     extract($detail);
 
-        $data = [
-            'title' => 'Student Information',
-            'id' => $this->session->userdata('id'),
-            'active' => $isActive,
-            'semester' => $semester,
-            'schyear' => $period,
-            'room' => $room,
-            'fname' => $this->session->userdata('fname'),
-            'lname' => $this->session->userdata('lname'),
-            'status' => $this->session->userdata('status'),
-            'photo' => $this->session->userdata('photo'),
-            'prof' => $this->Mdl_student->get_full_profile($id),
+    //     $data = [
+    //         'title' => 'Student Information',
+    //         'id' => $this->session->userdata('id'),
+    //         'active' => $isActive,
+    //         'semester' => $semester,
+    //         'schyear' => $period,
+    //         'room' => $room,
+    //         'fname' => $this->session->userdata('fname'),
+    //         'lname' => $this->session->userdata('lname'),
+    //         'status' => $this->session->userdata('status'),
+    //         'photo' => $this->session->userdata('photo'),
+    //         'prof' => $this->Mdl_student->get_full_profile($id),
 
-            //MODAL AKADEMIK
-            'period' => $this->Mdl_student->get_period($id),
+    //         //MODAL AKADEMIK
+    //         'period' => $this->Mdl_student->get_period($id),
 
-            //SCHEDULE
-            'mon' => $this->Mdl_student->get_schedule($id, 'Senin', $room),
-            'tue' => $this->Mdl_student->get_schedule($id, 'Selasa', $room),
-            'wed' => $this->Mdl_student->get_schedule($id, 'Rabu', $room),
-            'thu' => $this->Mdl_student->get_schedule($id, 'Kamis', $room),
-            'fri' => $this->Mdl_student->get_schedule($id, 'Jumat', $room),
+    //         //SCHEDULE
+    //         'mon' => $this->Mdl_student->get_schedule($id, 'Senin', $room),
+    //         'tue' => $this->Mdl_student->get_schedule($id, 'Selasa', $room),
+    //         'wed' => $this->Mdl_student->get_schedule($id, 'Rabu', $room),
+    //         'thu' => $this->Mdl_student->get_schedule($id, 'Kamis', $room),
+    //         'fri' => $this->Mdl_student->get_schedule($id, 'Jumat', $room),
 
-            //SCHOOL DETAILS
-            'homeroom' => $homeroom,
-            'total' => $total,
+    //         //SCHOOL DETAILS
+    //         'homeroom' => $homeroom,
+    //         'total' => $total,
 
-            //ABSENCE
-            'absn' => $this->Mdl_student->get_absent($id, $room, 'Absent'),
-            'permit' => $this->Mdl_student->get_absent($id, $room, 'On Permit'),
-            'sick' => $this->Mdl_student->get_absent($id, $room, 'Sick'),
-            'truant' => $this->Mdl_student->get_absent($id, $room, 'Truant'),
-            'late' => $this->Mdl_student->get_absent($id, $room, 'Late'),
-        ];
+    //         //ABSENCE
+    //         'absn' => $this->Mdl_student->get_absent($id, $room, 'Absent'),
+    //         'permit' => $this->Mdl_student->get_absent($id, $room, 'On Permit'),
+    //         'sick' => $this->Mdl_student->get_absent($id, $room, 'Sick'),
+    //         'truant' => $this->Mdl_student->get_absent($id, $room, 'Truant'),
+    //         'late' => $this->Mdl_student->get_absent($id, $room, 'Late'),
+    //     ];
 
-        $this->load->view('student/home', $data);
-    }
+    //     $this->load->view('student/home', $data);
+    // }
 
     public function get_full_acd_detail()
     {
@@ -309,6 +309,7 @@ class Student extends CI_Controller
         $data = [
             'title' => 'Student Information',
             'id' => $this->session->userdata('id'),
+            'active' => $isActive,
             'semester' => $semester,
             'schyear' => $period,
             'room' => $room,

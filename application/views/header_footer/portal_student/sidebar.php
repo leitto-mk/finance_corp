@@ -14,7 +14,7 @@
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-male font-white"></i>
-                                    <span class="caption-subject bold uppercase font-white">SELF SERVICE</span>
+                                    <span class="caption-subject bold uppercase font-white">SECTIONS</span>
                                 </div>
                             </div>
                         </div>

@@ -42,7 +42,6 @@
         <script src="<?=base_url('assets')?>/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/pages/scripts/components-ion-sliders.min.js" type="text/javascript"></script>
-        <script src="<?=base_url('vendor')?>/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
         <!-- END PAGE GLOBAL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <script src="<?=base_url('assets')?>/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
@@ -58,8 +57,8 @@
         <script src="<?=base_url('assets')?>/pages/scripts/table-datatables-responsive.min.js" type="text/javascript"></script>
         <script src="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.js"></script>
         <!-- CUSTOM SCRIPTS -->
-        <script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/student_profile.js"></script>
         <script src="<?=base_url('assets')?>/dropify-upload/js/dropify.js" type="text/javascript"></script>
+        <script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/student_profile.js"></script>
         <script>
             var base_url = '<?= base_url() ?>'
             var id = '<?= $id; ?>'

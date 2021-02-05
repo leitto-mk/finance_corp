@@ -13,7 +13,7 @@ class Sign extends CI_Controller
 
     public function index()
     {
-        $this->load->view('sign/v_sign_in', $data);
+        $this->load->view('sign/v_sign_in');
     }
 
 
