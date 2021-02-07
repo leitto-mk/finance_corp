@@ -35,12 +35,18 @@ class Mdl_enroll extends CI_Model
         return $query->result();
     }
 
+    public function set_evaluation($id, $data){
+        $this->db->update('tbl_11_enrollment', $data, ['CtrlNo' => $id]);
+
+        return ($this->db->affected_rows() ? 'success' : $this->db->error());
+    }
+
     public function set_approve($data)
     {
         extract($data);
 
         $result = $this->db->query("SELECT * FROM tbl_11_enrollment WHERE CtrlNo = '$uniq'")->row_array();
-        $ID = date('Y') . $this->session->userdata('semester') . $uniq;
+        $ID = date('y') . $this->session->userdata('semester') . str_pad($uniq,3,"0", STR_PAD_LEFT);
 
         $transfer_bio = [
             'IDNumber' => $ID,

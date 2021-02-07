@@ -125,120 +125,142 @@
                 </div>
                 <!-- END PAGE HEAD-->
                 <!-- BEGIN PAGE BASE CONTENT -->
-                <div class="row widget-row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="portlet light" style="background-color: white; border : dotted 1px">
-                            <div class="portlet-body ">
-                                <div class="row">
-                                    <div class="invoice-content-2 bordered">
-                                        <div class="row invoice-head">
-                                            <div class="col-md-7 col-xs-6" style="margin-top: -70px">
-                                             
-                                                <h2 class="uppercase">Informasi Pembayaran</h2>
+                <div class="portlet light about-text" style="height: auto !important">
+                    <h4 style="background-color:#67809f;">
+                        <i class="fa fa-check icon-info"></i> WELCOME
+                    </h4>
+                    <?php if($is_enrolled) : ?>
+                        <p class="margin-top-20" style="margin-bottom: 25px;"> 
+                            Your Data has been submitted, <b>Waiting for Approval</b>
+                        </p>
+                        <div class="row text-center">
+                            <a target="_blank" href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id$&birth=$birth") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">EDIT PROFILE</a>
+                        </div>
+                    <?php else : ?>
+                        <p class="margin-top-20"> 
+                            Please Complete Your Registration by Registering Your <b>Biodata</b> 
+                        </p>
+                        <div class="row text-center">
+                            <a target="_blank" href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id$&birth=$birth") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">ENROLLMENT</a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php if($is_approved) : ?>
+                    <div class="row widget-row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="portlet light" style="background-color: white; border : dotted 1px">
+                                <div class="portlet-body ">
+                                    <div class="row">
+                                        <div class="invoice-content-2 bordered">
+                                            <div class="row invoice-head">
+                                                <div class="col-md-7 col-xs-6" style="margin-top: -70px">
                                                 
-                                            </div>
-                                            <div class="col-md-5 col-xs-6 pull-right">
-                                                <div class="company-address font-dark">
-                                                    <span class="bold uppercase">Hubungi :<br></span>
-                                                    <span class="bold"><i class="fa fa-phone"></i></span> 0852-4088-4568 (Farland Lumentah, SE)
-                                                    <br/>
-                                                    <span class="bold"><i class="fa fa-phone"></i></span> 0813-5432-1100 (Tetty G. Kapoh, SE, MM)
+                                                    <h2 class="uppercase">Informasi Pembayaran</h2>
+                                                    
+                                                </div>
+                                                <div class="col-md-5 col-xs-6 pull-right">
+                                                    <div class="company-address font-dark">
+                                                        <span class="bold uppercase">Hubungi :<br></span>
+                                                        <span class="bold"><i class="fa fa-phone"></i></span> 0852-4088-4568 (Farland Lumentah, SE)
+                                                        <br/>
+                                                        <span class="bold"><i class="fa fa-phone"></i></span> 0813-5432-1100 (Tetty G. Kapoh, SE, MM)
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row invoice-cust-add" style="margin-top: -40px">
-                                            <div class="col-xs-6">
-                                                <h2 class="invoice-title uppercase">Notes</h2>
-                                                <p class="invoice-desc font-red"><i>* Pembayaran uang sekolah dilakukan di awal bulan/semester.<br><br>
-                                                *Permohonan pembayaan cicilan uang sekolah tidak lebih dari enam kali pembayaran dalam satu semester</i></p>
+                                            <div class="row invoice-cust-add" style="margin-top: -40px">
+                                                <div class="col-xs-6">
+                                                    <h2 class="invoice-title uppercase">Notes</h2>
+                                                    <p class="invoice-desc font-red"><i>* Pembayaran uang sekolah dilakukan di awal bulan/semester.<br><br>
+                                                    *Permohonan pembayaan cicilan uang sekolah tidak lebih dari enam kali pembayaran dalam satu semester</i></p>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <h2 class="invoice-title uppercase">Cara Pembayaran :</h2>
+                                                    <p class="invoice-desc inv-address font-dark">1 .Secara tunai di kantor keuangan sekolah atau<br>
+                                                        2. Dilakukan lewat transfer rekening sekolah (Menunjukan bukti setoran yang dapat di kirim ke WA personil yang tertera di atas)<br>
+                                                        3. Dilakukan lewat transfer rekening sekolah (Mengupload bukti setoran di form upload bukti bayar yang ada dibawah)<br><br>
+                                                    No. Rekening Resmi Sekolah : <br>
+                                                    <span class="bold">* BRI 5168 0100 44055 36 (SMA Advent Klabat)</span></p>
+                                                </div>
                                             </div>
-                                            <div class="col-xs-6">
-                                                <h2 class="invoice-title uppercase">Cara Pembayaran :</h2>
-                                                <p class="invoice-desc inv-address font-dark">1 .Secara tunai di kantor keuangan sekolah atau<br>
-                                                    2. Dilakukan lewat transfer rekening sekolah (Menunjukan bukti setoran yang dapat di kirim ke WA personil yang tertera di atas)<br>
-                                                    3. Dilakukan lewat transfer rekening sekolah (Mengupload bukti setoran di form upload bukti bayar yang ada dibawah)<br><br>
-                                                No. Rekening Resmi Sekolah : <br>
-                                                <span class="bold">* BRI 5168 0100 44055 36 (SMA Advent Klabat)</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="row invoice-body">
-                                            <div class="col-xs-12 table-responsive" style="margin-top: -50px">
-                                                <table class="table table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="invoice-title uppercase">Description</th>
-                                                            <th class="invoice-title uppercase text-center">Total</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <h3>Biaya sekali bayar selama sekolah</h3>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 . Uang Pembangunan Advent
-                                                            </td>
-                                                            
-                                                            <td class="text-center sbold">Rp. 1.000.000</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 . Uang Pembangunan Non-Advent
-                                                            </td>
-                                                            
-                                                            <td class="text-center sbold">Rp. 1.300.000</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="uppercase">
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 . Pendaftaran
-                                                            </td>
-                                                            
-                                                            <td class="text-center sbold">Rp. 150.000</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <h3 style="margin-top: -5px">A . Biaya asuransi  per tahun</h3>
-                                                            </td>
-                                                            <td class="text-center sbold">Rp. 15.000</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <h3>B . Biaya per semester (6 Bulan)</h3>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 . Uang Sekolah SMA/SMK Tanpa Asrama
-                                                            </td>
-                                                            
-                                                            <td class="text-center sbold">Rp. 2.400.000</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 . Uang Sekolah SMA/SMK & Biaya Asrama
-                                                            </td>
-                                                            
-                                                            <td class="text-center sbold">Rp. 8.000.000</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <label class="col-md-4 col-sm-4 control-label bold font-dark uppercase">Upload bukti transfer : </label>
-                                            <div class="col-md-8 col-sm-8">
-                                                <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="250" data-allowed-file-extensions="jpg jpeg png">
-                                            </div>
-                                            <div class="col-xs-12" style="margin-top: 10px">
-                                                <a class="btn btn-lg green-haze hidden-print uppercase print-btn">Upload</a>
+                                            <div class="row invoice-body">
+                                                <div class="col-xs-12 table-responsive" style="margin-top: -50px">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="invoice-title uppercase">Description</th>
+                                                                <th class="invoice-title uppercase text-center">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <h3>Biaya sekali bayar selama sekolah</h3>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 . Uang Pembangunan Advent
+                                                                </td>
+                                                                
+                                                                <td class="text-center sbold">Rp. 1.000.000</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 . Uang Pembangunan Non-Advent
+                                                                </td>
+                                                                
+                                                                <td class="text-center sbold">Rp. 1.300.000</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="uppercase">
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 . Pendaftaran
+                                                                </td>
+                                                                
+                                                                <td class="text-center sbold">Rp. 150.000</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h3 style="margin-top: -5px">A . Biaya asuransi  per tahun</h3>
+                                                                </td>
+                                                                <td class="text-center sbold">Rp. 15.000</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h3>B . Biaya per semester (6 Bulan)</h3>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 . Uang Sekolah SMA/SMK Tanpa Asrama
+                                                                </td>
+                                                                
+                                                                <td class="text-center sbold">Rp. 2.400.000</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 . Uang Sekolah SMA/SMK & Biaya Asrama
+                                                                </td>
+                                                                
+                                                                <td class="text-center sbold">Rp. 8.000.000</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <label class="col-md-4 col-sm-4 control-label bold font-dark uppercase">Upload bukti transfer : </label>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="250" data-allowed-file-extensions="jpg jpeg png">
+                                                </div>
+                                                <div class="col-xs-12" style="margin-top: 10px">
+                                                    <a class="btn btn-lg green-haze hidden-print uppercase print-btn">Upload</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>                            
+                            </div>                            
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
                 <?php if($active) : ?>
                     <div class="row">
                         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">

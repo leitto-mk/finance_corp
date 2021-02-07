@@ -18,56 +18,7 @@ class Student extends CI_Controller
             redirect('Auth/index');
         }
     }
-
-    // public function index()
-    // {
-    //     $id = $this->session->userdata('id');
-    //     $room = $this->session->userdata('room');
-    //     $semester = $this->session->userdata('semester');
-    //     $period = $this->session->userdata('period');
-
-    //     $detail = $this->Mdl_student->get_school_detail($room);
-
-    //     extract($detail);
-
-    //     $data = [
-    //         'title' => 'Student Information',
-    //         'id' => $this->session->userdata('id'),
-    //         'active' => $isActive,
-    //         'semester' => $semester,
-    //         'schyear' => $period,
-    //         'room' => $room,
-    //         'fname' => $this->session->userdata('fname'),
-    //         'lname' => $this->session->userdata('lname'),
-    //         'status' => $this->session->userdata('status'),
-    //         'photo' => $this->session->userdata('photo'),
-    //         'prof' => $this->Mdl_student->get_full_profile($id),
-
-    //         //MODAL AKADEMIK
-    //         'period' => $this->Mdl_student->get_period($id),
-
-    //         //SCHEDULE
-    //         'mon' => $this->Mdl_student->get_schedule($id, 'Senin', $room),
-    //         'tue' => $this->Mdl_student->get_schedule($id, 'Selasa', $room),
-    //         'wed' => $this->Mdl_student->get_schedule($id, 'Rabu', $room),
-    //         'thu' => $this->Mdl_student->get_schedule($id, 'Kamis', $room),
-    //         'fri' => $this->Mdl_student->get_schedule($id, 'Jumat', $room),
-
-    //         //SCHOOL DETAILS
-    //         'homeroom' => $homeroom,
-    //         'total' => $total,
-
-    //         //ABSENCE
-    //         'absn' => $this->Mdl_student->get_absent($id, $room, 'Absent'),
-    //         'permit' => $this->Mdl_student->get_absent($id, $room, 'On Permit'),
-    //         'sick' => $this->Mdl_student->get_absent($id, $room, 'Sick'),
-    //         'truant' => $this->Mdl_student->get_absent($id, $room, 'Truant'),
-    //         'late' => $this->Mdl_student->get_absent($id, $room, 'Late'),
-    //     ];
-
-    //     $this->load->view('student/home', $data);
-    // }
-
+    
     public function get_full_acd_detail()
     {
         $id = $_POST['id'];
@@ -306,10 +257,34 @@ class Student extends CI_Controller
 
         extract($detail);
 
+        $newstudentstatus = $this->db
+            ->select('is_enrolled, is_approved, 
+                        is_approved_diploma, is_approved_birthcert, is_approved_kk, is_approved_photo, is_approved_spp,
+                        unapproved_birthcert_msg, unapproved_kk_msg, unapproved_photo_msg, unapproved_spp_msg, unapproved_diploma_msg')
+            ->get_where('tbl_11_enrollment', [
+                'CtrlNo' => $this->session->userdata('ctrlno'),
+                'FirstName' => $this->session->userdata('fname'),
+                'LastName' => $this->session->userdata('lname'),
+            ])->row();
+
         $data = [
             'title' => 'Student Information',
             'id' => $this->session->userdata('id'),
-            'active' => $isActive,
+            'active' => $this->session->userdata('isactive'),
+            'schoolapplied' => $this->session->userdata('schoolapplied'),
+            'birth' => $this->session->userdata('birth'),
+            'is_enrolled' => ($newstudentstatus->is_enrolled ?: 0), //FOR NEW ENROLLED STUDENT
+            'is_approved' => ($newstudentstatus->is_approved ?: 0), //FOR NEW ENROLLED STUDENT
+            'is_approved_diploma' => $newstudentstatus->is_approved_diploma, // FOR NEW ENROLLED STUDENT
+            'is_approved_birthcert' => $newstudentstatus->is_approved_birthcert, // FOR NEW ENROLLED STUDENT
+            'is_approved_kk' => $newstudentstatus->is_approved_kk, // FOR NEW ENROLLED STUDENT
+            'is_approved_photo' => $newstudentstatus->is_approved_photo, // FOR NEW ENROLLED STUDENT
+            'is_approved_spp' => $newstudentstatus->is_approved_spp, // FOR NEW ENROLLED STUDENT
+            'unapproved_diploma_msg' => $newstudentstatus->unapproved_diploma_msg, // FOR NEW ENROLLED STUDENT
+            'unapproved_birthcert_msg' => $newstudentstatus->unapproved_birthcert_msg, // FOR NEW ENROLLED STUDENT
+            'unapproved_kk_msg' => $newstudentstatus->unapproved_kk_msg, // FOR NEW ENROLLED STUDENT
+            'unapproved_photo_msg' => $newstudentstatus->unapproved_photo_msg, // FOR NEW ENROLLED STUDENT
+            'unapproved_spp_msg' => $newstudentstatus->unapproved_spp_msg, // FOR NEW ENROLLED STUDENT
             'semester' => $semester,
             'schyear' => $period,
             'room' => $room,
@@ -659,6 +634,4 @@ class Student extends CI_Controller
         echo json_encode(array($data, $value, $ddcn));
     }
     //Finance Student End
-
-
 }

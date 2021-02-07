@@ -142,7 +142,7 @@
 
 <script>
     var base_url = `<?= base_url() ?>`
-    console.log(base_url)
+    
     $(function() {
         $('.date-picker').daterangepicker({
             singleDatePicker: true,

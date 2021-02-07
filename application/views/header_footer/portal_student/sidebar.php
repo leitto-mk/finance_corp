@@ -192,21 +192,23 @@
                                 </div>
                             </ul>
                         </div>
-                        <div class="portlet light" style="margin-bottom: 0px; background-color: #44515d">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <span class="caption-subject font-white bold uppercase"><i class="fa fa-refresh"></i> Change Password</span>
+                        <?php if($active) : ?>
+                            <div class="portlet light" style="margin-bottom: 0px; background-color: #44515d">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <span class="caption-subject font-white bold uppercase"><i class="fa fa-refresh"></i> Change Password</span>
+                                    </div>
+                                </div>
+                                <div class="form-group" >
+                                    <a data-toggle="modal" id="changepassmodal" class="btn btn-md btn-block blue-hoki full1" href="#full">Change</a>
                                 </div>
                             </div>
-                            <div class="form-group" >
-                                <a data-toggle="modal" id="changepassmodal" class="btn btn-md btn-block blue-hoki full1" href="#full">Change</a>
-                            </div>
-                        </div>
-                        <div class="portlet light" style="margin-top: 0px; background-color: #44515d">
+                        <?php endif; ?>
+                        <!-- <div class="portlet light" style="margin-top: 0px; background-color: #44515d">
                             <div class="form-group" >
                                 <a data-toggle="modal" id="changepassmodal" class="btn btn-md btn-block blue-hoki full1" href="#full">Payment Transaction</a>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- END SIDEBAR MENU -->
                     </div>
                     <!-- END SIDEBAR -->

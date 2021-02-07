@@ -10,6 +10,7 @@ class Enrollment extends CI_Controller
         parent::__construct();
 
         $this->load->model('auth/M_confirm_student');
+        $this->load->library('upload');
     }
 
     public function index()
@@ -22,18 +23,140 @@ class Enrollment extends CI_Controller
 
     public function enroll_confirmed()
     {
-        $Birth =  date('Y-m-d', strtotime(strtr($_POST['tgllhr'], '/', '-')));
-        // $SchoolStart = date('Y-m-d', strtotime(strtr($_POST['schoolstarts'], '/', '-')));
+        $filename = strtolower($_POST['fname'] . '_' . $_POST['lname']) . '_' . date('Ymdhms');
+
+        $diploma = '';
+        $birthcert = '';
+        $kk = '';
+        $photo = '';
+
+        //CHECK IF DATA ALREADY EXSIST
+        $checkData = $this->db->select('CtrlNo, FirstName, LastName, DateofBirth, DiplomaFile, BirthcertFile, KKFile, Photo')->get_where('tbl_11_enrollment', [
+            'FirstName' => $_POST['fname'],
+            'LastName' => $_POST['lname'],
+            'DateofBirth' => date('Y-m-d', strtotime(strtr($_POST['tgllhr'], '/', '-')))
+        ])->row();
+
+        $compress['image_library'] = 'gd2';
+        $compress['create_thumb'] = FALSE;
+        $compress['maintain_ratio'] = FALSE;
+        $compress['quality'] = '60%';
+        $compress['width'] = 800;
+        $compress['height'] = 800;
+
+        if($_FILES['diplomafile']){
+            $diploma = "diploma_$filename";
+            $diplomaext = pathinfo($_FILES['diplomafile']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
+            
+            //If there's image for ID already, delete the old one
+            if($checkData){
+                if (is_file('./assets/photos/student/' . $checkData->DiplomaFile)) {
+                    unlink('./assets/photos/student/' . $checkData->DiplomaFile);
+                }
+            }
+        
+            $this->upload->initialize([
+                'upload_path' => './assets/photos/student/',
+                'allowed_types' => 'gif|jpg|jpeg|png',
+                'file_name' => $diploma
+            ]);
+
+            $this->upload->do_upload('diplomafile');
+            
+            //Compress uploaded image
+            $compress['source_image'] = './assets/photos/student/' . $diploma . '.' . $diplomaext;
+            $compress['new_image'] = './assets/photos/student/' . $diploma . '.' . $diplomaext;
+            $this->load->library('image_lib', $compress);
+            $this->image_lib->resize();
+        }
+        
+        if($_FILES['birthcertfile']){
+            $birthcert = "birthcert_$filename";
+            $birthcertext = pathinfo($_FILES['birthcertfile']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
+            
+            //If there's image for ID already, delete the old one
+            if($checkData){
+                if (is_file('./assets/photos/student/' . $checkData->BirthcertFile)) {
+                    unlink('./assets/photos/student/' . $checkData->BirthcertFile);
+                }
+            }
+        
+            $this->upload->initialize([
+                'upload_path' => './assets/photos/student/',
+                'allowed_types' => 'gif|jpg|jpeg|png',
+                'file_name' => $birthcert
+            ]);
+
+            $this->upload->do_upload('birthcertfile');
+            
+            //Compress uploaded image
+            $compress['source_image'] = './assets/photos/student/' . $birthcert . '.' . $birthcertext;
+            $compress['new_image'] = './assets/photos/student/' . $birthcert . '.' . $birthcertext;
+            $this->load->library('image_lib', $compress);
+            $this->image_lib->resize();
+        }
+        
+        if($_FILES['kkfile']){
+            $kk = "kk_$filename";
+            $kkext = pathinfo($_FILES['kkfile']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
+            
+            //If there's image for ID already, delete the old one
+            if($checkData){
+                if (is_file('./assets/photos/student/' . $checkData->KKFile)) {
+                    unlink('./assets/photos/student/' . $checkData->KKFile);
+                };
+            }
+        
+            $this->upload->initialize([
+                'upload_path' => './assets/photos/student/',
+                'allowed_types' => 'gif|jpg|jpeg|png',
+                'file_name' => $kk
+            ]);
+
+            $this->upload->do_upload('kkfile');
+            
+            //Compress uploaded image
+            $compress['source_image'] = './assets/photos/student/' . $kk . '.' . $kkext;
+            $compress['new_image'] = './assets/photos/student/' . $kk . '.' . $kkext;
+            $this->load->library('image_lib', $compress);
+            $this->image_lib->resize();
+        }
+        
+        if($_FILES['photo']){
+            $photo = "photo_$filename";
+            $photoext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
+            
+            //If there's image for ID already, delete the old one
+            if($checkData){
+                if (is_file('./assets/photos/student/' . $checkData->Photo)) {
+                    unlink('./assets/photos/student/' . $checkData->Photo);
+                }
+            }
+        
+            $this->upload->initialize([
+                'upload_path' => './assets/photos/student/',
+                'allowed_types' => 'gif|jpg|jpeg|png',
+                'file_name' => $photo
+            ]);
+
+            $this->upload->do_upload('photo');
+            
+            //Compress uploaded image
+            $compress['source_image'] = './assets/photos/student/' . $photo . '.' . $photoext;
+            $compress['new_image'] = './assets/photos/student/' . $photo . '.' . $photoext;
+            $this->load->library('image_lib', $compress);
+            $this->image_lib->resize();
+        }
 
         $data = [
-            'FirstName' => $_POST['fname'],
-            'MiddleName' => $_POST['mname'],
-            'LastName' => $_POST['lname'],
-            'NickName' => $_POST['nname'],
+            'FirstName' => ucwords(strtolower($_POST['fname'])),
+            'MiddleName' => ucwords(strtolower($_POST['mname'])),
+            'LastName' => ucwords(strtolower($_POST['lname'])),
+            'NickName' => ucwords(strtolower($_POST['nname'])),
             'Gender' => $_POST['gender'],
             'NIK' => $_POST['nik'],
             'KK' => $_POST['kk'],
-            'DateofBirth' => $Birth,
+            'DateofBirth' => date('Y-m-d', strtotime(strtr($_POST['tgllhr'], '/', '-'))),
             'PointofBirth' => $_POST['tmplhr'],
             'BirthCertificate' => $_POST['akta'],
             'Religion' => $_POST['religion'],
@@ -77,23 +200,23 @@ class Enrollment extends CI_Controller
             'GuardianDegree' => $_POST['guardiandegree'],
             'GuardianJob' => $_POST['guardianjob'],
             'GuardianIncome' => $_POST['guardianincome'],
-            'GuardianDisability' => $_POST['guardiandisable'],
+            'GuardianDisability' => $_POST['guardiandisabled'],
             'Transportation' => $_POST['transport'],
             'Range' => $_POST['range'],
             'ExactRange' => $_POST['exactrange'],
             'TimeRange' => $_POST['timerange'],
             'Latitude' => $_POST['lintang'],
             'Longitude' => $_POST['bujur'],
-            'KIP' => $_POST['kip'],
-            'Stayed_KIP' => $_POST['keepkip'],
+            'KIP' => ($_POST['kip'] ?: 'None'),
+            'Stayed_KIP' => (isset($_POST['keepkip']) ? $_POST['keepkip'] : 'no'),
             'Refuse_PIP' => $_POST['refusepip'],
-            'Achievement' => $_POST['achievement'],
-            'AchievementLVL' => $_POST['achievementlevel'],
+            'Achievement' => (isset($_POST['achievement']) ? $_POST['achievement'] : '-'),
+            'AchievementLVL' => (isset($_POST['achievementlevel']) ? $_POST['achievementlevel'] : '-'),
             'AchievementYear' => $_POST['ach_name'],
             'AchievementYear' => $_POST['ach_year'],
             'Sponsor' => $_POST['sponsor'],
             'AchievementRank' => $_POST['ach_rank'],
-            'Scholarship' => $_POST['scholarship'],
+            'Scholarship' => (isset($_POST['scholarship']) ? $_POST['scholarship'] : '-'),
             'Scholardesc' => $_POST['scholardesc'],
             'ScholarStart' => $_POST['scholarstart'],
             'ScholarFinish' => $_POST['scholarfinish'],
@@ -101,14 +224,16 @@ class Enrollment extends CI_Controller
             'ProsperNumber' => $_POST['prospernumber'],
             'ProsperNameTag' => $_POST['prospernametag'],
             'Competition' => $_POST['competition'],
-            'Registration' => $_POST['registration'],
             'Applying' => $_POST['applying'],
-            // 'SchoolStarts' => $SchoolStart,
             'PreviousSchool' => $_POST['previousschool'],
             'UNnumber' => $_POST['unnumber'],
             'Diploma' => $_POST['diploma'],
             'SKHUN' => $_POST['skhun'],
-            'RegDate' => date('Y-m-d')
+            'RegDate' => date('Y-m-d'),
+            'DiplomaFile' => $diploma . '.' . $diplomaext,
+            'BirthcertFile' => $birthcert . '.' . $birthcertext,
+            'KKFile' => $kk . '.' . $kkext,
+            'Photo' => $photo . '.' . $photoext,
         ];
 
         $result = $this->M_confirm_student->confirm($data);

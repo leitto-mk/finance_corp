@@ -6118,9 +6118,13 @@ class Admin extends CI_Controller
                             <td> ' . date('d-m-Y', strtotime($row->RegDate)) . ' </td>
                             <td>
                                 <div class="btn-group btn-group-solid">
-                                    <button type="button" class="btn green detail" data-id="' . $row->CtrlNo . '" data-apply="SMA" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Details</button>
-                                    <button type="button" class="btn blue approve" data-apply="'.$row->Applying.'" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Approve</button>
-                                    <button type="button" class="btn red cancel" style="min-width: 80px;"> Delete </button>
+                                    <button type="button" class="btn green detail" data-id="' . $row->CtrlNo . '" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Details</button>';
+            if($row->is_approved){
+                $value .= '         <button type="button" class="btn blue approve" data-apply="'.$row->Applying.'" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Approve</button>';
+            }else{
+                $value .= '         <button type="button" class="btn yellow-saffron approve_enroll" data-id="' . $row->CtrlNo . '" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Evaluate</button>';
+            }
+            $value .= '             <button type="button" class="btn red cancel" style="min-width: 80px;"> Delete </button>
                                 </div>
                             </td>
                         </tr>';
@@ -6153,6 +6157,27 @@ class Admin extends CI_Controller
                     </div>';
 
         echo $value;
+    }
+
+    public function evaluate_data(){
+        $id = $_GET['id'];
+        
+        $data = [
+            'is_approved_diploma' => (isset($_POST['checkdiploma']) ? 1 : 0),
+            'is_approved_birthcert' => (isset($_POST['checkbirthcert']) ? 1 : 0),
+            'is_approved_kk' => (isset($_POST['checkkk']) ? 1 : 0),
+            'is_approved_photo' => (isset($_POST['checkphoto']) ? 1 : 0),
+            'is_approved_spp' => (isset($_POST['checkspp']) ? 1 : 0),
+            'unapproved_diploma_msg' => (isset($_POST['notediploma']) ? $_POST['notediploma'] : ''),
+            'unapproved_birthcert_msg' => (isset($_POST['notebirthcert']) ? $_POST['notebirthcert'] : ''),
+            'unapproved_kk_msg' => (isset($_POST['notekk']) ? $_POST['notekk'] : ''),
+            'unapproved_photo_msg' => (isset($_POST['notephoto']) ? $_POST['notephoto'] : ''),
+            'unapproved_spp_msg' => (isset($_POST['notespp']) ? $_POST['notespp'] : ''),
+        ];
+
+        $result = $this->Mdl_enroll->set_evaluation($id, $data);
+
+        echo $result;
     }
 
     public function approve_list()

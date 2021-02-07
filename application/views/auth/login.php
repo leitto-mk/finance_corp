@@ -67,9 +67,9 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                                <input class="form-control form-control-solid placeholder-no-fix form-group" type="text" autocomplete="off" placeholder="Username" name="username" required /> </div>
+                                <input id="username" class="form-control form-control-solid placeholder-no-fix form-group" type="text" autocomplete="off" placeholder="Username" name="username" required /> </div>
                             <div class="col-xs-6">
-                                <input class="form-control form-control-solid placeholder-no-fix form-group" type="password" autocomplete="off" placeholder="Password" name="password" required /> </div>
+                                <input id="password" class="form-control form-control-solid placeholder-no-fix form-group" type="password" autocomplete="off" placeholder="Password" name="password" required /> </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 text-right right">
@@ -144,14 +144,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- END THEME LAYOUT SCRIPTS -->
 
     <script>
-        console.log(`Your screen resolution is:  ${window.screen.width} x ${window.screen.height}`)
+        var get_param = new URLSearchParams(window.location.search)
 
-        var err_msg = <?= $err_msg ?>
-
-        console.log(err_msg)
-
-        if (err_msg == true) {
-            alert("EITHER ID OR PASSWORD IS INCORRECT");
+        if(get_param.has('email')){
+            $('#username').val(get_param.get('email'))
+            $('#password').val('123456')
         }
     </script>
 </body>

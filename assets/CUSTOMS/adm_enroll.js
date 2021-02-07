@@ -1,7 +1,4 @@
 $(document).ready(function () {
-
-	var path = window.location.pathname;
-
 	//If current Path is on absent page, load the script
 	if ($('div').is('.enroll')) {
 
@@ -83,6 +80,19 @@ $(document).ready(function () {
 					document.getElementById('fatherdisable').innerHTML = `${response.FatherDisability}`
 					document.getElementById('motherdisable').innerHTML = `${response.MotherDisability}`
 					document.getElementById('guardiandisable').innerHTML = `${response.GuardianDisability}`
+
+					//FILE DOCS
+					document.querySelector('img[name=diplomafile]').setAttribute('src', (response.DiplomaFile ? `${base_url}assets/photos/student/${response.DiplomaFile}` : `${base_url}assets/photos/noimage.gif`))
+					document.querySelector('img[name=birthcertfile]').setAttribute('src', (response.BirthcertFile ? `${base_url}assets/photos/student/${response.BirthcertFile}` : `${base_url}assets/photos/noimage.gif`))
+					document.querySelector('img[name=kkfile]').setAttribute('src', (response.KKFile ? `${base_url}assets/photos/student/${response.KKFile}` : `${base_url}assets/photos/noimage.gif`))
+					document.querySelector('img[name=photofile]').setAttribute('src', (response.Photo ? `${base_url}assets/photos/student/${response.Photo}` : `${base_url}assets/photos/noimage.gif`))
+					document.querySelector('img[name=sppfile]').setAttribute('src', (response.SPP ? `${base_url}assets/photos/student/${response.SPP}` : `${base_url}assets/photos/noimage.gif`))
+
+					document.querySelector('a[name=diplomafile]').setAttribute('href', (response.DiplomaFile ? `${base_url}assets/photos/student/${response.DiplomaFile}` : `${base_url}assets/photos/noimage.gif`))
+					document.querySelector('a[name=birthcertfile]').setAttribute('href', (response.BirthcertFile ? `${base_url}assets/photos/student/${response.BirthcertFile}` : `${base_url}assets/photos/noimage.gif`))
+					document.querySelector('a[name=kkfile]').setAttribute('href', (response.KKFile ? `${base_url}assets/photos/student/${response.KKFile}` : `${base_url}assets/photos/noimage.gif`))
+					document.querySelector('a[name=photofile]').setAttribute('href', (response.Photo ? `${base_url}assets/photos/student/${response.Photo}` : `${base_url}assets/photos/noimage.gif`))
+					document.querySelector('a[name=sppfile]').setAttribute('href', (response.SPP ? `${base_url}assets/photos/student/${response.SPP}` : `${base_url}assets/photos/noimage.gif`))
 				},
 				error: err => {
 					console.log(err.responseText)
@@ -113,6 +123,50 @@ $(document).ready(function () {
 			});
 		}
 
+		var unique;
+
+		//Open Modal Evaluation
+		$('.enroll-list').on('click', '.approve_enroll', function(){
+			$('#evaluate-std').modal('show')
+
+			unique = $(this).attr('data-id');
+		})
+
+		//Checkbox Evaluation
+		$('input[type=checkbox]').click(function(){
+			if($(this).is(':checked')){
+				$(this).parents('.row').find('input[type=text]').prop('disabled', true)
+			}else{
+				$(this).parents('.row').find('input[type=text]').prop('disabled', false)
+			}
+		});
+
+		//Submit Evaluation
+		$('.set_approve_evaluation').click(function(e){
+			e.preventDefault()
+
+			let obj = $('#form_evaluation').serializeArray()
+			let id = unique;
+
+			$.ajax({
+				url: `evaluate_data?id=${id}`,
+				method: 'POST',
+				data: obj,
+				success: response => {
+					if(response == 'success'){
+						Swal.fire({
+							'type': 'success',
+							'title': 'SUCCESS',
+							'text': 'DATA HAS BEEN EVALUATED'
+						})
+
+						$('#evaluate-std').modal('hide')
+					}
+				},
+				error: () => alert('NETWORK PROBLEM')
+			})
+		});
+
 		//Pagination
 		$('.enroll-list').on('click', '.pagin', function (e) {
 			e.preventDefault();
@@ -121,8 +175,6 @@ $(document).ready(function () {
 			get_table(index);
 		});
 
-
-		var unique;
 		//Open Modal Class Apointment
 		$('.enroll-list').on('click', '.approve', function () {
 			let apply = $(this).attr('data-apply');

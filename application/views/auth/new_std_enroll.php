@@ -95,7 +95,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="portlet-body form">
-                                        <form class="form-horizontal" action="<?= base_url('Enrollment/enroll_confirmed') ?>" id="submit_form" method="POST">
+                                        <form class="form-horizontal" id="submit_form" method="POST" role="form" enctype="multipart/form-data">
                                             <div class="form-wizard">
                                                 <div class="form-body">
                                                     <div class="row">
@@ -131,9 +131,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                     </a>
                                                                 </li>
                                                             </ul>
-                                                            <!-- <div id="bars" class="progress progress-striped" role="progressbar">
-                                                                <div class="progress-bar"></div>
-                                                            </div> -->
                                                         </div>
                                                         <div class="col-md-2"></div>
                                                     </div>
@@ -327,7 +324,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="col-md-4">
                                                                     <div class="portlet box grey-gallery">
                                                                         <div class="portlet-title">
@@ -1308,37 +1304,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group" style="margin-bottom: 5px;">
-                                                                <label class="control-label col-md-4">Jenis Pendaftaran
-                                                                    <span class="required" aria-required="true"> * </span>
-                                                                </label>
-                                                                <div class="col-md-4">
-                                                                    <div class="md-radio-inline">
-                                                                        <div class="md-radio">
-                                                                            <input type="radio" id="newstudent" name="registration" class="md-radiobtn" value="Siswa Baru" checked>
-                                                                            <label for="newstudent">
-                                                                                <span class="inc"></span>
-                                                                                <span class="check"></span>
-                                                                                <span class="box"></span> Siswa Baru </label>
-                                                                        </div>
-                                                                        <div class="md-radio">
-                                                                            <input type="radio" id="transfer" name="registration" class="md-radiobtn" value="Pindahan">
-                                                                            <label for="transfer">
-                                                                                <span></span>
-                                                                                <span class="check"></span>
-                                                                                <span class="box"></span> Pindahan </label>
-                                                                        </div>
-
-                                                                        <div class="md-radio">
-                                                                            <input type="radio" id="reregis" name="registration" class="md-radiobtn" value="Kembali Bersekolah">
-                                                                            <label for="reregis">
-                                                                                <span class="inc"></span>
-                                                                                <span class="check"></span>
-                                                                                <span class="box"></span> Kembali Bersekolah </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                             <div class="form-group" style="margin-bottom: 5px;" style="display: none;">
                                                                 <label class="control-label col-md-4">NIS/Nomor Induk
                                                                     <span class="required" aria-required="true"> * </span>
@@ -1365,20 +1330,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- <div class="form-group" style="margin-bottom: 5px;">
-                                                                <label class="control-label col-md-4">Tanggal Masuk Sekolah
-                                                                    <span class="required" aria-required="true"> * </span>
-                                                                </label>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="schoolstarts">
-                                                                        <span class="help-block">
-                                                                            Siswa Baru: masukan tanggal awal tahun pelajaran<br>
-                                                                            Siswa Mutasi/Pindahan: masukan tanggal diterimah disekolah ini
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Sekolah Asal
                                                                     <span class="required" aria-required="true"> * </span>
@@ -1436,7 +1387,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                        <input type="file" name="diplomafile" id="diplomafile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1446,7 +1397,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                        <input type="file" name="birthcertfile" id="birthcertfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1456,12 +1407,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                        <input type="file" name="kkfile" id="kkfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
-                                                                <label class="control-label col-md-4">File Foto 3x4
+                                                                <label class="control-label col-md-4">File Foto
                                                                     <span class="required" aria-required="true"> * </span>
                                                                 </label>
                                                                 <div class="col-md-4">
@@ -2444,36 +2395,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
-                                                                <label class="control-label col-md-4">Jenis Pendaftaran
-                                                                    <span class="required" aria-required="true"> * </span>
-                                                                </label>
-                                                                <div class="col-md-4">
-                                                                    <div class="md-radio-inline">
-                                                                        <div class="md-radio has-success">
-                                                                            <input type="radio" id="newstudent" name="confirm_registration" class="md-radiobtn" value="Siswa Baru" disabled>
-                                                                            <label for="newstudent">
-                                                                                <span class="inc"></span>
-                                                                                <span class="check"></span>
-                                                                                <span class="box"></span> Siswa Baru </label>
-                                                                        </div>
-                                                                        <div class="md-radio has-success">
-                                                                            <input type="radio" id="transfer" name="confirm_registration" class="md-radiobtn" value="Pindahan" disabled>
-                                                                            <label for="transfer">
-                                                                                <span></span>
-                                                                                <span class="check"></span>
-                                                                                <span class="box"></span> Pindahan </label>
-                                                                        </div>
-                                                                        <div class="md-radio has-success">
-                                                                            <input type="radio" id="reregis" name="confirm_registration" class="md-radiobtn" value="Kembali Bersekolah" disabled>
-                                                                            <label for="reregis">
-                                                                                <span class="inc"></span>
-                                                                                <span class="check"></span>
-                                                                                <span class="box"></span> Kembali Bersekolah </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">NIS/Nomor Induk
                                                                     <span class="required" aria-required="true"> * </span>
                                                                 </label>
@@ -2485,16 +2406,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
-                                                                <label class="control-label col-md-4">Tanggal Masuk Sekolah
+                                                                <label class="control-label col-md-4">Jenjang Tujuan
                                                                     <span class="required" aria-required="true"> * </span>
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_schoolstarts" disabled>
-                                                                        <span class="help-block">
-                                                                            Siswa Baru: masukan tanggal awal tahun pelajaran<br>
-                                                                            Siswa Mutasi/Pindahan: masukan tanggal diterimah disekolah ini
-                                                                        </span>
+                                                                        <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                                                            <input type="text" class="form-control" id="form_control_1" name="confirm_applying" disabled>
+                                                                            <span class="help-block">Jenjang Tujuan</span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2627,9 +2547,25 @@ License: You must have a valid license purchased only from themeforest(the above
     </script>
     <script type="text/javascript">
         window.onload = load_function;
+        var BASE_URL = '<?= base_url() ?>'
 
         function load_function() {
+            
             $(document).ready(function(){
+                var get_param = new URLSearchParams(window.location.search)
+        
+                if(get_param.has('first')){
+                    $('[name=fname]').val(get_param.get('first'))
+                    $('[name=lname]').val(get_param.get('last'))
+                    $('[name=applying]').val(get_param.get('school'))
+                    $('[name=tgllhr]').val(get_param.get('birth'))
+
+                    $('[name=fname]').prop('readonly', true)
+                    $('[name=lname]').prop('readonly', true)
+                    $('[name=applying]').prop('readonly', true)
+                    $('[name=tgllhr]').prop('readonly', true)
+                }
+
                 $('.dropify').dropify();
             });  
         }

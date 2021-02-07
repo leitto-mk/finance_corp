@@ -1,6 +1,6 @@
 $(document).ready(function () {
     //INPUT MASK FOR FORM
-    $('input[name="tgllhr"], input[name="schoolstarts"]').inputmask("99/99/9999", { clearMaskOnLostFocus: false });
+    $('input[name="tgllhr"], input[name="schoolstarts"]').inputmask("9999/99/99", { clearMaskOnLostFocus: false });
     $('input[name="housephone"]').inputmask("(9999) 999-999", { clearMaskOnLostFocus: false });
     $('input[name="handheldnumber"]').inputmask("(+62) 999-9999-9999", { clearMaskOnLostFocus: false });
 
@@ -36,7 +36,8 @@ $(document).ready(function () {
         var ach_year; var sponsor; var ach_rank; var scholarship; var scholardesc; var scholarstart; var scholarfinish; var prosperity; var prospernumber; var prospernametag;
 
         //TAB 3
-        var competition; var registration; var nis; var applying; var schoolstarts; var previousschool; var unnumber; var diploma; var skhun;
+        var competition; var nis; var applying; var schoolstarts; var previousschool; var unnumber; var diploma; var skhun;
+        var diplomafile; var birthcertfile; var kkfile; var photo;
 
         //FORM VALIDATION SCRIPT
         $('input[type="text"], input[type="date"], input[type="number"], select option:selected').focusout(function () {
@@ -159,7 +160,6 @@ $(document).ready(function () {
 
             //TAB 3
             competition = $('input[name="competition"]').val();
-            registration = $('input[name="registration"]:checked').val();
             nis = $('input[name="nis"]').val();
             applying = $('[name="applying"]').val();
             schoolstarts = $('input[name="schoolstarts"]').val();
@@ -167,6 +167,10 @@ $(document).ready(function () {
             unnumber = $('input[name="unnumber"]').val();
             diploma = $('input[name="diploma"]').val();
             skhun = $('input[name="skhun"]').val();
+            diplomafile = $('input[name="diplomafile"]').prop('files')
+            birthcertfile = $('input[name="birthcertfile"]').prop('files')
+            kkfile = $('input[name="kkfile"]').prop('files')
+            photo = $('input[name="photo"]').prop('files')
         }
 
         function post_input() {
@@ -249,7 +253,6 @@ $(document).ready(function () {
 
             //TAB 3
             $('input[name="confirm_competition"]').val(`${competition}`);
-            $(`input[name="confirm_registration"][value="${registration}"]`).attr('checked', 'checked');
             $('input[name="confirm_nis"]').val(`${nis}`);
             $('input[name="confirm_applying"]').val(`${applying}`);
             $('input[name="confirm_schoolstarts"]').val(`${schoolstarts}`);
@@ -303,7 +306,7 @@ $(document).ready(function () {
 
                 //FOR DEBUGGING PURPOSES
                 data = [
-                    competition, registration, nis, schoolstarts, previousschool, unnumber, diploma, skhun
+                    competition, nis, schoolstarts, previousschool, unnumber, diploma, skhun
                 ];
 
                 //POST DATA FROM get_input()
@@ -377,39 +380,25 @@ $(document).ready(function () {
                 }
 
                 if (result.value) {
+                    var form = new FormData($('#submit_form')[0])
+
                     $.ajax({
                         url: 'Enrollment/enroll_confirmed',
                         method: 'POST',
-                        data: {
-                            //TAB 1
-                            fname, mname, lname, nname, gender, nisn, nik,
-                            kk, tgllhr, tmplhr, akta, religion,
-                            country, disabled, address, rt, rw,
-                            dusun, village, district, region, postal,
-                            livewith, transport, lintang, bujur, child,
-                            kip, keepkip, refusepip, housephone, handheldnumber,
-                            email, father, fathernik, fatheryear, fatherdegree,
-                            fatherjob, fatherincome, fatherdisabled, mother, mothernik,
-                            motheryear, motherdegree, motherjob, motherincome, motherdisabled,
-                            guardian, guardiannik, guardianyear, guardiandegree, guardianjob,
-                            guardianincome, guardiandisable,
-
-                            //TAB 2
-                            height, weight, headdiameter, range, exactrange,
-                            timerange, siblings, achievement, achievementlevel, ach_name,
-                            ach_year, sponsor, ach_rank, scholarship, scholardesc,
-                            scholarstart, scholarfinish, prosperity, prospernumber, prospernametag,
-
-                            //TAB 3
-                            competition, registration, nis, applying, schoolstarts, previousschool,
-                            unnumber, diploma, skhun
-                        },
+                        data: form,
+                        contentType: false,
+                        processData: false,
                         success: function (data) {
                             if (data == 'success') {
                                 Swal.fire({
                                     type: 'success',
                                     title: 'Berhasil',
                                     text: 'Anda telah berhasil mendaftar lewat Sistem sekolah'
+                                }).then(result => {
+                                    if(result.value){
+                                        close()
+                                        window.open(BASE_URL + `Student/home`)
+                                    }
                                 })
                             } else {
                                 Swal.fire({

@@ -111,6 +111,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?=base_url('assets')?>/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="<?=base_url('assets')?>/pages/css/about.min.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/global/plugins/ion.rangeslider/css/ion.rangeSlider.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/global/plugins/ion.rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" type="text/css" />
@@ -122,7 +123,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?=base_url('assets')?>/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="<?=base_url('assets')?>/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.css" />
+        <?php if($active) : ?>
+            <link rel="stylesheet" type="text/css" href="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.css" />
+        <?php endif; ?>
         <link href="<?=base_url('assets')?>/pages/css/invoice-2.min.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/dropify-upload/css/dropify.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->

@@ -179,8 +179,7 @@ class Mdl_student extends CI_Model
             "SELECT 
                 t1.FirstName, 
                 t1.LastName, 
-                t2.Homeroom,
-                t1.isActive
+                t2.Homeroom
              FROM tbl_07_personal_bio t1
              JOIN tbl_08_job_info t2
              ON t1.IDNumber = t2.IDNumber
@@ -197,7 +196,6 @@ class Mdl_student extends CI_Model
 
         $data = [
             'homeroom' => $homeroom,
-            'isActive' => $query->isActive,
             'total' => $total->Total
         ];
 

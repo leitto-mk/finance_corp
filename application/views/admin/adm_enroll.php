@@ -26,6 +26,77 @@
     <!-- /.modal-dialog -->
 </div>
 
+<!-- EVALUATE STUDENT -->
+<div class="modal fade" id="evaluate-std" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="width: 30%;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #2f373e">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="color: white">Data Evaluation</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form_evaluation" class="form-inline" role="form" method="POST">
+                    <h4>Diploma</h4>
+                    <div class="row">
+                        <label class="mt-checkbox">
+                            <input type="checkbox" id="checkdiploma" name="checkdiploma">
+                            <span></span>
+                        </label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="notediploma" name="notediploma" placeholder="Note">
+                        </div>
+                    </div>
+                    <h4>Birth Certificate</h4>
+                    <div class="row">
+                        <label class="mt-checkbox">
+                            <input type="checkbox" id="checkbirthcert" name="checkbirthcert">
+                            <span></span>
+                        </label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="notebirthcert" name="notebirthcert" placeholder="Note">
+                        </div>
+                    </div>
+                    <h4>KK</h4>
+                    <div class="row">
+                        <label class="mt-checkbox">
+                            <input type="checkbox" id="checkkk" name="checkkk">
+                            <span></span>
+                        </label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="notekk" name="notekk" placeholder="Note">
+                        </div>
+                    </div>
+                    <h4>Photo</h4>
+                    <div class="row">
+                        <label class="mt-checkbox">
+                            <input type="checkbox" id="checkphoto" name="checkphoto">
+                            <span></span>
+                        </label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="notephoto" name="notephoto" placeholder="Note">
+                        </div>
+                    </div>
+                    <h4>SPP</h4>
+                    <div class="row">
+                        <label class="mt-checkbox">
+                            <input type="checkbox" id="checkspp" name="checkspp">
+                            <span></span>
+                        </label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="notespp" name="notespp" placeholder="Note">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="submit" form="form_evaluation" class="btn green bg-blue set_approve_evaluation" style="min-width: 85px;">Approve</button>
+                <button type="button" class="btn red bg-red" data-dismiss="modal" style="min-width: 85px;">Cancel</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 <!-- PROFILE DETAILS -->
 <div class="modal fade in" id="profile_detail" tabindex="-1" role="basic" aria-hidden="true">
@@ -427,6 +498,121 @@
                                                         <tr></tr>
                                                     </thead>
                                                 </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="portlet light portlet-fit bordered">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class=" icon-layers font-green"></i>
+                                            <span class="caption-subject font-green bold uppercase">DOCUMENTS</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="mt-element-card mt-element-overlay">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <div class="col-xs-6">
+                                                        <div class="mt-card-item">
+                                                            <div class="mt-card-avatar mt-overlay-1">
+                                                                <img name="diplomafile" src=""/>
+                                                                <div class="mt-overlay">
+                                                                    <ul class="mt-info">
+                                                                        <li>
+                                                                            <a name="diplomafile" class="btn default btn-outline" href="" download>
+                                                                                <i class="icon-cloud-download"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-card-content">
+                                                                <h3 class="mt-card-name">Diploma</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <div class="mt-card-item">
+                                                            <div class="mt-card-avatar mt-overlay-1">
+                                                                <img name="birthcertfile" src=""/>
+                                                                <div class="mt-overlay mt-top">
+                                                                    <ul class="mt-info">
+                                                                        <li>
+                                                                            <a name="birthcertfile" class="btn default btn-outline" href="" download>
+                                                                                <i class="icon-cloud-download"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-card-content">
+                                                                <h3 class="mt-card-name">Birth Certificate</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <div class="mt-card-item">
+                                                            <div class="mt-card-avatar mt-overlay-1">
+                                                                <img name="kkfile" src=""/>
+                                                                <div class="mt-overlay">
+                                                                    <ul class="mt-info">
+                                                                        <li>
+                                                                            <a name="kkfile" class="btn default btn-outline" href="" download>
+                                                                                <i class="icon-cloud-download"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-card-content">
+                                                                <h3 class="mt-card-name">KK</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <div class="mt-card-item">
+                                                            <div class="mt-card-avatar mt-overlay-1">
+                                                                <img name="photofile" src=""/>
+                                                                <div class="mt-overlay">
+                                                                    <ul class="mt-info">
+                                                                        <li>
+                                                                            <a name="photofile" class="btn default btn-outline" href="" download>
+                                                                                <i class="icon-cloud-download"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-card-content">
+                                                                <h3 class="mt-card-name">Photo</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="col-xs-6">
+                                                        <div class="mt-card-item">
+                                                            <div class="mt-card-avatar mt-overlay-1">
+                                                                <img name="sppfile" src=""/>
+                                                                <div class="mt-overlay">
+                                                                    <ul class="mt-info">
+                                                                        <li>
+                                                                            <a name="sppfile" class="btn default btn-outline" href="" download>
+                                                                                <i class="icon-cloud-download"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-card-content">
+                                                                <h3 class="mt-card-name">SPP</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
