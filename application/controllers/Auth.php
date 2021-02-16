@@ -112,9 +112,8 @@ class Auth extends CI_Controller
                         'fname' => $user->FirstName,
                         'lname' => $user->LastName,
                         'status' => $user->status,
-                        'isactive' => ($user->isActive ?: 0),
                         'ctrlno' => ($user->CtrlNo ?: ''), //FOR NEW STUDENT
-                        'schoolapplied' => ($user->SchoolApplied ?: ''), //FOR NEW STUDENT
+                        'schoolapplied' => ($user->Applying ?: ''), //FOR NEW STUDENT
                         'birth' => ($user->DateofBirth ?: ''), //FOR NEW STUDENT
                         'period' => $schYear,
                         'semester' => $semester,

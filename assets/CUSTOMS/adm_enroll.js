@@ -130,6 +130,44 @@ $(document).ready(function () {
 			$('#evaluate-std').modal('show')
 
 			unique = $(this).attr('data-id');
+
+			$.ajax({
+				url: 'ajax_get_target_files',
+				method: 'POST',
+				dataType: 'JSON',
+				data: {
+					unique
+				},
+				success: response => {
+					//SET CHECKBOX
+					$('#checkdiploma').prop('checked', (response.data.is_approved_diploma == 1 ? true : false))
+					$('#checkbirthcert').prop('checked', (response.data.is_approved_birthcert == 1 ? true : false))
+					$('#checkkk').prop('checked', (response.data.is_approved_kk == 1 ? true : false))
+					$('#checkphoto').prop('checked', (response.data.is_approved_photo == 1 ? true : false))
+					$('#checkspp').prop('checked', (response.data.is_approved_spp == 1 ? true : false))
+					
+					//SET UNAPPROVED NOTE
+					$('#notediploma').prop('disabled', (response.data.is_approved_diploma == 1 ? true : false))
+					$('#notebirthcert').prop('disabled', (response.data.is_approved_birthcert == 1 ? true : false))
+					$('#notekk').prop('disabled', (response.data.is_approved_kk == 1 ? true : false))
+					$('#notephoto').prop('disabled', (response.data.is_approved_photo == 1 ? true : false))
+					$('#notespp').prop('disabled', (response.data.is_approved_spp == 1 ? true : false))
+
+					$('#notediploma').val(response.data.unapproved_diploma_msg  || '')
+					$('#notebirthcert').val(response.data.unapproved_birthcert_msg  || '')
+					$('#notekk').val(response.data.unapproved_kk_msg  || '')
+					$('#notephoto').val(response.data.unapproved_photo_msg  || '')
+					$('#notespp').val(response.data.unapproved_spp_msg || '')
+
+					//DISPLAY FILE
+					$('#evaluate_diploma').attr('src', (response.data.DiplomaFile ? `${base_url}/assets/photos/student/${response.data.DiplomaFile}` : `${base_url}/assets/photos/noimage.gif`))
+					$('#evaluate_birthcert').attr('src', (response.data.BirthcertFile ? `${base_url}/assets/photos/student/${response.data.BirthcertFile}` : `${base_url}/assets/photos/noimage.gif`))
+					$('#evaluate_kk').attr('src', (response.data.KKFile ? `${base_url}/assets/photos/student/${response.data.KKFile}` : `${base_url}/assets/photos/noimage.gif`))
+					$('#evaluate_photo').attr('src', (response.data.Photo ? `${base_url}/assets/photos/student/${response.data.Photo}` : `${base_url}/assets/photos/noimage.gif`))
+					$('#evaluate_spp').attr('src', (response.data.SPP ? `${base_url}/assets/photos/student/${response.data.SPP}` : `${base_url}/assets/photos/noimage.gif`))
+				},
+				error: () => alert('NETWORK PROBLEM')
+			})
 		})
 
 		//Checkbox Evaluation
@@ -158,9 +196,14 @@ $(document).ready(function () {
 							'type': 'success',
 							'title': 'SUCCESS',
 							'text': 'DATA HAS BEEN EVALUATED'
+						}).then( value => {
+							if(value){
+								$('#evaluate-std').modal('hide')
+		
+								location.reload()
+							}
 						})
 
-						$('#evaluate-std').modal('hide')
 					}
 				},
 				error: () => alert('NETWORK PROBLEM')

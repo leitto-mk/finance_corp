@@ -94,6 +94,7 @@
         font-size: 20px;
     }
 </style>
+ 
 <div class="container">
     <!-- BEGIN CONTAINER -->
     <div class="page-container bg-default">
@@ -106,162 +107,207 @@
                 <div class="loader-wrapper">
                   <span class="loader"><span class="loader-inner"></span></span>
                 </div>
-                <div class="page-head">
-                    <div class="portlet light bg-blue-hoki" style="height: 75px">
-                        <h4 class="font-white bold" name='satya' data-id="<?= $id?>">
-                            <?php if ($this->session->userdata('status') == 'admin') : ?>
-                            <img src="<?= base_url() ?>assets/photos/adm/<?= $photo ?>" alt="" width="4%" height="4%">
-                            <?php elseif ($this->session->userdata('status') == 'teacher') : ?>
-                                <img src="<?= base_url() ?>assets/photos/teachers/<?= $photo ?>" alt="" width="4%" height="4%">
-                            <?php elseif ($this->session->userdata('status') == 'student') : ?>
-                                <img src="<?= base_url() ?>assets/photos/student/<?= $photo ?>" alt="" width="4%" height="4%">
-                            <?php elseif ($this->session->userdata('status') == 'staff') : ?>
-                                <img src="<?= base_url() ?>assets/photos/staff/<?= $photo ?>" alt="" width="4%" height="4%">
-                            <?php endif; ?> 
-                            <?= "$id"; ?> | <u><?= "$fname $lname"; ?></u>
-                            <small class="font-yellow-casablanca"></small>
-                        </h4>
+                <?php if(!$active) : ?>
+                    <div class="page-head">
+                        <div class="portlet light bg-blue-hoki" style="height: 75px">
+                            <h4 class="font-white bold" name='satya' data-id="<?= $id?>">
+                                <?php if ($this->session->userdata('status') == 'admin') : ?>
+                                <img src="<?= base_url() ?>assets/photos/adm/<?= $photo ?>" alt="" width="4%" height="4%">
+                                <?php elseif ($this->session->userdata('status') == 'teacher') : ?>
+                                    <img src="<?= base_url() ?>assets/photos/teachers/<?= $photo ?>" alt="" width="4%" height="4%">
+                                <?php elseif ($this->session->userdata('status') == 'student') : ?>
+                                    <img src="<?= base_url() ?>assets/photos/student/<?= $photo ?>" alt="" width="4%" height="4%">
+                                <?php elseif ($this->session->userdata('status') == 'staff') : ?>
+                                    <img src="<?= base_url() ?>assets/photos/staff/<?= $photo ?>" alt="" width="4%" height="4%">
+                                <?php endif; ?> 
+                                <?= "$id"; ?> | <u><?= "$fname $lname"; ?></u>
+                                <small class="font-yellow-casablanca"></small>
+                            </h4>
+                        </div>
                     </div>
-                </div>
-                <!-- END PAGE HEAD-->
-                <!-- BEGIN PAGE BASE CONTENT -->
-                <div class="portlet light about-text" style="height: auto !important">
-                    <h4 style="background-color:#67809f;">
-                        <i class="fa fa-check icon-info"></i> WELCOME
-                    </h4>
-                    <?php if($is_enrolled) : ?>
-                        <p class="margin-top-20" style="margin-bottom: 25px;"> 
-                            Your Data has been submitted, <b>Waiting for Approval</b>
-                        </p>
+                    <!-- END PAGE HEAD-->
+                    <!-- BEGIN PAGE BASE CONTENT -->
+                    <div class="portlet light about-text" style="height: 620px !important">
+                        <h4 style="background-color:#67809f;">
+                            <i class="fa fa-check icon-info"></i> 
+                            <span class="sbold uppercase">WELCOME TO <?= $schoolappliedname ?></span>
+                        </h4>
+                        <?php if($is_enrolled) : ?>
+                            <p class="margin-top-20 sbold uppercase"> 
+                                Your Data has been submitted
+                            </p>
+                            <?php if($is_approved_diploma) : ?>
+                                <div class="alert alert-success" style="margin: 15px 15px;">
+                                    <strong>Success!</strong> Your <span class="sbold">Diploma</span> has been approved 
+                                </div>
+                            <?php else:?>
+                                <div class="alert alert-danger" style="margin: 15px 15px;">
+                                    <strong>Warning!</strong> Your <span class="sbold">Diploma</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_diploma_msg ?></span>
+                                </div>
+                            <?php endif;?>
+                            <?php if($is_approved_birthcert) : ?>
+                                <div class="alert alert-success" style="margin: 15px 15px;">
+                                    <strong>Success!</strong> Your <span class="sbold">Birth Certifiate</span> has been approved 
+                                </div>
+                            <?php else:?>
+                                <div class="alert alert-danger" style="margin: 15px 15px;">
+                                    <strong>Warning!</strong> Your <span class="sbold">Birth Certifiate</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_birthcert_msg ?></span>
+                                </div>
+                            <?php endif;?>
+                            <?php if($is_approved_kk) : ?>
+                                <div class="alert alert-success" style="margin: 15px 15px;">
+                                    <strong>Success!</strong> Your <span class="sbold">KK</span> has been approved 
+                                </div>
+                            <?php else:?>
+                                <div class="alert alert-danger" style="margin: 15px 15px;">
+                                    <strong>Warning!</strong> Your <span class="sbold">KK</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_kk_msg ?></span>
+                                </div>
+                            <?php endif;?>
+                            <?php if($is_approved_photo) : ?>
+                                <div class="alert alert-success" style="margin: 15px 15px;">
+                                    <strong>Success!</strong> Your <span class="sbold">Photo</span> has been approved 
+                                </div>
+                            <?php else:?>
+                                <div class="alert alert-danger" style="margin: 15px 15px;">
+                                    <strong>Warning!</strong> Your <span class="sbold">Photo</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_photo_msg ?></span>
+                                </div>
+                            <?php endif;?>
+                            <?php if($is_approved_spp) : ?>
+                                <div class="alert alert-success" style="margin: 15px 15px;">
+                                    <strong>Success!</strong> Your <span class="sbold">Tuition</span> has been approved 
+                                </div>
+                            <?php else:?>
+                                <div class="alert alert-danger" style="margin: 15px 15px;">
+                                    <strong>Warning!</strong> Your <span class="sbold">Tuition</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_spp_msg ?></span>
+                                </div>
+                            <?php endif;?>
+                        <?php elseif(!$is_enrolled) : ?>
+                            <p class="margin-top-20"> 
+                                Please Complete Your Registration by Registering Your <b>Biodata</b> 
+                            </p>
+                        <?php endif; ?>
                         <div class="row text-center">
-                            <a target="_blank" href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id$&birth=$birth") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">EDIT PROFILE</a>
+                            <a target="_blank" href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id&birth=$birth") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">ENROLLMENT FORM</a>
                         </div>
-                    <?php else : ?>
-                        <p class="margin-top-20"> 
-                            Please Complete Your Registration by Registering Your <b>Biodata</b> 
-                        </p>
-                        <div class="row text-center">
-                            <a target="_blank" href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id$&birth=$birth") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">ENROLLMENT</a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <?php if($is_approved) : ?>
-                    <div class="row widget-row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="portlet light" style="background-color: white; border : dotted 1px">
-                                <div class="portlet-body ">
-                                    <div class="row">
-                                        <div class="invoice-content-2 bordered">
-                                            <div class="row invoice-head">
-                                                <div class="col-md-7 col-xs-6" style="margin-top: -70px">
-                                                
-                                                    <h2 class="uppercase">Informasi Pembayaran</h2>
+                    </div>
+                    <?php if($is_approved_diploma && $is_approved_birthcert && $is_approved_kk && $is_approved_photo && $is_approved_spp == 0) : ?>
+                        <div class="row widget-row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="portlet light" style="background-color: white; border : dotted 1px">
+                                    <div class="portlet-body ">
+                                        <div class="row">
+                                            <div class="invoice-content-2 bordered">
+                                                <div class="row invoice-head">
+                                                    <div class="col-md-7 col-xs-6" style="margin-top: -70px">
                                                     
-                                                </div>
-                                                <div class="col-md-5 col-xs-6 pull-right">
-                                                    <div class="company-address font-dark">
-                                                        <span class="bold uppercase">Hubungi :<br></span>
-                                                        <span class="bold"><i class="fa fa-phone"></i></span> 0852-4088-4568 (Farland Lumentah, SE)
-                                                        <br/>
-                                                        <span class="bold"><i class="fa fa-phone"></i></span> 0813-5432-1100 (Tetty G. Kapoh, SE, MM)
+                                                        <h2 class="uppercase">Informasi Pembayaran</h2>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-5 col-xs-6 pull-right">
+                                                        <div class="company-address font-dark">
+                                                            <span class="bold uppercase">Hubungi :<br></span>
+                                                            <span class="bold"><i class="fa fa-phone"></i></span> 0852-4088-4568 (Farland Lumentah, SE)
+                                                            <br/>
+                                                            <span class="bold"><i class="fa fa-phone"></i></span> 0813-5432-1100 (Tetty G. Kapoh, SE, MM)
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row invoice-cust-add" style="margin-top: -40px">
-                                                <div class="col-xs-6">
-                                                    <h2 class="invoice-title uppercase">Notes</h2>
-                                                    <p class="invoice-desc font-red"><i>* Pembayaran uang sekolah dilakukan di awal bulan/semester.<br><br>
-                                                    *Permohonan pembayaan cicilan uang sekolah tidak lebih dari enam kali pembayaran dalam satu semester</i></p>
+                                                <div class="row invoice-cust-add" style="margin-top: -40px">
+                                                    <div class="col-xs-6">
+                                                        <h2 class="invoice-title uppercase">Notes</h2>
+                                                        <p class="invoice-desc font-red"><i>* Pembayaran uang sekolah dilakukan di awal bulan/semester.<br><br>
+                                                        *Permohonan pembayaan cicilan uang sekolah tidak lebih dari enam kali pembayaran dalam satu semester</i></p>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <h2 class="invoice-title uppercase">Cara Pembayaran :</h2>
+                                                        <p class="invoice-desc inv-address font-dark">1 .Secara tunai di kantor keuangan sekolah atau<br>
+                                                            2. Dilakukan lewat transfer rekening sekolah (Menunjukan bukti setoran yang dapat di kirim ke WA personil yang tertera di atas)<br>
+                                                            3. Dilakukan lewat transfer rekening sekolah (Mengupload bukti setoran di form upload bukti bayar yang ada dibawah)<br><br>
+                                                        No. Rekening Resmi Sekolah : <br>
+                                                        <span class="bold">* BRI 5168 0100 44055 36 (SMA Advent Klabat)</span></p>
+                                                    </div>
                                                 </div>
-                                                <div class="col-xs-6">
-                                                    <h2 class="invoice-title uppercase">Cara Pembayaran :</h2>
-                                                    <p class="invoice-desc inv-address font-dark">1 .Secara tunai di kantor keuangan sekolah atau<br>
-                                                        2. Dilakukan lewat transfer rekening sekolah (Menunjukan bukti setoran yang dapat di kirim ke WA personil yang tertera di atas)<br>
-                                                        3. Dilakukan lewat transfer rekening sekolah (Mengupload bukti setoran di form upload bukti bayar yang ada dibawah)<br><br>
-                                                    No. Rekening Resmi Sekolah : <br>
-                                                    <span class="bold">* BRI 5168 0100 44055 36 (SMA Advent Klabat)</span></p>
-                                                </div>
-                                            </div>
-                                            <div class="row invoice-body">
-                                                <div class="col-xs-12 table-responsive" style="margin-top: -50px">
-                                                    <table class="table table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="invoice-title uppercase">Description</th>
-                                                                <th class="invoice-title uppercase text-center">Total</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <h3>Biaya sekali bayar selama sekolah</h3>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 . Uang Pembangunan Advent
-                                                                </td>
-                                                                
-                                                                <td class="text-center sbold">Rp. 1.000.000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 . Uang Pembangunan Non-Advent
-                                                                </td>
-                                                                
-                                                                <td class="text-center sbold">Rp. 1.300.000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="uppercase">
-                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 . Pendaftaran
-                                                                </td>
-                                                                
-                                                                <td class="text-center sbold">Rp. 150.000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h3 style="margin-top: -5px">A . Biaya asuransi  per tahun</h3>
-                                                                </td>
-                                                                <td class="text-center sbold">Rp. 15.000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h3>B . Biaya per semester (6 Bulan)</h3>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 . Uang Sekolah SMA/SMK Tanpa Asrama
-                                                                </td>
-                                                                
-                                                                <td class="text-center sbold">Rp. 2.400.000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 . Uang Sekolah SMA/SMK & Biaya Asrama
-                                                                </td>
-                                                                
-                                                                <td class="text-center sbold">Rp. 8.000.000</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <label class="col-md-4 col-sm-4 control-label bold font-dark uppercase">Upload bukti transfer : </label>
-                                                <div class="col-md-8 col-sm-8">
-                                                    <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="250" data-allowed-file-extensions="jpg jpeg png">
-                                                </div>
-                                                <div class="col-xs-12" style="margin-top: 10px">
-                                                    <a class="btn btn-lg green-haze hidden-print uppercase print-btn">Upload</a>
+                                                <div class="row invoice-body">
+                                                    <div class="col-xs-12 table-responsive" style="margin-top: -50px">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="invoice-title uppercase">Description</th>
+                                                                    <th class="invoice-title uppercase text-center">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h3>Biaya sekali bayar selama sekolah</h3>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 . Uang Pembangunan Advent
+                                                                    </td>
+                                                                    
+                                                                    <td class="text-center sbold">Rp. 1.000.000</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 . Uang Pembangunan Non-Advent
+                                                                    </td>
+                                                                    
+                                                                    <td class="text-center sbold">Rp. 1.300.000</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="uppercase">
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 . Pendaftaran
+                                                                    </td>
+                                                                    
+                                                                    <td class="text-center sbold">Rp. 150.000</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h3 style="margin-top: -5px">A . Biaya asuransi  per tahun</h3>
+                                                                    </td>
+                                                                    <td class="text-center sbold">Rp. 15.000</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h3>B . Biaya per semester (6 Bulan)</h3>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 . Uang Sekolah SMA/SMK Tanpa Asrama
+                                                                    </td>
+                                                                    
+                                                                    <td class="text-center sbold">Rp. 2.400.000</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 . Uang Sekolah SMA/SMK & Biaya Asrama
+                                                                    </td>
+                                                                    
+                                                                    <td class="text-center sbold">Rp. 8.000.000</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <label class="col-md-4 col-sm-4 control-label bold font-dark uppercase">Upload bukti transfer : </label>
+                                                    <div class="col-md-8 col-sm-8">
+                                                        <input type="file" name="photo" id="photo" class="dropify" data-id="<?= $id ?>" data-fname="<?= $fname ?>" data-lname="<?= $lname ?>" data-show-loader="false" data-height="250" data-allowed-file-extensions="jpg jpeg png">
+                                                    </div>
+                                                    <div class="col-xs-12" style="margin-top: 10px">
+                                                        <a id="submit_tuition" class="btn btn-lg green-haze hidden-print uppercase print-btn">Upload</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>                            
+                                </div>                            
+                            </div>
                         </div>
-                    </div>
-                <?php endif; ?>
-                <?php if($active) : ?>
+                    <?php else: ?>
+                    <?php endif; ?>
+                <?php else : ?>
                     <div class="row">
                         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                             <a class="dashboard-stat dashboard-stat-v2 blue-dark" href="#">

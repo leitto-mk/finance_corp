@@ -187,7 +187,29 @@
                                             </ul>  -->                             
                                         </ul>
                                     <?php else: ?>
-                                        <a class="sbold uppercase font-white">Enrollment</a>
+                                            <i class="fa fa-check font-white"></i>
+                                            <a class="sbold uppercase font-white font-green-meadow">Signing Up</a><br><br>
+                                        <?php if($is_enrolled) : ?>
+                                            <i class="fa fa-check font-white"></i>
+                                            <a class="sbold uppercase font-white font-green-meadow">Form Enrollment</a><br><br>
+                                        <?php else : ?>
+                                            <i class="fa fa-circle-o font-white"></i>
+                                            <a class="sbold uppercase font-white font-red-flamingo">Form Enrollment</a><br><br>
+                                        <?php endif; ?>
+                                        <?php if($is_enrolled && $is_approved_diploma && $is_approved_birthcert && $is_approved_kk && $is_approved_photo) : ?>
+                                            <i class="fa fa-check font-white"></i>
+                                            <a class="sbold uppercase font-white font-green-meadow">Document Approval</a><br><br>
+                                        <?php else : ?>
+                                            <i class="fa fa-circle-o font-white"></i>
+                                            <a class="sbold uppercase font-white font-red-flamingo">Document Approval</a><br><br>
+                                        <?php endif; ?>
+                                        <?php if($is_enrolled && $is_approved_diploma && $is_approved_birthcert && $is_approved_kk && $is_approved_photo && $is_approved_spp) : ?>
+                                            <i class="fa fa-check font-white"></i>
+                                            <a class="sbold uppercase font-green-meadow">Submit Tuition</a>
+                                        <?php else : ?>
+                                            <i class="fa fa-circle-o font-white"></i>
+                                            <a class="sbold uppercase font-red-flamingo">Submit Tuition</a>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                             </ul>

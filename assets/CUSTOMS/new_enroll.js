@@ -4,9 +4,166 @@ $(document).ready(function () {
     $('input[name="housephone"]').inputmask("(9999) 999-999", { clearMaskOnLostFocus: false });
     $('input[name="handheldnumber"]').inputmask("(+62) 999-9999-9999", { clearMaskOnLostFocus: false });
 
+    $('.dropify').dropify();
+
+    //SEARCH URL PARAMS
+    var get_param = new URLSearchParams(window.location.search)
+    if(get_param.has('first')){
+        $('[name=fname]').val(get_param.get('first'))
+        $('[name=lname]').val(get_param.get('last'))
+        $('[name=applying]').val(get_param.get('school'))
+        $('[name=tgllhr]').val(get_param.get('birth'))
+        $('[name=email]').val(get_param.get('mail'))
+
+        //GET FULL DATA IF EXIST
+        $.ajax({
+            url: 'Enrollment/ajax_get_full_enrollment_data',
+            method: 'POST',
+            dataType: 'JSON',
+            data: {
+                fname: get_param.get('first'),
+                lname: get_param.get('last'),
+                email: get_param.get('mail')
+            },
+            success: response => {
+                if(response){
+                    //TAB 1
+                    $('input[name="fname"]').val(response.FirstName);
+                    $('input[name="mname"]').val(response.MiddleName);
+                    $('input[name="nname"]').val(response.NickName);
+                    $('input[name="lname"]').val(response.LastName);
+                    $(`input[name="gender"][value="${response.Gender}"]`).prop('checked', true)
+                    $('input[name="nisn"]').val(response.NISN);
+                    $('input[name="nik"]').val(response.NIK);
+                    $('input[name="kk"]').val(response.KK);
+                    $('input[name="tgllhr"]').val(response.DateofBirth);
+                    $('input[name="tmplhr"]').val(response.PointofBirth);
+                    $('input[name="akta"]').val(response.BirthCertificate);
+                    $('select[name="religion"]').val(response.Religion);
+                    $('select[name="country"]').val(response.Country);
+                    $('input[name="disabled"]').val(response.Disability);
+                    $('input[name="address"]').val(response.Address);
+                    $('input[name="rt"]').val(response.RT);
+                    $('input[name="rw"]').val(response.RW);
+                    $('input[name="dusun"]').val(response.Dusun);
+                    $('input[name="village"]').val(response.Village);
+                    $('input[name="district"]').val(response.District);
+                    $('input[name="region"]').val(response.Region);
+                    $('input[name="postal"]').val(response.Postal);
+                    $('select[name="livewith"]').val(response.LiveWith);
+                    $('select[name="transport"]').val(response.Transportation);
+                    $('input[name="lintang"]').val(response.Latitude);
+                    $('input[name="bujur"]').val(response.Longitude);
+                    $('input[name="child"]').val(response.Child);
+                    $(`input[name="kip"][value="${response.KIP}"]`).prop('checked', true);
+                    $(`input[name="keepkip"][value="${response.Stayed_KIP}"]`).prop('checked', true);
+                    $('select[name="refusepip"]').val(response.Refuse_PIP);
+                    $('input[name="housephone"]').val(response.Phone);
+                    $('input[name="handheldnumber"]').val(response.HousePhone);
+                    $('input[name="email"]').val(response.Email);
+                    $('input[name="father"]').val(response.Father);
+                    $('input[name="fathernik"]').val(response.FatherNIK);
+                    $('input[name="fatheryear"]').val(response.FatherBorn);
+                    $('select[name="fatherdegree"]').val(response.FatherDegree);
+                    $('select[name="fatherjob"]').val(response.FatherJob);
+                    $('select[name="fatherincome"]').val(response.FatherIncome);
+                    $('input[name="fatherdisabled"]').val(response.FatherDisability);
+                    $('input[name="mother"]').val(response.Mother);
+                    $('input[name="mothernik"]').val(response.MotherNIK);
+                    $('input[name="motheryear"]').val(response.MotherBorn);
+                    $('select[name="motherdegree"]').val(response.MotherDegree);
+                    $('select[name="motherjob"]').val(response.MotherJob);
+                    $('select[name="motherincome"]').val(response.MotherIncome);
+                    $('input[name="motherdisabled"]').val(response.MotherDisability);
+                    $('input[name="guardian"]').val(response.Guardian);
+                    $('input[name="guardiannik"]').val(response.GuardianNIK);
+                    $('input[name="guardianyear"]').val(response.GuardianBorn);
+                    $('select[name="guardiandegree"]').val(response.GuardianDegree);
+                    $('select[name="guardianjob"]').val(response.GuardianJob);
+                    $('select[name="guardianincome"]').val(response.GuardianIncome);
+                    $('input[name="guardiandisabled"]').val(response.GuardianDisability);
+
+                    //TAB2
+                    
+                    $('input[name="height"]').val(response.Height);
+                    $('input[name="weight"]').val(response.Weight);
+                    $('input[name="headdiameter"]').val(response.HeadDiameter);
+                    $(`input[name="range"][value="${response.Range}"]`).prop('checked', true);
+                    $('input[name="exactrange"]').val(response.ExactRange);
+                    $('input[name="timerange"]').val(response.TimeRange);
+                    $(`input[name="achievement"][value="${response.Achievement}"]`).prop('checked', true);
+                    $(`input[name="achievementlevel"][value="${response.AchievementLVL}"]`).prop('checked', true);
+                    $('input[name="ach_name"]').val(response.AchievementName);
+                    $('input[name="ach_year"]').val(response.AchievementYear);
+                    $('input[name="sponsor"]').val(response.Sponsor);
+                    $('input[name="ach_rank"]').val(response.AchievementRank);
+                    $(`input[name="scholarship"][value="${response.Scholarship}"]`).prop('checked', true);
+                    $('input[name="scholardesc"]').val(response.Scholardesc);
+                    $('input[name="scholarstart"]').val(response.Scholarstart);
+                    $('input[name="scholarfinish"]').val(response.Scholarfinish);
+                    $('select[name="prosperity"]').val(response.Prosperity);
+                    $('input[name="prospernumber"]').val(response.ProsperNumber);
+                    $('input[name="prospernametag"]').val(response.ProsperNameTag);
+
+                    //TAB 3
+                    $('input[name="competition"]').val(response.Competition);
+                    $('input[name="nis"]').val(response.NIS);
+                    $('[name="applying"]').val(response.Applying);
+                    $('input[name="schoolstarts"]').val(response.SchoolStarts);
+                    $('input[name="previousschool"]').val(response.PreviousSchool);
+                    $('input[name="unnumber"]').val(response.UNNumber);
+                    $('input[name="diploma"]').val(response.Diploma);
+                    $('input[name="skhun"]').val(response.SKHUN);
+                    
+                    if(response.DiplomaFile){
+                        $('#col_diplomafile').prepend(`<img id="evaluate_birthcert" src="${BASE_URL + 'assets/photos/student/' + response.DiplomaFile}" alt=" IMAGE NOT AVAILABLE" style="width: 200px; height: 200px"><br/><br/>`)
+                    }else{
+                        $('#col_diplomafile').html(
+                            `<div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                <input type="file" name="diplomafile" id="diplomafile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                            </div>`
+                        )
+                    }
+
+                    if(response.BirthcertFile){
+                        $('#col_birthcertfile').prepend(`<img id="evaluate_birthcert" src="${BASE_URL + 'assets/photos/student/' + response.BirthcertFile}" alt=" IMAGE NOT AVAILABLE" style="width: 200px; height: 200px"><br/><br/>`)
+                    }else{
+                        $('#col_birthcertfile').html(
+                            `<div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                <input type="file" name="birthcertfile" id="birthcertfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                            </div>`
+                        )
+                    }
+                    if(response.KKFile){
+                        $('#col_kkfile').prepend(`<img id="evaluate_birthcert" src="${BASE_URL + 'assets/photos/student/' + response.KKFile}" alt=" IMAGE NOT AVAILABLE" style="width: 200px; height: 200px"><br/><br/>`)
+                    }else{
+                        $('#col_kkfile').html(
+                            `<div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                <input type="file" name="kkfile" id="kkfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                            </div>`
+                        )
+                    }
+                    if(response.Photo){
+                        $('#col_photo').prepend(`<img id="evaluate_birthcert" src="${BASE_URL + 'assets/photos/student/' + response.Photo}" alt=" IMAGE NOT AVAILABLE" style="width: 200px; height: 200px"><br/><br/>`)
+                    }else{
+                        $('#col_photo').html(
+                            `<div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                            </div>`
+                        )
+                    }
+                }
+            },
+            error: () => alert('NETWORK PROBLEM')
+        })
+
+        $('[name=mail]').prop('readonly', true)
+    }
+    
+    
     if ($('body').is('.new_enroll')) {
         $.ajax({
-            url: `${base_url}assets/CUSTOMS/countries.json`,
+            url: `${BASE_URL}assets/CUSTOMS/countries.json`,
             method: 'GET',
             dataType: 'JSON',
             success: function (data) {
@@ -406,8 +563,6 @@ $(document).ready(function () {
                                     title: 'Gagal mendaftarkan Diri Anda',
                                     text: 'Pastikan Data yang anda masukan telah sesuai dengan form yang diminta'
                                 })
-
-                                console.log(data)
                             }
                         },
                         error: function (data) {

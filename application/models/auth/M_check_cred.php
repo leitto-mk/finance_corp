@@ -81,6 +81,7 @@ class M_check_cred extends CI_Model
                     t1.FirstName,
                     t1.LastName,
                     t1.DateofBirth,
+                    t1.Applying,
                     t1.SchoolApplied,
                     t1.status,
                     t2.password

@@ -45,6 +45,8 @@
                         <div class="form-group">
                             <input type="text" class="form-control" id="notediploma" name="notediploma" placeholder="Note">
                         </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <img id="evaluate_diploma" src="" alt=" IMAGE NOT AVAILABLE" style="width: 100px; height: 100px">
                     </div>
                     <h4>Birth Certificate</h4>
                     <div class="row">
@@ -55,6 +57,8 @@
                         <div class="form-group">
                             <input type="text" class="form-control" id="notebirthcert" name="notebirthcert" placeholder="Note">
                         </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <img id="evaluate_birthcert" src="" alt=" IMAGE NOT AVAILABLE" style="width: 100px; height: 100px">
                     </div>
                     <h4>KK</h4>
                     <div class="row">
@@ -65,6 +69,8 @@
                         <div class="form-group">
                             <input type="text" class="form-control" id="notekk" name="notekk" placeholder="Note">
                         </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <img id="evaluate_kk" src="" alt=" IMAGE NOT AVAILABLE" style="width: 100px; height: 100px">
                     </div>
                     <h4>Photo</h4>
                     <div class="row">
@@ -75,6 +81,8 @@
                         <div class="form-group">
                             <input type="text" class="form-control" id="notephoto" name="notephoto" placeholder="Note">
                         </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <img id="evaluate_photo" src="" alt=" IMAGE NOT AVAILABLE" style="width: 100px; height: 100px">
                     </div>
                     <h4>SPP</h4>
                     <div class="row">
@@ -85,6 +93,8 @@
                         <div class="form-group">
                             <input type="text" class="form-control" id="notespp" name="notespp" placeholder="Note">
                         </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <img id="evaluate_spp" src="" alt=" IMAGE NOT AVAILABLE" style="width: 100px; height: 100px">
                     </div>
                 </form>
             </div>

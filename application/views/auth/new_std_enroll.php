@@ -1385,7 +1385,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 <label class="control-label col-md-4">File Ijasah
                                                                     <span class="required" aria-required="true"> * </span>
                                                                 </label>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-4" id="col_diplomafile">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                         <input type="file" name="diplomafile" id="diplomafile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
                                                                     </div>
@@ -1395,7 +1395,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 <label class="control-label col-md-4">File Akte Kelahiran
                                                                     <span class="required" aria-required="true"> * </span>
                                                                 </label>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-4" id="col_birthcertfile">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                         <input type="file" name="birthcertfile" id="birthcertfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
                                                                     </div>
@@ -1405,7 +1405,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 <label class="control-label col-md-4">File KK
                                                                     <span class="required" aria-required="true"> * </span>
                                                                 </label>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-4" id="col_kkfile">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                         <input type="file" name="kkfile" id="kkfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
                                                                     </div>
@@ -1415,7 +1415,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 <label class="control-label col-md-4">File Foto
                                                                     <span class="required" aria-required="true"> * </span>
                                                                 </label>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-4" id="col_photo">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                         <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
                                                                     </div>
@@ -2536,40 +2536,10 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/jquery.inputmask.min.js" type="text/javascript"></script>
     <script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/bindings/inputmask.binding.js" type="text/javascript"></script>
     <script src="<?=base_url('assets')?>/dropify-upload/js/dropify.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        var enroll_confirmed = '<?= base_url('Enrollment/enroll_confirmed') ?>';
-    </script>
-
-    <script src="<?= base_url() ?>assets/CUSTOMS/new_enroll.js" type="text/javascript"></script>
     <script>
-        var base_url = '<?= base_url() ?>'
-    </script>
-    <script type="text/javascript">
-        window.onload = load_function;
         var BASE_URL = '<?= base_url() ?>'
-
-        function load_function() {
-            
-            $(document).ready(function(){
-                var get_param = new URLSearchParams(window.location.search)
-        
-                if(get_param.has('first')){
-                    $('[name=fname]').val(get_param.get('first'))
-                    $('[name=lname]').val(get_param.get('last'))
-                    $('[name=applying]').val(get_param.get('school'))
-                    $('[name=tgllhr]').val(get_param.get('birth'))
-
-                    $('[name=fname]').prop('readonly', true)
-                    $('[name=lname]').prop('readonly', true)
-                    $('[name=applying]').prop('readonly', true)
-                    $('[name=tgllhr]').prop('readonly', true)
-                }
-
-                $('.dropify').dropify();
-            });  
-        }
     </script>
+    <script src="<?= base_url() ?>assets/CUSTOMS/new_enroll.js" type="text/javascript"></script>
 </body>
 
 </html>

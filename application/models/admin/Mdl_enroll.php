@@ -38,6 +38,10 @@ class Mdl_enroll extends CI_Model
     public function set_evaluation($id, $data){
         $this->db->update('tbl_11_enrollment', $data, ['CtrlNo' => $id]);
 
+        if($data['is_approved_diploma'] == 1 && $data['is_approved_birthcert'] == 1 && $data['is_approved_kk'] == 1 && $data['is_approved_photo'] == 1 && $data['is_approved_spp'] == 1){
+            $this->db->update('tbl_11_enrollment', ['is_approved' => 1], ['CtrlNo' => $id]);
+        }
+
         return ($this->db->affected_rows() ? 'success' : $this->db->error());
     }
 
@@ -46,10 +50,43 @@ class Mdl_enroll extends CI_Model
         extract($data);
 
         $result = $this->db->query("SELECT * FROM tbl_11_enrollment WHERE CtrlNo = '$uniq'")->row_array();
-        $ID = date('y') . $this->session->userdata('semester') . str_pad($uniq,3,"0", STR_PAD_LEFT);
+
+        $applying = '';
+
+        if($result['Applying'] == 'SD'){
+            $applying = '01';
+        }elseif($result['Applying'] == 'SMP'){
+            $applying = '02';
+        }elseif($result['Applying'] == 'SMA'){
+            $applying = '03';
+        }elseif($result['Applying'] == 'SMK'){
+            $applying = '04';
+        }
+
+        $schYear = '';
+
+        $time = date('d-m-Y');
+        $year = date('Y');
+
+        if (date('n', strtotime($time)) <= 6) {
+            $schYear = (($year - 1)-2000) . ($year-2000);
+            $semester = '02';
+        } else {
+            $schYear = ($year-2000) . (($year + 1)-2000);
+            $semester = '01';
+        }
+
+        $checkAppliants = $this->db->like('IDNumber', $applying . $schYear . $semester, 'after')->get('tbl_07_personal_bio')->num_rows();
+
+        if($checkAppliants == 0){
+            $ID = $applying . $schYear . $semester . '001';
+        }else{
+            $ID = $applying . $schYear . $semester . str_pad(($checkAppliants+1),3,"0", STR_PAD_LEFT);
+        }
 
         $transfer_bio = [
             'IDNumber' => $ID,
+            'isActive' => 1,
             'PersonalID' => $result['NIK'],
             'FirstName' => $result['FirstName'],
             'MiddleName' => $result['MiddleName'],
@@ -75,7 +112,11 @@ class Mdl_enroll extends CI_Model
             'Region' => $result['Region'],
             'Postal' => $result['Postal'],
             'Country' => $result['Country'],
-            'Photo' => 'default.png',
+            'DiplomaFile' => $result['DiplomaFile'],
+            'BirthcertFile' => $result['BirthcertFile'],
+            'KKFile' => $result['KKFile'],
+            'Photo' => $result['Photo'],
+            'SPP' => $result['SPP'],
             'RegDate' => date('Y-m-d')
         ];
 
@@ -157,13 +198,59 @@ class Mdl_enroll extends CI_Model
 
         $this->db->trans_begin();
 
-        //Exporting the Data
+        //MOVE ENROLLMENT DATA TO ACTIVE STUDENTS TABLE AND RESET CREDENTIALS
         $this->db->insert('tbl_07_personal_bio', $transfer_bio);
         $this->db->insert('tbl_08_job_info_std', $transfer_info);
         $this->db->insert('tbl_credentials', $credentials);
+        $this->db->update('tbl_credentials', $credentials, ['IDNumber' => $result['Email']]);
+
         $this->db->delete('tbl_11_enrollment', "CtrlNo = '$uniq'");
+
+        //CHECK FOR EMPTY TABLE AND RESET AUTO_INCREMENT TO 1 IF EMPTY
+        $checkEmpty = $this->db->get('tbl_11_enrollment')->num_rows();
+
+        if($checkEmpty == 0){
+            $this->db->query("ALTER TABLE tbl_11_enrollment AUTO_INCREMENT = 1");
+        }
         
         $this->db->trans_commit();
+    }
+
+    public function remove_list($uniq){
+        //GET NECESSARY DATA FOR DELETION
+        $data = $this->db->select('Email, DiplomaFile, BirthcertFile, KKFile, Photo, SPP')->get_where('tbl_11_enrollment', [
+            'CtrlNo' => $uniq,
+        ])->row();
+
+        $this->db->delete('tbl_11_enrollment', "CtrlNo = '$uniq'");
+        $this->db->delete('tbl_credentials', ['IDNumber' => $data->Email]);
+        
+        if (is_file('./assets/photos/student/' . $data->DiplomaFile)) {
+            unlink('./assets/photos/student/' . $data->DiplomaFile);
+        }
+        
+        if (is_file('./assets/photos/student/' . $data->BirthcertFile)) {
+            unlink('./assets/photos/student/' . $data->BirthcertFile);
+        }
+        
+        if (is_file('./assets/photos/student/' . $data->KKFile)) {
+            unlink('./assets/photos/student/' . $data->KKFile);
+        }
+        
+        if (is_file('./assets/photos/student/' . $data->Photo)) {
+            unlink('./assets/photos/student/' . $data->Photo);
+        }
+        
+        if (is_file('./assets/photos/student/' . $data->SPP)) {
+            unlink('./assets/photos/student/' . $data->SPP);
+        }
+
+        //CHECK FOR EMPTY TABLE AND RESET AUTO_INCREMENT TO 1 IF EMPTY
+        $checkEmpty = $this->db->get('tbl_11_enrollment')->num_rows();
+
+        if($checkEmpty == 0){
+            $this->db->query("ALTER TABLE tbl_11_enrollment AUTO_INCREMENT = 1");
+        }
     }
 
     public function count_total()

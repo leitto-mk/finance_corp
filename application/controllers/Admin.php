@@ -6121,6 +6121,7 @@ class Admin extends CI_Controller
                                     <button type="button" class="btn green detail" data-id="' . $row->CtrlNo . '" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Details</button>';
             if($row->is_approved){
                 $value .= '         <button type="button" class="btn blue approve" data-apply="'.$row->Applying.'" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Approve</button>';
+                $value .= '         <button type="button" class="btn yellow-saffron approve_enroll" data-id="' . $row->CtrlNo . '" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Evaluate</button>';
             }else{
                 $value .= '         <button type="button" class="btn yellow-saffron approve_enroll" data-id="' . $row->CtrlNo . '" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Evaluate</button>';
             }
@@ -6157,6 +6158,21 @@ class Admin extends CI_Controller
                     </div>';
 
         echo $value;
+    }
+
+    public function ajax_get_target_files(){
+        $id = $_POST['unique'];
+
+        $result = $this->db->select(
+            'DiplomaFile, BirthcertFile, KKFile, Photo, SPP, 
+             is_approved_diploma, is_approved_birthcert, is_approved_kk, is_approved_photo, is_approved_spp,
+             unapproved_diploma_msg, unapproved_birthcert_msg, unapproved_kk_msg, unapproved_photo_msg, unapproved_spp_msg')->get_where('tbl_11_enrollment', ['CtrlNo' => $id])->row();
+
+        $data = [
+            'data' => $result
+        ];
+
+        echo json_encode($data);
     }
 
     public function evaluate_data(){
@@ -6198,7 +6214,7 @@ class Admin extends CI_Controller
     {
         $uniq = $_POST['uniq'];
 
-        $this->db->delete('tbl_11_enrollment', "CtrlNo = '$uniq'");
+        $this->Mdl_enroll->remove_list($uniq);
 
         $total = $this->Mdl_enroll->count_total();
 

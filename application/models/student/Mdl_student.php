@@ -283,6 +283,18 @@ class Mdl_student extends CI_Model
         return 'success';
     }
 
+    public function upload_tuition($id, $fname, $lname, $spp){
+        $this->db->update('tbl_11_enrollment', [
+            'SPP' => $spp
+        ], [
+            'Email' => $id,
+            'FirstName' => $fname,
+            'LastName' => $lname,
+        ]);
+
+        return ($this->db->affected_rows() ? 'success' : $this->db->error());
+    }
+
 
     //Finance Student Start
     function get_list_class_desc($sup)
@@ -381,7 +393,8 @@ class Mdl_student extends CI_Model
             return false;
         }
     }
-      function get_acc_name_ar($acn)
+      
+    function get_acc_name_ar($acn)
     {
         $this->db->select('Acc_Name');
         $this->db->from('tbl_fa_mas_account');

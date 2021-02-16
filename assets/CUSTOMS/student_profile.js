@@ -194,5 +194,43 @@ $(document).ready(function () {
 				}
 			})
 		}
+
+		//================================================================================================\\
+		//										UPLOAD TUITION
+		//================================================================================================\\
+		
+		$('#submit_tuition').click(function(){
+            var form_data = new FormData()
+			
+			let id = $('#photo').attr('data-id')
+			let fname = $('#photo').attr('data-fname')
+			let lname = $('#photo').attr('data-lname')
+
+			var file_data = $('#photo').prop('files')[0];
+
+			form_data.append('id', id)
+			form_data.append('fname', fname)
+			form_data.append('lname', lname)
+			form_data.append('file', file_data)
+
+			$.ajax({
+				url: `ajax_submit_tuition?id=${id}&fname=${fname}&lname=${lname}`,
+				type: 'POST',
+				data: form_data,
+				contentType: false,
+				processData: false,
+				data: form_data,
+				success: response => {
+					if(response == 'success'){
+						alert("UPLOAD SUCCESS")
+
+						location.reload()
+					}else{
+						alert("SERVER PROBLEM")
+					}
+				},
+				error: () => alert('NETWORK PROBLEM')
+			})
+        })
 	}
 });

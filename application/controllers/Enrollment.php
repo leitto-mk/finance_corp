@@ -21,6 +21,16 @@ class Enrollment extends CI_Controller
         $this->load->view('auth/new_std_enroll', $data);
     }
 
+    public function ajax_get_full_enrollment_data(){
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
+        $email = $_POST['email'];
+
+        $result = $this->M_confirm_student->get_full_enrollment_data($fname, $lname, $email);
+
+        echo json_encode($result);
+    }
+
     public function enroll_confirmed()
     {
         $filename = strtolower($_POST['fname'] . '_' . $_POST['lname']) . '_' . date('Ymdhms');
@@ -31,10 +41,10 @@ class Enrollment extends CI_Controller
         $photo = '';
 
         //CHECK IF DATA ALREADY EXSIST
-        $checkData = $this->db->select('CtrlNo, FirstName, LastName, DateofBirth, DiplomaFile, BirthcertFile, KKFile, Photo')->get_where('tbl_11_enrollment', [
+        $checkData = $this->db->select('DiplomaFile, BirthcertFile, KKFile, Photo')->get_where('tbl_11_enrollment', [
             'FirstName' => $_POST['fname'],
             'LastName' => $_POST['lname'],
-            'DateofBirth' => date('Y-m-d', strtotime(strtr($_POST['tgllhr'], '/', '-')))
+            'Email' => $_POST['email']
         ])->row();
 
         $compress['image_library'] = 'gd2';
@@ -149,6 +159,7 @@ class Enrollment extends CI_Controller
         }
 
         $data = [
+            'is_enrolled' => 1,
             'FirstName' => ucwords(strtolower($_POST['fname'])),
             'MiddleName' => ucwords(strtolower($_POST['mname'])),
             'LastName' => ucwords(strtolower($_POST['lname'])),

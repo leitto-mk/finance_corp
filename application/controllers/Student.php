@@ -8,10 +8,12 @@ class Student extends CI_Controller
     {
         parent::__construct();
 
+        $this->load->library('upload');
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->model('student/Mdl_student');
         $this->load->model('duty/Mdl_duty');
+
         //If there is no known user and role is wrong
         if ($this->session->userdata('status') != 'student') {
             echo "<script> console.log('Wrong Role, redirect to Auth'); </script>";
@@ -267,57 +269,117 @@ class Student extends CI_Controller
                 'LastName' => $this->session->userdata('lname'),
             ])->row();
 
-        $data = [
-            'title' => 'Student Information',
-            'id' => $this->session->userdata('id'),
-            'active' => $this->session->userdata('isactive'),
-            'schoolapplied' => $this->session->userdata('schoolapplied'),
-            'birth' => $this->session->userdata('birth'),
-            'is_enrolled' => ($newstudentstatus->is_enrolled ?: 0), //FOR NEW ENROLLED STUDENT
-            'is_approved' => ($newstudentstatus->is_approved ?: 0), //FOR NEW ENROLLED STUDENT
-            'is_approved_diploma' => $newstudentstatus->is_approved_diploma, // FOR NEW ENROLLED STUDENT
-            'is_approved_birthcert' => $newstudentstatus->is_approved_birthcert, // FOR NEW ENROLLED STUDENT
-            'is_approved_kk' => $newstudentstatus->is_approved_kk, // FOR NEW ENROLLED STUDENT
-            'is_approved_photo' => $newstudentstatus->is_approved_photo, // FOR NEW ENROLLED STUDENT
-            'is_approved_spp' => $newstudentstatus->is_approved_spp, // FOR NEW ENROLLED STUDENT
-            'unapproved_diploma_msg' => $newstudentstatus->unapproved_diploma_msg, // FOR NEW ENROLLED STUDENT
-            'unapproved_birthcert_msg' => $newstudentstatus->unapproved_birthcert_msg, // FOR NEW ENROLLED STUDENT
-            'unapproved_kk_msg' => $newstudentstatus->unapproved_kk_msg, // FOR NEW ENROLLED STUDENT
-            'unapproved_photo_msg' => $newstudentstatus->unapproved_photo_msg, // FOR NEW ENROLLED STUDENT
-            'unapproved_spp_msg' => $newstudentstatus->unapproved_spp_msg, // FOR NEW ENROLLED STUDENT
-            'semester' => $semester,
-            'schyear' => $period,
-            'room' => $room,
-            'fname' => $this->session->userdata('fname'),
-            'lname' => $this->session->userdata('lname'),
-            'status' => $this->session->userdata('status'),
-            'photo' => $this->session->userdata('photo'),
-            'prof' => $this->Mdl_student->get_full_profile($id),
+        if($newstudentstatus){
+            $data = [
+                'title' => 'Student Information',
+                'id' => $this->session->userdata('id'),
+                'schoolapplied' => $this->session->userdata('schoolapplied'),
+                'birth' => $this->session->userdata('birth'),
+                'semester' => $semester,
+                'schyear' => $period,
+                'room' => $room,
+                'fname' => $this->session->userdata('fname'),
+                'lname' => $this->session->userdata('lname'),
+                'status' => $this->session->userdata('status'),
+                'photo' => $this->session->userdata('photo'),
+                'prof' => $this->Mdl_student->get_full_profile($id),
+                'active' => 0,
 
-            //MODAL AKADEMIK
-            'period' => $this->Mdl_student->get_period($id),
-
-            //SCHEDULE
-            'mon' => $this->Mdl_student->get_schedule($id, 'Senin', $room),
-            'tue' => $this->Mdl_student->get_schedule($id, 'Selasa', $room),
-            'wed' => $this->Mdl_student->get_schedule($id, 'Rabu', $room),
-            'thu' => $this->Mdl_student->get_schedule($id, 'Kamis', $room),
-            'fri' => $this->Mdl_student->get_schedule($id, 'Jumat', $room),
-
-            //SCHOOL DETAILS
-            'homeroom' => $homeroom,
-            'total' => $total,
-
-            //ABSENCE
-            'absn' => $this->Mdl_student->get_absent($id, $room, 'Absent'),
-            'permit' => $this->Mdl_student->get_absent($id, $room, 'On Permit'),
-            'sick' => $this->Mdl_student->get_absent($id, $room, 'Sick'),
-            'truant' => $this->Mdl_student->get_absent($id, $room, 'Truant'),
-            'late' => $this->Mdl_student->get_absent($id, $room, 'Late'),
-
-            //Duty
-            'data_duty' => $this->Mdl_duty->get_list_data_duty($school,$status,$cls,$room,$id)
-        ];
+                //NEW STUDENT DATA
+                'is_enrolled' => ($newstudentstatus->is_enrolled ?: 0),
+                'is_approved' => ($newstudentstatus->is_approved ?: 0),
+                'schoolappliedname' => $this->db->select('SchoolName')->get_where('tbl_02_school', ['School_Desc' => $this->session->userdata('schoolapplied')])->row()->SchoolName,
+                'is_approved_diploma' => $newstudentstatus->is_approved_diploma,
+                'is_approved_birthcert' => $newstudentstatus->is_approved_birthcert,
+                'is_approved_kk' => $newstudentstatus->is_approved_kk,
+                'is_approved_photo' => $newstudentstatus->is_approved_photo,
+                'is_approved_spp' => $newstudentstatus->is_approved_spp,
+                'unapproved_diploma_msg' => $newstudentstatus->unapproved_diploma_msg,
+                'unapproved_birthcert_msg' => $newstudentstatus->unapproved_birthcert_msg,
+                'unapproved_kk_msg' => $newstudentstatus->unapproved_kk_msg,
+                'unapproved_photo_msg' => $newstudentstatus->unapproved_photo_msg,
+                'unapproved_spp_msg' => $newstudentstatus->unapproved_spp_msg,
+    
+                //MODAL AKADEMIK
+                'period' => $this->Mdl_student->get_period($id),
+    
+                //SCHEDULE
+                'mon' => $this->Mdl_student->get_schedule($id, 'Senin', $room),
+                'tue' => $this->Mdl_student->get_schedule($id, 'Selasa', $room),
+                'wed' => $this->Mdl_student->get_schedule($id, 'Rabu', $room),
+                'thu' => $this->Mdl_student->get_schedule($id, 'Kamis', $room),
+                'fri' => $this->Mdl_student->get_schedule($id, 'Jumat', $room),
+    
+                //SCHOOL DETAILS
+                'homeroom' => $homeroom,
+                'total' => $total,
+    
+                //ABSENCE
+                'absn' => $this->Mdl_student->get_absent($id, $room, 'Absent'),
+                'permit' => $this->Mdl_student->get_absent($id, $room, 'On Permit'),
+                'sick' => $this->Mdl_student->get_absent($id, $room, 'Sick'),
+                'truant' => $this->Mdl_student->get_absent($id, $room, 'Truant'),
+                'late' => $this->Mdl_student->get_absent($id, $room, 'Late'),
+    
+                //Duty
+                'data_duty' => $this->Mdl_duty->get_list_data_duty($school,$status,$cls,$room,$id)
+            ];
+        }else{
+            $data = [
+                'title' => 'Student Information',
+                'id' => $this->session->userdata('id'),
+                'schoolapplied' => $this->session->userdata('schoolapplied'),
+                'birth' => $this->session->userdata('birth'),
+                'semester' => $semester,
+                'schyear' => $period,
+                'room' => $room,
+                'fname' => $this->session->userdata('fname'),
+                'lname' => $this->session->userdata('lname'),
+                'status' => $this->session->userdata('status'),
+                'photo' => $this->session->userdata('photo'),
+                'prof' => $this->Mdl_student->get_full_profile($id),
+                
+                //NEW STUDENT DATA
+                'active' => 1,
+                'is_enrolled' => 1,
+                'is_approved' => 1,
+                'schoolappliedname' => '',
+                'is_approved_diploma' => 1,
+                'is_approved_birthcert' => 1,
+                'is_approved_kk' => 1,
+                'is_approved_photo' => 1,
+                'is_approved_spp' => 1,
+                'unapproved_diploma_msg' => 1,
+                'unapproved_birthcert_msg' => 1,
+                'unapproved_kk_msg' => 1,
+                'unapproved_photo_msg' => 1,
+                'unapproved_spp_msg' => 1,
+    
+                //MODAL AKADEMIK
+                'period' => $this->Mdl_student->get_period($id),
+    
+                //SCHEDULE
+                'mon' => $this->Mdl_student->get_schedule($id, 'Senin', $room),
+                'tue' => $this->Mdl_student->get_schedule($id, 'Selasa', $room),
+                'wed' => $this->Mdl_student->get_schedule($id, 'Rabu', $room),
+                'thu' => $this->Mdl_student->get_schedule($id, 'Kamis', $room),
+                'fri' => $this->Mdl_student->get_schedule($id, 'Jumat', $room),
+    
+                //SCHOOL DETAILS
+                'homeroom' => $homeroom,
+                'total' => $total,
+    
+                //ABSENCE
+                'absn' => $this->Mdl_student->get_absent($id, $room, 'Absent'),
+                'permit' => $this->Mdl_student->get_absent($id, $room, 'On Permit'),
+                'sick' => $this->Mdl_student->get_absent($id, $room, 'Sick'),
+                'truant' => $this->Mdl_student->get_absent($id, $room, 'Truant'),
+                'late' => $this->Mdl_student->get_absent($id, $room, 'Late'),
+    
+                //Duty
+                'data_duty' => $this->Mdl_duty->get_list_data_duty($school,$status,$cls,$room,$id)
+            ];
+        }
 
         $this->load->view('student/home', $data);
     }
@@ -437,6 +499,56 @@ class Student extends CI_Controller
             $value .='<h2 align="center"  class="font-red bold">No Data News & Assignment!</h2>';
         }
         echo $value;
+    }
+
+    public function ajax_submit_tuition(){
+        $filename = strtolower($_POST['fname'] . '_' . $_POST['lname']) . '_' . date('Ymdhms');
+
+        $spp = '';
+
+        //CHECK IF DATA ALREADY EXSIST
+        $checkData = $this->db->select('SPP')->get_where('tbl_11_enrollment', [
+            'Email' => $_POST['id'],
+            'FirstName' => $_POST['fname'],
+            'LastName' => $_POST['lname']
+        ])->row();
+
+        $compress['image_library'] = 'gd2';
+        $compress['create_thumb'] = FALSE;
+        $compress['maintain_ratio'] = FALSE;
+        $compress['quality'] = '60%';
+        $compress['width'] = 800;
+        $compress['height'] = 800;
+
+        if($_FILES['file']){
+            $spp = "spp_$filename";
+            $sppext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
+            
+            //If there's image for ID already, delete the old one
+            if($checkData){
+                if (is_file('./assets/photos/student/' . $checkData->SPP)) {
+                    unlink('./assets/photos/student/' . $checkData->SPP);
+                }
+            }
+        
+            $this->upload->initialize([
+                'upload_path' => './assets/photos/student/',
+                'allowed_types' => 'gif|jpg|jpeg|png',
+                'file_name' => $spp
+            ]);
+
+            $this->upload->do_upload('file');
+            
+            //Compress uploaded image
+            $compress['source_image'] = './assets/photos/student/' . $spp . '.' . $sppext;
+            $compress['new_image'] = './assets/photos/student/' . $spp . '.' . $sppext;
+            $this->load->library('image_lib', $compress);
+            $this->image_lib->resize();
+
+            $result = $this->Mdl_student->upload_tuition($_POST['id'], $_POST['fname'], $_POST['lname'], $spp . '.' . $sppext);
+
+            echo $result;
+        }
     }
     //End - Student New Build
 

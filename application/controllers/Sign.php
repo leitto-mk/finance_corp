@@ -26,17 +26,25 @@ class Sign extends CI_Controller
             'DateofBirth' => $_POST['dateofbirth'],
             'Email' => $_POST['email'],
             'Registration' => $_POST['student_type'],
-            'SchoolApplied' => $_POST['school'],
+            'Applying' => $_POST['school'],
             'previousschool' => $_POST['previousschool']
         ];
 
-        $result = $this->M_confirm_student->confirm($data);
+        $checkMail = $this->db->get_where('tbl_11_enrollment', ['Email' => $data['Email']])->num_rows();
 
-        $data = [
-            'result' => $result,
-            'email' => $_POST['email']
-        ];
+        if($checkMail > 0){
+            $response = [
+                'result' => 'EMAIL_REGISTERED'
+            ];
+        }else{
+            $result = $this->M_confirm_student->confirm($data);
+    
+            $response = [
+                'result' => $result,
+                'email' => $_POST['email']
+            ];
+        }
 
-        echo json_encode($data);
+        echo json_encode($response);
     }
 }

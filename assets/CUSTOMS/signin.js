@@ -24,6 +24,12 @@ $(document).ready(function () {
                             window.open(BASE_URL + `auth/index?email=${response.email}`)
                         }
                     })
+                }else if(response.result == 'EMAIL_REGISTERED'){
+                    swal.fire({
+                        'type': 'error',
+                        'title': 'EMAIL REGISTERED',
+                        'text': 'EMAIL HAS ALREADY BEEN REGISTERED, PLEASE USE ANOTHER EMAIL'
+                    })
                 }else{
                     alert("SOMETHING'S WRONG")
                 }
