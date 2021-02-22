@@ -540,8 +540,6 @@ $(document).ready(function () {
 			let head = await fetch('ajax_get_class_attendance_recap')
 			let ajx_data = await head.json()
 
-			console.log(ajx_data)
-
 			let dt_column = [{
 				data: 'NIS',
 			}, {

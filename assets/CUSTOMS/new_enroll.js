@@ -4,8 +4,6 @@ $(document).ready(function () {
     $('input[name="housephone"]').inputmask("(9999) 999-999", { clearMaskOnLostFocus: false });
     $('input[name="handheldnumber"]').inputmask("(+62) 999-9999-9999", { clearMaskOnLostFocus: false });
 
-    $('.dropify').dropify();
-
     //SEARCH URL PARAMS
     var get_param = new URLSearchParams(window.location.search)
     if(get_param.has('first')){
@@ -117,40 +115,16 @@ $(document).ready(function () {
                     
                     if(response.DiplomaFile){
                         $('#col_diplomafile').prepend(`<img id="evaluate_birthcert" src="${BASE_URL + 'assets/photos/student/' + response.DiplomaFile}" alt=" IMAGE NOT AVAILABLE" style="width: 200px; height: 200px"><br/><br/>`)
-                    }else{
-                        $('#col_diplomafile').html(
-                            `<div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                <input type="file" name="diplomafile" id="diplomafile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
-                            </div>`
-                        )
                     }
 
                     if(response.BirthcertFile){
                         $('#col_birthcertfile').prepend(`<img id="evaluate_birthcert" src="${BASE_URL + 'assets/photos/student/' + response.BirthcertFile}" alt=" IMAGE NOT AVAILABLE" style="width: 200px; height: 200px"><br/><br/>`)
-                    }else{
-                        $('#col_birthcertfile').html(
-                            `<div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                <input type="file" name="birthcertfile" id="birthcertfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
-                            </div>`
-                        )
                     }
                     if(response.KKFile){
                         $('#col_kkfile').prepend(`<img id="evaluate_birthcert" src="${BASE_URL + 'assets/photos/student/' + response.KKFile}" alt=" IMAGE NOT AVAILABLE" style="width: 200px; height: 200px"><br/><br/>`)
-                    }else{
-                        $('#col_kkfile').html(
-                            `<div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                <input type="file" name="kkfile" id="kkfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
-                            </div>`
-                        )
                     }
                     if(response.Photo){
                         $('#col_photo').prepend(`<img id="evaluate_birthcert" src="${BASE_URL + 'assets/photos/student/' + response.Photo}" alt=" IMAGE NOT AVAILABLE" style="width: 200px; height: 200px"><br/><br/>`)
-                    }else{
-                        $('#col_photo').html(
-                            `<div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
-                            </div>`
-                        )
                     }
                 }
             },
@@ -159,8 +133,9 @@ $(document).ready(function () {
 
         $('[name=mail]').prop('readonly', true)
     }
-    
-    
+
+    $(document).find('.dropify').dropify(); 
+      
     if ($('body').is('.new_enroll')) {
         $.ajax({
             url: `${BASE_URL}assets/CUSTOMS/countries.json`,

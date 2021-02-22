@@ -7,6 +7,7 @@ $(document).ready(function () {
 		function studentDatatable(room) {
 			room = (room || 'all')
 
+			var index = 1;
 			$('#std_table').DataTable({
 				destroy: true,
 				lengthMenu: [50, 100, 250],
@@ -19,7 +20,6 @@ $(document).ready(function () {
 						room
 					},
 					dataSrc: response => {
-						let index = 1
 						for (let i in response.data) {
 							//Put New Object
 							response.data[i].Number = index

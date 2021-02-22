@@ -1637,7 +1637,6 @@
     function load_list_gl_student(){
         let vcustomer = $(document).find('h4[name="satya"]').attr('data-id');
         mdocno = '';
-        console.log('NOOB ' + vcustomer)
         $.ajax({
             url: "<?php echo site_url('Student/get_po_customer') ?>",
             type: "POST",
@@ -1648,14 +1647,12 @@
             dataType: 'json',
             success: function(data) {
                 // console.log(data[0].beg_bal)
-                console.log(data)
               /*  if (data[2] == '') {
                     alert('Charges of Student Not Set')
                 }*/
                 $('#idetailss').html(data[1]);
             },
             error: function(data) {
-                console.log(data.responseText)
                 alert('Error when select Customer');
             }
         })

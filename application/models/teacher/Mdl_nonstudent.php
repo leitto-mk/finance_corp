@@ -248,7 +248,7 @@ class Mdl_nonstudent extends CI_Model
 		return $result;
 	}
 
-	public function modal_get_full_attendance($semester, $period, $room)
+	public function modal_get_full_attendance($semester, $period, $homeroom)
 	{
 		$query = $this->db->query(
 			"SELECT DISTINCT t1.NIS, t1.FullName,
@@ -256,11 +256,11 @@ class Mdl_nonstudent extends CI_Model
                     WHERE atd.NIS = t1.NIS
                     AND atd.Semester = '$semester'
                     AND atd.schoolyear = '$period'    
-                    AND atd.Ruang = '$room') AS Total
+                    AND atd.Ruang = '$homeroom') AS Total
              FROM tbl_09_det_grades t1
              WHERE t1.Semester = '$semester'
              AND t1.schoolyear = '$period'
-			 AND t1.Room = '$room'
+			 AND t1.Room = '$homeroom'
 			 ORDER BY t1.FullName"
 		)->result();
 

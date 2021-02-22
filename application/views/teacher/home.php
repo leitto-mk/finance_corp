@@ -743,7 +743,7 @@
                                                                         <tr>
                                                                             <th class="uppercase" width="30%"> Age </th>
                                                                             <?php
-                                                                            $age = date_diff(date_create('1970-02-01'), date_create('today'))->y; ?>
+                                                                            $age = date_diff(date_create($profile->DateofBirth), date_create('today'))->y; ?>
                                                                             <td> <?= $age ?> </td>
                                                                         </tr>
                                                                     </thead>

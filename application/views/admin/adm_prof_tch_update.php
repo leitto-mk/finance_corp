@@ -69,6 +69,15 @@
                                                         <input type="text" placeholder="ID" class="form-control" name="newid" id="newid" value="<?= $datatoedit->IDNumber ?>" disabled>
                                                     </div>
                                                     <div class="form-group">
+                                                        <label class="control-label">Previeges</label>
+                                                        <select name="previlege" class="form-control" name="previlege" id="previlege">
+                                                            <option value="-" <?php if ($datatoedit->status == '-') echo 'selected' ?>>-- Choose --</option>
+                                                            <option id="marital" value="admin" <?php if ($datatoedit->status == 'admin') echo 'selected' ?>>Admin</option>
+                                                            <option id="marital" value="teacher" <?php if ($datatoedit->status == 'teacher') echo 'selected' ?>>Teacher</option>
+                                                            <option id="marital" value="staff" <?php if ($datatoedit->status == 'staff') echo 'selected' ?>>Staff</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label class="control-label">Firstname</label>
                                                         <div class="input-group">
                                                             <span class="input-group-addon">
@@ -197,14 +206,14 @@
                                                                 <label class="control-label" style="color: black">Occupation</label>
                                                                 <div class="md-radio-list">
                                                                     <div class="md-radio">
-                                                                        <input type="radio" id="teachers" name="status" class="md-radiobtn" value="teacher" <?php if ($datatoedit->status == 'teacher') echo 'checked' ?>>
+                                                                        <input type="radio" id="teachers" name="status" class="md-radiobtn" value="teacher" <?php if ($datatoedit->Occupation == 'teacher') echo 'checked' ?>>
                                                                         <label for="teachers">
                                                                             <span></span>
                                                                             <span class="check"></span>
                                                                             <span class="box"></span> Teacher </label>
                                                                     </div>
                                                                     <div class="md-radio">
-                                                                        <input type="radio" id="staffs" name="status" class="md-radiobtn" value="staff" <?php if ($datatoedit->status == 'staff') echo 'checked' ?>>
+                                                                        <input type="radio" id="staffs" name="status" class="md-radiobtn" value="staff" <?php if ($datatoedit->Occupation == 'staff') echo 'checked' ?>>
                                                                         <label for="staffs">
                                                                             <span></span>
                                                                             <span class="check"></span>
@@ -402,9 +411,9 @@
                                     <div class="tab-pane" id="tab_1_3">
                                         <?= $this->session->flashdata('pass'); ?>
                                         <form action="<?= base_url('Admin/change_password/' . $datatoedit->IDNumber); ?>" method="POST" enctype="multipart/form-data">
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label class="control-label">Current Password</label>
-                                                <input type="password" class="form-control" id="curpass" name="curpass"> </div>
+                                                <input type="password" class="form-control" id="curpass" name="curpass"> </div> -->
                                             <div class="form-group">
                                                 <label class="control-label">New Password</label>
                                                 <input type="password" class="form-control" id="newpass" name="newpass"> </div>

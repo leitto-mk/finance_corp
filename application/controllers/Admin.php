@@ -78,12 +78,10 @@ class Admin extends CI_Controller
         $result = $this->Mdl_profile->get_credentials($id);
 
         $db = $result['password'];
-        $cur = $this->input->post('curpass');
         $new = $this->input->post('newpass');
         $confirm = $this->input->post('renew');
-        $hashcur = md5($cur);
 
-        if ($cur == '' || $new == '' || $confirm == '') {
+        if ($new == '' || $confirm == '') {
             $this->session->set_flashdata('pass', '<div class="alert alert-danger" role="alert"> Please fill all the form </div>');
 
             if ($result['status'] == 'admin') {
@@ -94,53 +92,29 @@ class Admin extends CI_Controller
                 redirect('Admin/load_prof_std_update/' . $id . '#tab_1_3');
             }
         } else {
-            if ($hashcur != $db) {
-                $this->session->set_flashdata('pass', '<div class="alert alert-danger" role="alert"> Wrong Current Password </div>');
+            if ($new !== $confirm) {
+                $this->session->set_flashdata('pass', '<div class="alert alert-danger" role="alert"> New Password and Confirm Password does not match </div>');
 
                 if ($result['status'] == 'admin') {
-                    redirect('Admin/load_prof_adm' . '#tab_4');
+                    redirect('admin/load_prof_adm' . '#tab_4');
                 } elseif ($result['status'] == 'teacher' || $result['status'] == 'staff') {
-                    redirect('Admin/load_prof_tch_update/' . $id . '#tab_1_3');
+                    redirect('admin/load_prof_tch_update/' . $id . '#tab_1_3');
                 } elseif ($result['status'] == 'student') {
-                    redirect('Admin/load_prof_std_update/' . $id . '#tab_1_3');
+                    redirect('admin/load_prof_std_update/' . $id . '#tab_1_3');
                 }
             } else {
-                if ($cur == $new) {
-                    $this->session->set_flashdata('pass', '<div class="alert alert-danger" role="alert"> New Password must not be identical with Current password </div>');
+                $pass = md5($new);
 
-                    if ($result['status'] == 'admin') {
-                        redirect('Admin/load_prof_adm' . '#tab_4');
-                    } elseif ($result['status'] == 'teacher' || $result['status'] == 'staff') {
-                        redirect('Admin/load_prof_tch_update/' . $id . '#tab_1_3');
-                    } elseif ($result['status'] == 'student') {
-                        redirect('Admin/load_prof_std_update/' . $id . '#tab_1_3');
-                    }
-                } else {
-                    if ($new != $confirm) {
-                        $this->session->set_flashdata('pass', '<div class="alert alert-success" role="alert"> New Password and Confirm Password does not match </div>');
+                $this->Mdl_profile->update_pass($id, $pass);
 
-                        if ($result['status'] == 'admin') {
-                            redirect('admin/load_prof_adm' . '#tab_4');
-                        } elseif ($result['status'] == 'teacher' || $result['status'] == 'staff') {
-                            redirect('admin/load_prof_tch_update/' . $id . '#tab_1_3');
-                        } elseif ($result['status'] == 'student') {
-                            redirect('admin/load_prof_std_update/' . $id . '#tab_1_3');
-                        }
-                    } else {
-                        $pass = md5($new);
+                $this->session->set_flashdata('pass', '<div class="alert alert-success" role="alert"> Your password has been updated </div>');
 
-                        $this->Mdl_profile->update_pass($id, $pass);
-
-                        $this->session->set_flashdata('pass', '<div class="alert alert-success" role="alert"> Your password has been updated </div>');
-
-                        if ($result['status'] == 'admin') {
-                            redirect('admin/load_prof_adm' . '#tab_3');
-                        } elseif ($result['status'] == 'teacher' || $result['status'] == 'staff') {
-                            redirect('admin/load_prof_tch_update/' . $id . '#tab_1_3');
-                        } elseif ($result['status'] == 'student') {
-                            redirect('admin/load_prof_std_update/' . $id . '#tab_1_3');
-                        }
-                    }
+                if ($result['status'] == 'admin') {
+                    redirect('admin/load_prof_adm' . '#tab_3');
+                } elseif ($result['status'] == 'teacher' || $result['status'] == 'staff') {
+                    redirect('admin/load_prof_tch_update/' . $id . '#tab_1_3');
+                } elseif ($result['status'] == 'student') {
+                    redirect('admin/load_prof_std_update/' . $id . '#tab_1_3');
                 }
             }
         }
@@ -5406,6 +5380,7 @@ class Admin extends CI_Controller
 
         $table1 = [
             'PersonalID' => $_POST['newktp'],
+            'status' => $_POST['previlege'],
             'FirstName' => $_POST['newfname'],
             'LastName' => $_POST['newlname'],
             'status' => $_POST['status'],
@@ -6101,8 +6076,10 @@ class Admin extends CI_Controller
         foreach ($record as $row) {
             if ($row->Gender == 'Laki-Laki') {
                 $gender = 'Male';
-            } else {
+            } elseif($row->Gender == 'Perempuan') {
                 $gender = 'Female';
+            }else{
+                $gender = '';
             }
 
             $agecount = date_diff(date_create($row->DateofBirth), date_create($today));

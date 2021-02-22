@@ -8,6 +8,7 @@
     font-size: 16px;
 }
 </style>
+
 <div class="modal fade degree_opt" tabindex="-1" role="basic" aria-hidden="true" style="display: none; padding-right: 17px;">
     <div class="modal-dialog modal-full" style="width: 95%">
         <div class="modal-content">
@@ -232,7 +233,7 @@
     </div>
 </div>
 
-<div class="container-fluid dashboard_pg">
+<div class="container-fluid dashboard dashboard_pg">
     <div class="page-content">
         <div class="page-content-wrapper">
             <div class="portlet light bg-grey-steel" style="margin-top: -20px">

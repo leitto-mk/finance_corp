@@ -40,124 +40,6 @@ class Enrollment extends CI_Controller
         $kk = '';
         $photo = '';
 
-        //CHECK IF DATA ALREADY EXSIST
-        $checkData = $this->db->select('DiplomaFile, BirthcertFile, KKFile, Photo')->get_where('tbl_11_enrollment', [
-            'FirstName' => $_POST['fname'],
-            'LastName' => $_POST['lname'],
-            'Email' => $_POST['email']
-        ])->row();
-
-        $compress['image_library'] = 'gd2';
-        $compress['create_thumb'] = FALSE;
-        $compress['maintain_ratio'] = FALSE;
-        $compress['quality'] = '60%';
-        $compress['width'] = 800;
-        $compress['height'] = 800;
-
-        if($_FILES['diplomafile']){
-            $diploma = "diploma_$filename";
-            $diplomaext = pathinfo($_FILES['diplomafile']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
-            
-            //If there's image for ID already, delete the old one
-            if($checkData){
-                if (is_file('./assets/photos/student/' . $checkData->DiplomaFile)) {
-                    unlink('./assets/photos/student/' . $checkData->DiplomaFile);
-                }
-            }
-        
-            $this->upload->initialize([
-                'upload_path' => './assets/photos/student/',
-                'allowed_types' => 'gif|jpg|jpeg|png',
-                'file_name' => $diploma
-            ]);
-
-            $this->upload->do_upload('diplomafile');
-            
-            //Compress uploaded image
-            $compress['source_image'] = './assets/photos/student/' . $diploma . '.' . $diplomaext;
-            $compress['new_image'] = './assets/photos/student/' . $diploma . '.' . $diplomaext;
-            $this->load->library('image_lib', $compress);
-            $this->image_lib->resize();
-        }
-        
-        if($_FILES['birthcertfile']){
-            $birthcert = "birthcert_$filename";
-            $birthcertext = pathinfo($_FILES['birthcertfile']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
-            
-            //If there's image for ID already, delete the old one
-            if($checkData){
-                if (is_file('./assets/photos/student/' . $checkData->BirthcertFile)) {
-                    unlink('./assets/photos/student/' . $checkData->BirthcertFile);
-                }
-            }
-        
-            $this->upload->initialize([
-                'upload_path' => './assets/photos/student/',
-                'allowed_types' => 'gif|jpg|jpeg|png',
-                'file_name' => $birthcert
-            ]);
-
-            $this->upload->do_upload('birthcertfile');
-            
-            //Compress uploaded image
-            $compress['source_image'] = './assets/photos/student/' . $birthcert . '.' . $birthcertext;
-            $compress['new_image'] = './assets/photos/student/' . $birthcert . '.' . $birthcertext;
-            $this->load->library('image_lib', $compress);
-            $this->image_lib->resize();
-        }
-        
-        if($_FILES['kkfile']){
-            $kk = "kk_$filename";
-            $kkext = pathinfo($_FILES['kkfile']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
-            
-            //If there's image for ID already, delete the old one
-            if($checkData){
-                if (is_file('./assets/photos/student/' . $checkData->KKFile)) {
-                    unlink('./assets/photos/student/' . $checkData->KKFile);
-                };
-            }
-        
-            $this->upload->initialize([
-                'upload_path' => './assets/photos/student/',
-                'allowed_types' => 'gif|jpg|jpeg|png',
-                'file_name' => $kk
-            ]);
-
-            $this->upload->do_upload('kkfile');
-            
-            //Compress uploaded image
-            $compress['source_image'] = './assets/photos/student/' . $kk . '.' . $kkext;
-            $compress['new_image'] = './assets/photos/student/' . $kk . '.' . $kkext;
-            $this->load->library('image_lib', $compress);
-            $this->image_lib->resize();
-        }
-        
-        if($_FILES['photo']){
-            $photo = "photo_$filename";
-            $photoext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
-            
-            //If there's image for ID already, delete the old one
-            if($checkData){
-                if (is_file('./assets/photos/student/' . $checkData->Photo)) {
-                    unlink('./assets/photos/student/' . $checkData->Photo);
-                }
-            }
-        
-            $this->upload->initialize([
-                'upload_path' => './assets/photos/student/',
-                'allowed_types' => 'gif|jpg|jpeg|png',
-                'file_name' => $photo
-            ]);
-
-            $this->upload->do_upload('photo');
-            
-            //Compress uploaded image
-            $compress['source_image'] = './assets/photos/student/' . $photo . '.' . $photoext;
-            $compress['new_image'] = './assets/photos/student/' . $photo . '.' . $photoext;
-            $this->load->library('image_lib', $compress);
-            $this->image_lib->resize();
-        }
-
         $data = [
             'is_enrolled' => 1,
             'FirstName' => ucwords(strtolower($_POST['fname'])),
@@ -240,12 +122,134 @@ class Enrollment extends CI_Controller
             'UNnumber' => $_POST['unnumber'],
             'Diploma' => $_POST['diploma'],
             'SKHUN' => $_POST['skhun'],
-            'RegDate' => date('Y-m-d'),
-            'DiplomaFile' => $diploma . '.' . $diplomaext,
-            'BirthcertFile' => $birthcert . '.' . $birthcertext,
-            'KKFile' => $kk . '.' . $kkext,
-            'Photo' => $photo . '.' . $photoext,
+            'RegDate' => date('Y-m-d')
         ];
+
+        //CHECK IF DATA ALREADY EXSIST
+        $checkData = $this->db->select('DiplomaFile, BirthcertFile, KKFile, Photo')->get_where('tbl_11_enrollment', [
+            'FirstName' => $_POST['fname'],
+            'LastName' => $_POST['lname'],
+            'Email' => $_POST['email']
+        ])->row();
+
+        $compress['image_library'] = 'gd2';
+        $compress['create_thumb'] = FALSE;
+        $compress['maintain_ratio'] = FALSE;
+        $compress['quality'] = '60%';
+        // $compress['width'] = 800;
+        // $compress['height'] = 800;
+
+        if($_FILES['diplomafile']['name'] !== ''){
+            $diploma = "diploma_$filename";
+            $diplomaext = pathinfo($_FILES['diplomafile']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
+            
+            //If there's image for ID already, delete the old one
+            if($checkData){
+                if (is_file('./assets/photos/student/' . $checkData->DiplomaFile)) {
+                    unlink('./assets/photos/student/' . $checkData->DiplomaFile);
+                }
+            }
+        
+            $this->upload->initialize([
+                'upload_path' => './assets/photos/student/',
+                'allowed_types' => 'gif|jpg|jpeg|png',
+                'file_name' => $diploma
+            ]);
+
+            $this->upload->do_upload('diplomafile');
+            
+            //Compress uploaded image
+            $compress['source_image'] = './assets/photos/student/' . $diploma . '.' . $diplomaext;
+            $compress['new_image'] = './assets/photos/student/' . $diploma . '.' . $diplomaext;
+            $this->load->library('image_lib', $compress);
+            $this->image_lib->resize();
+
+            $data['DiplomaFile'] = $diploma . '.' . $diplomaext;
+        }
+        
+        if($_FILES['birthcertfile']['name'] !== ''){
+            $birthcert = "birthcert_$filename";
+            $birthcertext = pathinfo($_FILES['birthcertfile']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
+            
+            //If there's image for ID already, delete the old one
+            if($checkData){
+                if (is_file('./assets/photos/student/' . $checkData->BirthcertFile)) {
+                    unlink('./assets/photos/student/' . $checkData->BirthcertFile);
+                }
+            }
+        
+            $this->upload->initialize([
+                'upload_path' => './assets/photos/student/',
+                'allowed_types' => 'gif|jpg|jpeg|png',
+                'file_name' => $birthcert
+            ]);
+
+            $this->upload->do_upload('birthcertfile');
+            
+            //Compress uploaded image
+            $compress['source_image'] = './assets/photos/student/' . $birthcert . '.' . $birthcertext;
+            $compress['new_image'] = './assets/photos/student/' . $birthcert . '.' . $birthcertext;
+            $this->load->library('image_lib', $compress);
+            $this->image_lib->resize();
+
+            $data['BirthcertFile'] = $birthcert . '.' . $birthcertext;
+        }
+        
+        if($_FILES['kkfile']['name'] !== ''){
+            $kk = "kk_$filename";
+            $kkext = pathinfo($_FILES['kkfile']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
+            
+            //If there's image for ID already, delete the old one
+            if($checkData){
+                if (is_file('./assets/photos/student/' . $checkData->KKFile)) {
+                    unlink('./assets/photos/student/' . $checkData->KKFile);
+                };
+            }
+        
+            $this->upload->initialize([
+                'upload_path' => './assets/photos/student/',
+                'allowed_types' => 'gif|jpg|jpeg|png',
+                'file_name' => $kk
+            ]);
+
+            $this->upload->do_upload('kkfile');
+            
+            //Compress uploaded image
+            $compress['source_image'] = './assets/photos/student/' . $kk . '.' . $kkext;
+            $compress['new_image'] = './assets/photos/student/' . $kk . '.' . $kkext;
+            $this->load->library('image_lib', $compress);
+            $this->image_lib->resize();
+
+            $data['KKFile'] = $kk . '.' . $kkext;
+        }
+        
+        if($_FILES['photo']['name'] !== ''){
+            $photo = "photo_$filename";
+            $photoext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
+            
+            //If there's image for ID already, delete the old one
+            if($checkData){
+                if (is_file('./assets/photos/student/' . $checkData->Photo)) {
+                    unlink('./assets/photos/student/' . $checkData->Photo);
+                }
+            }
+        
+            $this->upload->initialize([
+                'upload_path' => './assets/photos/student/',
+                'allowed_types' => 'gif|jpg|jpeg|png',
+                'file_name' => $photo
+            ]);
+
+            $this->upload->do_upload('photo');
+            
+            //Compress uploaded image
+            $compress['source_image'] = './assets/photos/student/' . $photo . '.' . $photoext;
+            $compress['new_image'] = './assets/photos/student/' . $photo . '.' . $photoext;
+            $this->load->library('image_lib', $compress);
+            $this->image_lib->resize();
+
+            $data['Photo'] = $photo . '.' . $photoext;
+        }
 
         $result = $this->M_confirm_student->confirm($data);
 

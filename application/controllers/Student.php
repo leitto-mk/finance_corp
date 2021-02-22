@@ -520,7 +520,7 @@ class Student extends CI_Controller
         $compress['width'] = 800;
         $compress['height'] = 800;
 
-        if($_FILES['file']){
+        if($_FILES['file']['name'] !== ''){
             $spp = "spp_$filename";
             $sppext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION); //GET FILE EXTENTION
             

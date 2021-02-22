@@ -284,6 +284,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                         <select name="religion" class="form-control" id="form_control_1">
+                                                                                            <option value="" selected>-</option>
                                                                                             <option value="Budha">Budha</option>
                                                                                             <option value="Hindu">Hindu</option>
                                                                                             <option value="Islam">Islam</option>
@@ -303,7 +304,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                         <select name="country" class="form-control" id="form_control_1">
-                                                                                            <option value=""></option>
+                                                                                            <option value="" selected></option>
                                                                                             <!-- JSON DATA GOES HERE -->
                                                                                         </select>
                                                                                         <span class="help-block" style="z-index: 10;">Kewarganegaraan</span>
@@ -338,7 +339,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                             <select name="livewith" class="form-control" id="form_control_1">
-                                                                                                <option value="With Parent"> Orang Tua </option>
+                                                                                                <option value="With Parent" selected> Orang Tua </option>
                                                                                                 <option value="With Guardian"> Wali </option>
                                                                                                 <option value="Kost / PRivate Apt"> Kost/Apartemen Pribadi </option>
                                                                                                 <option value="Dormitory"> Asrama </option>
@@ -355,7 +356,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                             <select name="transport" class="form-control" id="form_control_1">
-                                                                                                <option value="On Foot"> Jalan Kaki </option>
+                                                                                                <option value="On Foot" selected> Jalan Kaki </option>
                                                                                                 <option value="Private Vehicle"> Kendaraan Pribadi </option>
                                                                                                 <option value="Public Transportation"> Angkutan Umum </option>
                                                                                                 <option value="School Bus"> Jemputan Sekolah </option>
@@ -538,7 +539,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                             <select name="refusepip" class="form-control" id="form_control_1">
-                                                                                                <option value="-"> - </option>
+                                                                                                <option value="-" selected> - </option>
                                                                                                 <option value="Dilarang PEMDA"> Dilarang PEMDA (memiliki bantuan serupa) </option>
                                                                                                 <option value="Menolak"> Menolak </option>
                                                                                                 <option value="Sudah Mampu"> Sudah Mampu </option>
@@ -633,7 +634,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                         <select name="fatherdegree" class="form-control" id="form_control_1">
-                                                                                            <option value="-"> - </option>
+                                                                                            <option value="-" selected> - </option>
                                                                                             <option value="Tidak Sekolah"> Tidak Sekolah </option>
                                                                                             <option value="Putus SD"> Putus SD </option>
                                                                                             <option value="SD Sederajat"> SD Sederajat </option>
@@ -657,7 +658,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                         <select name="fatherjob" class="form-control" id="form_control_1">
-                                                                                            <option value="-"> - </option>
+                                                                                            <option value="-" selected> - </option>
                                                                                             <option value="Tidak Bekerja"> Tidak Bekerja </option>
                                                                                             <option value="Nelayan"> Nelayan </option>
                                                                                             <option value="Petani"> Petani </option>
@@ -682,7 +683,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                         <select name="fatherincome" class="form-control" id="form_control_1">
-                                                                                            <option value="-"> - </option>
+                                                                                            <option value="-" selected> - </option>
                                                                                             <option value="Rp. 500.000"> Rp. 500.000 </option>
                                                                                             <option value="Rp. 500.000 - Rp. 999.999"> Rp. 500.000 - Rp. 999.999 </option>
                                                                                             <option value="Rp. 1.0000.0000 - Rp. 1.999.9999"> Rp. 1.0000.0000 - Rp. 1.999.9999 </option>
@@ -746,7 +747,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                         <select name="motherdegree" class="form-control" id="form_control_1">
-                                                                                            <option value="-"> - </option>
+                                                                                            <option value="-" selected> - </option>
                                                                                             <option value="Tidak Sekolah"> Tidak Sekolah </option>
                                                                                             <option value="Putus SD"> Putus SD </option>
                                                                                             <option value="SD Sederajat"> SD Sederajat </option>
@@ -770,7 +771,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                         <select name="motherjob" class="form-control" id="form_control_1">
-                                                                                            <option value="-"> - </option>
+                                                                                            <option value="-" selected> - </option>
                                                                                             <option value="Tidak Bekerja"> Tidak Bekerja </option>
                                                                                             <option value="Nelayan"> Nelayan </option>
                                                                                             <option value="Petani"> Petani </option>
@@ -795,7 +796,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                                         <select name="motherincome" class="form-control" id="form_control_1">
-                                                                                            <option value="-"> - </option>
+                                                                                            <option value="-" selected> - </option>
                                                                                             <option value="Rp. 500.000"> Rp. 500.000 </option>
                                                                                             <option value="Rp. 500.000 - Rp. 999.999"> Rp. 500.000 - Rp. 999.999 </option>
                                                                                             <option value="Rp. 1.0000.0000 - Rp. 1.999.9999"> Rp. 1.0000.0000 - Rp. 1.999.9999 </option>
@@ -1250,7 +1251,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                         <select name="prosperity" class="form-control" id="form_control_1">
-                                                                            <option value="-"> - </option>
+                                                                            <option value="-" selected> - </option>
                                                                             <option value="PKH">PKH</option>
                                                                             <option value="PIP">PIP</option>
                                                                             <option value="Kartu Perlindungan Sosial">Kartu Perlindungan Sosial</option>

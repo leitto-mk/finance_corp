@@ -1374,9 +1374,9 @@
                                     <div class="tab-pane" id="tab_1_3">
                                         <?= $this->session->flashdata('pass'); ?>
                                         <form action="<?= base_url('admin/change_password/' . $datatoedit->NIS); ?>" method="POST" enctype="multipart/form-data">
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label class="control-label">Current Password</label>
-                                                <input type="password" class="form-control" id="curpass" name="curpass"> </div>
+                                                <input type="password" class="form-control" id="curpass" name="curpass"> </div> -->
                                             <div class="form-group">
                                                 <label class="control-label">New Password</label>
                                                 <input type="password" class="form-control" id="newpass" name="newpass"> </div>

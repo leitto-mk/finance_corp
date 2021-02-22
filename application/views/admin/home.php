@@ -115,6 +115,9 @@ width: 25%;
                             </li>
                             <li class="font-dark">
                                 <a href="<?php echo site_url('Admin/load_enroll'); ?>" target="_blank">Enrollment Management</a>
+                            </li> 
+                            <li class="font-dark">
+                                <a href="<?php echo site_url('Duty'); ?>" target="_blank">News & Bulletin</a>
                             </li>                         
                         </ul>
                     </div>
@@ -131,11 +134,11 @@ width: 25%;
                                 <a href="<?php echo site_url('Admin/load_acd_absn'); ?>" target="_blank">Absence</a>
                             </li> 
                             <li class="font-dark">
-                                <a href="<?php echo site_url('Duty'); ?>" target="_blank">Book Assignment</a>
+                                <a href="<?php echo site_url('Duty'); ?>" target="_blank">Assignment</a>
                             </li>                           
                         </ul>
                     </div>
-                    <div class="blog-single-sidebar-tags">
+                    <!-- <div class="blog-single-sidebar-tags">
                         <h3 class="blog-sidebar-title uppercase">Admin</h3>
                         <ul class="blog-post-tags">
                             <li class="font-dark">
@@ -150,13 +153,11 @@ width: 25%;
                             <li class="font-dark">
                                 <a href="#">Training & Career</a>
                             </li>              
-                            <li class="font-dark">
-                                <a href="<?php echo site_url('Duty'); ?>" target="_blank">News & Bulletin</a>
-                            </li>            
+                                       
                         </ul>
-                    </div>
+                    </div> -->
                     <div class="blog-single-sidebar-tags">
-                        <h3 class="blog-sidebar-title uppercase"><a href="http://localhost/finance_metronic_sat_fin_sch" class="font-dark">Finance</a></h3>
+                        <h3 class="blog-sidebar-title uppercase"><a href="#" class="font-dark">Finance</a></h3>
                         <ul class="blog-post-tags">
                             <li class="font-dark">
                                 <a href="http://newfinance.abase.id/index.php/Login" target="_blank">Student Finance</a>
@@ -168,7 +169,8 @@ width: 25%;
                                 <a href="<?php echo site_url('CashDisb'); ?>">Cash Disbursement</a>
                             </li>
                             <li class="font-dark">
-                                <a href="http://newfinance.abase.id/index.php/Login" target="_blank">Finance Accounting</a>
+                                <!-- <a href="http://newfinance.abase.id/index.php/Login" target="_blank">General Ledger</a> -->
+                                <a href="#">General Ledger</a>
                             </li>                            
                         </ul>
                     </div>
@@ -176,13 +178,10 @@ width: 25%;
                         <h3 class="blog-sidebar-title uppercase">Useful Link</h3>
                         <ul class="blog-post-tags">
                             <li class="font-dark">
-                                <a href="#">Library</a>
+                                <a href="#">Portal Management</a>
                             </li>
                             <li class="font-dark">
-                                <a href="#">Canteen</a>
-                            </li> 
-                            <li class="font-dark">
-                                <a href="#">Store & Inventory</a>
+                                <a href="#">Cemmercial Website</a>
                             </li>                          
                         </ul>
                     </div>

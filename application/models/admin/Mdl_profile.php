@@ -172,7 +172,6 @@ class Mdl_profile extends CI_Model
         $search = ($search ? "LIKE '%$search%'" : "IS NOT NULL");
         $order_by = ($order_by ? $order_by : 'Fullname');
         $order_dir = ($order_dir ? $order_dir : 'ASC');
-        $limit_condition = ($room == 'all' ? '' : "LIMIT $limit OFFSET $start");
 
         $query = $this->db->query(
             "SELECT 
@@ -190,10 +189,26 @@ class Mdl_profile extends CI_Model
              WHERE status = 'student'
              AND t1.IDNumber $search OR t1.FirstName $search OR t1.MiddleName $search OR t1.LastName $search
              ORDER BY $order_by $order_dir
-             $limit_condition"
+             LIMIT $limit OFFSET $start"
         );
         
-        $total = $query->num_rows();
+        $total = $this->db->query(
+            "SELECT 
+                t1.IDNumber, 
+                CONCAT(t1.FirstName,' ',t1.MiddleName,' ',t1.LastName) AS Fullname, 
+                t1.NickName, t1.Gender, 
+                t1.DateofBirth, 
+                t1.status, 
+                t2.Kelas, 
+                t2.Ruangan 
+             FROM tbl_07_personal_bio AS t1
+             INNER JOIN tbl_08_job_info_std AS t2
+                ON t1.IDNumber = t2.NIS 
+                AND t2.Ruangan $where_room
+             WHERE status = 'student'
+             AND t1.IDNumber $search OR t1.FirstName $search OR t1.MiddleName $search OR t1.LastName $search
+             ORDER BY $order_by $order_dir"
+        )->num_rows();
 
         return [$query, $total];
     }

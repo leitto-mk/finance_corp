@@ -23,7 +23,7 @@ class M_confirm_student extends CI_Model
             $this->db->insert('tbl_11_enrollment', $data);
             
             $this->db->insert('tbl_credentials', [
-                'IDNumber' => $_POST['email'],
+                'IDNumber' => $data['Email'],
                 'status' => 'student',
                 'password' => md5('123456')
             ]);

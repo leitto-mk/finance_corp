@@ -203,7 +203,7 @@
                                                             </tr>
                                                         </thead> -->
                                                             <tr>
-                                                                <td><?= $table->Address; ?>, <?= $table->City; ?>, <?= $table->District; ?>, <?= $table->Region; ?>, <?= $table->Province; ?>, <?= $table->Country; ?></td>
+                                                                <td><?= $tch_t->Address; ?>, <?= $tch_t->City; ?>, <?= $tch_t->District; ?>, <?= $tch_t->Region; ?>, <?= $tch_t->Province; ?>, <?= $tch_t->Country; ?></td>
                                                                 <!-- <td>Manado</td>
                                                                 <td>Tuminting</td>
                                                                 <td>Tuminting</td>

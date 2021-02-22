@@ -1,14 +1,15 @@
 $(document).ready(function () {
+	var current = window.location.href
+	// if the current path is exactly indentical with href, make the navbar and its subs active
+	$('.subnav').each(function () {
+		var curpath = $(this).attr('href')
+		if (curpath === current) {
+			$(this).parents('.main').addClass('active open selected')
+			$(this).parent().addClass('active')
+		}
+	})
+
 	if($('div').is('.dashboard')){
-		var current = window.location.href
-		// if the current path is exactly indentical with href, make the navbar and its subs active
-		$('.subnav').each(function () {
-			var curpath = $(this).attr('href')
-			if (curpath === current) {
-				$(this).parents('.main').addClass('active open selected')
-				$(this).parent().addClass('active')
-			}
-		})
 
 		//SUBMIT NEW EVENT(S) FOR SCHOOL CALENDAR
 		$('#submit_calendar').on('click', function (e) {

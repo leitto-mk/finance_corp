@@ -82,7 +82,7 @@ class Teacher extends CI_Controller
         $semester = $_POST['semester'];
         $period = $_POST['period'];
 
-        $room = $this->session->userdata('homeroom');
+        $homeroom = $this->session->userdata('homeroom');
 
         //===================================== SCHEDULE ==============================================\\
         $sch_room = $this->Mdl_nonstudent->get_teaching_room($id, $semester, $period);
@@ -127,7 +127,7 @@ class Teacher extends CI_Controller
 
         //===================================== ATTENDANCE ==============================================\\
 
-        $attd_full = $this->Mdl_nonstudent->modal_get_full_attendance($semester, $period, $room);
+        $attd_full = $this->Mdl_nonstudent->modal_get_full_attendance($semester, $period, $homeroom);
 
         $data = [
             //SCHEDULE
