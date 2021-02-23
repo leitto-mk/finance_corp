@@ -58,7 +58,7 @@ class Mdl_profile extends CI_Model
              INNER JOIN tbl_08_job_info AS t2
              ON t1.IDNumber = t2.IDNumber
              WHERE status = '$tch' OR status = 'staff'
-             ORDER BY t1.IDNumber"
+             ORDER BY t1.status ASC, t1.IDNumber ASC"
         );
 
         if ($dat->num_rows() > 0) {

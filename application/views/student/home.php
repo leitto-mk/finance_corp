@@ -1599,13 +1599,8 @@
 
         $(document).ready(function(){
             $('.dropify').dropify();
-        });  
-
-        /*var dt_datatable_duty = $('#datatable_duty').DataTable({
-            autoWidth: false,
-            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]]
-        })
-*/
+        });
+        
         //OPEN PROFILE FROM NAV-BAR
         $(document).on('click','#profilemodal',function () {
             $('a[href="#profile"]').click()

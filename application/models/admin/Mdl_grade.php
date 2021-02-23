@@ -882,71 +882,39 @@ class Mdl_grade extends CI_Model
         return $query;
     }
 
-    public function model_get_grade_report($nis, $cls, $semester)
+    public function model_get_grade_report($nis, $cls, $period, $semester)
     {
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
-
         $result = $this->db->get_where('tbl_09_det_grades', [
             'NIS' => $nis,
             'Class' => $cls,
             'Semester' => $semester,
-            'schoolyear' => $schYear
+            'schoolyear' => $period
         ]);
 
         return $result;
     }
 
-    public function model_get_character_grade_compact($nis, $semester)
+    public function model_get_character_grade_compact($nis, $period, $semester)
     {
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
-
         $query = $this->db->query(
             "SELECT SubjName, Report_SOC, Report_SPR, Predicate_SOC, Predicate_SPR, Description_SOC, Description_SPR
              FROM tbl_09_det_grades 
              WHERE NIS = '$nis' 
              AND Semester = '$semester' 
-             AND schoolyear = '$schYear'"
+             AND schoolyear = '$period'"
         )->result();
 
         return $query;
     }
 
-    public function model_get_voc_grade_compact($nis, $cls, $semester){
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
+    public function model_get_voc_grade_compact($nis, $cls, $period, $semester){
 
         $query = $this->db->query(
             "SELECT Report, Predicate, Description 
              FROM tbl_09_det_voc_grades 
              WHERE NIS = '$nis' 
              AND Semester = '$semester' 
-             AND schoolyear = '$schYear' 
+             AND schoolyear = '$period' 
              AND Class = '$cls'"
         );
 
@@ -1078,52 +1046,31 @@ class Mdl_grade extends CI_Model
         return $query;
     }
 
-    public function model_get_subject_list($nis, $cls, $semester)
+    public function model_get_subject_list($nis, $cls, $period, $semester)
     {
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
-
         $query = $this->db->query(
             "SELECT DISTINCT SubjName FROM tbl_09_det_grades
              WHERE NIS = '$nis'
              AND Class = '$cls'
              AND Semester = '$semester'
-             AND schoolyear = '$schYear'"
+             AND schoolyear = '$period'"
         )->result();
 
         return $query;
     }
 
-    public function get_absent($nis, $cls, $semester)
+    public function get_absent($nis, $cls, $period, $semester)
     {
-        $schYear = '';
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
-
         $result = $this->db->query(
-            "SELECT Ket, COUNT(Ket) AS Total FROM tbl_10_absent_std WHERE NIS = '$nis' AND Semester = '$semester' AND schoolyear = '$schYear' AND Kelas = '$cls' AND Ket = 'Sick'
+            "SELECT Ket, COUNT(Ket) AS Total FROM tbl_10_absent_std WHERE NIS = '$nis' AND Semester = '$semester' AND schoolyear = '$period' AND Kelas = '$cls' AND Ket = 'Sick'
              UNION ALL
-             SELECT Ket, COUNT(Ket) AS Total FROM tbl_10_absent_std WHERE NIS = '$nis' AND Semester = '$semester' AND schoolyear = '$schYear' AND Kelas = '$cls' AND Ket = 'On Permit'
+             SELECT Ket, COUNT(Ket) AS Total FROM tbl_10_absent_std WHERE NIS = '$nis' AND Semester = '$semester' AND schoolyear = '$period' AND Kelas = '$cls' AND Ket = 'On Permit'
              UNION ALL
-             SELECT Ket, COUNT(Ket) AS Total FROM tbl_10_absent_std WHERE NIS = '$nis' AND Semester = '$semester' AND schoolyear = '$schYear' AND Kelas = '$cls' AND Ket = 'Absent'
+             SELECT Ket, COUNT(Ket) AS Total FROM tbl_10_absent_std WHERE NIS = '$nis' AND Semester = '$semester' AND schoolyear = '$period' AND Kelas = '$cls' AND Ket = 'Absent'
              UNION ALL
-             SELECT Ket, COUNT(Ket) AS Total FROM tbl_10_absent_std WHERE NIS = '$nis' AND Semester = '$semester' AND schoolyear = '$schYear' AND Kelas = '$cls' AND Ket = 'Truant'
+             SELECT Ket, COUNT(Ket) AS Total FROM tbl_10_absent_std WHERE NIS = '$nis' AND Semester = '$semester' AND schoolyear = '$period' AND Kelas = '$cls' AND Ket = 'Truant'
              UNION ALL
-             SELECT Ket, COUNT(Ket) AS Total FROM tbl_10_absent_std WHERE NIS = '$nis' AND Semester = '$semester' AND schoolyear = '$schYear' AND Kelas = '$cls' AND Ket = 'Late'"
+             SELECT Ket, COUNT(Ket) AS Total FROM tbl_10_absent_std WHERE NIS = '$nis' AND Semester = '$semester' AND schoolyear = '$period' AND Kelas = '$cls' AND Ket = 'Late'"
         );
 
         return $result;
@@ -1743,8 +1690,12 @@ class Mdl_grade extends CI_Model
             $score += $qry[$i]['MidRecap'];
         }
 
-        $average = $score / count($qry);
-        $average = (fmod($average, 1) !== 0.00 ? number_format($average, 2, ",", ".") : $average);
+        if(count($qry) > 0){
+            $average = $score / count($qry);
+            $average = (fmod($average, 1) !== 0.00 ? number_format($average, 2, ",", ".") : $average);
+        }else{
+            $average = 0;
+        }
 
         return [$query->result(), $score, $average];
     }

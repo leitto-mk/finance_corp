@@ -491,7 +491,7 @@ $(document).ready(function () {
 				responsive: true,
 				processing: true,
 				ordering: false,
-				lengthMenu: [10, 30, 50],
+				lengthMenu: [30, 50],
 				columns: dt_column,
 				data: ajx_data.pivot,
 			})

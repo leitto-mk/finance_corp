@@ -934,21 +934,13 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="md-radio-inline" style="margin-top: 20px">
-                                    <div class="md-radio">
-                                        <input type="radio" id="full_grade_semester1" name="full_select_semester" class="md-radiobtn radio_semester" data-semester="1" checked>
-                                        <label for="full_grade_semester1">
-                                            <span></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Semester 1 </label>
-                                    </div>
-                                    <div class="md-radio">
-                                        <input type="radio" id="full_grade_semester2" name="full_select_semester" class="md-radiobtn radio_semester" data-semester="2">
-                                        <label for="full_grade_semester2">
-                                            <span></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Semester 2 </label>
-                                    </div>
+                                <div class="form-group form-md-line-input has-info">
+                                    <select id="full_select_semester" class="form-control edited">
+                                        <?php foreach($period as $period_cog) : ?>
+                                            <option value="<?=$period_cog->schoolyear?>" data-semester="<?= $period_cog->Semester?>"><?= 'Semester ' . ($period_cog->Semester == 1 ? 'Ganjil' : 'Genap') .' - '. $period_cog->schoolyear ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <label for="form_control_1">Select Period</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -1120,21 +1112,13 @@
             </div>
             <div class="detail-body">
                 <div class="col-md-12">
-                    <div class="md-radio-inline" style="margin-top: 20px">
-                        <div class="md-radio">
-                            <input type="radio" id="compact_grade_semester1" name="compact_select_semester" class="md-radiobtn radio_semester" data-semester="1" checked>
-                            <label for="compact_grade_semester1">
-                                <span></span>
-                                <span class="check"></span>
-                                <span class="box"></span> Semester 1 </label>
-                        </div>
-                        <div class="md-radio">
-                            <input type="radio" id="compact_grade_semester2" name="compact_select_semester" class="md-radiobtn radio_semester" data-semester="2">
-                            <label for="compact_grade_semester2">
-                                <span></span>
-                                <span class="check"></span>
-                                <span class="box"></span> Semester 2 </label>
-                        </div>
+                    <div class="form-group form-md-line-input has-info">
+                        <select id="compact_select_semester" class="form-control edited">
+                            <?php foreach($period as $period_cog) : ?>
+                                <option value="<?=$period_cog->schoolyear?>" data-semester="<?= $period_cog->Semester?>"><?= 'Semester ' . ($period_cog->Semester == 1 ? 'Ganjil' : 'Genap') .' - '. $period_cog->schoolyear ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <label for="form_control_1">Select Period</label>
                     </div>
                 </div>
                 <div class="modal-body">

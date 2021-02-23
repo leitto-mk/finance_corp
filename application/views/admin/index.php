@@ -252,20 +252,6 @@
                     </div>
                 </div>
                 <div class="row" style="margin-top: 15px;">
-                    <!--  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a class="dashboard-stat dashboard-stat-v2 red" href="<?= base_url('Admin/load_prof_std_edit'); ?>">
-                            <div class="visual">
-                                <i class="fa fa-graduation-cap"></i>
-                            </div>
-                            <div class="details">
-                                <div class="number">
-                                    <span data-counter="counterup" data-value="<?= $std; ?>"></span>
-                                </div>
-                                <br>
-                                <div class="desc"> STUDENTS </div>
-                            </div>
-                        </a>
-                    </div> -->
                     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
                             <a href="#">
@@ -279,20 +265,6 @@
                             </a>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a class="dashboard-stat dashboard-stat-v2 blue" href="<?= base_url('Admin/load_prof_tch_edit'); ?>">
-                            <div class="visual">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
-                            <div class="details">
-                                <div class="number">
-                                    <span data-counter="counterup" data-value="<?= $tch; ?>"></span>
-                                </div>
-                                <br>
-                                <div class="desc"> TEACHERS </div>
-                            </div>
-                        </a>
-                    </div> -->
                     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
                             <a href="#">
@@ -306,20 +278,6 @@
                             </a>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a class="dashboard-stat dashboard-stat-v2 green" href="<?= base_url('Admin/load_prof_tch_edit'); ?>">
-                            <div class="visual">
-                                <i class="fa fa-list-alt"></i>
-                            </div>
-                            <div class="details">
-                                <div class="number">
-                                    <span data-counter="counterup" data-value="<?= $stf; ?>"></span>
-                                </div>
-                                <br>
-                                <div class="desc"> STAFFS </div>
-                            </div>
-                        </a>
-                    </div> -->
                     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
                             <a href="#">
@@ -333,20 +291,6 @@
                             </a>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
-                            <div class="visual">
-                                <i class="fas fa-school"></i>
-                            </div>
-                            <div class="details">
-                                <div class="number">
-                                    <span data-counter="counterup" data-value="<?= $count; ?>"></span>
-                                </div>
-                                <br>
-                                <div class="desc"> Total </div>
-                            </div>
-                        </a>
-                    </div> -->
                     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
                             <a href="#">
@@ -362,224 +306,8 @@
                     </div>
                 </div>
             </div>
-            <div class="clearfix"></div>
             <div class="row">
-                <div class="col-sm-4">
-                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="background-color: #f6f6f6">
-                        <h4 class="widget-thumb-heading">ACTIVE USER</h4>
-                        <div class="widget-thumb-wrap">
-                            <img class="widget-thumb-icon" src="<?= base_url('assets/photos/adm/' . $photo) ?>" alt="" style="padding: 1px">
-                            <div class="widget-thumb-body">
-                                <span class="widget-thumb-subtitle">
-                                    <h4><?= "$fname $lname" ?></h4>
-                                </span>
-                                <span class="widget-thumb-subtitle"><?= $status ?></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portlet light bordered" style="height: 530px">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="icon-share font-dark hide"></i>
-                                <span class="caption-subject font-dark bold uppercase">News & Assigments</span>
-                            </div>
-                            <div class="actions">
-                                <div class="btn-group">
-                                    <a class="btn btn-sm blue btn-outline btn-circle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> Filter By
-                                        <i class="fa fa-angle-down"></i>
-                                    </a>
-                                    <div class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-                                        <label class="mt-checkbox mt-checkbox-outline">
-                                            <input type="checkbox" /> Finance
-                                            <span></span>
-                                        </label>
-                                        <label class="mt-checkbox mt-checkbox-outline">
-                                            <input type="checkbox" checked="" /> Membership
-                                            <span></span>
-                                        </label>
-                                        <label class="mt-checkbox mt-checkbox-outline">
-                                            <input type="checkbox" /> Customer Support
-                                            <span></span>
-                                        </label>
-                                        <label class="mt-checkbox mt-checkbox-outline">
-                                            <input type="checkbox" checked="" /> HR
-                                            <span></span>
-                                        </label>
-                                        <label class="mt-checkbox mt-checkbox-outline">
-                                            <input type="checkbox" /> System
-                                            <span></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="scroller" style="height: 347px;" data-always-visible="1" data-rail-visible="0">
-                                <ul class="feeds">
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-info">
-                                                        <i class="fa fa-check"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> You have 4 pending tasks.
-                                                        <span class="label label-sm label-warning "> Take action
-                                                            <i class="fa fa-share"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> Just now </div>
-                                        </div>
-                                    </li>                                  
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-success">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> You have 5 pending membership that requires a quick review. </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> 24 mins </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-info">
-                                                        <i class="fa fa-check"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> You have 4 pending tasks.
-                                                        <span class="label label-sm label-warning "> Take action
-                                                            <i class="fa fa-share"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> Just now </div>
-                                        </div>
-                                    </li>                                  
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-success">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> You have 5 pending membership that requires a quick review. </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> 24 mins </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-info">
-                                                        <i class="fa fa-check"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> You have 4 pending tasks.
-                                                        <span class="label label-sm label-warning "> Take action
-                                                            <i class="fa fa-share"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> Just now </div>
-                                        </div>
-                                    </li>                                  
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-success">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> You have 5 pending membership that requires a quick review. </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> 24 mins </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-info">
-                                                        <i class="fa fa-check"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> You have 4 pending tasks.
-                                                        <span class="label label-sm label-warning "> Take action
-                                                            <i class="fa fa-share"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> Just now </div>
-                                        </div>
-                                    </li>                                  
-                                    <li>
-                                        <div class="col1">
-                                            <div class="cont">
-                                                <div class="cont-col1">
-                                                    <div class="label label-sm label-success">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="cont-col2">
-                                                    <div class="desc"> You have 5 pending membership that requires a quick review. </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col2">
-                                            <div class="date"> 24 mins </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="scroller-footer">
-                                <div class="btn-arrow-link pull-right">
-                                    <a href="javascript:;">See All Records</a>
-                                    <i class="icon-arrow-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <div class="portlet light calendar bordered">
                         <div class="portlet-title ">
                             <div class="caption">
@@ -593,7 +321,7 @@
                                     <div class="portlet">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="fa fa-gift"></i> Input Event(s) </div>
+                                                <i class="fa fa-calendar"></i> Input Event(s) </div>
                                         </div>
                                         <div class="portlet-body form">
                                             <form class="form-horizontal" role="form">
@@ -1427,7 +1155,7 @@
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <i class="icon-settings font-dark"></i>
-                            <span class="caption-subject bold uppercase">Recap Absent Siswa Kelas Tahun <?= date('Y')?></span>
+                            <span class="caption-subject bold uppercase">Recap Absent Siswa
                         </div>
                         <div class="actions">
                             <a id="print_attd" href="javascript:;" class="btn green-jungle btn-xs btn-outline">

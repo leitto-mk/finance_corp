@@ -1,8 +1,15 @@
 <?php 
 defined('BASEPATH') or exit('No direct script access allowed');
 
+include APPPATH.'third_party\phpspreadsheet\vendor\autoload.php';
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Admin extends CI_Controller
 {
+
     // =============================== CONSTRUCTOR =============================== //
     public function __construct()
     {
@@ -266,8 +273,6 @@ class Admin extends CI_Controller
         //Check status ID, for successfull redirection
         $result = $this->db->query("SELECT * FROM tbl_07_personal_bio WHERE IDNumber = '$id'")->row();
 
-
-
         if ($result->status == 'teacher') {
             $path = './assets/photos/teachers/';
             $img_name = $result->Photo;
@@ -342,105 +347,50 @@ class Admin extends CI_Controller
     public function export_closing_report(){
         $degree = $this->input->get('degree');
 
-        // LOAD PLUGIN
-        include APPPATH.'third_party\PHPExcel.php';
-
-        $excel = new PHPExcel();
+        $excel = new Spreadsheet();
 
         $overall = $this->db->get_where('tbl_02_school', ['isActive' => 1, 'School_Desc' => $degree])->first_row();
         $other_school = $this->db->where("isActive = 1 AND School_Desc != '$degree'")->get('tbl_02_school')->row();
         $period = (date('Y')-1) . '-' . date('Y');
         $filename = "CLOSING REPORT $degree - $period.xlsx";
         
-        $style_col = [
-            'font' => [
-                'bold' => true
-            ],
-            'alignment' => [
-                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
-                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
-            ],
-            'borders' => [
-                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
-                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
-                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
-                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
-            ]
-        ];
-        
-        $style_row = array(
-            'alignment' => array(
-                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
-            ),
-            'borders' => array(
-                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
-                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), 
-                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
-                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
-            )
-        );
-        
         $excel->setActiveSheetIndex(0)->setCellValue('B1', "LAPORAN PENDIDIKAN $period: " . $overall->ConferenceZone);
         $excel->getActiveSheet()->getStyle('B1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('B1')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
         $excel->getActiveSheet()->mergeCells('B1:I1');
         $excel->getActiveSheet()->getColumnDimension('B')->setWidth(35);
 
         $excel->setActiveSheetIndex(0)->setCellValue('A2', "I. Informasi Umum");
         $excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
         $excel->getActiveSheet()->mergeCells('A2:B2');
 
         $excel->setActiveSheetIndex(0)->setCellValue('B3', 'Nama Daerah');
-        $excel->getActiveSheet()->getStyle('B3:J3')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C3', $overall->ConferenceZone);
-        $excel->getActiveSheet()->getStyle('C3:J3')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B4', 'Nama Sekolah');
-        $excel->getActiveSheet()->getStyle('B4:J4')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C4', $overall->DegreeName);
-        $excel->getActiveSheet()->getStyle('C4:J4')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B5', 'Nama-nama Sekolah yg selokasi');
-        $excel->getActiveSheet()->getStyle('B5:J5')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C5', $other_school->DegreeName);
-        $excel->getActiveSheet()->getStyle('C5:J5')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B6', 'Thn Akreditasi Gereja');
-        $excel->getActiveSheet()->getStyle('B6:J6')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C6', '');
-        $excel->getActiveSheet()->getStyle('C6:J6')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B7', 'Thn Akreditasi Pemerintah');
-        $excel->getActiveSheet()->getStyle('B7:J7')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C7', '');
-        $excel->getActiveSheet()->getStyle('C7:J7')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B8', 'Alamat Surat Sekolah');
-        $excel->getActiveSheet()->getStyle('B8:J8')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C8', $overall->Address .' '. $overall->District);
-        $excel->getActiveSheet()->getStyle('C8:J8')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B9', 'Email Sekolah');
-        $excel->getActiveSheet()->getStyle('B9:J9')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C9', $overall->Email);
-        $excel->getActiveSheet()->getStyle('C9:J9')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B10', 'No Telpon Sekolah/No HP Sek');
-        $excel->getActiveSheet()->getStyle('B10:J10')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C10', $overall->Phone);
-        $excel->getActiveSheet()->getStyle('C10:J10')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B11', 'No Fax Sekolah');
-        $excel->getActiveSheet()->getStyle('B11:J11')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C11', '');
-        $excel->getActiveSheet()->getStyle('C11:J11')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B12', 'Kepala Sekolah/ Administrator');
-        $excel->getActiveSheet()->getStyle('B12:J12')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C12', '');
-        $excel->getActiveSheet()->getStyle('C12:J12')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B13', 'Hp dan Email Kepala Sekolah');
-        $excel->getActiveSheet()->getStyle('B13:J13')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C13', '');
-        $excel->getActiveSheet()->getStyle('C13:J13')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('B14', 'No Sertifikat Tanah');
-        $excel->getActiveSheet()->getStyle('B14:J14')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C14', $overall->SchoolConstructionCertificate);
-        $excel->getActiveSheet()->getStyle('C14:J14')->applyFromArray($style_row);
 
         $excel->getActiveSheet()->mergeCells('C3:J3');
         $excel->getActiveSheet()->mergeCells('C4:J4');
@@ -458,209 +408,114 @@ class Admin extends CI_Controller
         $excel->setActiveSheetIndex(0)->setCellValue('A16', "II. Database Guru");
         $excel->getActiveSheet()->getStyle('A16')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('A16')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('A16')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $excel->getActiveSheet()->getStyle('A16')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
         
         $excel->setActiveSheetIndex(0)->setCellValue('A17', "No");
-        $excel->getActiveSheet()->getStyle('A17:A19')->applyFromArray($style_row);
         $excel->getActiveSheet()->mergeCells('A17:A19');
         $excel->setActiveSheetIndex(0)->setCellValue('B17', "Nama Sekolah");
-        $excel->getActiveSheet()->getStyle('B17:B19')->applyFromArray($style_row);
         $excel->getActiveSheet()->mergeCells('B17:B19');
         $excel->setActiveSheetIndex(0)->setCellValue('C17', "1");
-        $excel->getActiveSheet()->getStyle('C17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C18', "Jumlah");
-        $excel->getActiveSheet()->getStyle('C18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('C19', "Guru");
-        $excel->getActiveSheet()->getStyle('C19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('D17', "2");
-        $excel->getActiveSheet()->getStyle('D17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('D18', "Jumlah");
-        $excel->getActiveSheet()->getStyle('D18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('D19', "Non-Guru");
-        $excel->getActiveSheet()->getStyle('D19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('E17', "3");
-        $excel->getActiveSheet()->getStyle('E17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('E18', "Guru/Ijazah Terakhir");
-        $excel->getActiveSheet()->getStyle('E18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('E19', 'SMA');
-        $excel->getActiveSheet()->getStyle('E19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('F17', "4");
-        $excel->getActiveSheet()->getStyle('F17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('F18', "Guru/Ijazah Terakhir");
-        $excel->getActiveSheet()->getStyle('F18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('F19', 'D1/SPG');
-        $excel->getActiveSheet()->getStyle('F19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('G17', "5");
-        $excel->getActiveSheet()->getStyle('G17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('G18', "Guru/Ijazah Terakhir");
-        $excel->getActiveSheet()->getStyle('G18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('G19', 'D2');
-        $excel->getActiveSheet()->getStyle('G19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('H17', "6");
-        $excel->getActiveSheet()->getStyle('H17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('H18', "Guru/Ijazah Terakhir");
-        $excel->getActiveSheet()->getStyle('H18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('H19', 'D3');
-        $excel->getActiveSheet()->getStyle('H19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('I17', "7");
-        $excel->getActiveSheet()->getStyle('I17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('I18', "Guru/Ijazah Terakhir");
-        $excel->getActiveSheet()->getStyle('I18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('I19', 'S1');
-        $excel->getActiveSheet()->getStyle('I19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('J17', "8");
-        $excel->getActiveSheet()->getStyle('J17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('J18', "Guru/Ijazah Terakhir");
-        $excel->getActiveSheet()->getStyle('J18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('J19', 'S2');
-        $excel->getActiveSheet()->getStyle('J19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('K17', "9");
-        $excel->getActiveSheet()->getStyle('K17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('K18', "Jumlah");
-        $excel->getActiveSheet()->getStyle('K18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('K19', 'Non-Gelar');
-        $excel->getActiveSheet()->getStyle('K19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('L17', "10");
-        $excel->getActiveSheet()->getStyle('L17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('L18', "Jumlah Siswa");
         $excel->getActiveSheet()->mergeCells('L18:N18');
-        $excel->getActiveSheet()->getStyle('L18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('L19', 'Lk');
-        $excel->getActiveSheet()->getStyle('L19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('M17', "11");
-        $excel->getActiveSheet()->getStyle('M17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('M18', "");
-        $excel->getActiveSheet()->getStyle('M18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('M19', 'Pr');
-        $excel->getActiveSheet()->getStyle('M19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('N17', "12");
-        $excel->getActiveSheet()->getStyle('N17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('N18', "");
-        $excel->getActiveSheet()->getStyle('N18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('N19', 'Total');
-        $excel->getActiveSheet()->getStyle('N19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('O17', "13");
-        $excel->getActiveSheet()->getStyle('O17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('O18', "Total");
-        $excel->getActiveSheet()->getStyle('O18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('O19', 'Guru & Non-Guru');
-        $excel->getActiveSheet()->getStyle('O19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('P17', "14");
-        $excel->getActiveSheet()->getStyle('P17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('P18', "Jlh Index & Non-Index");
         $excel->getActiveSheet()->mergeCells('P18:R18');
-        $excel->getActiveSheet()->getStyle('P18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('P19', 'Index');
-        $excel->getActiveSheet()->getStyle('P19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('Q17', "15");
-        $excel->getActiveSheet()->getStyle('Q17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('Q18', "Jlh Index & Non-Index");
-        $excel->getActiveSheet()->getStyle('Q18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('Q19', 'Non-Index');
-        $excel->getActiveSheet()->getStyle('Q19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('R17', "16");
-        $excel->getActiveSheet()->getStyle('R17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('R18', "Jlh Index & Non-Index");
-        $excel->getActiveSheet()->getStyle('R18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('R19', 'TTL');
-        $excel->getActiveSheet()->getStyle('R19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('S17', "17");
-        $excel->getActiveSheet()->getStyle('S17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('S18', "PNS");
         $excel->getActiveSheet()->mergeCells('S18:T18');
-        $excel->getActiveSheet()->getStyle('S18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('S19', 'Advent');
-        $excel->getActiveSheet()->getStyle('S19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('T17', "18");
-        $excel->getActiveSheet()->getStyle('T17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('T18', "PNS");
-        $excel->getActiveSheet()->getStyle('T18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('T19', 'Non');
-        $excel->getActiveSheet()->getStyle('T19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('U17', "19");
         $excel->getActiveSheet()->mergeCells('U18:V18');
-        $excel->getActiveSheet()->getStyle('U17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('U18', "Index");
-        $excel->getActiveSheet()->getStyle('U18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('U19', 'Advent');
-        $excel->getActiveSheet()->getStyle('U19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('V17', "20");
-        $excel->getActiveSheet()->getStyle('V17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('V18', "Index");
-        $excel->getActiveSheet()->getStyle('V18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('V19', 'Non');
-        $excel->getActiveSheet()->getStyle('V19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('W17', "21");
         $excel->getActiveSheet()->mergeCells('W18:X18');
-        $excel->getActiveSheet()->getStyle('W17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('W18', "Honor");
-        $excel->getActiveSheet()->getStyle('W18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('W19', 'Advent');
-        $excel->getActiveSheet()->getStyle('W19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('X17', "22");
-        $excel->getActiveSheet()->getStyle('X17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('X18', "Honor");
-        $excel->getActiveSheet()->getStyle('X18')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('X19', 'Non');
-        $excel->getActiveSheet()->getStyle('X19')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('Y17', "23");
-        $excel->getActiveSheet()->getStyle('Y17')->applyFromArray($style_row);
         $excel->setActiveSheetIndex(0)->setCellValue('Y18', "Total Advent/Non-Advent");
-        $excel->getActiveSheet()->getStyle('Y18:Y19')->applyFromArray($style_row);
         $excel->getActiveSheet()->mergeCells('Y18:Y19');
 
         $teacher = $this->Mdl_index->get_closing_report();
 
         $excel->getActiveSheet()->setCellValue('A20', "1");
-        $excel->getActiveSheet()->getStyle('A20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('B20', $overall->DegreeName);
-        $excel->getActiveSheet()->getStyle('B20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('C20', $teacher->teacher);
-        $excel->getActiveSheet()->getStyle('C20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('D20', $teacher->nonteacher);
-        $excel->getActiveSheet()->getStyle('D20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('E20', $teacher->sma);
-        $excel->getActiveSheet()->getStyle('E20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('F20', $teacher->d1);
-        $excel->getActiveSheet()->getStyle('F20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('G20', $teacher->d2);
-        $excel->getActiveSheet()->getStyle('G20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('H20', $teacher->d3);
-        $excel->getActiveSheet()->getStyle('H20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('I20', $teacher->s1);
-        $excel->getActiveSheet()->getStyle('I20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('J20', $teacher->s2);
-        $excel->getActiveSheet()->getStyle('J20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('K20', $teacher->nondegree);
-        $excel->getActiveSheet()->getStyle('K20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('L20', $teacher->male);
-        $excel->getActiveSheet()->getStyle('L20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('M20', $teacher->female);
-        $excel->getActiveSheet()->getStyle('M20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('N20', $teacher->std_total);
-        $excel->getActiveSheet()->getStyle('N20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('O20', $teacher->non_std_total);
-        $excel->getActiveSheet()->getStyle('O20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('P20', $teacher->idx);
-        $excel->getActiveSheet()->getStyle('P20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('Q20', $teacher->nonidx);
-        $excel->getActiveSheet()->getStyle('Q20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('R20', $teacher->total_idx);
-        $excel->getActiveSheet()->getStyle('R20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('S20', $teacher->advent_pns);
-        $excel->getActiveSheet()->getStyle('S20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('T20', $teacher->non_advent_pns);
-        $excel->getActiveSheet()->getStyle('T20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('U20', $teacher->advent_idx);
-        $excel->getActiveSheet()->getStyle('U20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('V20', $teacher->non_advent_idx);
-        $excel->getActiveSheet()->getStyle('V20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('W20', $teacher->advent_honor);
-        $excel->getActiveSheet()->getStyle('W20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('X20', $teacher->non_advent_honor);
-        $excel->getActiveSheet()->getStyle('X20')->applyFromArray($style_row);
         $excel->getActiveSheet()->setCellValue('Y20', $teacher->religion_total);
-        $excel->getActiveSheet()->getStyle('Y20')->applyFromArray($style_row);
 
         $excel->getActiveSheet()->getColumnDimension('C')->setWidth(8);
         $excel->getActiveSheet()->getColumnDimension('D')->setWidth(12);
@@ -686,71 +541,35 @@ class Admin extends CI_Controller
         $excel->getActiveSheet()->getColumnDimension('X')->setWidth(8);
         $excel->getActiveSheet()->getColumnDimension('Y')->setWidth(25);
 
-        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
     
         $excel->getActiveSheet(0)->setTitle("CLOSING REPORT $degree");
         $excel->setActiveSheetIndex(0);
     
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        $writer = new Xlsx($excel);
+        
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
         header('Cache-Control: max-age=0');
 
-        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-        $write->save('php://output');
+        $writer->save('php://output');
     }
 
     public function export_labul(){
-        // LOAD PLUGIN
-        include APPPATH.'third_party\PHPExcel.php';
 
-        $excel = new PHPExcel();
+        $excel = new Spreadsheet();
 
         $data = $this->Mdl_index->Mdl_get_report();
         $filename = 'LABUL-'.date('F-Y').'.xlsx';
-        
-        // $excel->getProperties()->setCreator('My Notes Code')
-        //             ->setLastModifiedBy('My Notes Code')
-        //             ->setTitle("Data Siswa")
-        //             ->setSubject("Siswa")
-        //             ->setDescription("Laporan Semua Data Siswa")
-        //             ->setKeywords("Data Siswa");
-        
-        $style_col = [
-            'font' => [
-                'bold' => true
-            ],
-            'alignment' => [
-                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
-                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
-            ],
-            'borders' => [
-                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
-                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
-                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
-                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
-            ]
-        ];
-        
-        $style_row = array(
-            'alignment' => array(
-                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
-            ),
-            'borders' => array(
-                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
-                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), 
-                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
-                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
-            )
-        );
         
         $excel->setActiveSheetIndex(0)->setCellValue('A1', "ITEM");
         $excel->setActiveSheetIndex(0)->setCellValue('B1', "VALUE");
         $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('B1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('B1')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         $excel->setActiveSheetIndex(0)->setCellValue('A2', 'Nama Sekolah');
         $excel->setActiveSheetIndex(0)->setCellValue('A3', 'Alamat');
@@ -791,47 +610,6 @@ class Admin extends CI_Controller
         $excel->setActiveSheetIndex(0)->setCellValue('B18', $data->SchoolActiveDays);
         $excel->setActiveSheetIndex(0)->setCellValue('B19', $data->SchoolConstructionCertificate);
         $excel->setActiveSheetIndex(0)->setCellValue('B20', $data->NoOperation);
-        
-        
-        $excel->getActiveSheet()->getStyle('A2')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A3')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A4')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A5')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A6')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A7')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A8')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A9')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A10')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A11')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A12')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A13')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A14')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A15')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A16')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A17')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A18')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A19')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('A20')->applyFromArray($style_row);
-
-        $excel->getActiveSheet()->getStyle('B2')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B3')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B4')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B5')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B6')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B7')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B8')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B9')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B10')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B11')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B12')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B13')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B14')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B15')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B16')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B17')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B18')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B19')->applyFromArray($style_row);
-        $excel->getActiveSheet()->getStyle('B20')->applyFromArray($style_row);
 
         $alp = 'E';
         $index = 1;
@@ -850,21 +628,15 @@ class Admin extends CI_Controller
                 ->getStyle('D' . $index)->getFont()->setSize(12);
             $excel->getActiveSheet()
                 ->getStyle('D' . $index)->getAlignment()
-                ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
             foreach($room as $room){
                 $excel->setActiveSheetIndex(0)->setCellValue('D'.($index+1), 'ITEM');
-                $excel->getActiveSheet()->getStyle('D'.($index+1))->applyFromArray($style_row);
                 $excel->setActiveSheetIndex(0)->setCellValue($alp. ($index+1), $room->ClassDesc);
-                $excel->getActiveSheet()->getStyle($alp. ($index+1))->applyFromArray($style_row);
                 $excel->setActiveSheetIndex(0)->setCellValue('D'.($index+2), 'ROMBEL');
-                $excel->getActiveSheet()->getStyle('D'.($index+2))->applyFromArray($style_row);
                 $excel->setActiveSheetIndex(0)->setCellValue($alp. ($index+2), $room->Total);
-                $excel->getActiveSheet()->getStyle($alp. ($index+2))->applyFromArray($style_row);
                 $excel->setActiveSheetIndex(0)->setCellValue('D'.($index+3), 'JAM/MINGGU');
-                $excel->getActiveSheet()->getStyle('D'.($index+3))->applyFromArray($style_row);
                 $excel->setActiveSheetIndex(0)->setCellValue($alp. ($index+3), $room->Hour);
-                $excel->getActiveSheet()->getStyle($alp. ($index+3))->applyFromArray($style_row);
                 
                 $excel->getActiveSheet()->getColumnDimension($alp)->setWidth(15);
 
@@ -881,55 +653,26 @@ class Admin extends CI_Controller
         $excel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
         $excel->getActiveSheet()->getColumnDimension('B')->setWidth(50);
     
-        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
     
         $excel->getActiveSheet(0)->setTitle('LABUL - ' . date('F Y'));
         $excel->setActiveSheetIndex(0);
     
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        $writer = new Xlsx($excel);
+        
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
         header('Cache-Control: max-age=0');
 
-        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-        $write->save('php://output');
+        $writer->save('php://output');
     }
 
     public function export_labul_student(){
-        // LOAD PLUGIN
-        include APPPATH.'third_party\PHPExcel.php';
 
-        $excel = new PHPExcel();
+        $excel = new Spreadsheet();
 
         $data = $this->Mdl_index->Mdl_get_report();
         $filename = 'LABUL - '.date('F-Y').' [STUDENT].xlsx';
-        
-        $style_col = [
-            'font' => [
-                'bold' => true
-            ],
-            'alignment' => [
-                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
-                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
-            ],
-            'borders' => [
-                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
-                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
-                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
-                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
-            ]
-        ];
-        
-        $style_row = array(
-            'alignment' => array(
-                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
-            ),
-            'borders' => array(
-                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
-                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), 
-                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
-                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
-            )
-        );
 
         $index = 1;
 
@@ -944,7 +687,7 @@ class Admin extends CI_Controller
             $excel->getActiveSheet()->mergeCells('A' . $index . ':' . 'D' . $index);
             $excel->getActiveSheet()->getStyle('A' . $index)->getFont()->setBold(TRUE);
             $excel->getActiveSheet()->getStyle('A' . $index)->getFont()->setSize(15);
-            $excel->getActiveSheet()->getStyle('A' . $index)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('A' . $index)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $excel->getActiveSheet()->getStyle('B' . $index)->getFont()->setBold(TRUE);
             
             $excel->setActiveSheetIndex(0)->setCellValue('A'.($index+1), "ITEM");
@@ -953,16 +696,16 @@ class Admin extends CI_Controller
             $excel->setActiveSheetIndex(0)->setCellValue('D'.($index+1), "TOTAL");
             $excel->getActiveSheet()->getStyle('A' . ($index+1))->getFont()->setBold(TRUE);
             $excel->getActiveSheet()->getStyle('A' . ($index+1))->getFont()->setSize(15);
-            $excel->getActiveSheet()->getStyle('A' . ($index+1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('A' . ($index+1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $excel->getActiveSheet()->getStyle('B' . ($index+1))->getFont()->setBold(TRUE);
             $excel->getActiveSheet()->getStyle('B' . ($index+1))->getFont()->setSize(15);
-            $excel->getActiveSheet()->getStyle('B' . ($index+1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('B' . ($index+1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $excel->getActiveSheet()->getStyle('C' . ($index+1))->getFont()->setBold(TRUE);
             $excel->getActiveSheet()->getStyle('C' . ($index+1))->getFont()->setSize(15);
-            $excel->getActiveSheet()->getStyle('C' . ($index+1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('C' . ($index+1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $excel->getActiveSheet()->getStyle('D' . ($index+1))->getFont()->setBold(TRUE);
             $excel->getActiveSheet()->getStyle('D' . ($index+1))->getFont()->setSize(15);
-            $excel->getActiveSheet()->getStyle('D' . ($index+1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('D' . ($index+1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             
             $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+2),"Jumlah Siswa Seluruhnya");
             $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+2),$all_std->Male);
@@ -1016,11 +759,6 @@ class Admin extends CI_Controller
             $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+14),'');
             $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+14),'');
             $excel->setActiveSheetIndex(0)->setCellValue('D' . ($index+54),'');
-            
-            // $excel->getActiveSheet()->getStyle('A2')->applyFromArray($style_row);
-            // $excel->getActiveSheet()->getStyle('B2')->applyFromArray($style_row);
-            // $excel->getActiveSheet()->getStyle('C2')->applyFromArray($style_row);
-            // $excel->getActiveSheet()->getStyle('D2')->applyFromArray($style_row);
 
             $index += 16;
         }
@@ -1031,7 +769,7 @@ class Admin extends CI_Controller
         $excel->getActiveSheet()->mergeCells('F1:I1');
         $excel->getActiveSheet()->getStyle('F1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('F1')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('F1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('F1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         
         $excel->setActiveSheetIndex(0)->setCellValue('F2', "ITEM");
         $excel->setActiveSheetIndex(0)->setCellValue('G2', "LAKI-LAKI");
@@ -1039,16 +777,16 @@ class Admin extends CI_Controller
         $excel->setActiveSheetIndex(0)->setCellValue('I2', "TOTAL");
         $excel->getActiveSheet()->getStyle('F2')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('F2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('F2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('F2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('G2')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('G2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('G2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('G2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('H2')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('H2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('H2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('H2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('I2')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('I2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('I2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('I2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         
         $excel->setActiveSheetIndex(0)->setCellValue('F2', "Jumlah Siswa Seluruhnya");
         $excel->setActiveSheetIndex(0)->setCellValue('G2',$overall_all_std->Male);
@@ -1112,55 +850,26 @@ class Admin extends CI_Controller
         $excel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
         $excel->getActiveSheet()->getColumnDimension('I')->setWidth(20);
     
-        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
     
         $excel->getActiveSheet(0)->setTitle('STUDENT');
         $excel->setActiveSheetIndex(0);
     
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        $writer = new Xlsx($excel);
+        
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
         header('Cache-Control: max-age=0');
 
-        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-        $write->save('php://output');
+        $writer->save('php://output');
     }
 
     public function export_labul_teacher(){
-        // LOAD PLUGIN
-        include APPPATH.'third_party\PHPExcel.php';
 
-        $excel = new PHPExcel();
+        $excel = new Spreadsheet();
 
         $data = $this->Mdl_index->Mdl_get_report();
         $filename = 'LABUL - '.date('F Y').' [TEACHER].xlsx';
-        
-        $style_col = [
-            'font' => [
-                'bold' => true
-            ],
-            'alignment' => [
-                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
-                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
-            ],
-            'borders' => [
-                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
-                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
-                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
-                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
-            ]
-        ];
-        
-        $style_row = array(
-            'alignment' => array(
-                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
-            ),
-            'borders' => array(
-                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
-                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), 
-                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
-                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
-            )
-        );
         
         $excel->setActiveSheetIndex(0)->setCellValue('A1', "ITEM");
         $excel->setActiveSheetIndex(0)->setCellValue('B1', "LAKI-LAKI");
@@ -1168,16 +877,16 @@ class Admin extends CI_Controller
         $excel->setActiveSheetIndex(0)->setCellValue('D1', "TOTAL");
         $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('B1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('B1')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('C1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('C1')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('D1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('D1')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('D1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('D1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         
         [$nonstd, $gty, $asn, $gtt, $nontch, $acc, $adm, $others, $adv, $nonadv, $nonstrat, $strat1, $strat2, $attd, $sck, $onpermit, $abs] = $this->Mdl_index->get_report_nonstudent();    
 
@@ -1279,55 +988,26 @@ class Admin extends CI_Controller
         $excel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
         $excel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
     
-        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
     
         $excel->getActiveSheet(0)->setTitle('TEACHER');
         $excel->setActiveSheetIndex(0);
     
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        $writer = new Xlsx($excel);
+        
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
         header('Cache-Control: max-age=0');
 
-        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-        $write->save('php://output');
+        $writer->save('php://output');
     }
 
     public function export_labul_staff(){
-        // LOAD PLUGIN
-        include APPPATH.'third_party\PHPExcel.php';
 
-        $excel = new PHPExcel();
+        $excel = new Spreadsheet();
 
         $data = $this->Mdl_index->Mdl_get_report();
         $filename = 'LABUL - '.date('F Y').' [NOMINATIF].xlsx';
-        
-        $style_col = [
-            'font' => [
-                'bold' => true
-            ],
-            'alignment' => [
-                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
-                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
-            ],
-            'borders' => [
-                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
-                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
-                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
-                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
-            ]
-        ];
-        
-        $style_row = array(
-            'alignment' => array(
-                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
-            ),
-            'borders' => array(
-                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
-                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), 
-                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
-                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
-            )
-        );
         
         $excel->setActiveSheetIndex(0)->setCellValue('A1', "NO");
         $excel->setActiveSheetIndex(0)->setCellValue('B1', "NAMA/NIP");
@@ -1345,43 +1025,43 @@ class Admin extends CI_Controller
         
         $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('B1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('B1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('C1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('C1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('C1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('D1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('D1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('D1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('D1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('E1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('E1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('E1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('E1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('F1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('F1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('F1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('F1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('G1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('G1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('G1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('G1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('H1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('H1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('H1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('H1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('I1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('I1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('I1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('I1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('J1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('J1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('J1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('J1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('K1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('K1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('K1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('K1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('L1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('L1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('L1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('L1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->getStyle('M1')->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('M1')->getFont()->setSize(12);
-        $excel->getActiveSheet()->getStyle('M1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('M1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         
         [$teacher, $nonteacher] = $this->Mdl_index->get_report_full_nonstudent();
 
@@ -1410,7 +1090,7 @@ class Admin extends CI_Controller
         $excel->getActiveSheet()->getStyle('A' . $index)->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('A' . $index)->getFont()->setBold(TRUE);
         $excel->getActiveSheet()->getStyle('A' . $index)->getFont()->setSize(10);
-        $excel->getActiveSheet()->getStyle('A' . $index)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('A' . $index)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet()->mergeCells('A' . $index . ':' . 'M' . $index);
 
         foreach($nonteacher as $nontch){
@@ -1446,17 +1126,18 @@ class Admin extends CI_Controller
         $excel->getActiveSheet()->getColumnDimension('L')->setWidth(20);
         $excel->getActiveSheet()->getColumnDimension('M')->setWidth(20);
     
-        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $excel->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
     
         $excel->getActiveSheet(0)->setTitle('NOMINATIF PEGAWAI');
         $excel->setActiveSheetIndex(0);
     
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        $writer = new Xlsx($excel);
+        
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
         header('Cache-Control: max-age=0');
 
-        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-        $write->save('php://output');
+        $writer->save('php://output');
     }
 
     // ==================================================================================================================== \\
@@ -1700,7 +1381,6 @@ class Admin extends CI_Controller
             'active_rooms' => $this->Mdl_grade->get_active_rooms()
         ];
         
-
         $this->load->view('admin/index', $data);
     }
 
@@ -1982,44 +1662,42 @@ class Admin extends CI_Controller
 
         [$head, $result] = $this->Mdl_index->model_get_class_full_mid_recap($room, $semester, $period);
 
-        // LOAD PLUGIN
-        include APPPATH.'third_party\PHPExcel.php';
 
-        $excel = new PHPExcel();
+        $excel = new Spreadsheet();
 
         $filename = 'MID RECAP ' .$room . ' - ' .date('F-Y').'.xlsx';
 
         $excel->setActiveSheetIndex(0)->setCellValue('A2', 'No');
         $excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(TRUE);
-        // $excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->setActiveSheetIndex(0)->setCellValue('B2', 'NIS');
         $excel->getActiveSheet()->getStyle('B2')->getFont()->setBold(TRUE);
-        // $excel->getActiveSheet()->getStyle('B2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('B2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $excel->setActiveSheetIndex(0)->setCellValue('C2', 'NAMA');
         $excel->getActiveSheet()->getStyle('C2')->getFont()->setBold(TRUE);
-        // $excel->getActiveSheet()->getStyle('C2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('C2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet()->getStyle('C2')->getFont()->setSize(15);
+        $excel->getActiveSheet()->getStyle('C2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         $alp = 'D';
         $i = 1;
         
         foreach($result as $row){
             $excel->setActiveSheetIndex(0)->setCellValue('A' . ($i+2), $i);
-            $excel->getActiveSheet()->getStyle('A' . ($i+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('A' . ($i+2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $excel->setActiveSheetIndex(0)->setCellValue('B' . ($i+2), $row->NIS);
-            $excel->getActiveSheet()->getStyle('B' . ($i+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('B' . ($i+2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $excel->setActiveSheetIndex(0)->setCellValue('C' . ($i+2), '  ' . $row->FullName);
 
             foreach($head as $row2){
                 $cur_subj = str_replace(' ','_', $row2->SubjName);
                 $excel->setActiveSheetIndex(0)->setCellValue($alp . '2', $row2->SubjName);
-                $excel->getActiveSheet()->getStyle($alp . '2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $excel->getActiveSheet()->getStyle($alp . '2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $excel->getActiveSheet()->getColumnDimension($alp)->setWidth(strlen($row2->SubjName)+4);    
                 
                 $excel->setActiveSheetIndex(0)->setCellValue($alp . ($i+2), $row->{$cur_subj});
-                $excel->getActiveSheet()->getStyle($alp . ($i+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $excel->getActiveSheet()->getStyle($alp . ($i+2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
                 ++$alp;
             }
@@ -2031,18 +1709,14 @@ class Admin extends CI_Controller
         $excel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
         $excel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
         $excel->getActiveSheet()->getColumnDimension('C')->setWidth(35);
-    
-        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-    
-        $excel->getActiveSheet(0)->setTitle('MID RECAP - ' . $room);
-        $excel->setActiveSheetIndex(0);
-    
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'.$filename.'"');
+
+        $writer = new Xlsx($excel);
+        
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
         header('Cache-Control: max-age=0');
 
-        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-        $write->save('php://output');
+        $writer->save('php://output');
     }
 
     public function ajax_get_class_attendance_recap(){
@@ -2071,25 +1745,17 @@ class Admin extends CI_Controller
 
         $alp_month = DateTime::createFromFormat('m', $month)->format('F');
 
-        // LOAD PLUGIN
-        include APPPATH.'third_party\PHPExcel.php';
 
-        $excel = new PHPExcel();
+        $excel = new Spreadsheet();
 
         $filename = 'ATTENDANCE RECAP ' .$room . ' - '. $alp_month .' '.date('Y').'.xlsx';
 
         $excel->setActiveSheetIndex(0)->setCellValue('A2', 'No');
         $excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(TRUE);
-        // $excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $excel->setActiveSheetIndex(0)->setCellValue('B2', 'NIS');
         $excel->getActiveSheet()->getStyle('B2')->getFont()->setBold(TRUE);
-        // $excel->getActiveSheet()->getStyle('B2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $excel->setActiveSheetIndex(0)->setCellValue('C2', 'NAMA');
         $excel->getActiveSheet()->getStyle('C2')->getFont()->setBold(TRUE);
-        // $excel->getActiveSheet()->getStyle('C2')->getFont()->setSize(15);
-        $excel->getActiveSheet()->getStyle('C2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
         $alph = 'A';
         $alp = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH'];
@@ -2100,67 +1766,53 @@ class Admin extends CI_Controller
             'twentyone','twentytwo','twentythree','twentyfour','twentyfive','twentysix','twentyseven','twentyeight','twentynine','thirty','thirtyone'
         ];
 
-        $sick = [
-            'fill' => [
-                'type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'color' => ['argb' => 'F4D03F']
-            ]
-        ];
-
-        $on_permit = [
-            'fill' => [
-                'type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'color' => ['argb' => '8E44AD']
-            ]
-        ];
-
-        $absent = [
-            'fill' => [
-                'type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'color' => ['argb' => 'e7505a']
-            ]
-        ];
-
-        $default = [
-            'fill' => [
-                'type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'color' => ['argb' => 'e1e5ec']
-            ]
-        ];
-
         $index = 1;
         
         foreach($pivot as $row){
             $excel->setActiveSheetIndex(0)->setCellValue('A' . ($index+2), $index);
-            $excel->getActiveSheet()->getStyle('A' . ($index+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
             $excel->setActiveSheetIndex(0)->setCellValue('B' . ($index+2), $row->NIS);
-            $excel->getActiveSheet()->getStyle('B' . ($index+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $excel->getActiveSheet()->getStyle('B' . ($index+2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
             $excel->setActiveSheetIndex(0)->setCellValue('C' . ($index+2), '  ' . $row->FullName);
 
             for($i = 3; $i <= $month_days+2; $i++){
                 $excel->setActiveSheetIndex(0)->setCellValue($alp[$i] . '2', $i-2);
                 $excel->getActiveSheet()->getStyle($alp[$i] . '2')->getFont()->setBold(TRUE);
-                $excel->getActiveSheet()->getStyle($alp[$i] . '2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $excel->getActiveSheet()->getStyle($alp[$i] . '2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
                 if($row->{$date_alias[$i-2]} == 'Sick'){
                     $attd = 'S';
                     $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getFont()->setBold(TRUE);
-                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->applyFromArray($sick);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))
+                                            ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                            ->getStartColor()->setARGB('F4D03F');
+                    
                 }else if($row->{$date_alias[$i-2]} == 'On Permit'){
                     $attd = 'I';
                     $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getFont()->setBold(TRUE);
-                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->applyFromArray($on_permit);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))
+                                            ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                            ->getStartColor()->setARGB('8E44AD');
+                    
                 }else if($row->{$date_alias[$i-2]} == 'Absent'){
                     $attd = 'A';
                     $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getFont()->setBold(TRUE);
-                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->applyFromArray($absent);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))
+                                            ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                            ->getStartColor()->setARGB('e7505a');
+                    
                 }else{
+                    // $attd = '✓';
                     $attd = '-';
-                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->applyFromArray($default);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                    $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))
+                                            ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                            ->getStartColor()->setARGB('e1e5ec');
                 }
                 
                 $excel->setActiveSheetIndex(0)->setCellValue($alp[$i] . ($index+2), $attd);
-                $excel->getActiveSheet()->getStyle($alp[$i] . ($index+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
             }
 
@@ -2170,18 +1822,15 @@ class Admin extends CI_Controller
         $excel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
         $excel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
         $excel->getActiveSheet()->getColumnDimension('C')->setWidth(35);
-    
-        $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-    
-        $excel->getActiveSheet(0)->setTitle('ATTENDANCE - ' . $alp_month . ' ' . date('Y'));
-        $excel->setActiveSheetIndex(0);
-    
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'.$filename.'"');
+
+
+        $writer = new Xlsx($excel);
+        
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
         header('Cache-Control: max-age=0');
 
-        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-        $write->save('php://output');
+        $writer->save('php://output');
     }
 
     // ==================================================================================================================== \\
@@ -4743,23 +4392,30 @@ class Admin extends CI_Controller
     {
         $nis = $_POST['nis'];
         $cls = $_POST['cls'];
-        $semester = $_POST['semester'];
+        $period = $_POST['period'];
+        
+        $default_semester = '';
+        $time = date('d-m-Y');
+        $year = date('Y');
+        
+        if (date('n', strtotime($time)) <= 6) {
+            $default_semester = 2;
+        } else {
+            $default_semester = 1;
+        }
 
-        $row = $this->Mdl_grade->model_get_grade_report($nis, $cls, $semester)->result();
+        $semester = (isset($_POST['semester']) ? $_POST['semester'] : $default_semester);
+
+        $row = $this->Mdl_grade->model_get_grade_report($nis, $cls, $period, $semester)->result();
         $matrix = $this->Mdl_grade->get_spectrum();
-        $character = $this->Mdl_grade->model_get_character_grade_compact($nis, $semester);
-        $voc = $this->Mdl_grade->model_get_voc_grade_compact($nis, $cls, $semester);
-        $absence = $this->Mdl_grade->get_absent($nis, $cls, $semester);
+        $character = $this->Mdl_grade->model_get_character_grade_compact($nis, $period, $semester);
+        $voc = $this->Mdl_grade->model_get_voc_grade_compact($nis, $cls, $period, $semester);
+        $absence = $this->Mdl_grade->get_absent($nis, $cls, $period, $semester);
 
         $cognitive = '';
         $skills = '';
-        // $cognitive .= ' <tr> 
-        //                     <td colspan="5" class="sbold" style="padding-left: 10px; padding-top: 2px; padding-bottom: 2px"> Regular </td>
-        //                 <tr>';
-        // $skills .= ' <tr> 
-        //                     <td colspan="5" class="sbold" style="padding-left: 10px; padding-top: 2px; padding-bottom: 2px"> Regular </td>
-        //                 <tr>';
         $i = 1;
+        
         if (!empty($row)) {
             foreach ($row as $compact) {
                 $cognitive .= ' <tr>    
@@ -4929,13 +4585,25 @@ class Admin extends CI_Controller
 
     public function get_std_subject_list()
     {
+        $default_semester = 0;
+
+        $time = date('d-m-Y');
+        $year = date('Y');
+
+        if (date('n', strtotime($time)) <= 6) {
+            $default_semester = 2;
+        } else {
+            $default_semester = 1;
+        }
+
         $nis = $_POST['nis'];
         $cls = $_POST['cls'];
-        $semester = $_POST['rep_semester'];
+        $period = $_POST['rep_period'];
+        $semester = (isset($_POST['rep_semester']) ? $_POST['rep_semester'] : $default_semester);
 
         $subj = isset($_POST['subj']) ? $_POST['subj'] : '';
 
-        $result = $this->Mdl_grade->model_get_subject_list($nis, $cls, $semester);
+        $result = $this->Mdl_grade->model_get_subject_list($nis, $cls, $period, $semester);
 
         $dd_list_subj = '';
         $dd_list_subj .= '   <div class="form-group form-md-line-input has-info">';
@@ -6201,10 +5869,21 @@ class Admin extends CI_Controller
     //Start - Admin New Build
     public function home()
     {
-        $query['title'] = 'Main Dashboard';
-        $query ['currentdate'] = $curdate = date('Y-m-d');
-        $query['data_duty_all_by_date'] = $this->Mdl_duty->get_list_data_duty_all_by_date($curdate);
-        $this->load->view('admin/home', $query);
+        $data = [
+            'title' => 'Main Dashboard',
+            'currentdate' => date('Y-m-d'),
+            'data_duty_all_by_date' => $this->Mdl_duty->get_list_data_duty_all_by_date(date('Y-m-d')),
+            'tch' => $this->Mdl_index->count_specific('teacher'),
+            'std' => $this->Mdl_index->count_specific('student'),
+            'stf' => $this->Mdl_index->count_specific('staff'),
+            'count' => $this->Mdl_index->count_total(),
+            'tch_t' => $this->Mdl_index->get_teachers('teacher'),
+            'std_t' => $this->Mdl_index->get_student('student'),
+            'stf_t' => $this->Mdl_index->get_staff('staff'),
+            'degree_active' => $this->db->select('School_Desc')->where('isActive', 1)->get('tbl_02_school')->result()
+        ];
+
+        $this->load->view('admin/home', $data);
     }
     //End - Admin New Build
 }

@@ -197,89 +197,73 @@ width: 25%;
                 </div>
                 <!-- END PAGE SIDEBAR -->
                 <div class="page-content-col">
-                    <div class="row">
-                        <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border: solid 1px; border-color:#e9ecf3; background-color: #f6f6f6">
-                                <!-- <div class="row">
-                                    <div class="col-md-8" style="float: left">
-                                        <h4 class="widget-thumb-heading text-uppercase font-dark">0 - 30 Days</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="#" class="icon"  class="btn blue btn-sm btn-outline" title="Show Data" style="float: right"><i class="fa fa-bars"></i></a>
-                                    </div>
-                                </div> -->
-                                <a href="#">
-                                    <div class="widget-thumb-wrap">
-                                        <i class="widget-thumb-icon bg-green fa fa-calendar"></i>
-                                        <div class="widget-thumb-body">
-                                            <span class="widget-thumb-subtitle">Elementary</span>
-                                            <span class="widget-thumb-body-stat" id="font-count-total">0</span>
-                                        </div>
-                                    </div>
-                                </a>
+                    <div class="portlet light bg-grey-steel" style="margin-top: -20px">
+                        <div class="row" class="degrees">
+                            <div class="col-md-3">
+                                <button type="button" class="btn red sbold btn-lg uppercase toggle_sd" data-degree="SD" style="width: 100%; height: 75px;"> <span> Elementary </span> </button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn blue-steel sbold btn-lg uppercase toggle_smp" data-degree="SMP" style="width: 100%; height: 75px;"> <span> Junior High </span> </button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn grey-silver sbold btn-lg uppercase toggle_sma" data-degree="SMA" style="width: 100%; height: 75px;"> <span> High </span> </button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn dark red-haze btn-lg uppercase toggle_smk" data-degree="SMK" style="width: 100%; height: 75px;"> <span> Vocational High </span> </button>
                             </div>
                         </div>
-                        <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border: solid 1px; border-color:#e9ecf3; background-color: #f6f6f6">
-                                <!-- <div class="row">
-                                    <div class="col-md-8" style="float: left">
-                                        <h4 class="widget-thumb-heading text-uppercase font-dark">30 - 60 Days</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="#" class="icon" class="btn blue btn-sm btn-outline" title="Show Data" style="float: right"><i class="fa fa-bars"></i></a>
-                                    </div>
-                                </div> -->
-                                <a href="#">
-                                    <div class="widget-thumb-wrap">
-                                        <i class="widget-thumb-icon bg-blue fa fa-calendar"></i>
-                                        <div class="widget-thumb-body">
-                                            <span class="widget-thumb-subtitle">Junior High</span>
-                                            <span class="widget-thumb-body-stat" id="font-count-total">0</span>
+                        <div class="row" style="margin-top: 15px;">
+                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
+                                    <a href="#">
+                                        <div class="widget-thumb-wrap">
+                                            <i class="widget-thumb-icon bg-blue-dark fa fa-users"></i>
+                                            <div class="widget-thumb-body">
+                                                <span class="widget-thumb-subtitle desc">STUDENTS</span>
+                                                <span class="widget-thumb-body-stat" id="font-count-total" data-counter="counterup" data-value="<?= $std; ?>"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
-                        </div>          
-                        <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border: solid 1px; border-color:#e9ecf3; background-color: #f6f6f6">
-                               <!--  <div class="row">
-                                    <div class="col-md-8" style="float: left">
-                                        <h4 class="widget-thumb-heading text-uppercase font-dark">60 - 90 Days</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="#"  class="icon" class="btn blue btn-sm btn-outline" title="Show Data" style="float: right"><i class="fa fa-bars"></i></a>
-                                    </div>
-                                </div> -->
-                                <a href="#">
-                                    <div class="widget-thumb-wrap">
-                                        <i class="widget-thumb-icon bg-yellow fa fa-calendar"></i>
-                                        <div class="widget-thumb-body">
-                                            <span class="widget-thumb-subtitle">High</span>
-                                            <span class="widget-thumb-body-stat" id="font-count-total">0</span>
+                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
+                                    <a href="#">
+                                        <div class="widget-thumb-wrap">
+                                            <i class="widget-thumb-icon bg-blue-sharp fa fa-graduation-cap"></i>
+                                            <div class="widget-thumb-body">
+                                                <span class="widget-thumb-subtitle desc">TEACHERS</span>
+                                                <span class="widget-thumb-body-stat" id="font-count-total" data-counter="counterup" data-value="<?= $tch; ?>"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border: solid 1px; border-color:#e9ecf3; background-color: #f6f6f6">
-                                <!-- <div class="row">
-                                    <div class="col-md-8" style="float: left">
-                                        <h4 class="widget-thumb-heading text-uppercase font-dark">90 - 120 Days</h4>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="#" class="icon"  class="btn blue btn-sm btn-outline" title="Show Total Data" style="float: right"><i class="fa fa-bars"></i></a>
-                                    </div>
-                                </div>  -->
-                                <a href="#">
-                                    <div class="widget-thumb-wrap">
-                                        <i class="widget-thumb-icon bg-purple fa fa-calendar"></i>
-                                        <div class="widget-thumb-body">
-                                            <span class="widget-thumb-subtitle">Vocational High</span>
-                                            <span class="widget-thumb-body-stat" id="font-count-total">0</span>
+                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
+                                    <a href="#">
+                                        <div class="widget-thumb-wrap">
+                                            <i class="widget-thumb-icon bg-green fa fa-male"></i>
+                                            <div class="widget-thumb-body">
+                                                <span class="widget-thumb-subtitle desc">STAFFS</span>
+                                                <span class="widget-thumb-body-stat" id="font-count-total" data-counter="counterup" data-value="<?= $stf; ?>"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-style: dotted; border-width: 2px; border-color: #e9ecf3;">
+                                    <a href="#">
+                                        <div class="widget-thumb-wrap">
+                                            <i class="widget-thumb-icon bg-blue-ebonyclay fa fa-check"></i>
+                                            <div class="widget-thumb-body">
+                                                <span class="widget-thumb-subtitle desc">Total</span>
+                                                <span class="widget-thumb-body-stat" id="font-count-total" data-counter="counterup" data-value="<?= $count; ?>"></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -376,13 +360,82 @@ width: 25%;
                                 </div>
                             </div>  
                         </div>         
-                    </div>                      
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-12">
+                        <div class="portlet light calendar bordered">
+                            <div class="portlet-title ">
+                                <div class="caption">
+                                    <i class="icon-calendar font-dark hide"></i>
+                                    <span class="caption-subject font-dark bold uppercase">Calendar</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="portlet">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-calendar"></i> Input Event(s) </div>
+                                            </div>
+                                            <div class="portlet-body form">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="form-body">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Title</label>
+                                                            <div class="col-md-9">
+                                                                <input id="event_title" name="event_title" type="text" class="form-control input-md" placeholder="Event's title"> 
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Date Start</label>
+                                                            <div class="col-md-9">
+                                                                <input id="event_date_start" name="event_date_start" class="form-control input-md" type="date" value="<?= date('Y/m/d')?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Date End</label>
+                                                            <div class="col-md-9">
+                                                                <input id="event_date_end" name="event_date_end" class="form-control input-md" type="date" value="<?= date('Y/m/d')?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Label</label>
+                                                            <div class="col-md-9">
+                                                                <select class="form-control input-md" name="event_color" id="event_color">
+                                                                    <option value="#E7505A">Red</option>
+                                                                    <option value="#4B77BE">Blue</option>
+                                                                    <option value="#26C281">Green</option>
+                                                                    <option value="#95A5A6">Grey</option>
+                                                                    <option value="#F7CA18">Yellow</option>
+                                                                    <option value="#8E44AD">Purple</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-actions right1">
+                                                        <button id="submit_calendar" type="submit" class="btn green">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div id="calendar"></div>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>             
                 </div>
             </div>
         </div>
         <!-- END SIDEBAR CONTENT LAYOUT -->
     </div>
 </div>
+
 <div class="modal fade in" id="newsassignmentModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: hidden;">
      <div class="modal-dialog modal-full" style="width: 95%">
          <div class="modal-content">
@@ -512,7 +565,8 @@ width: 25%;
              </div>
          </div>
      </div>
-</div> 
+</div>
+
 <script type="text/javascript">
     window.onload = load_function;
     function load_function(){
@@ -612,6 +666,174 @@ width: 25%;
             })
 
         })
+
+        /*
+         * CALENDAR'S
+        */
+        
+        //SUBMIT NEW EVENT(S) FOR SCHOOL CALENDAR
+		$('#submit_calendar').on('click', function (e) {
+			e.preventDefault()
+
+			let title = $('#event_title').val()
+			let date_start = $('#event_date_start').val()
+			let date_end = $('#event_date_end').val()
+			let color = $('#event_color').val()
+
+			let begin = new Date(date_start)
+			let end = new Date(date_end)
+
+			if (begin > end) {
+				alert("START MUST BE HIGHER THAN END")
+			} else {
+				$.ajax({
+					url: 'ajax_sv_school_event',
+					method: 'POST',
+					data: {
+						title,
+						date_start,
+						date_end,
+						color
+					},
+					success: response => {
+						if (response == 'success') {
+							alert("NEW EVENT HAS BEEN ADDED !")
+							getCalendar()
+						} else {
+							alert("SOMETHING'S WRONG")
+							console.log(response)
+						}
+					},
+					error: err => console.log(err.responseText)
+				})
+			}
+		})
+
+		getCalendar()
+
+		function getCalendar() {
+			// $.get('https://raw.githubusercontent.com/guangrei/Json-Indonesia-holidays/master/calendar.json') //Get JSON
+			// 	.then(data => {
+			// 		let holidays = []
+			// 		let parsed = JSON.parse(data)
+
+			// 		for (var key in parsed) {
+			// 			holidays.push({
+			// 				title: parsed[key].deskripsi,
+			// 				start: key.slice(0, 4) + '-' + key.slice(4, 6) + '-' + key.slice(6, 8),
+			// 				backgroundColor: '#fd5c63'
+			// 			})
+			// 		}
+
+			// 		$('#calendar').fullCalendar('destroy')
+			// 		$('#calendar').fullCalendar({
+			// 			disableDragging: true,
+			// 			header: {
+			// 				left: 'title',
+			// 				center: '',
+			// 				right: 'prev,next,today,month'
+			// 			},
+			// 			contentHeight: 550,
+			// 			events: holidays, //Set arrray holidays to events
+			// 		})
+			// 	})
+
+			$.ajax({
+				url: 'ajax_get_school_event',
+				dataType: 'JSON',
+				success: response => {
+					let sch_event = []
+
+					for (var key in response) {
+						sch_event.push({
+							title: response[key].Title,
+							start: response[key].DateStart,
+							end: response[key].DateEnd,
+							backgroundColor: response[key].Color
+						})
+					}
+
+					$('#calendar').fullCalendar('destroy')
+					$('#calendar').fullCalendar({
+						// editable: true,
+						header: {
+							left: 'month, basicDay, basicWeek, today',
+							center: '',
+							right: 'title, prev, next',
+						},
+						contentHeight: 550,
+						events: sch_event, //Set arrray sch_event to events
+						eventClick: info => {
+							let title = info.title
+							let start = info.start._i
+							let end = (info.end == null ? info.start._i : info.end._i) //Use start value if selected event only a single day
+							let color = info.backgroundColor
+
+							$('#calendar_action').modal('show')
+							$('#eventchange_title').val(title)
+							$('#eventchange_date_start').val(start)
+							$('#eventchange_date_end').val(end)
+							$('#eventchange_color').val(color)
+
+							submitCalendarChange(title, start, end)
+						}
+					})
+				},
+				error: err => console.log(err.responseText)
+			})
+		}
+
+		//CHANGE/DELETE CALENDAR EVENT
+		$('[name="calendarradio"]').change(function () {
+			if ($(this).val() == 'delete') {
+				$('#eventchange').prop('hidden', true)
+			} else {
+				$('#eventchange').prop('hidden', false)
+			}
+		})
+
+		function submitCalendarChange(title, start, end) {
+			$('#submitcalendarchange').click(function () {
+				let eventchange = $('[name="calendarradio"]:checked').val()
+
+				let newtitle = $('#eventchange_title').val()
+				let newstart = $('#eventchange_date_start').val()
+				let newend = $('#eventchange_date_end').val()
+				let newcolor = $('#eventchange_color').val()
+
+				let newchangestart = new Date(newstart)
+				let newchangeend = new Date(newend)
+
+				if (newchangestart > newchangeend) {
+					alert("START MUST BE HIGHER THAN END")
+				} else {
+					$.ajax({
+						url: 'ajax_update_school_event',
+						method: 'POST',
+						data: {
+							eventchange,
+							title,
+							newtitle,
+							start,
+							newstart,
+							end,
+							newend,
+							newcolor
+						},
+						success: response => {
+							if (response == 'success') {
+								getCalendar()
+							} else {
+								alert("SOMETHING'S WRONG")
+								console.log(response)
+							}
+							$('#calendar_action').modal('hide')
+						},
+						error: err => console.log(err.responseText)
+					})
+				}
+			})
+		}
     }
 </script>
 <?php $this->load->view('header_footer/home/footer');?>

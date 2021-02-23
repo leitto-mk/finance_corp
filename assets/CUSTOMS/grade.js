@@ -826,6 +826,7 @@ $(document).ready(function () {
 		var full_rep_nis
 		var full_rep_cls
 		var selected_subj
+		var rep_period
 		var rep_semester
 		$('.std_rep').on('click', '.btn_detail, .btn_detail_compact', function () {
 
@@ -833,13 +834,15 @@ $(document).ready(function () {
 			if ($(this).hasClass('btn_detail')) {
 				$('.details_grade').modal('show');
 
-				rep_semester = $('[name="full_select_semester"]:checked').attr('data-semester')
+				rep_period = $('#full_select_semester').val()
+				rep_semester = $('#full_select_semester:selected').attr('data-semester')
 
 				clicked = 'full';
 			} else {
 				$('.details_grade_compact').modal('show');
 
-				rep_semester = $('[name="compact_select_semester"]:checked').attr('data-semester')
+				rep_period = $('#compact_select_semester').val()
+				rep_semester = $('#compact_select_semester:selected').attr('data-semester')
 
 				clicked = 'compact'
 			}
@@ -849,18 +852,13 @@ $(document).ready(function () {
 
 			let dropdown = $('.list_subj_std');
 
-			console.table({
-				full_rep_nis,
-				full_rep_cls,
-				rep_semester
-			});
-
 			$.ajax({
 				url: 'get_std_subject_list',
 				method: 'POST',
 				data: {
 					nis: full_rep_nis,
 					cls: full_rep_cls,
+					rep_period,
 					rep_semester
 				},
 				success: data => {
@@ -872,7 +870,7 @@ $(document).ready(function () {
 					if (clicked == 'full') {
 						fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_semester)
 					} else if (clicked == 'compact') {
-						fullReportCompact(full_rep_nis, full_rep_cls, rep_semester)
+						fullReportCompact(full_rep_nis, full_rep_cls, rep_period, rep_semester)
 					}
 				}
 			})
@@ -884,12 +882,13 @@ $(document).ready(function () {
 			fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_semester)
 		})
 
-		$('.details_grade, .details_grade_compact').on('click', 'input[type="radio"]', function () {
+		$('.details_grade, .details_grade_compact').on('change', '#full_select_semester, #compact_select_semester', function () {
 			let dropdown = $('.list_subj_std')
 
-			if ($(this).attr('name') !== 'compact_select_semester') {
+			if ($(this).attr('id') == 'full_select_semester') {
 
-				rep_semester = $('[name="full_select_semester"]:checked').attr('data-semester')
+				rep_period = $('#full_select_semester').val()
+				rep_semester = $('#full_select_semester:selected').attr('data-semester')
 
 				$.ajax({
 					url: 'get_std_subject_list',
@@ -898,6 +897,7 @@ $(document).ready(function () {
 						subj: selected_subj,
 						nis: full_rep_nis,
 						cls: full_rep_cls,
+						rep_period,
 						rep_semester
 					},
 					success: data => {
@@ -906,26 +906,14 @@ $(document).ready(function () {
 					}
 				}).then(() => {
 					selected_subj = $('.avail_subj').val()
-
-					console.table({
-						selected_subj,
-						full_rep_nis,
-						full_rep_cls,
-						rep_semester
-					})
 				}).then(() => fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_semester))
 
-			} else if ($(this).attr('name') === 'compact_select_semester') {
+			} else if ($(this).attr('id') === 'compact_select_semester') {
 
-				rep_semester = $('[name="compact_select_semester"]:checked').attr('data-semester')
+				rep_period = $('#compact_select_semester').val()
+				rep_semester = $('#compact_select_semester:selected').attr('data-semester')
 
-				console.table({
-					full_rep_nis,
-					full_rep_cls,
-					rep_semester
-				})
-
-				fullReportCompact(full_rep_nis, full_rep_cls, rep_semester)
+				fullReportCompact(full_rep_nis, full_rep_cls, rep_period, rep_semester)
 			}
 		})
 
@@ -975,7 +963,7 @@ $(document).ready(function () {
 		}
 
 		//LOAD COMPACT REPORT 
-		function fullReportCompact(full_rep_nis, full_rep_cls, rep_semester) {
+		function fullReportCompact(full_rep_nis, full_rep_cls, rep_period, rep_semester) {
 			var cognitive = $('.grade_report_tbody')
 			var skills = $('.skills_report_tbody')
 			var spectrum = $('.grade_report_spectrum')
@@ -990,6 +978,7 @@ $(document).ready(function () {
 				data: {
 					nis: full_rep_nis,
 					cls: full_rep_cls,
+					period: rep_period,
 					semester: rep_semester
 				},
 				success: data => {
