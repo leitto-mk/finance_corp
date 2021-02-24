@@ -20,12 +20,6 @@ class M_check_cred extends CI_Model
                 )->row();
             } elseif ($status->status == 'student') {
                 $result = $this->db->query(
-                    // "SELECT t1.IDNumber, t1.FirstName, t1.LastName, t1.status, t3.Kelas, t3.Ruangan, t1.Photo, t2.password FROM tbl_07_personal_bio AS t1 
-                    //  INNER JOIN tbl_credentials AS t2 
-                    //  ON t1.IDNumber = t2.IDNumber
-                    //  INNER JOIN tbl_08_job_info_std t3
-                    //  ON t1.IDNumber = t3.NIS
-                    //  WHERE t1.IDNumber = '$id'"
                      "SELECT 
                         bio.IDNumber, 
                         bio.FirstName, 
@@ -68,9 +62,6 @@ class M_check_cred extends CI_Model
                      ON school.SchoolID = class_voc.SchoolID
                      WHERE bio.IDNumber = '$id'"
                 )->row();
-    
-                // print_r($this->db->last_query());
-                // die();
             }    
         }else{
             $new_student = $this->db->query(

@@ -72,9 +72,9 @@
                                                         <label class="control-label">Previeges</label>
                                                         <select name="previlege" class="form-control" name="previlege" id="previlege">
                                                             <option value="-" <?php if ($datatoedit->status == '-') echo 'selected' ?>>-- Choose --</option>
-                                                            <option id="marital" value="admin" <?php if ($datatoedit->status == 'admin') echo 'selected' ?>>Admin</option>
-                                                            <option id="marital" value="teacher" <?php if ($datatoedit->status == 'teacher') echo 'selected' ?>>Teacher</option>
-                                                            <option id="marital" value="staff" <?php if ($datatoedit->status == 'staff') echo 'selected' ?>>Staff</option>
+                                                            <option value="admin" <?php if ($datatoedit->status == 'admin') echo 'selected' ?>>Admin</option>
+                                                            <option value="teacher" <?php if ($datatoedit->status == 'teacher') echo 'selected' ?>>Teacher</option>
+                                                            <option value="staff" <?php if ($datatoedit->status == 'staff') echo 'selected' ?>>Staff</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">

@@ -265,62 +265,71 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                 <select name="religion" class="form-control">
+                                                                    <option value="">-- Choose -- </option>
                                                                     <?php if ($datatoedit->Religion == 'Budha') : ?>
+                                                                        <option value="Advent">Advent</option>
                                                                         <option value="Budha" selected>Budha</option>
                                                                         <option value="Hindu">Hindu</option>
                                                                         <option value="Islam">Islam</option>
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
-                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Hindu') : ?>
+                                                                        <option value="Advent">Advent</option>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu" selected>Hindu</option>
                                                                         <option value="Islam">Islam</option>
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
-                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Islam') : ?>
+                                                                        <option value="Advent">Advent</option>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu">Hindu</option>
                                                                         <option value="Islam" selected>Islam</option>
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
-                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Katolik') : ?>
+                                                                        <option value="Advent">Advent</option>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu">Hindu</option>
                                                                         <option value="Islam">Islam</option>
                                                                         <option value="Katolik" selected>Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
-                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Kong Hu Cu') : ?>
+                                                                        <option value="Advent">Advent</option>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu">Hindu</option>
                                                                         <option value="Islam">Islam</option>
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu" selected>Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
-                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Kristen') : ?>
+                                                                        <option value="Advent">Advent</option>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu">Hindu</option>
                                                                         <option value="Islam">Islam</option>
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen" selected>Kristen</option>
-                                                                        <option value="Advent">Advent</option>
                                                                     <?php elseif ($datatoedit->Religion == 'Advent') : ?>
+                                                                        <option value="Advent" selected>Advent</option>
                                                                         <option value="Budha">Budha</option>
                                                                         <option value="Hindu">Hindu</option>
                                                                         <option value="Islam">Islam</option>
                                                                         <option value="Katolik">Katholik</option>
                                                                         <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                         <option value="Kristen">Kristen</option>
-                                                                        <option value="Advent" selected>Advent</option>
+                                                                    <?php else: ?>
+                                                                        <option value="Advent">Advent</option>
+                                                                        <option value="Budha">Budha</option>
+                                                                        <option value="Hindu">Hindu</option>
+                                                                        <option value="Islam">Islam</option>
+                                                                        <option value="Katolik">Katholik</option>
+                                                                        <option value="Kong Hu Cu">Kong Hu Cu</option>
+                                                                        <option value="Kristen">Kristen</option>
                                                                     <?php endif; ?>
                                                                 </select>
                                                                 <span class="help-block" style="z-index: 10;">Agama</span>
@@ -631,7 +640,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" name="fatheryear" placeholder="" value="<?= $datatoedit->FatherBorn ?>">
+                                                                <input type="date" class="form-control" name="fatheryear" placeholder="" value="<?= $datatoedit->FatherBorn ?>">
                                                                 <span class="help-block" style="z-index: 10;">Tahun Kelahiran Ayah</span>
                                                             </div>
                                                         </div>
@@ -693,7 +702,7 @@
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                 <select name="fatherincome" class="form-control">
                                                                     <option value="-" <?php if ($datatoedit->FatherIncome == '') echo 'selected'; ?>> - </option>
-                                                                    <option value="Rp. 500.000" <?php if ($datatoedit->FatherIncome == '') echo 'selected'; ?>> Rp. 500.000 </option>
+                                                                    <option value="Rp. 500.000" <?php if ($datatoedit->FatherIncome == 'Rp. 500.000') echo 'selected'; ?>> Rp. 500.000 </option>
                                                                     <option value="Rp. 500.000 - Rp. 999.999" <?php if ($datatoedit->FatherIncome == 'Rp. 500.000 - Rp. 999.999') echo 'selected'; ?>> Rp. 500.000 - Rp. 999.999 </option>
                                                                     <option value="Rp. 1.0000.0000 - Rp. 1.999.9999" <?php if ($datatoedit->FatherIncome == 'Rp. 1.0000.0000 - Rp. 1.999.9999') echo 'selected'; ?>> Rp. 1.0000.0000 - Rp. 1.999.9999 </option>
                                                                     <option value="Rp. 2.0000.0000 - Rp. 4.999.999" <?php if ($datatoedit->FatherIncome == 'Rp. 2.0000.0000 - Rp. 4.999.999') echo 'selected'; ?>> Rp. 2.0000.0000 - Rp. 4.999.999 </option>
@@ -722,7 +731,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" name="father" placeholder="" value="<?= $datatoedit->Mother ?>">
+                                                                <input type="text" class="form-control" name="mother" placeholder="" value="<?= $datatoedit->Mother ?>">
                                                                 <span class="help-block" style="z-index: 10;">Nama Ibu Kandung</span>
                                                             </div>
                                                         </div>
@@ -744,7 +753,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" name="motheryear" placeholder="" value="<?= $datatoedit->MotherBorn ?>">
+                                                                <input type="date" class="form-control" name="motheryear" placeholder="" value="<?= $datatoedit->MotherBorn ?>">
                                                                 <span class="help-block" style="z-index: 10;">Tahun Kelahiran Ibu</span>
                                                             </div>
                                                         </div>
@@ -806,7 +815,7 @@
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                 <select name="motherincome" class="form-control">
                                                                     <option value="-" <?php if ($datatoedit->MotherIncome == '') echo 'selected'; ?>> - </option>
-                                                                    <option value="Rp. 500.000" <?php if ($datatoedit->MotherIncome == '') echo 'selected'; ?>> Rp. 500.000 </option>
+                                                                    <option value="Rp. 500.000" <?php if ($datatoedit->MotherIncome == 'Rp. 500.000') echo 'selected'; ?>> Rp. 500.000 </option>
                                                                     <option value="Rp. 500.000 - Rp. 999.999" <?php if ($datatoedit->MotherIncome == 'Rp. 500.000 - Rp. 999.999') echo 'selected'; ?>> Rp. 500.000 - Rp. 999.999 </option>
                                                                     <option value="Rp. 1.0000.0000 - Rp. 1.999.9999" <?php if ($datatoedit->MotherIncome == 'Rp. 1.0000.0000 - Rp. 1.999.9999') echo 'selected'; ?>> Rp. 1.0000.0000 - Rp. 1.999.9999 </option>
                                                                     <option value="Rp. 2.0000.0000 - Rp. 4.999.999" <?php if ($datatoedit->MotherIncome == 'Rp. 2.0000.0000 - Rp. 4.999.999') echo 'selected'; ?>> Rp. 2.0000.0000 - Rp. 4.999.999 </option>
@@ -846,7 +855,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" name="guardianyear" placeholder="" value="<?= $datatoedit->GuardianBorn ?>">
+                                                                <input type="date" class="form-control" name="guardianyear" placeholder="" value="<?= $datatoedit->GuardianBorn ?>">
                                                                 <span class="help-block" style="z-index: 10;">Tahun Kelahiran Wali</span>
                                                             </div>
                                                         </div>
@@ -908,7 +917,7 @@
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                 <select name="guardianincome" class="form-control">
                                                                     <option value="-" <?php if ($datatoedit->GuardianIncome == '') echo 'selected'; ?>> - </option>
-                                                                    <option value="Rp. 500.000" <?php if ($datatoedit->GuardianIncome == '') echo 'selected'; ?>> Rp. 500.000 </option>
+                                                                    <option value="Rp. 500.000" <?php if ($datatoedit->GuardianIncome == 'Rp. 500.000') echo 'selected'; ?>> Rp. 500.000 </option>
                                                                     <option value="Rp. 500.000 - Rp. 999.999" <?php if ($datatoedit->GuardianIncome == 'Rp. 500.000 - Rp. 999.999') echo 'selected'; ?>> Rp. 500.000 - Rp. 999.999 </option>
                                                                     <option value="Rp. 1.0000.0000 - Rp. 1.999.9999" <?php if ($datatoedit->GuardianIncome == 'Rp. 1.0000.0000 - Rp. 1.999.9999') echo 'selected'; ?>> Rp. 1.0000.0000 - Rp. 1.999.9999 </option>
                                                                     <option value="Rp. 2.0000.0000 - Rp. 4.999.999" <?php if ($datatoedit->GuardianIncome == 'Rp. 2.0000.0000 - Rp. 4.999.999') echo 'selected'; ?>> Rp. 2.0000.0000 - Rp. 4.999.999 </option>
@@ -1022,7 +1031,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" name="siblings" value="0" placeholder="" value="<?= $datatoedit->Saudara ?>">
+                                                                <input type="number" class="form-control" name="siblings" placeholder="" value="<?= $datatoedit->Saudara ?>">
                                                                 <span class="help-block">Jumlah saudara kandung peserta didik. isikan 0 jika tidak ada saudara</span>
                                                             </div>
                                                         </div>
@@ -1132,7 +1141,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" name="ach_year" value="0" placeholder="2010" value="<?= $datatoedit->AchievementYear ?>">
+                                                                <input type="number" class="form-control" name="ach_year" placeholder="2010" value="<?= $datatoedit->AchievementYear ?>">
                                                                 <span class="help-block">Tahun Prestasi didapat oleh peserta Didik</span>
                                                             </div>
                                                         </div>
@@ -1154,7 +1163,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" name="ach_rank" value="0" placeholder="2010" value="<?= $datatoedit->AchievementRank ?>">
+                                                                <input type="number" class="form-control" name="ach_rank" placeholder="2010" value="<?= $datatoedit->AchievementRank ?>">
                                                                 <span class="help-block">Peringkat Prestasi Peserta Didik</span>
                                                             </div>
                                                         </div>

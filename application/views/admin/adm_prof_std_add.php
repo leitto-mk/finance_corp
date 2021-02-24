@@ -85,7 +85,7 @@
                                                                         </label>
                                                                         <div class="col-md-4">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="nis">
+                                                                                <input type="text" class="form-control"  name="nis">
                                                                                 <span class="help-block">Nomor Induk Siswa untuk peserta didik</span>
                                                                             </div>
                                                                         </div>
@@ -96,7 +96,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="fname" placeholder="">
+                                                                                <input type="text" class="form-control"  name="fname" placeholder="">
                                                                                 <span class="help-block">masukan nama depan...</span>
                                                                             </div>
                                                                         </div>
@@ -107,7 +107,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="mname" placeholder="">
+                                                                                <input type="text" class="form-control"  name="mname" placeholder="">
                                                                                 <span class="help-block">masukan nama tengah</span>
                                                                             </div>
                                                                         </div>
@@ -118,7 +118,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="lname" placeholder="">
+                                                                                <input type="text" class="form-control"  name="lname" placeholder="">
                                                                                 <span class="help-block">masukan nama belakang</span>
                                                                             </div>
                                                                         </div>
@@ -129,7 +129,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="nname" placeholder="">
+                                                                                <input type="text" class="form-control"  name="nname" placeholder="">
                                                                                 <span class="help-block">masukan nama panggilan</span>
                                                                             </div>
                                                                         </div>
@@ -163,7 +163,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="nisn" placeholder="">
+                                                                                <input type="text" class="form-control"  name="nisn" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10">Nomor Induk Siswa Nasional Peserta Didik.</span>
                                                                             </div>
                                                                         </div>
@@ -174,7 +174,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="nik" placeholder="">
+                                                                                <input type="text" class="form-control"  name="nik" placeholder="">
                                                                                 <p class="help-block" style="z-index: 10;">Nomor Induk Kependudukan. Kartu Izin Tinggal Terbatas (untuk WNA).</p>
                                                                             </div>
                                                                         </div>
@@ -185,7 +185,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="kk" placeholder="">
+                                                                                <input type="text" class="form-control"  name="kk" placeholder="">
                                                                                 <p class="help-block" style="z-index: 10;">Nomor Kartu Keluarga.</p>
                                                                             </div>
                                                                         </div>
@@ -196,7 +196,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control date-picker" id="form_control_1" name="tgllhr" placeholder="">
+                                                                                <input type="date" class="form-control"  name="tgllhr" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Tanggal/Bulan/Tahun</span>
                                                                             </div>
                                                                         </div>
@@ -207,7 +207,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="tmplhr" placeholder="">
+                                                                                <input type="text" class="form-control"  name="tmplhr" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Tempat Kelahiran.</span>
                                                                             </div>
                                                                         </div>
@@ -218,7 +218,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="akta" placeholder="">
+                                                                                <input type="text" class="form-control"  name="akta" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Nomor Registrasi Akta Lahir</span>
                                                                             </div>
                                                                         </div>
@@ -229,7 +229,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="religion" class="form-control" id="form_control_1">
+                                                                                <select name="religion" class="form-control" >
                                                                                     <option value="Budha">Budha</option>
                                                                                     <option value="Hindu">Hindu</option>
                                                                                     <option value="Islam">Islam</option>
@@ -248,7 +248,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="country" class="form-control" id="form_control_1">
+                                                                                <select name="country" class="form-control" >
                                                                                     <option value=""></option>
                                                                                     <!-- JSON DATA GOES HERE -->
                                                                                 </select>
@@ -262,7 +262,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="disabled" placeholder="">
+                                                                                <input type="text" class="form-control"  name="disabled" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Kebutuhan Khusus yang disandang oleh peserta didik.</span>
                                                                             </div>
                                                                         </div>
@@ -284,7 +284,7 @@
                                                                             </label>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                    <select name="livewith" class="form-control" id="form_control_1">
+                                                                                    <select name="livewith" class="form-control" >
                                                                                         <option value="With Parent"> Orang Tua </option>
                                                                                         <option value="With Guardian"> Wali </option>
                                                                                         <option value="Kost / PRivate Apt"> Kost/Apartemen Pribadi </option>
@@ -301,7 +301,7 @@
                                                                             </label>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                    <select name="transport" class="form-control" id="form_control_1">
+                                                                                    <select name="transport" class="form-control" >
                                                                                         <option value="On Foot"> Jalan Kaki </option>
                                                                                         <option value="Private Vehicle"> Kendaraan Pribadi </option>
                                                                                         <option value="Public Transportation"> Angkutan Umum </option>
@@ -317,7 +317,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="address" placeholder="">
+                                                                                <input type="text" class="form-control"  name="address" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Alamat Peserta Didik.</span>
                                                                             </div>
                                                                         </div>
@@ -328,7 +328,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="number" class="form-control" id="form_control_1" name="rt" placeholder="">
+                                                                                <input type="number" class="form-control"  name="rt" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">RT</span>
                                                                             </div>
                                                                         </div>
@@ -339,7 +339,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="number" class="form-control" id="form_control_1" name="rw" placeholder="">
+                                                                                <input type="number" class="form-control"  name="rw" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">RW</span>
                                                                             </div>
                                                                         </div>
@@ -350,7 +350,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="dusun" placeholder="">
+                                                                                <input type="text" class="form-control"  name="dusun" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Dusun</span>
                                                                             </div>
                                                                         </div>
@@ -361,7 +361,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="village" placeholder="">
+                                                                                <input type="text" class="form-control"  name="village" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Kelurahan/Desa</span>
                                                                             </div>
                                                                         </div>
@@ -372,7 +372,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="district" placeholder="">
+                                                                                <input type="text" class="form-control"  name="district" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Kecamatan</span>
                                                                             </div>
                                                                         </div>
@@ -383,7 +383,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="region" placeholder="">
+                                                                                <input type="text" class="form-control"  name="region" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Kabupaten</span>
                                                                             </div>
                                                                         </div>
@@ -394,7 +394,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="postal" placeholder="">
+                                                                                <input type="text" class="form-control"  name="postal" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Kode Post</span>
                                                                             </div>
                                                                         </div>
@@ -405,7 +405,7 @@
                                                                             </label>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                    <input type="text" class="form-control" id="form_control_1" name="lintang" placeholder="">
+                                                                                    <input type="text" class="form-control"  name="lintang" placeholder="">
                                                                                     <span class="help-block" style="z-index: 10;">Lintang</span>
                                                                                 </div>
                                                                             </div>
@@ -416,7 +416,7 @@
                                                                             </label>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                    <input type="text" class="form-control" id="form_control_1" name="bujur" placeholder="">
+                                                                                    <input type="text" class="form-control"  name="bujur" placeholder="">
                                                                                     <span class="help-block" style="z-index: 10;">Bujur</span>
                                                                                 </div>
                                                                             </div>
@@ -427,7 +427,7 @@
                                                                             </label>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                    <input type="number" class="form-control" id="form_control_1" name="child" placeholder="">
+                                                                                    <input type="number" class="form-control"  name="child" placeholder="">
                                                                                     <span class="help-block" style="z-index: 10;">Anak Keberapa</span>
                                                                                 </div>
                                                                             </div>
@@ -484,7 +484,7 @@
                                                                             </label>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                    <select name="refusepip" class="form-control" id="form_control_1">
+                                                                                    <select name="refusepip" class="form-control" >
                                                                                         <option value="-"> - </option>
                                                                                         <option value="Dilarang PEMDA"> Dilarang PEMDA (memiliki bantuan serupa) </option>
                                                                                         <option value="Menolak"> Menolak </option>
@@ -500,7 +500,7 @@
                                                                             </label>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                    <input type="text" class="form-control" id="form_control_1" name="housephone">
+                                                                                    <input type="text" class="form-control"  name="housephone">
                                                                                     <span class="help-block" style="z-index: 10;">Nomor Telpon Rumah</span>
                                                                                 </div>
                                                                             </div>
@@ -511,7 +511,7 @@
                                                                             </label>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                    <input type="text" class="form-control" id="form_control_1" name="handheldnumber">
+                                                                                    <input type="text" class="form-control"  name="handheldnumber">
                                                                                     <span class="help-block" style="z-index: 10;">Nomor Telpon Rumah</span>
                                                                                 </div>
                                                                             </div>
@@ -522,7 +522,7 @@
                                                                             </label>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                    <input type="email" class="form-control" id="form_control_1" name="email" placeholder="">
+                                                                                    <input type="email" class="form-control"  name="email" placeholder="">
                                                                                     <span class="help-block" style="z-index: 10;">Email milik peserta atau milik orang tua/wali</span>
                                                                                 </div>
                                                                             </div>
@@ -546,7 +546,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="father" placeholder="">
+                                                                                <input type="text" class="form-control"  name="father" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Nama Ayah Kandung</span>
                                                                             </div>
                                                                         </div>
@@ -557,7 +557,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="fathernik" placeholder="">
+                                                                                <input type="text" class="form-control"  name="fathernik" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Nomor Induk Keluarga Ayah</span>
                                                                             </div>
                                                                         </div>
@@ -568,7 +568,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="number" class="form-control" id="form_control_1" name="fatheryear" placeholder="">
+                                                                                <input type="date" class="form-control"  name="fatheryear" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Tahun Kelahiran Ayah</span>
                                                                             </div>
                                                                         </div>
@@ -579,7 +579,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="fatherdegree" class="form-control" id="form_control_1">
+                                                                                <select name="fatherdegree" class="form-control" >
                                                                                     <option value="-"> - </option>
                                                                                     <option value="Tidak Sekolah"> Tidak Sekolah </option>
                                                                                     <option value="Putus SD"> Putus SD </option>
@@ -603,7 +603,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="fatherjob" class="form-control" id="form_control_1">
+                                                                                <select name="fatherjob" class="form-control" >
                                                                                     <option value="-"> - </option>
                                                                                     <option value="Tidak Bekerja"> Tidak Bekerja </option>
                                                                                     <option value="Nelayan"> Nelayan </option>
@@ -628,7 +628,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="fatherincome" class="form-control" id="form_control_1">
+                                                                                <select name="fatherincome" class="form-control" >
                                                                                     <option value="-"> - </option>
                                                                                     <option value="Rp. 500.000"> Rp. 500.000 </option>
                                                                                     <option value="Rp. 500.000 - Rp. 999.999"> Rp. 500.000 - Rp. 999.999 </option>
@@ -648,7 +648,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="fatherdisabled" placeholder="">
+                                                                                <input type="text" class="form-control"  name="fatherdisabled" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Kebutuhan Khusus yang disandang Ayah</span>
                                                                             </div>
                                                                         </div>
@@ -659,7 +659,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="mother" placeholder="">
+                                                                                <input type="text" class="form-control"  name="mother" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Nama Ibu Kandung</span>
                                                                             </div>
                                                                         </div>
@@ -670,7 +670,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="mothernik" placeholder="">
+                                                                                <input type="text" class="form-control"  name="mothernik" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Nomor Induk Keluarga Ibu</span>
                                                                             </div>
                                                                         </div>
@@ -681,7 +681,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="number" class="form-control" id="form_control_1" name="motheryear" placeholder="">
+                                                                                <input type="date" class="form-control"  name="motheryear" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Tahun Kelahiran Ibu</span>
                                                                             </div>
                                                                         </div>
@@ -692,7 +692,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="motherdegree" class="form-control" id="form_control_1">
+                                                                                <select name="motherdegree" class="form-control" >
                                                                                     <option value="-"> - </option>
                                                                                     <option value="Tidak Sekolah"> Tidak Sekolah </option>
                                                                                     <option value="Putus SD"> Putus SD </option>
@@ -716,7 +716,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="motherjob" class="form-control" id="form_control_1">
+                                                                                <select name="motherjob" class="form-control" >
                                                                                     <option value="-"> - </option>
                                                                                     <option value="Tidak Bekerja"> Tidak Bekerja </option>
                                                                                     <option value="Nelayan"> Nelayan </option>
@@ -741,7 +741,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="motherincome" class="form-control" id="form_control_1">
+                                                                                <select name="motherincome" class="form-control" >
                                                                                     <option value="-"> - </option>
                                                                                     <option value="Rp. 500.000"> Rp. 500.000 </option>
                                                                                     <option value="Rp. 500.000 - Rp. 999.999"> Rp. 500.000 - Rp. 999.999 </option>
@@ -761,7 +761,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="motherdisabled" placeholder="">
+                                                                                <input type="text" class="form-control"  name="motherdisabled" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Kebutuhan Khusus yang disandang Ibu</span>
                                                                             </div>
                                                                         </div>
@@ -773,7 +773,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="guardian" placeholder="">
+                                                                                <input type="text" class="form-control"  name="guardian" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Nama Wali</span>
                                                                             </div>
                                                                         </div>
@@ -784,7 +784,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="guardiannik" placeholder="">
+                                                                                <input type="text" class="form-control"  name="guardiannik" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Nomor Induk Keluarga Wali</span>
                                                                             </div>
                                                                         </div>
@@ -795,7 +795,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="number" class="form-control" id="form_control_1" name="guardianyear" placeholder="">
+                                                                                <input type="date" class="form-control"  name="guardianyear" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Tahun Kelahiran Wali</span>
                                                                             </div>
                                                                         </div>
@@ -806,7 +806,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="guardiandegree" class="form-control" id="form_control_1">
+                                                                                <select name="guardiandegree" class="form-control" >
                                                                                     <option value="-"> - </option>
                                                                                     <option value="Tidak Sekolah"> Tidak Sekolah </option>
                                                                                     <option value="Putus SD"> Putus SD </option>
@@ -830,7 +830,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="guardianjob" class="form-control" id="form_control_1">
+                                                                                <select name="guardianjob" class="form-control" >
                                                                                     <option value="-"> - </option>
                                                                                     <option value="Tidak Bekerja"> Tidak Bekerja </option>
                                                                                     <option value="Nelayan"> Nelayan </option>
@@ -855,7 +855,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <select name="guardianincome" class="form-control" id="form_control_1">
+                                                                                <select name="guardianincome" class="form-control" >
                                                                                     <option value="-"> - </option>
                                                                                     <option value="Rp. 500.000"> Rp. 500.000 </option>
                                                                                     <option value="Rp. 500.000 - Rp. 999.999"> Rp. 500.000 - Rp. 999.999 </option>
@@ -875,7 +875,7 @@
                                                                         </label>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                <input type="text" class="form-control" id="form_control_1" name="guardiandisabled" placeholder="">
+                                                                                <input type="text" class="form-control"  name="guardiandisabled" placeholder="">
                                                                                 <span class="help-block" style="z-index: 10;">Kebutuhan Khusus yang disandang Wali</span>
                                                                             </div>
                                                                         </div>
@@ -900,7 +900,7 @@
                                                         </label>
                                                         <div class="col-md-2">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" id="form_control_1" name="height" placeholder="">
+                                                                <input type="number" class="form-control"  name="height" placeholder="">
                                                                 <span class="help-block">tinggi badan peserta didik</span>
                                                             </div>
                                                         </div>
@@ -911,7 +911,7 @@
                                                         </label>
                                                         <div class="col-md-2">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" id="form_control_1" name="weight" placeholder="">
+                                                                <input type="number" class="form-control"  name="weight" placeholder="">
                                                                 <span class="help-block">tinggi badan peserta didik</span>
                                                             </div>
                                                         </div>
@@ -922,7 +922,7 @@
                                                         </label>
                                                         <div class="col-md-2">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" id="form_control_1" name="headdiameter" placeholder="">
+                                                                <input type="number" class="form-control"  name="headdiameter" placeholder="">
                                                                 <span class="help-block">ukurang lingkar kepala</span>
                                                             </div>
                                                         </div>
@@ -956,7 +956,7 @@
                                                         </label>
                                                         <div class="col-md-2">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" id="form_control_1" name="exactrange" placeholder="">
+                                                                <input type="number" class="form-control"  name="exactrange" placeholder="">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-1" style="padding-left: 0px;margin-top: 10px">
@@ -969,7 +969,7 @@
                                                         </label>
                                                         <div class="col-md-2">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" id="form_control_1" name="timerange" placeholder="">
+                                                                <input type="number" class="form-control"  name="timerange" placeholder="">
                                                                 <span class="help-block">Waktu tempuh Peserta Didik ke Sekolah. masukan dalam satuan menit</span>
                                                             </div>
                                                         </div>
@@ -983,7 +983,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" id="form_control_1" name="siblings" value="0" placeholder="">
+                                                                <input type="number" class="form-control"  name="siblings" value="0" placeholder="">
                                                                 <span class="help-block">Jumlah saudara kandung peserta didik. isikan 0 jika tidak ada saudara</span>
                                                             </div>
                                                         </div>
@@ -1082,7 +1082,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" id="form_control_1" name="ach_name" placeholder="">
+                                                                <input type="text" class="form-control"  name="ach_name" placeholder="">
                                                                 <span class="help-block">Nama Prestasi yang diraih peserta didik</span>
                                                             </div>
                                                         </div>
@@ -1093,7 +1093,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" id="form_control_1" name="ach_year" value="0" placeholder="2010">
+                                                                <input type="number" class="form-control"  name="ach_year" value="0" placeholder="2010">
                                                                 <span class="help-block">Tahun Prestasi didapat oleh peserta Didik</span>
                                                             </div>
                                                         </div>
@@ -1104,7 +1104,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" id="form_control_1" name="sponsor" placeholder="">
+                                                                <input type="text" class="form-control"  name="sponsor" placeholder="">
                                                                 <span class="help-block">Penyelenggara Prestasi yang diraih Peserta Didik</span>
                                                             </div>
                                                         </div>
@@ -1115,7 +1115,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" id="form_control_1" name="ach_rank" value="0" placeholder="2010">
+                                                                <input type="number" class="form-control"  name="ach_rank" value="0" placeholder="2010">
                                                                 <span class="help-block">Peringkat Prestasi Peserta Didik</span>
                                                             </div>
                                                         </div>
@@ -1163,7 +1163,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" id="form_control_1" name="scholardesc">
+                                                                <input type="text" class="form-control"  name="scholardesc">
                                                                 <span class="help-block">Keterangan Beasiswa Peserta Didik. dapat diisi dengan nama beasiswa, atau keterangan yang relevan</span>
                                                             </div>
                                                         </div>
@@ -1174,7 +1174,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" id="form_control_1" name="scholarstart" placeholder="ex. <?= date('Y'); ?>">
+                                                                <input type="number" class="form-control"  name="scholarstart" placeholder="ex. <?= date('Y'); ?>">
                                                                 <span class="help-block">Tahun Mulai Beasiswa</span>
                                                             </div>
                                                         </div>
@@ -1185,7 +1185,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="number" class="form-control" id="form_control_1" name="scholarfinish" placeholder="ex. <?= date('Y') + 3; ?>">
+                                                                <input type="number" class="form-control"  name="scholarfinish" placeholder="ex. <?= date('Y') + 3; ?>">
                                                                 <span class="help-block">Tahun Beasiswa Berakhir</span>
                                                             </div>
                                                         </div>
@@ -1196,7 +1196,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <select name="prosperity" class="form-control" id="form_control_1">
+                                                                <select name="prosperity" class="form-control" >
                                                                     <option value="-"> - </option>
                                                                     <option value="PKH">PKH</option>
                                                                     <option value="PIP">PIP</option>
@@ -1214,7 +1214,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" id="form_control_1" name="prospernumber">
+                                                                <input type="text" class="form-control"  name="prospernumber">
                                                                 <span class="help-block">No. Kartu yang bersangkutan</span>
                                                             </div>
                                                         </div>
@@ -1225,7 +1225,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" id="form_control_1" name="prospernametag">
+                                                                <input type="text" class="form-control"  name="prospernametag">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1246,7 +1246,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" id="form_control_1" name="competition">
+                                                                <input type="text" class="form-control"  name="competition">
                                                                 <span class="help-block">Kompetensi Keahlian (Khusus SMK)</span>
                                                             </div>
                                                         </div>
@@ -1305,7 +1305,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <select name="classes" class="form-control classes" id="form_control_1">
+                                                                <select name="classes" class="form-control classes" >
                                                                     <option value="-"> - </option>
                                                                     <?php foreach ($class as $row) : ?>
                                                                         <option value="<?= $row->ClassDesc ?>"><?= $row->ClassDesc ?></option>
@@ -1321,7 +1321,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <select name="room" class="form-control room" id="form_control_1">
+                                                                <select name="room" class="form-control room" >
                                                                     <option value="-">pilih kelas terlebih dahulu</option>
                                                                 </select>
                                                                 <span class="help-block" style="z-index: 10;">Ruangan</span>
@@ -1334,7 +1334,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" id="form_control_1" name="previousschool">
+                                                                <input type="text" class="form-control"  name="previousschool">
                                                                 <span class="help-block">Nama Sekolah Asal Peserta Didik Baru/Pindahan</span>
                                                             </div>
                                                         </div>
@@ -1345,7 +1345,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" id="form_control_1" name="unnumber">
+                                                                <input type="text" class="form-control"  name="unnumber">
                                                                 <span class="help-block">
                                                                     Nomor peserta ujian saat peserta didik masih di jenjang sebelumnya, berformat (x-xx-xx-xx-xxx-xxx-x).<br>
                                                                     untuk peserta didik WNA, diisi dengan no Luar Negeri.
@@ -1359,7 +1359,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" id="form_control_1" name="diploma">
+                                                                <input type="text" class="form-control"  name="diploma">
                                                                 <span class="help-block">
                                                                     Nomor seri ijazah peserta didik pada jenjang sebelumnya
                                                                 </span>
@@ -1372,7 +1372,7 @@
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" id="form_control_1" name="skhun">
+                                                                <input type="text" class="form-control"  name="skhun">
                                                                 <span class="help-block">
                                                                     Nomor seri ijazah peserta didik pada jenjang sebelumnya
                                                                 </span>
@@ -1426,7 +1426,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_fname" placeholder="" value="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_fname" placeholder="" value="" disabled>
                                                                         <span class="help-block">masukan nama depan...</span>
                                                                     </div>
                                                                 </div>
@@ -1437,7 +1437,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_lname" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_lname" placeholder="" disabled>
                                                                         <span class="help-block">masukan nama belakang</span>
                                                                     </div>
                                                                 </div>
@@ -1471,7 +1471,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_nisn" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_nisn" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10">Nomor Induk Siswa Nasional Peserta Didik <br>(jika ada).</span>
                                                                     </div>
                                                                 </div>
@@ -1482,7 +1482,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_nik" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_nik" placeholder="" disabled>
                                                                         <p class="help-block" style="z-index: 10;">Nomor Induk Kependudukan. <br>Kartu Izin Tinggal Terbatas (untuk WNA).</p>
                                                                     </div>
                                                                 </div>
@@ -1493,7 +1493,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_kk" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_kk" placeholder="" disabled>
                                                                         <p class="help-block" style="z-index: 10;">Nomor Kartu Keluarga.</p>
                                                                     </div>
                                                                 </div>
@@ -1504,7 +1504,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_tgllhr" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_tgllhr" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Tanggal Kelahiran</span>
                                                                     </div>
                                                                 </div>
@@ -1515,7 +1515,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_tmplhr" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_tmplhr" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Tempat Kelahiran.</span>
                                                                     </div>
                                                                 </div>
@@ -1526,7 +1526,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_akta" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_akta" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Nomor Registrasi Akta Lahir</span>
                                                                     </div>
                                                                 </div>
@@ -1537,7 +1537,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_religion" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_religion" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Agama</span>
                                                                     </div>
                                                                 </div>
@@ -1548,7 +1548,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_country" class="form-control" id="form_control_1" value="" disabled>
+                                                                        <input name="confirm_country" class="form-control"  value="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Kewarganegaraan</span>
                                                                     </div>
                                                                 </div>
@@ -1559,7 +1559,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_disabled" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_disabled" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Kebutuhan Khusus yang disandang oleh peserta didik.</span>
                                                                     </div>
                                                                 </div>
@@ -1570,7 +1570,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_address" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_address" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Alamat Peserta Didik.</span>
                                                                     </div>
                                                                 </div>
@@ -1581,7 +1581,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_rt" placeholder="" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_rt" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">RT</span>
                                                                     </div>
                                                                 </div>
@@ -1592,7 +1592,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_rw" placeholder="" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_rw" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">RW</span>
                                                                     </div>
                                                                 </div>
@@ -1603,7 +1603,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_dusun" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_dusun" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Dusun</span>
                                                                     </div>
                                                                 </div>
@@ -1614,7 +1614,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_village" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_village" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Kelurahan/Desa</span>
                                                                     </div>
                                                                 </div>
@@ -1625,7 +1625,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_district" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_district" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Kecamatan</span>
                                                                     </div>
                                                                 </div>
@@ -1636,7 +1636,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_region" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_region" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Kabupaten</span>
                                                                     </div>
                                                                 </div>
@@ -1647,7 +1647,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_postal" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_postal" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Kode Post</span>
                                                                     </div>
                                                                 </div>
@@ -1658,7 +1658,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_livewith" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_livewith" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Tempat Tinggal</span>
                                                                     </div>
                                                                 </div>
@@ -1669,7 +1669,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_transport" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_transport" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Moda Transportasi</span>
                                                                     </div>
                                                                 </div>
@@ -1680,7 +1680,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_lintang" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_lintang" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Lintang</span>
                                                                     </div>
                                                                 </div>
@@ -1691,7 +1691,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_bujur" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_bujur" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Bujur</span>
                                                                     </div>
                                                                 </div>
@@ -1702,7 +1702,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_child" placeholder="" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_child" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Anak Keberapa</span>
                                                                     </div>
                                                                 </div>
@@ -1759,7 +1759,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_refusepip" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_refusepip" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Alasan Penolakan</span>
                                                                     </div>
                                                                 </div>
@@ -1770,7 +1770,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_housephone" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_housephone" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Nomor Telpon Rumah</span>
                                                                     </div>
                                                                 </div>
@@ -1781,7 +1781,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_handheldnumber" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_handheldnumber" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Nomor Telpon Rumah</span>
                                                                     </div>
                                                                 </div>
@@ -1792,7 +1792,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="email" class="form-control" id="form_control_1" name="confirm_email" placeholder="" disabled>
+                                                                        <input type="email" class="form-control"  name="confirm_email" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Email milik peserta atau milik orang tua/wali</span>
                                                                     </div>
                                                                 </div>
@@ -1803,7 +1803,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_father" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_father" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Nama Ayah Kandung</span>
                                                                     </div>
                                                                 </div>
@@ -1814,7 +1814,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_fathernik" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_fathernik" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Nomor Induk Keluarga Ayah</span>
                                                                     </div>
                                                                 </div>
@@ -1825,7 +1825,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_fatheryear" placeholder="" disabled>
+                                                                        <input type="date" class="form-control"  name="confirm_fatheryear" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Tahun Kelahiran Ayah</span>
                                                                     </div>
                                                                 </div>
@@ -1836,7 +1836,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_fatherdegree" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_fatherdegree" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Pendidikan Terakhir Ayah</span>
                                                                     </div>
                                                                 </div>
@@ -1847,7 +1847,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_fatherjob" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_fatherjob" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Pekerjaan Ayah</span>
                                                                     </div>
                                                                 </div>
@@ -1858,7 +1858,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_fatherincome" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_fatherincome" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Pekerjaan Ayah</span>
                                                                     </div>
                                                                 </div>
@@ -1869,7 +1869,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_fatherdisabled" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_fatherdisabled" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Kebutuhan Khusus yang disandang Ayah</span>
                                                                     </div>
                                                                 </div>
@@ -1880,7 +1880,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_mother" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_mother" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Nama Ibu Kandung</span>
                                                                     </div>
                                                                 </div>
@@ -1891,7 +1891,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_mothernik" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_mothernik" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Nomor Induk Keluarga Ibu</span>
                                                                     </div>
                                                                 </div>
@@ -1902,7 +1902,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_motheryear" placeholder="" disabled>
+                                                                        <input type="date" class="form-control"  name="confirm_motheryear" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Tahun Kelahiran Ibu</span>
                                                                     </div>
                                                                 </div>
@@ -1913,7 +1913,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_motherdegree" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_motherdegree" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Pendidikan Terakhir Ibu</span>
                                                                     </div>
                                                                 </div>
@@ -1924,7 +1924,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_motherjob" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_motherjob" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Pekerjaan Ibu</span>
                                                                     </div>
                                                                 </div>
@@ -1935,7 +1935,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_motherincome" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_motherincome" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Pekerjaan Ibu</span>
                                                                     </div>
                                                                 </div>
@@ -1946,7 +1946,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_motherdisabled" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_motherdisabled" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Kebutuhan Khusus yang disandang Ibu</span>
                                                                     </div>
                                                                 </div>
@@ -1957,7 +1957,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_guardian" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_guardian" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Nama Wali</span>
                                                                     </div>
                                                                 </div>
@@ -1968,7 +1968,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_guardiannik" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_guardiannik" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Nomor Induk Keluarga Wali</span>
                                                                     </div>
                                                                 </div>
@@ -1979,7 +1979,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_guardianyear" placeholder="" disabled>
+                                                                        <input type="date" class="form-control"  name="confirm_guardianyear" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Tahun Kelahiran Wali</span>
                                                                     </div>
                                                                 </div>
@@ -1990,7 +1990,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_guardiandegree" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_guardiandegree" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Pendidikan Terakhir Wali</span>
                                                                     </div>
                                                                 </div>
@@ -2001,7 +2001,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_guardianjob" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_guardianjob" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Pekerjaan Wali</span>
                                                                     </div>
                                                                 </div>
@@ -2012,7 +2012,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_guardianincome" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_guardianincome" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Pekerjaan Wali</span>
                                                                     </div>
                                                                 </div>
@@ -2023,7 +2023,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_guardiandisabled" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_guardiandisabled" placeholder="" disabled>
                                                                         <span class="help-block" style="z-index: 10;">Kebutuhan Khusus yang disandang Wali</span>
                                                                     </div>
                                                                 </div>
@@ -2034,7 +2034,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_height" placeholder="" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_height" placeholder="" disabled>
                                                                         <span class="help-block">tinggi badan peserta didik</span>
                                                                     </div>
                                                                 </div>
@@ -2045,7 +2045,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_weight" placeholder="" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_weight" placeholder="" disabled>
                                                                         <span class="help-block">tinggi badan peserta didik</span>
                                                                     </div>
                                                                 </div>
@@ -2056,7 +2056,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_headdiameter" placeholder="" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_headdiameter" placeholder="" disabled>
                                                                         <span class="help-block">ukurang lingkar kepala</span>
                                                                     </div>
                                                                 </div>
@@ -2090,7 +2090,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_exactrange" placeholder="" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_exactrange" placeholder="" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2100,7 +2100,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_timerange" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_timerange" placeholder="" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2110,7 +2110,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_siblings" value="0" placeholder="" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_siblings" value="0" placeholder="" disabled>
                                                                         <span class="help-block">Jumlah saudara kandung peserta didik. isikan 0 jika tidak ada saudara</span>
                                                                     </div>
                                                                 </div>
@@ -2209,7 +2209,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_ach_name" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_ach_name" placeholder="" disabled>
                                                                         <span class="help-block">Nama Prestasi yang diraih peserta didik</span>
                                                                     </div>
                                                                 </div>
@@ -2220,7 +2220,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_ach_year" value="0" placeholder="2010" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_ach_year" value="0" placeholder="2010" disabled>
                                                                         <span class="help-block">Tahun Prestasi didapat oleh peserta Didik</span>
                                                                     </div>
                                                                 </div>
@@ -2231,7 +2231,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_sponsor" placeholder="" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_sponsor" placeholder="" disabled>
                                                                         <span class="help-block">Penyelenggara Prestasi yang diraih Peserta Didik</span>
                                                                     </div>
                                                                 </div>
@@ -2242,7 +2242,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_ach_year" value="0" placeholder="2010" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_ach_year" value="0" placeholder="2010" disabled>
                                                                         <span class="help-block">Peringkat Prestasi Peserta Didik</span>
                                                                     </div>
                                                                 </div>
@@ -2290,7 +2290,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_scholardesc" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_scholardesc" disabled>
                                                                         <span class="help-block">Keterangan Beasiswa Peserta Didik. dapat diisi dengan nama beasiswa, atau keterangan yang relevan</span>
                                                                     </div>
                                                                 </div>
@@ -2301,7 +2301,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_scholarstart" placeholder="ex. <?= date('Y'); ?>" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_scholarstart" placeholder="ex. <?= date('Y'); ?>" disabled>
                                                                         <span class="help-block">Tahun Mulai Beasiswa</span>
                                                                     </div>
                                                                 </div>
@@ -2312,7 +2312,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="number" class="form-control" id="form_control_1" name="confirm_scholarfinish" placeholder="ex. <?= date('Y') + 3; ?>" disabled>
+                                                                        <input type="number" class="form-control"  name="confirm_scholarfinish" placeholder="ex. <?= date('Y') + 3; ?>" disabled>
                                                                         <span class="help-block">Tahun Beasiswa Berakhir</span>
                                                                     </div>
                                                                 </div>
@@ -2323,7 +2323,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input name="confirm_prosperity" class="form-control" id="form_control_1" disabled>
+                                                                        <input name="confirm_prosperity" class="form-control"  disabled>
                                                                         <span class="help-block" style="z-index: 10;">Kesejahteraan Peserta Didik</span>
                                                                     </div>
                                                                 </div>
@@ -2334,7 +2334,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_prospernumber" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_prospernumber" disabled>
                                                                         <span class="help-block">No. Kartu yang bersangkutan</span>
                                                                     </div>
                                                                 </div>
@@ -2345,7 +2345,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_prospernametag" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_prospernametag" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2355,7 +2355,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_competition" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_competition" disabled>
                                                                         <span class="help-block">Kompetensi Keahlian (Khusus SMK)</span>
                                                                     </div>
                                                                 </div>
@@ -2396,7 +2396,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_nis" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_nis" disabled>
                                                                         <span class="help-block">Nomor Induk peserta didik sesuai yang terantum pada buku induk</span>
                                                                     </div>
                                                                 </div>
@@ -2407,7 +2407,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_classes" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_classes" disabled>
                                                                         <span class="help-block">Nomor Induk peserta didik sesuai yang terantum pada buku induk</span>
                                                                     </div>
                                                                 </div>
@@ -2418,7 +2418,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_room" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_room" disabled>
                                                                         <span class="help-block">Nomor Induk peserta didik sesuai yang terantum pada buku induk</span>
                                                                     </div>
                                                                 </div>
@@ -2429,7 +2429,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_previousschool" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_previousschool" disabled>
                                                                         <span class="help-block">Nama Sekolah Asal Peserta Didik Baru/Pindahan</span>
                                                                     </div>
                                                                 </div>
@@ -2440,7 +2440,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_unnumber" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_unnumber" disabled>
                                                                         <span class="help-block">
                                                                             Nomor peserta ujian saat peserta didik masih di jenjang sebelumnya, berformat (x-xx-xx-xx-xxx-xxx-x).<br>
                                                                             untuk peserta didik WNA, diisi dengan no Luar Negeri.
@@ -2454,7 +2454,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_diploma" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_diploma" disabled>
                                                                         <span class="help-block">
                                                                             Nomor seri ijazah peserta didik pada jenjang sebelumnya
                                                                         </span>
@@ -2467,7 +2467,7 @@
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="text" class="form-control" id="form_control_1" name="confirm_skhun" disabled>
+                                                                        <input type="text" class="form-control"  name="confirm_skhun" disabled>
                                                                         <span class="help-block">
                                                                             Nomor seri ijazah peserta didik pada jenjang sebelumnya
                                                                         </span>

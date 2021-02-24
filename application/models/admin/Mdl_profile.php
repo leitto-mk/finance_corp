@@ -152,8 +152,11 @@ class Mdl_profile extends CI_Model
 
     public function model_update_tch($selected_id, $table1, $table2)
     {
+        $status = $_POST['previlege'];
+
         $this->db->trans_begin();
         $this->db->update('tbl_07_personal_bio', $table1, ['IDNumber' => $selected_id]);
+        $this->db->update('tbl_07_personal_bio', ['status' => $status], ['IDNumber' => $selected_id]);
         $this->db->update('tbl_08_job_info', $table2, ['IDNumber' => $selected_id]);
         $this->db->trans_commit();
 

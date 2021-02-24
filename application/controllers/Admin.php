@@ -5040,7 +5040,7 @@ class Admin extends CI_Controller
     {
         $selected_id = $this->uri->segment(3);
 
-        $institute = $_POST['inst'];
+        $institute = (isset($_POST['inst']) ? $_POST['inst'] : '');
 
         if ($institute == '') {
             $institute = 'no';
@@ -5048,7 +5048,6 @@ class Admin extends CI_Controller
 
         $table1 = [
             'PersonalID' => $_POST['newktp'],
-            'status' => $_POST['previlege'],
             'FirstName' => $_POST['newfname'],
             'LastName' => $_POST['newlname'],
             'status' => $_POST['status'],
@@ -5282,26 +5281,10 @@ class Admin extends CI_Controller
         }
 
         $Birth =  date('Y-m-d', strtotime(strtr($_POST['tgllhr'], '-', '/')));
-        $keepkip = $_POST['keepkip'];
-        $ach = $_POST['achievement'];
-        $achlvl = $_POST['achievementlevel'];
-        $scholar = $_POST['scholarship'];
-
-        if (!isset($keepkip)) {
-            $keepkip = '-';
-        }
-
-        if (!isset($ach)) {
-            $ach = '-';
-        }
-
-        if (!isset($achlvl)) {
-            $achlvl = '-';
-        }
-
-        if (!isset($scholar)) {
-            $scholar = '-';
-        }
+        $keepkip = (isset($_POST['keepkip']) ? $_POST['keepkip'] : '');
+        $ach = (isset($_POST['achievement']) ? $_POST['achievement'] : '');
+        $achlvl = (isset($_POST['achievementlevel']) ? $_POST['achievementlevel'] : '');
+        $scholar = (isset($_POST['scholarship']) ? $_POST['scholarship'] : '');
 
         $table1 = [
             //TAB 1
@@ -5379,7 +5362,7 @@ class Admin extends CI_Controller
             'Refuse_PIP' => $_POST['refusepip'],
             'Achievement' => $ach,
             'AchievementLVL' => $achlvl,
-            'AchievementYear' => $_POST['ach_name'],
+            'AchievementName' => $_POST['ach_name'],
             'AchievementYear' => $_POST['ach_year'],
             'Sponsor' => $_POST['sponsor'],
             'AchievementRank' => $_POST['ach_rank'],
@@ -5435,26 +5418,10 @@ class Admin extends CI_Controller
         $room = $_POST['room'];
         $Birth =  date('Y-m-d', strtotime(strtr($_POST['tgllhr'], '-', '/')));
 
-        $keepkip = $_POST['keepkip'];
-        $ach = $_POST['achievement'];
-        $achlvl = $_POST['achievementlevel'];
-        $scholar = $_POST['scholarship'];
-
-        if (!isset($keepkip)) {
-            $keepkip = '-';
-        }
-
-        if (!isset($ach)) {
-            $ach = '-';
-        }
-
-        if (!isset($achlvl)) {
-            $achlvl = '-';
-        }
-
-        if (!isset($scholar)) {
-            $scholar = '-';
-        }
+        $keepkip = (isset($_POST['keepkip']) ? $_POST['keepkip'] : '-');
+        $ach = (isset($_POST['achievement']) ? $_POST['achievement'] : '-');
+        $achlvl = (isset($_POST['achievementlevel']) ? $_POST['achievementlevel'] : '-');
+        $scholar = (isset($_POST['scholarship']) ? $_POST['scholarship'] : '-');
 
         $table1 = [
             //TAB 1
@@ -5483,7 +5450,7 @@ class Admin extends CI_Controller
             'Postal' => $_POST['postal'],
             'Height' => $_POST['height'],
             'Weight' => $_POST['weight'],
-            'HeadDiameter' => $_POST['headdiameter'],
+            'HeadDiameter' => $_POST['headdiameter']
         ];
 
         $table2 = [
@@ -5530,7 +5497,7 @@ class Admin extends CI_Controller
             'Refuse_PIP' => $_POST['refusepip'],
             'Achievement' => $ach,
             'AchievementLVL' => $achlvl,
-            'AchievementYear' => $_POST['ach_name'],
+            'AchievementName' => $_POST['ach_name'],
             'AchievementYear' => $_POST['ach_year'],
             'Sponsor' => $_POST['sponsor'],
             'AchievementRank' => $_POST['ach_rank'],
