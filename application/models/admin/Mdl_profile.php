@@ -157,6 +157,7 @@ class Mdl_profile extends CI_Model
         $this->db->trans_begin();
         $this->db->update('tbl_07_personal_bio', $table1, ['IDNumber' => $selected_id]);
         $this->db->update('tbl_07_personal_bio', ['status' => $status], ['IDNumber' => $selected_id]);
+        $this->db->update('tbl_credentials', ['status' => $status], ['IDNumber' => $selected_id]);
         $this->db->update('tbl_08_job_info', $table2, ['IDNumber' => $selected_id]);
         $this->db->trans_commit();
 
@@ -275,26 +276,68 @@ class Mdl_profile extends CI_Model
         return $result->result();
     }
 
+    public function get_new_std_id($class){
+        $schooltype = $this->db->query(
+            "SELECT t1.School_Desc AS Applying
+             FROM tbl_02_school AS t1
+             RIGHT JOIN tbl_03_b_class_vocational AS t2
+             USING(SchoolID)
+             WHERE t2.ClassDesc = '$class'
+             UNION ALL
+             SELECT t1.School_Desc AS Applying
+             FROM tbl_02_school AS t1
+             RIGHT JOIN tbl_03_class AS t2
+             USING(SchoolID)
+             WHERE t2.ClassDesc = '$class'"
+        )->row_array();
+
+        if($schooltype['Applying'] == 'SD'){
+            $applying = '01';
+        }elseif($schooltype['Applying'] == 'SMP'){
+            $applying = '02';
+        }elseif($schooltype['Applying'] == 'SMA'){
+            $applying = '03';
+        }elseif($schooltype['Applying'] == 'SMK'){
+            $applying = '04';
+        }
+
+        if (date('n', strtotime($time)) <= 6) {
+            $semester = '02';
+        } else {
+            $semester = '01';
+        }
+
+        //COUNT ACTIVATED STUDENTS OF THE CURRENT ENROLLMENT BATCH
+        $checkAppliants = $this->db->like('IDNumber', $applying . date('y') . $semester, 'after')->get('tbl_07_personal_bio')->num_rows();
+
+        if($checkAppliants == 0){
+            //ID = School Code + Last Two Digit of Cur. Year + Cur. Semester + Cur. New Student Index
+            return $applying . date('y') . $semester . '001';
+        }else{
+            //ID = School Code + Last Two Digit of Cur. Year + Cur. Semester + Cur. New Student Index
+            return $applying . date('y') . $semester . str_pad(($checkAppliants+1),3,"0", STR_PAD_LEFT);
+        }
+    }
+
     public function new_std($table1, $table2)
     {
-        $newid = $_POST['nis'];
-        $status = 'student';
-        $room = $_POST['room'];
-        $pass = md5('123456');
-
-        $semester = '';
-        $schYear = '';
-
         $time = date('d-m-Y');
         $year = date('Y');
+        $semester = '';
+        $schYear = '';
 
         if (date('n', strtotime($time)) <= 6) {
             $semester = 2;
             $schYear = ($year - 1) . '/' . $year;
         } else {
-            $schYear = $year . '/' . ($year + 1);
             $semester = 1;
+            $schYear = $year . '/' . ($year + 1);
         }
+
+        $newid = $table1['IDNumber'];
+        $status = 'student';
+        $room = $_POST['room'];
+        $pass = md5('123456');
 
         $this->db->trans_begin();
         $this->db->insert('tbl_07_personal_bio', $table1);

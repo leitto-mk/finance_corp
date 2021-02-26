@@ -17,7 +17,7 @@
                             <div class="portlet light profile-sidebar-portlet">
                                 <!-- SIDEBAR USERPIC -->
                                 <div class="profile-userpic">
-                                    <img src="<?= base_url() . 'assets/photos/teachers/' . $datatoedit->Photo; ?>" class="img-responsive thumbnail img-circle" style="max-width: 100%;">
+                                    <img src="<?= base_url() . 'assets/photos/' . ($datatoedit->status == 'admin' ? 'adm/' : 'teachers/') . $datatoedit->Photo; ?>" class="img-responsive thumbnail img-circle" style="max-width: 100%;">
                                 </div>
                                 <!-- END SIDEBAR USERPIC -->
                                 <br>

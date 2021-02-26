@@ -16,21 +16,35 @@ class Mdl_enroll extends CI_Model
         $this->db->insert('tbl_11_enrollment', $data);
     }
 
-    public function model_get_dropdown_apply($apply)
+    public function model_get_dropdown_apply($apply, $email)
     {
         $room = $apply . 'C1';
 
-        $query = $this->db->query(
-            "SELECT 
-                RoomDesc 
-             FROM tbl_04_class_rooms 
-             WHERE ClassID LIKE '$room%'
-             UNION ALL
-             SELECT 
-                RoomDesc
-             FROM tbl_04_class_rooms_vocational
-             WHERE ClassID LIKE '$room%'"
-        );
+        $regis_type = $this->db->select('Registration')->get_where('tbl_11_enrollment', ['Email' => $email])->row()->Registration;
+
+        if($regis_type == 'New'){
+            $query = $this->db->query(
+                "SELECT 
+                    RoomDesc 
+                 FROM tbl_04_class_rooms 
+                 WHERE ClassID LIKE '$room%'
+                 UNION ALL
+                 SELECT 
+                    RoomDesc
+                 FROM tbl_04_class_rooms_vocational
+                 WHERE ClassID LIKE '$room%'"
+            );
+        }elseif($regis_type == 'Transfer'){
+            $query = $this->db->query(
+                "SELECT 
+                    RoomDesc 
+                 FROM tbl_04_class_rooms
+                 UNION ALL
+                 SELECT 
+                    RoomDesc
+                 FROM tbl_04_class_rooms_vocational"
+            );
+        }
 
         return $query->result();
     }
@@ -63,25 +77,24 @@ class Mdl_enroll extends CI_Model
             $applying = '04';
         }
 
-        $schYear = '';
-
         $time = date('d-m-Y');
         $year = date('Y');
 
         if (date('n', strtotime($time)) <= 6) {
-            $schYear = (($year - 1)-2000) . ($year-2000);
             $semester = '02';
         } else {
-            $schYear = ($year-2000) . (($year + 1)-2000);
             $semester = '01';
         }
 
-        $checkAppliants = $this->db->like('IDNumber', $applying . $schYear . $semester, 'after')->get('tbl_07_personal_bio')->num_rows();
+        //COUNT ACTIVATED STUDENTS OF THE CURRENT ENROLLMENT BATCH
+        $checkAppliants = $this->db->like('IDNumber', $applying . date('y') . $semester, 'after')->get('tbl_07_personal_bio')->num_rows();
 
         if($checkAppliants == 0){
-            $ID = $applying . $schYear . $semester . '001';
+            //ID = School Code + Last Two Digit of Cur. Year + Cur. Semester + Cur. New Student Index
+            $ID = $applying . date('y') . $semester . '001';
         }else{
-            $ID = $applying . $schYear . $semester . str_pad(($checkAppliants+1),3,"0", STR_PAD_LEFT);
+            //ID = School Code + Last Two Digit of Cur. Year + Cur. Semester + Cur. New Student Index
+            $ID = $applying . date('y') . $semester . str_pad(($checkAppliants+1),3,"0", STR_PAD_LEFT);
         }
 
         $transfer_bio = [
@@ -124,6 +137,11 @@ class Mdl_enroll extends CI_Model
             "SELECT t1.ClassDesc AS Class, t2.RoomDesc FROM tbl_03_class t1
              JOIN tbl_04_class_rooms t2
              ON t1.ClassID = t2.ClassID
+             WHERE t2.RoomDesc = '$room'
+             UNION ALL
+             SELECT t1.ClassDesc AS Class, t2.RoomDesc FROM tbl_03_b_class_vocational t1
+             JOIN tbl_04_class_rooms_vocational t2
+             ON t1.ClassDesc = t2.Simplified
              WHERE t2.RoomDesc = '$room'"
         )->row_array();
 
@@ -214,6 +232,16 @@ class Mdl_enroll extends CI_Model
         }
         
         $this->db->trans_commit();
+        
+        if($this->db->trans_status()){
+            //GET SCHOOL NAME
+            $school = $this->db->select('SchoolName')
+                           ->get_where('tbl_02_school', ['School_Desc' => $result['Applying']])
+                           ->row()->SchoolName;
+
+            //RETURN SUCCESS
+            return [$ID, $result['Email'], $school];
+        }
     }
 
     public function remove_list($uniq){

@@ -153,13 +153,13 @@
 </script>
 
 <!-- SYSTEM SCRIPT -->
+<script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/main.js"></script>
 <script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/finance.js"></script>
 <script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/adm_enroll.js"></script>
 <script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/absent.js"></script>
 <script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/grade.js"></script>
 <script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/schedule.js"></script>
 <script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/profile.js"></script>
-<script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/main.js"></script>
 <script type="text/javascript" src="<?= base_url(); ?>assets/CUSTOMS/adm_navbar.js"></script>
 
 

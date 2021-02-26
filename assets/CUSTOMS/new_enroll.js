@@ -134,7 +134,17 @@ $(document).ready(function () {
         $('[name=mail]').prop('readonly', true)
     }
 
-    $(document).find('.dropify').dropify(); 
+    $(document).find('.dropify').dropify({
+        messages: {
+            'default': 'Drag or Click (JPG, JPEG, PNG), Max 1MB',
+            'replace': 'Drag or Click (JPG, JPEG, PNG), Max 1MB',
+            'remove':  'Remove',
+            'error':   'File is not accepted'
+        },
+        error: {
+            'fileSize': 'The file size is too big ({{ value }}B max).'
+        }
+    }); 
       
     if ($('body').is('.new_enroll')) {
         $.ajax({
@@ -169,7 +179,6 @@ $(document).ready(function () {
 
         //TAB 3
         var competition; var nis; var applying; var schoolstarts; var previousschool; var unnumber; var diploma; var skhun;
-        var diplomafile; var birthcertfile; var kkfile; var photo;
 
         //FORM VALIDATION SCRIPT
         $('input[type="text"], input[type="date"], input[type="number"], select option:selected').focusout(function () {

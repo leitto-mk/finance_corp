@@ -12,7 +12,7 @@
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px; padding-right: 0px">
                             <div class="portlet light" style="background-color: white; height: 560px">
                                 <div class="text-center profile-userpic">
-                                    <img src="<?= base_url() . 'assets/photos/teachers/' . $tch_t->Photo; ?>" alt="" style="width:auto; height: 190px"/>                                                   
+                                    <img src="<?= base_url() . 'assets/photos/' . ($status == 'admin' ? 'adm/' : 'teachers/') . $tch_t->Photo; ?>" alt="" style="width:auto; height: 190px"/>                                                   
                                 </div>
                                 <hr>
                                 <div class="text-center">

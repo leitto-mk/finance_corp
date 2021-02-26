@@ -17,11 +17,10 @@ $(document).ready(function () {
                     swal.fire({
                         'type': 'success',
                         'title': 'SIGNIN SUCCESS',
-                        'text': 'PLEASE SIGN IN USING EMAIL AND YOUR CURRENT PASSWORD IS: 123456'
+                        'text': `USERNAME: ${obj[5].value}, PASSWORD: 123456 OR CHECK YOUR EMAIL`
                     }).then(result => {
                         if(result.value){
-                            close()
-                            window.open(BASE_URL + `auth/index?email=${response.email}`)
+                            window.location.replace(BASE_URL + `auth/index?email=${response.email}`)
                         }
                     })
                 }else if(response.result == 'EMAIL_REGISTERED'){
@@ -29,6 +28,12 @@ $(document).ready(function () {
                         'type': 'error',
                         'title': 'EMAIL REGISTERED',
                         'text': 'EMAIL HAS ALREADY BEEN REGISTERED, PLEASE USE ANOTHER EMAIL'
+                    })
+                }else if(response.result == 'EMAIL_REGISTERED'){
+                    swal.fire({
+                        'type': 'error',
+                        'title': 'EMAIL NOT SENT',
+                        'text': response.message
                     })
                 }else{
                     alert("SOMETHING'S WRONG")

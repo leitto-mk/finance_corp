@@ -223,6 +223,7 @@ $(document).ready(function () {
 			let apply = $(this).attr('data-apply');
 			let row = $(this).closest('tr');
 			let uniq = row.attr('data-list');
+			let email = $(this).attr('data-email')
 
 			$('#new-std').modal('show');
 
@@ -230,7 +231,8 @@ $(document).ready(function () {
 				url: 'get_dropdown_apply',
 				method: 'POST',
 				data: {
-					apply
+					apply,
+					email
 				},
 				success: data => {
 					$('.approve_std').empty();

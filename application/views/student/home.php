@@ -187,7 +187,7 @@
                             </p>
                         <?php endif; ?>
                         <div class="row text-center">
-                            <a target="_blank" href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id&birth=$birth") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">ENROLLMENT FORM</a>
+                            <a href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id&birth=$birth") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">ENROLLMENT FORM</a>
                         </div>
                     </div>
                     <?php if($is_approved_diploma && $is_approved_birthcert && $is_approved_kk && $is_approved_photo && $is_approved_spp == 0) : ?>

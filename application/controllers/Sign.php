@@ -1,6 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+include APPPATH.'third_party\phpmailer\vendor\autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 class Sign extends CI_Controller
 {
 
@@ -37,12 +43,56 @@ class Sign extends CI_Controller
                 'result' => 'EMAIL_REGISTERED'
             ];
         }else{
-            $result = $this->M_confirm_student->confirm($data);
+            $email = $_POST['email'];
+            $school = $this->db->select('SchoolName')->get_where('tbl_02_school', ['School_Desc' => $_POST['school']])->row()->SchoolName;
+            $school = strtoupper($school);
+
+            $mail = new PHPMailer(TRUE);  
+            
+            //Server settings
+            // $mail->SMTPDebug  = SMTP::DEBUG_SERVER;                  //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.googlemail.com';                  //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'leitto.ibtj@gmail.com';                //SMTP username
+            $mail->Password   = '172304200124';                         //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged [FOR LOCALHOST TEST USE THIS]
+            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //PHPMailer::ENCRYPTION_SMTPS is encouraged
+            $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->isHTML(true);                                        //Set Body format to HTML
+
+            //Recipients
+            $mail->setFrom('kaaenrollmentabase@kaa.sch.id', 'KAA Registration');
+            $mail->addAddress($email, $_POST['firstname'] . ' ' . $_POST['lastname']);     //Add a recipient
+
+            //Content
+            $mail->Subject = "$school | SIGNIN CREDENTIALS";
+            $mail->Body    = "Welcome to <strong>$school</strong>. your sign-in process has been accepted. You can login to KAA with the following Username and Password:
+                              <br><br>
+                              <strong> Username:  $email </strong>
+                              <br>
+                              <strong> Password:  123456 </strong>
+                              <br><br>
+                              For more information, contact the school administration. 
+                              <br>
+                              <span style=\"text-style:italic;color:#008CBA;\">
+                                This is an automatic responde which will not be responded to any further replies
+                              </span>.";
+
+            if($mail->send()){
+                $result = $this->M_confirm_student->confirm($data);
     
-            $response = [
-                'result' => $result,
-                'email' => $_POST['email']
-            ];
+                $response = [
+                    'result' => $result,
+                    'email' => $email
+                ];
+            }else{
+                $response = [
+                    'result' => 'MAIL_ERROR',
+                    'email' => $email,
+                    'message' => $mail->ErrorInfo
+                ];
+            }
         }
 
         echo json_encode($response);

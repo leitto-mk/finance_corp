@@ -79,7 +79,7 @@
                                                                         <i class="fa fa-address-card"></i>Biodata </div>
                                                                 </div>
                                                                 <div class="portlet-body">
-                                                                    <div class="form-group" style="margin-bottom: 5px;" style="display: none;">
+                                                                    <!-- <div class="form-group" style="margin-bottom: 5px;" style="display: none;">
                                                                         <label class="control-label col-md-4">NIS/Nomor Induk
                                                                             <span class="required" aria-required="true"> * </span>
                                                                         </label>
@@ -89,7 +89,7 @@
                                                                                 <span class="help-block">Nomor Induk Siswa untuk peserta didik</span>
                                                                             </div>
                                                                         </div>
-                                                                    </div>  
+                                                                    </div>   -->
                                                                     <div class="form-group" style="margin-bottom: 5px;">
                                                                         <label class="control-label col-md-4">Nama Depan
                                                                             <span class="required" aria-required="true"> * </span>

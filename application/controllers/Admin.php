@@ -2,10 +2,15 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 include APPPATH.'third_party\phpspreadsheet\vendor\autoload.php';
+include APPPATH.'third_party\phpmailer\vendor\autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class Admin extends CI_Controller
 {
@@ -5262,7 +5267,8 @@ class Admin extends CI_Controller
     //Called upon when load_prof_std_add pressed the button Save
     public function add_std()
     {
-        $id = $_POST['nis'];
+        $id = $this->Mdl_profile->get_new_std_id($_POST['classes']);
+
         $img = $_FILES['image']['name'];
         $img_name = 'img-' . $id . '-std.jpg';
 
@@ -5732,7 +5738,7 @@ class Admin extends CI_Controller
                                 <div class="btn-group btn-group-solid">
                                     <button type="button" class="btn green detail" data-id="' . $row->CtrlNo . '" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Details</button>';
             if($row->is_approved){
-                $value .= '         <button type="button" class="btn blue approve" data-apply="'.$row->Applying.'" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Approve</button>';
+                $value .= '         <button type="button" class="btn blue approve" data-email="'.$row->Email.'" data-apply="'.$row->Applying.'" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Approve</button>';
                 $value .= '         <button type="button" class="btn yellow-saffron approve_enroll" data-id="' . $row->CtrlNo . '" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Evaluate</button>';
             }else{
                 $value .= '         <button type="button" class="btn yellow-saffron approve_enroll" data-id="' . $row->CtrlNo . '" style="min-width: 80px; margin-right: 6px; margin-bottom: 5px">Evaluate</button>';
@@ -5756,9 +5762,10 @@ class Admin extends CI_Controller
 
     public function get_dropdown_apply()
     {
-        $apply = $this->input->post('apply');
+        $email = $_POST['email'];
+        $apply = $_POST['apply'];
 
-        $query = $this->Mdl_enroll->model_get_dropdown_apply($apply);
+        $query = $this->Mdl_enroll->model_get_dropdown_apply($apply, $email);
 
         $value = '';
         $value .= '<div class="form-group form-md-line-input has-info" style="width: 60%;">
@@ -5815,9 +5822,47 @@ class Admin extends CI_Controller
             'room' => $_POST['room']
         ];
 
-        $this->Mdl_enroll->set_approve($data);
+        [$ID, $email, $school] = $this->Mdl_enroll->set_approve($data);
 
         $total = $this->Mdl_enroll->count_total();
+
+        $mail = new PHPMailer(TRUE);
+            
+        //Server settings
+        // $mail->SMTPDebug  = SMTP::DEBUG_SERVER;                  //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = 'smtp.googlemail.com';                  //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = 'leitto.ibtj@gmail.com';                //SMTP username
+        $mail->Password   = '172304200124';                         //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged [FOR LOCALHOST TEST USE THIS]
+        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //PHPMailer::ENCRYPTION_SMTPS is encouraged
+        $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->isHTML(true);                                        //Set Body format to HTML
+
+        //Recipients
+        $mail->setFrom('kaaenrollmentabase@kaa.sch.id', 'KAA Registration');
+        $mail->addAddress($email, $_POST['firstname'] . ' ' . $_POST['lastname']);     //Add a recipient
+
+        //Content
+        $mail->Subject = "$school | ACTIVE STUDENT CREDENTIALS";
+        $mail->Body    = "<strong style=\"text-style:italic;color:green;\">Congratulations! you are now an active student.</strong> 
+                          <br>
+                          You can now login to KAA Academic with the provided IDNumber and Password:
+                          <br><br>
+                          <strong> Username:  $ID </strong>
+                          <br>
+                          <strong> Password:  123456 </strong>
+                          <br><br>
+                          <strong style=\"text-style:italic;color:red;\">You are no longer able to sign-in using your email</strong>
+                          <br><br>
+                          For more information, contact the school administration. 
+                          <br>
+                          <span style=\"text-style:italic;color:#008CBA;\">
+                              This is an automatic responde which will not be responded to any further replies
+                          </span>.";
+
+        $mail->send();
 
         echo $total;
     }

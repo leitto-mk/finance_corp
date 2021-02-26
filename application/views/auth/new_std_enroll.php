@@ -1251,7 +1251,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                         <select name="prosperity" class="form-control" id="form_control_1">
-                                                                            <option value="-" selected> - </option>
+                                                                            <option value="" selected> - </option>
                                                                             <option value="PKH">PKH</option>
                                                                             <option value="PIP">PIP</option>
                                                                             <option value="Kartu Perlindungan Sosial">Kartu Perlindungan Sosial</option>
@@ -1388,7 +1388,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </label>
                                                                 <div class="col-md-4" id="col_diplomafile">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="file" name="diplomafile" id="diplomafile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                        <input type="file" name="diplomafile" id="diplomafile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png" data-max-file-size="1M">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1398,7 +1398,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </label>
                                                                 <div class="col-md-4" id="col_birthcertfile">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="file" name="birthcertfile" id="birthcertfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                        <input type="file" name="birthcertfile" id="birthcertfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png" data-max-file-size="1M">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1408,7 +1408,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </label>
                                                                 <div class="col-md-4" id="col_kkfile">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="file" name="kkfile" id="kkfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                        <input type="file" name="kkfile" id="kkfile" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png" data-max-file-size="1M">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1418,7 +1418,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </label>
                                                                 <div class="col-md-4" id="col_photo">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                        <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png">
+                                                                        <input type="file" name="photo" id="photo" class="dropify" data-show-loader="false" data-height="200" data-allowed-file-extensions="jpg jpeg png" data-max-file-size="1M">
                                                                     </div>
                                                                 </div>
                                                             </div>

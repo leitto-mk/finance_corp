@@ -53,8 +53,7 @@
                     <div class="clearfix navbar-fixed-top" style="padding-top: 8px; padding-bottom: 0px; margin-top: 0px; background-color: #e9ecf3">
                         <a id="index" href="#"><img src="<?php echo base_url(); ?>assets/layouts/layout/img/abase.png" style="margin-left: -10px; padding-bottom: 10px" width="120" height="60" alt="Logo"></a><span style="font-family: Oswald,sans-serif;"><font size="5" color="#161f46">&nbsp;&nbsp;Education Self Service</font></span>
                          <div class="topbar-actions">
-                            <!-- BEGIN GROUP NOTIFICATION -->
-                            <div class="btn-group-notification btn-group" id="header_notification_bar">
+                            <!-- <div class="btn-group-notification btn-group" id="header_notification_bar">
                                 <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" style="background-color: #32c5d2">
                                     <i class="icon-bell"></i>
                                     <span class="badge">7</span>
@@ -152,8 +151,6 @@
                                     </li>
                                 </ul>
                             </div>
-                            <!-- END GROUP NOTIFICATION -->
-                            <!-- BEGIN GROUP INFORMATION -->
                             <div class="btn-group-red btn-group">
                                 <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" style="background-color: #2d596a">
                                     <i class="fa fa-plus"></i>
@@ -180,9 +177,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </div>
-                            <!-- END GROUP INFORMATION -->
-                            <!-- BEGIN USER PROFILE -->
+                            </div> -->
                             <div class="btn-group-img btn-group" style="margin-top: 10px">
                                 <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <span style="background-color: white"><font color="black">Hi, User</font></span>
@@ -203,7 +198,6 @@
                                     </li>
                                 </ul>
                             </div>
-                            <!-- END USER PROFILE -->
                         </div>
                     </div>
                 </div>

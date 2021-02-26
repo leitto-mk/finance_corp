@@ -182,7 +182,16 @@ width: 25%;
                             </li>
                             <li class="font-dark">
                                 <a href="#">Cemmercial Website</a>
-                            </li>                          
+                            </li> 
+                            <li class="font-dark">
+                                <a href="#">Library</a>
+                            </li> 
+                            <li class="font-dark">
+                                <a href="#">Canteen</a>
+                            </li> 
+                            <li class="font-dark">
+                                <a href="#">Store & Inventory</a>
+                            </li>                            
                         </ul>
                     </div>
                     <div class="blog-single-sidebar-tags">
@@ -836,4 +845,5 @@ width: 25%;
 		}
     }
 </script>
+
 <?php $this->load->view('header_footer/home/footer');?>
