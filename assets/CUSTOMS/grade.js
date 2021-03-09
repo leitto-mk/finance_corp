@@ -835,14 +835,14 @@ $(document).ready(function () {
 				$('.details_grade').modal('show');
 
 				rep_period = $('#full_select_semester').val()
-				rep_semester = $('#full_select_semester:selected').attr('data-semester')
+				rep_semester = $('#full_select_semester option:selected').attr('data-semester')
 
 				clicked = 'full';
 			} else {
 				$('.details_grade_compact').modal('show');
 
 				rep_period = $('#compact_select_semester').val()
-				rep_semester = $('#compact_select_semester:selected').attr('data-semester')
+				rep_semester = $('#compact_select_semester').attr('data-semester')
 
 				clicked = 'compact'
 			}
@@ -868,7 +868,7 @@ $(document).ready(function () {
 					selected_subj = $('.list_subj_std select').val()
 
 					if (clicked == 'full') {
-						fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_semester)
+						fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_period, rep_semester)
 					} else if (clicked == 'compact') {
 						fullReportCompact(full_rep_nis, full_rep_cls, rep_period, rep_semester)
 					}
@@ -879,7 +879,7 @@ $(document).ready(function () {
 		$('.list_subj_std').on('change', '.avail_subj', function () {
 			selected_subj = $(this).val()
 
-			fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_semester)
+			fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_period, rep_semester)
 		})
 
 		$('.details_grade, .details_grade_compact').on('change', '#full_select_semester, #compact_select_semester', function () {
@@ -888,7 +888,7 @@ $(document).ready(function () {
 			if ($(this).attr('id') == 'full_select_semester') {
 
 				rep_period = $('#full_select_semester').val()
-				rep_semester = $('#full_select_semester:selected').attr('data-semester')
+				rep_semester = $('#full_select_semester option:selected').attr('data-semester')
 
 				$.ajax({
 					url: 'get_std_subject_list',
@@ -906,27 +906,28 @@ $(document).ready(function () {
 					}
 				}).then(() => {
 					selected_subj = $('.avail_subj').val()
-				}).then(() => fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_semester))
+				}).then(() => fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_period, rep_semester))
 
 			} else if ($(this).attr('id') === 'compact_select_semester') {
 
 				rep_period = $('#compact_select_semester').val()
-				rep_semester = $('#compact_select_semester:selected').attr('data-semester')
+				rep_semester = $('#compact_select_semester').attr('data-semester')
 
 				fullReportCompact(full_rep_nis, full_rep_cls, rep_period, rep_semester)
 			}
 		})
 
 		//LOAD FULL REPORT
-		function fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_semester) {
+		function fullReport(full_rep_nis, full_rep_cls, selected_subj, rep_period, rep_semester) {
 
 			$('#rep_full_title').text(`REPORT ${full_rep_nis} - ${full_rep_cls}`)
 
-			let header = `nis=${full_rep_nis}&cls=${full_rep_cls}&subj=${selected_subj}&semester=${rep_semester}`
+			let header = `nis=${full_rep_nis}&cls=${full_rep_cls}&subj=${selected_subj}&period=${rep_period}&semester=${rep_semester}`
 
 			//PLACE URL TO PRINT BUTTON
-			$('.print_grade_report').attr('href', `${base_url}Admin/display_report_print?${header}`);
 			$('body .print_grade_mid_report').attr('href', `${base_url}Admin/display_report_mid_print?${header}`);
+			$('.print_grade_report').attr('href', `${base_url}Admin/display_report_print_a?${header}`);
+			$('.print_grade_report_compact').attr('href', `${base_url}Admin/display_report_print_b?${header}`);
 
 			$.ajax({
 				url: 'get_grade_report',
@@ -936,6 +937,7 @@ $(document).ready(function () {
 					nis: full_rep_nis,
 					cls: full_rep_cls,
 					subj: selected_subj,
+					period: rep_period,
 					semester: rep_semester
 				},
 				success: data => {

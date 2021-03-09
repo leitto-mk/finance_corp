@@ -921,20 +921,8 @@ class Mdl_grade extends CI_Model
         return ($query->num_rows() > 0 ? $query->row() : '');
     }
 
-    public function get_std_kd_det($nis, $subj, $semester)
+    public function get_std_kd_det($nis, $subj, $period, $semester)
     {
-
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
-
         $query = $this->db->query(
             "SELECT t1.NIS, t1.FullName, t1.Semester, t1.schoolyear, t1.SubjName, t1.Type, t2.Code, t2.KD, t2.KKM, t1.KDAvg FROM tbl_09_det_kd t1
              LEFT JOIN tbl_05_subject_kd t2
@@ -942,26 +930,15 @@ class Mdl_grade extends CI_Model
              WHERE t1.NIS = '$nis'
              AND t1.SubjName = '$subj'
              AND t1.Semester = '$semester'
-             AND t1.schoolyear = '$schYear'
+             AND t1.schoolyear = '$period'
              ORDER BY t2.CtrlNo"
         )->result();
 
         return $query;
     }
 
-    public function get_std_exam_det($nis, $cls, $subj, $semester)
+    public function get_std_exam_det($nis, $cls, $subj, $period, $semester)
     {
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
-
         $query = $this->db->query(
             "SELECT 
                 t1.NIS, 
@@ -989,7 +966,7 @@ class Mdl_grade extends CI_Model
              WHERE t1.NIS = '$nis'
              AND t1.Class = '$cls'
              AND t1.Semester = '$semester'
-             AND t1.schoolyear = '$schYear'
+             AND t1.schoolyear = '$period'
              AND t1.SubjName = '$subj'
              GROUP BY t1.NIS"
         )->row();
@@ -997,24 +974,14 @@ class Mdl_grade extends CI_Model
         return $query;
     }
 
-    public function get_std_voc_det($nis, $cls, $subj, $semester){
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
-
+    public function get_std_voc_det($nis, $cls, $subj, $period, $semester)
+    {
         $query = $this->db->query(
             "SELECT Report, Predicate, Description
              FROM tbl_09_det_voc_grades
              WHERE NIS = '$nis'
              AND Semester = '$semester'
-             AND schoolyear = '$schYear'
+             AND schoolyear = '$period'
              AND Class = '$cls'
              AND SubjName = '$subj'"
         );
@@ -1022,24 +989,13 @@ class Mdl_grade extends CI_Model
         return $query;
     }
 
-    public function get_std_report_det($nis, $cls, $subj, $semester)
+    public function get_std_report_det($nis, $cls, $subj, $period, $semester)
     {
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
-
         $query = $this->db->get_where('tbl_09_det_grades', [
             'NIS' => $nis,
             'class' => $cls,
             'Semester' => $semester,
-            'schoolyear' => $schYear,
+            'schoolyear' => $period,
             'SubjName' => $subj
         ])->row();
 
@@ -1076,30 +1032,81 @@ class Mdl_grade extends CI_Model
         return $result;
     }
 
-    public function get_print_absent($nis, $cls, $semester, $ket)
+    public function get_print_absent($nis, $cls, $period, $semester, $ket)
     {
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
-
         $query = $this->db->query(
             "SELECT COUNT(Ket) AS Total 
              FROM tbl_10_absent_std 
              WHERE NIS = '$nis'
              AND Semester = '$semester' 
-             AND schoolyear = '$schYear' 
+             AND schoolyear = '$period' 
              AND Kelas = '$cls' 
              AND Ket = '$ket'"
         );
 
         return $query->row();
+    }
+
+    public function get_report_print_b($nis, $cls, $period, $semester, $report_type){
+        $school_type = $this->db->query(
+            "SELECT 
+                Type 
+             FROM tbl_03_class 
+             WHERE ClassDesc = '$cls'
+             UNION ALL
+             SELECT 
+                Type 
+             FROM tbl_03_b_class_vocational 
+             WHERE ClassDesc = '$cls'"
+        )->row()->Type;
+
+        $info = $this->db->query(
+            "SELECT 
+                t1.NIS, 
+                t1.FullName, 
+                t1.SubjName, 
+                t1.Semester, 
+                t1.schoolyear, 
+                t1.Room, 
+                t2.SchoolName, 
+                t3.IDNumber, 
+                t3.TeacherName,
+                t4.StudyFocus
+             FROM tbl_09_det_grades t1
+             JOIN tbl_02_school t2
+             ON t2.School_Desc = (SELECT Type FROM tbl_03_class WHERE ClassDesc = t1.Class)
+             JOIN tbl_06_schedule t3
+             ON t1.SubjName = t3.SubjName AND t1.Room = t3.RoomDesc
+             JOIN tbl_08_job_info t4
+             ON t3.IDNumber = t4.IDNumber
+             WHERE t1.NIS = '$nis'
+             AND t1.Class = '$cls'
+             AND t1.Semester = '$semester'
+             AND t1.schoolyear = '$period'"
+        )->row();
+
+        $characters = $this->db->query(
+            ""
+        )->row();
+
+        if($school_type !== 'SMK'){
+            $grade = $this->db->query(
+                "SELECT SubjName, Report, Predicate
+                 FROM tbl_09_det_grades
+                 WHERE NIS = '$nis'
+                 AND Class = '$cls'
+                 AND schoolyear = '$period'
+                 AND Semester = '$semester'"
+            );
+        }elseif($school_type == 'SMK'){
+            $grade = $this->db->query(
+                "SELECT SubjName, Report, Predicate
+                 FROM tbl_09_det_grades
+                 WHERE NIS "
+            ); 
+        }
+
+        return [$info, $characters, $grade];
     }
 
     public function get_spectrum()
@@ -1584,19 +1591,8 @@ class Mdl_grade extends CI_Model
         ]);
     }
 
-    public function get_report_print_info($nis, $cls, $subj, $semester, $report_type)
+    public function get_report_print_info($nis, $cls, $subj, $period, $semester, $report_type)
     {
-        $schYear = '';
-
-        $time = date('d-m-Y');
-        $year = date('Y');
-
-        if (date('n', strtotime($time)) <= 6) {
-            $schYear = ($year - 1) . '/' . $year;
-        } else {
-            $schYear = $year . '/' . ($year + 1);
-        }
-
         if ($report_type == 'full') {
             $query = $this->db->query(
                 "SELECT 
@@ -1620,9 +1616,9 @@ class Mdl_grade extends CI_Model
                  WHERE t1.NIS = '$nis'
                  AND t1.Class = '$cls'
                  AND t1.Semester = '$semester'
-                 AND t1.schoolyear = '$schYear'
+                 AND t1.schoolyear = '$period'
                  AND t1.SubjName = '$subj'"
-            )->row();    
+            )->row();
         } elseif ($report_type == 'mid') {
             $query = $this->db->query(
                 "SELECT
@@ -1645,7 +1641,7 @@ class Mdl_grade extends CI_Model
                  WHERE t1.NIS = '$nis'
                  AND t1.Class = '$cls'
                  AND t1.Semester = '$semester'
-                 AND t1.schoolyear = '$schYear'
+                 AND t1.schoolyear = '$period'
                  GROUP BY t1.NIS"
             )->row();
         }

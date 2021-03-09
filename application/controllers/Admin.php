@@ -280,22 +280,33 @@ class Admin extends CI_Controller
 
         if ($result->status == 'teacher') {
             $path = './assets/photos/teachers/';
-            $img_name = $result->Photo;
         } elseif ($result->status == 'student') {
             $path = './assets/photos/student/';
-            $img_name = $result->Photo;
         } elseif ($result->status == 'staff') {
             $path = './assets/photos/staff/';
-            $img_name = $result->Photo;
         } else {
             $path = './assets/photos/adm/';
-            $img_name = $result->Photo;
         }
+        
+        $diploma_name = $result->DiplomaFile;
+        $birthcert_name = $result->BirthcertFile;
+        $kk_name = $result->KKFile;
+        $img_name = $result->Photo;
+        $spp_name = $result->SPP;
 
         $this->Mdl_profile->model_delete($id);
-
-        if ($img_name != 'default.png') {
+        
+        //DELETE FILES/PICTURES
+        if($result->DiplomaFile){
+            unlink($path . $diploma_name);
+        }elseif($result->BirthcertFile){
+            unlink($path . $birthcert_name);
+        }elseif($result->KKFile){
+            unlink($path . $kk_name);
+        }elseif($result->Photo){
             unlink($path . $img_name);
+        }elseif($result->SPP){
+            unlink($path . $spp_name);
         }
 
         $this->session->set_flashdata('delmsg', '<div class="delete-success"></div>');
@@ -4237,9 +4248,10 @@ class Admin extends CI_Controller
         $nis = $_POST['nis'];
         $cls = $_POST['cls'];
         $subj = $_POST['subj'];
+        $period = $_POST['period'];
         $semester = $_POST['semester'];
 
-        $result_kd = $this->Mdl_grade->get_std_kd_det($nis, $subj, $semester);
+        $result_kd = $this->Mdl_grade->get_std_kd_det($nis, $subj, $period, $semester);
 
         $kd_cog = '';
         $kd_sk = '';
@@ -4277,7 +4289,7 @@ class Admin extends CI_Controller
             }
         }
 
-        $result_exam = $this->Mdl_grade->get_std_exam_det($nis, $cls, $subj, $semester);
+        $result_exam = $this->Mdl_grade->get_std_exam_det($nis, $cls, $subj, $period, $semester);
 
         $exam = '';
         $exam .= '<tr>';
@@ -4289,7 +4301,7 @@ class Admin extends CI_Controller
         $exam .= '    <td colspan="1" class="sbold">' . $result_exam->FinalRecap . '</td>';
         $exam .= '</tr>';
 
-        $result_voc = $this->Mdl_grade->get_std_voc_det($nis, $cls, $subj, $semester);
+        $result_voc = $this->Mdl_grade->get_std_voc_det($nis, $cls, $subj, $period, $semester);
 
         $voc = '';
         if($result_voc->num_rows() > 0){
@@ -4318,7 +4330,7 @@ class Admin extends CI_Controller
             $voc .= '</tr>';
         }
 
-        $result_report = $this->Mdl_grade->get_std_report_det($nis, $cls, $subj, $semester);
+        $result_report = $this->Mdl_grade->get_std_report_det($nis, $cls, $subj, $period, $semester);
 
         $col = '';
         if ($result_report->Predicate == 'A') {
@@ -4628,40 +4640,61 @@ class Admin extends CI_Controller
         echo $dd_list_subj;
     }
 
-    public function display_report_print()
+    public function display_report_print_a()
     {
-        $nis = $this->input->get('nis');
-        $cls = $this->input->get('cls');
-        $subj = $this->input->get('subj');
-        $semester = $this->input->get('semester');
+        $nis = $_GET['nis'];
+        $cls = $_GET['cls'];
+        $subj = $_GET['subj'];
+        $period = $_GET['period'];
+        $semester = $_GET['semester'];
         $report_type = 'full';
 
         $data = [
-            'info' => $this->Mdl_grade->get_report_print_info($nis, $cls, $subj, $semester, $report_type),
-            'kd' => $this->Mdl_grade->get_std_kd_det($nis, $subj, $semester),
-            'exam' => $this->Mdl_grade->get_std_exam_det($nis, $cls, $subj, $semester),
-            'voc' => $this->Mdl_grade->get_std_voc_det($nis, $cls, $subj, $semester),
-            'rep' => $this->Mdl_grade->get_std_report_det($nis, $cls, $subj, $semester),
-            'sick' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'Sick'),
-            'permit' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'On Permit'),
-            'absent' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'Absent'),
+            'info' => $this->Mdl_grade->get_report_print_info($nis, $cls, $subj, $period, $semester, $report_type),
+            'kd' => $this->Mdl_grade->get_std_kd_det($nis, $subj, $period, $semester),
+            'exam' => $this->Mdl_grade->get_std_exam_det($nis, $cls, $subj, $period, $semester),
+            'voc' => $this->Mdl_grade->get_std_voc_det($nis, $cls, $subj, $period, $semester),
+            'rep' => $this->Mdl_grade->get_std_report_det($nis, $cls, $subj, $period, $semester),
+            'sick' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'Sick'),
+            'permit' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'On Permit'),
+            'absent' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'Absent'),
         ];
 
-        $this->load->view('grade_report_print', $data);
+        $this->load->view('grade_report_print_a', $data);
+    }
+
+    public function display_report_print_b()
+    {
+        $nis = $_GET['nis'];
+        $cls = $_GET['cls'];
+        $period = $_GET['period'];
+        $semester = $_GET['semester'];
+        $report_type = 'full';
+
+        [$info, $characters, $grade] = $this->Mdl_grade->get_report_print_b($nis, $cls, $period, $semester, $report_type);
+
+        $data = [
+            'info' => $info,
+            'char' => $char,
+            'grade' => $grade,
+        ];
+
+        $this->load->view('grade_report_print_b', $data);
     }
 
     public function display_report_mid_print()
     {
-        $nis = $this->input->get('nis');
-        $cls = $this->input->get('cls');
-        $subj = $this->input->get('subj');
-        $semester = $this->input->get('semester');
+        $nis = $_GET['nis'];
+        $cls = $_GET['cls'];
+        $subj = $_GET['subj'];
+        $period = $_GET['period'];
+        $semester = $_GET['semester'];
         $report_type = 'mid';
 
         [$query, $score, $average] = $this->Mdl_grade->get_report_mid_grade($nis, $cls, $semester);
 
         $data = [
-            'info' => $this->Mdl_grade->get_report_print_info($nis, $cls, $subj, $semester, $report_type),
+            'info' => $this->Mdl_grade->get_report_print_info($nis, $cls, $subj, $period, $semester, $report_type),
             'subjects' => $query,
             'score' => $score,
             'average' => $average,
@@ -5826,43 +5859,43 @@ class Admin extends CI_Controller
 
         $total = $this->Mdl_enroll->count_total();
 
-        $mail = new PHPMailer(TRUE);
+        // $mail = new PHPMailer(TRUE);
             
         //Server settings
         // $mail->SMTPDebug  = SMTP::DEBUG_SERVER;                  //Enable verbose debug output
-        $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = 'smtp.googlemail.com';                  //Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'leitto.ibtj@gmail.com';                //SMTP username
-        $mail->Password   = '172304200124';                         //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged [FOR LOCALHOST TEST USE THIS]
-        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //PHPMailer::ENCRYPTION_SMTPS is encouraged
-        $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-        $mail->isHTML(true);                                        //Set Body format to HTML
+        // $mail->isSMTP();                                            //Send using SMTP
+        // $mail->Host       = 'smtp.googlemail.com';                  //Set the SMTP server to send through
+        // $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        // $mail->Username   = 'leitto.ibtj@gmail.com';                //SMTP username
+        // $mail->Password   = '172304200124';                         //SMTP password
+        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged [FOR LOCALHOST TEST USE THIS]
+        // // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         //PHPMailer::ENCRYPTION_SMTPS is encouraged
+        // $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        // $mail->isHTML(true);                                        //Set Body format to HTML
 
-        //Recipients
-        $mail->setFrom('kaaenrollmentabase@kaa.sch.id', 'KAA Registration');
-        $mail->addAddress($email, $_POST['firstname'] . ' ' . $_POST['lastname']);     //Add a recipient
+        // //Recipients
+        // $mail->setFrom('kaaenrollmentabase@kaa.sch.id', 'KAA Registration');
+        // $mail->addAddress($email, $_POST['firstname'] . ' ' . $_POST['lastname']);     //Add a recipient
 
-        //Content
-        $mail->Subject = "$school | ACTIVE STUDENT CREDENTIALS";
-        $mail->Body    = "<strong style=\"text-style:italic;color:green;\">Congratulations! you are now an active student.</strong> 
-                          <br>
-                          You can now login to KAA Academic with the provided IDNumber and Password:
-                          <br><br>
-                          <strong> Username:  $ID </strong>
-                          <br>
-                          <strong> Password:  123456 </strong>
-                          <br><br>
-                          <strong style=\"text-style:italic;color:red;\">You are no longer able to sign-in using your email</strong>
-                          <br><br>
-                          For more information, contact the school administration. 
-                          <br>
-                          <span style=\"text-style:italic;color:#008CBA;\">
-                              This is an automatic responde which will not be responded to any further replies
-                          </span>.";
+        // //Content
+        // $mail->Subject = "$school | ACTIVE STUDENT CREDENTIALS";
+        // $mail->Body    = "<strong style=\"text-style:italic;color:green;\">Congratulations! you are now an active student.</strong> 
+        //                   <br>
+        //                   You can now login to KAA Academic with the provided IDNumber and Password:
+        //                   <br><br>
+        //                   <strong> Username:  $ID </strong>
+        //                   <br>
+        //                   <strong> Password:  123456 </strong>
+        //                   <br><br>
+        //                   <strong style=\"text-style:italic;color:red;\">You are no longer able to sign-in using your email</strong>
+        //                   <br><br>
+        //                   For more information, contact the school administration. 
+        //                   <br>
+        //                   <span style=\"text-style:italic;color:#008CBA;\">
+        //                       This is an automatic notification which will not be responded to any further replies
+        //                   </span>.";
 
-        $mail->send();
+        // $mail->send();
 
         echo $total;
     }

@@ -9,17 +9,31 @@ class Mdl_index extends CI_Model
 
     public function count_specific($status)
     {
-        $this->db->from('tbl_07_personal_bio');
-        $this->db->where('status', $status);
-        $result = $this->db->count_all_results();
+        if($status !== 'student'){
+            $result = $this->db->query(
+                "SELECT 
+                    COUNT(t1.IDNumber) AS Total
+                FROM tbl_07_personal_bio AS t1
+                JOIN tbl_08_job_info AS t2
+                    USING(IDNumber)
+                WHERE status = '$status'"
+            )->row()->Total;
+        }elseif($status == 'student'){
+            $result = $this->db->query(
+                "SELECT 
+                    COUNT(t1.IDNumber) AS Total
+                FROM tbl_07_personal_bio AS t1
+                JOIN tbl_08_job_info_std AS t2
+                    ON t1.IDNumber = t2.NIS
+                WHERE status = '$status'"
+            )->row()->Total;
+        }
 
         return $result;
     }
 
     public function count_total()
     {
-
-        $this->db->select('status');
         $this->db->from('tbl_07_personal_bio');
         $this->db->where('IDNumber !=', 'abase');
         $result = $this->db->count_all_results();

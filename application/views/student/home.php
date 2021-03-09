@@ -127,67 +127,95 @@
                     </div>
                     <!-- END PAGE HEAD-->
                     <!-- BEGIN PAGE BASE CONTENT -->
-                    <div class="portlet light about-text" style="height: 620px !important">
-                        <h4 style="background-color:#67809f;">
-                            <i class="fa fa-check icon-info"></i> 
-                            <span class="sbold uppercase">WELCOME TO <?= $schoolappliedname ?></span>
-                        </h4>
-                        <?php if($is_enrolled) : ?>
-                            <p class="margin-top-20 sbold uppercase"> 
-                                Your Data has been submitted
-                            </p>
-                            <?php if($is_approved_diploma) : ?>
-                                <div class="alert alert-success" style="margin: 15px 15px;">
-                                    <strong>Success!</strong> Your <span class="sbold">Diploma</span> has been approved 
-                                </div>
-                            <?php else:?>
-                                <div class="alert alert-danger" style="margin: 15px 15px;">
-                                    <strong>Warning!</strong> Your <span class="sbold">Diploma</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_diploma_msg ?></span>
-                                </div>
-                            <?php endif;?>
-                            <?php if($is_approved_birthcert) : ?>
-                                <div class="alert alert-success" style="margin: 15px 15px;">
-                                    <strong>Success!</strong> Your <span class="sbold">Birth Certifiate</span> has been approved 
-                                </div>
-                            <?php else:?>
-                                <div class="alert alert-danger" style="margin: 15px 15px;">
-                                    <strong>Warning!</strong> Your <span class="sbold">Birth Certifiate</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_birthcert_msg ?></span>
-                                </div>
-                            <?php endif;?>
-                            <?php if($is_approved_kk) : ?>
-                                <div class="alert alert-success" style="margin: 15px 15px;">
-                                    <strong>Success!</strong> Your <span class="sbold">KK</span> has been approved 
-                                </div>
-                            <?php else:?>
-                                <div class="alert alert-danger" style="margin: 15px 15px;">
-                                    <strong>Warning!</strong> Your <span class="sbold">KK</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_kk_msg ?></span>
-                                </div>
-                            <?php endif;?>
-                            <?php if($is_approved_photo) : ?>
-                                <div class="alert alert-success" style="margin: 15px 15px;">
-                                    <strong>Success!</strong> Your <span class="sbold">Photo</span> has been approved 
-                                </div>
-                            <?php else:?>
-                                <div class="alert alert-danger" style="margin: 15px 15px;">
-                                    <strong>Warning!</strong> Your <span class="sbold">Photo</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_photo_msg ?></span>
-                                </div>
-                            <?php endif;?>
-                            <?php if($is_approved_spp) : ?>
-                                <div class="alert alert-success" style="margin: 15px 15px;">
-                                    <strong>Success!</strong> Your <span class="sbold">Tuition</span> has been approved 
-                                </div>
-                            <?php else:?>
-                                <div class="alert alert-danger" style="margin: 15px 15px;">
-                                    <strong>Warning!</strong> Your <span class="sbold">Tuition</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_spp_msg ?></span>
-                                </div>
-                            <?php endif;?>
-                        <?php elseif(!$is_enrolled) : ?>
-                            <p class="margin-top-20"> 
-                                Please Complete Your Registration by Registering Your <b>Biodata</b> 
-                            </p>
-                        <?php endif; ?>
-                        <div class="row text-center">
-                            <a href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id&birth=$birth") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">ENROLLMENT FORM</a>
+                    <div class="portlet box blue-hoki">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-check icon-info"></i>
+                                <span class="sbold uppercase"> WELCOME TO <?= $schoolappliedname ?> </span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <?php if($is_enrolled) : ?>
+                                <p>
+                                    <span class="font-red">This is your current Username and Password for access:</span> 
+                                        <br><br>
+                                        USERNAME:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><?= $id ?></strong>
+                                        <br>
+                                        PASSWORD:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>123456</strong>
+                                        <br><br>
+                                        <span class="font-red">
+                                        *Please be advised, that Your Email Username (<?= $id ?>) will be changed to Your New School IDNumber after Your documents and payment have been approved. after that, You can no longer access using your email.
+                                    </span> 
+                                </p>
+                                <hr>
+                                <p class="margin-top-20 sbold uppercase"> 
+                                    Your Data has been submitted
+                                </p>
+                                <?php if($is_approved_diploma) : ?>
+                                    <div class="alert alert-success" style="margin: 15px 15px;">
+                                        <strong>Success!</strong> Your <span class="sbold">Diploma</span> has been approved 
+                                    </div>
+                                <?php else:?>
+                                    <div class="alert alert-danger" style="margin: 15px 15px;">
+                                        <strong>Warning!</strong> Your <span class="sbold">Diploma</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_diploma_msg ?></span>
+                                    </div>
+                                <?php endif;?>
+                                <?php if($is_approved_birthcert) : ?>
+                                    <div class="alert alert-success" style="margin: 15px 15px;">
+                                        <strong>Success!</strong> Your <span class="sbold">Birth Certifiate</span> has been approved 
+                                    </div>
+                                <?php else:?>
+                                    <div class="alert alert-danger" style="margin: 15px 15px;">
+                                        <strong>Warning!</strong> Your <span class="sbold">Birth Certifiate</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_birthcert_msg ?></span>
+                                    </div>
+                                <?php endif;?>
+                                <?php if($is_approved_kk) : ?>
+                                    <div class="alert alert-success" style="margin: 15px 15px;">
+                                        <strong>Success!</strong> Your <span class="sbold">KK</span> has been approved 
+                                    </div>
+                                <?php else:?>
+                                    <div class="alert alert-danger" style="margin: 15px 15px;">
+                                        <strong>Warning!</strong> Your <span class="sbold">KK</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_kk_msg ?></span>
+                                    </div>
+                                <?php endif;?>
+                                <?php if($is_approved_photo) : ?>
+                                    <div class="alert alert-success" style="margin: 15px 15px;">
+                                        <strong>Success!</strong> Your <span class="sbold">Photo</span> has been approved 
+                                    </div>
+                                <?php else:?>
+                                    <div class="alert alert-danger" style="margin: 15px 15px;">
+                                        <strong>Warning!</strong> Your <span class="sbold">Photo</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_photo_msg ?></span>
+                                    </div>
+                                <?php endif;?>
+                                <?php if($is_approved_spp) : ?>
+                                    <div class="alert alert-success" style="margin: 15px 15px;">
+                                        <strong>Success!</strong> Your <span class="sbold">Tuition</span> has been approved 
+                                    </div>
+                                <?php else:?>
+                                    <div class="alert alert-danger" style="margin: 15px 15px;">
+                                        <strong>Warning!</strong> Your <span class="sbold">Tuition</span> has not been approved yet. <br> Reason: <span class="uppercase"><?= $unapproved_spp_msg ?></span>
+                                    </div>
+                                <?php endif;?>
+                            <?php elseif(!$is_enrolled) : ?>
+                                <p>
+                                    <span class="font-red">This is your current Username and Password for access:</span> 
+                                        <br><br>
+                                        USERNAME:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><?= $id ?></strong>
+                                        <br>
+                                        PASSWORD:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>123456</strong>
+                                        <br><br>
+                                        <span class="font-red">
+                                        *Please be advised, that Your Email Username (<?= $id ?>) will be changed to Your New School IDNumber after Your documents and payment have been approved. after that, You can no longer access using your email.
+                                    </span> 
+                                </p>
+                                <hr>
+                                <p class="margin-top-20"> 
+                                    Please Complete Your Registration by Registering Your <b>Biodata</b>
+                                </p>
+                            <?php endif; ?>
+                            <div class="row text-center">
+                                <a href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id&birth=$birth") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">ENROLLMENT FORM</a>
+                            </div>
                         </div>
                     </div>
                     <?php if($is_approved_diploma && $is_approved_birthcert && $is_approved_kk && $is_approved_photo && $is_approved_spp == 0) : ?>

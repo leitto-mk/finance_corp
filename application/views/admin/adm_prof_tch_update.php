@@ -133,6 +133,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label">Religion</label>
                                                         <select name="Religion" class="form-control">
+                                                            <option value="">-- Choose --</option>
                                                             <?php if ($datatoedit->Religion == 'Budha') : ?>
                                                                 <option value="Budha" selected>Budha</option>
                                                                 <option value="Hindu">Hindu</option>
@@ -189,6 +190,14 @@
                                                                 <option value="Kong Hu Cu">Kong Hu Cu</option>
                                                                 <option value="Kristen">Kristen</option>
                                                                 <option value="Advent" selected>Advent</option>
+                                                            <?php else : ?>
+                                                                <option value="Budha">Budha</option>
+                                                                <option value="Hindu">Hindu</option>
+                                                                <option value="Islam">Islam</option>
+                                                                <option value="Katolik">Katholik</option>
+                                                                <option value="Kong Hu Cu">Kong Hu Cu</option>
+                                                                <option value="Kristen">Kristen</option>
+                                                                <option value="Advent">Advent</option>
                                                             <?php endif; ?>
                                                         </select>
                                                     </div>

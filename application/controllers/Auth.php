@@ -112,14 +112,14 @@ class Auth extends CI_Controller
                         'fname' => $user->FirstName,
                         'lname' => $user->LastName,
                         'status' => $user->status,
-                        'ctrlno' => ($user->CtrlNo ?: ''), //FOR NEW STUDENT
-                        'schoolapplied' => ($user->Applying ?: ''), //FOR NEW STUDENT
-                        'birth' => ($user->DateofBirth ?: ''), //FOR NEW STUDENT
+                        'ctrlno' => (isset($user->CtrlNo) ? $user->CtrlNo : ''), //FOR NEW STUDENT
+                        'schoolapplied' => (isset($user->Applying) ? $user->Applying : ''), //FOR NEW STUDENT
+                        'birth' => (isset($user->DateofBirth) ? $user->DateofBirth : ''), //FOR NEW STUDENT
                         'period' => $schYear,
                         'semester' => $semester,
-                        'cls' => ($user->Kelas ?: ''),
-                        'room' => ($user->Ruangan ?: ''),
-                        'photo' => ($user->Photo ?: '')
+                        'cls' => (isset($user->Kelas) ? $user->Kelas : ''),
+                        'room' => (isset($user->Ruangan) ? $user->Ruangan : ''),
+                        'photo' => (isset($user->Photo) ? $user->Photo : '')
                     ];
 
                     $this->session->set_userdata($data);

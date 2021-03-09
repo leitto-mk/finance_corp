@@ -944,10 +944,13 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <a href="#" target="_blank" class="btn green-meadow print_grade_report" style="float: right; margin-top: 10px; min-width: 70px; margin-left: 10px"> Full Report
+                                <a href="#" target="_blank" class="btn blue-steel print_grade_mid_report" style="margin-top: 10px; min-width: 70px;"> Mid-Term
                                     <i class="fa fa-print"></i>
                                 </a>
-                                <a href="#" target="_blank" class="btn blue-steel print_grade_mid_report" style="float: right; margin-top: 10px; min-width: 70px;"> Mid-Term
+                                <a href="#" target="_blank" class="btn green-meadow print_grade_report" style="margin-top: 10px; min-width: 70px; "> Final (A)
+                                    <i class="fa fa-print"></i>
+                                </a>
+                                <a href="#" target="_blank" class="btn purple print_grade_report_compact" style="margin-top: 10px; min-width: 70px;"> Final (B)
                                     <i class="fa fa-print"></i>
                                 </a>
                             </div>
