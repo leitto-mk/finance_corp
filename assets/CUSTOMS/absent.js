@@ -193,8 +193,7 @@ $(document).ready(function () {
 						time,
 						status
 					},
-					success: data => {
-						console.log(`${data}`);
+					success: () => {
 						Swal.fire({
 							type: 'success',
 							title: 'SUCCESS',
@@ -203,9 +202,7 @@ $(document).ready(function () {
 
 						$('.sv_absent_modal').modal('hide');
 
-						if (selected.length == 1) {
-							get_personal_absent(selected[0], status);
-						}
+						get_personal_absent(selected[0], status);
 					},
 					error: data => {
 						console.log(data.responseText)

@@ -39,6 +39,13 @@
                             <div class="form-group form-md-line-input has-info" style="padding-top: 0px;margin-bottom: 10px">
                                 <h4 for="form_control_1"> Absent Type </h4>
                                 <div class="md-radio-inline">
+                                    <div class="md-radio" style="margin-top: 10px;">
+                                        <input type="radio" id="cb_0" name="radio2" class="md-radiobtn" value="None">
+                                        <label for="cb_0" style="color: #333">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> None </label>
+                                    </div>
                                     <?php $i = 1; ?>
                                     <?php foreach ($type as $row) : ?>
                                         <div class="md-radio" style="margin-top: 10px;">

@@ -123,107 +123,127 @@ class Mdl_absent extends CI_Model
         }
 
         if ($status == 'student') {
-            //GET DATA BASED ON LIST
-            $query = $this->db->query(
-                "SELECT DISTINCT NIS, FullName, Class, Room FROM tbl_09_det_grades
-			     WHERE NIS IN ($id)"
-            )->result_array();
+            //DELETE CURRENT DATE IF IT'S NONE
+            if($type == 'None'){
+                $this->db->where("NIS IN ($id)")
+                         ->where('Absent', date('Y-m-d', strtotime($date)))
+                         ->delete('tbl_10_absent_std');
+            }else{
+                //GET DATA BASED ON LIST
+                $query = $this->db->query(
+                    "SELECT NIS, FullName, Class, Room FROM tbl_09_det_grades
+                     WHERE NIS IN ($id)
+                     AND Semester = '$semester'
+                     AND schoolyear = '$schYear'
+                     GROUP BY NIS"
+                )->result_array();
+    
+                //NEW ARRAY FOR BATCH STORING
+                for ($i = 0; $i < count($query); $i++) {
+                    //Check if current Date & Attendance is Duplicate
+                    $duplicate = $this->db->get_where('tbl_10_absent_std', [
+                        'NIS' => $query[$i]['NIS'],
+                        'Absent' => date('Y-m-d', strtotime($date))
+                    ])->num_rows();
+    
+                    if($duplicate > 0){
+                        $this->db->update('tbl_10_absent_std', [
+                            'NIS' => $query[$i]['NIS'],
+                            'FullName' => $query[$i]['FullName'],
+                            'Kelas' => $query[$i]['Class'],
+                            'Ruang' => $query[$i]['Room'],
+                            'Semester' =>  $semester,
+                            'schoolyear' =>  $schYear,
+                            'SubjDesc' =>  $subj,
+                            'Hour' =>  $hour,
+                            'Absent' =>  date('Y-m-d', strtotime($date)),
+                            'Ket' =>  $type
+                        ],[
+                            'NIS' => $query[$i]['NIS'],
+                            'Absent' => date('Y-m-d', strtotime($date))
+                        ]);
+                    }else{
+                        $this->db->insert('tbl_10_absent_std', [
+                            'NIS' => $query[$i]['NIS'],
+                            'FullName' => $query[$i]['FullName'],
+                            'Kelas' => $query[$i]['Class'],
+                            'Ruang' => $query[$i]['Room'],
+                            'Semester' =>  $semester,
+                            'schoolyear' =>  $schYear,
+                            'SubjDesc' =>  $subj,
+                            'Hour' =>  $hour,
+                            'Absent' =>  date('Y-m-d', strtotime($date)),
+                            'Ket' =>  $type
+                        ]);
+                    }
+                }
+            }
 
-            if (count($query) > 1) {
-                $i = 0;
-                $attendance = [];
+            // $this->db->query(
+            //     "UPDATE tbl_09_det_grades t1
+            //      RIGHT JOIN tbl_10_absent_std t2
+            //      ON t1.NIS = t2.NIS AND t2.NIS IN ($id)
+            //      SET t1.Absent = 
+            //         CEIL(
+            //                 (
+            //                     (
+            //                         (SELECT Total FROM tbl_meta_active_days WHERE Degree = (SELECT Type FROM tbl_04_class_rooms WHERE RoomDesc = '$query[0]['Room']')) 
+            //                         -
+            //                         (SELECT COUNT(Ket) FROM tbl_10_absent_std WHERE NIS = t2.NIS AND Semester = '$semester' AND schoolyear = '$schYear' AND Ket IN ('Absent','On Permit','Sick'))
+            //                     ) 
+            //                     / 
+            //                     (SELECT Total FROM tbl_meta_active_days WHERE Degree = (SELECT Type FROM tbl_04_class_rooms WHERE RoomDesc = '$query[0]['Room']'))
+            //                 ) * 100
+            //             )
+            //      WHERE t1.Semester = '$semester'
+            //      AND t1.schoolyear = '$schYear'
+            //      AND t1.Room = '$query[0]['Room']'"
+            // );
+        } else {
+            if($type == 'None'){
+                $this->db->where_in('IDNumber', $id)
+                         ->where('Absent', date('Y-m-d', strtotime($date)))
+                         ->delete('tbl_10_absent');
+            }else{
+                $teacher = $this->db->query(
+                    "SELECT IDNumber, CONCAT(FirstName,' ',LastName) AS FullName
+                     FROM tbl_07_personal_bio t1
+                     WHERE IDNumber IN ($id)"
+                )->result_array();
 
                 //NEW ARRAY FOR BATCH STORING
-                for ($i; $i < count($query); $i++) {
-                    array_push($attendance, [
-                        'NIS' => $query[$i]['NIS'],
-                        'FullName' => $query[$i]['FullName'],
-                        'Kelas' => $query[$i]['Class'],
-                        'Ruang' => $query[$i]['Room'],
-                        'Semester' =>  $semester,
-                        'schoolyear' =>  $schYear,
-                        'SubjDesc' =>  $subj,
-                        'Hour' =>  $hour,
-                        'Absent' =>  date('Y-m-d', strtotime($date)),
-                        'Ket' =>  $type
-                    ]);
-                }
-
-                //INSERT BATCH FROM ARRAY
-                $this->db->insert_batch('tbl_10_absent_std', $attendance);
-            } else {
-                $this->db->insert('tbl_10_absent_std', [
-                    'NIS' => $query[0]['NIS'],
-                    'FullName' => $query[0]['FullName'],
-                    'Kelas' => $query[0]['Class'],
-                    'Ruang' => $query[0]['Room'],
-                    'Semester' =>  $semester,
-                    'schoolyear' =>  $schYear,
-                    'SubjDesc' =>  $subj,
-                    'Hour' =>  $hour,
-                    'Absent' =>  date('Y-m-d', strtotime($date)),
-                    'Ket' =>  $type
-                ]);
-            }
-
-            //COUNT ABSENT GRADES
-            if (!empty($check)) {
-                $this->db->query(
-                    "UPDATE tbl_09_det_grades t1
-                    RIGHT JOIN tbl_10_absent_std t2
-                    ON t1.NIS = t2.NIS AND t2.NIS IN ($id)
-                    SET t1.Absent = 
-                        CEIL(
-                                (
-                                    (
-                                        (SELECT Total FROM tbl_meta_active_days WHERE Degree = (SELECT Type FROM tbl_04_class_rooms WHERE RoomDesc = '$query[0]['Room']')) 
-                                        -
-                                        (SELECT COUNT(Ket) FROM tbl_10_absent_std WHERE NIS = t2.NIS AND Semester = '$semester' AND schoolyear = '$schYear' AND Ket IN ('Absent','On Permit','Sick'))
-                                    ) 
-                                    / 
-                                    (SELECT Total FROM tbl_meta_active_days WHERE Degree = (SELECT Type FROM tbl_04_class_rooms WHERE RoomDesc = '$query[0]['Room']'))
-                                ) * 100
-                            )
-                    WHERE t1.Semester = '$semester'
-                    AND t1.schoolyear = '$schYear'
-                    AND t1.Room = '$query[0]['Room']'"
-                );
-            }
-
-            $this->db->trans_commit();
-        } else {
-            $teacher = $this->db->query(
-                "SELECT IDNumber, CONCAT(FirstName,' ',LastName) AS FullName
-                 FROM tbl_07_personal_bio t1
-                 WHERE IDNumber IN ($id)"
-            )->result_array();
-
-            $attd_tch = [];
-
-            if (count($teacher) > 1) {
                 for ($i = 0; $i < count($teacher); $i++) {
-                    array_push($attd_tch, [
-                        'IDNumber' => $teacher[$i]['IDNumber'],
-                        'FullName' => $teacher[$i]['FullName'],
-                        'Semester' => $semester,
-                        'schoolyear' => $schYear,
-                        'status' => $status,
-                        'Absent' => date('Y-m-d', strtotime($date)),
-                        'Ket' => $type
-                    ]);
+                    //Check if current Date & Attendance is Duplicate
+                    $duplicate = $this->db->get_where('tbl_10_absent', [
+                        'IDNumber' => $query[$i]['NIS'],
+                        'Absent' => date('Y-m-d', strtotime($date))
+                    ])->num_rows();
+    
+                    if($duplicate > 0){
+                        $this->db->update('tbl_10_absent_std', [
+                            'IDNumber' => $teacher[$i]['IDNumber'],
+                            'FullName' => $teacher[$i]['FullName'],
+                            'Semester' => $semester,
+                            'schoolyear' => $schYear,
+                            'status' => $status,
+                            'Absent' => date('Y-m-d', strtotime($date)),
+                            'Ket' => $type
+                        ],[
+                            'IDNumber' => $teacher[$i]['IDNumber'],
+                            'Absent' => date('Y-m-d', strtotime($date))
+                        ]);
+                    }else{
+                        $this->db->insert('tbl_10_absent_std', [
+                            'IDNumber' => $teacher[$i]['IDNumber'],
+                            'FullName' => $teacher[$i]['FullName'],
+                            'Semester' => $semester,
+                            'schoolyear' => $schYear,
+                            'status' => $status,
+                            'Absent' => date('Y-m-d', strtotime($date)),
+                            'Ket' => $type
+                        ]);
+                    }
                 }
-
-                $this->db->insert_batch('tbl_10_absent', $attd_tch);
-            } else {
-                $this->db->insert('tbl_10_absent', [
-                    'IDNumber' => $teacher[0]['IDNumber'],
-                    'FullName' => $teacher[0]['FullName'],
-                    'Semester' => $semester,
-                    'schoolyear' => $schYear,
-                    'status' => $status,
-                    'Absent' => date('Y-m-d', strtotime($date)),
-                    'Ket' => $type
-                ]);
             }
         }
     }
