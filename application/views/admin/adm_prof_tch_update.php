@@ -127,7 +127,7 @@
                                                             <option value="-" <?php if ($datatoedit->MaritalStatus == '-') echo 'selected' ?>>-- Choose --</option>
                                                             <option id="marital" value="Belum Menikah" <?php if ($datatoedit->MaritalStatus == 'Belum Menikah') echo 'selected' ?>>Single</option>
                                                             <option id="marital" value="Menikah" <?php if ($datatoedit->MaritalStatus == 'Menikah') echo 'selected' ?>>Married</option>
-                                                            <option id="marital" value="Duda/Janda" <?php if ($datatoedit->MaritalStatus == 'Duda/Janda') echo 'selected' ?>>Widower</option>
+                                                            <option id="marital" value="Duda/Janda" <?php if ($datatoedit->MaritalStatus == 'Duda/Janda') echo 'selected' ?>>Widower/Widow</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">

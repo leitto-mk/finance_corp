@@ -839,6 +839,17 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group" style="margin-bottom: 5px;">
+                                                        <label class="control-label col-md-3">Nama Wali
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                                                <input type="text" class="form-control" name="guardian" placeholder="" value="<?= $datatoedit->Guardian ?>">
+                                                                <span class="help-block" style="z-index: 10;">Nomor Induk Keluarga Wali</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" style="margin-bottom: 5px;">
                                                         <label class="control-label col-md-3">NIK Wali
                                                             <span class="required" aria-required="true"> * </span>
                                                         </label>
