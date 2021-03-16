@@ -332,17 +332,18 @@ class Teacher extends CI_Controller
         $nis = $this->input->get('nis');
         $cls = $this->input->get('cls');
         $subj = $this->input->get('subj');
-        $semester = $this->input->get('semester');
+        $period = $this->session->userdata('period');
+        $semester = $this->session->userdata('semester');
         $report_type = 'full';
 
         $data = [
-            'info' => $this->Mdl_grade->get_report_print_info($nis, $cls, $subj, $semester, $report_type),
-            'kd' => $this->Mdl_grade->get_std_kd_det($nis, $subj, $semester),
-            'exam' => $this->Mdl_grade->get_std_exam_det($nis, $cls, $subj, $semester),
-            'rep' => $this->Mdl_grade->get_std_report_det($nis, $cls, $subj, $semester),
-            'sick' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'Sick'),
-            'permit' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'On Permit'),
-            'absent' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'Absent'),
+            'info' => $this->Mdl_grade->get_report_print_info($nis, $cls, $subj, $period, $semester, $report_type),
+            'kd' => $this->Mdl_grade->get_std_kd_det($nis, $subj, $period, $semester),
+            'exam' => $this->Mdl_grade->get_std_exam_det($nis, $cls, $subj, $period, $semester),
+            'rep' => $this->Mdl_grade->get_std_report_det($nis, $cls, $subj, $period, $semester),
+            'sick' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'Sick'),
+            'permit' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'On Permit'),
+            'absent' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'Absent'),
         ];
 
         $this->load->view('grade_report_print', $data);
@@ -353,19 +354,20 @@ class Teacher extends CI_Controller
         $nis = $this->input->get('nis');
         $cls = $this->input->get('cls');
         $subj = $this->input->get('subj');
-        $semester = $this->input->get('semester');
+        $period = $this->session->userdata('period');
+        $semester = $this->session->userdata('semester');
         $report_type = 'mid';
 
         [$query, $score, $average] = $this->Mdl_grade->get_report_mid_grade($nis, $cls, $semester);
 
         $data = [
-            'info' => $this->Mdl_grade->get_report_print_info($nis, $cls, $subj, $semester, $report_type),
+            'info' => $this->Mdl_grade->get_report_print_info($nis, $cls, $subj, $period, $semester, $report_type),
             'subjects' => $query,
             'score' => $score,
             'average' => $average,
-            'sick' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'Sick'),
-            'permit' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'On Permit'),
-            'absent' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'Absent')
+            'sick' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'Sick'),
+            'permit' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'On Permit'),
+            'absent' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'Absent')
         ];
 
         $this->load->view('grade_report_mid_print', $data);

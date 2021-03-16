@@ -1671,7 +1671,6 @@ class Mdl_grade extends CI_Model
              LEFT JOIN tbl_05_subject_kd t2 
              ON t1.SubjName = t2.SubjName
              WHERE t1.Class = '$cls'
-             AND t2.Classes = '$cls_romanic'
              AND t1.Semester = '$semester'
              AND t1.NIS = '$nis'
              AND t1.schoolyear = '$schYear'

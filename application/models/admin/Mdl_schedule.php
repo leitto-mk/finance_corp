@@ -511,12 +511,30 @@ class Mdl_schedule extends CI_Model
 
     public function get_sche_data($day, $room, $hour)
     {
+        $semester = '';
+        $schYear = '';
+
+        $time = date('d-m-Y');
+        $year = date('Y');
+
+        if (date('n', strtotime($time)) <= 6) {
+            $semester = 2;
+            $schYear = ($year - 1) . '/' . $year;
+        } else {
+            $schYear = $year . '/' . ($year + 1);
+            $semester = 1;
+        }
+
         $query = $this->db->query(
             "SELECT t1.SubjName, t1.TeacherName, t1.Note, t2.Type
              FROM tbl_06_schedule t1
              JOIN tbl_05_subject t2
              ON t1.SubjName = t2.SubjName 
-             WHERE Days = '$day' AND RoomDesc = '$room' AND Hour = '$hour'"
+             WHERE Days = '$day' 
+             AND RoomDesc = '$room' 
+             AND Hour = '$hour' 
+             AND semester = '$semester' 
+             AND schoolyear = '$schYear'"
         );
 
         return $query->row();
@@ -803,6 +821,9 @@ class Mdl_schedule extends CI_Model
             'semester' => $semester,
             'schoolyear' => $schYear
         ]);
+
+        print_r($this->db->last_query());
+        die();
 
         if ($query->num_rows() < 1) {
             return 'proceed';

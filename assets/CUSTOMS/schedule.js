@@ -768,15 +768,13 @@ $(document).ready(function () {
 		//AJAX UPDATE NEW SCHEDULE
 		$('.sv_upd_sche').click(function () {
 
-			let upd_room = $('select[name="room"] option:selected').val();
-			let upd_day = $('select[name="day"] option:selected').val();
-			let upd_hour = $('select[name="hour"] option:selected').val();
-			let upd_type = $('select[name="type"] option:selected').val();
-			let upd_subj = $('select[name="subj"] option:selected').val();
-			let upd_teacher = $('select[name="teacher"] option:selected').val();
+			let upd_room = $('select[name="room"]').val();
+			let upd_day = $('select[name="day"]').val();
+			let upd_hour = $('select[name="hour"]').val();
+			let upd_type = $('select[name="type"]').val();
+			let upd_subj = $('select[name="subj"]').val();
+			let upd_teacher = $('select[name="teacher"]').val();
 			let upd_note = $('textarea[name="note"]').val();
-
-			// console.log(`ROOM: ${upd_room} | DAY: ${upd_day} | HOUR: ${upd_hour} | TYPE: ${upd_type} | SUBJ: ${upd_subj} | TEACHER: ${upd_teacher} | NOTE: ${upd_note}`);
 
 			if (upd_type != '' && upd_subj != '' && upd_teacher != '') {
 				//POST TO DB

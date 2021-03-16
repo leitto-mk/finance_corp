@@ -2612,14 +2612,6 @@ class Admin extends CI_Controller
         } else {
             $value = '';
             $value .= 'no_students';
-            // $value .= '<div class="modal-body">
-            //             <div class="col-sm-12">';
-            // $value .= '      <h2 class="text-center display-5"> THIS CLASS HAS NO STUDENTS YET </h2>';
-            // $value .= '  </div>
-            //           </div>';
-            // $value .= '<div class="modal-footer">
-            //             <button type="button" class="btn danger" data-dismiss="modal" style="min-width: 85px; margin-top: 35px;"> Close </button>
-            //           </div>';
         }
 
 
@@ -2688,8 +2680,6 @@ class Admin extends CI_Controller
         if ($query == 'proceed') {
             echo $query;
         }
-
-        //echo $day . ' ' . $hour . ' ' . $teacher;
     }
 
     public function save_add_sch()
@@ -4698,9 +4688,9 @@ class Admin extends CI_Controller
             'subjects' => $query,
             'score' => $score,
             'average' => $average,
-            'sick' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'Sick'),
-            'permit' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'On Permit'),
-            'absent' => $this->Mdl_grade->get_print_absent($nis, $cls, $semester, 'Absent')
+            'sick' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'Sick'),
+            'permit' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'On Permit'),
+            'absent' => $this->Mdl_grade->get_print_absent($nis, $cls, $period, $semester, 'Absent')
         ];
 
         $this->load->view('grade_report_mid_print', $data);
