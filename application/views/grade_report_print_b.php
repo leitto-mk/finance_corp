@@ -247,7 +247,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="col-xs-6">
                                         <p style="padding-left: 30%">
                                             <?php
-                                                $month = ['None','Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                                                $month = ['','Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
                                                 $date = explode('0',date('m'));
                                                 
                                                 $month = date('d') .' '. $month[$date[1]] .' '. date('Y');

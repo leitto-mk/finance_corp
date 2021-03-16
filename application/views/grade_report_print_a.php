@@ -525,7 +525,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="col-xs-2"></div>
                                 <div class="col-xs-4" style="padding-left: 35px; float: left">
-                                    <h5 style="margin-top: 50px;">Manado, <?= date('d M Y') ?></h5>
+                                    <?php
+                                        $month = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                                        $date = explode('0',date('m'));
+                                        
+                                        $month = date('d') .' '. $month[$date[1]] .' '. date('Y');
+                                    ?>
+                                    <h5 style="margin-top: 50px;">Manado, <?= $month ?></h5>
                                     <h5> Guru Mata Pelajaran <br></BR></h5>
                                     <ul class="list-unstyled">
                                         <br>
