@@ -562,6 +562,22 @@ class Mdl_profile extends CI_Model
 
     public function model_delete($id)
     {
+        //BIODATA
         $this->db->query("DELETE FROM tbl_07_personal_bio WHERE IDNumber = '$id'");
+        $this->db->query("DELETE FROM tbl_08_job_info WHERE IDNumber = '$id'");
+        $this->db->query("DELETE FROM tbl_08_job_info_std WHERE NIS = '$id'");
+        
+        //GRADE
+        $this->db->query("DELETE FROM tbl_09_det_character WHERE NIS = '$id'");
+        $this->db->query("DELETE FROM tbl_09_det_grades WHERE NIS = '$id'");
+        $this->db->query("DELETE FROM tbl_09_det_kd WHERE NIS = '$id'");
+        $this->db->query("DELETE FROM tbl_09_det_voc_grades WHERE NIS = '$id'");
+
+        //ABSENT
+        $this->db->query("DELETE FROM tbl_10_absent_std WHERE NIS = '$id'");
+        $this->db->query("DELETE FROM tbl_10_absent WHERE IDNumber = '$id'");
+        
+        //CREDENTIALS
+        $this->db->query("DELETE FROM tbl_credentials WHERE IDNumber = '$id'");
     }
 }

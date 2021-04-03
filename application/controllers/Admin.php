@@ -1,8 +1,8 @@
 <?php 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-include APPPATH.'third_party\phpspreadsheet\vendor\autoload.php';
-include APPPATH.'third_party\phpmailer\vendor\autoload.php';
+include APPPATH.'third_party/phpspreadsheet/vendor/autoload.php';
+include APPPATH.'third_party/phpmailer/vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -5002,6 +5002,8 @@ class Admin extends CI_Controller
             $img_name = 'default.png';
         }
 
+        $institute = (isset($_POST['institute']) ? $_POST['institute'] : ''); //Nayan da tambah 23Mar2021
+
         if ($institute == '') {
             $institute = 'no';
         }
@@ -5038,7 +5040,7 @@ class Admin extends CI_Controller
             'LastEducation' => $_POST['education'],
             'StudyFocus' => $_POST['diploma'],
             'Govt_Cert' => $_POST['govt'],
-            'Institute_Cert' => $_POST['institute'],
+            'Institute_Cert' => $institute,
             'YearStarts' => $_POST['starts'],
             'MaritalStatus' => $_POST['marital'],
             'Email' => $_POST['newmail'],
@@ -5052,7 +5054,7 @@ class Admin extends CI_Controller
             if (!$this->upload->do_upload('image')) {
                 $error_msg = $this->upload->display_errors();
 
-                $this->session->set_flashdata('disp_err', "<div class=\"alert alert-success text-center text-uppercase\" role=\"alert\"> $errormsg </div>");
+                $this->session->set_flashdata('disp_err', "<div class=\"alert alert-success text-center text-uppercase\" role=\"alert\"> $error_msg </div>");
             } else {
                 $this->session->set_flashdata('addmsg', '<div class="alert alert-success text-center text-uppercase" role="alert"> New Teacher Added!!! </div>');
             }
@@ -5421,7 +5423,7 @@ class Admin extends CI_Controller
                 if (!$this->upload->do_upload('image')) {
                     $error_msg = $this->upload->display_errors();
 
-                    $this->session->set_flashdata('disp_err', "<div class=\"alert alert-success text-center text-uppercase\" role=\"alert\"> $errormsg </div>");
+                    $this->session->set_flashdata('disp_err', "<div class=\"alert alert-success text-center text-uppercase\" role=\"alert\"> $error_msg </div>");
                 } else {
                     $this->session->set_flashdata('addmsg', '<div class="alert alert-success text-center text-uppercase" role="alert"> New Teacher Added!!! </div>');
                 }
@@ -5433,7 +5435,6 @@ class Admin extends CI_Controller
                 redirect('Admin/load_prof_std_edit');
             }
         } else {
-
             $this->session->set_flashdata('regismsg', '<div class="regis-alert" data-id="' . $id . '"></div>');
             redirect('Admin/load_prof_std_edit');
         }

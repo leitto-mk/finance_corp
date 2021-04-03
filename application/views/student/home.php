@@ -144,7 +144,7 @@
                                         PASSWORD:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>123456</strong>
                                         <br><br>
                                         <span class="font-red">
-                                        *Please be advised, that Your Email Username (<?= $id ?>) will be changed to Your New School IDNumber after Your documents and payment have been approved. after that, You can no longer access using your email.
+                                        *Please be advised, that Your Email Username (<?= $id ?>) will be changed to your new IDNumber after Your documents and payment have been approved. after that, You can no longer access Your Portal using your email address.
                                     </span> 
                                 </p>
                                 <hr>
@@ -205,7 +205,7 @@
                                         PASSWORD:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>123456</strong>
                                         <br><br>
                                         <span class="font-red">
-                                        *Please be advised, that Your Email Username (<?= $id ?>) will be changed to Your New School IDNumber after Your documents and payment have been approved. after that, You can no longer access using your email.
+                                        *Please be advised, that Your Email Username (<?= $id ?>) will be changed to your new IDNumber after Your documents and payment have been approved. after that, You can no longer access your Portal using your email address.
                                     </span> 
                                 </p>
                                 <hr>
@@ -214,7 +214,7 @@
                                 </p>
                             <?php endif; ?>
                             <div class="row text-center">
-                                <a href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id&birth=$birth") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">ENROLLMENT FORM</a>
+                                <a href="<?= base_url("enrollment?first=$fname&last=$lname&school=$schoolapplied&mail=$id&birth=$birth&phone=$phone") ?>" type="button" class="btn btn-success" style="margin-bottom: 15px;">ENROLLMENT FORM</a>
                             </div>
                         </div>
                     </div>

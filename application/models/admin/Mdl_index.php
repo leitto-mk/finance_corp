@@ -112,6 +112,9 @@ class Mdl_index extends CI_Model
     public function model_toggle_degree($degree, $state)
     {
         $this->db->update('tbl_02_school', ['isActive' => $state], ['School_Desc' => $degree]);
+
+        print_r($this->db->last_query());
+        die();
     }
 
     public function model_get_class_list($degree)

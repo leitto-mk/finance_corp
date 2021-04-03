@@ -1,11 +1,12 @@
 $(document).ready(function () {
-    
+    //INPUT MASK
+    $('input[name="handheldnumber"]').inputmask("(+62) 999-9999-9999", { clearMaskOnLostFocus: false });
+
     //SUBMIT DATA
 	$(document).on('submit', '#signinnew', function(e){
         e.preventDefault();
         
         obj = $(this).serializeArray();
-        console.log(obj);
 
         $.ajax({
             url: 'Sign/ajax_submit_data',
@@ -17,7 +18,7 @@ $(document).ready(function () {
                     swal.fire({
                         'type': 'success',
                         'title': 'SIGNIN SUCCESS',
-                        'text': `USERNAME: ${obj[5].value}, PASSWORD: 123456 OR CHECK YOUR EMAIL`
+                        'text': `Press OK to to proceed...`
                     }).then(result => {
                         if(result.value){
                             window.location.replace(BASE_URL + `auth/index?email=${response.email}`)
@@ -27,7 +28,8 @@ $(document).ready(function () {
                     swal.fire({
                         'type': 'error',
                         'title': 'EMAIL REGISTERED',
-                        'text': 'EMAIL HAS ALREADY BEEN REGISTERED, PLEASE USE ANOTHER EMAIL'
+                        'text': 'EMAIL HAS ALREADY BEEN REGISTERED, PLEASE USE ANOTHER EMAIL',
+                        'width': 600
                     })
                 }else if(response.result == 'EMAIL_REGISTERED'){
                     swal.fire({

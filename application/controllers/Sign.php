@@ -33,7 +33,8 @@ class Sign extends CI_Controller
             'Email' => $_POST['email'],
             'Registration' => $_POST['student_type'],
             'Applying' => $_POST['school'],
-            'previousschool' => $_POST['previousschool']
+            'previousschool' => $_POST['previousschool'],
+            'Phone' => $_POST['handheldnumber']
         ];
 
         $checkMail = $this->db->get_where('tbl_11_enrollment', ['Email' => $data['Email']])->num_rows();

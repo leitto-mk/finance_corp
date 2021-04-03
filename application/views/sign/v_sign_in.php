@@ -56,6 +56,13 @@
                 <input required class="form-control placeholder-no-fix" type="text" placeholder="Previous School" name="previousschool"/> 
             </div>
         </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">Phone Number</label>
+            <div class="input-icon">
+                <i class="fa fa-phone"></i>
+                <input required class="form-control placeholder-no-fix" type="text" placeholder="Phone Number" name="handheldnumber"/> 
+            </div>
+        </div>
         <div class="form-actions">
             <button type="submit" class="btn green"> Sign In </button>
         </div>

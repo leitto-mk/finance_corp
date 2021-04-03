@@ -150,14 +150,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <input type="text" class="form-control" id="form_control_1" name="fname" placeholder="">
+                                                                                        <input required type="text" class="form-control" id="form_control_1" name="fname" placeholder="">
                                                                                         <span class="help-block">masukan nama depan...</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Nama Tengah
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -172,14 +172,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <input type="text" class="form-control" id="form_control_1" name="lname" placeholder="">
+                                                                                        <input required type="text" class="form-control" id="form_control_1" name="lname" placeholder="">
                                                                                         <span class="help-block">masukan nama belakang</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Nama Panggilan
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -213,7 +213,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">NISN
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -224,7 +224,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">NIK/KITAS (untuk WNA)
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -239,7 +239,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <input type="text" class="form-control" id="form_control_1" name="kk" placeholder="">
+                                                                                        <input required type="text" class="form-control" id="form_control_1" name="kk" placeholder="">
                                                                                         <p class="help-block" style="z-index: 10;">Nomor Kartu Keluarga.</p>
                                                                                     </div>
                                                                                 </div>
@@ -250,7 +250,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <input type="text" class="form-control" id="form_control_1" name="tgllhr" placeholder="">
+                                                                                        <input required type="text" class="form-control" id="form_control_1" name="tgllhr" placeholder="">
                                                                                         <span class="help-block" style="z-index: 10;">Tanggal/Bulan/Tahun</span>
                                                                                     </div>
                                                                                 </div>
@@ -261,14 +261,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <input type="text" class="form-control" id="form_control_1" name="tmplhr" placeholder="">
+                                                                                        <input required type="text" class="form-control" id="form_control_1" name="tmplhr" placeholder="">
                                                                                         <span class="help-block" style="z-index: 10;">Tempat Kelahiran.</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">No. Registrasi Akta Lahir
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -313,7 +313,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Berkebutuhan Khusus
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -334,7 +334,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                         <div class="portlet-body">
                                                                                 <div class="form-group" style="margin-bottom: 5px;">
                                                                                     <label class="control-label col-md-4">Tempat Tinggal
-                                                                                        <span class="required" aria-required="true"> * </span>
+                                                                                        <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -351,7 +351,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </div>
                                                                                 <div class="form-group" style="margin-bottom: 5px;">
                                                                                     <label class="control-label col-md-4">Moda Transportasi
-                                                                                        <span class="required" aria-required="true"> * </span>
+                                                                                        <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -371,14 +371,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <input type="text" class="form-control" id="form_control_1" name="address" placeholder="">
+                                                                                        <input required type="text" class="form-control" id="form_control_1" name="address" placeholder="">
                                                                                         <span class="help-block" style="z-index: 10;">Alamat Peserta Didik.</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">RT
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -389,7 +389,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">RW
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -400,7 +400,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Nama Dusun
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -415,7 +415,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <input type="text" class="form-control" id="form_control_1" name="village" placeholder="">
+                                                                                        <input required type="text" class="form-control" id="form_control_1" name="village" placeholder="">
                                                                                         <span class="help-block" style="z-index: 10;">Kelurahan/Desa</span>
                                                                                     </div>
                                                                                 </div>
@@ -426,14 +426,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <input type="text" class="form-control" id="form_control_1" name="district" placeholder="">
+                                                                                        <input required type="text" class="form-control" id="form_control_1" name="district" placeholder="">
                                                                                         <span class="help-block" style="z-index: 10;">Kecamatan</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Kabupaten
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -444,7 +444,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Kode Post
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -455,7 +455,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                                 <div class="form-group" style="margin-bottom: 5x;">
                                                                                     <label class="control-label col-md-4">Lintang
-                                                                                        <span class="required" aria-required="true"> * </span>
+                                                                                        <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -466,7 +466,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </div>
                                                                                 <div class="form-group" style="margin-bottom: 5px;">
                                                                                     <label class="control-label col-md-4">Bujur
-                                                                                        <span class="required" aria-required="true"> * </span>
+                                                                                        <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -481,14 +481,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                            <input type="number" class="form-control" id="form_control_1" name="child" placeholder="">
+                                                                                            <input required type="number" class="form-control" id="form_control_1" name="child" placeholder="">
                                                                                             <span class="help-block" style="z-index: 10;">Anak Keberapa</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label class="control-label col-md-4">Memiliki KIP
-                                                                                        <span class="required" aria-required="true"> * </span>
+                                                                                        <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="md-radio-inline">
@@ -511,7 +511,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label class="control-label col-md-4">Tetap Memegang KIP
-                                                                                        <span class="required" aria-required="true"> * </span>
+                                                                                        <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="md-radio-inline">
@@ -534,7 +534,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label class="control-label col-md-4">Alasan Menolak PIP
-                                                                                        <span class="required" aria-required="true"> * </span>
+                                                                                        <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -550,7 +550,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </div>
                                                                                 <div class="form-group" style="margin-bottom: 5px;">
                                                                                     <label class="control-label col-md-4">No. Telpon Rumah
-                                                                                        <span class="required" aria-required="true"> * </span>
+                                                                                        <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -565,7 +565,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                            <input type="text" class="form-control" id="form_control_1" name="handheldnumber">
+                                                                                            <input required type="text" class="form-control" id="form_control_1" name="handheldnumber">
                                                                                             <span class="help-block" style="z-index: 10;">Nomor Telpon Rumah</span>
                                                                                         </div>
                                                                                     </div>
@@ -576,7 +576,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                     </label>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                            <input type="email" class="form-control" id="form_control_1" name="email" placeholder="">
+                                                                                            <input required type="email" class="form-control" id="form_control_1" name="email" placeholder="">
                                                                                             <span class="help-block" style="z-index: 10;">Email milik peserta atau milik orang tua/wali</span>
                                                                                         </div>
                                                                                     </div>
@@ -585,7 +585,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="col-md-4">
                                                                     <div class="portlet box grey-gallery">
                                                                         <div class="portlet-title">
@@ -600,14 +599,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <input type="text" class="form-control" id="form_control_1" name="father" placeholder="">
+                                                                                        <input required type="text" class="form-control" id="form_control_1" name="father" placeholder="">
                                                                                         <span class="help-block" style="z-index: 10;">Nama Ayah Kandung</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">NIK Ayah
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -618,7 +617,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Tahun Lahir
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -629,7 +628,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Pendidikan
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -657,7 +656,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <select name="fatherjob" class="form-control" id="form_control_1">
+                                                                                        <select required name="fatherjob" class="form-control" id="form_control_1">
                                                                                             <option value="-" selected> - </option>
                                                                                             <option value="Tidak Bekerja"> Tidak Bekerja </option>
                                                                                             <option value="Nelayan"> Nelayan </option>
@@ -678,7 +677,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Penghasilan Bulanan
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -698,7 +697,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Berkebutuhan Khusus
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -713,14 +712,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <input type="text" class="form-control" id="form_control_1" name="mother" placeholder="">
+                                                                                        <input required type="text" class="form-control" id="form_control_1" name="mother" placeholder="">
                                                                                         <span class="help-block" style="z-index: 10;">Nama Ibu Kandung</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">NIK Ibu
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -731,7 +730,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Tahun Lahir
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -742,7 +741,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Pendidikan
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -770,7 +769,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                                        <select name="motherjob" class="form-control" id="form_control_1">
+                                                                                        <select required name="motherjob" class="form-control" id="form_control_1">
                                                                                             <option value="-" selected> - </option>
                                                                                             <option value="Tidak Bekerja"> Tidak Bekerja </option>
                                                                                             <option value="Nelayan"> Nelayan </option>
@@ -791,7 +790,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Penghasilan Bulanan
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -811,7 +810,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Berkebutuhan Khusus
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -823,7 +822,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <h5 style="color: white; background-color: grey; padding: 5px; 1px;"> <span style="color: #e7505a">*</span> Abaikan data Wali jika tinggal bersama Orang Tua</h5>
                                                                                 <label class="control-label col-md-4">Nama Wali
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -834,7 +833,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">NIK Wali
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -845,7 +844,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Tahun Lahir
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -856,7 +855,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Pendidikan
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -880,7 +879,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Pekerjaan
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -905,7 +904,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Penghasilan Bulanan
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -925,7 +924,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </div>
                                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                                 <label class="control-label col-md-4">Berkebutuhan Khusus
-                                                                                    <span class="required" aria-required="true"> * </span>
+                                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                                 </label>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -937,7 +936,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-offset-4 col-md-12" style="margin-top: 20px;">
@@ -950,7 +948,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         <div class="tab-pane" id="tab2" data-select="2">
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tinggi Badan (cm)
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-2">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -961,7 +959,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Berat Badan (kg)
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-2">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -972,7 +970,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Lingkar Kepala (cm)
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-2">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -983,7 +981,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jarak tempat tinggal ke sekolah
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -1006,7 +1004,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jarak tepatnya
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-2">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1019,7 +1017,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jarak Waktu Rumah ke Sekolah
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-2">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1033,7 +1031,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jumlah Saudara Kandung
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1044,7 +1042,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jenis Prestasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -1081,7 +1079,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tingkat Prestasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -1132,7 +1130,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama Prestasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1143,7 +1141,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tahun Prestasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1154,7 +1152,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Penyelanggara
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1165,7 +1163,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Peringkat Prestasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1176,7 +1174,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jenis Beasiswa
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -1213,7 +1211,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Keterangan Beasiswa
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1224,7 +1222,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tahun Mulai
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1235,7 +1233,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tahun Selesai
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1246,7 +1244,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jenis Kesejahteraan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1264,7 +1262,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. Kartu
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1275,7 +1273,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama di Kartu
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1296,7 +1294,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         <div class="tab-pane" id="tab3" data-select="3">
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Kompetensi Keahlian (Khusus SMK)
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1307,7 +1305,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;" style="display: none;">
                                                                 <label class="control-label col-md-4">NIS/Nomor Induk
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1318,7 +1316,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jenjang Tujuan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1327,13 +1325,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                 <option value="<?= $row->School_Desc ?>"> <?= $row->SchoolName ?> </option>
                                                                             <?php endforeach;?>
                                                                         </select>
-                                                                        <span class="help-block" style="z-index: 10;">Agama</span>
+                                                                        <span class="help-block" style="z-index: 10;">Jenjang Tujuan</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Sekolah Asal
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1344,7 +1342,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. Peserta UN jenjang sebelumnya
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1358,7 +1356,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. Seri Ijazah
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1371,7 +1369,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. SKHUN Jenjang Sebelumnya
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1384,7 +1382,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">File Ijasah
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4" id="col_diplomafile">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1394,7 +1392,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">File Akte Kelahiran
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4" id="col_birthcertfile">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1404,7 +1402,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">File KK
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4" id="col_kkfile">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1414,7 +1412,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">File Foto
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4" id="col_photo">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1435,7 +1433,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         <div class="tab-pane" id="tab4" data-select="4">
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama Depan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1446,7 +1444,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama Tengah
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1457,7 +1455,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama Belakang
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1468,7 +1466,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama Panggilan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1479,7 +1477,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jenis Kelamin
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -1502,7 +1500,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">NISN
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1513,7 +1511,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">NIK/KITAS (untuk WNA)
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1524,7 +1522,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. KK
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1535,7 +1533,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tanggal Lahir
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1546,7 +1544,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tempat Lahir
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1557,7 +1555,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. Registrasi Akta Lahir
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1568,7 +1566,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Agama/Kepercayaan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1579,7 +1577,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Kewarganegaraan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1590,7 +1588,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Berkebutuhan Khusus
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1601,7 +1599,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Alamat
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1612,7 +1610,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">RT
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1623,7 +1621,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">RW
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1634,7 +1632,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama Dusun
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1645,7 +1643,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Kelurahan/Desa
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1656,7 +1654,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Kecamatan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1667,7 +1665,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Kabupaten
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1678,7 +1676,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Kode Post
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1689,7 +1687,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tempat Tinggal
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1700,7 +1698,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Moda Transportasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1711,7 +1709,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5x;">
                                                                 <label class="control-label col-md-4">Lintang
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1722,7 +1720,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Bujur
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1733,7 +1731,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="control-label col-md-4">Anak Ke
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1744,7 +1742,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="control-label col-md-4">Memiliki KIP
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -1767,7 +1765,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="control-label col-md-4">Tetap Memegang KIP
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -1790,7 +1788,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="control-label col-md-4">Alasan Menolak PIP
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1801,7 +1799,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. Telpon Rumah
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1812,7 +1810,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. HP
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1823,7 +1821,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Email
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1834,7 +1832,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama Ayah Kandung
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1845,7 +1843,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">NIK Ayah
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1856,7 +1854,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tahun Lahir
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1867,7 +1865,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Pendidikan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1878,7 +1876,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Pekerjaan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1889,7 +1887,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Penghasilan Bulanan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1900,7 +1898,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Berkebutuhan Khusus
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1911,7 +1909,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama Ibu Kandung
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1922,7 +1920,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">NIK Ibu
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1933,7 +1931,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tahun Lahir
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1944,7 +1942,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Pendidikan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1955,7 +1953,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Pekerjaan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1966,7 +1964,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Penghasilan Bulanan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1977,7 +1975,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Berkebutuhan Khusus
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1988,7 +1986,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama Wali
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -1999,7 +1997,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">NIK Wali
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2010,7 +2008,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tahun Lahir
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2021,7 +2019,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Pendidikan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2032,7 +2030,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Pekerjaan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2043,7 +2041,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Penghasilan Bulanan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2054,7 +2052,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Berkebutuhan Khusus
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2065,7 +2063,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tinggi Badan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2076,7 +2074,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Berat Badan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2087,7 +2085,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Lingkar Kepala
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2098,7 +2096,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jarak tempat tinggal ke sekolah
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -2121,7 +2119,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jarak tepatnya
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2131,7 +2129,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jarak Waktu Rumah ke Sekolah
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2141,7 +2139,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jumlah Saudara Kandung
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2152,7 +2150,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jenis Prestasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -2189,7 +2187,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tingkat Prestasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -2240,7 +2238,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama Prestasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2251,7 +2249,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tahun Prestasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2262,7 +2260,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Penyelanggara
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2273,7 +2271,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Peringkat Prestasi
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2284,7 +2282,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jenis Beasiswa
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="md-radio-inline">
@@ -2321,7 +2319,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Keterangan Beasiswa
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2332,7 +2330,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tahun Mulai
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2343,7 +2341,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Tahun Selesai
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2354,7 +2352,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jenis Kesejahteraan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2365,7 +2363,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. Kartu
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2376,7 +2374,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Nama di Kartu
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2386,7 +2384,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Kompetensi Keahlian (Khusus SMK)
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2397,7 +2395,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">NIS/Nomor Induk
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2408,7 +2406,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Jenjang Tujuan
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2421,7 +2419,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">Sekolah Asal
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2432,7 +2430,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. Peserta UN jenjang sebelumnya
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2446,7 +2444,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. Seri Ijazah
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
@@ -2459,7 +2457,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 5px;">
                                                                 <label class="control-label col-md-4">No. SKHUN Jenjang Sebelumnya
-                                                                    <span class="required" aria-required="true"> * </span>
+                                                                    <!-- <span class="required" aria-required="true"> * </span> -->
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">

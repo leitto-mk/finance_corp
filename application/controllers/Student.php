@@ -260,7 +260,7 @@ class Student extends CI_Controller
         extract($detail);
 
         $newstudentstatus = $this->db
-            ->select('is_enrolled, is_approved, 
+            ->select('is_enrolled, is_approved, Phone,
                         is_approved_diploma, is_approved_birthcert, is_approved_kk, is_approved_photo, is_approved_spp,
                         unapproved_birthcert_msg, unapproved_kk_msg, unapproved_photo_msg, unapproved_spp_msg, unapproved_diploma_msg')
             ->get_where('tbl_11_enrollment', [
@@ -281,6 +281,7 @@ class Student extends CI_Controller
                 'fname' => $this->session->userdata('fname'),
                 'lname' => $this->session->userdata('lname'),
                 'status' => $this->session->userdata('status'),
+                'phone' => $newstudentstatus->Phone,
                 'photo' => $this->session->userdata('photo'),
                 'prof' => $this->Mdl_student->get_full_profile($id),
                 'active' => 0,

@@ -12,6 +12,7 @@ $(document).ready(function () {
         $('[name=applying]').val(get_param.get('school'))
         $('[name=tgllhr]').val(get_param.get('birth'))
         $('[name=email]').val(get_param.get('mail'))
+        $('[name=handheldnumber]').val(get_param.get('phone'))
 
         //GET FULL DATA IF EXIST
         $.ajax({
@@ -56,8 +57,8 @@ $(document).ready(function () {
                     $(`input[name="kip"][value="${response.KIP}"]`).prop('checked', true);
                     $(`input[name="keepkip"][value="${response.Stayed_KIP}"]`).prop('checked', true);
                     $('select[name="refusepip"]').val(response.Refuse_PIP);
-                    $('input[name="housephone"]').val(response.Phone);
-                    $('input[name="handheldnumber"]').val(response.HousePhone);
+                    $('input[name="housephone"]').val(response.HousePhone);
+                    $('input[name="handheldnumber"]').val(response.Phone);
                     $('input[name="email"]').val(response.Email);
                     $('input[name="father"]').val(response.Father);
                     $('input[name="fathernik"]').val(response.FatherNIK);

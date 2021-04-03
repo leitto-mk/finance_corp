@@ -822,9 +822,6 @@ class Mdl_schedule extends CI_Model
             'schoolyear' => $schYear
         ]);
 
-        print_r($this->db->last_query());
-        die();
-
         if ($query->num_rows() < 1) {
             return 'proceed';
         } else {

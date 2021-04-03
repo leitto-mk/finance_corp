@@ -13,7 +13,8 @@
         <script src="<?=base_url('assets')?>/global/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/scripts/app.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/pages/scripts/login-4.min.js" type="text/javascript"></script>
-        
+        <script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/jquery.inputmask.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/CUSTOM-PLUGINS/RobinHerbots-Inputmask/dist/bindings/inputmask.binding.js" type="text/javascript"></script>
         <script>
             var BASE_URL = '<?= base_url() ?>';
         </script>

@@ -149,6 +149,8 @@ License: You must have a valid license purchased only from themeforest(the above
         if(get_param.has('email')){
             $('#username').val(get_param.get('email'))
             $('#password').val('123456')
+
+            $('button[type=submit]').click()
         }
     </script>
 </body>

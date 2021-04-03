@@ -36,7 +36,6 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <link href="<?=base_url('assets')?>/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?= base_url(); ?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="<?=base_url('assets')?>/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
@@ -44,10 +43,12 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN PAGE LEVEL STYLES -->
         <link href="<?=base_url('assets')?>/pages/css/login-4.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?= base_url();?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <!-- END THEME LAYOUT STYLES -->
-        <link rel="shortcut icon" href="favicon.ico" /> </head>
+        <link rel="shortcut icon" href="favicon.ico" />
+    </head>
     <!-- END HEAD -->
 
     <body class=" login">
