@@ -338,7 +338,7 @@
                                             <div class="mt-repeater-input">
                                                 <label class="control-label">Session Type</label>
                                                 <br>
-                                                <select name="sess_type" class="form-control">
+                                                <select id="sess_type" name="sess_type" class="form-control">
                                                     <option value="" selected>-- Session Type --</option>
                                                     <option value="reg_subj">Regular Subjects</option>
                                                     <option value="elective_subj">Elective Subjects</option>

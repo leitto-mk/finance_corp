@@ -11,8 +11,8 @@
                         </div>
                     </div>
                     <!-- END LOGO -->
-                    2020 &copy; Portal Student By
-                    <a target="_blank" href="#">ABase</a>   
+                    Portal Student By
+                    <a target="_blank" href="#">ABase</a> &copy; <?= date('Y') ?>   
                 </div>
                 <div class="scroll-to-top">
                     <i class="icon-arrow-up"></i>

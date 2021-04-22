@@ -5292,7 +5292,13 @@ class Admin extends CI_Controller
     //Called upon when load_prof_std_add pressed the button Save
     public function add_std()
     {
-        $id = $this->Mdl_profile->get_new_std_id($_POST['classes']);
+        $id = '';
+
+        if($_POST['nis'] == '' || !isset($_POST['nis'])){
+            $id = $this->Mdl_profile->get_new_std_id($_POST['classes']);
+        }else{
+            $id = $_POST['nis'];
+        }
 
         $img = $_FILES['image']['name'];
         $img_name = 'img-' . $id . '-std.jpg';
@@ -5351,6 +5357,7 @@ class Admin extends CI_Controller
 
         $table2 = [
             'NIS' => $id,
+            'NIS_Old' => $_POST['nisold'],
             'NISN' => $_POST['nisn'],
             'Kelas' => $_POST['classes'],
             'Ruangan' => $_POST['room'],
@@ -5485,6 +5492,7 @@ class Admin extends CI_Controller
 
         $table2 = [
             'NIS' => $selected_id,
+            'NIS_Old' => $_POST['nisold'],
             'NISN' => $_POST['nisn'],
             'Kelas' => $_POST['classes'],
             'Ruangan' => $_POST['room'],

@@ -439,7 +439,7 @@
                                                             </tr>
                                                         <?php $no++;} ?>
                                                     <?php }else{ ?>
-                                                        <tr><td align="center" class="font-red bold" colspan="4">No Data News & Assignment!</td></tr>
+                                                        <tr><td align="center" class="font-red bold" colspan="5">No News & Assignment!</td></tr>
                                                     <?php } ?>
                                                 </tbody>
                                             </table>
@@ -471,8 +471,7 @@
                                                         <th width="20%" class="text-center uppercase">Balance</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="idetailss">
-                                                  
+                                                <tbody id="std_acc">
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1616,68 +1615,3 @@
          </div>
     </div> 
 <?php $this->load->view('header_footer/portal_student/footer'); ?>
-<script type="text/javascript">
-    window.onload = load_function;
-
-    function load_function() {
-        $('.loader-wrapper').fadeOut("slow")
-        document.body.style.zoom = 0.9;
-
-        load_list_gl_student();
-
-        $(document).ready(function(){
-            $('.dropify').dropify();
-        });
-        
-        //OPEN PROFILE FROM NAV-BAR
-        $(document).on('click','#profilemodal',function () {
-            $('a[href="#profile"]').click()
-        })
-
-        //CHANGE PASSWORD FROM NAV-BAR
-        $(document).on('click','#changepassmodal',function () {
-            $('a[href="#account"]').click()
-        })
-
-        $(document).on('click','.newsassignments', function() {
-            let id_ctrlno = $(this).attr('data-ctrlno')
-            $.ajax({
-                url     : "<?php echo site_url('Student/get_detail_data_news_assigments'); ?>",
-                type    : "POST",
-                data    : {
-                    id_ctrlno
-                },
-                success : function(data){
-                    $('#data_modal_newsassignment').html(data)
-                    $('#newsassignmentModal').modal('show');
-                }, error : function(){
-                    alert("Error to load Data !");
-                }
-            });
-        });
-    }
-
-    function load_list_gl_student(){
-        let vcustomer = $(document).find('h4[name="satya"]').attr('data-id');
-        mdocno = '';
-        $.ajax({
-            url: "<?php echo site_url('Student/get_po_customer') ?>",
-            type: "POST",
-            data: {
-                id: vcustomer,
-                mdocno: mdocno
-            },
-            dataType: 'json',
-            success: function(data) {
-                // console.log(data[0].beg_bal)
-              /*  if (data[2] == '') {
-                    alert('Charges of Student Not Set')
-                }*/
-                $('#idetailss').html(data[1]);
-            },
-            error: function(data) {
-                alert('Error when select Customer');
-            }
-        })
-    }
-</script>

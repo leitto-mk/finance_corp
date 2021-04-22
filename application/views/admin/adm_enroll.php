@@ -139,7 +139,7 @@
                                                             <tr>
                                                                 <th class="uppercase"> Fullname </th>
                                                                 <td id="fullname"> </td>
-                                                                <th class="uppercase"> Birth Place </th>
+                                                                <th class="uppercase"> Place of Birth</th>
                                                                 <td id="pointofbirth"> </td>
                                                             </tr>
                                                         </thead>
@@ -296,17 +296,17 @@
                                                         </thead>
                                                         <thead>
                                                             <tr>
-                                                                <th class="uppercase"> Class </th>
+                                                                <th class="uppercase"> Grade </th>
                                                                 <td id="class"> </td>
                                                             </tr>
                                                         </thead>
                                                         <thead>
                                                             <tr>
-                                                                <th class="uppercase"> Ruang </th>
+                                                                <th class="uppercase"> Section </th>
                                                                 <td id="ruang"> </td>
                                                             </tr>
                                                         </thead>
-                                                        <thead>
+                                                        <!-- <thead>
                                                             <tr>
                                                                 <th class="uppercase"> Position </th>
                                                                 <td id="position"> </td>
@@ -317,7 +317,7 @@
                                                                 <th class="uppercase"> Competent </th>
                                                                 <td id="competent"> </td>
                                                             </tr>
-                                                        </thead>
+                                                        </thead> -->
                                                         <thead>
                                                             <tr>
                                                                 <th class="uppercase"> Previous School </th>
@@ -344,13 +344,13 @@
                                                         </thead>
                                                         <thead>
                                                             <tr>
-                                                                <th class="uppercase"> AchievementName </th>
+                                                                <th class="uppercase"> Achievement Name </th>
                                                                 <td id="achievementname"> </td>
                                                             </tr>
                                                         </thead>
                                                         <thead>
                                                             <tr>
-                                                                <th class="uppercase"> AchievementYear </th>
+                                                                <th class="uppercase"> Achievement Year </th>
                                                                 <td id="achievementyear"> </td>
                                                             </tr>
                                                         </thead>
@@ -390,7 +390,7 @@
                                                                 <td id="scholarend"> </td>
                                                             </tr>
                                                         </thead>
-                                                        <thead>
+                                                        <!-- <thead>
                                                             <tr>
                                                                 <th class="uppercase"> Prosperity Type </th>
                                                                 <td id="prosper"> </td>
@@ -407,7 +407,7 @@
                                                                 <th class="uppercase"> Printed Name in Prosper Card </th>
                                                                 <td id="prospername"> </td>
                                                             </tr>
-                                                        </thead>
+                                                        </thead> -->
                                                         <thead>
                                                             <tr></tr>
                                                         </thead>
@@ -454,7 +454,7 @@
                                                             <td id="guardianid"> </td>
                                                         </tr>
                                                     </thead>
-                                                    <thead>
+                                                    <!-- <thead>
                                                         <tr>
                                                             <th class="uppercase"> Born </th>
                                                             <td id="fatherborn"> </td>
@@ -463,7 +463,7 @@
                                                             <th class="uppercase"> Born </th>
                                                             <td id="guardianborn"> </td>
                                                         </tr>
-                                                    </thead>
+                                                    </thead> -->
                                                     <thead>
                                                         <tr>
                                                             <th class="uppercase"> Degree </th>
@@ -494,7 +494,7 @@
                                                             <td id="guardianearn"> </td>
                                                         </tr>
                                                     </thead>
-                                                    <thead>
+                                                    <!-- <thead>
                                                         <tr>
                                                             <th class="uppercase"> Disability </th>
                                                             <td id="fatherdisable"> </td>
@@ -503,7 +503,7 @@
                                                             <th class="uppercase"> Disability </th>
                                                             <td id="guardiandisable"> </td>
                                                         </tr>
-                                                    </thead>
+                                                    </thead> -->
                                                     <thead>
                                                         <tr></tr>
                                                     </thead>

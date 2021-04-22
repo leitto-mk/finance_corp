@@ -244,7 +244,7 @@ class Student extends CI_Controller
         echo json_encode($result);
     }
 
-    //Start - Student New Build
+    //NEW PORTAL
     public function home()
     {
         $id = $this->session->userdata('id');
@@ -551,200 +551,25 @@ class Student extends CI_Controller
             echo $result;
         }
     }
-    //End - Student New Build
 
+    //FINANCE STUDENT
+    function ajax_get_std_account(){
+        $nis = $this->session->userdata('id');
 
-    //Finance Student Start
-    function get_po_customer()
-    {
-        $cuscode = $this->input->post('id');
-        $mdocno = $this->input->post('mdocno');
-        $sup = $this->Mdl_student->get_list_class_desc($cuscode);
-        $data2 = $this->Mdl_student->get_inv_details_stu_add($cuscode);
-        if (empty($data2)) {
-            $beg_bal = 0;
-        } else {
-            $beg_bal = $data2->end_balance;
-        }
-        $data = array(
-            'Address' => $sup->Ruangan,
-            'Contact' => $sup->FirstName . ' - ' . $sup->LastName,
-            'Email' => $sup->PersonalID,
-            'beg_bal' => $beg_bal
-        );
-        $value = '';
-        // $data2 = $this->Mdl_student->get_inv_details_cus($cuscode);
-        $paid_data = $this->Mdl_student->get_inv_details_stu_pay($cuscode);
-        $paid_data_charges = $this->Mdl_student->get_details_stu_pay_charges($cuscode);
-        $cek_nis_bb = $this->Mdl_student->getaccno_nis_bb($cuscode);
-        if ($data2) {
-            $ddcn = 'ada';
-            $due = date('d-M-Y', strtotime($data2->sale_date));
-            $beg_bal = $data2->remain_value;
-            $value .= '<tr>';
-            $value .= '<td>' . $due . '</td>';
-            $value .= '<input type="hidden" name="due[]" value="' . $data2->sale_date . '">';
-            $value .= '<td>' . $data2->sale_doc_no . '</td>';
-            $value .= '<td></td>';
-            $value .= '<input type="hidden" name="pono[]" value="' . $data2->sale_doc_no . '">';
-            $value .= '<td class="sbold">Beginning Balance</td>';
-            $value .= '<td></td>';
-            // $value .= '<td>' . number_format(0, 2, ".", ",") . '</td>';
-            // $value .= '<td>' . number_format(0, 2, ".", ",") . '</td>';
-            $value .= '<td class="sbold" align="right">' . number_format($data2->end_balance, 2, ".", ",") . '</td>';
-            $value .= '<input type="hidden" name="amt[]" value="' . $data2->end_balance . '">';
-            $value .= '</tr>';
+        $result = $this->db->query(
+            "SELECT 
+                DATE_FORMAT(t1.TransDate, '%d-%m-%Y') AS TransDate, 
+                t1.AccGroupReg,
+                t2.Acc_Name,
+                t1.DocNo,
+                (SELECT SUM(t1.Amount) FROM tbl_12_fin_std_charge_det WHERE NIS = '$nis' GROUP BY NIS) AS Amount
+             FROM tbl_12_fin_std_charge_det AS t1
+             LEFT JOIN tbl_fa_mas_account AS t2
+                ON t1.AccGroupReg = t2.Acc_No
+             WHERE t1.NIS = '$nis'
+             GROUP BY t1.DocNo"
+        )->row();
 
-            if ($paid_data_charges) {
-                foreach ($paid_data_charges as $rows) {
-                    $accname = $this->Mdl_student->get_acc_name_ar($rows->AccNo);
-                    $s = $rows->remain_value;
-                    $due = date('d-M-Y', strtotime($rows->submit_date));
-                    $debit = 0;
-                    $value .= '<tr id="d_ar_data" ar_data="' . $bal_ . '">';
-                    $value .= '<td>' . $due . '</td>';
-                    $value .= '<td>' . $rows->sale_doc_no . '</td>';
-                    $value .= '<td>' . $accname . '</td>';
-                    $value .= '<td>' . number_format($rows->total_sale, 2, ".", ",") . '</td>';
-                    $value .= '<td>' . $debit . '</td>';
-                    if ($rows->Total_N_payment != 0) {
-                        if($bal_ < 0){
-                            $value .= '<td class="sbold" align="right">(' . number_format(abs($bal_), 2, ".", ",") . ')</td>';
-                        }else{
-                            $value .= '<td class="sbold" align="right">' . number_format($bal_, 2, ".", ",") . '</td>';
-                        }
-                        $value .= '<input type="hidden" name="amt[]" value="' . $bal_ . '">';
-                    }
-                    if ($rows->Total_N_payment == 0) {
-                        if($bal_ < 0){
-                            $value .= '<td class="sbold" align="right">(' . number_format(abs($bal_), 2, ".", ",") . ')</td>';
-                        }else{
-                            $value .= '<td class="sbold" align="right">' . number_format($bal_, 2, ".", ",") . '</td>';
-                        }
-                        $value .= '<input type="hidden" name="amt[]" value="' . $bal_ . '">';
-                    }
-                    $value .= '</tr>';
-                }
-            }
-            if ($paid_data) {
-                foreach ($paid_data as $rowss) {
-                    $accname = $this->Mdl_student->get_acc_name_ar($rowss->AccNo);
-                    $bal =  $beg_bal + $rowss->total_sale;
-                    $due = date('d-M-Y', strtotime($rowss->submit_date));
-                    $debit = 0;
-                    $value .= '<tr id="d_ar_data" ar_data="' . $bal . '">';
-                    $value .= '<td>' . $due . '</td>';
-                    $value .= '<td>' . $rowss->sale_doc_no . '</td>';
-                    $value .= '<td>' . $accname . '</td>';
-                    $value .= '<td>' . $debit . '</td>';
-                    $value .= '<td>' . number_format($rowss->total_sale, 2, ".", ",") . '</td>';
-                    if($rowss->remain_value < 0){
-                            $value .= '<td class="sbold" align="right">(' . number_format(abs($bal), 2, ".", ",") . ')</td>';
-                    }else{
-                            $value .= '<td class="sbold" align="right">' . number_format($bal, 2, ".", ",") . '</td>';
-                    }
-                    $value .= '<input type="hidden" name="amt[]" value="' . $bal . '">';
-                    $value .= '</tr>';
-                }
-            }
-        } else {        
-            $hari_ini = date("Y-m-d"); 
-            if($cek_nis_bb != false){
-                $ddcn = $mdocno;
-                if ($cek_nis_bb->Debit != 0) {
-                    $val = $cek_nis_bb->Debit;
-                }
-                if ($cek_nis_bb->Credit != 0) {
-                    $val = $cek_nis_bb->Credit;
-                }
-                $beg_bal = $val;
-                $value .= '<tr>';
-                $value .= '<td>' . $hari_ini . '</td>';
-                $value .= '<input type="hidden" name="due[]" value="' . $hari_ini . '">';
-                $value .= '<td>' . $ddcn . '</td>';
-                $value .= '<td></td>';
-                $value .= '<input type="hidden" name="pono[]" value="' . $ddcn . '">';
-                $value .= '<td class="sbold">Beginning Balance</td>';
-                $value .= '<td></td>';
-                $value .= '<td class="sbold" align="right">' . number_format($val, 2, ".", ",") . '</td>';
-                $value .= '<input type="hidden" name="amt[]" value="' . $val . '">';
-                $value .= '</tr>';
-                if ($paid_data_charges) {
-                    foreach ($paid_data_charges as $rows) {
-                        $accname = $this->Mdl_student->get_acc_name_ar($rows->AccNo);
-                        $bal_ =  $beg_bal + $rows->remain_value;
-                        $ddcn_ = $rows->remain_value;
-                        $due = date('d-M-Y', strtotime($rows->submit_date));
-                        $debit = 0;
-                        $value .= '<tr id="d_ar_data" ar_data="' . $bal_ . '">';
-                        $value .= '<td>' . $due . '</td>';
-                        $value .= '<td>' . $rows->sale_doc_no . '</td>';
-                        $value .= '<td>' . $accname . '</td>';
-                        $value .= '<td>' . number_format($rows->total_sale, 2, ".", ",") . '</td>';
-                        $value .= '<td>' . $debit . '</td>';
-                        if ($rows->Total_N_payment != 0) {
-                            if($bal_<1){
-                                $value .= '<td class="sbold" align="right">(' . number_format(abs($bal_), 2, ".", ",") . ')</td>';
-                            }else{
-                                $value .= '<td class="sbold" align="right">' . number_format($bal_, 2, ".", ",") . '</td>';
-                            }
-                            $value .= '<input type="hidden" name="amt[]" value="' . $bal_ . '">';
-                        }
-                        if ($rows->Total_N_payment == 0) {
-                            if ($bal_ < 1) {
-                                $value .= '<td class="sbold" align="right">(' . number_format(abs($bal_), 2, ".", ",") . ')</td>';
-                            } else {
-                                $value .= '<td class="sbold" align="right">' . number_format($bal_, 2, ".", ",") . '</td>';
-                            }
-                            $value .= '<input type="hidden" name="amt[]" value="' . $bal_ . '">';
-                        }
-                        $value .= '</tr>';
-                    }
-                }
-                if ($paid_data) {
-                    foreach ($paid_data as $rowss) {
-                        $accname = $this->Mdl_student->get_acc_name_ar($rowss->AccNo);
-                        $bal =  $beg_bal + $rowss->total_sale;
-                        $ddcn_ =  $beg_bal + $rowss->total_sale;
-                        $due = date('d-M-Y', strtotime($rowss->submit_date));
-                        $debit = 0;
-                        $value .= '<tr id="d_ar_data" ar_data="' . $bal . '">';
-                        $value .= '<td>' . $due . '</td>';
-                        $value .= '<td>' . $rowss->sale_doc_no . '</td>';
-                        $value .= '<td>' . $accname . '</td>';
-                        $value .= '<td>' . $debit . '</td>';
-                        $value .= '<td>' . number_format($rowss->total_sale, 2, ".", ",") . '</td>';
-                        if($rowss->remain_value < 0){
-                                $value .= '<td class="sbold" align="right">(' . number_format(abs($bal), 2, ".", ",") . ')</td>';
-                        }else{
-                                $value .= '<td class="sbold" align="right">' . number_format($bal, 2, ".", ",") . '</td>';
-                        }
-                        $value .= '<input type="hidden" name="amt[]" value="' . $bal . '">';
-                        $value .= '</tr>';
-                    }
-                }
-            }else{
-                $ddcn = '';
-                $ddcn_ = '';
-                $hari_ini = date("Y-m-d"); 
-                $value .= '<tr>';
-                 $value .= '<td>' . $hari_ini . '</td>';
-                $value .= '<input type="hidden" name="due[]" value="' . $hari_ini . '">';
-                $value .= '<td>' . $ddcn . '</td>';
-                $value .= '<td></td>';
-                $value .= '<input type="hidden" name="pono[]" value="' . $ddcn . '">';
-                $value .= '<td class="sbold">Beginning Balance</td>';
-                $value .= '<td></td>';
-                // $value .= '<td>' . number_format(0, 2, ".", ",") . '</td>';
-                // $value .= '<td>' . number_format(0, 2, ".", ",") . '</td>';
-                $value .= '<td class="sbold" align="right">' . number_format(0, 2, ".", ",") . '</td>';
-                $value .= '<input type="hidden" name="amt1[]" value="' . 0 . '">';
-                $value .= '<input type="hidden" name="amt2[]" value="' . 0 . '">';
-                $value .= '<input type="hidden" name="amt[]" value="' . 0 . '">';
-                $value .= '</tr>';
-            }
-        }
-        echo json_encode(array($data, $value, $ddcn));
+        echo json_encode($result);
     }
-    //Finance Student End
 }

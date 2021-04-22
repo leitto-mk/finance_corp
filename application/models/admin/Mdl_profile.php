@@ -228,10 +228,14 @@ class Mdl_profile extends CI_Model
              USING(ClassID)
              WHERE t2.ClassDesc != '-'
              AND t1.isActive = 1
+             GROUP BY ClassDesc
              UNION ALL
-             SELECT class.ClassDesc FROM tbl_03_b_class_vocational AS class
+             SELECT class.ClassDesc FROM tbl_02_school t1
+             LEFT JOIN tbl_03_b_class_vocational AS class
+             ON t1.School_Desc = class.Type
              RIGHT JOIN tbl_04_class_rooms_vocational AS room
-                ON class.ClassDesc = room.Simplified
+             ON class.ClassDesc = room.Simplified
+             WHERE t1.isActive = 1
              GROUP BY ClassDesc
              ORDER BY ClassDesc"
         );
@@ -242,17 +246,22 @@ class Mdl_profile extends CI_Model
     public function get_dropdown_room()
     {
         $query = $this->db->query(
-            "SELECT ClassDesc, RoomDesc 
+            "SELECT t1.ClassDesc, t1.ClassNumeric, t2.RoomDesc 
              FROM tbl_03_class AS t1
-             JOIN tbl_04_class_rooms AS t2
+             LEFT JOIN tbl_04_class_rooms AS t2
                 ON t2.ClassID = t1.ClassID
+             LEFT JOIN tbl_02_school AS t3
+                ON t2.Type = t3.School_Desc
+             WHERE t3.isActive = 1
              UNION ALL
-             SELECT t1.ClassDesc, t2.RoomDesc
+             SELECT t1.ClassDesc, t1.ClassNumeric, t2.RoomDesc
              FROM tbl_03_b_class_vocational t1
              LEFT JOIN tbl_04_class_rooms_vocational t2
-                ON t1.ClassDesc = t2.Simplified 
-             WHERE t2.RoomDesc IS NOT NULL
-             ORDER BY ClassDesc"
+                ON t1.ClassDesc = t2.Simplified
+             LEFT JOIN tbl_02_school AS t3
+                ON t2.Type = t3.School_Desc
+             WHERE t3.isActive = 1
+             ORDER BY ClassNumeric, ClassDesc, RoomDesc"
         );
 
         return $query->result();
@@ -300,6 +309,8 @@ class Mdl_profile extends CI_Model
         }elseif($schooltype['Applying'] == 'SMK'){
             $applying = '04';
         }
+
+        $time = date('d-m-Y');
 
         if (date('n', strtotime($time)) <= 6) {
             $semester = '02';

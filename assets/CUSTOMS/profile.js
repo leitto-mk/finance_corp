@@ -649,7 +649,7 @@ $(document).ready(function () {
 				confirmButtonText: 'Ya'
 			}).then((result) => {
 				if (result.value) {
-					if ($('input[name="nis"]').val() == '' || $('select[name="classes"]').val() == '-') {
+					if ($('select[name="classes"]').val() == '-') {
 						Swal.fire({
 							type: 'error',
 							title: 'Cannot Proceed',

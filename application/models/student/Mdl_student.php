@@ -145,7 +145,7 @@ class Mdl_student extends CI_Model
                 AND Sch.Days = '$day'
                 AND Sch.Days IS NOT NULL 
                 AND Sch.Hour IS NOT NULL
-                GROUP BY Grd.SubjName
+                GROUP BY Sch.Days, Hour
              UNION ALL
              SELECT 
                 Non.Days,
@@ -164,7 +164,7 @@ class Mdl_student extends CI_Model
                 AND Non.Days = '$day'
                 AND Non.Days IS NOT NULL 
                 AND Non.Hour IS NOT NULL
-             GROUP BY Grd.SubjName
+                GROUP BY Non.Days, Hour
              ORDER BY Hour ASC"
         )->result();
 

@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
 	if ($('body').attr('data-status') == 'student') {
+		$('.loader-wrapper').fadeOut("slow")
+        document.body.style.zoom = 0.9
 
 		//OPEN PROFILE FROM NAV-BAR
 		$('.nav_profile').click(function () {
@@ -21,6 +23,8 @@ $(document).ready(function () {
 			});
 		}
 
+
+		//GET SCHOOL EVENT
 		$.ajax({
 			url: 'ajax_get_school_event',
 			dataType: 'JSON',
@@ -232,5 +236,28 @@ $(document).ready(function () {
 				error: () => alert('NETWORK PROBLEM')
 			})
         })
+
+		//================================================================================================\\
+		//										FINANCE
+		//================================================================================================\\
+
+		//GET STUDENT FINANCE ACCOUNT
+		$.ajax({
+			url: 'ajax_get_std_account',
+			dataType: 'JSON',
+			success: response => {
+				$('#std_acc').append(
+					`<tr>
+						<td class="sbold uppercase text-center">${response.TransDate}</td>
+						<td class="sbold uppercase text-center">${response.DocNo}</td>
+						<td class="sbold uppercase text-center">${response.Acc_Name}</td>
+						<td class="sbold uppercase text-right">${Intl.NumberFormat('en').format(response.Amount)}</td>
+						<td class="sbold uppercase text-right">0</td>
+						<td class="sbold uppercase text-right">0</td>
+					</tr>`
+				)
+			},
+			error: () => alert('NETWORK PROBLEM')
+		})
 	}
 });

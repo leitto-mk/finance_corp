@@ -63,13 +63,24 @@
                                             <div class="row">
                                                 <div class="row">
                                                     <div class="form-group" style="margin-bottom: 5px;" style="display: none;">
-                                                        <label class="control-label col-md-3">NIS/Nomor Induk
+                                                        <label class="control-label col-md-3">ID
                                                             <span class="required" aria-required="true"> * </span>
                                                         </label>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
-                                                                <input type="text" class="form-control" name="nis" value="<?= $datatoedit->IDNumber ?>" disabled>
-                                                                <span class="help-block">Nomor Induk Siswa untuk peserta didik</span>
+                                                                <input type="text" class="form-control" name="nis" value="<?= $datatoedit->IDNumber ?>">
+                                                                <span class="help-block">ID Akses Siswa</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" style="margin-bottom: 5px;" style="display: none;">
+                                                        <label class="control-label col-md-3">NIS
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
+                                                                <input type="text" class="form-control" name="nisold" value="<?= $datatoedit->NIS_Old ?>" disabled>
+                                                                <span class="help-block">Nomor Induk Siswa dari sekolah</span>
                                                             </div>
                                                         </div>
                                                     </div>

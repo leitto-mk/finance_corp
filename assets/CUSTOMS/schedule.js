@@ -125,19 +125,9 @@ $(document).ready(function () {
 			})
 		}
 
-		var sess;
-
-		$('select[name="sess_type"]').change(function () {
-			if ($(this).val() != '') {
-				sess = $(this).val();
-			} else {
-				sess = '';
-			}
-		})
-
 		//ADD NEW SESSION
 		$('.new_sess').click(function () {
-			let sess_type = sess;
+			let sess_type = $('#sess_type').val();
 			let sess_code = $('.sess_code').val();
 			let sess_name = $('.sess_name').val();
 			let sess_degree = $('#sess_degree').val();

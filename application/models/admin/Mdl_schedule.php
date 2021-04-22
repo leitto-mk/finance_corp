@@ -1156,9 +1156,8 @@ class Mdl_schedule extends CI_Model
 
             //Delete Student's Non-Regular grades if available
             $this->db->query(
-                "DELETE FROM `tbl_09_det_grades` 
-                 WHERE SubjName = '$SubjName'
-                 AND Room = '$room'
+                "DELETE FROM `tbl_09_det_grades`
+                 WHERE Room = '$room'
                  AND semester = '$semester'
                  AND schoolyear = '$schYear'"
             );
