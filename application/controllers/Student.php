@@ -564,7 +564,7 @@ class Student extends CI_Controller
                 t1.DocNo,
                 (SELECT SUM(t1.Amount) FROM tbl_12_fin_std_charge_det WHERE NIS = '$nis' GROUP BY NIS) AS Amount
              FROM tbl_12_fin_std_charge_det AS t1
-             LEFT JOIN tbl_fa_mas_account AS t2
+             LEFT JOIN tbl_12_fin_account_no AS t2
                 ON t1.AccGroupReg = t2.Acc_No
              WHERE t1.NIS = '$nis'
              GROUP BY t1.DocNo"

@@ -19,11 +19,11 @@
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
-                            <span class="input-group-btn">
-                                <a href="<?php echo site_url('SDAFinance/f_entry_transaction_receipt_fin_stu') ?>" target="_blank" class="btn btn-md btn blue-oleo">
+                            <!-- <span class="input-group-btn">
+                                <a href="<?php echo site_url('Finance/view_add_rec_voucher') ?>" target="_blank" class="btn btn-md btn blue-oleo">
                                     <i class="fa fa-plus"></i>&nbsp;Add New</i>
                                 </a>
-                            </span>
+                            </span> -->
                         </div>
                     </span>
                 </div>
@@ -31,12 +31,8 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-stripped table-condensed">
                             <thead>
-                                <tr class="font-dark sbold bg bg-white">
-                                    <th class="text-left" colspan="8"> ROOM 1A - Wali Kelas: Fine Hiborang </th>
-                                </tr>
                                 <tr style="background-color: #22313F" class="font-white">
                                     <th class="text-center" width="10%"> Trans Date </th>
-                                    <th class="text-center" width="10%"> Doc No </th>
                                     <th class="text-center" width="20%"> Student </th>
                                     <th class="text-center" width="8%"> Room  </th>
                                     <th class="text-center" width="22%"> Cashier </th>
@@ -46,92 +42,86 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="font-white sbold">
-                                    <td align="center">01-Jan-2021</td>                                 
-                                    <td align="left">1111</td>
-                                    <td align="left">2021 - Aaron Anes</td>
-                                    <td align="center">1A</td>
-                                    <td align="left">10030 - Novita Wewengkang</td>
-                                    <td align="right">350.000</td>
-                                    <td></td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="Detail">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" class="btn btn-xs green" target="_blank" title="Edit Personal"><i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-xs yellow" title="Discontinue Personal">
-                                            <i class="fa fa-close"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-white sbold">
-                                    <td align="center">01-Jan-2021</td>                                 
-                                    <td align="left">1112</td>
-                                    <td align="left">2022 - Smith James</td>
-                                    <td align="center">1A</td>
-                                    <td align="left">10030 - Novita Wewengkang</td>
-                                    <td align="right">150.000</td>
-                                    <td></td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="Detail">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" class="btn btn-xs green" target="_blank" title="Edit Personal"><i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-xs yellow" title="Discontinue Personal">
-                                            <i class="fa fa-close"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-white sbold">
-                                    <td colspan="5"></td>                                 
-                                    <td align="right" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">500.000</td>
-                                    <td colspan="2"></td>
-                                </tr>
-                                <tr class="font-white sbold">
-                                    <td align="center">02-Feb-2023</td>                                 
-                                    <td align="left">1113</td>
-                                    <td align="left">2023 - Aaron Winter</td>
-                                    <td align="center">1A</td>
-                                    <td align="left">10030 - Novita Wewengkang</td>
-                                    <td align="right">50.000</td>
-                                    <td></td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="Detail">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" class="btn btn-xs green" target="_blank" title="Edit Personal"><i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-xs yellow" title="Discontinue Personal">
-                                            <i class="fa fa-close"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-white sbold">
-                                    <td align="center">02-Feb-2021</td>                                 
-                                    <td align="left">1114</td>
-                                    <td align="left">2024 - Smith Summer</td>
-                                    <td align="center">1A</td>
-                                    <td align="left">10030 - Novita Wewengkang</td>
-                                    <td align="right">100.000</td>
-                                    <td></td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="Detail">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" class="btn btn-xs green" target="_blank" title="Edit Personal"><i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-xs yellow" title="Discontinue Personal">
-                                            <i class="fa fa-close"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-white sbold">
-                                    <td colspan="5"></td>                                 
-                                    <td align="right" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">150.000</td>
-                                    <td colspan="2"></td>
-                                </tr>
+                            <?php
+                                    $room = '';
+                                    $count_room = 0;
+                                    $count_std = 0;
+                                    $sub_total = 0;
+                                ?>
+                                <?php if(count($table) == 0) : ?>
+                                    <tr style="background-color: white">
+                                        <td colspan="7" class="bold text-center uppercase">NO DATA TO SHOW...</td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php for($i = 0; $i < count($table); $i++) : ?>
+                                    <?php if($room !== $table[$i]['Room']) : ?>
+                                        <tr style="background-color: white">
+                                            <td colspan="7" class="bold">ROOM <?= $table[$i]['Room'] ?> - Wali Kelas: <?= $table[$i]['Homeroom'] ?></td>
+                                        </tr>
+                                        <?php
+                                            $room = $table[$i]['Room'];
+                                            $count_room += 1;
+                                            $count_std = 1;
+                                            $sub_total = 0;
+                                        ?>
+                                    <?php endif; ?>
+                                    <tr class="font-white sbold">
+                                        <td align="center"><?= date('d-m-Y', strtotime($table[$i]['TransDate'])) ?> </td>
+                                        <td align="left"><?= $table[$i]['IDNumber'] . ' - ' . $table[$i]['FullName'] ?></td>
+                                        <td align="center"><?= $table[$i]['Room'] ?></td>
+                                        <td align="center"><?= $this->session->userdata('id') . ' - ' .  $this->session->userdata('fname') . ' - ' . $this->session->userdata('lname') ?></td>
+                                        <td align="right">
+                                            <?php
+                                                $balance = $table[$i]['Balance'];
+
+                                                if($balance < 0){
+                                                    $balance = abs($balance);
+                                                    $balance = number_format($balance, 2, ',', '.');
+                                                    
+                                                    echo '(' . $balance . ')';
+                                                }else{
+                                                    echo number_format($balance, 2, ',', '.');
+                                                }
+                                            ?>
+                                        </td>
+                                        <td align="left"><?= $table[$i]['Remarks'] ?></td>
+                                        <td align="center">
+                                            <a href="#" type="button" class="btn btn-xs blue" title="Detail">
+                                                <i class="fa fa-search"> </i>
+                                            </a>
+                                            <a href="<?= base_url("Finance/view_add_rec_voucher?") 
+                                                . "docno=" . $receive_docno 
+                                                . "&nis=" . $table[$i]['IDNumber']
+                                                . "&transdate=" . $table[$i]['TransDate']
+                                                . "&school=" . $table[$i]['School']?>" 
+                                               target="_blank" class="btn btn-xs green" title="Receipt">Receipt
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        $count_std += 1;
+                                        $sub_total += $table[$i]['Balance'];
+
+                                        $sub_total = $table[$i]['Balance'];
+                                    ?>
+                                    <?php if(!isset($table[$i+1]['Room']) || $table[$i+1]['Room'] !== $room) : ?>
+                                        <?php
+                                            if($sub_total < 0){
+                                                $sub_total = abs($sub_total);
+                                                $sub_total = number_format($sub_total, 2, ',', '.');
+                                                
+                                                $sub_total = '(' . $sub_total . ')';
+                                            }else{
+                                                $sub_total = number_format($sub_total, 2, ',', '.');
+                                            }    
+                                        ?>
+                                        <tr class="font-white sbold">
+                                            <td colspan="4"></td>                                 
+                                            <td align="right" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa"><?= $sub_total ?></td>
+                                            <td colspan="2"></td>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
                             </tbody>
                         </table>
                     </div>
@@ -147,4 +137,4 @@
         document.body.style.zoom = 0.9;
     }
 </script>
-<?php $this->load->view('finance/footer_sub_modul_sf'); ?>
+<?php $this->load->view('finance/footer_sub_modul'); ?>

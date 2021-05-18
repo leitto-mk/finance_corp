@@ -47,7 +47,11 @@
                                     $count_room = 0;
                                     $count_std = 0;
                                     $sub_total = 0;
+                                    $sub_total_paid = 0;
+                                    $sub_total_variance = 0;
                                     $grand_total = 0;
+                                    $grand_total_paid = 0;
+                                    $grand_total_variance = 0;
                                 ?>
                                 <?php if(count($table) == 0) : ?>
                                     <tr style="background-color: white">
@@ -64,6 +68,8 @@
                                             $count_room += 1;
                                             $count_std = 1;
                                             $sub_total = 0;
+                                            $sub_total_paid = 0;
+                                            $sub_total_variance = 0;
                                         ?>
                                     <?php endif; ?>
                                     <tr class="font-white sbold">
@@ -71,7 +77,7 @@
                                         <td align="left"><?= $table[$i]['NIS'] . ' - ' . $table[$i]['FullName'] ?></td>
                                         <td align="center"><?= $table[$i]['Room'] ?></td>
                                         <td align="right"><?= number_format($table[$i]['Amount'], 2, ',', '.') ?></td>
-                                        <td align="right">0</td>
+                                        <td align="right"><?= number_format($table[$i]['Paid'], 2, ',', '.') ?></td>
                                         <td align="right">0</td>
                                         <td align="center">
                                             <a href="#" type="button" class="btn btn-xs blue" title="Detail">
@@ -87,7 +93,11 @@
                                     <?php
                                         $count_std += 1;
                                         $sub_total += $table[$i]['Amount'];
+                                        $sub_total_paid += $table[$i]['Paid'];
+                                        $sub_total_variance += $table[$i]['Paid'];
                                         $grand_total += $table[$i]['Amount'];
+                                        $grand_total_paid += $table[$i]['Paid'];
+                                        $grand_total_variance += $table[$i]['Amount'];
                                     ?>
                                     <?php if(!isset($table[$i+1]['Room']) || $table[$i+1]['Room'] !== $room) : ?>
                                         <tr class="font-white sbold">
@@ -95,8 +105,8 @@
                                             <td align="left" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa"></td>
                                             <td align="center" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa text-right">Sub-Total</td>
                                             <td align="right" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa"><?= number_format($sub_total, 2, ',', '.') ?></td>
-                                            <td align="right" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">0</td>
-                                            <td align="right" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">0</td>
+                                            <td align="right" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa"><?= number_format($sub_total_paid, 2, ',', '.') ?></td>
+                                            <td align="right" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa"><?= number_format($sub_total_variance, 2, ',', '.') ?></td>
                                             <td align="center" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa"></td>
                                         </tr>
                                     <?php endif; ?>
@@ -106,8 +116,8 @@
                                             <td align="left"></td>
                                             <td align="center" class="font-white sbold bg bg-blue-ebonyclay uppercase text-right">Grand Total</td>
                                             <td align="right" class="font-white sbold bg bg-blue-ebonyclay"><?= number_format($grand_total, 2, ',', '.') ?></td>
-                                            <td align="right" class="font-white sbold bg bg-blue-ebonyclay">0</td>
-                                            <td align="right" class="font-white sbold bg bg-blue-ebonyclay">0</td>
+                                            <td align="right" class="font-white sbold bg bg-blue-ebonyclay"><?= number_format($grand_total_paid, 2, ',', '.') ?></td>
+                                            <td align="right" class="font-white sbold bg bg-blue-ebonyclay"><?= number_format($grand_total_variance, 2, ',', '.') ?></td>
                                             <td align="center">
                                             </td>
                                         </tr>
@@ -128,4 +138,4 @@
         document.body.style.zoom = 0.9;
     }
 </script>
-<?php $this->load->view('finance/footer_sub_modul_sf'); ?>
+<?php $this->load->view('finance/footer_sub_modul'); ?>

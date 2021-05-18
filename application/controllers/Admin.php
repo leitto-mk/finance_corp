@@ -5279,6 +5279,7 @@ class Admin extends CI_Controller
 
             //Dropdown for Subject
             'class' => $this->Mdl_profile->get_dropdown_class(),
+            'rooms' => $this->Mdl_profile->get_dropdown_room(),
 
             //Get data from ID that will be editted
             'datatoedit' => $this->Mdl_profile->get_full_info_std($selected_id)

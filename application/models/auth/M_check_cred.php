@@ -77,7 +77,7 @@ class M_check_cred extends CI_Model
                     t1.status,
                     t2.password
                  FROM tbl_11_enrollment t1
-                 INNER JOIN tbl_credentials t2
+                 LEFT JOIN tbl_credentials t2
                  ON t1.Email = t2.IDNumber
                  WHERE t1.Email = '$id'"
             )->row();

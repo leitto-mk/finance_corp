@@ -1,4 +1,4 @@
-<?php $this->load->view('finance/charge_header'); ?>
+<?php $this->load->view('finance/header_sub_modul_sf_no_trees'); ?>
 
 <body class="page-container-bg-solid">
     <div class="page-wrapper">
@@ -29,7 +29,7 @@
                     <div class="page-content-wrapper">
                         <!-- BEGIN CONTENT BODY -->
                         <!-- BEGIN PAGE CONTENT BODY -->
-                        <div class="page-content">
+                        <div class="page-content" style="margin: auto">
                             <div class="container-fluid" style="padding-bottom:30px;">
                                 <!-- BEGIN PAGE CONTENT INNER -->
                                 <div class="page-content-inner">
@@ -114,10 +114,10 @@
                                                                             </select> </div>
                                                                         <label class="col-md-2 control-label"><b>Account No.</b></label>
                                                                         <div class="col-md-2">
-                                                                            <select name="accno" id="accno" class="form-control" required>
+                                                                            <select name="chargetype" id="chargetype" class="form-control" required>
                                                                                 <option value="">--Select--</option>
-                                                                                <?php foreach($accno as $accno) : ?>
-                                                                                    <option value="<?= $accno->Acc_No ?>"><?= $accno->Acc_No?> | <?= $accno->Acc_Name ?></option>
+                                                                                <?php foreach($chargetype as $chargetype) : ?>
+                                                                                    <option value="<?= $chargetype->Acc_No ?>"><?= $chargetype->Acc_No?> | <?= $chargetype->Acc_Name ?></option>
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </div>
@@ -176,12 +176,12 @@
                                                                     <div class="col-md-12 form-horizontal">
                                                                         <div class="form-group">
                                                                             <div class="col-md-12">
-                                                                                <select name="chargetype" id="chargetype" class="form-control" required>
+                                                                                <select name="accno" id="accno" class="form-control" required>
                                                                                     <option value="">--Select--</option>
-                                                                                    <?php foreach($chargetype as $chargetype) : ?>
-                                                                                        <option value="<?= $chargetype->Acc_No ?>"><?= $chargetype->Acc_No?> | <?= $chargetype->Acc_Name ?></option>
+                                                                                    <?php foreach($accno as $accno) : ?>
+                                                                                        <option value="<?= $accno->Acc_No ?>"><?= $accno->Acc_No?> | <?= $accno->Acc_Name ?></option>
                                                                                     <?php endforeach; ?>
-                                                                                </select>          
+                                                                                </select>
                                                                             </div>
                                                                         </div> 
                                                                         <hr>
@@ -283,4 +283,5 @@
                 <!-- END CONTAINER -->
             </div>
         </div>
-        <?php $this->load->view('finance/charge_footer'); ?>
+        
+        <?php $this->load->view('finance/footer_sub_modul'); ?>

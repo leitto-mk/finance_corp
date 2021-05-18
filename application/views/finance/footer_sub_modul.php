@@ -7,7 +7,7 @@
             <!-- BEGIN FOOTER -->
             <div class="page-footer">
                 <div class="page-footer-inner"> <?= Date('Y')?> &copy; Andalan Banua Sejahtera | 
-                    <a target="_blank" href="http://abase.com">abase.com</a>
+                    <a href="#">abase.com</a>
                 </div>
                 <div class="scroll-to-top">
                     <i class="icon-arrow-up"></i>
@@ -30,18 +30,18 @@
         <script src="<?= base_url()?>assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
         <!-- END CORE PLUGINS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
-        <script src="<?= base_url()?>assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/scripts/app.min.js" type="text/javascript"></script>
         <script src="<?= base_url()?>assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
         <script src="<?= base_url()?>assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
         <script src="<?= base_url()?>assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <script src="<?= base_url()?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
-        <script src="<?= base_url();?>assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
-        <script src="<?= base_url();?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="<?= base_url();?>assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/moment.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/scripts/datatable.js" type="text/javascript"></script>
-        <script src="<?= base_url();?>assets/global/scripts/app.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/bootstrap-table/bootstrap-table.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
@@ -50,21 +50,27 @@
         <script src="<?= base_url();?>assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/jquery-repeater/jquery.repeater.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
+        
+        <script src="<?= base_url();?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
+
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <script src="<?= base_url();?>/assets/assets/pages/scripts/components-bootstrap-switch.min.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/pages/scripts/components-bootstrap-switch.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/table-bootstrap.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/table-datatables-fixedheader.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/ui-blockui.min.js" type="text/javascript"></script>
-        <script src="<?= base_url();?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-        <script src="<?= base_url();?>assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
-        <script src="<?= base_url();?>assets/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script>
-        <script src="<?= base_url();?>assets/pages/scripts/ui-blockui.min.js" type="text/javascript"></script>
-        <script src="<?= base_url();?>assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/portfolio-1.min.js" type="text/javascript"></script>
-        <script src="<?= base_url();?>assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
-        <script src="<?= base_url();?>assets/pages/scripts/components-bootstrap-select.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
+
+        <script src='<?= base_url("assets/CUSTOMS/$script.js");?>' type="text/javascript"></script>
      </body>
 </html>

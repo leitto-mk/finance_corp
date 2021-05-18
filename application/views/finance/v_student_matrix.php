@@ -1,4 +1,4 @@
-<?php $this->load->view('finance/header_sub_modul_sf_no_trees'); ?>
+<?php $this->load->view('finance/header_sub_modul_sf'); ?>
 <div class="portlet light">
     <div class="row">
         <div class="col-md-12">
@@ -13,7 +13,7 @@
                                 </button>
                             </span>
                             <span class="input-group-btn">
-                                <a href="<?php echo site_url('SDAFinance/posted_edit_delete_mast_matrix') ?>" target="_blank" class="btn btn-md btn blue-oleo">
+                                <a href="<?php echo site_url('Finance/posted_edit_delete_mast_matrix') ?>" target="_blank" class="btn btn-md btn blue-oleo">
                                     <i class="fa fa-plus"></i>&nbsp;Add New</i>
                                 </a>
                             </span>

@@ -1,7 +1,7 @@
 /*
  *  CORE SCRIPT
 */
-var finStdChargeAppd = () => {
+const fin_new_charge = () => {
     //GLOBAL VAR
     var GLOBAL_STD_DATA //STORE STD DATA FROM AJAX SCHOOL PARAM
     
@@ -122,74 +122,71 @@ var finStdChargeAppd = () => {
             
             $('#tbody_charge').empty()
 
-            var docno = $('#docno').val()
             var year = $('#year').val()
-            var month_start = $('#monthstart').val()
-            var month_finish = $('#monthfinish').val()
-            var submit_by = $('#submitby').val()
-            var trans_date = $('#transdate').val()
+            var month_start = +$('#monthstart').val()
+            var month_finish = +$('#monthfinish').val()
             var charge_type = $('#chargetype').val()
             var arr_selected_nis = $('#std').val()
             
-            var amount = 0
             var totalamount = 0
 
             $.ajax({
                 url: 'ajax_get_charge_type_matrix',
                 method: 'POST',
-                async: false,
+                dataType: 'JSON',
                 data: {
-                    charge: charge_type
+                    charge: charge_type,
+                    std: arr_selected_nis
                 },
                 success: response => {
-                    amount = response
+                    for(let i = 0; i < response.length; i++){
+                        response[i].FullName = GLOBAL_STD_DATA.find(x => x.IDNumber == response[i].IDNumber).FullName
+                        response[i].Room = GLOBAL_STD_DATA.find(x => x.IDNumber == response[i].IDNumber).Ruangan
+                    }
+
+                    arr_selected_nis = response
                 },
                 error: () => alert('NETWORK PROBLEM')
-            })
-            
-            let count = 1
-            for(let i = 0; i < arr_selected_nis.length; i++){
-                filter_std = GLOBAL_STD_DATA.find(x => x.IDNumber === arr_selected_nis[i])
-
-                let cur_name = filter_std.FullName
-                let cur_room = filter_std.Ruangan
-
-                for(let j = month_start; j <= month_finish; j++){
-                    totalamount += +amount
-                    $('#tbody_charge').append(
-                        `<tr>
-                            <td class="sbold font-white">
-                                ${count}
-                            </td>
-                            <td class="sbold uppercase text-center">
-                                <input readonly name="year[]" class="text-center" value="${year}"/>
-                            </td>
-                            <td class="sbold uppercase text-center">
-                                <input readonly name="month[]" class="text-center" value="${j}"/>
-                            </td>
-                            <td class="sbold text-center">
-                                <input readonly name="nis[]" class="text-center" value="${arr_selected_nis[i]}"/>
-                            </td>
-                            <td class="sbold">
-                                <input readonly name="fullname[]" value="${cur_name}"/>
-                            </td>
-                            <td class="sbold text-center">
-                                <input readonly name="room[]" class="text-center" value="${cur_room}"/>
-                            </td>
-                            <td class="sbold text-center">
-                                <input readonly name="chargetype[]" class="text-center" value="${charge_type}"/>
-                            </td>
-                            <td class="sbold text-center">
-                                <input readonly name="amount[]" class="text-right" value="${amount}"/>
-                            </td>
-                         </tr>`
-                    )
-
-                    count += 1
+            }).then(() => {
+                let count = 1
+                for(let i = 0; i < arr_selected_nis.length; i++){
+                    for(let j = month_start; j <= month_finish; j++){
+                        totalamount += +(arr_selected_nis[i].Amount)
+                        $('#tbody_charge').append(
+                            `<tr>
+                                <td class="sbold font-white">
+                                    ${count}
+                                </td>
+                                <td class="sbold uppercase text-center">
+                                    <input readonly name="year[]" class="text-center" value="${year}"/>
+                                </td>
+                                <td class="sbold uppercase text-center">
+                                    <input readonly name="month[]" class="text-center" value="${j}"/>
+                                </td>
+                                <td class="sbold text-center">
+                                    <input readonly name="nis[]" class="text-center" value="${arr_selected_nis[i].IDNumber}"/>
+                                </td>
+                                <td class="sbold">
+                                    <input readonly name="fullname[]" value="${arr_selected_nis[i].FullName}"/>
+                                </td>
+                                <td class="sbold text-center">
+                                    <input readonly name="room[]" class="text-center" value="${arr_selected_nis[i].Room}"/>
+                                </td>
+                                <td class="sbold text-center">
+                                    <input readonly name="chargetype[]" class="text-center" value="${charge_type}"/>
+                                </td>
+                                <td class="sbold text-center">
+                                    <input readonly name="amount[]" class="text-right" value="${arr_selected_nis[i].Amount}"/>
+                                </td>
+                             </tr>`
+                        )
+    
+                        count += 1
+                    }
                 }
-            }
-
-            $('#totalamount').val('Rp ' + Intl.NumberFormat('en').format(totalamount))
+    
+                $('#totalamount').val('Rp ' + Intl.NumberFormat('en').format(totalamount))
+            })
         })
     }
 
@@ -226,6 +223,12 @@ var finStdChargeAppd = () => {
                         })
 
                         location.reload()
+                    }else if(response == 'DATA_DUPLICATE'){
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ABORTED',
+                            'text': 'CURRENT CHARGE IS ALREADY ENLISTED'
+                        })
                     }else{
                         alert('SERVER PROBLEM')
                     }
@@ -249,6 +252,6 @@ var finStdChargeAppd = () => {
 
 /* INITIALIZE CORE SCRIPT */
 (function(){
-    finStdChargeAppd().init()
-    finStdChargeAppd().events()
+    fin_new_charge().init()
+    fin_new_charge().events()
 })()

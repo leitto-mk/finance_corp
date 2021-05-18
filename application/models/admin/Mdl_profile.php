@@ -221,7 +221,7 @@ class Mdl_profile extends CI_Model
     public function get_dropdown_class()
     {
         $query = $this->db->query(
-            "SELECT t2.ClassDesc FROM tbl_02_school t1 
+            "SELECT t2.ClassNumeric, t2.ClassDesc FROM tbl_02_school t1 
              LEFT JOIN tbl_03_class t2
              ON t1.School_Desc = t2.Type
              RIGHT JOIN tbl_04_class_rooms
@@ -230,14 +230,14 @@ class Mdl_profile extends CI_Model
              AND t1.isActive = 1
              GROUP BY ClassDesc
              UNION ALL
-             SELECT class.ClassDesc FROM tbl_02_school t1
+             SELECT class.ClassNumeric, class.ClassDesc FROM tbl_02_school t1
              LEFT JOIN tbl_03_b_class_vocational AS class
              ON t1.School_Desc = class.Type
              RIGHT JOIN tbl_04_class_rooms_vocational AS room
              ON class.ClassDesc = room.Simplified
              WHERE t1.isActive = 1
              GROUP BY ClassDesc
-             ORDER BY ClassDesc"
+             ORDER BY ClassNumeric"
         );
 
         return $query->result();
@@ -402,11 +402,13 @@ class Mdl_profile extends CI_Model
 
     public function get_full_info_std($selected_id)
     {
-        $dat = $this->db->query("SELECT * FROM tbl_07_personal_bio AS t1
-        INNER JOIN tbl_08_job_info_std AS t2
-        ON t1.IDNumber = t2.NIS
-        WHERE t1.IDNumber = '$selected_id'
-        ORDER BY t1.IDNumber");
+        $dat = $this->db->query(
+            "SELECT * FROM tbl_07_personal_bio AS t1
+             INNER JOIN tbl_08_job_info_std AS t2
+             ON t1.IDNumber = t2.NIS
+             WHERE t1.IDNumber = '$selected_id'
+             ORDER BY t1.IDNumber"
+        );
 
         if ($dat->num_rows() > 0) {
             return $dat->row();

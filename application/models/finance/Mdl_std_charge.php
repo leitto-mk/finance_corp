@@ -10,7 +10,10 @@ class Mdl_std_charge extends CI_Model
                 t1.NIS,
                 t1.FullName,
                 t1.Room,
-                (SELECT SUM(Amount) FROM tbl_12_fin_std_charge_det WHERE NIS = t1.NIS) AS Amount,
+                (SELECT SUM(Amount) 
+                 FROM tbl_12_fin_std_charge_det WHERE NIS = t1.NIS) AS Amount,
+                (SELECT SUM(Debit) 
+                 FROM tbl_12_fin_std_trans WHERE NIS = t1.NIS) AS Paid,
                 t3.IDNumber AS HomeroomID,
                 CONCAT(t3.FirstName, ' ', t3.LastName) AS Homeroom
              FROM tbl_12_fin_std_charge_det AS t1
@@ -26,24 +29,24 @@ class Mdl_std_charge extends CI_Model
                 ON t4.ClassID = t5.ClassID
              LEFT JOIN tbl_03_class AS t5v
                 ON t4v.ClassID = t5v.ClassID
-             GROUP BY t1.AccGroupReg, t1.FullName
+             GROUP BY t1.NIS
              ORDER BY t5.ClassNumeric, t5v.ClassNumeric, t1.Room, t1.FullName, t1.MonthCharge"
         )->result_array();
     }
 
     public function get_mas_acc(){
         return $this->db
-                ->select('Acc_No, Acc_Name, Acc_Group')
+                ->select('Acc_No, Acc_Name, Acc_Type')
                 ->order_by('Acc_Name', 'ASC')
-                ->get('tbl_fa_mas_account')->result();
+                ->get('tbl_12_fin_account_no')->result();
     }
 
     public function get_mas_acc_charge_type(){
         return $this->db
-                ->select('Acc_No, Acc_Name, Acc_Group')
+                ->select('Acc_No, Acc_Name, Acc_Type')
                 ->order_by('Acc_No', 'ASC')
-                ->get_where('tbl_fa_mas_account', [
-                    'Acc_Group' => 'R',
+                ->get_where('tbl_12_fin_account_no', [
+                    'Acc_Type' => 'R',
                     'Acc_No <=' => '41106',
                 ])->result();
     }
@@ -164,21 +167,33 @@ class Mdl_std_charge extends CI_Model
         )->result();
     }
 
-    public function get_charge_type_matrix($charge){
-        $result = $this->db->select('Amount')
-                           ->get_where('tbl_fa_cash_app_std', [
-                               'accno_type' => $charge,
-                               'No' => $this->db->query("SELECT MAX(`No`) AS `No` FROM tbl_fa_cash_app_std WHERE accno_type = '$charge'")->row()->No
-                           ])->row()->Amount;
-
-        return ($result > 0 ? $result : 0);
+    public function get_charge_type_matrix($charge, $std){
+        return $this->db->select('IDNumber, Amount')
+                           ->where_in('IDNumber', $std)
+                           ->get_where('tbl_12_fin_matrix', [
+                               'accno_type' => $charge
+                           ])->result();
     }
 
-    public function submit_std_charge($master, $details){
+    public function get_std_last_balance($nis){
+        $query = $this->db->select('Balance')
+                      ->limit(1)
+                      ->order_by('CtrlNo', 'DESC')
+                      ->get_where('tbl_12_fin_std_trans', [
+                         'IDNumber' => $nis
+                      ])->row();
+
+        $last_balance = ($query ? $query->Balance : 0);
+
+        return $last_balance;
+    }
+
+    public function submit_std_charge($master, $details, $trans){
         $this->db->trans_begin();
         
         $this->db->insert('tbl_12_fin_std_charge_mas', $master);
         $this->db->insert_batch('tbl_12_fin_std_charge_det', $details);
+        $this->db->insert_batch('tbl_12_fin_std_trans', $trans);
         
         $this->db->trans_complete();
         

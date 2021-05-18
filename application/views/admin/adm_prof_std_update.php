@@ -197,7 +197,13 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input" style="padding-top: 0px; padding-left: 15px;">
                                                                 <select name="room" class="form-control room">
-                                                                    <option value="<?= $datatoedit->Ruangan ?>"><?= $datatoedit->Ruangan ?></option>
+                                                                    <?php foreach ($rooms as $room) : ?>
+                                                                        <?php if ($datatoedit->Ruangan == $room->RoomDesc) : ?>
+                                                                            <option value="<?= $room->RoomDesc ?>" selected><?= $room->RoomDesc ?></option>
+                                                                        <?php else : ?>
+                                                                            <option value="<?= $room->RoomDesc ?>"><?= $room->RoomDesc ?></option>
+                                                                        <?php endif; ?>
+                                                                    <?php endforeach; ?>
                                                                 </select>
                                                                 <span class="help-block" style="z-index: 10;">Ruangan</span>
                                                             </div>
