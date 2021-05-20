@@ -463,12 +463,13 @@
                                             <table class="table table-bordered table-stripped">
                                                 <thead class="font-white bg-blue-dark">
                                                     <tr>
-                                                        <th width="10%" class="text-center uppercase">Date</th>
-                                                        <th width="15%" class="text-center uppercase">Doc No</th>
-                                                        <th width="25%" class="text-center uppercase">Description </th>
-                                                        <th width="15%" class="text-center uppercase">Charge</th>
-                                                        <th width="15%" class="text-center uppercase">Credit</th>
-                                                        <th width="20%" class="text-center uppercase">Balance</th>
+                                                        <th width="5%" class="text-center uppercase">No</th>
+                                                        <th width="5%" class="text-center uppercase">Trans. Date</th>
+                                                        <th width="10%" class="text-center uppercase">Description</th>
+                                                        <th width="5%" class="text-center uppercase">Trans. Type</th>
+                                                        <th width="10%" class="text-center uppercase">Debit</th>
+                                                        <th width="10%" class="text-center uppercase">Credit</th>
+                                                        <th width="10%" class="text-center uppercase">Balance</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="std_acc">

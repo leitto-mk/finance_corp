@@ -296,112 +296,19 @@ class Mdl_student extends CI_Model
     }
 
 
-    //Finance Student Start
-    function get_list_class_desc($sup)
-    {
-       $query = $this->db->query("SELECT
-            a.NIS ,a.Kelas, a.Ruangan , b.FirstName, b.LastName, b.PersonalID
-       FROM
-            tbl_08_job_info_std a
-       LEFT JOIN
-            tbl_07_personal_bio b ON a.NIS = b.IDNumber
-       WHERE
-            a.NIS IS NOT NULL
-       AND 
-            a.NIS = '$sup'
-       ");
-        if ($query->num_rows() > 0) {
-            return $query->row();
-        } else {
-            return false;
-        }
+    public function get_std_account($nis){
+        return $this->db->query(
+            "SELECT 
+                acc.Acc_Name,
+                trans.TransType, 
+                DATE_FORMAT(trans.TransDate, '%d-%m-%Y') AS TransDate, 
+                trans.Debit, 
+                trans.Credit, 
+                trans.Balance
+             FROM tbl_12_fin_std_trans AS trans
+             LEFT JOIN tbl_12_fin_account_no AS acc
+                ON trans.AccNo = acc.Acc_No
+             WHERE IDNumber = '$nis'"
+        )->result();
     }
-
-    function get_inv_details_stu_add($stu)
-    {
-        $query = $this->db->query("SELECT 
-            a.sale_doc_no, a.CustomerID, a.sale_remark, a.sale_date, a.total_sale, a.due_date, a.COStatus, a.remain_value, a.Total_N_payment, a.end_balance, a.roomdesc, a.schools, a.submit_date, a.AccNo
-        FROM 
-            tbl_sale_pos_fin a
-        WHERE 
-            a.CustomerID = '$stu' 
-        AND 
-            a.payment_status = 'charges_append' 
-        AND 
-            COStatus = 'Beginning Student' 
-        AND 
-            payment_type = 'BB'
-        GROUP BY 
-            a.CustomerID"); 
-        if ($query->num_rows() > 0) {
-            return $query->row();
-        } else {
-            return false;
-        }
-    }
-
-    function get_inv_details_stu_pay($stu)
-    {
-        $query = $this->db->query("SELECT 
-                a.sale_doc_no, a.CustomerID, a.sale_remark, a.sale_date, a.total_sale, a.due_date, a.COStatus, a.remain_value, a.Total_N_payment, a.end_balance, a.roomdesc, a.schools, a.submit_date, a.AccNo
-        FROM 
-            tbl_sale_pos_fin a
-        WHERE 
-            a.CustomerID = '$stu' 
-        AND 
-            a.payment_status = 'paid' 
-        AND 
-            payment_type = 'debit' 
-        AND 
-            COStatus = 'OnProcess'
-        ORDER BY 
-            a.ctrl_no");
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return false;
-        }
-    }
-
-    function get_details_stu_pay_charges($stu)
-    {
-        $query = $this->db->query("SELECT 
-            a.sale_doc_no, a.CustomerID, a.sale_remark, a.sale_date, a.total_sale, a.due_date, a.COStatus, a.remain_value, a.Total_N_payment, a.end_balance, a.roomdesc, a.schools, a.submit_date, a.AccNo
-        FROM 
-            tbl_sale_pos_fin a
-        WHERE 
-            a.CustomerID = '$stu' 
-        AND 
-            a.payment_status = 'charges' 
-        AND 
-            payment_type = 'debit'
-        ORDER BY 
-            a.ctrl_no");
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return false;
-        }
-    }
-
-    function getaccno_nis_bb($nis)
-    {
-        $data = $this->db->query("SELECT * FROM tbl_fa_trans_bb_student WHERE NIS = '$nis'");
-        if ($data->num_rows() > 0) {
-            return $data->row();
-        } else {
-            return false;
-        }
-    }
-      
-    function get_acc_name_ar($acn)
-    {
-        $this->db->select('Acc_Name');
-        $this->db->from('tbl_fa_mas_account');
-        $this->db->where('Acc_No', $acn);
-        $query = $this->db->get();
-        $data = $query->row();
-        return $data->Acc_Name;
-    }
-    //Finance Student End
 }

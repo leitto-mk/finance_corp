@@ -184,7 +184,7 @@ class Finance extends CI_Controller
                 'AccNo' => $_GET['chargetype'],
                 'AccType' => $this->db->select('Acc_Type')->get_where('tbl_12_fin_account_no', ['Acc_No' => $_GET['chargetype']])->row()->Acc_Type,
                 'IDNumber' => $nis[$i],
-                'Amount' => 0,
+                'Amount' => $_POST['amount'][$i],
                 'Debit' => 0,
                 'Credit' => $credit[$i],
                 'Balance' => $balance,

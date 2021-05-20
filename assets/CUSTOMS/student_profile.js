@@ -246,16 +246,39 @@ $(document).ready(function () {
 			url: 'ajax_get_std_account',
 			dataType: 'JSON',
 			success: response => {
-				$('#std_acc').append(
-					`<tr>
-						<td class="sbold uppercase text-center">${response.TransDate}</td>
-						<td class="sbold uppercase text-center">${response.DocNo}</td>
-						<td class="sbold uppercase text-center">${response.Acc_Name}</td>
-						<td class="sbold uppercase text-right">${Intl.NumberFormat('en').format(response.Amount)}</td>
-						<td class="sbold uppercase text-right">0</td>
-						<td class="sbold uppercase text-right">0</td>
-					</tr>`
-				)
+				
+				let transtype = ''
+				let last_balance = ''
+
+				for(let i = 0; i < response.length; i++){
+					
+					switch (response[i].TransType) {
+						case 'SCHARGE':
+							transcolor = 'font-yellow-crusta'
+							transtype = 'Charge'
+							break;
+							case 'SRECEIPT':
+							transcolor = 'font-blue-steel'
+							transtype = 'Receipt'
+							break;
+					}
+
+					if(i == (response.length-1)){
+						last_balance = 'font-green-meadow'
+					}
+
+					$('#std_acc').append(
+						`<tr>
+							<td class="sbold uppercase text-center">${i+1}</td>
+							<td class="sbold uppercase text-center">${response[i].TransDate}</td>
+							<td class="sbold uppercase text-center">${response[i].Acc_Name}</td>
+							<td class="sbold uppercase text-center ${transcolor}">${transtype}</td>
+							<td class="sbold uppercase text-center">${(response[i].Debit > 0 ? Intl.NumberFormat('en').format(response[i].Debit) : '-')}</td>
+							<td class="sbold uppercase text-right">${(response[i].Credit > 0 ? Intl.NumberFormat('en').format(response[i].Credit) : '-')}</td>
+							<td class="sbold uppercase text-right ${last_balance}">${Intl.NumberFormat('en').format(response[i].Balance)}</td>
+						</tr>`
+					)
+				}
 			},
 			error: () => alert('NETWORK PROBLEM')
 		})

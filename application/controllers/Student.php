@@ -556,19 +556,7 @@ class Student extends CI_Controller
     function ajax_get_std_account(){
         $nis = $this->session->userdata('id');
 
-        $result = $this->db->query(
-            "SELECT 
-                DATE_FORMAT(t1.TransDate, '%d-%m-%Y') AS TransDate, 
-                t1.AccGroupReg,
-                t2.Acc_Name,
-                t1.DocNo,
-                (SELECT SUM(t1.Amount) FROM tbl_12_fin_std_charge_det WHERE NIS = '$nis' GROUP BY NIS) AS Amount
-             FROM tbl_12_fin_std_charge_det AS t1
-             LEFT JOIN tbl_12_fin_account_no AS t2
-                ON t1.AccGroupReg = t2.Acc_No
-             WHERE t1.NIS = '$nis'
-             GROUP BY t1.DocNo"
-        )->row();
+        $result = $this->Mdl_student->get_std_account($nis);
 
         echo json_encode($result);
     }

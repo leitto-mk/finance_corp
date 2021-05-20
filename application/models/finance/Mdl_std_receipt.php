@@ -38,7 +38,7 @@ class Mdl_std_receipt extends CI_Model
           WHERE mas.CtrlNo = (SELECT MAX(CtrlNo) 
                               FROM tbl_12_fin_std_trans
                               WHERE IDNumber = mas.IDNumber)
-          GROUP BY mas.AccNo
+          GROUP BY IDNumber, mas.AccNo
           ORDER BY t5.ClassNumeric, t5v.ClassNumeric, t1.Room, t1.FullName"
       )->result_array();
    }

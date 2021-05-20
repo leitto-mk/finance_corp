@@ -102,7 +102,7 @@
                                         $count_std += 1;
                                         $sub_total += $table[$i]['Balance'];
 
-                                        $sub_total = $table[$i]['Balance'];
+                                        // $sub_total = $table[$i]['Balance'];
                                     ?>
                                     <?php if(!isset($table[$i+1]['Room']) || $table[$i+1]['Room'] !== $room) : ?>
                                         <?php
@@ -120,6 +120,10 @@
                                             <td align="right" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa"><?= $sub_total ?></td>
                                             <td colspan="2"></td>
                                         </tr>
+                                        <?php
+                                            $sub_total = 0;
+                                            $room = (isset($table[$i+1]['Room']) ? $table[$i+1]['Room'] : '');
+                                        ?>
                                     <?php endif; ?>
                                 <?php endfor; ?>
                             </tbody>
