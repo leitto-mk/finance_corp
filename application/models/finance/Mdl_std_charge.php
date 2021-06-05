@@ -13,7 +13,7 @@ class Mdl_std_charge extends CI_Model
                 (SELECT SUM(Amount) 
                  FROM tbl_12_fin_std_charge_det WHERE NIS = t1.NIS) AS Amount,
                 (SELECT SUM(Debit) 
-                 FROM tbl_12_fin_std_trans WHERE NIS = t1.NIS) AS Paid,
+                 FROM tbl_12_fin_transaction WHERE NIS = t1.NIS) AS Paid,
                 t3.IDNumber AS HomeroomID,
                 CONCAT(t3.FirstName, ' ', t3.LastName) AS Homeroom
              FROM tbl_12_fin_std_charge_det AS t1
@@ -179,13 +179,31 @@ class Mdl_std_charge extends CI_Model
         $query = $this->db->select('Balance')
                       ->limit(1)
                       ->order_by('CtrlNo', 'DESC')
-                      ->get_where('tbl_12_fin_std_trans', [
+                      ->get_where('tbl_12_fin_transaction', [
                          'IDNumber' => $nis
                       ])->row();
 
-        $last_balance = ($query ? $query->Balance : 0);
+        return ($query ? $query->Balance : 0);
+    }
 
-        return $last_balance;
+    public function get_branch_balance($branch){
+        $query = $this->db->select('BalanceBranch')
+                      ->limit(1)
+                      ->order_by('CtrlNo', 'DESC')
+                      ->get_where('tbl_12_fin_transaction', [
+                         'Branch' => $branch
+                      ])->row();
+
+        return ($query ? $query->BalanceBranch : 0);
+    }
+
+    public function get_gl_balance(){
+        $query = $this->db->select('BalanceGL')
+                      ->limit(1)
+                      ->order_by('CtrlNo', 'DESC')
+                      ->get('tbl_12_fin_transaction')->row();
+
+        return ($query ? $query->BalanceGL : 0);
     }
 
     public function submit_std_charge($master, $details, $trans){
@@ -193,7 +211,7 @@ class Mdl_std_charge extends CI_Model
         
         $this->db->insert('tbl_12_fin_std_charge_mas', $master);
         $this->db->insert_batch('tbl_12_fin_std_charge_det', $details);
-        $this->db->insert_batch('tbl_12_fin_std_trans', $trans);
+        $this->db->insert_batch('tbl_12_fin_transaction', $trans);
         
         $this->db->trans_complete();
         

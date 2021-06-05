@@ -4,7 +4,7 @@
         <div class="col-md-12" id="printDiv" style="size: landscape; font-family: Open Sans, sans-serif;" >
             <div class="portlet bordered light bg-blue-dark">
                 <div class="caption">
-                    <span class="caption-subject bold uppercase font-white"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Date :  01-Jan-2021 - 06-Mei-2021
+                    <span class="caption-subject bold uppercase font-white"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Date : <?= "1-Jan-" . date('Y') ?> - <?= date('d-F-Y') ?>
                         <div class="input-group input-large pull-right" style="margin-top: -5px">
                            <!--  <input type="text" class="form-control" placeholder="Search for..." name="search_item" id="search_item">
                             <span class="input-group-btn">
@@ -16,7 +16,7 @@
                                 <a href="#" class="btn btn-md btn green hidden-print pull-right"  onclick="printDiv('printDiv')" style="margin-left: 5px">
                                     <i class="fa fa-plus"></i>&nbsp;Print</i>
                                 </a>
-                                <a onclick="window.close();" class="btn btn-md btn red hidden-print pull-right"><i class="fa fa-close"></i> Close</a>
+                                <a onclick="window.close();" class="btn btn-md btn red hidden-print pull-right"><i class="fa fa-close"></i>Close</a>
                             </span>
 
                         </div> 
@@ -41,50 +41,58 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="background-color: white">
-                                    <td colspan="11" class="bold">10001 - Pranayan Salindeho</td>
-                                </tr>
-                                <tr class="font-white sbold">
-                                    <td class="bold" align="right" colspan="9">Beginning Balance</td>
-                                    <td class="bold" align="right" colspan="2">0.00</td>
-                                </tr>
-                                <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
-                                    <td align="right" colspan="8">Total :</td>                                    
-                                    <td align="right">0.00</td>                                    
-                                    <td align="right">0.00</td>                                 
-                                    <td align="right" class="font-white sbold bg bg-blue-ebonyclay">0.00</td>
-                                </tr>
+                                <?php
+                                    $cur_id = '';
+                                    $subtotal_credit = $subtotal_debit = 0;
+                                ?>
+                                <?php for($i = 0; $i < count($ledger); $i++) : ?>
+                                    <?php if($ledger[$i]['IDNumber'] !== $cur_id) : ?>
+                                        <tr style="background-color: white">
+                                            <td colspan="11" class="bold"><?= $ledger[$i]['IDNumber'] ?> - <?= $ledger[$i]['FullName'] ?></td>
+                                        </tr>
+                                        <?php
+                                            $cur_id = $ledger[$i]['IDNumber'];
+                                        ?>
+                                    <?php endif; ?>
 
+                                    <tr class="font-white sbold">
+                                        <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
+                                        <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
+                                        <td class="bold" align="center"></td>
+                                        <td class="bold" align="center"><?= $ledger[$i]['Branch'] ?></td>
+                                        <td class="bold" align="right"><?= $ledger[$i]['Year'] ?></td>
+                                        <td class="bold" align="right"><?= $ledger[$i]['Month'] ?></td>
+                                        <td class="bold" align="right"><?= $ledger[$i]['AccNo'] ?></td>
+                                        <td class="bold" align="center"><?= $ledger[$i]['Remarks'] ?></td>
+                                        <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></td>
+                                        <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></td>
+                                        <td class="bold" align="right"><?= number_format($ledger[$i]['Balance'], 0, ',', '.') ?></td>
+                                    </tr>
 
+                                    <?php
+                                        $subtotal_credit += $ledger[$i]['Credit'];
+                                        $subtotal_debit += $ledger[$i]['Debit'];
+                                    ?>
 
-                                <tr style="background-color: white">
-                                    <td colspan="11" class="bold">10002 - Michio Kumaunang</td>
-                                </tr>
-                                <tr class="font-white sbold">
-                                    <td class="bold" align="right" colspan="9">Beginning Balance</td>
-                                    <td class="bold" align="right" colspan="2">0.00</td>
-                                </tr>
-
-                                <tr class="font-white sbold">
-                                    <td class="bold" align="center">06-05-2021</td>
-                                    <td class="bold" align="">2021-00001</td>
-                                    <td class="bold" align="">TEST2021-00001</td>
-                                    <td class="bold" align="">JKT</td>
-                                    <td class="bold" align="">2020</td>
-                                    <td class="bold" align="">Mei</td>
-                                    <td class="bold" align="">1100104</td>
-                                    <td class="bold" align="">Test JKT 2021-00001</td>
-                                    <td class="bold" align="right">0.00</td>
-                                    <td class="bold" align="right">3.000.000.00</td>
-                                    <td class="bold" align="right">3.000.000.00</td>
-                                </tr>
-
-                                <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
-                                    <td align="right" colspan="8">Total :</td>                                    
-                                    <td align="right">0.00</td>                                    
-                                    <td align="right">0.00</td>                                 
-                                    <td align="right" class="font-white sbold bg bg-blue-ebonyclay">0.00</td>
-                                </tr>
+                                    <?php if(isset($ledger[$i+1]['IDNumber']) && $ledger[$i+1]['IDNumber'] !== $cur_id || $i == (count($ledger)-1)) : ?>
+                                        <?php
+                                            $subtotal_balance = $subtotal_debit + $subtotal_credit;
+                                        ?>
+                                        <tr class="font-white sbold">
+                                            <td class="bold" align="right" colspan="8">Beginning Balance</td>
+                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em"><?= number_format($ledger[$i]['Balance'], 0, ',', '.') ?></td>
+                                        </tr>
+                                        <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
+                                            <td align="right" colspan="8">Total :</td>                                    
+                                            <td align="right"><?= number_format($subtotal_debit, 0, ',', '.') ?></td>
+                                            <td align="right"><?= number_format($subtotal_credit, 0, ',', '.') ?></td>
+                                            <td align="right" class="font-white sbold bg bg-blue-ebonyclay"><?= number_format($subtotal_balance, 0, ',', '.') ?></td>
+                                        </tr>
+                                        <?php
+                                            $subtotal_credit = $subtotal_debit = $subtotal_balance = 0;
+                                        ?>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
                             </tbody>
                         </table>
                     </div>

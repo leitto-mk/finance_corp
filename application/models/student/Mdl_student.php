@@ -305,7 +305,7 @@ class Mdl_student extends CI_Model
                 trans.Debit, 
                 trans.Credit, 
                 trans.Balance
-             FROM tbl_12_fin_std_trans AS trans
+             FROM tbl_12_fin_transaction AS trans
              LEFT JOIN tbl_12_fin_account_no AS acc
                 ON trans.AccNo = acc.Acc_No
              WHERE IDNumber = '$nis'"

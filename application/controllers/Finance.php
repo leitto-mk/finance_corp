@@ -132,7 +132,9 @@ class Finance extends CI_Controller
         $debit = 0;
         $credit = $_POST['amount'];
         $cur_nis = '';
-        $last_balance = 0;
+        $last_personal_balance = 0;
+        $last_branch_balance = $this->Mdl_std_charge->get_branch_balance($_GET['school']);
+        $last_gl_balance = $this->Mdl_std_charge->get_gl_balance();
 
         for($i = 0; $i < count($nis); $i++){
             //GET CURRENT RECORD IF EXIST
@@ -160,17 +162,18 @@ class Finance extends CI_Controller
                 'Amount' => $credit[$i]
             ]);
 
+            //GET PERSONAL'S LAST BALANCE
             if($cur_nis !== $nis[$i]){
                 $cur_nis = $nis[$i];
                 
-                $last_balance = $this->Mdl_std_charge->get_std_last_balance($cur_nis);
+                $last_personal_balance = $this->Mdl_std_charge->get_std_last_balance($cur_nis);
 
-                $balance = ($last_balance + $credit[$i]) -  $debit;
+                $balance = ($last_personal_balance + $credit[$i]) -  $debit;
             }else{
                 $balance = ($balance + $credit[$i]) -  $debit;
 
                 //SET CURRENT LOOP BALANCE AS LAST_BALANCE FOR NEXT LOOP
-                $last_balance = $balance;
+                $last_personal_balance = $balance;
             }
 
             array_push($trans, [
@@ -188,11 +191,15 @@ class Finance extends CI_Controller
                 'Debit' => 0,
                 'Credit' => $credit[$i],
                 'Balance' => $balance,
-                'BalanceBranch' => 0,
+                'BalanceBranch' => ($last_branch_balance + $credit[$i]) - $debit,
+                'BalanceGL' => ($last_gl_balance + $credit[$i]) - $debit,
                 'Remarks' => $_GET['remarks'],
                 'EntryBy' => $_GET['submitby'],
                 'EntryDate' => date('Y-m-d h:m:s')
             ]);
+
+            $last_branch_balance = $trans[$i]['BalanceBranch'];
+            $last_gl_balance = $trans[$i]['BalanceGL'];
         }
 
         if($master && $details && $trans){
@@ -253,7 +260,9 @@ class Finance extends CI_Controller
         $nis = $_POST['nis'];
         $balance = $credit = 0;
 
-        $last_balance = $this->Mdl_std_charge->get_std_last_balance($nis);
+        $last_personal_balance = $this->Mdl_std_receipt->get_std_last_balance($nis);
+        $last_branch_balance = $this->Mdl_std_receipt->get_branch_balance($_GET['school']);
+        $last_gl_balance = $this->Mdl_std_receipt->get_gl_balance();
 
         $detail = [];
 
@@ -261,7 +270,7 @@ class Finance extends CI_Controller
             
             $debit = $_POST['amount'][$i];
             
-            $balance = ($last_balance + $credit) -  $debit;
+            $balance = ($last_personal_balance + $credit) -  $debit;
 
             array_push($detail, [
                     //MASTER
@@ -284,13 +293,16 @@ class Finance extends CI_Controller
                     'Debit' => $_POST['amount'][$i],
                     'Credit' => 0,
                     'Balance' => $balance,
-                    'BalanceBranch' => 0,
+                    'BalanceBranch' => ($last_branch_balance + $credit[$i]) - $debit,
+                    'BalanceGL' => ($last_branch_balance + $credit[$i]) - $debit,
                     'EntryBy' => $this->session->userdata('id'),
                     // '' => $_POST['totalamount'],
                     // '' => $_POST['remarks']
             ]);
 
-            $last_balance = $balance;
+            $last_personal_balance = $balance;
+            $last_branch_balance = $detail[$i]['BalanceBranch'];
+            $last_gl_balance = $detail[$i]['BalanceGL'];
         }
 
         $result = $this->Mdl_std_receipt->submit_receipt($detail);

@@ -65,8 +65,7 @@
         <script src="<?= base_url();?>assets/pages/scripts/portfolio-1.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/components-bootstrap-select.min.js" type="text/javascript"></script>
-        <!-- <script src="<?= base_url();?>assets/global/plugins/pace/pace.min.js" type="text/javascript"></script>  -->
-        <!-- data-pace-options='{ "ajax": true, "ghostTime": 10000 }' -->
+        <script src='<?= base_url("assets/CUSTOMS/$script.js");?>' type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
      </body>
 </html>

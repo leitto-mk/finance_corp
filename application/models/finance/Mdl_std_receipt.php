@@ -20,7 +20,7 @@ class Mdl_std_receipt extends CI_Model
             t1.Room,
             t3.IDNumber AS HomeroomID,
             CONCAT(t3.FirstName, ' ', t3.LastName) AS Homeroom
-          FROM tbl_12_fin_std_trans AS mas
+          FROM tbl_12_fin_transaction AS mas
           LEFT JOIN tbl_12_fin_std_charge_det AS t1
             ON mas.IDNumber = t1.NIS
           LEFT JOIN tbl_08_job_info AS t2
@@ -36,7 +36,7 @@ class Mdl_std_receipt extends CI_Model
           LEFT JOIN tbl_03_class AS t5v
             ON t4v.ClassID = t5v.ClassID
           WHERE mas.CtrlNo = (SELECT MAX(CtrlNo) 
-                              FROM tbl_12_fin_std_trans
+                              FROM tbl_12_fin_transaction
                               WHERE IDNumber = mas.IDNumber)
           GROUP BY IDNumber, mas.AccNo
           ORDER BY t5.ClassNumeric, t5v.ClassNumeric, t1.Room, t1.FullName"
@@ -62,13 +62,33 @@ class Mdl_std_receipt extends CI_Model
       $query = $this->db->select('Balance')
                     ->limit(1)
                     ->order_by('CtrlNo', 'DESC')
-                    ->get_where('tbl_12_fin_std_trans', [
+                    ->get_where('tbl_12_fin_transaction', [
                        'IDNumber' => $nis
                     ])->row();
 
       $last_balance = ($query ? $query->Balance : 0);
 
       return $last_balance;
+   }
+
+   public function get_branch_balance($branch){
+      $query = $this->db->select('BalanceBranch')
+                    ->limit(1)
+                    ->order_by('CtrlNo', 'DESC')
+                    ->get_where('tbl_12_fin_transaction', [
+                       'Branch' => $branch
+                    ])->row();
+
+      return ($query ? $query->BalanceBranch : 0);
+   }
+
+   public function get_gl_balance(){
+         $query = $this->db->select('BalanceGL')
+                     ->limit(1)
+                     ->order_by('CtrlNo', 'DESC')
+                     ->get('tbl_12_fin_transaction')->row();
+
+         return ($query ? $query->BalanceGL : 0);
    }
 
    public function get_group_charge($nis, $accno){
@@ -80,7 +100,7 @@ class Mdl_std_receipt extends CI_Model
 
    public function submit_receipt($detail){
       
-      $this->db->insert_batch('tbl_12_fin_std_trans', $detail);
+      $this->db->insert_batch('tbl_12_fin_transaction', $detail);
       
       return ($this->db->affected_rows() ? 'success' : this->db->error());
    }

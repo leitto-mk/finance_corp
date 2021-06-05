@@ -8,6 +8,9 @@ class FinanceCorp extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->load->model('financecorp/Mdl_corp_branch');
+        $this->load->model('financecorp/Mdl_corp_personal');
     }
 
     // function view_dashboard()
@@ -144,25 +147,57 @@ class FinanceCorp extends CI_Controller
 
     function view_gl_branch()
     {
-        $data['title'] = 'General Ledger';
-        $data['h1'] = 'General';
-        $data['h2'] = 'Ledger';
-        $data['h3'] = '(Branch)';
+        $branch = 'All';
+        $accno_start = $this->db->select('Acc_No')->order_by('Acc_No','ASC')->limit(1)->get('tbl_12_fin_account_no')->row()->Acc_No;
+        $accno_finish = $this->db->select('Acc_No')->order_by('Acc_No','DESC')->limit(1)->get('tbl_12_fin_account_no')->row()->Acc_No;
+        $datestart = date('Y-01-01');
+        $datefinish = date('Y-m-d');
+
+        $data = [
+            //HEADER
+            'title' => 'General Ledger',
+            'h1' => 'General',
+            'h2' => 'Ledger',
+            'h3' => '(Branch)',
+
+            //FILTER
+            'active_school' => $this->Mdl_corp_branch->get_active_school(),
+            'account_no' => $this->Mdl_corp_branch->get_account_no(),
+
+            //LEDGER TABLE
+            'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $datestart, $datefinish),
+
+            //SCRIPT
+            'script' => 'fincorp_gl_branch'
+        ];
         
         $this->load->view('finance_corp/v_gl_branch', $data);
     }
 
+    function ajax_get_general_ledger(){
+        $branch = $_POST['branch'];
+        $accno_start = $_POST['accno_start'];
+        $accno_finish = $_POST['accno_finish'];
+        $date_start = $_POST['date_start'];
+        $date_finish = $_POST['date_finish'];
+
+        $result = $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish);
+
+        echo json_encode($result);
+    }
+
     function view_gl_personal()
     {
-        $data['title'] = 'Sub Ledger';
-        $data['h1'] = 'Sub';
-        $data['h2'] = 'Ledger';
-        $data['h3'] = '(Personal)';
+        $data = [
+            'title' => 'Sub Ledger',
+            'h1' => 'Sub',
+            'h2' => 'Ledger',
+            'h3' => '(Personal)',
+
+            'ledger' => $this->Mdl_corp_personal->get_general_ledger()
+        ];
         
         $this->load->view('finance_corp/v_gl_personal', $data);
     }
 
 }
-
-
-  
