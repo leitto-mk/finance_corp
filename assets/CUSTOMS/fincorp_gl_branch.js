@@ -1,4 +1,3 @@
-
 /*
  *  CORE SCRIPT
 */
@@ -37,12 +36,22 @@ var GLBranch = () => {
                     date_finish,
                 },
                 success: response => {
-                    $('#label_tbl_date_start').html(date_start)
-                    $('#label_tbl_date_finish').html(date_finish)
-
                     let table = $('#table_gl tbody')
                     
                     table.empty()
+
+                    if(response.length < 1){    
+                        table.append(`
+                            <tr class="text-center" style="background-color: white">
+                                <td colspan="12" class="bold">NO RECORD FOUND</td>
+                            </tr>`
+                        )
+
+                        return
+                    }
+
+                    $('#label_tbl_date_start').html(date_start)
+                    $('#label_tbl_date_finish').html(date_finish)
 
                     let cur_acc = cur_branch = ''
                     let subtotal_credit = subtotal_debit = 0
