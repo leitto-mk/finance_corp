@@ -36,6 +36,7 @@ var GLBranch = () => {
                     date_finish,
                 },
                 success: response => {
+
                     let table = $('#table_gl tbody')
                     
                     table.empty()
@@ -53,21 +54,10 @@ var GLBranch = () => {
                     $('#label_tbl_date_start').html(date_start)
                     $('#label_tbl_date_finish').html(date_finish)
 
-                    let cur_acc = cur_branch = ''
+                    let cur_branch = ''
                     let subtotal_credit = subtotal_debit = 0
 
                     for(let i = 0; i < response.length; i++){
-                        console.log(response[i].CtrlNo)
-                        if(response[i].Acc_Name !== cur_acc){
-                            table.append(`
-                                <tr style="background-color: white">
-                                    <td colspan="12" class="bold">${response[i].AccNo} - ${response[i].Acc_Name}</td>
-                                </tr>`
-                            )
-
-                            cur_acc = response[i].Acc_Name
-                        }
-                        
                         if(response[i].Branch !== cur_branch){
                             cur_branch = response[i].Branch
                         }
@@ -85,7 +75,7 @@ var GLBranch = () => {
                                 <td class="bold" align="center">${response[i].Remarks}</td>
                                 <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].Debit)}</td>
                                 <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].Credit)}</td>
-                                <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].BalanceBranch)}</td>
+                                <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].BalanceGL)}</td>
                             </tr>`
                         )
 
@@ -93,7 +83,7 @@ var GLBranch = () => {
                         subtotal_credit += +response[i].Credit;
                         
                         if(branch == 'All'){
-                            if(typeof response[i+1] !== 'undefined' && response[i+1].Acc_Name !== cur_acc || i == (response.length-1)){
+                            if(typeof response[i+1] !== 'undefined' && response[i+1].Branch !== cur_branch || i == (response.length-1)){
                                 let subtotal_balance = subtotal_debit + subtotal_credit;
     
                                 table.append(`

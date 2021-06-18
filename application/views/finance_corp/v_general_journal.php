@@ -45,7 +45,7 @@
                                 </button>
                             </span>
                             <span class="input-group-btn">
-                                <a href="<?php echo site_url('FinanceC/add_general_journal') ?>" target="_blank" class="btn btn-md btn blue-oleo">
+                                <a href="<?php echo site_url('FinanceCorp/add_general_journal') ?>" target="_blank" class="btn btn-md btn blue-oleo">
                                     <i class="fa fa-plus"></i>&nbsp;Add New</i>
                                 </a>
                             </span>

@@ -17,20 +17,20 @@ class Mdl_std_receipt extends CI_Model
             mas.IDNumber,
             mas.Remarks,
             t1.FullName,
-            t1.Room,
+            t1.CostCenter,
             t3.IDNumber AS HomeroomID,
             CONCAT(t3.FirstName, ' ', t3.LastName) AS Homeroom
           FROM tbl_12_fin_transaction AS mas
           LEFT JOIN tbl_12_fin_std_charge_det AS t1
             ON mas.IDNumber = t1.NIS
           LEFT JOIN tbl_08_job_info AS t2
-            ON t1.Room = t2.Homeroom
+            ON t1.CostCenter = t2.Homeroom
           LEFT JOIN tbl_07_personal_bio AS t3
             ON t2.IDNumber = t3.IDNumber
           LEFT JOIN tbl_04_class_rooms AS t4
-            ON t1.Room = t4.RoomDesc
+            ON t1.CostCenter = t4.RoomDesc
           LEFT JOIN tbl_04_class_rooms_vocational AS t4v
-            ON t1.Room = t4v.RoomDesc
+            ON t1.CostCenter = t4v.RoomDesc
           LEFT JOIN tbl_03_class AS t5
             ON t4.ClassID = t5.ClassID
           LEFT JOIN tbl_03_class AS t5v
@@ -39,7 +39,7 @@ class Mdl_std_receipt extends CI_Model
                               FROM tbl_12_fin_transaction
                               WHERE IDNumber = mas.IDNumber)
           GROUP BY IDNumber, mas.AccNo
-          ORDER BY t5.ClassNumeric, t5v.ClassNumeric, t1.Room, t1.FullName"
+          ORDER BY t5.ClassNumeric, t5v.ClassNumeric, t1.CostCenter, t1.FullName"
       )->result_array();
    }
 
@@ -94,7 +94,7 @@ class Mdl_std_receipt extends CI_Model
    public function get_group_charge($nis, $accno){
       return $this->db->select("YearCharge, MonthCharge, REPLACE(FORMAT(Amount, 0, 'id_ID'), '.', '') AS Amount")->get_where('tbl_12_fin_std_charge_det', [
                            'NIS' => $nis,
-                           'AccGroupReg' => $accno
+                           'AccNo' => $accno
                       ])->result();  
    }
 

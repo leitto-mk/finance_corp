@@ -57,7 +57,7 @@ class FinanceCorp extends CI_Controller
 
 
 
-    //For Finance Corporate
+    //DASHBOARD
     function index()
     {
         $data['title'] = 'Dashboard';
@@ -65,25 +65,13 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/dashboard/v_home', $data);
     }
 
+
+    //RECEIPT VOUCHER
     function view_receipt_voucher()
     {
         $data['title'] = 'List Receipt Voucher';
         
         $this->load->view('finance_corp/v_receipt_voucher', $data);
-    }
-
-    function add_payment_voucher()
-    {
-        $data['title'] = 'Form Payment Voucher';
-        
-        $this->load->view('finance_corp/v_add_payment_voucher', $data);
-    }
-
-    function view_payment_voucher()
-    {
-        $data['title'] = 'List Payment Voucher';
-        
-        $this->load->view('finance_corp/v_payment_voucher', $data);
     }
 
     function add_receipt_voucher()
@@ -93,6 +81,24 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/v_add_receipt_voucher', $data);
     }
 
+
+    //PAYMENT VOUCHER
+    function view_payment_voucher()
+    {
+        $data['title'] = 'List Payment Voucher';
+        
+        $this->load->view('finance_corp/v_payment_voucher', $data);
+    }
+
+    function add_payment_voucher()
+    {
+        $data['title'] = 'Form Payment Voucher';
+        
+        $this->load->view('finance_corp/v_add_payment_voucher', $data);
+    }
+
+
+    //OVERBOOK VOUCHER
     function view_overbook_voucher()
     {
         $data['title'] = 'List Overbook Voucher';
@@ -107,6 +113,8 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/v_add_overbook_voucher', $data);
     }
 
+
+    //GENERAL JOURNAL
     function view_general_journal()
     {
         $data['title'] = 'List General Journal';
@@ -135,6 +143,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/v_add_ca_receipt', $data);
     }
 
+    //GL REPORT
     function view_gl()
     {
         $data['title'] = 'General Ledger';

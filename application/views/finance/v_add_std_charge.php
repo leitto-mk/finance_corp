@@ -114,10 +114,10 @@
                                                                             </select> </div>
                                                                         <label class="col-md-2 control-label"><b>Account No.</b></label>
                                                                         <div class="col-md-2">
-                                                                            <select name="chargetype" id="chargetype" class="form-control" required>
+                                                                            <select name="accno" id="accno" class="form-control" required>
                                                                                 <option value="">--Select--</option>
-                                                                                <?php foreach($chargetype as $chargetype) : ?>
-                                                                                    <option value="<?= $chargetype->Acc_No ?>"><?= $chargetype->Acc_No?> | <?= $chargetype->Acc_Name ?></option>
+                                                                                <?php foreach($accno as $accno) : ?>
+                                                                                    <option value="<?= $accno->Acc_No ?>"><?= $accno->Acc_No?> | <?= $accno->Acc_Name ?></option>
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </div>
@@ -159,7 +159,7 @@
                                                             <div class="col-md-12" style="margin-top: 18px">
                                                                 <div class="portlet light" style="border-style: solid; border-color: lightgrey;">
                                                                     <div class="portlet-body">
-                                                                        <textarea id="remarks" name="remarks" cols="30" rows="3" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..."></textarea>
+                                                                        <textarea id="remark" name="remark" cols="30" rows="3" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..."></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -176,10 +176,10 @@
                                                                     <div class="col-md-12 form-horizontal">
                                                                         <div class="form-group">
                                                                             <div class="col-md-12">
-                                                                                <select name="accno" id="accno" class="form-control" required>
+                                                                                <select name="chargetype" id="chargetype" class="form-control" required>
                                                                                     <option value="">--Select--</option>
-                                                                                    <?php foreach($accno as $accno) : ?>
-                                                                                        <option value="<?= $accno->Acc_No ?>"><?= $accno->Acc_No?> | <?= $accno->Acc_Name ?></option>
+                                                                                    <?php foreach($chargetype as $chargetype) : ?>
+                                                                                        <option value="<?= $chargetype->Acc_No ?>"><?= $chargetype->Acc_No?> | <?= $chargetype->Acc_Name ?></option>
                                                                                     <?php endforeach; ?>
                                                                                 </select>
                                                                             </div>
@@ -253,15 +253,16 @@
                                                                     <th class="text-center" width="5%"> Year </th>
                                                                     <th class="text-center" width="5%"> Month </th>
                                                                     <th class="text-center" width="5%"> NIS </th>
-                                                                    <th class="text-center" width="15%"> Full Name </th>
+                                                                    <th class="text-center" width="10%"> Full Name </th>
+                                                                    <th class="text-center" width="5%"> Class </th>
                                                                     <th class="text-center" width="5%"> Room </th>
                                                                     <th class="text-center" width="5%"> Account Code </th>
-                                                                    <th class="text-center" width="10%"> Amount </th>
+                                                                    <th class="text-center" width="6%"> Amount </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody id="tbody_charge">
                                                                 <tr>
-                                                                    <td class="text-center font-white uppercase" colspan="8">Select Student to Approve Transaction </td>
+                                                                    <td class="text-center font-white uppercase" colspan="9">Select Student to Approve Transaction </td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>

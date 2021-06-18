@@ -155,14 +155,15 @@
                                                             <thead>
                                                                 <tr style="background-color: #22313F" class="font-white">
                                                                     <th class="text-center"> Action </th>
-                                                                    <th class="text-center"> Remarks Detail </th>
-                                                                    <th class="text-right"> Year </th>
-                                                                    <th class="text-right"> Month </th>
-                                                                    <th class="text-right"> Group Charge </th>
+                                                                    <th class="text-center"> No </th>
+                                                                    <!-- <th class="text-center"> Remarks Detail </th> -->
+                                                                    <th class="text-center"> Year </th>
+                                                                    <th class="text-center"> Month </th>
+                                                                    <th class="text-center"> Group Charge </th>
                                                                     <th class="text-center"> Currency </th>
-                                                                    <th class="text-right"> Exchange Rate </th>
-                                                                    <th class="text-right"> Amount </th>
-                                                                    <th class="text-right"> Total </th>
+                                                                    <th class="text-center"> Exchange Rate </th>
+                                                                    <th class="text-center"> Unit </th>
+                                                                    <th class="text-center"> Amount </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody id="table_body_detail_transaction">
@@ -172,7 +173,7 @@
                                                                             <i class="fa fa-times"></i>
                                                                         </a>
                                                                     </td>
-                                                                    <td><input type="text" name="remark_detail[]" class="form-control"></td>
+                                                                    <!-- <td><input type="text" name="remark_detail[]" class="form-control"></td> -->
                                                                     <td>
                                                                         <input type="text" name="year[]" class="form-control">
                                                                     </td>

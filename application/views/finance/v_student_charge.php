@@ -59,12 +59,12 @@
                                     </tr>
                                 <?php endif; ?>
                                 <?php for($i = 0; $i < count($table); $i++) : ?>
-                                    <?php if($room !== $table[$i]['Room']) : ?>
+                                    <?php if($room !== $table[$i]['CostCenter']) : ?>
                                         <tr style="background-color: white">
-                                            <td colspan="7" class="bold">ROOM <?= $table[$i]['Room'] ?> - Wali Kelas: <?= $table[$i]['Homeroom'] ?></td>
+                                            <td colspan="7" class="bold">ROOM <?= $table[$i]['CostCenter'] ?> - Wali Kelas: <?= $table[$i]['Homeroom'] ?></td>
                                         </tr>
                                         <?php
-                                            $room = $table[$i]['Room'];
+                                            $room = $table[$i]['CostCenter'];
                                             $count_room += 1;
                                             $count_std = 1;
                                             $sub_total = 0;
@@ -75,7 +75,7 @@
                                     <tr class="font-white sbold">
                                         <td align="center"><?= $count_std?> </td>                                 
                                         <td align="left"><?= $table[$i]['NIS'] . ' - ' . $table[$i]['FullName'] ?></td>
-                                        <td align="center"><?= $table[$i]['Room'] ?></td>
+                                        <td align="center"><?= $table[$i]['CostCenter'] ?></td>
                                         <td align="right"><?= number_format($table[$i]['Amount'], 2, ',', '.') ?></td>
                                         <td align="right"><?= number_format($table[$i]['Paid'], 2, ',', '.') ?></td>
                                         <td align="right">0</td>
@@ -99,7 +99,7 @@
                                         $grand_total_paid += $table[$i]['Paid'];
                                         $grand_total_variance += $table[$i]['Amount'];
                                     ?>
-                                    <?php if(!isset($table[$i+1]['Room']) || $table[$i+1]['Room'] !== $room) : ?>
+                                    <?php if(!isset($table[$i+1]['CostCenter']) || $table[$i+1]['CostCenter'] !== $room) : ?>
                                         <tr class="font-white sbold">
                                             <td align="center" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa"></td>                                  
                                             <td align="left" style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa"></td>

@@ -35,8 +35,6 @@ const fin_new_charge = () => {
                     $('#cls').empty()
                     $('#cls').append('<option value="">--Select--</option>')
 
-                    GLOBAL_STD_DATA = response.std
-
                     for(let i = 0; i < response.cls.length; i++){
                         $('#cls').append(`<option value="${response.cls[i].ClassDesc}">${response.cls[i].ClassDesc}</option>`)
                     }
@@ -125,22 +123,23 @@ const fin_new_charge = () => {
             var year = $('#year').val()
             var month_start = +$('#monthstart').val()
             var month_finish = +$('#monthfinish').val()
-            var charge_type = $('#chargetype').val()
+            var accno = $('#accno').val()
             var arr_selected_nis = $('#std').val()
             
             var totalamount = 0
 
             $.ajax({
-                url: 'ajax_get_charge_type_matrix',
+                url: 'ajax_get_accno_matrix',
                 method: 'POST',
                 dataType: 'JSON',
                 data: {
-                    charge: charge_type,
+                    accno: accno,
                     std: arr_selected_nis
                 },
                 success: response => {
                     for(let i = 0; i < response.length; i++){
                         response[i].FullName = GLOBAL_STD_DATA.find(x => x.IDNumber == response[i].IDNumber).FullName
+                        response[i].cls = GLOBAL_STD_DATA.find(x => x.IDNumber == response[i].IDNumber).Kelas
                         response[i].Room = GLOBAL_STD_DATA.find(x => x.IDNumber == response[i].IDNumber).Ruangan
                     }
 
@@ -148,14 +147,15 @@ const fin_new_charge = () => {
                 },
                 error: () => alert('NETWORK PROBLEM')
             }).then(() => {
-                let count = 1
+                var itemno = 1
                 for(let i = 0; i < arr_selected_nis.length; i++){
                     for(let j = month_start; j <= month_finish; j++){
                         totalamount += +(arr_selected_nis[i].Amount)
                         $('#tbody_charge').append(
                             `<tr>
                                 <td class="sbold font-white">
-                                    ${count}
+                                    ${itemno}
+                                    <input hidden readonly name="itemno[]" class="text-center" value="${itemno}"/>
                                 </td>
                                 <td class="sbold uppercase text-center">
                                     <input readonly name="year[]" class="text-center" value="${year}"/>
@@ -170,10 +170,13 @@ const fin_new_charge = () => {
                                     <input readonly name="fullname[]" value="${arr_selected_nis[i].FullName}"/>
                                 </td>
                                 <td class="sbold text-center">
+                                    <input readonly name="cls[]" class="text-center" value="${arr_selected_nis[i].cls}"/>
+                                </td>
+                                <td class="sbold text-center">
                                     <input readonly name="room[]" class="text-center" value="${arr_selected_nis[i].Room}"/>
                                 </td>
                                 <td class="sbold text-center">
-                                    <input readonly name="chargetype[]" class="text-center" value="${charge_type}"/>
+                                    <input readonly name="chargetype[]" class="text-center" value="${accno}"/>
                                 </td>
                                 <td class="sbold text-center">
                                     <input readonly name="amount[]" class="text-right" value="${arr_selected_nis[i].Amount}"/>
@@ -181,7 +184,7 @@ const fin_new_charge = () => {
                              </tr>`
                         )
     
-                        count += 1
+                        itemno += 1
                     }
                 }
     
@@ -202,7 +205,7 @@ const fin_new_charge = () => {
             let transdate = $('#transdate').val()
             let accno = $('#accno').val()
             let chargetype = $('#chargetype').val()
-            let remarks = $('#remarks').val()
+            let remark = $('#remark').val()
             let school = $('#school').val()
             let cls = $('#cls').val()
             let room = $('#room').val()
@@ -211,7 +214,7 @@ const fin_new_charge = () => {
             let details = $('#form_details_charge').serialize()
 
             $.ajax({
-                url: `ajax_submit_std_charge?docno=${docno}&year=${year}&monthstart=${monthstart}&monthfinish=${monthfinish}&submitby=${submitby}&transdate=${transdate}&accno=${accno}&chargetype=${chargetype}&remarks=${remarks}&school=${school}&cls=${cls}&room=${room}`,
+                url: `ajax_submit_std_charge?docno=${docno}&year=${year}&monthstart=${monthstart}&monthfinish=${monthfinish}&submitby=${submitby}&transdate=${transdate}&accno=${accno}&chargetype=${chargetype}&remark=${remark}&school=${school}&cls=${cls}&room=${room}`,
                 method: 'POST',
                 data: details,
                 success: response => {

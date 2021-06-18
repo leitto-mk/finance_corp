@@ -101,11 +101,11 @@ class Finance extends CI_Controller
         echo json_encode($result);
     }
 
-    public function ajax_get_charge_type_matrix(){
-        $charge = $_POST['charge'];
+    public function ajax_get_accno_matrix(){
+        $accno = $_POST['accno'];
         $std = $_POST['std'];
 
-        $result = $this->Mdl_std_charge->get_charge_type_matrix($charge, $std);
+        $result = $this->Mdl_std_charge->get_accno_matrix($accno, $std);
 
         echo json_encode($result);
     }
@@ -117,13 +117,16 @@ class Finance extends CI_Controller
             'MonthChargeStart' => $_GET['monthstart'],
             'MonthChargeFinish' => $_GET['monthfinish'],
             'SubmitBy' => $_GET['submitby'],
+            'TransType' => 'SCHARGE',
             'TransDate' => $_GET['transdate'],
-            'AccGroupMas' => $_GET['accno'],
-            'AccGroupReg' => $_GET['chargetype'],
-            'Remarks' => $_GET['remarks'],
-            'SchoolType' => $_GET['school'],
-            'Class' => $_GET['cls'],
-            'Room' => $_GET['room']
+            'JournalGroup' => '-',
+            'AccNo' => $_GET['accno'],
+            'Giro' => '',
+            // 'AccGroupReg' => $_GET['chargetype'],
+            'Remarks' => $_GET['remark'],
+            'Branch' => $_GET['school'],
+            'Department' => $_GET['cls'],
+            'CostCenter' => $_GET['room']
         ];
 
         $details = $trans = [];
@@ -132,6 +135,7 @@ class Finance extends CI_Controller
         $debit = 0;
         $credit = $_POST['amount'];
         $cur_nis = '';
+        $cur_branch = '';
         $last_personal_balance = 0;
         $last_branch_balance = $this->Mdl_std_charge->get_branch_balance($_GET['school']);
         $last_gl_balance = $this->Mdl_std_charge->get_gl_balance();
@@ -142,7 +146,7 @@ class Finance extends CI_Controller
                 'YearCharge' => $_GET['year'],
                 'MonthCharge' => $_POST['month'][$i],
                 'NIS' => $nis[$i],
-                'AccGroupReg' => $_GET['chargetype']
+                // 'AccGroupReg' => $_GET['chargetype']
             ])->num_rows();
 
             //IF CURRENT RECORD EXISTED, JUMP TO NEXT LOOP
@@ -152,14 +156,17 @@ class Finance extends CI_Controller
 
             array_push($details, [
                 'DocNo' => $_GET['docno'],
-                'TransDate' => $_GET['transdate'],
                 'YearCharge' => $_GET['year'],
                 'MonthCharge' => $_POST['month'][$i],
                 'NIS' => $nis[$i],
                 'FullName' => $_POST['fullname'][$i],
-                'Room' => $_POST['room'][$i],
-                'AccGroupReg' => $_GET['chargetype'],
-                'Amount' => $credit[$i]
+                'Department' => $_POST['cls'][$i],
+                'CostCenter' => $_POST['room'][$i],
+                'AccNo' => $_GET['accno'],
+                'Currency' => 'IDR',
+                'Rate' => 1,
+                'Unit' => $_POST['amount'][$i],
+                'Amount' => $_POST['amount'][$i],
             ]);
 
             //GET PERSONAL'S LAST BALANCE
@@ -182,18 +189,26 @@ class Finance extends CI_Controller
                 'Month' => $_POST['month'][$i],
                 'Year' => $_GET['year'],
                 'TransType' => 'SCHARGE',
+                'is_completed' => 0,
+                'JournalGroup' => '-',
                 'Branch' => $_GET['school'],
                 'Department' => $_GET['cls'],
-                'AccNo' => $_GET['chargetype'],
+                'CostCenter' => $_GET['room'],
+                'Giro' => '',
+                'ItemNo' => $_POST['itemno'][$i],
+                'AccNo' => $_GET['accno'],
                 'AccType' => $this->db->select('Acc_Type')->get_where('tbl_12_fin_account_no', ['Acc_No' => $_GET['chargetype']])->row()->Acc_Type,
                 'IDNumber' => $nis[$i],
+                'Currency' => 'IDR',
+                'Rate' => 1,
+                'Unit' => $_POST['amount'][$i],
                 'Amount' => $_POST['amount'][$i],
                 'Debit' => 0,
                 'Credit' => $credit[$i],
                 'Balance' => $balance,
                 'BalanceBranch' => ($last_branch_balance + $credit[$i]) - $debit,
                 'BalanceGL' => ($last_gl_balance + $credit[$i]) - $debit,
-                'Remarks' => $_GET['remarks'],
+                'Remarks' => $_GET['remark'],
                 'EntryBy' => $_GET['submitby'],
                 'EntryDate' => date('Y-m-d h:m:s')
             ]);
@@ -232,7 +247,7 @@ class Finance extends CI_Controller
             'title' => 'Form Receipt Voucher',
             'script' => 'fin_new_receipt',
 
-            'accno' => $this->Mdl_std_charge->get_mas_acc_charge_type(),
+            'accno' => $this->Mdl_std_charge->get_mas_acc(),
             'currency' => $this->Mdl_std_receipt->get_currency()
         ];
 
@@ -258,10 +273,11 @@ class Finance extends CI_Controller
 
     public function ajax_submit_receipt(){
         $nis = $_POST['nis'];
+        $school = $_POST['school'];
         $balance = $credit = 0;
 
         $last_personal_balance = $this->Mdl_std_receipt->get_std_last_balance($nis);
-        $last_branch_balance = $this->Mdl_std_receipt->get_branch_balance($_GET['school']);
+        $last_branch_balance = $this->Mdl_std_receipt->get_branch_balance($school);
         $last_gl_balance = $this->Mdl_std_receipt->get_gl_balance();
 
         $detail = [];
@@ -281,7 +297,7 @@ class Finance extends CI_Controller
                     'Branch' => $_POST['school'],
 
                     //DETAILS
-                    'Remarks' => $_POST['remark_detail'][$i],
+                    'Remarks' => $_POST['remarks'],
                     'Month' => (isset($_POST['month']) ? $_POST['month'][$i] : '-'),
                     'Year' => (isset($_POST['year']) ? $_POST['year'][$i] : '-'),
                     'TransType' => 'SRECEIPT',

@@ -6,10 +6,10 @@ class Mdl_std_charge extends CI_Model
     public function get_charge_overview(){
         return $this->db->query(
             "SELECT 
-                t1.AccGroupReg,
+                t1.AccNo,
                 t1.NIS,
                 t1.FullName,
-                t1.Room,
+                t1.CostCenter,
                 (SELECT SUM(Amount) 
                  FROM tbl_12_fin_std_charge_det WHERE NIS = t1.NIS) AS Amount,
                 (SELECT SUM(Debit) 
@@ -18,30 +18,23 @@ class Mdl_std_charge extends CI_Model
                 CONCAT(t3.FirstName, ' ', t3.LastName) AS Homeroom
              FROM tbl_12_fin_std_charge_det AS t1
              LEFT JOIN tbl_08_job_info AS t2
-                ON t1.Room = t2.Homeroom
+                ON t1.CostCenter = t2.Homeroom
              LEFT JOIN tbl_07_personal_bio AS t3
                 ON t2.IDNumber = t3.IDNumber
              LEFT JOIN tbl_04_class_rooms AS t4
-                ON t1.Room = t4.RoomDesc
+                ON t1.CostCenter = t4.RoomDesc
              LEFT JOIN tbl_04_class_rooms_vocational AS t4v
-                ON t1.Room = t4v.RoomDesc
+                ON t1.CostCenter = t4v.RoomDesc
              LEFT JOIN tbl_03_class AS t5
                 ON t4.ClassID = t5.ClassID
              LEFT JOIN tbl_03_class AS t5v
                 ON t4v.ClassID = t5v.ClassID
              GROUP BY t1.NIS
-             ORDER BY t5.ClassNumeric, t5v.ClassNumeric, t1.Room, t1.FullName, t1.MonthCharge"
+             ORDER BY t5.ClassNumeric, t5v.ClassNumeric, t1.CostCenter, t1.FullName, t1.MonthCharge"
         )->result_array();
     }
 
     public function get_mas_acc(){
-        return $this->db
-                ->select('Acc_No, Acc_Name, Acc_Type')
-                ->order_by('Acc_Name', 'ASC')
-                ->get('tbl_12_fin_account_no')->result();
-    }
-
-    public function get_mas_acc_charge_type(){
         return $this->db
                 ->select('Acc_No, Acc_Name, Acc_Type')
                 ->order_by('Acc_No', 'ASC')
@@ -49,6 +42,13 @@ class Mdl_std_charge extends CI_Model
                     'Acc_Type' => 'R',
                     'Acc_No <=' => '41106',
                 ])->result();
+    }
+
+    public function get_mas_acc_charge_type(){
+        return $this->db
+                ->select('Acc_No, Acc_Name, Acc_Type')
+                ->order_by('Acc_No', 'ASC')
+                ->get('tbl_12_fin_account_no')->result();
     }
 
     public function get_school(){
@@ -143,6 +143,7 @@ class Mdl_std_charge extends CI_Model
             "SELECT 
                 bio.IDNumber, 
                 CONCAT(bio.FirstName,' ', bio.LastName) AS FullName,
+                info.Kelas,
                 info.Ruangan
              FROM tbl_02_school AS sch
              LEFT JOIN tbl_03_class AS cls
@@ -167,11 +168,11 @@ class Mdl_std_charge extends CI_Model
         )->result();
     }
 
-    public function get_charge_type_matrix($charge, $std){
+    public function get_accno_matrix($accno, $std){
         return $this->db->select('IDNumber, Amount')
                            ->where_in('IDNumber', $std)
                            ->get_where('tbl_12_fin_matrix', [
-                               'accno_type' => $charge
+                               'accno_type' => $accno
                            ])->result();
     }
 

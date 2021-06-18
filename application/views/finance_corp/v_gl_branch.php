@@ -149,32 +149,38 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $cur_acc = '';
+                                            $cur_acc = $cur_branch = '';
                                             $subtotal_credit = $subtotal_debit = 0;
                                         ?>
                                         <?php for($i = 0; $i < count($ledger); $i++) : ?>
-                                            <?php if($ledger[$i]['Acc_Name'] !== $cur_acc) : ?>
+                                            <?php if($ledger[$i]['Branch'] !== $cur_branch) : ?>
+                                                <?php 
+                                                    $cur_branch = $ledger[$i]['Branch'];    
+                                                ?>
+                                            <?php endif; ?>
+
+                                            <!-- <?php if($ledger[$i]['Acc_Name'] !== $cur_acc) : ?>
                                                 <tr style="background-color: white">
                                                     <td colspan="12" class="bold"><?= $ledger[$i]['AccNo'] ?> - <?= $ledger[$i]['Acc_Name'] ?></td>
                                                 </tr>
                                                 <?php
                                                     $cur_acc = $ledger[$i]['Acc_Name'];
                                                 ?>
-                                            <?php endif; ?>
+                                            <?php endif; ?> -->
 
                                             <tr class="font-white sbold">
                                                 <td class="bold" align="center"><?= $i+1 ?></td>
                                                 <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
                                                 <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
                                                 <td class="bold" align="center"></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['Branch'] ?></td>
+                                                <td class="bold" align="center"><?= $cur_branch ?></td>
                                                 <td class="bold" align="center"><?= $ledger[$i]['Department'] ?></td>
                                                 <td class="bold" align="right"><?= $ledger[$i]['CostCenter'] ?></td>
                                                 <td class="bold" align="right"><?= $ledger[$i]['AccNo'] ?></td>
                                                 <td class="bold" align="center"><?= $ledger[$i]['Remarks'] ?></td>
                                                 <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></td>
                                                 <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></td>
-                                                <td class="bold" align="right"><?= number_format($ledger[$i]['BalanceGL'], 0, ',', '.') ?></td>
+                                                <td class="bold" align="right"><?= number_format($ledger[$i]['BalanceBranch'], 0, ',', '.') ?></td>
                                             </tr>
 
                                             <?php
@@ -182,13 +188,13 @@
                                                 $subtotal_credit += $ledger[$i]['Credit'];
                                             ?>
 
-                                            <?php if(isset($ledger[$i+1]['Acc_Name']) && $ledger[$i+1]['Acc_Name'] !== $cur_acc || $i == (count($ledger)-1)) : ?>
+                                            <?php if(isset($ledger[$i+1]['Branch']) && $ledger[$i+1]['Branch'] !== $cur_branch || $i == (count($ledger)-1)) : ?>
                                                 <?php
                                                     $subtotal_balance = $subtotal_debit + $subtotal_credit;
                                                 ?>
                                                 <tr class="font-white sbold">
                                                     <td class="bold" align="right" colspan="9">Beginning Balance</td>
-                                                    <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em"><?= number_format($ledger[$i]['BalanceGL'], 0, ',', '.') ?></td>
+                                                    <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em"><?= number_format($ledger[$i]['BalanceBranch'], 0, ',', '.') ?></td>
                                                 </tr>
                                                 <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
                                                     <td align="right" colspan="9">Total :</td>                                    

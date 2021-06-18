@@ -121,7 +121,7 @@
                             </li>
                             <!-- END SIDEBAR TOGGLER BUTTON -->
                             <li class="nav-head nav-item start" style="margin-top: -20px">
-                                <a href="<?php echo site_url('FinanceCorp/view_dashboard'); ?>" class="nav-link nav-toggle" style="background-color: #15bed1">
+                                <a href="<?php echo site_url('FinanceCorp'); ?>" class="nav-link nav-toggle" style="background-color: #15bed1">
                                     <i class="icon-share font-white"></i>
                                     <span class="caption-subject font-white uppercase title bold"> Dashboard </span>
                                 </a>

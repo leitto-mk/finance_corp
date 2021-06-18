@@ -46,7 +46,7 @@ class Mdl_corp_branch extends CI_Model
           WHERE $branch_condition
           AND trans.AccNo BETWEEN '$accno_start' AND '$accno_finish'
           AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
-          ORDER BY CtrlNo"
+          ORDER BY Branch, CtrlNo"
       )->result_array();
 
       return $result;

@@ -54,12 +54,12 @@
                                     </tr>
                                 <?php endif; ?>
                                 <?php for($i = 0; $i < count($table); $i++) : ?>
-                                    <?php if($room !== $table[$i]['Room']) : ?>
+                                    <?php if($room !== $table[$i]['CostCenter']) : ?>
                                         <tr style="background-color: white">
-                                            <td colspan="7" class="bold">ROOM <?= $table[$i]['Room'] ?> - Wali Kelas: <?= $table[$i]['Homeroom'] ?></td>
+                                            <td colspan="7" class="bold">ROOM <?= $table[$i]['CostCenter'] ?> - Wali Kelas: <?= $table[$i]['Homeroom'] ?></td>
                                         </tr>
                                         <?php
-                                            $room = $table[$i]['Room'];
+                                            $room = $table[$i]['CostCenter'];
                                             $count_room += 1;
                                             $count_std = 1;
                                             $sub_total = 0;
@@ -68,7 +68,7 @@
                                     <tr class="font-white sbold">
                                         <td align="center"><?= date('d-m-Y', strtotime($table[$i]['TransDate'])) ?> </td>
                                         <td align="left"><?= $table[$i]['IDNumber'] . ' - ' . $table[$i]['FullName'] ?></td>
-                                        <td align="center"><?= $table[$i]['Room'] ?></td>
+                                        <td align="center"><?= $table[$i]['CostCenter'] ?></td>
                                         <td align="center"><?= $this->session->userdata('id') . ' - ' .  $this->session->userdata('fname') . ' - ' . $this->session->userdata('lname') ?></td>
                                         <td align="right">
                                             <?php
@@ -104,7 +104,7 @@
 
                                         // $sub_total = $table[$i]['Balance'];
                                     ?>
-                                    <?php if(!isset($table[$i+1]['Room']) || $table[$i+1]['Room'] !== $room) : ?>
+                                    <?php if(!isset($table[$i+1]['CostCenter']) || $table[$i+1]['CostCenter'] !== $room) : ?>
                                         <?php
                                             if($sub_total < 0){
                                                 $sub_total = abs($sub_total);
@@ -122,7 +122,7 @@
                                         </tr>
                                         <?php
                                             $sub_total = 0;
-                                            $room = (isset($table[$i+1]['Room']) ? $table[$i+1]['Room'] : '');
+                                            $room = (isset($table[$i+1]['CostCenter']) ? $table[$i+1]['CostCenter'] : '');
                                         ?>
                                     <?php endif; ?>
                                 <?php endfor; ?>

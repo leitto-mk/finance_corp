@@ -78,22 +78,24 @@ const fin_new_receipt = () => {
                                         <i class="fa fa-times"></i>
                                     </a>
                                 </td>
-                                <td><input type="text" name="remark_detail[]" class="form-control"></td>
                                 <td>
-                                    <input type="text" required name="year[]" value="${response[i].YearCharge}" class="form-control">
+                                    <input type="number" class="form-control text-right" value="${i+1}"/>
                                 </td>
                                 <td>
-                                    <input type="text" required name="month[]" value="${response[i].MonthCharge}" class="form-control">
+                                    <input type="number" required name="year[]" value="${response[i].YearCharge}" class="form-control text-right">
                                 </td>
-                                <td><input type="text" required name="group_charge[]" value="${response[i].Amount}" class="form-control text-right" required></td>
+                                <td>
+                                    <input type="number" required name="month[]" value="${response[i].MonthCharge}" class="form-control text-right">
+                                </td>
+                                <td><input readonly type="number" required name="group_charge[]" value="${response[i].Amount}" class="form-control text-right" required></td>
                                 <td>
                                     ${currency[0].outerHTML}
                                 </td>
-                                <td><input type="number" name="rate[]" class="form-control" value="1"></td>
-                                <td><input type="number" required name="unit[]" min="${response[i].Amount}" class="form-control"></td>
-                                <td><input type="number" required name="amount[]" class="form-control"></td>
+                                <td><input type="number" name="rate[]" class="form-control text-right" value="1"></td>
+                                <td><input type="number" required name="unit[]" min="${response[i].Amount}" class="form-control text-right"></td>
+                                <td><input readonly type="number" required name="amount[]" class="form-control text-right"></td>
                             </tr>
-                        `)
+                        `) //<td><input type="text" name="remark_detail[]" class="form-control"></td>
                     }
                 },
                 error: () => alert('NETWORK PROBLEM')
@@ -112,30 +114,31 @@ const fin_new_receipt = () => {
     //CALCULATE UNIT BY 
     const eventInputUnit = () => {
         $(document).on('focusout','[name="rate[]"], [name="unit[]"]',function(){
+            
+            let balance = +$('#balance').attr('data-non-format')
+            let totalamount = +$('#totalamount').attr('data-non-format')
             let rate = +$(this).parents('tr').find('[name="rate[]"]').val()
             let unit = +$(this).parents('tr').find('[name="unit[]"]').val()
             let total = rate * unit
-            let totalamount = +$('#totalamount').attr('data-non-format')
-            totalamount += total
 
-            let cur_balance = +$('#balance').attr('data-non-format')
-            cur_balance = cur_balance - total
+            $(this).parents('tr').find('[name="amount[]"]').val(total)
 
-            $('#balance').attr('data-non-format', cur_balance)
-            $('#totalamount').attr('data-non-format', totalamount)
+            $('[name="amount[]"]').each(function(){
+                totalamount += +$(this).val() || 0
+                balance -= +$(this).val() || 0
+            })
 
-            if(cur_balance < 0){
-                cur_balance = Math.abs(cur_balance)
-                cur_balance = Intl.NumberFormat('id').format(cur_balance)
-                cur_balance = '(' + cur_balance + ')'
+            if(balance < 0){
+                balance = Math.abs(balance)
+                balance = Intl.NumberFormat('id').format(balance)
+                balance = '(' + balance + ')'
             }else{
-                cur_balance = Intl.NumberFormat('id').format(cur_balance)
+                balance = Intl.NumberFormat('id').format(balance)
             }
 
-            $('#balance').val(`Rp. ${cur_balance}`)
+            $('#balance').val(`Rp. ${balance}`)
             $('#totalamount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
-            
-            $(this).parents('tr').find('[name="amount[]"]').val(total)
+        
         })
     }
 
