@@ -52,13 +52,18 @@
                                                                                     #
                                                                                     <!-- <i class="fa fa-envelope"></i> -->
                                                                                 </span>
-                                                                                <input type="text" name="m_docno" class="form-control" readonly value="" style="background-color:white;">
+                                                                                <input type="text" name="docno" class="form-control" readonly value="<?= $docno ?>" style="background-color:white;">
                                                                             </div>
                                                                         </div>
                                                                         <!-- Row 2 -->
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
-                                                                            <input type="text" id="m_branch" name="m_branch" class="form-control readonly" placeholder="Search.." id="m_branch" style="background-color:white;" required>
+                                                                            <select name="branch" id="branch" class="form-control" data-live-search="true" data-size="8" required>
+                                                                                <option value="">--Choose Branch--</option>
+                                                                                <?php foreach($branch as $branch) : ?>
+                                                                                    <option value="<?= $branch->BranchCode ?>"><?= $branch->BranchCode ?> - <?= $branch->BranchName ?></option>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
@@ -122,28 +127,53 @@
                                                             <table class="table table-striped" id="table_detail_transaction">
                                                                 <thead>
                                                                     <tr style="background-color: #22313F" class="font-white">
-                                                                        <th width="4%"></th>
-                                                                        <th width="21%" class="text-center"> Remarks Detail </th>
-                                                                        <th width="10%" class="text-center"> Department </th>
-                                                                        <th width="10%" class="text-center"> Cost Center </th>
-                                                                        <!-- <th width="7%" class="text-center"> Student </th> -->
-                                                                        <th width="15%" class="text-center"> Account No. </th>
-                                                                        <th width="5%" class="text-center"> Currency </th>
-                                                                        <th width="17%" class="text-center"> Debit </th>
-                                                                        <th width="18%" class="text-center"> Credit </th>
+                                                                        <th class="text-center" width="3%">Item No</th>
+                                                                        <th class="text-center"> Remarks Detail </th>
+                                                                        <th class="text-center"> Department </th>
+                                                                        <th class="text-center"> Cost Center </th>
+                                                                        <th class="text-center"> Paid To </th>
+                                                                        <th class="text-center"> Account No. </th>
+                                                                        <th class="text-center"> Currency </th>
+                                                                        <th class="text-center"> Rate </th>
+                                                                        <th class="text-center"> Unit </th>
+                                                                        <th class="text-center"> Amount </th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody id="table_body_detail_transaction">
+                                                                <tbody id="tbody_detail">
                                                                     <tr style="background-color: #E9EDEF">
-                                                                        <td><input type="button" name="" class="btn btn-primary" value="1"></td>
-                                                                        <td><input type="" name="" class="form-control"></td>
-                                                                        <td><input type="" name="" class="form-control"></td>
-                                                                        <td><input type="" name="" class="form-control"><span class="input-group-btn" type="button"></span></td>
-                                                                        <td><input type="" name="" class="form-control"></td>
-                                                                        <td><input type="" name="" class="form-control"></td>
-                                                                        <td><input type="number" name="" class="form-control"></td>
-                                                                        <td><input type="number" name="" class="form-control"></td>
-                                                                    </tr>                                                                    
+                                                                        <td><input type="number" name="itemno[]" class="form-control" readonly value="1"></td>
+                                                                        <td><input type="text" name="remarks[]" class="form-control" required></td>
+                                                                        <td><input type="text" name="departments[]" class="form-control" required></td>
+                                                                        <td><input type="text" name="costcenters[]" class="form-control" required><span class="input-group-btn" type="button"></span></td>
+                                                                        <td>
+                                                                            <select name="emp[]" class="form-control" required>
+                                                                                <option value="">--Choose ID--</option>
+                                                                                <?php foreach($employee as $emp) : ?>
+                                                                                    <option value="<?= $emp->IDNumber ?>" data-fullname="<?= $emp->FullName ?>" data-dept="<?= $emp->DeptCode ?>" data-cc="<?= $emp->CostCenter ?>"><?= $emp->IDNumber ?> - <?= $emp->FullName ?></option>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="accnos[]" class="form-control" required>
+                                                                                <option value="">--Choose Account No--</option>
+                                                                                <?php foreach($accno as $accnos) : ?>
+                                                                                    <?php if($accnos->Acc_Type == 'R') : ?>
+                                                                                        <option value="<?= $accnos->Acc_No ?>"><?= $accnos->Acc_No ?> | <?= $accnos->Acc_Name ?> - [<?= $accnos->Acc_Type?>]</option>
+                                                                                    <?php endif; ?>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="currency[]" class="form-control" required>
+                                                                                <?php foreach($currency as $cur) : ?> 
+                                                                                    <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td><input type="number" name="rate[]" class="form-control" min="1" value="1" required></td>
+                                                                        <td><input type="number" name="unit[]" class="form-control" required></td>
+                                                                        <td><input type="" name="amount[]" class="form-control" readonly></td>
+                                                                    </tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>

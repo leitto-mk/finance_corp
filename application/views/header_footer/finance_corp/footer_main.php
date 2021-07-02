@@ -62,6 +62,7 @@
         <script src="<?= base_url();?>assets/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/ui-blockui.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/portfolio-1.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/components-bootstrap-select.min.js" type="text/javascript"></script>

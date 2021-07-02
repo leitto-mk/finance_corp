@@ -31,7 +31,7 @@
                                 <!-- BEGIN PAGE CONTENT INNER -->
                                 <div class="page-content-inner">
                                     <!-- Content Start -->
-                                    <form method="post" class="form-horizontal" id="form_entry_payment" autocomplete="off">
+                                    <form method="post" class="form-horizontal" id="form_payment_voucher" autocomplete="off">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="portlet light" style="height: 300px">
@@ -63,51 +63,63 @@
                                                                             <div class="input-group">
                                                                                 <span class="input-group-addon">
                                                                                     #
-                                                                                    <!-- <i class="fa fa-envelope"></i> -->
                                                                                 </span>
-                                                                                <input type="text" name="m_docno" class="form-control" readonly value="" style="background-color:white;">
+                                                                                <input type="text" name="docno" class="form-control" readonly value="<?= $docno ?>" style="background-color:white;">
                                                                             </div>
                                                                         </div>
                                                                         <!-- Row 2 -->
                                                                         <label class="col-md-2 control-label"><b>Account No.</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_caccount">
-                                                                            <input type="text" id="m_accno" name="m_accno" class="form-control readonly" placeholder="Search.." id="m_accno" style="background-color:white;" required>
+                                                                            <select name="accno" id="accno" class="form-control" required>
+                                                                                <option value="">--Choose Account No--</option>
+                                                                                <?php foreach($accno as $acc) : ?>
+                                                                                    <option value="<?= $acc->Acc_No ?>"><?= $acc->Acc_No ?> | <?= $acc->Acc_Name ?> - [<?= $acc->Acc_Type?>]</option>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
                                                                         </div>
-                                                                        &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_accdesc"><b></b></span>
+                                                                        &nbsp;&nbsp;&nbsp;<span class="help-inline" id="accdesc"><b></b></span>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="date" id="m_transdate" name="m_transdate" class="form-control" value="<?php echo date('Y-m-d') ?>" required>
+                                                                            <input type="date" id="transdate" name="transdate" class="form-control" value="<?= date('Y-m-d') ?>" min="<?= date('Y-m-d') ?>" required>
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
-                                                                            <input type="text" id="m_branch" name="m_branch" class="form-control readonly" placeholder="Search.." id="m_branch" style="background-color:white;" required>
+                                                                            <select name="branch" id="branch" class="form-control" data-live-search="true" data-size="8" required>
+                                                                                <option value="">--Choose Branch--</option>
+                                                                                <?php foreach($branch as $branch) : ?>
+                                                                                    <option value="<?= $branch->BranchCode ?>"><?= $branch->BranchCode ?> - <?= $branch->BranchName ?></option>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
                                                                         <div class="col-md-3">
-                                                                            <select class="form-control" name="sjgrp" id="sjgrp">
-                                                                                <option selected="true" value="">Select Journal</option>
+                                                                            <select class="form-control" name="journalgroup" id="journalgroup" required>
+                                                                                <option selected="true" value="">--Select Journal--</option>
+                                                                                <option value="Cash">Cash</option>
+                                                                                <option value="Bank">Bank</option>
+                                                                                <option value="General Ledger">General Ledger</option>
                                                                             </select>
                                                                         </div>
-                                                                        &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_namestd"><b></b></span>
+                                                                        &nbsp;&nbsp;&nbsp;<span class="help-inline" id="namestd"><b></b></span>
                                                                         <label class="col-md-2 control-label"><b>Paid To</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
-                                                                                <input type="text" class="form-control" id="m_emp" name="m_emp" placeholder="Search for...">
+                                                                                <input name="paidto" id="paidto" class="form-control"/>
                                                                                 <span class="input-group-btn">
-                                                                                    <button class="btn btn-primary" type="button" id="paid_branch" data-target="#insert_paid" data-toggle="modal"><i class="fa fa-plus"></i> Add</button>
+                                                                                    <button class="btn btn-primary" type="button" id="add_id"><i class="fa fa-plus"></i> Add</button>
                                                                                 </span>
                                                                             </div>
                                                                         </div>
 
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="col-md-2 control-label"><b>Remarks</b></label>
+                                                                        <label class="col-md-2 control-label"><b>Remark</b></label>
                                                                         <div class="col-md-10">
-                                                                            <textarea id="m_remarks" name="m_remarks" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
+                                                                            <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -123,7 +135,10 @@
                                                                     <div class="row static-info">
                                                                         <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                                         <div class="col-md-12 value" style="margin-top: -15px">
-                                                                            <b><input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="totalamount" name="totalamount" value="0.00" readonly="true" class="input-group input-group-sm form-control"></b>
+                                                                            <b>
+                                                                                <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control">
+                                                                                <input type="number" class="form-control hidden" id="totalamount" name="totalamount">
+                                                                            </b>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -137,7 +152,7 @@
                                                                     <div class="row static-info">
                                                                         <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                                         <div class="col-md-12 value" style="margin-top: -15px">
-                                                                            <b><input style="text-align:left; background: #E9EDEF;  border:none;" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control"></b>
+                                                                            <b><input id="giro" name="giro" style="text-align:left; background: #E9EDEF;  border:none;" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control"></b>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -191,30 +206,53 @@
                                                             <table class="table table-striped" id="table_detail_transaction">
                                                                 <thead>
                                                                     <tr style="background-color: #22313F" class="font-white">
-                                                                        <th width="4%"></th>
-                                                                        <th width="21%" class="text-center"> Remarks Detail </th>
-                                                                        <th width="10%" class="text-center"> Department </th>
-                                                                        <th width="10%" class="text-center"> Cost Center </th>
-                                                                        <!-- <th width="7%" class="text-center"> Student </th> -->
-                                                                        <th width="15%" class="text-center"> Account No. </th>
-                                                                        <th width="5%" class="text-center"> Currency </th>
-                                                                        <th width="10%" class="text-center"> Rate </th>
-                                                                        <th width="10%" class="text-center"> Unit </th>
-                                                                        <th width="15%" class="text-center"> Amount </th>
+                                                                        <th class="text-center" width="3%">Item No</th>
+                                                                        <th class="text-center"> Remarks Detail </th>
+                                                                        <th class="text-center"> Department </th>
+                                                                        <th class="text-center"> Cost Center </th>
+                                                                        <th class="text-center"> Paid To </th>
+                                                                        <th class="text-center"> Account No. </th>
+                                                                        <th class="text-center"> Currency </th>
+                                                                        <th class="text-center"> Rate </th>
+                                                                        <th class="text-center"> Unit </th>
+                                                                        <th class="text-center"> Amount </th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody id="table_body_detail_transaction">
+                                                                <tbody id="tbody_detail">
                                                                     <tr style="background-color: #E9EDEF">
-                                                                        <td><input type="button" name="" class="btn btn-primary" value="1"></td>
-                                                                        <td><input type="" name="" class="form-control"></td>
-                                                                        <td><input type="" name="" class="form-control"></td>
-                                                                        <td><input type="" name="" class="form-control"><span class="input-group-btn" type="button"></span></td>
-                                                                        <td><input type="" name="" class="form-control"></td>
-                                                                        <td><input type="" name="" class="form-control"></td>
-                                                                        <td><input type="number" name="" class="form-control"></td>
-                                                                        <td><input type="number" name="" class="form-control"></td>
-                                                                        <td><input type="" name="" class="form-control"></td>
-                                                                    </tr>                                                                    
+                                                                        <td><input type="number" name="itemno[]" class="form-control" readonly value="1"></td>
+                                                                        <td><input type="text" name="remarks[]" class="form-control" required></td>
+                                                                        <td><input type="text" name="departments[]" class="form-control" required></td>
+                                                                        <td><input type="text" name="costcenters[]" class="form-control" required><span class="input-group-btn" type="button"></span></td>
+                                                                        <td>
+                                                                            <select name="emp[]" class="form-control" required>
+                                                                                <option value="">--Choose ID--</option>
+                                                                                <?php foreach($employee as $emp) : ?>
+                                                                                    <option value="<?= $emp->IDNumber ?>" data-fullname="<?= $emp->FullName ?>" data-dept="<?= $emp->DeptCode ?>" data-cc="<?= $emp->CostCenter ?>"><?= $emp->IDNumber ?> - <?= $emp->FullName ?></option>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="accnos[]" class="form-control" required>
+                                                                                <option value="">--Choose Account No--</option>
+                                                                                <?php foreach($accno as $accnos) : ?>
+                                                                                    <?php if($accnos->Acc_Type == 'E') : ?>
+                                                                                        <option value="<?= $accnos->Acc_No ?>"><?= $accnos->Acc_No ?> | <?= $accnos->Acc_Name ?> - [<?= $accnos->Acc_Type?>]</option>
+                                                                                    <?php endif; ?>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="currency[]" class="form-control" required>
+                                                                                <?php foreach($currency as $cur) : ?> 
+                                                                                    <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td><input type="number" name="rate[]" class="form-control" min="1" value="1" required></td>
+                                                                        <td><input type="number" name="unit[]" class="form-control" required></td>
+                                                                        <td><input type="" name="amount[]" class="form-control" readonly></td>
+                                                                    </tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>

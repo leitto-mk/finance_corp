@@ -289,32 +289,36 @@ class Finance extends CI_Controller
             $balance = ($last_personal_balance + $credit) -  $debit;
 
             array_push($detail, [
-                    //MASTER
                     'DocNo' => $_POST['docno'],
                     'TransDate' => $_POST['transdate'],
-                    'IDNumber' => $_POST['nis'],
-                    'AccNo' => $_POST['accno'],
-                    'Branch' => $_POST['school'],
-
-                    //DETAILS
-                    'Remarks' => $_POST['remarks'],
                     'Month' => (isset($_POST['month']) ? $_POST['month'][$i] : '-'),
                     'Year' => (isset($_POST['year']) ? $_POST['year'][$i] : '-'),
                     'TransType' => 'SRECEIPT',
                     'is_completed' => 1,
+                    'JournalGroup' => '-',
+                    'Branch' => $_POST['school'],
                     'Department' => $this->db->select('Kelas')->get_where('tbl_08_job_info_std', ['NIS' => $_POST['nis']])->row()->Kelas,
+                    'CostCenter' => $this->db->select('Ruangan')->get_where('tbl_08_job_info_std', ['NIS' => $_POST['nis']])->row()->Ruangan,
+                    'Giro' => '',
+                    'ItemNo' => $_POST['itemno'][$i],
+                    'AccNo' => $_POST['accno'],
                     'AccType' => $this->db->select('Acc_Type')->get_where('tbl_12_fin_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type,
+                    'IDNumber' => $_POST['nis'],
                     'Currency' => $_POST['currency'][$i],
+                    'Rate' => $_POST['rate'][$i],
+                    'Unit' => $_POST['unit'][$i],
                     'Amount' => $_POST['amount'][$i],
                     'Debit' => $_POST['amount'][$i],
                     'Credit' => 0,
                     'Balance' => $balance,
                     'BalanceBranch' => ($last_branch_balance + $credit[$i]) - $debit,
                     'BalanceGL' => ($last_branch_balance + $credit[$i]) - $debit,
+                    'Remarks' => $_POST['remarks'],
                     'EntryBy' => $this->session->userdata('id'),
                     // '' => $_POST['totalamount'],
                     // '' => $_POST['remarks']
             ]);
+                    
 
             $last_personal_balance = $balance;
             $last_branch_balance = $detail[$i]['BalanceBranch'];

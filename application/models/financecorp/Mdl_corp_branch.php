@@ -3,15 +3,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_branch extends CI_Model
 {
-   function get_active_school(){
-      return $this->db->select('School_Desc, SchoolName')
-                      ->get_where('tbl_02_school', ['isActive' => 1])->result();
+   function get_branch(){
+      return $this->db->select('BranchCode, BranchName')
+                      ->get('abase_02_branch')->result();
    }
 
    function get_account_no(){
       return $this->db->select('Acc_No, Acc_Name')
                       ->order_by('Acc_No', 'ASC')   
-                      ->get('tbl_12_fin_account_no')->result();
+                      ->get('tbl_fa_account_no')->result();
    }
 
    function get_general_ledger($branch, $accno_start, $accno_finish, $datestart, $datefinish){
@@ -21,6 +21,8 @@ class Mdl_corp_branch extends CI_Model
       }else{
          $branch_condition = "trans.Branch = '$branch'";
       }
+
+      $date = date('Y-01-01');
 
       $result = $this->db->query(
          "SELECT 
@@ -36,17 +38,23 @@ class Mdl_corp_branch extends CI_Model
             trans.Remarks,
             trans.Debit, 
             trans.Credit, 
+            trans.Currency,
+            (SELECT BalanceBranch 
+             FROM tbl_fa_transaction 
+             WHERE AccNo = trans.AccNo 
+             AND Branch = trans.Branch
+             AND TransDate < '$datestart'
+             ORDER BY CtrlNo DESC LIMIT 1) AS beg_balance,
             trans.Balance,
             trans.BalanceBranch,
-            trans.BalanceGL,
             trans.EntryDate
-          FROM tbl_12_fin_transaction AS trans
-          LEFT JOIN tbl_12_fin_account_no AS acc
+          FROM tbl_fa_transaction AS trans
+          LEFT JOIN tbl_fa_account_no AS acc
             ON trans.AccNo = acc.Acc_No
           WHERE $branch_condition
-          AND trans.AccNo BETWEEN '$accno_start' AND '$accno_finish'
+          AND trans.AccNo BETWEEN $accno_start AND $accno_finish
           AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
-          ORDER BY Branch, CtrlNo"
+          ORDER BY Branch, AccNo, TransDate, DocNo, CtrlNo"
       )->result_array();
 
       return $result;

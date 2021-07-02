@@ -45,8 +45,8 @@
                                                             <select id="branch" name="branch" class="form-control" required>
                                                                 <option value="">-- Choose --</option>
                                                                 <option value="All">All</option>
-                                                                <?php foreach($active_school as $branch) : ?>
-                                                                    <option value="<?= $branch->School_Desc?>">[<?= $branch->School_Desc?>] <?= $branch->SchoolName?></option>
+                                                                <?php foreach($branch as $branch) : ?>
+                                                                    <option value="<?= $branch->BranchCode?>">[<?= $branch->BranchCode?>] <?= $branch->BranchName ?></option>
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </div>
@@ -119,7 +119,7 @@
                                         </button>
                                     </span> -->
                                     <span class="input-group-btn">
-                                        <a href="#" class="btn btn-xs btn green hidden-print pull-right"  onclick="printDiv('printDiv')" style="margin-left: 5px">
+                                        <a id="print_report" href="<?= base_url('FinanceCorp/view_gl_branch_report') ?>" target="_blank" class="btn btn-xs btn green hidden-print pull-right" style="margin-left: 5px">
                                             <i class="fa fa-plus"></i>&nbsp;Print</i>
                                         </a>
                                         <a onclick="window.close();" class="btn btn-xs btn red hidden-print pull-right"><i class="fa fa-close"></i> Close</a>
@@ -180,7 +180,17 @@
                                                 <td class="bold" align="center"><?= $ledger[$i]['Remarks'] ?></td>
                                                 <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></td>
                                                 <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></td>
-                                                <td class="bold" align="right"><?= number_format($ledger[$i]['BalanceBranch'], 0, ',', '.') ?></td>
+                                                <td class="bold" align="right">
+                                                <?php
+                                                    if($ledger[$i]['BalanceBranch'] < 0){
+                                                        $balanceBranch = abs($ledger[$i]['BalanceBranch']);
+                                                        $balanceBranch = number_format($balanceBranch, 0, ',', '.');
+                                                        echo "-$balanceBranch";
+                                                    }else{
+                                                        echo number_format($ledger[$i]['BalanceBranch'], 0, ',', '.');
+                                                    }
+                                                ?>
+                                                </td>
                                             </tr>
 
                                             <?php
@@ -190,11 +200,11 @@
 
                                             <?php if(isset($ledger[$i+1]['Branch']) && $ledger[$i+1]['Branch'] !== $cur_branch || $i == (count($ledger)-1)) : ?>
                                                 <?php
-                                                    $subtotal_balance = $subtotal_debit + $subtotal_credit;
+                                                    $subtotal_balance = $subtotal_debit - $subtotal_credit;
                                                 ?>
                                                 <tr class="font-white sbold">
                                                     <td class="bold" align="right" colspan="9">Beginning Balance</td>
-                                                    <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em"><?= number_format($ledger[$i]['BalanceBranch'], 0, ',', '.') ?></td>
+                                                    <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></td>
                                                 </tr>
                                                 <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
                                                     <td align="right" colspan="9">Total :</td>                                    

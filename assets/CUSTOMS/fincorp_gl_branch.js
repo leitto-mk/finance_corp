@@ -2,10 +2,9 @@
  *  CORE SCRIPT
 */
 var GLBranch = () => {
-    let branch = accno_start = accno_finish = date_start = date_finish
+    var branch = accno_start = accno_finish = date_start = date_finish
     
     const eventPreviewFilter  = () => {
-
         $('#submit_filter').click(function(){
             branch = $('#branch').val()
             accno_start = +$('#accno_start').val()
@@ -23,6 +22,11 @@ var GLBranch = () => {
                 alert('Date Start must be earlier or equal!')
                 return;
             }
+
+            let printURL = $('#print_report').attr('href')
+            printURL = printURL + `?branch=${branch}&accno_start=${accno_start}&accno_finish=${accno_finish}&date_start=${date_start}&date_finish=${date_finish}`
+
+            $('#print_report').attr('href', printURL)
 
             $.ajax({
                 url: 'ajax_get_general_ledger',
@@ -62,6 +66,8 @@ var GLBranch = () => {
                             cur_branch = response[i].Branch
                         }
 
+                        // if(response[i].Balance)
+
                         table.append(`
                             <tr class="font-white sbold">
                                 <td class="bold" align="center">${i+1}</td>
@@ -75,7 +81,9 @@ var GLBranch = () => {
                                 <td class="bold" align="center">${response[i].Remarks}</td>
                                 <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].Debit)}</td>
                                 <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].Credit)}</td>
-                                <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].BalanceGL)}</td>
+                                <td class="bold" align="right">
+                                    ${Intl.NumberFormat('id').format(response[i].BalanceBranch)}
+                                </td>
                             </tr>`
                         )
 
@@ -84,12 +92,12 @@ var GLBranch = () => {
                         
                         if(branch == 'All'){
                             if(typeof response[i+1] !== 'undefined' && response[i+1].Branch !== cur_branch || i == (response.length-1)){
-                                let subtotal_balance = subtotal_debit + subtotal_credit;
+                                let subtotal_balance = subtotal_debit - subtotal_credit;
     
                                 table.append(`
                                     <tr class="font-white sbold">
                                         <td class="bold" align="right" colspan="9">Beginning Balance</td>
-                                        <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response[i].BalanceBranch)}</td>
+                                        <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response[i].beg_balance)}</td>
                                     </tr>
                                     <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
                                         <td align="right" colspan="9">Total :</td>                                    
@@ -126,12 +134,51 @@ var GLBranch = () => {
         })
     }
 
+    const eventPrintReport = () => {
+        
+        $('#print_report').click(function(){
+            branch = $('#branch').val()
+            accno_start = +$('#accno_start').val()
+            accno_finish = +$('#accno_finish').val()
+            date_start = $('#date_start').val()
+            date_finish = $('#date_finish').val()
+            
+            if(!branch || !accno_start || !accno_finish || !date_start || !date_finish){
+                alert('Please Select All Filter!')
+                return;
+            }else if(accno_start > accno_finish){
+                alert('Account Number Start must be higher or equal!')
+                return;
+            }else if(new Date(date_start) > new Date(date_finish)){
+                alert('Date Start must be earlier or equal!')
+                return;
+            }
+
+            $.ajax({
+                url: 'view_gl_branch_report',
+                method: 'POST',
+                data: {
+                    branch,
+                    accno_start,
+                    accno_finish,
+                    date_start,
+                    date_finish
+                },
+                success: response => {
+                    $('body').html(response)
+                },
+                error: () => alert('NETWORK PROBLEM')
+            })
+        })
+    }
+
     return {
         init: () => {
             //NO INIT FUNCTION FOR THIS SCRIPT
         },
         events: () => {
             eventPreviewFilter()
+            eventPrintReport()
         }
     }
 }

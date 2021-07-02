@@ -31,8 +31,6 @@
                                     <th class="text-center" width="8%"> Doc No </th>
                                     <th class="text-center" width="13%"> Cheque/Giro </th>
                                     <th class="text-center" width="8%"> Branch </th>
-                                    <th class="text-center" width="5%"> Year </th>
-                                    <th class="text-center" width="5%"> Month </th>
                                     <th class="text-center" width="8%"> AccNo  </th>
                                     <th class="text-center" width="16%"> Remarks </th>
                                     <th class="text-right" width="10%"> Debit </th>
@@ -48,7 +46,7 @@
                                 <?php for($i = 0; $i < count($ledger); $i++) : ?>
                                     <?php if($ledger[$i]['IDNumber'] !== $cur_id) : ?>
                                         <tr style="background-color: white">
-                                            <td colspan="11" class="bold"><?= $ledger[$i]['IDNumber'] ?> - <?= $ledger[$i]['FullName'] ?></td>
+                                            <td colspan="10" class="bold"><?= $ledger[$i]['IDNumber'] ?> - <?= $ledger[$i]['FullName'] ?></td>
                                         </tr>
                                         <?php
                                             $cur_id = $ledger[$i]['IDNumber'];
@@ -60,8 +58,6 @@
                                         <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
                                         <td class="bold" align="center"></td>
                                         <td class="bold" align="center"><?= $ledger[$i]['Branch'] ?></td>
-                                        <td class="bold" align="right"><?= $ledger[$i]['Year'] ?></td>
-                                        <td class="bold" align="right"><?= $ledger[$i]['Month'] ?></td>
                                         <td class="bold" align="right"><?= $ledger[$i]['AccNo'] ?></td>
                                         <td class="bold" align="center"><?= $ledger[$i]['Remarks'] ?></td>
                                         <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></td>
@@ -76,14 +72,14 @@
 
                                     <?php if(isset($ledger[$i+1]['IDNumber']) && $ledger[$i+1]['IDNumber'] !== $cur_id || $i == (count($ledger)-1)) : ?>
                                         <?php
-                                            $subtotal_balance = $subtotal_debit + $subtotal_credit;
+                                            $subtotal_balance = $subtotal_debit - $subtotal_credit;
                                         ?>
                                         <tr class="font-white sbold">
-                                            <td class="bold" align="right" colspan="8">Beginning Balance</td>
-                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em"><?= number_format($ledger[$i]['Balance'], 0, ',', '.') ?></td>
+                                            <td class="bold" align="right" colspan="7">Beginning Balance</td>
+                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="2" style="font-size: 1.25em"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></td>
                                         </tr>
                                         <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
-                                            <td align="right" colspan="8">Total :</td>                                    
+                                            <td align="right" colspan="6">Total :</td>                                    
                                             <td align="right"><?= number_format($subtotal_debit, 0, ',', '.') ?></td>
                                             <td align="right"><?= number_format($subtotal_credit, 0, ',', '.') ?></td>
                                             <td align="right" class="font-white sbold bg bg-blue-ebonyclay"><?= number_format($subtotal_balance, 0, ',', '.') ?></td>
