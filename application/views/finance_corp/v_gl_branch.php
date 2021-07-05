@@ -119,7 +119,11 @@
                                         </button>
                                     </span> -->
                                     <span class="input-group-btn">
-                                        <a id="print_report" href="<?= base_url('FinanceCorp/view_gl_branch_report') ?>" target="_blank" class="btn btn-xs btn green hidden-print pull-right" style="margin-left: 5px">
+                                        <?php
+                                            $date_start = date('Y-01-01');
+                                            $date_finish = date('Y-m-d');
+                                        ?>
+                                        <a id="print_report" href="<?= base_url("FinanceCorp/view_gl_branch_report?branch=All&accno_start=10000&accno_finish=99999&date_start=$date_start&date_finish=$date_finish") ?>" target="_blank" class="btn btn-xs btn green hidden-print pull-right" style="margin-left: 5px">
                                             <i class="fa fa-plus"></i>&nbsp;Print</i>
                                         </a>
                                         <a onclick="window.close();" class="btn btn-xs btn red hidden-print pull-right"><i class="fa fa-close"></i> Close</a>
@@ -200,7 +204,7 @@
 
                                             <?php if(isset($ledger[$i+1]['Branch']) && $ledger[$i+1]['Branch'] !== $cur_branch || $i == (count($ledger)-1)) : ?>
                                                 <?php
-                                                    $subtotal_balance = $subtotal_debit - $subtotal_credit;
+                                                    $subtotal_balance = $subtotal_debit + $subtotal_credit;
                                                 ?>
                                                 <tr class="font-white sbold">
                                                     <td class="bold" align="right" colspan="9">Beginning Balance</td>

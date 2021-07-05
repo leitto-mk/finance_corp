@@ -10,8 +10,11 @@ class Mdl_corp_branch extends CI_Model
 
    function get_account_no(){
       return $this->db->select('Acc_No, Acc_Name')
-                      ->order_by('Acc_No', 'ASC')   
-                      ->get('tbl_fa_account_no')->result();
+                      ->order_by('Acc_No', 'ASC')
+                      ->get_where('tbl_fa_account_no', [
+                        'Acc_No !=' => 'H'
+                      ])   
+                      ->result();
    }
 
    function get_general_ledger($branch, $accno_start, $accno_finish, $datestart, $datefinish){
@@ -54,6 +57,7 @@ class Mdl_corp_branch extends CI_Model
           WHERE $branch_condition
           AND trans.AccNo BETWEEN $accno_start AND $accno_finish
           AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
+          AND trans.PostedStatus = 1
           ORDER BY Branch, AccNo, TransDate, DocNo, CtrlNo"
       )->result_array();
 

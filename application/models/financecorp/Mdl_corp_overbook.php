@@ -28,7 +28,9 @@ class Mdl_corp_overbook extends CI_Model
         return $this->db
                 ->order_by('Acc_No', 'ASC')
                 ->select('Acc_No, Acc_Name, Acc_Type')
-                // ->where_in('Acc_Type', ['L','C','R','A1'])
+                ->where("Acc_No BETWEEN 11100 AND 11300")
+                ->where('Acc_No !=', '11100')
+                ->where('Acc_No !=', '11200')
                 ->get('tbl_fa_account_no')
                 ->result();
     }
@@ -37,7 +39,7 @@ class Mdl_corp_overbook extends CI_Model
         return $this->db->get('tbl_fa_mas_cur')->result();
     }
 
-    public function get_overbook_last_balance($nis){
+    public function get_emp_last_balance($nis){
         $query = $this->db->select('Balance')
                       ->limit(1)
                       ->order_by('CtrlNo', 'DESC')
@@ -48,35 +50,16 @@ class Mdl_corp_overbook extends CI_Model
         return ($query ? $query->Balance : 0);
     }
 
-    public function get_accno_balance($accno){
-        $query = $this->db->select('BalanceAccNo')
-                      ->limit(1)
-                      ->order_by('CtrlNo', 'DESC')
-                      ->get_where('tbl_fa_transaction', [
-                         'AccNo' => $accno
-                      ])->row();
-
-        return ($query ? $query->BalanceAccNo : 0);
-    }
-
-    public function get_branch_balance($branch){
+    public function get_branch_last_balance($branch, $accno){
         $query = $this->db->select('BalanceBranch')
                       ->limit(1)
                       ->order_by('CtrlNo', 'DESC')
                       ->get_where('tbl_fa_transaction', [
-                         'Branch' => $branch
+                         'Branch' => $branch,
+                         'AccNo' => $accno
                       ])->row();
 
         return ($query ? $query->BalanceBranch : 0);
-    }
-
-    public function get_gl_balance(){
-        $query = $this->db->select('BalanceGL')
-                      ->limit(1)
-                      ->order_by('CtrlNo', 'DESC')
-                      ->get('tbl_fa_transaction')->row();
-
-        return ($query ? $query->BalanceGL : 0);
     }
 
     public function submit_overbook($master, $details, $trans){

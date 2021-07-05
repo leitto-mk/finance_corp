@@ -31,7 +31,7 @@
                                 <!-- BEGIN PAGE CONTENT INNER -->
                                 <div class="page-content-inner">
                                     <!-- Content Start -->
-                                    <form method="post" class="form-horizontal" id="form_entry_payment" autocomplete="off">
+                                    <form method="post" class="form-horizontal" id="form_general_journal" autocomplete="off">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="portlet light" style="height: 200px">
@@ -69,16 +69,22 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="date" id="m_transdate" name="m_transdate" class="form-control" value="<?php echo date('Y-m-d') ?>" required>
+                                                                            <input type="date" id="transdate" name="transdate" class="form-control" value="<?php echo date('Y-m-d') ?>" required>
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Paid To</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
-                                                                                <input type="text" class="form-control" id="m_emp" name="m_emp" placeholder="Search for...">
+                                                                                <input type="text" class="form-control" id="paidto" name="paidto" placeholder="Search for...">
                                                                                 <span class="input-group-btn">
                                                                                     <button class="btn btn-primary" type="button" id="paid_branch" data-target="#insert_paid" data-toggle="modal"><i class="fa fa-plus"></i> Add</button>
                                                                                 </span>
                                                                             </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-md-2 control-label"><b>Remark</b></label>
+                                                                        <div class="col-md-10">
+                                                                            <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -116,7 +122,7 @@
                                             <div class="col-md-12">
                                                 <div class="portlet bordered light bg-blue-dark">
                                                     <div class="portlet-body">
-                                                        <div id="r_tbl_stockcode" class="portlet" style="margin-bottom: 5px;">
+                                                        <div class="portlet" style="margin-bottom: 5px;">
                                                             <div class="portlet-title">
                                                                 <div class="caption">
                                                                     <span class="caption-subject font-white"><i class="icon-list"></i> Detail Transaction </span>
@@ -134,9 +140,8 @@
                                                                         <th class="text-center"> Paid To </th>
                                                                         <th class="text-center"> Account No. </th>
                                                                         <th class="text-center"> Currency </th>
-                                                                        <th class="text-center"> Rate </th>
-                                                                        <th class="text-center"> Unit </th>
-                                                                        <th class="text-center"> Amount </th>
+                                                                        <th class="text-center"> Debit </th>
+                                                                        <th class="text-center"> Credit </th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody_detail">
@@ -157,9 +162,7 @@
                                                                             <select name="accnos[]" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
                                                                                 <?php foreach($accno as $accnos) : ?>
-                                                                                    <?php if($accnos->Acc_Type == 'R') : ?>
-                                                                                        <option value="<?= $accnos->Acc_No ?>"><?= $accnos->Acc_No ?> | <?= $accnos->Acc_Name ?> - [<?= $accnos->Acc_Type?>]</option>
-                                                                                    <?php endif; ?>
+                                                                                    <option value="<?= $accnos->Acc_No ?>"><?= $accnos->Acc_No ?> | <?= $accnos->Acc_Name ?> - [<?= $accnos->Acc_Type?>]</option>
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </td>
@@ -170,9 +173,15 @@
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </td>
-                                                                        <td><input type="number" name="rate[]" class="form-control" min="1" value="1" required></td>
-                                                                        <td><input type="number" name="unit[]" class="form-control" required></td>
-                                                                        <td><input type="" name="amount[]" class="form-control" readonly></td>
+                                                                        <td><input type="number" name="debit[]" class="form-control" min="0" value="0" required></td>
+                                                                        <td><input type="number" name="credit[]" class="form-control" min="0" value="0" required></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="text-right sbold uppercase" colspan="7" style="padding-top: 15px">Total</td>
+                                                                        <td><input type="number" id="total_debit" class="form-control" value="0"></td>
+                                                                        <td><input type="number" id="total_credit" class="form-control" value="0"></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

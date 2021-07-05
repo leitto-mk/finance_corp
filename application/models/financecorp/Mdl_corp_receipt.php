@@ -28,8 +28,9 @@ class Mdl_corp_receipt extends CI_Model
         return $this->db
                 ->order_by('Acc_No', 'ASC')
                 ->select('Acc_No, Acc_Name, Acc_Type')
-                // ->where_in('Acc_Type', ['L','C','R','A1'])
-                ->get('tbl_fa_account_no')
+                ->get_where('tbl_fa_account_no', [
+                    'Acc_Type !=' => 'H'
+                ])
                 ->result();
     }
 
@@ -59,45 +60,6 @@ class Mdl_corp_receipt extends CI_Model
 
         return ($query ? $query->BalanceBranch : 0);
     }
-
-    // public function get_beg_balance($branch, $accno, $transdate, $docno, $amount){
-    //     $query = $this->db->select('Balance')
-    //                      ->limit(1)
-    //                      ->order_by('CtrlNo', 'DESC')
-    //                      ->get_where('tbl_fa_transaction_last_bal', [
-    //                          'BranchCode' => $branch,
-    //                          'Acc_No' => $accno
-    //                      ]);
-
-    //     if($query->num_rows() == 0){
-    //         $this->db->insert('tbl_fa_transaction_last_bal', [
-    //             'BranchCode' => $branch,
-    //             'BranchName' => $this->db->select('BranchName')->get_where('abase_02_branch', ['BranchCode' => $branch])->row()->BranchName,
-    //             'Acc_No' => $accno,
-    //             'Acc_Name' => $this->db->select('Acc_Name')->get_where('tbl_fa_account_no', ['Acc_No' => $accno])->row()->Acc_Name,
-    //             'TransDate' => $transdate,
-    //             'DocNo' => $docno,
-    //             'Balance' => $amount
-    //         ]);
-
-    //         $balance = 0;
-    //     }else{
-    //         $last_bal = $query->row()->Balance;
-            
-    //         $this->db->update('tbl_fa_transaction_last_bal', [
-    //             'TransDate' => $transdate,
-    //             'DocNo' => $docno,
-    //             'Balance' => $last_bal + $amount
-    //         ], [
-    //             'BranchCode' => $branch,
-    //             'Acc_No' => $accno
-    //         ]);
-
-    //         $balance = $last_bal;
-    //     }
-
-    //     return $balance;
-    // }
 
     public function submit_receipt($master, $details, $trans){
         $this->db->trans_begin();

@@ -143,10 +143,7 @@ var GLBranch = () => {
             date_start = $('#date_start').val()
             date_finish = $('#date_finish').val()
             
-            if(!branch || !accno_start || !accno_finish || !date_start || !date_finish){
-                alert('Please Select All Filter!')
-                return;
-            }else if(accno_start > accno_finish){
+            if(accno_start > accno_finish){
                 alert('Account Number Start must be higher or equal!')
                 return;
             }else if(new Date(date_start) > new Date(date_finish)){

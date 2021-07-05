@@ -12,6 +12,8 @@ class FinanceCorp extends CI_Controller
         $this->load->model('financecorp/Mdl_corp_receipt');
         $this->load->model('financecorp/Mdl_corp_payment');
         $this->load->model('financecorp/Mdl_corp_overbook');
+        $this->load->model('financecorp/Mdl_corp_general');
+
         $this->load->model('financecorp/Mdl_corp_branch');
         $this->load->model('financecorp/Mdl_corp_personal');
     }
@@ -146,7 +148,7 @@ class FinanceCorp extends CI_Controller
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) -  0;
-                $emp_bal = ($emp_beg_bal + $_POST['amount'][$i]) - 0;
+                $emp_bal = ($emp_beg_bal - $_POST['amount'][$i]) - 0;
             }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1'){
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
@@ -312,7 +314,7 @@ class FinanceCorp extends CI_Controller
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) - 0;
-                $emp_bal = ($emp_beg_bal + $_POST['amount'][$i]) - 0;
+                $emp_bal = ($emp_beg_bal - $_POST['amount'][$i]) - 0;
             }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1'){
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
@@ -378,7 +380,148 @@ class FinanceCorp extends CI_Controller
             'script' => 'fincorp_add_overbook'
         ];
         
-        $this->load->view('finance_corp/v_add_receipt_voucher', $data);
+        $this->load->view('finance_corp/v_add_overbook_voucher', $data);
+    }
+
+    public function ajax_submit_overbook(){
+        $master = $details = $trans = [];
+
+        $cur_nis = '';
+        $cur_branch = '';
+        $itemno = 0;
+
+        //COUNTER BALANCE ACCTYPE
+        $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
+
+        //SET BEGINNING BALANCE
+        $counter_beg_bal = $this->Mdl_corp_overbook->get_branch_last_balance($_POST['branch'], $_POST['accno']);
+
+        //COUNTER BALANCE
+        if($acctype == 'A' || $acctype == 'E'){
+            $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
+        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1'){
+            $counter_balance = ($counter_beg_bal - 0) + $_POST['totalamount'];    
+        }
+
+        //COUNTER-BALANCE
+        array_push($trans, [
+            'DocNo' => $_POST['docno'],
+            'TransDate' => $_POST['transdate'],
+            'TransType' => 'PAYMENT',
+            'JournalGroup' => $_POST['journalgroup'],
+            'Branch' => $_POST['branch'],
+            'Department' => '',
+            'CostCenter' => '',
+            'Giro' => $_POST['giro'],
+            'ItemNo' => $itemno,
+            'AccNo' => $_POST['accno'],
+            'AccType' => $acctype,
+            'IDNumber' => $_POST['paidto'],
+            'Currency' => 'IDR',
+            'Rate' => 1,
+            'Unit' => $_POST['totalamount'],
+            'Amount' => $_POST['totalamount'],
+            'Debit' => 0,
+            'Credit' => $_POST['totalamount'],
+            'Balance' => 0,
+            'BalanceBranch' => $counter_balance,
+            'Remarks' => $_POST['remark'],
+            'EntryBy' => '',
+            'EntryDate' => date('Y-m-d h:m:s')
+        ]);
+
+        array_push($master, [
+            'DocNo' => $_POST['docno'],
+            'IDNumber' => $_POST['paidto'],
+            'SubmitBy' => '',
+            'TransType' => 'RECEIPT',
+            'TransDate' => $_POST['transdate'],
+            'JournalGroup' => $_POST['journalgroup'],
+            'AccNo' => $_POST['accno'],
+            'Giro' => $_POST['giro'],
+            'Remarks' => $_POST['remark'],
+            'Branch' => $_POST['branch'],
+            'TotalAmount' => $_POST['totalamount'],
+            'Department' => '',
+            'CostCenter' => ''
+        ]);
+        
+        $cur_emp_bal = 0;
+        $cur_branch_bal = 0;
+        for($i = 0; $i < count($_POST['itemno']); $i++){
+            $itemno += 1;
+            $debit = $_POST['amount'][$i];
+            $credit = 0;
+
+            //DETAIL ACCTYPE
+            $acctypes = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accnos'][$i]])->row()->Acc_Type;
+
+            array_push($details, [
+                'DocNo' => $_POST['docno'],
+                'IDNumber' => $_POST['emp'][$i],
+                'FullName' => $this->db->select('FullName')->get_where('tbl_fa_hr_append', ['IDNumber' => $_POST['emp'][$i]])->row()->FullName,
+                'AccNo' => $_POST['accnos'][$i],
+                'Department' => $_POST['departments'][$i],
+                'CostCenter' => $_POST['costcenters'][$i],
+                'Remarks' => $_POST['remarks'][$i],
+                'Currency' => $_POST['currency'][$i],
+                'Rate' => $_POST['rate'][$i],
+                'Unit' => $_POST['unit'][$i],
+                'Amount' => $_POST['amount'][$i],
+                'Debit' => 0,
+                'Credit' => $_POST['amount'][$i]
+            ]);
+
+            $branch_beg_bal = $this->Mdl_corp_overbook->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i]);
+            $emp_beg_bal = $this->Mdl_corp_overbook->get_emp_last_balance($_POST['emp'][$i]);
+
+            if($acctypes == 'A' || $acctypes == 'E'){
+                /**
+                 * (BEGINNING BALANCE + DEBIT) - CREDIT
+                 */
+                $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) - 0;
+                $emp_bal = ($emp_beg_bal - $_POST['amount'][$i]) - 0;
+            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1'){
+                /**
+                 * (BEGINNING BALANCE - DEBIT) + CREDIT
+                 */
+                $branch_bal = ($branch_beg_bal - $_POST['amount'][$i]) + 0;
+                $emp_bal = ($emp_beg_bal + 0) - $_POST['amount'][$i];
+            }
+
+            //EMPLOYEE BALANCE
+            array_push($trans, [
+                'DocNo' => $_POST['docno'],
+                'TransDate' => $_POST['transdate'],
+                'TransType' => 'PAYMENT',
+                'JournalGroup' => $_POST['journalgroup'],
+                'Branch' => $_POST['branch'],
+                'Department' => $_POST['departments'][$i],
+                'CostCenter' => $_POST['costcenters'][$i],
+                'Giro' => $_POST['giro'],
+                'ItemNo' => $itemno,
+                'AccNo' => $_POST['accnos'][$i],
+                'AccType' => $acctypes,
+                'IDNumber' => $_POST['emp'][$i],
+                'Currency' => $_POST['currency'][$i],
+                'Rate' => $_POST['rate'][$i],
+                'Unit' => $_POST['unit'][$i],
+                'Amount' => $_POST['amount'][$i],
+                'Debit' => $_POST['amount'][$i],
+                'Credit' => 0,
+                'Balance' => $emp_bal,
+                'BalanceBranch' => $cur_branch_bal + $branch_bal,
+                'Remarks' => $_POST['remarks'][$i],
+                'EntryBy' => '',
+                'EntryDate' => date('Y-m-d h:m:s')
+            ]);
+
+            $cur_branch_bal += $branch_bal;
+        }
+
+        $result = $this->Mdl_corp_overbook->submit_overbook($master, $details, $trans);
+
+        echo $result;
     }
 
     //GENERAL JOURNAL
@@ -395,8 +538,8 @@ class FinanceCorp extends CI_Controller
             'title' => 'Form General Journal',
             
             'docno' => $this->Mdl_corp_payment->get_new_payment_docno(),
-            'accno' => $this->Mdl_corp_payment->get_mas_acc(),
             'branch' => $this->Mdl_corp_payment->get_branch(),
+            'accno' => $this->Mdl_corp_payment->get_mas_acc(),
             'employee' => $this->Mdl_corp_payment->get_employee(),
             'currency' => $this->Mdl_corp_payment->get_currency(),
 
@@ -404,6 +547,10 @@ class FinanceCorp extends CI_Controller
         ];
         
         $this->load->view('finance_corp/v_add_general_journal', $data);
+    }
+
+    function ajax_submit_general_journal(){
+        
     }
 
     function add_ca_withdrawl()

@@ -17,12 +17,11 @@ assets/pages/**
 assets/photos/**
 assets/bootzard-registration/**
 assets/colorlib/**
-assets/colorlib/**
 assets/CUSTOM-PLUGINS/**
 assets/.DS_Store
-system/**
-template/**
-user_guide/**
+system/
+template/
+user_guide/
 upload/**
 .editorconfig
 .htaccess

@@ -30,6 +30,7 @@ class Mdl_corp_personal extends CI_Model
                ON trans.AccNo = acc.Acc_No
             INNER JOIN tbl_fa_hr_append as hr
                ON trans.IDNumber = hr.IDNumber
+            WHERE trans.PostedStatus = 1
             ORDER BY trans.IDNumber, trans.CtrlNo ASC"
       )->result_array();
   }
