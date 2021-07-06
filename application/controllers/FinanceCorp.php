@@ -5,8 +5,7 @@ date_default_timezone_set('Asia/Makassar');
 
 class FinanceCorp extends CI_Controller
 {
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
 
         $this->load->model('financecorp/Mdl_corp_receipt');
@@ -19,23 +18,20 @@ class FinanceCorp extends CI_Controller
     }
 
     //DASHBOARD
-    function index()
-    {
+    function index(){
         $data['title'] = 'Dashboard';
         
         $this->load->view('finance_corp/dashboard/v_home', $data);
     }
 
     //RECEIPT VOUCHER
-    function view_receipt_voucher()
-    {
+    function view_receipt_voucher(){
         $data['title'] = 'List Receipt Voucher';
         
         $this->load->view('finance_corp/v_receipt_voucher', $data);
     }
 
-    function add_receipt_voucher()
-    {
+    function add_receipt_voucher(){
         $data = [
             'title' => 'Form Receipt Voucher',
             
@@ -193,15 +189,13 @@ class FinanceCorp extends CI_Controller
     }
 
     //PAYMENT VOUCHER
-    function view_payment_voucher()
-    {
+    function view_payment_voucher(){
         $data['title'] = 'List Payment Voucher';
         
         $this->load->view('finance_corp/v_payment_voucher', $data);
     }
 
-    function add_payment_voucher()
-    {
+    function add_payment_voucher(){
         $data = [
             'title' => 'Form payment Voucher',
             
@@ -359,15 +353,13 @@ class FinanceCorp extends CI_Controller
     }
 
     //OVERBOOK VOUCHER
-    function view_overbook_voucher()
-    {
+    function view_overbook_voucher(){
         $data['title'] = 'List Overbook Voucher';
         
         $this->load->view('finance_corp/v_overbook_voucher', $data);
     }
 
-    function add_overbook_voucher()
-    {
+    function add_overbook_voucher(){
         $data = [
             'title' => 'Form Overbook Voucher',
             
@@ -525,15 +517,13 @@ class FinanceCorp extends CI_Controller
     }
 
     //GENERAL JOURNAL
-    function view_general_journal()
-    {
+    function view_general_journal(){
         $data['title'] = 'List General Journal';
         
         $this->load->view('finance_corp/v_general_journal', $data);
     }
 
-    function add_general_journal()
-    {
+    function add_general_journal(){
         $data = [
             'title' => 'Form General Journal',
             
@@ -553,23 +543,31 @@ class FinanceCorp extends CI_Controller
         
     }
 
-    function add_ca_withdrawl()
-    {
-        $data['title'] = 'Form Cash Advance Withdrawl';
+    //CASH ADVANCE WITHDRAW
+    function add_ca_withdraw(){
+        $data = [
+            'title' => 'Form Cash Advance Withdraw',
+            
+            'docno' => $this->Mdl_corp_payment->get_new_payment_docno(),
+            'accno' => $this->Mdl_corp_payment->get_mas_acc(),
+            'branch' => $this->Mdl_corp_payment->get_branch(),
+            'employee' => $this->Mdl_corp_payment->get_employee(),
+            'currency' => $this->Mdl_corp_payment->get_currency(),
+
+            'script' => 'fincorp_add_ca_withdraw'
+        ];
         
-        $this->load->view('finance_corp/v_add_ca_withdrawl', $data);
+        $this->load->view('finance_corp/v_add_ca_withdraw', $data);
     }
 
-    function add_ca_receipt()
-    {
+    function add_ca_receipt(){
         $data['title'] = 'Form Cash Advance Receipt';
         
         $this->load->view('finance_corp/v_add_ca_receipt', $data);
     }
 
     //GL REPORT
-    function view_gl()
-    {
+    function view_gl(){
         $data['title'] = 'General Ledger';
         $data['h1'] = 'General';
         $data['h2'] = 'Ledger';
@@ -578,8 +576,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/v_gl', $data);
     }
 
-    function view_gl_branch()
-    {
+    function view_gl_branch(){
         $branch = 'All';
         $accno_start = $this->db->select('Acc_No')->order_by('Acc_No','ASC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
         $accno_finish = $this->db->select('Acc_No')->order_by('Acc_No','DESC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
@@ -641,8 +638,7 @@ class FinanceCorp extends CI_Controller
         echo json_encode($result);
     }
 
-    function view_gl_personal()
-    {
+    function view_gl_personal(){
         $data = [
             'title' => 'Sub Ledger',
             'h1' => 'Sub',

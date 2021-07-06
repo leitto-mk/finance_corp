@@ -158,6 +158,18 @@
                                             <span class="title">&bull;&nbsp;&nbsp;General Journal</span>
                                         </a>
                                     </li>
+                                    <li class="nav-item start">
+                                        <a href="<?= site_url('FinanceCorp/add_ca_withdraw') ?>" class="nav-link">
+                                            <!-- <i class="icon-bar-chart"></i> -->
+                                            <span class="title">&bull;&nbsp;&nbsp;Cash Advance Withdraw</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start">
+                                        <a href="<?= site_url('FinanceCorp/add_ca_receipt') ?>" class="nav-link">
+                                            <!-- <i class="icon-bar-chart"></i> -->
+                                            <span class="title">&bull;&nbsp;&nbsp;Cash Advance Receipt</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-head nav-item active">
