@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Mdl_corp_ca_withdraw extends CI_Model
+class Mdl_corp_ca_receipt extends CI_Model
 {
     public function get_new_payment_docno(){
         $iteration = date('Y') . '-' . date('m');

@@ -44,9 +44,6 @@
                                                                 <button class="btn btn-transparent green btn-sm" id="btn_submit" type="submit">
                                                                     <i class="fa fa-check"></i> Submit
                                                                 </button>
-                                                                <a class="btn yellow" id="btn_new">
-                                                                    <i class="fa fa-plus"></i> New
-                                                                </a>
                                                                 <a class="btn blue-madison btn-sm" id="tools_print_exprt">
                                                                     <i class="fa fa-print"></i> Print
                                                                 </a>
@@ -82,7 +79,7 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="date" id="transdate" name="transdate" class="form-control" value="<?= date('Y-m-d') ?>" min="<?= date('Y-m-d') ?>" required>
+                                                                            <input type="date" id="transdate" name="transdate" class="form-control" value="<?= date('Y-m-d') ?>"required>
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">

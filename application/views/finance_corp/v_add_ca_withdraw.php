@@ -31,7 +31,7 @@
                                 <!-- BEGIN PAGE CONTENT INNER -->
                                 <div class="page-content-inner">
                                     <!-- Content Start -->
-                                    <form method="post" class="form-horizontal" id="form_entry_payment" autocomplete="off">
+                                    <form method="post" class="form-horizontal" id="form_ca_withdraw" autocomplete="off">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="portlet light" style="height: 350px">
@@ -44,9 +44,6 @@
                                                                 <button class="btn btn-transparent green btn-sm" id="btn_submit" type="submit">
                                                                     <i class="fa fa-check"></i> Submit
                                                                 </button>
-                                                                <a class="btn yellow" id="btn_new">
-                                                                    <i class="fa fa-plus"></i> New
-                                                                </a>
                                                                 <a class="btn blue-madison btn-sm" id="tools_print_exprt">
                                                                     <i class="fa fa-print"></i> Print
                                                                 </a>
@@ -84,7 +81,12 @@
                                                                         <label class="col-md-2 control-label"><b>Employee ID</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
-                                                                                <input type="text" class="form-control" id="m_emp" name="m_emp" placeholder="Search for...">
+                                                                                <select id="emp_master_id" name="emp_master_id" class="form-control" required>
+                                                                                    <option value="">--Choose ID--</option>
+                                                                                    <?php foreach($employee as $emp_master_id) : ?>
+                                                                                        <option value="<?= $emp_master_id->IDNumber ?>" data-fullname="<?= $emp_master_id->FullName ?>" data-branch="<?= $emp_master_id->Branch ?>" data-dept="<?= $emp_master_id->DeptCode ?>" data-cc="<?= $emp_master_id->CostCenter ?>"><?= $emp_master_id->IDNumber ?></option>
+                                                                                    <?php endforeach; ?>
+                                                                                </select>
                                                                                 <span class="input-group-btn">
                                                                                     <button class="btn btn-primary" type="button" id="paid_branch" data-target="#insert_paid" data-toggle="modal"><i class="fa fa-plus"></i> Add</button>
                                                                                 </span>
@@ -99,7 +101,7 @@
                                                                         <label class="col-md-2 control-label hidden"><b>Journal Group</b></label>
                                                                         <label class="col-md-2 control-label"></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="text" class="form-control" placeholder="Nama Employee" readonly>
+                                                                            <input type="text" id="emp_master_name" name="emp_master_name" class="form-control" placeholder="Nama Employee" readonly>
                                                                         </div>
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_namestd"><b></b></span>
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
@@ -126,7 +128,7 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Remarks</b></label>
                                                                         <div class="col-md-10">
-                                                                            <textarea id="m_remarks" name="m_remarks" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
+                                                                            <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -159,7 +161,7 @@
                                                                     <div class="row static-info">
                                                                         <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                                         <div class="col-md-12 value" style="margin-top: -15px">
-                                                                            <b><input style="text-align:left; background: #E9EDEF;  border:none;" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control"></b>
+                                                                            <b><input id="giro" name="giro" style="text-align:left; background: #E9EDEF;  border:none;" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control"></b>
                                                                         </div>
                                                                     </div>
                                                                 </div>

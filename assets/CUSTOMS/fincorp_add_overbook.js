@@ -72,7 +72,7 @@ var addOverbook = () => {
     }
 
     const eventSubmitOverbook = () => {
-        $('#form_overbook_voucher').submit(function(e){
+        $('#form_overbook').submit(function(e){
             e.preventDefault()
             
             let obj = $(this).serializeArray()

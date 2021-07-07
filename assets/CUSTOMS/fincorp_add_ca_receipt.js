@@ -2,7 +2,7 @@
 /*
  *  CORE SCRIPT
 */
-var addCAWithdraw = () => {
+var addCAReceipt = () => {
     // const eventSelectCurrency = () => {
     //     $(document).on('change', '[name="currency[]"]', function(){
     //         const API_KEY = 'efa820d81d9a4c6bb64b469e432b033e'
@@ -82,14 +82,14 @@ var addCAWithdraw = () => {
         })
     }
 
-    const eventSubmitCAWithdraw = () => {
-        $('#form_ca_withdraw').submit(function(e){
+    const eventSubmitCAReceipt = () => {
+        $('#form_ca_receipt').submit(function(e){
             e.preventDefault()
             
             let obj = $(this).serializeArray()
 
             $.ajax({
-                url: 'ajax_submit_ca_withdraw',
+                url: 'ajax_submit_ca_receipt',
                 method: 'POST',
                 data: obj,
                 success: response => {
@@ -99,7 +99,7 @@ var addCAWithdraw = () => {
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
-                            'text': 'WITHDRAWAL HAS BEEN SUBMITTED'
+                            'text': 'CA Receipt HAS BEEN SUBMITTED'
                         })
 
                         location.reload()
@@ -122,13 +122,13 @@ var addCAWithdraw = () => {
             eventSelectEmployee()
             eventNextRow()
             eventInputUnit()
-            eventSubmitCAWithdraw()
+            eventSubmitCAReceipt()
         }
     }
 }
 
 /* INITIALIZE CORE SCRIPT */
 (function(){
-    addCAWithdraw().init()
-    addCAWithdraw().events()
+    addCAReceipt().init()
+    addCAReceipt().events()
 })()
