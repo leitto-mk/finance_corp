@@ -39,7 +39,7 @@ class Mdl_corp_branch extends CI_Model
             trans.CostCenter,
             trans.AccNo,
             trans.Remarks,
-            trans.Debit, 
+            trans.Debit,
             trans.Credit, 
             trans.Currency,
             (SELECT BalanceBranch 
@@ -58,7 +58,7 @@ class Mdl_corp_branch extends CI_Model
           AND trans.AccNo BETWEEN $accno_start AND $accno_finish
           AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
           AND trans.PostedStatus = 1
-          ORDER BY Branch, AccNo, TransDate, DocNo, CtrlNo"
+          ORDER BY Branch, TransDate, AccNo, DocNo, CtrlNo ASC"
       )->result_array();
 
       return $result;

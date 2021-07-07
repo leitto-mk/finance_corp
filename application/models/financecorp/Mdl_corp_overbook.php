@@ -28,7 +28,7 @@ class Mdl_corp_overbook extends CI_Model
         return $this->db
                 ->order_by('Acc_No', 'ASC')
                 ->select('Acc_No, Acc_Name, Acc_Type')
-                ->where("Acc_No BETWEEN 11100 AND 11300")
+                ->where("Acc_No BETWEEN 11100 AND 11299")
                 ->where('Acc_No !=', '11100')
                 ->where('Acc_No !=', '11200')
                 ->get('tbl_fa_account_no')

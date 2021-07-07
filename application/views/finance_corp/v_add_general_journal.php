@@ -134,7 +134,7 @@
                                                                         <th class="text-center"> Remarks Detail </th>
                                                                         <th class="text-center"> Department </th>
                                                                         <th class="text-center"> Cost Center </th>
-                                                                        <th class="text-center"> Paid To </th>
+                                                                        <!-- <th class="text-center"> Paid To </th> -->
                                                                         <th class="text-center"> Account No. </th>
                                                                         <th class="text-center"> Currency </th>
                                                                         <th class="text-center"> Debit </th>
@@ -147,14 +147,14 @@
                                                                         <td><input type="text" name="remarks[]" class="form-control" required></td>
                                                                         <td><input type="text" name="departments[]" class="form-control" required></td>
                                                                         <td><input type="text" name="costcenters[]" class="form-control" required><span class="input-group-btn" type="button"></span></td>
-                                                                        <td>
+                                                                        <!-- <td>
                                                                             <select name="emp[]" class="form-control" required>
                                                                                 <option value="">--Choose ID--</option>
                                                                                 <?php foreach($employee as $emp) : ?>
                                                                                     <option value="<?= $emp->IDNumber ?>" data-fullname="<?= $emp->FullName ?>" data-dept="<?= $emp->DeptCode ?>" data-cc="<?= $emp->CostCenter ?>"><?= $emp->IDNumber ?> - <?= $emp->FullName ?></option>
                                                                                 <?php endforeach; ?>
                                                                             </select>
-                                                                        </td>
+                                                                        </td> -->
                                                                         <td>
                                                                             <select name="accnos[]" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
@@ -177,8 +177,8 @@
                                                                 <tbody>
                                                                     <tr>
                                                                         <td class="text-right sbold uppercase" colspan="7" style="padding-top: 15px">Total</td>
-                                                                        <td><input type="number" id="total_debit" class="form-control" value="0"></td>
-                                                                        <td><input type="number" id="total_credit" class="form-control" value="0"></td>
+                                                                        <td><input type="number" id="total_debit" name="total_debit" class="form-control" value="0"></td>
+                                                                        <td><input type="number" id="total_credit" name="total_credit" class="form-control" value="0"></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

@@ -8,12 +8,12 @@ var addGeneral = () => {
                 let remarks = $(this).parents('tr').find('input[name="remarks[]"]').val()
                 let departments = $(this).parents('tr') .find('input[name="departments[]"]').val()
                 let costcenters = $(this).parents('tr') .find('input[name="costcenters[]"]').val()
-                let emp  = $(this).parents('tr') .find('select[name="emp[]"]').val()
+                // let emp  = $(this).parents('tr') .find('select[name="emp[]"]').val()
                 let accnos = $(this).parents('tr') .find('select[name="accnos[]"]').val()
                 let debit = $(this).parents('tr') .find('input[name="debit[]"]').val()
                 let credit = $(this).parents('tr') .find('input[name="credit[]"]').val()
 
-                if(!remarks || !departments || !costcenters || !emp || !accnos || !debit || !credit){
+                if(!remarks || !departments || !costcenters || !accnos || !debit || !credit){
                     alert('PLEASE FILL ALL THE INPUT')
                     return
                 }

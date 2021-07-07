@@ -31,13 +31,23 @@ var addCAReceipt = () => {
                 let remarks = $(this).parents('tr').find('input[name="remarks[]"]').val()
                 let departments = $(this).parents('tr') .find('input[name="departments[]"]').val()
                 let costcenters = $(this).parents('tr') .find('input[name="costcenters[]"]').val()
-                let emp  = $(this).parents('tr') .find('select[name="emp[]"]').val()
+                // let emp  = $(this).parents('tr') .find('select[name="emp[]"]').val()
                 let accnos = $(this).parents('tr') .find('select[name="accnos[]"]').val()
                 let currency = $(this).parents('tr') .find('select[name="currency[]"]').val()
                 let rate = $(this).parents('tr') .find('input[name="rate[]"]').val()
                 let unit = $(this).parents('tr') .find('input[name="unit[]"]').val()
 
-                if(!remarks || !departments || !costcenters || !emp || !accnos || !currency || !rate || !unit){
+                console.log({
+                    remarks,
+                    departments,
+                    costcenters ,
+                    accnos,
+                    currency,
+                    rate,
+                    unit
+                })
+
+                if(!remarks || !departments || !costcenters || !accnos || !currency || !rate || !unit){
                     alert('PLEASE FILL ALL THE INPUT')
                     
                     return

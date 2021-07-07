@@ -17,7 +17,7 @@
                     <div>
                         <font size="6">Company Name</font><br>
                         <font size="4" class="font-dark sbold">General Ledger</font><br>
-                        <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Period : <?= "01-Jan-" . date('Y')?> - <?= date('d-M-Y')?></font>
+                        <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Period : <?= $date_start ?> - <?= $date_end ?></font>
                     </div>
                 </div>
                 <br>

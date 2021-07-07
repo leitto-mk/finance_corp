@@ -95,8 +95,8 @@
                                                                         <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
                                                                         <div class="col-md-3">
                                                                             <select class="form-control" name="journalgroup" id="journalgroup" required>
-                                                                                <option selected="true" value="">--Select Journal--</option>
-                                                                                <option value="Cash">Cash</option>
+                                                                                <option value="">--Select Journal--</option>
+                                                                                <option value="Cash" selected>Cash</option>
                                                                                 <option value="Bank">Bank</option>
                                                                                 <option value="General Ledger">General Ledger</option>
                                                                             </select>
@@ -207,7 +207,7 @@
                                                                         <th class="text-center"> Remarks Detail </th>
                                                                         <th class="text-center"> Department </th>
                                                                         <th class="text-center"> Cost Center </th>
-                                                                        <th class="text-center"> Paid To </th>
+                                                                        <!-- <th class="text-center"> Paid To </th> -->
                                                                         <th class="text-center"> Account No. </th>
                                                                         <th class="text-center"> Currency </th>
                                                                         <th class="text-center"> Rate </th>
@@ -221,14 +221,14 @@
                                                                         <td><input type="text" name="remarks[]" class="form-control" required></td>
                                                                         <td><input type="text" name="departments[]" class="form-control" required></td>
                                                                         <td><input type="text" name="costcenters[]" class="form-control" required><span class="input-group-btn" type="button"></span></td>
-                                                                        <td>
+                                                                        <!-- <td>
                                                                             <select name="emp[]" class="form-control" required>
                                                                                 <option value="">--Choose ID--</option>
                                                                                 <?php foreach($employee as $emp) : ?>
                                                                                     <option value="<?= $emp->IDNumber ?>" data-fullname="<?= $emp->FullName ?>" data-dept="<?= $emp->DeptCode ?>" data-cc="<?= $emp->CostCenter ?>"><?= $emp->IDNumber ?> - <?= $emp->FullName ?></option>
                                                                                 <?php endforeach; ?>
                                                                             </select>
-                                                                        </td>
+                                                                        </td> -->
                                                                         <td>
                                                                             <select name="accnos[]" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
