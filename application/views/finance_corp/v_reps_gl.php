@@ -46,7 +46,7 @@
                                             <th class="text-center"> Trans Date </th>
                                             <th class="text-center"> Doc No </th>
                                             <th class="text-center"> Trans Type </th>
-                                            <th class="text-center"> Description </th>
+                                            <th class="text-left"> Description </th>
                                             <th class="text-center"> Dept. </th>
                                             <th class="text-center"> Cost Center </th>
                                             <th class="text-center"> Cry </th>

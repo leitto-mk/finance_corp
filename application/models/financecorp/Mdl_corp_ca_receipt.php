@@ -49,24 +49,44 @@ class Mdl_corp_ca_receipt extends CI_Model
         return ($query ? $query->Balance : 0);
     }
 
-    public function get_branch_last_balance($branch, $accno){
+    public function get_branch_last_balance($branch, $accno, $docno, $transdate){
         $query = $this->db->select('BalanceBranch')
                       ->limit(1)
-                      ->order_by('CtrlNo', 'DESC')
+                      ->order_by('DocNo', 'DESC')
                       ->get_where('tbl_fa_transaction', [
-                         'Branch' => $branch,
-                         'AccNo' => $accno
+                        'Branch' => $branch,
+                        'AccNo' => $accno,
+                        'DocNo <=' => $docno,
+                        'TransDate <=' => $transdate
                       ])->row();
 
         return ($query ? $query->BalanceBranch : 0);
     }
 
-    public function submit_payment($master, $details, $trans){
+    public function submit_ca_receipt($master, $details, $trans, $branch, $transdate, $accno_list){
         $this->db->trans_begin();
         
         $this->db->insert_batch('tbl_fa_treasury_mas', $master);
         $this->db->insert_batch('tbl_fa_treasury_det', $details);
         $this->db->insert_batch('tbl_fa_transaction', $trans);
+
+        //IF DOCNO TRANSDATE BELOW CURRENT DATE DO ENTIRE CALCULATION
+        $transdate = date('Y-m-d', strtotime($transdate));
+        $curdate = date('Y-m-d');
+        if($transdate < $curdate){
+            for($i = 0; $i < count($accno_list); $i++){
+                $cur_accno = array_keys($accno_list)[$i];
+                $cur_bal = $accno_list[$cur_accno];
+
+                $this->db->query("
+                    UPDATE tbl_fa_transaction
+                    SET BalanceBranch = (BalanceBranch + $cur_bal)
+                    WHERE Branch = '$branch'
+                    AND AccNo = '$cur_accno'
+                    AND TransDate > '$transdate'"
+                );
+            }
+        }
         
         $this->db->trans_complete();
         

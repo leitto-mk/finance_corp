@@ -79,7 +79,7 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="date" id="transdate" name="transdate" class="form-control" value="<?= date('Y-m-d') ?>" required>
+                                                                            <input type="date" id="transdate" name="transdate" class="form-control" required>
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
@@ -114,7 +114,7 @@
 
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="col-md-2 control-label"><b>Remark</b></label>
+                                                                        <label class="col-md-2 control-label"><b>Description</b></label>
                                                                         <div class="col-md-10">
                                                                             <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
                                                                         </div>
@@ -204,12 +204,12 @@
                                                                 <thead>
                                                                     <tr style="background-color: #22313F" class="font-white">
                                                                         <th class="text-center" width="3%">Item No</th>
-                                                                        <th class="text-center"> Remarks Detail </th>
+                                                                        <th class="text-center"> Description Det. </th>
                                                                         <th class="text-center"> Department </th>
                                                                         <th class="text-center"> Cost Center </th>
                                                                         <!-- <th class="text-center"> Paid To </th> -->
                                                                         <th class="text-center"> Account No. </th>
-                                                                        <th class="text-center"> Currency </th>
+                                                                        <th class="text-center"> Cry </th>
                                                                         <th class="text-center"> Rate </th>
                                                                         <th class="text-center"> Unit </th>
                                                                         <th class="text-center"> Amount </th>

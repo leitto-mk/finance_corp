@@ -14,6 +14,14 @@ var addReceipt = () => {
 
     const eventAddPaidTo = () => {}
 
+    const eventEnterToNextInput = () => {
+        $('#form_receipt_voucher').keydown(function(e){
+            if(e.keyCode == 13){
+                e.preventDefault
+            }
+        })
+    }
+
     const eventNextRow = () => {
         $(document).on('keydown','[name="unit[]"]', function(e){
             if(e.keyCode == 9){
@@ -106,6 +114,7 @@ var addReceipt = () => {
         events: () => {
             // eventSelectCurrency()
             eventAddPaidTo()
+            eventEnterToNextInput()
             eventNextRow()
             eventInputUnit()
             eventSubmitReceipt()

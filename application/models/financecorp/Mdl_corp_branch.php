@@ -47,7 +47,7 @@ class Mdl_corp_branch extends CI_Model
              WHERE AccNo = trans.AccNo 
              AND Branch = trans.Branch
              AND TransDate < '$datestart'
-             ORDER BY CtrlNo DESC LIMIT 1) AS beg_balance,
+             ORDER BY TransDate DESC, DocNo DESC LIMIT 1) AS beg_balance,
             trans.Balance,
             trans.BalanceBranch,
             trans.EntryDate
@@ -58,7 +58,7 @@ class Mdl_corp_branch extends CI_Model
           AND trans.AccNo BETWEEN $accno_start AND $accno_finish
           AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
           AND trans.PostedStatus = 1
-          ORDER BY Branch, TransDate, AccNo, DocNo, CtrlNo ASC"
+          ORDER BY AccNo, Branch, TransDate, DocNo, CtrlNo ASC"
       )->result_array();
 
       return $result;

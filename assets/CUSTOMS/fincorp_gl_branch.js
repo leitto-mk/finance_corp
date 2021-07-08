@@ -24,9 +24,17 @@ var GLBranch = () => {
             }
 
             let printURL = $('#print_report').attr('href')
-            printURL = printURL + `?branch=${branch}&accno_start=${accno_start}&accno_finish=${accno_finish}&date_start=${date_start}&date_finish=${date_finish}`
+            let url = new URL(printURL)
+            let params = url.searchParams
+            params.set('branch', branch)
+            params.set('accno_start', accno_start)
+            params.set('accno_finish', accno_finish)
+            params.set('date_start', date_start)
+            params.set('date_finish', date_finish)
 
-            $('#print_report').attr('href', printURL)
+            url.search = params.toString()
+            
+            $('#print_report').attr('href', url.toString())
 
             $.ajax({
                 url: 'ajax_get_general_ledger',

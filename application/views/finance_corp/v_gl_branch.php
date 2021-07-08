@@ -204,7 +204,7 @@
 
                                             <?php if(isset($ledger[$i+1]['Branch']) && $ledger[$i+1]['Branch'] !== $cur_branch || $i == (count($ledger)-1)) : ?>
                                                 <?php
-                                                    $subtotal_balance = $subtotal_debit + $subtotal_credit;
+                                                    $subtotal_balance = $subtotal_debit - $subtotal_credit;
                                                 ?>
                                                 <tr class="font-white sbold">
                                                     <td class="bold" align="right" colspan="9">Beginning Balance</td>

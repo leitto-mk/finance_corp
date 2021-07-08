@@ -59,7 +59,7 @@ class FinanceCorp extends CI_Controller
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accno']);
+        $counter_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['docno'], $_POST['transdate']);
 
         //COUNTER BALANCE
         if($acctype == 'A' || $acctype == 'E'){
@@ -113,7 +113,7 @@ class FinanceCorp extends CI_Controller
         
         $cur_emp_bal = 0;
         $cur_branch_bal = 0;
-        $cur_accno_bal = [];
+        $cur_accno_bal = [$_POST['accno'] => $counter_balance];
         for($i = 0; $i < count($_POST['itemno']); $i++){
             $itemno += 1;
 
@@ -140,8 +140,8 @@ class FinanceCorp extends CI_Controller
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i]);
-                $cur_accno_bal = [$_POST['accnos'][$i] => $branch_beg_bal];
+                $branch_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['docno'], $_POST['transdate']);
+                $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
             if($acctypes == 'A' || $acctypes == 'E'){
@@ -188,7 +188,7 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_receipt->submit_receipt($master, $details, $trans);
+        $result = $this->Mdl_corp_receipt->submit_receipt($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
 
         echo $result;
     }
@@ -227,7 +227,7 @@ class FinanceCorp extends CI_Controller
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_payment->get_branch_last_balance($_POST['branch'], $_POST['accno']);
+        $counter_beg_bal = $this->Mdl_corp_payment->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['docno'], $_POST['transdate']);
 
         //COUNTER BALANCE
         if($acctype == 'A' || $acctype == 'E'){
@@ -281,7 +281,7 @@ class FinanceCorp extends CI_Controller
         
         $cur_emp_bal = 0;
         $cur_branch_bal = 0;
-        $cur_accno_bal = [];
+        $cur_accno_bal = [$_POST['accno'] => $counter_balance];
         for($i = 0; $i < count($_POST['itemno']); $i++){
             $itemno += 1;
 
@@ -308,8 +308,8 @@ class FinanceCorp extends CI_Controller
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i]);
-                $cur_accno_bal = [$_POST['accnos'][$i] => $branch_beg_bal];
+                $branch_beg_bal = $this->Mdl_corp_payment->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['docno'], $_POST['transdate']);
+                $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
             if($acctypes == 'A' || $acctypes == 'E'){
@@ -356,7 +356,7 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_payment->submit_payment($master, $details, $trans);
+        $result = $this->Mdl_corp_payment->submit_payment($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
 
         echo $result;
     }
@@ -395,7 +395,7 @@ class FinanceCorp extends CI_Controller
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_overbook->get_branch_last_balance($_POST['branch'], $_POST['accno']);
+        $counter_beg_bal = $this->Mdl_corp_overbook->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['docno'], $_POST['transdate']);
 
         //COUNTER BALANCE
         if($acctype == 'A' || $acctype == 'E'){
@@ -449,7 +449,7 @@ class FinanceCorp extends CI_Controller
         
         $cur_emp_bal = 0;
         $cur_branch_bal = 0;
-        $cur_accno_bal = [];
+        $cur_accno_bal = [$_POST['accno'] => $counter_balance];
         for($i = 0; $i < count($_POST['itemno']); $i++){
             $itemno += 1;
             $debit = $_POST['amount'][$i];
@@ -478,8 +478,8 @@ class FinanceCorp extends CI_Controller
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i]);
-                $cur_accno_bal = [$_POST['accnos'][$i] => $branch_beg_bal];
+                $branch_beg_bal = $this->Mdl_corp_overbook->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['docno'], $_POST['transdate']);
+                $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
             if($acctypes == 'A' || $acctypes == 'E'){
@@ -526,7 +526,7 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_overbook->submit_overbook($master, $details, $trans);
+        $result = $this->Mdl_corp_overbook->submit_overbook($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
 
         echo $result;
     }
@@ -606,8 +606,8 @@ class FinanceCorp extends CI_Controller
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i]);
-                $cur_accno_bal = [$_POST['accnos'][$i] => $branch_beg_bal];
+                $branch_beg_bal = $this->Mdl_corp_general->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['docno'], $_POST['transdate']);
+                $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
             if($acctypes == 'A' || $acctypes == 'E'){
@@ -654,7 +654,7 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_general->submit_general($master, $details, $trans);
+        $result = $this->Mdl_corp_general->submit_general($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
 
         echo $result; 
     }
@@ -687,7 +687,7 @@ class FinanceCorp extends CI_Controller
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_ca_withdraw->get_branch_last_balance($_POST['branch'], $_POST['accno']);
+        $counter_beg_bal = $this->Mdl_corp_ca_withdraw->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['docno'], $_POST['transdate']);
 
         //COUNTER BALANCE
         if($acctype == 'A' || $acctype == 'E'){
@@ -741,7 +741,7 @@ class FinanceCorp extends CI_Controller
         
         $cur_emp_bal = 0;
         $cur_branch_bal = 0;
-        $cur_accno_bal = [];
+        $cur_accno_bal = [$_POST['accno'] => $counter_balance];
         for($i = 0; $i < count($_POST['itemno']); $i++){
             $itemno += 1;
 
@@ -768,8 +768,8 @@ class FinanceCorp extends CI_Controller
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i]);
-                $cur_accno_bal = [$_POST['accnos'][$i] => $branch_beg_bal];
+                $branch_beg_bal = $this->Mdl_corp_ca_withdraw->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['docno'], $_POST['transdate']);
+                $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
             if($acctypes == 'A' || $acctypes == 'E'){
@@ -816,7 +816,7 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_ca_withdraw->submit_payment($master, $details, $trans);
+        $result = $this->Mdl_corp_ca_withdraw->submit_ca_withdraw($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
 
         echo $result;
     }
@@ -849,7 +849,7 @@ class FinanceCorp extends CI_Controller
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_ca_receipt->get_branch_last_balance($_POST['branch'], $_POST['accno']);
+        $counter_beg_bal = $this->Mdl_corp_ca_receipt->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['docno'], $_POST['transdate']);
 
         //COUNTER BALANCE
         if($acctype == 'A' || $acctype == 'E'){
@@ -903,7 +903,7 @@ class FinanceCorp extends CI_Controller
         
         $cur_emp_bal = 0;
         $cur_branch_bal = 0;
-        $cur_accno_bal = [];
+        $cur_accno_bal = [$_POST['accno'] => $counter_balance];
         for($i = 0; $i < count($_POST['itemno']); $i++){
             $itemno += 1;
 
@@ -930,8 +930,8 @@ class FinanceCorp extends CI_Controller
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i]);
-                $cur_accno_bal = [$_POST['accnos'][$i] => $branch_beg_bal];
+                $branch_beg_bal = $this->Mdl_corp_ca_receipt->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['docno'], $_POST['transdate']);
+                $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
             if($acctypes == 'A' || $acctypes == 'E'){
@@ -978,7 +978,7 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_ca_receipt->submit_receipt($master, $details, $trans);
+        $result = $this->Mdl_corp_ca_receipt->submit_ca_receipt($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
 
         echo $result;
     }
