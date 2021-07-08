@@ -49,14 +49,13 @@ class Mdl_corp_receipt extends CI_Model
         return ($query ? $query->Balance : 0);
     }
     
-    public function get_branch_last_balance($branch, $accno, $docno, $transdate){
+    public function get_branch_last_balance($branch, $accno, $transdate){
         $query = $this->db->select('BalanceBranch')
                       ->limit(1)
-                      ->order_by('DocNo', 'DESC')
+                      ->order_by('TransDate DESC, CtrlNo DESC')
                       ->get_where('tbl_fa_transaction', [
                         'Branch' => $branch,
                         'AccNo' => $accno,
-                        'DocNo <=' => $docno,
                         'TransDate <=' => $transdate
                       ])->row();
 
@@ -70,22 +69,16 @@ class Mdl_corp_receipt extends CI_Model
         $this->db->insert_batch('tbl_fa_treasury_det', $details);
         $this->db->insert_batch('tbl_fa_transaction', $trans);
 
-        //IF DOCNO TRANSDATE BELOW CURRENT DATE DO ENTIRE CALCULATION FOR ALL DATE ABOVE TRANSDATE
-        $transdate = date('Y-m-d', strtotime($transdate));
-        $curdate = date('Y-m-d');
-        if($transdate < $curdate){
-            for($i = 0; $i < count($accno_list); $i++){
-                $cur_accno = array_keys($accno_list)[$i];
-                $cur_bal = $accno_list[$cur_accno];
+        for($i = 0; $i < count($accno_list); $i++){
+            $cur_accno = array_keys($accno_list)[$i];
 
-                $this->db->query("
-                    UPDATE tbl_fa_transaction
-                    SET BalanceBranch = (BalanceBranch + $cur_bal)
-                    WHERE Branch = '$branch'
-                    AND AccNo = '$cur_accno'
-                    AND TransDate > '$transdate'"
-                );
-            }
+            $this->db->query("
+                UPDATE tbl_fa_transaction
+                SET BalanceBranch = ((Debit+Credit) + $cur_bal)
+                WHERE Branch = '$branch'
+                AND AccNo = '$cur_accno'
+                AND TransDate > '$transdate'"
+            );
         }
         
         $this->db->trans_complete();
