@@ -49,46 +49,51 @@ class Mdl_corp_general extends CI_Model
         return ($query ? $query->Balance : 0);
     }
     
-    public function get_branch_last_balance($branch, $accno, $docno, $transdate){
+    public function get_branch_last_balance($branch, $accno, $transdate){
         $query = $this->db->select('BalanceBranch')
                       ->limit(1)
-                      ->order_by('DocNo', 'DESC')
+                      ->order_by('TransDate DESC, CtrlNo DESC')
                       ->get_where('tbl_fa_transaction', [
                         'Branch' => $branch,
                         'AccNo' => $accno,
-                        'DocNo <=' => $docno,
                         'TransDate <=' => $transdate
                       ])->row();
 
         return ($query ? $query->BalanceBranch : 0);
     }
 
-    public function submit_general($master, $details, $trans, $branch, $transdate, $accno_list){
+    public function submit_receipt($master, $details, $trans, $branch, $transdate, $accno_list){
         $this->db->trans_begin();
         
         $this->db->insert_batch('tbl_fa_treasury_mas', $master);
         $this->db->insert_batch('tbl_fa_treasury_det', $details);
         $this->db->insert_batch('tbl_fa_transaction', $trans);
 
-        //IF DOCNO TRANSDATE BELOW CURRENT DATE DO ENTIRE CALCULATION
-        $transdate = date('Y-m-d', strtotime($transdate));
-        $curdate = date('Y-m-d');
-        if($transdate < $curdate){
-            for($i = 0; $i < count($accno_list); $i++){
-                $cur_accno = array_keys($accno_list)[$i];
-                $cur_bal = $accno_list[$cur_accno];
-
-                $this->db->query("
-                    UPDATE tbl_fa_transaction
-                    SET BalanceBranch = (BalanceBranch + $cur_bal)
-                    WHERE Branch = '$branch'
-                    AND AccNo = '$cur_accno'
-                    AND TransDate > '$transdate'"
-                );
-            }
+        for($i = 0; $i < count($accno_list); $i++){
+            $cur_accno = array_keys($accno_list)[$i];
+            
+            $cur_doc_debit_sum = $this->db->select('SUM(Debit) AS Debit')->get_where('tbl_fa_transaction', [
+                'DocNo' => $_POST['docno'], 
+                'Branch' => $branch, 
+                'AccNo' => $cur_accno])->row()->Debit;
+            $cur_doc_credit_sum = $this->db->select('SUM(Credit) AS Credit')->get_where('tbl_fa_transaction', [
+                'DocNo' => $_POST['docno'], 
+                'Branch' => $branch, 
+                'AccNo' => $cur_accno])->row()->Credit;
+                
+            $cur_doc_sum = $cur_doc_debit_sum + $cur_doc_credit_sum;
+            
+            $this->db->query(
+                "UPDATE tbl_fa_transaction
+                 SET BalanceBranch = (BalanceBranch + $cur_doc_sum)
+                 WHERE Branch = '$branch'
+                 AND AccNo = '$cur_accno'
+                 AND TransDate > '$transdate'"
+            );
         }
-        
+
         $this->db->trans_complete();
+
         
         return ($this->db->trans_status() ? 'success' : this->db->error());
     }
