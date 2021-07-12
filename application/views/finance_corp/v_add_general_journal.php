@@ -176,9 +176,9 @@
                                                                 </tbody>
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td class="text-right sbold uppercase" colspan="7" style="padding-top: 15px">Total</td>
-                                                                        <td><input type="number" id="total_debit" name="total_debit" class="form-control" value="0"></td>
-                                                                        <td><input type="number" id="total_credit" name="total_credit" class="form-control" value="0"></td>
+                                                                        <td class="text-right sbold uppercase" colspan="6" style="padding-top: 15px">Total</td>
+                                                                        <td><input type="number" id="total_debit" name="total_debit" class="form-control" value="0" readonly></td>
+                                                                        <td><input type="number" id="total_credit" name="total_credit" class="form-control" value="0" readonly></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

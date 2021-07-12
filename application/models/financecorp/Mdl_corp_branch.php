@@ -47,7 +47,7 @@ class Mdl_corp_branch extends CI_Model
              WHERE AccNo = trans.AccNo 
              AND Branch = trans.Branch
              AND TransDate < '$datestart'
-             ORDER BY TransDate DESC, DocNo DESC LIMIT 1) AS beg_balance,
+             ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
             trans.Balance,
             trans.BalanceBranch,
             trans.EntryDate

@@ -63,7 +63,7 @@ class Mdl_corp_overbook extends CI_Model
         return ($query ? $query->BalanceBranch : 0);
     }
 
-    public function submit_receipt($master, $details, $trans, $branch, $transdate, $accno_list){
+    public function submit_overbook($master, $details, $trans, $branch, $transdate, $accno_list){
         $this->db->trans_begin();
         
         $this->db->insert_batch('tbl_fa_treasury_mas', $master);
@@ -82,7 +82,7 @@ class Mdl_corp_overbook extends CI_Model
                 'Branch' => $branch, 
                 'AccNo' => $cur_accno])->row()->Credit;
                 
-            $cur_doc_sum = $cur_doc_debit_sum + $cur_doc_credit_sum;
+            $cur_doc_sum = $cur_doc_debit_sum - $cur_doc_credit_sum;
             
             $this->db->query(
                 "UPDATE tbl_fa_transaction

@@ -62,7 +62,7 @@ class Mdl_corp_payment extends CI_Model
         return ($query ? $query->BalanceBranch : 0);
     }
 
-    public function submit_receipt($master, $details, $trans, $branch, $transdate, $accno_list){
+    public function submit_payment($master, $details, $trans, $branch, $transdate, $accno_list){
         $this->db->trans_begin();
         
         $this->db->insert_batch('tbl_fa_treasury_mas', $master);
