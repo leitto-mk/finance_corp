@@ -43,13 +43,13 @@
                                     <thead>
                                         <tr class="font-dark bg-default">
                                             <!-- <th class="text-center"> No </th> -->
-                                            <th class="text-center"> Trans Date </th>
-                                            <th class="text-center"> Doc No </th>
-                                            <th class="text-center"> Trans Type </th>
+                                            <th class="text-left"> Trans Date </th>
+                                            <th class="text-left"> Doc No </th>
+                                            <th class="text-left"> Trans Type </th>
                                             <th class="text-left"> Description </th>
-                                            <th class="text-center"> Dept. </th>
-                                            <th class="text-center"> Cost Center </th>
-                                            <th class="text-center"> Cry </th>
+                                            <th class="text-left"> Dept. </th>
+                                            <th class="text-left"> Cost Center </th>
+                                            <th class="text-left"> Cry </th>
                                             <th class="text-right"> Debit </th>
                                             <th class="text-right"> Credit </th>
                                             <th class="text-right"> Balance </th>
@@ -64,7 +64,7 @@
 
                                             <?php if($ledger[$i]['Acc_Name'] !== $cur_acc) : ?>
                                                 <tr style="background-color: white">
-                                                    <td colspan="11" class="bold"><?= $ledger[$i]['AccNo'] ?> -- <?= $ledger[$i]['Acc_Name'] ?></td>
+                                                    <td colspan="11" class="bold"><?= $ledger[$i]['AccNo'] ?> -- <?= $ledger[$i]['Acc_Name'] ?> | <?= $ledger[$i]['Acc_Type']?></td>
                                                 </tr>
                                                 <tr class="font-dark sbold">
                                                     <td class="bold" align="right" colspan="4">Beginning Balance</td>

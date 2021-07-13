@@ -84,17 +84,26 @@ class Mdl_corp_ca_withdraw extends CI_Model
             $cur_doc_sum = $cur_doc_debit_sum + $cur_doc_credit_sum;
             
             $this->db->query(
-                "UPDATE tbl_fa_transaction
-                 SET BalanceBranch = (BalanceBranch + $cur_doc_sum)
-                 WHERE Branch = '$branch'
-                 AND AccNo = '$cur_accno'
-                 AND TransDate > '$transdate'"
+                "UPDATE tbl_fa_transaction AS trans
+                 SET trans.BalanceBranch = 
+                    CASE
+                        WHEN trans.AccType IN ('A','E', 'E1') AND trans.Debit > 0 THEN
+                            (trans.BalanceBranch + $cur_doc_sum)
+                        WHEN trans.AccType IN ('A','E', 'E1') AND trans.Credit > 0 THEN
+                            (trans.BalanceBranch - $cur_doc_sum)
+                        WHEN trans.AccType IN ('L','C','R','A1','R1','C1','C2') AND trans.Debit > 0 THEN
+                            (trans.BalanceBranch - $cur_doc_sum)
+                        WHEN trans.AccType IN ('L','C','R','A1','R1','C1','C2') AND trans.Credit > 0 THEN
+                            (trans.BalanceBranch + $cur_doc_sum)
+                    END
+                 WHERE trans.Branch = '$branch'
+                 AND trans.AccNo = '$cur_accno'
+                 AND trans.TransDate > '$transdate'"
             );
         }
 
         $this->db->trans_complete();
 
-        
         return ($this->db->trans_status() ? 'success' : this->db->error());
     }
 }

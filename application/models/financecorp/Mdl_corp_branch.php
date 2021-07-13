@@ -12,7 +12,7 @@ class Mdl_corp_branch extends CI_Model
       return $this->db->select('Acc_No, Acc_Name')
                       ->order_by('Acc_No', 'ASC')
                       ->get_where('tbl_fa_account_no', [
-                        'Acc_No !=' => 'H'
+                        'Acc_Type !=' => 'H'
                       ])   
                       ->result();
    }
@@ -32,8 +32,9 @@ class Mdl_corp_branch extends CI_Model
             trans.CtrlNo,
             trans.DocNo,
             acc.Acc_Name,
+            acc.Acc_Type,
             trans.TransType, 
-            DATE_FORMAT(trans.TransDate, '%d-%m-%Y') AS TransDate, 
+            trans.TransDate, 
             trans.Branch,
             trans.Department,
             trans.CostCenter,

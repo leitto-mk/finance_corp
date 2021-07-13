@@ -173,15 +173,15 @@
                                             <?php endif; ?> -->
 
                                             <tr class="font-white sbold">
-                                                <td class="bold" align="center"><?= $i+1 ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
-                                                <td class="bold" align="center"></td>
-                                                <td class="bold" align="center"><?= $cur_branch ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['Department'] ?></td>
+                                                <td class="bold" align="left"><?= $i+1 ?></td>
+                                                <td class="bold" align="left"><?= $ledger[$i]['TransDate'] ?></td>
+                                                <td class="bold" align="left"><?= $ledger[$i]['DocNo'] ?></td>
+                                                <td class="bold" align="left"></td>
+                                                <td class="bold" align="left"><?= $cur_branch ?></td>
+                                                <td class="bold" align="left"><?= $ledger[$i]['Department'] ?></td>
                                                 <td class="bold" align="right"><?= $ledger[$i]['CostCenter'] ?></td>
                                                 <td class="bold" align="right"><?= $ledger[$i]['AccNo'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['Remarks'] ?></td>
+                                                <td class="bold" align="left"><?= $ledger[$i]['Remarks'] ?></td>
                                                 <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></td>
                                                 <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></td>
                                                 <td class="bold" align="right">

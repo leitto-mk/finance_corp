@@ -62,9 +62,9 @@ class FinanceCorp extends CI_Controller
         $counter_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
-        if($acctype == 'A' || $acctype == 'E'){
+        if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
             $counter_balance = ($counter_beg_bal + $_POST['totalamount']) -  0;
-        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1'){
+        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2'){
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];    
         }
 
@@ -144,13 +144,13 @@ class FinanceCorp extends CI_Controller
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E'){
+            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) -  0;
                 // $emp_bal = ($emp_beg_bal - $_POST['amount'][$i]) - 0;
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1'){
+            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2'){
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -230,9 +230,9 @@ class FinanceCorp extends CI_Controller
         $counter_beg_bal = $this->Mdl_corp_payment->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
-        if($acctype == 'A' || $acctype == 'E'){
+        if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
-        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1'){
+        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2'){
             $counter_balance = ($counter_beg_bal - 0) + $_POST['totalamount'];    
         }
 
@@ -312,13 +312,13 @@ class FinanceCorp extends CI_Controller
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E'){
+            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) - 0;
                 // $emp_bal = ($emp_beg_bal - $_POST['amount'][$i]) - 0;
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1'){
+            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2'){
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -398,9 +398,9 @@ class FinanceCorp extends CI_Controller
         $counter_beg_bal = $this->Mdl_corp_overbook->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
-        if($acctype == 'A' || $acctype == 'E'){
+        if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
-        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1'){
+        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2'){
             $counter_balance = ($counter_beg_bal - 0) + $_POST['totalamount'];    
         }
 
@@ -482,13 +482,13 @@ class FinanceCorp extends CI_Controller
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E'){
+            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) - 0;
                 // $emp_bal = ($emp_beg_bal - $_POST['amount'][$i]) - 0;
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1'){
+            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2'){
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -610,13 +610,13 @@ class FinanceCorp extends CI_Controller
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E'){
+            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['debit'][$i]) - $_POST['credit'][$i];
                 // $emp_bal = ($emp_beg_bal - $_POST['debit'][$i]) - $_POST['credit'][$i];
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1'){
+            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2'){
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -690,9 +690,9 @@ class FinanceCorp extends CI_Controller
         $counter_beg_bal = $this->Mdl_corp_ca_withdraw->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
-        if($acctype == 'A' || $acctype == 'E'){
+        if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
-        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1'){
+        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2'){
             $counter_balance = ($counter_beg_bal - 0) + $_POST['totalamount'];    
         }
 
@@ -772,13 +772,13 @@ class FinanceCorp extends CI_Controller
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E'){
+            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) - 0;
                 // $emp_bal = ($emp_beg_bal - $_POST['amount'][$i]) - 0;
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1'){
+            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2'){
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -852,9 +852,9 @@ class FinanceCorp extends CI_Controller
         $counter_beg_bal = $this->Mdl_corp_ca_receipt->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
-        if($acctype == 'A' || $acctype == 'E'){
+        if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
             $counter_balance = ($counter_beg_bal + $_POST['totalamount']) -  0;
-        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1'){
+        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2'){
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];    
         }
 
@@ -934,13 +934,13 @@ class FinanceCorp extends CI_Controller
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E'){
+            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) -  0;
                 // $emp_bal = ($emp_beg_bal - $_POST['amount'][$i]) - 0;
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1'){
+            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2'){
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -994,6 +994,7 @@ class FinanceCorp extends CI_Controller
     }
 
     function view_gl_branch(){
+        
         $branch = 'All';
         $accno_start = $this->db->select('Acc_No')->order_by('Acc_No','ASC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
         $accno_finish = $this->db->select('Acc_No')->order_by('Acc_No','DESC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
