@@ -71,6 +71,7 @@ class Mdl_corp_receipt extends CI_Model
 
         for($i = 0; $i < count($accno_list); $i++){
             $cur_accno = array_keys($accno_list)[$i];
+            $cur_doc_sum = 0;
             
             $cur_doc_debit_sum = $this->db->select('SUM(Debit) AS Debit')->get_where('tbl_fa_transaction', [
                 'DocNo' => $_POST['docno'], 
@@ -82,23 +83,23 @@ class Mdl_corp_receipt extends CI_Model
                 'AccNo' => $cur_accno])->row()->Credit;
 
             $cur_doc_sum = $cur_doc_debit_sum + $cur_doc_credit_sum;
-            
+        
             $this->db->query(
                 "UPDATE tbl_fa_transaction AS trans
-                 SET trans.BalanceBranch = 
+                    SET trans.BalanceBranch = 
                     CASE
                         WHEN trans.AccType IN ('A','E', 'E1') AND trans.Debit > 0 THEN
-                            (trans.BalanceBranch + $cur_doc_sum)
+                            ($cur_doc_sum - trans.BalanceBranch)
                         WHEN trans.AccType IN ('A','E', 'E1') AND trans.Credit > 0 THEN
-                            (trans.BalanceBranch - $cur_doc_sum)
+                            ($cur_doc_sum + trans.BalanceBranch)
                         WHEN trans.AccType IN ('L','C','R','A1','R1','C1','C2') AND trans.Debit > 0 THEN
-                            (trans.BalanceBranch - $cur_doc_sum)
+                            ($cur_doc_sum + trans.BalanceBranch)
                         WHEN trans.AccType IN ('L','C','R','A1','R1','C1','C2') AND trans.Credit > 0 THEN
-                            (trans.BalanceBranch + $cur_doc_sum)
+                            ($cur_doc_sum - trans.BalanceBranch)
                     END
-                 WHERE trans.Branch = '$branch'
-                 AND trans.AccNo = '$cur_accno'
-                 AND trans.TransDate > '$transdate'"
+                    WHERE trans.Branch = '$branch'
+                    AND trans.AccNo = '$cur_accno'
+                    AND trans.TransDate > '$transdate'"
             );
         }
 
