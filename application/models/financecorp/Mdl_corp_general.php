@@ -83,7 +83,7 @@ class Mdl_corp_general extends CI_Model
                 'Branch' => $branch, 
                 'AccNo' => $cur_accno])->row()->Credit;
 
-            $cur_doc_sum = $cur_doc_debit_sum + $cur_doc_credit_sum;
+            $cur_doc_sum = $cur_doc_debit_sum - $cur_doc_credit_sum;
 
             if($cur_doc_debit_sum > 0 && ($cur_acctype == 'A' || $cur_acctype == 'E' || $cur_acctype == 'E1')){
                 $balance_branch = "trans.BalanceBranch + $cur_doc_sum";
