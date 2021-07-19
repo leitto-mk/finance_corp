@@ -146,7 +146,10 @@
                                                                     <div class="row static-info">
                                                                         <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                                         <div class="col-md-12 value" style="margin-top: -15px">
-                                                                            <b><input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="totalamount" name="totalamount" value="0.00" readonly="true" class="input-group input-group-sm form-control"></b>
+                                                                            <b>
+                                                                                <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control">
+                                                                                <input type="number" class="form-control hidden" id="totalamount" name="totalamount">
+                                                                            </b>
                                                                         </div>
                                                                     </div>
                                                                     <div class="mt-step-desc">
@@ -156,7 +159,7 @@
                                                                     <div class="row static-info">
                                                                         <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                                         <div class="col-md-12 value" style="margin-top: -15px">
-                                                                            <b><input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="totalamount" name="totalamount" value="0.00" readonly="true" class="input-group input-group-sm form-control"></b>
+                                                                            <b><input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="outstanding_left" name="outstanding_left" value="0.00" readonly="true" class="input-group input-group-sm form-control"></b>
                                                                         </div>
                                                                     </div>
                                                                 </div>

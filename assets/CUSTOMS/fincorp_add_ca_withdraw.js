@@ -93,8 +93,6 @@ var addCAWithdraw = () => {
                 method: 'POST',
                 data: obj,
                 success: response => {
-                    console.log(JSON.stringify(response, null, '\t'))
-                    
                     if(response == 'success'){
                         Swal.fire({
                             'type': 'success',

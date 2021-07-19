@@ -37,16 +37,6 @@ var addCAReceipt = () => {
                 let rate = $(this).parents('tr') .find('input[name="rate[]"]').val()
                 let unit = $(this).parents('tr') .find('input[name="unit[]"]').val()
 
-                console.log({
-                    remarks,
-                    departments,
-                    costcenters ,
-                    accnos,
-                    currency,
-                    rate,
-                    unit
-                })
-
                 if(!remarks || !departments || !costcenters || !accnos || !currency || !rate || !unit){
                     alert('PLEASE FILL ALL THE INPUT')
                     
@@ -103,8 +93,6 @@ var addCAReceipt = () => {
                 method: 'POST',
                 data: obj,
                 success: response => {
-                    console.log(JSON.stringify(response, null, '\t'))
-                    
                     if(response == 'success'){
                         Swal.fire({
                             'type': 'success',

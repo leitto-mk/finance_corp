@@ -871,7 +871,7 @@ class FinanceCorp extends CI_Controller
             'ItemNo' => $itemno,
             'AccNo' => $_POST['accno'],
             'AccType' => $acctype,
-            'IDNumber' => $_POST['paidto'],
+            // 'IDNumber' => $_POST['paidto'],
             'Currency' => 'IDR',
             'Rate' => 1,
             'Unit' => $_POST['totalamount'],
@@ -887,7 +887,7 @@ class FinanceCorp extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
-            'IDNumber' => $_POST['paidto'],
+            // 'IDNumber' => $_POST['paidto'],
             'SubmitBy' => '',
             'TransType' => 'CA-RECEIPT',
             'TransDate' => $_POST['transdate'],
@@ -961,7 +961,7 @@ class FinanceCorp extends CI_Controller
                 'ItemNo' => $itemno,
                 'AccNo' => $_POST['accnos'][$i],
                 'AccType' => $acctypes,
-                'IDNumber' => '',
+                // 'IDNumber' => '',
                 'Currency' => $_POST['currency'][$i],
                 'Rate' => $_POST['rate'][$i],
                 'Unit' => $_POST['unit'][$i],

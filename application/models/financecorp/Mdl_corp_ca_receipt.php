@@ -72,6 +72,7 @@ class Mdl_corp_ca_receipt extends CI_Model
         for($i = 0; $i < count($accno_list); $i++){
             $cur_accno = array_keys($accno_list)[$i];
             $cur_acctype = $this->db->select('AccType')->get_where('tbl_fa_transaction', ['AccNo' => $cur_accno])->row()->AccType;
+            $balance_branch = 0;
             $cur_doc_sum = 0;
             
             $cur_doc_debit_sum = $this->db->select('SUM(Debit) AS Debit')->get_where('tbl_fa_transaction', [
