@@ -1024,7 +1024,7 @@ class FinanceCorp extends CI_Controller
         $branch = isset($_GET['branch']) ? $_GET['branch'] : 'All';
         $accno_start = isset($_GET['accno_start']) ? $_GET['accno_start'] : '10000';
         $accno_finish = isset($_GET['accno_finish']) ? $_GET['accno_finish'] : '90000';
-        $date_start = isset($_GET['date_start']) ? $_GET['date_start'] :date('Y-01-01');
+        $date_start = isset($_GET['date_start']) ? $_GET['date_start'] : date('Y-01-01');
         $date_finish = isset($_GET['date_finish']) ? $_GET['date_finish'] : date('Y-m-d');
 
         $data = [
@@ -1069,5 +1069,18 @@ class FinanceCorp extends CI_Controller
         ];
         
         $this->load->view('finance_corp/v_gl_personal', $data);
+    }
+
+    //Re-Calculate
+    function ajax_recalculate_balance(){
+        $branch = $_POST['branch'];
+        $accno_start = $_POST['accno_start'];
+        $accno_finish = $_POST['accno_finish'];
+        $date_start = $_POST['date_start'];
+        $date_finish = $_POST['date_finish'];
+
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
+
+        echo $result;
     }
 }

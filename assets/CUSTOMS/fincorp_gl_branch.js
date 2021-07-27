@@ -23,6 +23,7 @@ var GLBranch = () => {
                 return;
             }
 
+            //Append new URL Param for Print
             let printURL = $('#print_report').attr('href')
             let url = new URL(printURL)
             let params = url.searchParams
@@ -32,9 +33,21 @@ var GLBranch = () => {
             params.set('date_start', date_start)
             params.set('date_finish', date_finish)
 
+            //Append new URL Param for ReCalculate
+            let calculateURL = $('#recalculate').attr('href')
+            let cal = new URL(calculateURL)
+            let calparam = cal.searchParams
+            calparam.set('branch', branch)
+            calparam.set('accno_start', accno_start)
+            calparam.set('accno_finish', accno_finish)
+            calparam.set('date_start', date_start)
+            calparam.set('date_finish', date_finish)
+
             url.search = params.toString()
+            cal.search = calparam.toString()
             
             $('#print_report').attr('href', url.toString())
+            $('#recalculate').attr('href', cal.toString())
 
             $.ajax({
                 url: 'ajax_get_general_ledger',
@@ -142,9 +155,10 @@ var GLBranch = () => {
         })
     }
 
-    const eventPrintReport = () => {
-        
-        $('#print_report').click(function(){
+    const eventRecalculate = () => {
+        $('#recalculate').click(function(e){
+            e.preventDefault()
+
             branch = $('#branch').val()
             accno_start = +$('#accno_start').val()
             accno_finish = +$('#accno_finish').val()
@@ -160,7 +174,7 @@ var GLBranch = () => {
             }
 
             $.ajax({
-                url: 'view_gl_branch_report',
+                url: 'ajax_recalculate_balance',
                 method: 'POST',
                 data: {
                     branch,
@@ -170,7 +184,16 @@ var GLBranch = () => {
                     date_finish
                 },
                 success: response => {
-                    $('body').html(response)
+                    if(response == 'success'){
+                        // swal({
+                        //     'type': 'success',
+                        //     'title': 'SUCCESS',
+                        //     'text': 'Data has been Re-Calcualted'
+                        // });
+                        alert("Re-Calculate Success")
+                    }else{
+                        alert("SERVER PROBLEM")
+                    }
                 },
                 error: () => alert('NETWORK PROBLEM')
             })
@@ -183,7 +206,7 @@ var GLBranch = () => {
         },
         events: () => {
             eventPreviewFilter()
-            eventPrintReport()
+            eventRecalculate()
         }
     }
 }

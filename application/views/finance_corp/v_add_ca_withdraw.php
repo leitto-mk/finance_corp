@@ -245,7 +245,7 @@
                                                                             <select name="accnos[]" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
                                                                                 <?php foreach($accno as $accnos) : ?>
-                                                                                    <?php if($accnos->Acc_Type == 'E') : ?>
+                                                                                    <?php if($accnos->Acc_Type == 'A') : ?>
                                                                                         <option value="<?= $accnos->Acc_No ?>"><?= $accnos->Acc_No ?> | <?= $accnos->Acc_Name ?> - [<?= $accnos->Acc_Type?>]</option>
                                                                                     <?php endif; ?>
                                                                                 <?php endforeach; ?>
