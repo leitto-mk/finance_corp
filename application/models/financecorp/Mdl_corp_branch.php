@@ -146,9 +146,6 @@ class Mdl_corp_branch extends CI_Model
          unset($query[$i]['beg_balance']);
       }
 
-      // print("<pre>".print_r($query,true)."</pre>");
-      // die();
-
       $this->db->trans_begin();
       
       $this->db->delete('tbl_fa_transaction', [
