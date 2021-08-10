@@ -8,12 +8,7 @@ class FinanceCorp extends CI_Controller
     public function __construct(){
         parent::__construct();
 
-        $this->load->model('financecorp/Mdl_corp_receipt');
-        $this->load->model('financecorp/Mdl_corp_payment');
-        $this->load->model('financecorp/Mdl_corp_overbook');
-        $this->load->model('financecorp/Mdl_corp_general');
-        $this->load->model('financecorp/Mdl_corp_ca_withdraw');
-        $this->load->model('financecorp/Mdl_corp_ca_receipt');
+        $this->load->model('financecorp/Mdl_corp_treasury');
         $this->load->model('financecorp/Mdl_corp_branch');
         $this->load->model('financecorp/Mdl_corp_personal');
     }
@@ -27,25 +22,98 @@ class FinanceCorp extends CI_Controller
 
     //RECEIPT VOUCHER
     function view_receipt_voucher(){
-        $data['title'] = 'List Receipt Voucher';
+        $docno = '';
+        $start = date('Y-01-01');
+        $end = date('Y-m-d');
+
+        $data = [
+            'title' => 'List Receipt Voucher',
+            
+            'list' => $this->Mdl_corp_treasury->get_annual_treasury('RECEIPT', $docno, $start, $end),
+            'script' => 'treasuries/receipt'
+        ];
         
-        $this->load->view('finance_corp/v_receipt_voucher', $data);
+        $this->load->view('finance_corp/treasuries/v_receipt_voucher', $data);
+    }
+
+    function ajax_get_annual_receipt(){
+        $result = $this->Mdl_corp_treasury->get_annual_treasury('RECEIPT', $_POST['docno'],$_POST['start'], $_POST['end']);
+
+        echo json_encode($result);
+    }
+
+    function edit_receipt(){
+        $docno = $_GET['docno'];
+
+        $result = $this->Mdl_corp_treasury->get_docno_details($docno);
+
+        $data = [
+            'title' => 'Form Receipt Voucher',
+            
+            //DocNo Master
+            'docno' => $docno,
+            'transdate' => $result[0]['TransDate'],
+            'journalgroup' => $result[0]['JournalGroup'],
+            'remark' => $result[0]['Remarks'],
+            'accno' => $result[0]['AccNo'],
+            'branch' => $result[0]['Branch'],
+            'paidto' => $result[0]['PaidTo'],
+            'total' =>  $result[0]['Amount'],
+            'giro' =>  $result[0]['Giro'],
+
+            //List
+            'list' => $result,
+            
+            //Multiple
+            'accnos' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'branches' => $this->Mdl_corp_treasury->get_branch(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
+
+            'script' => 'add/fincorp_add_receipt'
+        ];
+        
+        $this->load->view('finance_corp/editview/v_add_receipt_voucher_edit', $data);
+    }
+
+    function ajax_delete_receipt(){
+        $docno = $_POST['docno'];
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($_POST['docno']);
+        $accnos = '';
+
+        for($i = 0; $i < count($acc_no); $i++){
+            $cur_accno = $acc_no[$i]['AccNo'];
+
+            if($i < count($acc_no)-1){
+                $accnos .= "'$cur_accno'," ;
+            }else{
+                $accnos .= "'$cur_accno'" ;
+            }
+        }
+
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        
+        echo $result;
     }
 
     function add_receipt_voucher(){
         $data = [
             'title' => 'Form Receipt Voucher',
             
-            'docno' => $this->Mdl_corp_receipt->get_new_receipt_docno(),
-            'accno' => $this->Mdl_corp_receipt->get_mas_acc(),
-            'branch' => $this->Mdl_corp_receipt->get_branch(),
-            'employee' => $this->Mdl_corp_receipt->get_employee(),
-            'currency' => $this->Mdl_corp_receipt->get_currency(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'branch' => $this->Mdl_corp_treasury->get_branch(),
+            'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'fincorp_add_receipt'
+            'script' => 'add/fincorp_add_receipt'
         ];
         
-        $this->load->view('finance_corp/v_add_receipt_voucher', $data);
+        $this->load->view('finance_corp/addview/v_add_receipt_voucher', $data);
     }
 
     public function ajax_submit_receipt(){
@@ -54,12 +122,15 @@ class FinanceCorp extends CI_Controller
         $cur_nis = '';
         $cur_branch = '';
         $itemno = 0;
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
 
         //COUNTER BALANCE ACCTYPE
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
+        $counter_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
         if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
@@ -136,11 +207,11 @@ class FinanceCorp extends CI_Controller
                 'Credit' => $_POST['amount'][$i]
             ]);
 
-            // $emp_beg_bal = $this->Mdl_corp_receipt->get_emp_last_balance($_POST['emp'][$i]);
+            // $emp_beg_bal = $this->Mdl_corp_treasury->get_emp_last_balance($_POST['emp'][$i]);
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_receipt->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
+                $branch_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
@@ -188,32 +259,127 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_receipt->submit_receipt($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
+        //DELETE OLD DOCNO DATA FIRST IF EXISTS
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        //SUBMIT CURRENT DOCNO DATA
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
+
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
+
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
         echo $result;
     }
 
     //PAYMENT VOUCHER
     function view_payment_voucher(){
-        $data['title'] = 'List Payment Voucher';
+        $docno = '';
+        $start = date('Y-01-01');
+        $end = date('Y-m-d');
+
+        $data = [
+            'title' => 'List Payment Voucher',
+            
+            'list' => $this->Mdl_corp_treasury->get_annual_treasury('PAYMENT', $docno, $start, $end),
+            'script' => 'treasuries/payment'
+        ];
         
-        $this->load->view('finance_corp/v_payment_voucher', $data);
+        $this->load->view('finance_corp/treasuries/v_payment_voucher', $data);
+    }
+
+    function ajax_get_annual_payment(){
+        $result = $this->Mdl_corp_treasury->get_annual_treasury('PAYMENT', $_POST['docno'],$_POST['start'], $_POST['end']);
+
+        echo json_encode($result);
+    }
+
+    function edit_payment(){
+        $docno = $_GET['docno'];
+
+        $result = $this->Mdl_corp_treasury->get_docno_details($docno);
+
+        $data = [
+            'title' => 'Form Receipt Voucher',
+            
+            //DocNo Master
+            'docno' => $docno,
+            'transdate' => $result[0]['TransDate'],
+            'journalgroup' => $result[0]['JournalGroup'],
+            'remark' => $result[0]['Remarks'],
+            'accno' => $result[0]['AccNo'],
+            'branch' => $result[0]['Branch'],
+            'paidto' => $result[0]['PaidTo'],
+            'total' =>  $result[0]['Amount'],
+            'giro' =>  $result[0]['Giro'],
+
+            //List
+            'list' => $result,
+            
+            //Multiple
+            'accnos' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'branches' => $this->Mdl_corp_treasury->get_branch(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
+
+            'script' => 'add/fincorp_add_payment'
+        ];
+        
+        $this->load->view('finance_corp/editview/v_add_payment_voucher_edit', $data);
+    }
+
+    function ajax_delete_payment(){
+        $docno = $_POST['docno'];
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($_POST['docno']);
+        $accnos = '';
+
+        for($i = 0; $i < count($acc_no); $i++){
+            $cur_accno = $acc_no[$i]['AccNo'];
+
+            if($i < count($acc_no)-1){
+                $accnos .= "'$cur_accno'," ;
+            }else{
+                $accnos .= "'$cur_accno'" ;
+            }
+        }
+
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        
+        echo $result;
     }
 
     function add_payment_voucher(){
         $data = [
             'title' => 'Form payment Voucher',
             
-            'docno' => $this->Mdl_corp_payment->get_new_payment_docno(),
-            'accno' => $this->Mdl_corp_payment->get_mas_acc(),
-            'branch' => $this->Mdl_corp_payment->get_branch(),
-            'employee' => $this->Mdl_corp_payment->get_employee(),
-            'currency' => $this->Mdl_corp_payment->get_currency(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'branch' => $this->Mdl_corp_treasury->get_branch(),
+            'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'fincorp_add_payment'
+            'script' => 'add/fincorp_add_payment'
         ];
 
-        $this->load->view('finance_corp/v_add_payment_voucher', $data);
+        $this->load->view('finance_corp/addview/v_add_payment_voucher', $data);
     }
 
     public function ajax_submit_payment(){
@@ -222,12 +388,15 @@ class FinanceCorp extends CI_Controller
         $cur_nis = '';
         $cur_branch = '';
         $itemno = 0;
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
 
         //COUNTER BALANCE ACCTYPE
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_payment->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
+        $counter_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
         if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
@@ -304,11 +473,11 @@ class FinanceCorp extends CI_Controller
                 'Credit' => $_POST['amount'][$i]
             ]);
 
-            // $emp_beg_bal = $this->Mdl_corp_payment->get_emp_last_balance($_POST['emp'][$i]);
+            // $emp_beg_bal = $this->Mdl_corp_treasury->get_emp_last_balance($_POST['emp'][$i]);
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_payment->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
+                $branch_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
@@ -356,32 +525,127 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_payment->submit_payment($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
+        //DELETE OLD DOCNO DATA FIRST IF EXISTS
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        //SUBMIT CURRENT DOCNO DATA
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
+
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
+
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
         echo $result;
     }
 
     //OVERBOOK VOUCHER
     function view_overbook_voucher(){
-        $data['title'] = 'List Overbook Voucher';
+        $docno = '';
+        $start = date('Y-01-01');
+        $end = date('Y-m-d');
+
+        $data = [
+            'title' => 'List Overbook Voucher',
+            
+            'list' => $this->Mdl_corp_treasury->get_annual_treasury('OVERBOOK', $docno, $start, $end),
+            'script' => 'treasuries/overbook'
+        ];
         
-        $this->load->view('finance_corp/v_overbook_voucher', $data);
+        $this->load->view('finance_corp/treasuries/v_overbook_voucher', $data);
+    }
+
+    function ajax_get_annual_overbook(){
+        $result = $this->Mdl_corp_treasury->get_annual_treasury('OVERBOOK', $_POST['docno'],$_POST['start'], $_POST['end']);
+
+        echo json_encode($result);
+    }
+
+    function edit_overbook(){
+        $docno = $_GET['docno'];
+
+        $result = $this->Mdl_corp_treasury->get_docno_details($docno);
+
+        $data = [
+            'title' => 'Form Receipt Voucher',
+            
+            //DocNo Master
+            'docno' => $docno,
+            'transdate' => $result[0]['TransDate'],
+            'journalgroup' => $result[0]['JournalGroup'],
+            'remark' => $result[0]['Remarks'],
+            'accno' => $result[0]['AccNo'],
+            'branch' => $result[0]['Branch'],
+            'paidto' => $result[0]['PaidTo'],
+            'total' =>  $result[0]['Amount'],
+            'giro' =>  $result[0]['Giro'],
+
+            //List
+            'list' => $result,
+            
+            //Multiple
+            'accnos' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'branches' => $this->Mdl_corp_treasury->get_branch(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
+
+            'script' => 'add/fincorp_add_overbook'
+        ];
+        
+        $this->load->view('finance_corp/editview/v_add_overbook_voucher_edit', $data);
+    }
+
+    function ajax_delete_overbook(){
+        $docno = $_POST['docno'];
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($_POST['docno']);
+        $accnos = '';
+
+        for($i = 0; $i < count($acc_no); $i++){
+            $cur_accno = $acc_no[$i]['AccNo'];
+
+            if($i < count($acc_no)-1){
+                $accnos .= "'$cur_accno'," ;
+            }else{
+                $accnos .= "'$cur_accno'" ;
+            }
+        }
+
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        
+        echo $result;
     }
 
     function add_overbook_voucher(){
         $data = [
             'title' => 'Form Overbook Voucher',
             
-            'docno' => $this->Mdl_corp_overbook->get_new_overbook_docno(),
-            'accno' => $this->Mdl_corp_overbook->get_mas_acc(),
-            'branch' => $this->Mdl_corp_overbook->get_branch(),
-            'employee' => $this->Mdl_corp_overbook->get_employee(),
-            'currency' => $this->Mdl_corp_overbook->get_currency(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'branch' => $this->Mdl_corp_treasury->get_branch(),
+            'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'fincorp_add_overbook'
+            'script' => 'add/fincorp_add_overbook'
         ];
         
-        $this->load->view('finance_corp/v_add_overbook_voucher', $data);
+        $this->load->view('finance_corp/addview/v_add_overbook_voucher', $data);
     }
 
     public function ajax_submit_overbook(){
@@ -390,12 +654,15 @@ class FinanceCorp extends CI_Controller
         $cur_nis = '';
         $cur_branch = '';
         $itemno = 0;
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
 
         //COUNTER BALANCE ACCTYPE
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_overbook->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
+        $counter_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
         if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
@@ -474,11 +741,11 @@ class FinanceCorp extends CI_Controller
                 'Credit' => $_POST['amount'][$i]
             ]);
 
-            // $emp_beg_bal = $this->Mdl_corp_overbook->get_emp_last_balance($_POST['emp'][$i]);
+            // $emp_beg_bal = $this->Mdl_corp_treasury->get_emp_last_balance($_POST['emp'][$i]);
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_overbook->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
+                $branch_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
@@ -526,32 +793,127 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_overbook->submit_overbook($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
+        //DELETE OLD DOCNO DATA FIRST IF EXISTS
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        //SUBMIT CURRENT DOCNO DATA
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
+
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
+
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
         echo $result;
     }
 
     //GENERAL JOURNAL
     function view_general_journal(){
-        $data['title'] = 'List General Journal';
+        $docno = '';
+        $start = date('Y-01-01');
+        $end = date('Y-m-d');
+
+        $data = [
+            'title' => 'List General Journal',
+            
+            'list' => $this->Mdl_corp_treasury->get_annual_treasury('GENERAL', $docno, $start, $end),
+            'script' => 'treasuries/gl'
+        ];
         
-        $this->load->view('finance_corp/v_general_journal', $data);
+        $this->load->view('finance_corp/treasuries/v_general_journal', $data);
+    }
+
+    function ajax_get_annual_general_journal(){
+        $result = $this->Mdl_corp_treasury->get_annual_treasury('GENERAL', $_POST['docno'],$_POST['start'], $_POST['end']);
+
+        echo json_encode($result);
+    }
+
+    function edit_general_journal(){
+        $docno = $_GET['docno'];
+
+        $result = $this->Mdl_corp_treasury->get_docno_details($docno);
+
+        $data = [
+            'title' => 'Form General Journal Voucher',
+            
+            //DocNo Master
+            'docno' => $docno,
+            'transdate' => $result[0]['TransDate'],
+            'journalgroup' => $result[0]['JournalGroup'],
+            'remark' => $result[0]['Remarks'],
+            'accno' => $result[0]['AccNo'],
+            'branch' => $result[0]['Branch'],
+            'paidto' => $result[0]['PaidTo'],
+            'total' =>  $result[0]['Amount'],
+            'giro' =>  $result[0]['Giro'],
+
+            //List
+            'list' => $result,
+            
+            //Multiple
+            'accnos' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'branches' => $this->Mdl_corp_treasury->get_branch(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
+
+            'script' => 'add/fincorp_add_general'
+        ];
+        
+        $this->load->view('finance_corp/editview/v_add_general_journal_edit', $data);
+    }
+
+    function ajax_delete_general_journal(){
+        $docno = $_POST['docno'];
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($_POST['docno']);
+        $accnos = '';
+
+        for($i = 0; $i < count($acc_no); $i++){
+            $cur_accno = $acc_no[$i]['AccNo'];
+
+            if($i < count($acc_no)-1){
+                $accnos .= "'$cur_accno'," ;
+            }else{
+                $accnos .= "'$cur_accno'" ;
+            }
+        }
+
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        
+        echo $result;
     }
 
     function add_general_journal(){
         $data = [
             'title' => 'Form General Journal',
             
-            'docno' => $this->Mdl_corp_payment->get_new_payment_docno(),
-            'branch' => $this->Mdl_corp_payment->get_branch(),
-            'accno' => $this->Mdl_corp_payment->get_mas_acc(),
-            'employee' => $this->Mdl_corp_payment->get_employee(),
-            'currency' => $this->Mdl_corp_payment->get_currency(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'branch' => $this->Mdl_corp_treasury->get_branch(),
+            'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'fincorp_add_general'
+            'script' => 'add/fincorp_add_general'
         ];
         
-        $this->load->view('finance_corp/v_add_general_journal', $data);
+        $this->load->view('finance_corp/addview/v_add_general_journal', $data);
     }
 
     function ajax_submit_general_journal(){
@@ -560,6 +922,9 @@ class FinanceCorp extends CI_Controller
         $cur_nis = '';
         $cur_branch = '';
         $itemno = 0;
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
@@ -654,9 +1019,31 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_general->submit_general($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
+        //DELETE OLD DOCNO DATA FIRST IF EXISTS
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
-        echo $result; 
+        //SUBMIT CURRENT DOCNO DATA
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
+
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
+
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+
+        echo $result;
     }
 
     //CASH ADVANCE WITHDRAW
@@ -664,16 +1051,16 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form Cash Advance Withdraw',
             
-            'docno' => $this->Mdl_corp_ca_withdraw->get_new_payment_docno(),
-            'accno' => $this->Mdl_corp_ca_withdraw->get_mas_acc(),
-            'branch' => $this->Mdl_corp_ca_withdraw->get_branch(),
-            'employee' => $this->Mdl_corp_ca_withdraw->get_employee(),
-            'currency' => $this->Mdl_corp_ca_withdraw->get_currency(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'branch' => $this->Mdl_corp_treasury->get_branch(),
+            'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'fincorp_add_ca_withdraw'
+            'script' => 'add/fincorp_add_ca_withdraw'
         ];
         
-        $this->load->view('finance_corp/v_add_ca_withdraw', $data);
+        $this->load->view('finance_corp/addview/v_add_ca_withdraw', $data);
     }
 
     public function ajax_submit_ca_withdraw(){
@@ -682,12 +1069,15 @@ class FinanceCorp extends CI_Controller
         $cur_nis = '';
         $cur_branch = '';
         $itemno = 0;
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
 
         //COUNTER BALANCE ACCTYPE
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_ca_withdraw->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
+        $counter_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
         if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
@@ -764,11 +1154,11 @@ class FinanceCorp extends CI_Controller
                 'Credit' => $_POST['amount'][$i]
             ]);
 
-            // $emp_beg_bal = $this->Mdl_corp_ca_withdraw->get_emp_last_balance($_POST['emp'][$i]);
+            // $emp_beg_bal = $this->Mdl_corp_treasury->get_emp_last_balance($_POST['emp'][$i]);
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_ca_withdraw->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
+                $branch_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
@@ -816,7 +1206,29 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_ca_withdraw->submit_ca_withdraw($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
+        //DELETE OLD DOCNO DATA FIRST IF EXISTS
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        //SUBMIT CURRENT DOCNO DATA
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
+
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
+
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
         echo $result;
     }
@@ -826,16 +1238,16 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form Cash Advance Receipt',
             
-            'docno' => $this->Mdl_corp_ca_receipt->get_new_payment_docno(),
-            'accno' => $this->Mdl_corp_ca_receipt->get_mas_acc(),
-            'branch' => $this->Mdl_corp_ca_receipt->get_branch(),
-            'employee' => $this->Mdl_corp_ca_receipt->get_employee(),
-            'currency' => $this->Mdl_corp_ca_receipt->get_currency(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'branch' => $this->Mdl_corp_treasury->get_branch(),
+            'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'fincorp_add_ca_receipt'
+            'script' => 'add/fincorp_add_ca_receipt'
         ];
         
-        $this->load->view('finance_corp/v_add_ca_receipt', $data);
+        $this->load->view('finance_corp/addview/v_add_ca_receipt', $data);
     }
 
     public function ajax_submit_ca_receipt(){
@@ -844,12 +1256,15 @@ class FinanceCorp extends CI_Controller
         $cur_nis = '';
         $cur_branch = '';
         $itemno = 0;
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
 
         //COUNTER BALANCE ACCTYPE
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_ca_receipt->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
+        $counter_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
         if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
@@ -926,11 +1341,11 @@ class FinanceCorp extends CI_Controller
                 'Credit' => $_POST['amount'][$i]
             ]);
 
-            // $emp_beg_bal = $this->Mdl_corp_ca_receipt->get_emp_last_balance($_POST['emp'][$i]);
+            // $emp_beg_bal = $this->Mdl_corp_treasury->get_emp_last_balance($_POST['emp'][$i]);
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_ca_receipt->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
+                $branch_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
@@ -978,7 +1393,29 @@ class FinanceCorp extends CI_Controller
             $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
         }
 
-        $result = $this->Mdl_corp_ca_receipt->submit_ca_receipt($master, $details, $trans, $_POST['branch'], $_POST['transdate'], $cur_accno_bal);
+        //DELETE OLD DOCNO DATA FIRST IF EXISTS
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        //SUBMIT CURRENT DOCNO DATA
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
+
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
+
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
         echo $result;
     }
@@ -990,7 +1427,7 @@ class FinanceCorp extends CI_Controller
         $data['h2'] = 'Ledger';
         $data['h3'] = '(All)';
         
-        $this->load->view('finance_corp/v_gl', $data);
+        $this->load->view('finance_corp/reports/v_gl', $data);
     }
 
     function view_gl_branch(){
@@ -1017,7 +1454,7 @@ class FinanceCorp extends CI_Controller
             'script' => 'fincorp_gl_branch'
         ];
         
-        $this->load->view('finance_corp/v_gl_branch', $data);
+        $this->load->view('finance_corp/reports/v_gl_branch', $data);
     }
 
     function view_gl_branch_report(){
@@ -1043,7 +1480,7 @@ class FinanceCorp extends CI_Controller
             'script' => 'fincorp_gl_branch'
         ];
         
-        $this->load->view('finance_corp/v_reps_gl', $data);
+        $this->load->view('finance_corp/reports/v_reps_gl', $data);
     }
 
     function ajax_get_general_ledger(){
@@ -1068,7 +1505,7 @@ class FinanceCorp extends CI_Controller
             'ledger' => $this->Mdl_corp_personal->get_general_ledger()
         ];
         
-        $this->load->view('finance_corp/v_gl_personal', $data);
+        $this->load->view('finance_corp/reports/v_gl_personal', $data);
     }
 
     //Re-Calculate
@@ -1077,7 +1514,7 @@ class FinanceCorp extends CI_Controller
         $accno_start = $_POST['accno_start'];
         $accno_finish = $_POST['accno_finish'];
         $date_start = $_POST['date_start'];
-        $date_finish = $_POST['date_finish'];
+        $date_finish = $this->Mdl_corp_treasury->get_last_trans_date();
 
         $result = $this->Mdl_corp_branch->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 

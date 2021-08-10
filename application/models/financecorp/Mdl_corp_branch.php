@@ -73,20 +73,20 @@ class Mdl_corp_branch extends CI_Model
          $branch_condition = "trans.Branch = '$branch'";
       }
 
-      $date = date('Y-01-01');
-
       $query = $this->db->query(
          "SELECT 
             trans.CtrlNo,
             trans.DocNo,
             acc.Acc_Name,
             trans.AccType,
-            trans.TransType, 
             trans.TransDate, 
+            trans.TransType, 
+            trans.JournalGroup,
             trans.Branch,
             trans.Department,
             trans.CostCenter,
             trans.AccNo,
+            trans.IDNumber,
             trans.Remarks,
             trans.Debit,
             trans.Credit, 
@@ -99,7 +99,8 @@ class Mdl_corp_branch extends CI_Model
              ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
             trans.Balance,
             trans.BalanceBranch,
-            trans.EntryDate
+            trans.EntryDate,
+            trans.EntryBy
           FROM tbl_fa_transaction AS trans
           LEFT JOIN tbl_fa_account_no AS acc
             ON trans.AccNo = acc.Acc_No

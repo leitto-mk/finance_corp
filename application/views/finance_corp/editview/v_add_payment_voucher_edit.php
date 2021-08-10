@@ -9,7 +9,7 @@
                         <div class="hor-menu  ">
                             <ul class="nav navbar-nav">
                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase">
-                                    <h4 style="color:#ffffff">Overbook Voucher</h4>
+                                    <h4 style="color:#ffffff">Receipt Voucher</h4>
                                 </li>
                             </ul>
                         </div>
@@ -31,7 +31,7 @@
                                 <!-- BEGIN PAGE CONTENT INNER -->
                                 <div class="page-content-inner">
                                     <!-- Content Start -->
-                                    <form method="post" class="form-horizontal" id="form_overbook" autocomplete="off">
+                                    <form method="post" class="form-horizontal" id="form_payment_voucher" autocomplete="off">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="portlet light" style="height: 300px">
@@ -69,9 +69,18 @@
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_caccount">
                                                                             <select name="accno" id="accno" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
-                                                                                <?php foreach($accno as $acc) : ?>
-                                                                                    <option value="<?= $acc->Acc_No ?>"><?= $acc->Acc_No ?> | <?= $acc->Acc_Name ?> - [<?= $acc->Acc_Type?>]</option>
-                                                                                <?php endforeach; ?>
+                                                                                <?php for($i=0; $i < count($accnos); $i++) : ?>
+                                                                                    <?php
+                                                                                        $accn = $accnos[$i]['Acc_No'];
+                                                                                        $acctype = $accnos[$i]['Acc_Type']; 
+                                                                                        $accname = $accnos[$i]['Acc_Name'];
+                                                                                    ?>
+                                                                                    <?php if($accn == $accno) : ?>
+                                                                                        <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                    <?php else: ?>
+                                                                                        <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                    <?php endif; ?>
+                                                                                <?php endfor; ?>
                                                                             </select>
                                                                         </div>
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="accdesc"><b></b></span>
@@ -79,14 +88,18 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="date" id="transdate" name="transdate" class="form-control" required>
+                                                                            <input type="date" id="transdate" name="transdate" class="form-control" value="<?= $transdate ?>" required>
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
                                                                             <select name="branch" id="branch" class="form-control" data-live-search="true" data-size="8" required>
                                                                                 <option value="">--Choose Branch--</option>
-                                                                                <?php foreach($branch as $branch) : ?>
-                                                                                    <option value="<?= $branch->BranchCode ?>"><?= $branch->BranchCode ?> - <?= $branch->BranchName ?></option>
+                                                                                <?php foreach($branches as $branches) : ?>
+                                                                                    <?php if($branches->BranchCode == $branch ) : ?>
+                                                                                        <option selected value="<?= $branches->BranchCode ?>"><?= $branches->BranchCode ?> - <?= $branches->BranchName ?></option>    
+                                                                                    <?php else : ?>
+                                                                                        <option value="<?= $branches->BranchCode ?>"><?= $branches->BranchCode ?> - <?= $branches->BranchName ?></option>
+                                                                                    <?php endif; ?>
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </div>
@@ -95,17 +108,17 @@
                                                                         <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
                                                                         <div class="col-md-3">
                                                                             <select class="form-control" name="journalgroup" id="journalgroup" required>
-                                                                                <option selected="true" value="">--Select Journal--</option>
-                                                                                <option value="Cash">Cash</option>
-                                                                                <option value="Bank">Bank</option>
-                                                                                <option value="General Ledger">General Ledger</option>
+                                                                                <option value="">--Select Journal--</option>
+                                                                                <option value="Cash" <?= ($journalgroup == 'Cash' ? 'selected' : '')?>>Cash</option>
+                                                                                <option value="Bank" <?= ($journalgroup == 'Bank' ? 'selected' : '')?>>Bank</option>
+                                                                                <option value="General Ledger" <?= ($journalgroup == 'General Ledger' ? 'selected' : '')?>>General Ledger</option>
                                                                             </select>
                                                                         </div>
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="namestd"><b></b></span>
                                                                         <label class="col-md-2 control-label"><b>Paid To</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
-                                                                                <input name="paidto" id="paidto" class="form-control"/>
+                                                                                <input name="paidto" id="paidto" class="form-control" value="<?= $paidto ?>"/>
                                                                                 <span class="input-group-btn">
                                                                                     <button class="btn btn-primary" type="button" id="add_id"><i class="fa fa-plus"></i> Add</button>
                                                                                 </span>
@@ -116,7 +129,7 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Description</b></label>
                                                                         <div class="col-md-10">
-                                                                            <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
+                                                                            <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"><?= $remark ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -133,8 +146,8 @@
                                                                         <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                                         <div class="col-md-12 value" style="margin-top: -15px">
                                                                             <b>
-                                                                                <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control">
-                                                                                <input type="number" class="form-control hidden" id="totalamount" name="totalamount">
+                                                                                <input type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control" value="Rp. <?= number_format($total, 0, ',', '.')?>" style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;">
+                                                                                <input type="number" class="form-control hidden" id="totalamount" name="totalamount" value="<?= $total ?>">
                                                                             </b>
                                                                         </div>
                                                                     </div>
@@ -149,7 +162,7 @@
                                                                     <div class="row static-info">
                                                                         <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                                         <div class="col-md-12 value" style="margin-top: -15px">
-                                                                            <b><input id="giro" name="giro" style="text-align:left; background: #E9EDEF;  border:none;" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control"></b>
+                                                                            <b><input id="giro" name="giro" value="<?= $giro ?>" style="text-align:left; background: #E9EDEF;  border:none;" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control"></b>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -209,45 +222,54 @@
                                                                         <th class="text-center"> Cost Center </th>
                                                                         <!-- <th class="text-center"> Paid To </th> -->
                                                                         <th class="text-center"> Account No. </th>
-                                                                        <th class="text-center"> Currency </th>
+                                                                        <th class="text-center"> Cry </th>
                                                                         <th class="text-center"> Rate </th>
                                                                         <th class="text-center"> Unit </th>
                                                                         <th class="text-center"> Amount </th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody_detail">
-                                                                    <tr style="background-color: #E9EDEF">
-                                                                        <td><input type="number" name="itemno[]" class="form-control" readonly value="1"></td>
-                                                                        <td><input type="text" name="remarks[]" class="form-control" required></td>
-                                                                        <td><input type="text" name="departments[]" class="form-control" required></td>
-                                                                        <td><input type="text" name="costcenters[]" class="form-control" required><span class="input-group-btn" type="button"></span></td>
-                                                                        <!-- <td>
-                                                                            <select name="emp[]" class="form-control" required>
-                                                                                <option value="">--Choose ID--</option>
-                                                                                <?php foreach($employee as $emp) : ?>
-                                                                                    <option value="<?= $emp->IDNumber ?>" data-fullname="<?= $emp->FullName ?>" data-dept="<?= $emp->DeptCode ?>" data-cc="<?= $emp->CostCenter ?>"><?= $emp->IDNumber ?> - <?= $emp->FullName ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </td> -->
-                                                                        <td>
-                                                                            <select name="accnos[]" class="form-control" required>
-                                                                                <option value="">--Choose Account No--</option>
-                                                                                <?php foreach($accno as $accnos) : ?>
-                                                                                    <option value="<?= $accnos->Acc_No ?>"><?= $accnos->Acc_No ?> | <?= $accnos->Acc_Name ?> - [<?= $accnos->Acc_Type?>]</option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td>
-                                                                            <select name="currency[]" class="form-control" required>
-                                                                                <?php foreach($currency as $cur) : ?> 
-                                                                                    <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td><input type="number" name="rate[]" class="form-control" min="1" value="1" required></td>
-                                                                        <td><input type="number" name="unit[]" class="form-control" required></td>
-                                                                        <td><input type="" name="amount[]" class="form-control" readonly></td>
-                                                                    </tr>
+                                                                    <?php for($i=1; $i < count($list); $i++) : ?>
+                                                                        <tr style="background-color: #E9EDEF">
+                                                                            <td><input type="number" name="itemno[]" class="form-control" readonly value="<?= $list[$i]['ItemNo'] ?>"></td>
+                                                                            <td><input type="text" name="remarks[]" class="form-control" value="<?= $list[$i]['Remarks'] ?>" required></td>
+                                                                            <td><input type="text" name="departments[]" class="form-control" value="<?= $list[$i]['Department'] ?>" required></td>
+                                                                            <td><input type="text" name="costcenters[]" class="form-control" value="<?= $list[$i]['CostCenter'] ?>" required><span class="input-group-btn" type="button"></span></td>
+                                                                            <td>
+                                                                                <select name="accnos[]" class="form-control" required>
+                                                                                    <option value="">--Choose Account No--</option>
+                                                                                    <?php for($j=0; $j < count($accnos); $j++) : ?>
+                                                                                        <?php
+                                                                                            $accn = $accnos[$j]['Acc_No'];
+                                                                                            $acctype = $accnos[$j]['Acc_Type']; 
+                                                                                            $accname = $accnos[$j]['Acc_Name'];
+                                                                                        ?>
+                                                                                        <?php if($acctype == 'E') : ?>
+                                                                                            <?php if($accn == $list[$i]['AccNo']) : ?>
+                                                                                                <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                            <?php else: ?>
+                                                                                                <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                            <?php endif; ?>
+                                                                                        <?php endif; ?>
+                                                                                    <?php endfor; ?>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td>
+                                                                                <select name="currency[]" class="form-control" required>
+                                                                                    <?php foreach($currency as $cur) : ?> 
+                                                                                        <?php if($cur->Currency == $list[$i]['Currency']) : ?>
+                                                                                            <option selected value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
+                                                                                        <?php else : ?>
+                                                                                            <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
+                                                                                        <?php endif; ?>
+                                                                                    <?php endforeach; ?>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td><input type="number" name="rate[]" value="<?= $list[$i]['Rate'] ?>" class="form-control" min="1" value="1" required></td>
+                                                                            <td><input type="number" name="unit[]" value="<?= $list[$i]['Unit'] ?>" class="form-control" required></td>
+                                                                            <td><input type="" name="amount[]" value="<?= $list[$i]['Amount'] ?>" class="form-control" readonly></td>
+                                                                        </tr>
+                                                                    <?php endfor; ?>
                                                                 </tbody>
                                                             </table>
                                                         </div>

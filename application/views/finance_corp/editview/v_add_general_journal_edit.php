@@ -60,8 +60,12 @@
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
                                                                             <select name="branch" id="branch" class="form-control" data-live-search="true" data-size="8" required>
                                                                                 <option value="">--Choose Branch--</option>
-                                                                                <?php foreach($branch as $branch) : ?>
-                                                                                    <option value="<?= $branch->BranchCode ?>"><?= $branch->BranchCode ?> - <?= $branch->BranchName ?></option>
+                                                                                <?php foreach($branches as $branches) : ?>
+                                                                                    <?php if($branches->BranchCode == $branch ) : ?>
+                                                                                        <option selected value="<?= $branches->BranchCode ?>"><?= $branches->BranchCode ?> - <?= $branches->BranchName ?></option>    
+                                                                                    <?php else : ?>
+                                                                                        <option value="<?= $branches->BranchCode ?>"><?= $branches->BranchCode ?> - <?= $branches->BranchName ?></option>
+                                                                                    <?php endif; ?>
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </div>
@@ -69,12 +73,12 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="date" id="transdate" name="transdate" class="form-control" required>
+                                                                        <input type="date" id="transdate" name="transdate" class="form-control" value="<?= $transdate ?>" required>
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Paid To</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
-                                                                                <input type="text" class="form-control" id="paidto" name="paidto" placeholder="Search for...">
+                                                                                <input name="paidto" id="paidto" class="form-control" value="<?= $paidto ?>"/>
                                                                                 <span class="input-group-btn">
                                                                                     <button class="btn btn-primary" type="button" id="paid_branch" data-target="#insert_paid" data-toggle="modal"><i class="fa fa-plus"></i> Add</button>
                                                                                 </span>
@@ -84,7 +88,7 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Description</b></label>
                                                                         <div class="col-md-10">
-                                                                            <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
+                                                                        <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"><?= $remark ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -142,43 +146,60 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody_detail">
-                                                                    <tr style="background-color: #E9EDEF">
-                                                                        <td><input type="number" name="itemno[]" class="form-control" readonly value="1"></td>
-                                                                        <td><input type="text" name="remarks[]" class="form-control" required></td>
-                                                                        <td><input type="text" name="departments[]" class="form-control" required></td>
-                                                                        <td><input type="text" name="costcenters[]" class="form-control" required><span class="input-group-btn" type="button"></span></td>
-                                                                        <!-- <td>
-                                                                            <select name="emp[]" class="form-control" required>
-                                                                                <option value="">--Choose ID--</option>
-                                                                                <?php foreach($employee as $emp) : ?>
-                                                                                    <option value="<?= $emp->IDNumber ?>" data-fullname="<?= $emp->FullName ?>" data-dept="<?= $emp->DeptCode ?>" data-cc="<?= $emp->CostCenter ?>"><?= $emp->IDNumber ?> - <?= $emp->FullName ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </td> -->
-                                                                        <td>
-                                                                            <select name="accnos[]" class="form-control" required>
-                                                                                <option value="">--Choose Account No--</option>
-                                                                                <?php foreach($accno as $accnos) : ?>
-                                                                                    <option value="<?= $accnos->Acc_No ?>"><?= $accnos->Acc_No ?> | <?= $accnos->Acc_Name ?> - [<?= $accnos->Acc_Type?>]</option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td>
-                                                                            <select name="currency[]" class="form-control" required>
-                                                                                <?php foreach($currency as $cur) : ?> 
-                                                                                    <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td><input type="number" name="debit[]" class="form-control" min="0" value="0" required></td>
-                                                                        <td><input type="number" name="credit[]" class="form-control" min="0" value="0" required></td>
-                                                                    </tr>
+                                                                    <?php
+                                                                        $debit_total = 0;
+                                                                        $credit_total = 0;
+                                                                    ?>
+                                                                    <?php for($i=1; $i < count($list); $i++) : ?>
+                                                                        <tr style="background-color: #E9EDEF">
+                                                                            <td><input type="number" name="itemno[]" class="form-control" readonly value="<?= $list[$i]['ItemNo'] ?>"></td>
+                                                                            <td><input type="text" name="remarks[]" class="form-control" value="<?= $list[$i]['Remarks'] ?>" required></td>
+                                                                            <td><input type="text" name="departments[]" class="form-control" value="<?= $list[$i]['Department'] ?>" required></td>
+                                                                            <td><input type="text" name="costcenters[]" class="form-control" value="<?= $list[$i]['CostCenter'] ?>" required><span class="input-group-btn" type="button"></span></td>
+                                                                            <td>
+                                                                                <select name="accnos[]" class="form-control" required>
+                                                                                    <option value="">--Choose Account No--</option>
+                                                                                    <?php for($j=0; $j < count($accnos); $j++) : ?>
+                                                                                        <?php
+                                                                                            $accn = $accnos[$j]['Acc_No'];
+                                                                                            $acctype = $accnos[$j]['Acc_Type']; 
+                                                                                            $accname = $accnos[$j]['Acc_Name'];
+                                                                                        ?>
+                                                                                        <?php if($acctype == 'R') : ?>
+                                                                                            <?php if($accn == $list[$i]['AccNo']) : ?>
+                                                                                                <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                            <?php else: ?>
+                                                                                                <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                            <?php endif; ?>
+                                                                                        <?php endif; ?>
+                                                                                    <?php endfor; ?>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td>
+                                                                                <select name="currency[]" class="form-control" required>
+                                                                                    <?php foreach($currency as $cur) : ?> 
+                                                                                        <?php if($cur->Currency == $list[$i]['Currency']) : ?>
+                                                                                            <option selected value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
+                                                                                        <?php else : ?>
+                                                                                            <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
+                                                                                        <?php endif; ?>
+                                                                                    <?php endforeach; ?>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td><input type="number" name="debit[]" value="<?= $list[$i]['Debit'] ?>" class="form-control" min="1" value="1" required></td>
+                                                                            <td><input type="number" name="credit[]" value="<?= $list[$i]['Credit'] ?>" class="form-control" required></td>
+                                                                        </tr>
+                                                                        <?php
+                                                                            $debit_total += $list[$i]['Debit'];
+                                                                            $credit_total = $list[$i]['Credit'];
+                                                                        ?>
+                                                                    <?php endfor; ?>
                                                                 </tbody>
                                                                 <tbody>
                                                                     <tr>
                                                                         <td class="text-right sbold uppercase" colspan="6" style="padding-top: 15px">Total</td>
-                                                                        <td><input type="number" id="total_debit" name="total_debit" class="form-control" value="0" readonly></td>
-                                                                        <td><input type="number" id="total_credit" name="total_credit" class="form-control" value="0" readonly></td>
+                                                                        <td><input type="number" id="total_debit" name="total_debit" class="form-control" value="<?= $debit_total?>" readonly></td>
+                                                                        <td><input type="number" id="total_credit" name="total_credit" class="form-control" value="<?= $credit_total?>" readonly></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
