@@ -49,8 +49,8 @@ class Mdl_corp_treasury extends CI_Model
     }
 
     function get_employee(){
-        return $this->db->select('IDNumber, FullName, DeptCode, CostCenter')
-                        ->get('tbl_fa_hr_append')->result();
+        return $this->db->select('IDNumber, FullName, DeptCode, Branch, CostCenter')
+                        ->get('tbl_fa_hr_append')->result_array();
     }
 
     function get_mas_acc(){

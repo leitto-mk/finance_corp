@@ -1047,6 +1047,87 @@ class FinanceCorp extends CI_Controller
     }
 
     //CASH ADVANCE WITHDRAW
+    function view_ca_withdraw(){
+        $docno = '';
+        $start = date('Y-01-01');
+        $end = date('Y-m-d');
+
+        $data = [
+            'title' => 'List CA Withdraw',
+            
+            'list' => $this->Mdl_corp_treasury->get_annual_treasury('CA-WITHDRAW', $docno, $start, $end),
+            'script' => 'treasuries/ca_withdraw'
+        ];
+        
+        $this->load->view('finance_corp/treasuries/v_ca_withdraw', $data);
+    }
+
+    function ajax_get_annual_ca_withdraw(){
+        $result = $this->Mdl_corp_treasury->get_annual_treasury('CA-WITHDRAW', $_POST['docno'],$_POST['start'], $_POST['end']);
+
+        echo json_encode($result);
+    }
+
+    function edit_ca_withdraw(){
+        $docno = $_GET['docno'];
+
+        $result = $this->Mdl_corp_treasury->get_docno_details($docno);
+
+        $data = [
+            'title' => 'Form Receipt Voucher',
+            
+            //DocNo Master
+            'docno' => $docno,
+            'transdate' => $result[0]['TransDate'],
+            'id' => $result[0]['IDNumber'],
+            'journalgroup' => $result[0]['JournalGroup'],
+            'remark' => $result[0]['Remarks'],
+            'accno' => $result[0]['AccNo'],
+            'branch' => $result[0]['Branch'],
+            'paidto' => $result[0]['PaidTo'],
+            'total' =>  $result[0]['Amount'],
+            'giro' =>  $result[0]['Giro'],
+
+            //List
+            'list' => $result,
+            
+            //Multiple
+            'accnos' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'employees' => $this->Mdl_corp_treasury->get_employee(),
+            'branches' => $this->Mdl_corp_treasury->get_branch(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
+
+            'script' => 'add/fincorp_add_receipt'
+        ];
+        
+        $this->load->view('finance_corp/editview/v_add_ca_withdraw_edit', $data);
+    }
+
+    function ajax_delete_ca_withdraw(){
+        $docno = $_POST['docno'];
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($_POST['docno']);
+        $accnos = '';
+
+        for($i = 0; $i < count($acc_no); $i++){
+            $cur_accno = $acc_no[$i]['AccNo'];
+
+            if($i < count($acc_no)-1){
+                $accnos .= "'$cur_accno'," ;
+            }else{
+                $accnos .= "'$cur_accno'" ;
+            }
+        }
+
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        
+        echo $result;
+    }
+
     function add_ca_withdraw(){
         $data = [
             'title' => 'Form Cash Advance Withdraw',
@@ -1234,6 +1315,87 @@ class FinanceCorp extends CI_Controller
     }
 
     //CASH ADVANCE RECEIPT
+    function view_ca_receipt(){
+        $docno = '';
+        $start = date('Y-01-01');
+        $end = date('Y-m-d');
+
+        $data = [
+            'title' => 'List CA Receipt',
+            
+            'list' => $this->Mdl_corp_treasury->get_annual_treasury('CA-RECEIPT', $docno, $start, $end),
+            'script' => 'treasuries/ca_receipt'
+        ];
+        
+        $this->load->view('finance_corp/treasuries/v_ca_receipt', $data);
+    }
+
+    function ajax_get_annual_ca_receipt(){
+        $result = $this->Mdl_corp_treasury->get_annual_treasury('CA-RECEIPT', $_POST['docno'],$_POST['start'], $_POST['end']);
+
+        echo json_encode($result);
+    }
+
+    function edit_ca_receipt(){
+        $docno = $_GET['docno'];
+
+        $result = $this->Mdl_corp_treasury->get_docno_details($docno);
+
+        $data = [
+            'title' => 'Form Receipt Voucher',
+            
+            //DocNo Master
+            'docno' => $docno,
+            'transdate' => $result[0]['TransDate'],
+            'id' => $result[0]['IDNumber'],
+            'journalgroup' => $result[0]['JournalGroup'],
+            'remark' => $result[0]['Remarks'],
+            'accno' => $result[0]['AccNo'],
+            'branch' => $result[0]['Branch'],
+            'paidto' => $result[0]['PaidTo'],
+            'total' =>  $result[0]['Amount'],
+            'giro' =>  $result[0]['Giro'],
+
+            //List
+            'list' => $result,
+            
+            //Multiple
+            'accnos' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'employees' => $this->Mdl_corp_treasury->get_employee(),
+            'branches' => $this->Mdl_corp_treasury->get_branch(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
+
+            'script' => 'add/fincorp_add_receipt'
+        ];
+        
+        $this->load->view('finance_corp/editview/v_add_ca_receipt_edit', $data);
+    }
+
+    function ajax_delete_ca_receipt(){
+        $docno = $_POST['docno'];
+        $branch = $_POST['branch'];
+        $cur_date = $_POST['transdate'];
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($_POST['docno']);
+        $accnos = '';
+
+        for($i = 0; $i < count($acc_no); $i++){
+            $cur_accno = $acc_no[$i]['AccNo'];
+
+            if($i < count($acc_no)-1){
+                $accnos .= "'$cur_accno'," ;
+            }else{
+                $accnos .= "'$cur_accno'" ;
+            }
+        }
+
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        
+        echo $result;
+    }
+
     function add_ca_receipt(){
         $data = [
             'title' => 'Form Cash Advance Receipt',
