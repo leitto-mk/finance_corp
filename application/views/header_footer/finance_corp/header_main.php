@@ -191,9 +191,9 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_gl_personal') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= site_url('FinanceCorp/view_balance_sheet') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;General Ledger Personal</span>
+                                            <span class="title">&bull;&nbsp;&nbsp;Balance Sheet</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">

@@ -104,7 +104,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form Receipt Voucher',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('REC'),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -370,7 +370,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form payment Voucher',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('PAY'),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -636,7 +636,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form Overbook Voucher',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('OVB'),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -904,7 +904,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form General Journal',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('GNR'),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -1132,7 +1132,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form Cash Advance Withdraw',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('CAW'),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -1400,7 +1400,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form Cash Advance Receipt',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('CAR'),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -1453,8 +1453,8 @@ class FinanceCorp extends CI_Controller
             'Rate' => 1,
             'Unit' => $_POST['totalamount'],
             'Amount' => $_POST['totalamount'],
-            'Debit' => 0,
-            'Credit' => $_POST['totalamount'],
+            'Debit' => $_POST['totalamount'],
+            'Credit' => 0,
             'Balance' => 0,
             'BalanceBranch' => $counter_balance,
             'Remarks' => $_POST['remark'],
@@ -1543,8 +1543,8 @@ class FinanceCorp extends CI_Controller
                 'Rate' => $_POST['rate'][$i],
                 'Unit' => $_POST['unit'][$i],
                 'Amount' => $_POST['amount'][$i],
-                'Debit' => $_POST['amount'][$i],
-                'Credit' => 0,
+                'Debit' => 0,
+                'Credit' => $_POST['amount'][$i],
                 'Balance' => 0,
                 'BalanceBranch' => $branch_bal,
                 'Remarks' => $_POST['remarks'][$i],
@@ -1657,17 +1657,45 @@ class FinanceCorp extends CI_Controller
         echo json_encode($result);
     }
 
-    function view_gl_personal(){
+    function view_balance_sheet(){
         $data = [
-            'title' => 'Sub Ledger',
-            'h1' => 'Sub',
-            'h2' => 'Ledger',
-            'h3' => '(Personal)',
+            'title' => 'Balance Sheet',
+            'h1' => 'Balance',
+            'h2' => 'Sheet',
+            'h3' => '',
 
             'ledger' => $this->Mdl_corp_personal->get_general_ledger()
         ];
         
-        $this->load->view('finance_corp/reports/v_gl_personal', $data);
+        $this->load->view('finance_corp/reports/v_balance_sheet', $data);
+    }
+
+    function view_balance_sheet_report(){
+        $data = [
+            'title' => 'Form Cash Advance Receipt',
+            
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('REC'),
+            'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
+            'branch' => $this->Mdl_corp_treasury->get_branch(),
+            'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'currency' => $this->Mdl_corp_treasury->get_currency(),
+
+            'script' => 'add/fincorp_add_balance_sheet'
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);
+    }
+
+    function view_income_statement(){
+        $data = [
+            //HEADER
+            'title' => 'Income Statement',
+            'h1' => 'Income',
+            'h2' => 'Statement',
+            'h3' => '',
+        ];
+
+        $this->load->view('finance_corp/reports/v_income_statment', $data);
     }
 
     //Re-Calculate
@@ -1681,5 +1709,138 @@ class FinanceCorp extends CI_Controller
         $result = $this->Mdl_corp_branch->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 
         echo $result;
+    }
+
+    //Reports Rugi - Laba
+    function view_reps_rl(){
+        $docno = $_GET['docno'];
+        $branch = $_GET['branch'];
+        $transdate = $_GET['transdate'];
+        $idnumber = $_GET['idnumber'];
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            // 'report' => $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate, $idnumber)
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_rl', $data);
+    }
+
+    //Reports Balance Sheet
+    function view_reps_balance_sheet(){
+        $docno = $_GET['docno'];
+        $branch = $_GET['branch'];
+        $transdate = $_GET['transdate'];
+        $idnumber = $_GET['idnumber'];
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            // 'report' => $this->Mdl_corp_treasury->get_treasury_report('',$docno, $branch, $transdate, $idnumber)
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);
+    }
+
+    //Reports Payment Voucher
+    function view_reps_payment_voucher(){
+        $docno = $_GET['docno'];
+        $branch = $_GET['branch'];
+        $transdate = $_GET['transdate'];
+        $idnumber = $_GET['idnumber'];
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'report' => $this->Mdl_corp_treasury->get_treasury_report('PAYMENT',$docno, $branch, $transdate, $idnumber)
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_payment_voucher', $data);
+    }
+
+    //Reports Receipt Voucher
+    function view_reps_receipt_voucher(){
+        $docno = $_GET['docno'];
+        $branch = $_GET['branch'];
+        $transdate = $_GET['transdate'];
+        $idnumber = $_GET['idnumber'];
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'report' => $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate, $idnumber)
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_receipt_voucher', $data);
+    }
+
+    //Reports General Journal
+    function view_reps_general_journal(){
+        $docno = $_GET['docno'];
+        $branch = $_GET['branch'];
+        $transdate = $_GET['transdate'];
+        $idnumber = $_GET['idnumber'];
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'report' => $this->Mdl_corp_treasury->get_treasury_report('GENERAL',$docno, $branch, $transdate, $idnumber)
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_general_journal', $data);
+    }
+
+    //Reports Cash Withdraw
+    function view_reps_cash_withdraw(){
+        $docno = $_GET['docno'];
+        $branch = $_GET['branch'];
+        $transdate = $_GET['transdate'];
+        $idnumber = $_GET['idnumber'];
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'report' => $this->Mdl_corp_treasury->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate, $idnumber)
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_cash_withdraw', $data);
+    }
+
+    //Reports Cash Receipt
+    function view_reps_cash_receipt(){
+        $docno = $_GET['docno'];
+        $branch = $_GET['branch'];
+        $transdate = $_GET['transdate'];
+        $idnumber = $_GET['idnumber'];
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'report' => $this->Mdl_corp_treasury->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate, $idnumber)
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_cash_receipt', $data);
     }
 }

@@ -70,9 +70,9 @@
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_caccount">
                                                                             <select name="accno" id="accno" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
-                                                                                <?php foreach($accno as $acc) : ?>
-                                                                                    <option value="<?= $acc->Acc_No ?>"><?= $acc->Acc_No ?> | <?= $acc->Acc_Name ?> - [<?= $acc->Acc_Type?>]</option>
-                                                                                <?php endforeach; ?>
+                                                                                <?php for($i = 0; $i < count($accno); $i++) : ?>
+                                                                                    <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?> - [<?= $accno[$i]['Acc_Type']?>]</option>
+                                                                                <?php endfor; ?>
                                                                             </select>
                                                                         </div>
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_accdesc"><b></b></span>
@@ -83,9 +83,9 @@
                                                                             <div class="input-group">
                                                                                 <select id="emp_master_id" name="emp_master_id" class="form-control" required>
                                                                                     <option value="">--Choose ID--</option>
-                                                                                    <?php foreach($employee as $emp_master_id) : ?>
-                                                                                        <option value="<?= $emp_master_id->IDNumber ?>" data-fullname="<?= $emp_master_id->FullName ?>" data-branch="<?= $emp_master_id->Branch ?>" data-dept="<?= $emp_master_id->DeptCode ?>" data-cc="<?= $emp_master_id->CostCenter ?>"><?= $emp_master_id->IDNumber ?></option>
-                                                                                    <?php endforeach; ?>
+                                                                                    <?php for($i = 0; $i < count($employee); $i++) : ?>        
+                                                                                        <option value="<?= $employee[$i]['IDNumber'] ?>" data-fullname="<?= $employee[$i]['FullName'] ?>" data-dept="<?= $employee[$i]['DeptCode'] ?>" data-cc="<?= $employee[$i]['CostCenter'] ?>"><?= $employee[$i]['IDNumber'] ?> - <?= $employee[$i]['FullName'] ?></option>
+                                                                                    <?php endfor; ?>
                                                                                 </select>
                                                                                 <span class="input-group-btn">
                                                                                     <button class="btn btn-primary" type="button" id="paid_branch" data-target="#insert_paid" data-toggle="modal"><i class="fa fa-plus"></i> Add</button>
@@ -244,11 +244,11 @@
                                                                         <td>
                                                                             <select name="accnos[]" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
-                                                                                <?php foreach($accno as $accnos) : ?>
-                                                                                    <?php if($accnos->Acc_Type == 'A') : ?>
-                                                                                        <option value="<?= $accnos->Acc_No ?>"><?= $accnos->Acc_No ?> | <?= $accnos->Acc_Name ?> - [<?= $accnos->Acc_Type?>]</option>
+                                                                                <?php for($i = 0; $i < count($accno); $i++) : ?>
+                                                                                    <?php if($accno[$i]['Acc_Type'] == 'A') : ?>
+                                                                                        <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?> - [<?= $accno[$i]['Acc_Type']?>]</option>
                                                                                     <?php endif; ?>
-                                                                                <?php endforeach; ?>
+                                                                                <?php endfor; ?>
                                                                             </select>
                                                                         </td>
                                                                         <td>

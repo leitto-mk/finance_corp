@@ -18,8 +18,8 @@ class Mdl_corp_treasury extends CI_Model
                         ->result_array();
     }
 
-    function get_new_treasury_docno(){
-        $iteration = date('Y') . '-' . date('m');
+    function get_new_treasury_docno($type){
+        $iteration = date('Y') . '-' . $type . date('m');
         $docno = $this->db->select('DocNo')
                           ->get_where('tbl_fa_treasury_mas', "DocNo LIKE '$iteration%'")
                           ->num_rows() + 1;
@@ -59,8 +59,7 @@ class Mdl_corp_treasury extends CI_Model
                 ->select('Acc_No, Acc_Name, Acc_Type')
                 ->get_where('tbl_fa_account_no', [
                     'Acc_Type !=' => 'H'
-                ])
-                ->result_array();
+                ])->result_array();
     }
 
     function get_last_trans_date(){
@@ -210,5 +209,25 @@ class Mdl_corp_treasury extends CI_Model
         $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
         
         return ($this->db->trans_status() ? 'success' : this->db->error());
+    }
+
+    //GENERATE TREASURY REPORTS
+    function get_treasury_report($type, $docno, $branch, $transdate, $idnumber){
+        $query =  $this->db->query(
+            "SELECT 
+                trans.*,
+                acc.Acc_Name
+             FROM tbl_fa_transaction AS trans
+             JOIN tbl_fa_account_no AS acc
+                ON trans.AccNo = acc.Acc_No
+             WHERE trans.Docno = '$docno'
+             AND trans.Branch = '$branch'
+             AND trans.TransDate = '$transdate'
+             AND trans.IDNumber = '$idnumber'
+             AND trans.TransType = '$type'
+             ORDER BY ItemNo ASC"
+        )->result_array();
+
+        return $query;
     }
 }
