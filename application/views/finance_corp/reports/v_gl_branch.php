@@ -138,14 +138,14 @@
                                 <table id="table_gl" class="table table-bordered table-stripped table-condensed">
                                     <thead>
                                         <tr style="background-color: #22313F" class="font-white">
-                                            <th class="text-center" width="5%"> No. </th>
+                                            <th class="text-center" width="3%"> No. </th>
                                             <th class="text-center" width="7%"> Date </th>
                                             <th class="text-center" width="8%"> Doc No </th>
-                                            <th class="text-center" width="8%"> Cheque/Giro </th>
+                                            <!-- <th class="text-center" width="8%"> Cheque/Giro </th> -->
                                             <th class="text-center" width="3%"> Branch </th>
                                             <th class="text-center" width="2%"> Department </th>
                                             <th class="text-center" width="3%"> Cost Center </th>
-                                            <th class="text-center" width="5%"> AccNo  </th>
+                                            <th class="text-center" width="10%"> AccNo  </th>
                                             <th class="text-center" width="15%"> Remarks </th>
                                             <th class="text-right" width="8%"> Debit </th>
                                             <th class="text-right" width="8%"> Credit </th>
@@ -174,14 +174,14 @@
                                             <?php endif; ?> -->
 
                                             <tr class="font-white sbold">
-                                                <td class="bold" align="left"><?= $i+1 ?></td>
-                                                <td class="bold" align="left"><?= $ledger[$i]['TransDate'] ?></td>
-                                                <td class="bold" align="left"><?= $ledger[$i]['DocNo'] ?></td>
-                                                <td class="bold" align="left"></td>
-                                                <td class="bold" align="left"><?= $cur_branch ?></td>
-                                                <td class="bold" align="left"><?= $ledger[$i]['Department'] ?></td>
-                                                <td class="bold" align="right"><?= $ledger[$i]['CostCenter'] ?></td>
-                                                <td class="bold" align="right"><?= $ledger[$i]['AccNo'] ?></td>
+                                                <td class="bold" align="center"><?= $i+1 ?></td>
+                                                <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
+                                                <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
+                                                <!-- <td class="bold" align="left"></td> -->
+                                                <td class="bold" align="center"><?= $cur_branch ?></td>
+                                                <td class="bold" align="center"><?= $ledger[$i]['Department'] ?></td>
+                                                <td class="bold" align="center"><?= $ledger[$i]['CostCenter'] ?></td>
+                                                <td class="bold" align="left"><?= $ledger[$i]['AccNo'] . ' - ' . $ledger[$i]['Acc_Name'] ?></td>
                                                 <td class="bold" align="left"><?= $ledger[$i]['Remarks'] ?></td>
                                                 <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></td>
                                                 <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></td>
@@ -208,11 +208,11 @@
                                                     $subtotal_balance = $subtotal_debit - $subtotal_credit;
                                                 ?>
                                                 <tr class="font-white sbold">
-                                                    <td class="bold" align="right" colspan="9">Beginning Balance</td>
+                                                    <td class="bold" align="right" colspan="8">Beginning Balance</td>
                                                     <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></td>
                                                 </tr>
                                                 <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
-                                                    <td align="right" colspan="9">Total :</td>                                    
+                                                    <td align="right" colspan="8">Total :</td>                                    
                                                     <td align="right"><?= number_format($subtotal_debit, 0, ',', '.') ?></td>
                                                     <td align="right"><?= number_format($subtotal_credit, 0, ',', '.') ?></td>
                                                     <td align="right" class="font-white sbold bg bg-blue-ebonyclay"><?= number_format($subtotal_balance, 0, ',', '.') ?></td>
