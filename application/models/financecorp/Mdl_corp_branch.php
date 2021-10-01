@@ -158,6 +158,6 @@ class Mdl_corp_branch extends CI_Model
       
       $this->db->trans_complete();
       
-      return ($this->db->trans_status() ? 'success' : this->db->error());
+      return ($this->db->trans_status() ? 'success' : $this->db->error());
    }
 }

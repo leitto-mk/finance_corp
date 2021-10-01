@@ -119,7 +119,7 @@ class Mdl_corp_treasury extends CI_Model
 
         $this->db->trans_complete();
 
-        return ($this->db->trans_status() ? 'success' : this->db->error());
+        return ($this->db->trans_status() ? 'success' : $this->db->error());
     }
 
     function calculate_balance($branch, $accno, $date_start, $date_finish){
@@ -208,7 +208,7 @@ class Mdl_corp_treasury extends CI_Model
     
         $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
         
-        return ($this->db->trans_status() ? 'success' : this->db->error());
+        return ($this->db->trans_status() ? 'success' : $this->db->error());
     }
 
     //GENERATE TREASURY REPORTS

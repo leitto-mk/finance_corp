@@ -1634,7 +1634,7 @@ class FinanceCorp extends CI_Controller
             'h3' => '(Branch)',
 
             //LEDGER TABLE
-            'date_start' => date('d-m-Y', strtotime($date_start)),
+            'date_start' => date('d-M-Y', strtotime($date_start)),
             'date_end' => date('d-M-Y', strtotime($date_finish)),
             'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish),
 
