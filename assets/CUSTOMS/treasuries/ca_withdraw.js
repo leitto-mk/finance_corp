@@ -27,11 +27,15 @@ var CAWithdraw = () => {
                                     <td align="center">${response[i].TransDate}</td>
                                     <td align="left">${response[i].DocNo}</td>
                                     <td align="left">${response[i].TransType}</td>
-                                    <td align="left">${response[i].Branch}</td>
+                                    <td align="left">${response[i].Branch} - ${response[i].BranchName}</td>
+                                    <td align="left">${response[i].Remarks}</td>
                                     <td align="right">${response[i].TotalAmount}</td>
                                     <td align="center">
-                                        <a href="${base_url}financecorp/edit_ca_withdraw?docno=${response[i].DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                                        <a href="${base_url}FinanceCorp/edit_ca_withdraw?docno=${response[i].DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                             <i class="fa fa-edit"> </i>
+                                        </a>
+                                        <a href="${base_url}FinanceCorp/view_reps_cash_withdraw?docno=${response[i].DocNo}&branch=${response[i].Branch}&transdate=${response[i].TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                                            <i class="fa fa-print"> </i>
                                         </a>
                                         <a href="javascript:;" name="delete" data-docno="${response[i].DocNo}" data-branch="${response[i].Branch}" data-transdate="${response[i].TransDate}" type="button" class="btn btn-xs red">
                                             <i class="fa fa-trash"> </i>

@@ -10,12 +10,33 @@ class Mdl_corp_treasury extends CI_Model
             $docno_condition = "DocNo IS NOT NULL";
         }
 
-        return $this->db->where("TransDate BETWEEN '$start' AND '$end'")
-                        ->where($docno_condition)
-                        ->where('TransType', $type)
-                        ->order_by('TransDate','DESC')
-                        ->get('tbl_fa_treasury_mas')
-                        ->result_array();
+        // return $this->db->where("TransDate BETWEEN '$start' AND '$end'")
+        //                 ->where($docno_condition)
+        //                 ->where('TransType', $type)
+        //                 ->order_by('TransDate','DESC')
+        //                 ->get('tbl_fa_treasury_mas')
+        //                 ->result_array();
+
+        $query = $this->db->query(
+            "SELECT
+                t1.IDNumber,
+                t1.TransDate,
+                t1.DocNo,
+                t1.TransType,
+                t1.Branch,
+                t2.BranchName,
+                t1.Remarks,
+                t1.TotalAmount
+             FROM tbl_fa_treasury_mas AS t1
+             LEFT JOIN abase_02_branch AS t2
+                ON t1.Branch = t2.BranchCode
+             WHERE t1.TransDate BETWEEN '$start' AND '$end'
+             AND t1.TransType = '$type'
+             AND t1.$docno_condition
+             ORDER BY TransDate DESC"
+        )->result_array();
+
+        return $query;
     }
 
     function get_new_treasury_docno($type){
@@ -63,11 +84,13 @@ class Mdl_corp_treasury extends CI_Model
     }
 
     function get_last_trans_date(){
-        return $this->db->select('TransDate')
+        $query = $this->db->select('TransDate')
                         ->group_by('TransDate')
                         ->order_by('TransDate','DESC')
                         ->limit(1)
-                        ->get('tbl_fa_transaction')->row()->TransDate;
+                        ->get('tbl_fa_transaction')->row();
+
+        return $query ? $query->TransDate : date('Y-m-d');
     }
 
     function get_currency(){
@@ -128,6 +151,8 @@ class Mdl_corp_treasury extends CI_Model
          }else{
             $branch_condition = "trans.Branch = '$branch'";
          }
+
+        $date_finish = $date_finish ?: date('Y-m-d');
      
         $query = $this->db->query(
             "SELECT 
@@ -212,7 +237,7 @@ class Mdl_corp_treasury extends CI_Model
     }
 
     //GENERATE TREASURY REPORTS
-    function get_treasury_report($type, $docno, $branch, $transdate, $idnumber){
+    function get_treasury_report($type, $docno, $branch, $transdate){
         $query =  $this->db->query(
             "SELECT 
                 trans.*,
@@ -223,7 +248,6 @@ class Mdl_corp_treasury extends CI_Model
              WHERE trans.Docno = '$docno'
              AND trans.Branch = '$branch'
              AND trans.TransDate = '$transdate'
-             AND trans.IDNumber = '$idnumber'
              AND trans.TransType = '$type'
              ORDER BY ItemNo ASC"
         )->result_array();

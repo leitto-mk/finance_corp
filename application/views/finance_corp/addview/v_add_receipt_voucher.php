@@ -242,7 +242,7 @@
                                                                         <td>
                                                                             <select name="currency[]" class="form-control" required>
                                                                                 <?php foreach($currency as $cur) : ?> 
-                                                                                    <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
+                                                                                    <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?></option>
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </td>

@@ -60,7 +60,8 @@
                                     <th class="text-center" width="10%"> Trans Date </th>
                                     <th class="text-center" width="10%"> Doc No </th>
                                     <th class="text-center" width="10%"> Trans Type </th>
-                                    <th class="text-center" width="17%"> Branch  </th>
+                                    <th class="text-center" width="17%"> Branch </th>
+                                    <th class="text-center" width="20%"> Description </th>
                                     <th class="text-center" width="10%"> Amount </th>
                                     <th class="text-center" width="10%"> Action </th>
                                 </tr>
@@ -70,15 +71,16 @@
                                     <?php $docno = $list[$i]['DocNo']; ?>
                                     <tr class="font-white sbold">
                                         <td align="center"><?= $list[$i]['TransDate'] ?></td>
-                                        <td align="left"><?= $list[$i]['DocNo'] ?></td>
-                                        <td align="left"><?= $list[$i]['TransType'] ?></td>
-                                        <td align="left"><?= $list[$i]['Branch'] ?></td>
+                                        <td align="center"><?= $list[$i]['DocNo'] ?></td>
+                                        <td align="center"><?= $list[$i]['TransType'] ?></td>
+                                        <td align="left"><?= $list[$i]['Branch'] ?> - <?= $list[$i]['BranchName'] ?></td>
+                                        <td align="left"><?= $list[$i]['Remarks'] ?></td>
                                         <td align="right"><?= $list[$i]['TotalAmount'] ?></td>
                                         <td align="center">
-                                            <a href="<?= base_url("financecorp/edit_payment?docno=$docno")?>" target="_blank" type="button" class="btn btn-xs green">
+                                            <a href="<?= base_url("FinanceCorp/edit_payment?docno=$docno")?>" target="_blank" type="button" class="btn btn-xs green">
                                                 <i class="fa fa-edit"> </i>
                                             </a>
-                                            <a href="<?php echo site_url('FinanceCorp/view_reps_payment_voucher?') . "docno=" . $list[$i]['DocNo'] . "&branch=" . $list[$i]['Branch'] . "&transdate=" . $list[$i]['TransDate'] . "&idnumber=" . $list[$i]['IDNumber'] ?>" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                                            <a href="<?php echo site_url('FinanceCorp/view_reps_payment_voucher?') . "docno=" . $list[$i]['DocNo'] . "&branch=" . $list[$i]['Branch'] . "&transdate=" . $list[$i]['TransDate'] ?>" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                                                 <i class="fa fa-print"> </i>
                                             </a>
                                             <a href="javascript:;" name="delete" data-docno="<?= $list[$i]['DocNo'] ?>" data-branch="<?= $list[$i]['Branch'] ?>" data-transdate="<?= $list[$i]['TransDate'] ?>" type="button" class="btn btn-xs red">

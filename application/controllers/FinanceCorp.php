@@ -1724,7 +1724,7 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            // 'report' => $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate, $idnumber)
+            // 'report' => $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate)
         ];
         
         $this->load->view('finance_corp/reports/v_reps_rl', $data);
@@ -1743,29 +1743,10 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            // 'report' => $this->Mdl_corp_treasury->get_treasury_report('',$docno, $branch, $transdate, $idnumber)
+            // 'report' => $this->Mdl_corp_treasury->get_treasury_report('',$docno, $branch, $transdate)
         ];
         
         $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);
-    }
-
-    //Reports Payment Voucher
-    function view_reps_payment_voucher(){
-        $docno = $_GET['docno'];
-        $branch = $_GET['branch'];
-        $transdate = $_GET['transdate'];
-        $idnumber = $_GET['idnumber'];
-
-        $data = [
-            'title' => 'Reports',
-            'h1' => '',
-            'h2' => '',
-            'h3' => '',
-
-            'report' => $this->Mdl_corp_treasury->get_treasury_report('PAYMENT',$docno, $branch, $transdate, $idnumber)
-        ];
-        
-        $this->load->view('finance_corp/reports/v_reps_payment_voucher', $data);
     }
 
     //Reports Receipt Voucher
@@ -1773,7 +1754,7 @@ class FinanceCorp extends CI_Controller
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
-        $idnumber = $_GET['idnumber'];
+        // $idnumber = $_GET['idnumber'];
 
         $data = [
             'title' => 'Reports',
@@ -1781,10 +1762,29 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            'report' => $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate, $idnumber)
+            'report' => $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate)
         ];
         
         $this->load->view('finance_corp/reports/v_reps_receipt_voucher', $data);
+    }
+
+    //Reports Payment Voucher
+    function view_reps_payment_voucher(){
+        $docno = $_GET['docno'];
+        $branch = $_GET['branch'];
+        $transdate = $_GET['transdate'];
+        // $idnumber = $_GET['idnumber'];
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'report' => $this->Mdl_corp_treasury->get_treasury_report('PAYMENT',$docno, $branch, $transdate)
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_payment_voucher', $data);
     }
 
     //Reports General Journal
@@ -1792,7 +1792,7 @@ class FinanceCorp extends CI_Controller
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
-        $idnumber = $_GET['idnumber'];
+        // $idnumber = $_GET['idnumber'];
 
         $data = [
             'title' => 'Reports',
@@ -1800,7 +1800,7 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            'report' => $this->Mdl_corp_treasury->get_treasury_report('GENERAL',$docno, $branch, $transdate, $idnumber)
+            'report' => $this->Mdl_corp_treasury->get_treasury_report('GENERAL',$docno, $branch, $transdate)
         ];
         
         $this->load->view('finance_corp/reports/v_reps_general_journal', $data);
@@ -1811,7 +1811,7 @@ class FinanceCorp extends CI_Controller
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
-        $idnumber = $_GET['idnumber'];
+        // $idnumber = $_GET['idnumber'];
 
         $data = [
             'title' => 'Reports',
@@ -1819,7 +1819,7 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            'report' => $this->Mdl_corp_treasury->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate, $idnumber)
+            'report' => $this->Mdl_corp_treasury->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate)
         ];
         
         $this->load->view('finance_corp/reports/v_reps_cash_withdraw', $data);
@@ -1830,7 +1830,7 @@ class FinanceCorp extends CI_Controller
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
-        $idnumber = $_GET['idnumber'];
+        // $idnumber = $_GET['idnumber'];
 
         $data = [
             'title' => 'Reports',
@@ -1838,7 +1838,7 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            'report' => $this->Mdl_corp_treasury->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate, $idnumber)
+            'report' => $this->Mdl_corp_treasury->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate)
         ];
         
         $this->load->view('finance_corp/reports/v_reps_cash_receipt', $data);

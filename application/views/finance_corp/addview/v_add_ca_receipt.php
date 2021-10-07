@@ -234,7 +234,7 @@
                                                                         <th class="text-center"> Cost Center </th>
                                                                         <!-- <th class="text-center"> Paid To </th> -->
                                                                         <th class="text-center"> Account No. </th>
-                                                                        <th class="text-center"> Currency </th>
+                                                                        <th class="text-center"> Cry. </th>
                                                                         <th class="text-center"> Rate </th>
                                                                         <th class="text-center"> Unit </th>
                                                                         <th class="text-center"> Amount </th>
@@ -267,7 +267,7 @@
                                                                         <td>
                                                                             <select name="currency[]" class="form-control" required>
                                                                                 <?php foreach($currency as $cur) : ?> 
-                                                                                    <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
+                                                                                    <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?></option>
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </td>

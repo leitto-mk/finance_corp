@@ -187,7 +187,7 @@
                                     <li class="nav-item start">
                                         <a href="<?= site_url('FinanceCorp/view_gl_branch') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;General Ledger Branch</span>
+                                            <span class="title">&bull;&nbsp;&nbsp;General Ledger</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">

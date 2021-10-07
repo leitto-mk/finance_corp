@@ -69,9 +69,9 @@
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_caccount">
                                                                             <select name="accno" id="accno" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
-                                                                                <?php foreach($accno as $acc) : ?>
-                                                                                    <option value="<?= $acc->Acc_No ?>"><?= $acc->Acc_No ?> | <?= $acc->Acc_Name ?> - [<?= $acc->Acc_Type?>]</option>
-                                                                                <?php endforeach; ?>
+                                                                                <?php for($i = 0; $i < count($accno); $i++) : ?>
+                                                                                        <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?> - [<?= $accno[$i]['Acc_Type']?>]</option>
+                                                                                <?php endfor; ?>
                                                                             </select>
                                                                         </div>
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="accdesc"><b></b></span>
@@ -209,7 +209,7 @@
                                                                         <th class="text-center"> Cost Center </th>
                                                                         <!-- <th class="text-center"> Paid To </th> -->
                                                                         <th class="text-center"> Account No. </th>
-                                                                        <th class="text-center"> Currency </th>
+                                                                        <th class="text-center"> Cry. </th>
                                                                         <th class="text-center"> Rate </th>
                                                                         <th class="text-center"> Unit </th>
                                                                         <th class="text-center"> Amount </th>
@@ -242,7 +242,7 @@
                                                                         <td>
                                                                             <select name="currency[]" class="form-control" required>
                                                                                 <?php foreach($currency as $cur) : ?> 
-                                                                                    <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?> | <?= $cur->CurrencyName ?></option>
+                                                                                    <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?></option>
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </td>
