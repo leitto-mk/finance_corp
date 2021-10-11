@@ -271,9 +271,9 @@
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </td>
-                                                                        <td><input type="number" name="rate[]" class="form-control" min="1" value="1" required></td>
-                                                                        <td><input type="number" name="unit[]" class="form-control" required></td>
-                                                                        <td><input type="" name="amount[]" class="form-control" readonly></td>
+                                                                        <td><input type="number" name="rate[]" class="form-control text-right" min="1" value="1" required></td>
+                                                                        <td><input type="number" name="unit[]" class="form-control text-right" required></td>
+                                                                        <td><input type="" name="amount[]" class="form-control text-right" readonly></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

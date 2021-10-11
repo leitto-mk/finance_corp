@@ -1,6 +1,5 @@
 <?php $this->load->view('header_footer/finance_corp/header_sub_modul_sf_no_trees'); ?>
-<!-- <div class="portlet light"> -->
-<div class="portlet light" style="background-color: #eff2f6;">
+<div class="portlet light">
     <div class="row">
         <div class="col-md-12" id="printDiv" style="size: landscape; font-family: Open Sans, sans-serif;" >
             <div class="row invoice-logo" align="left">
@@ -17,22 +16,20 @@
                     </div>
                 </div> -->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right hidden-print">
-                    <!-- <div class="portlet light form-horizontal bg-default"> -->
-                    <div class="portlet light bordered form-horizontal">
+                    <div class="portlet light form-horizontal bg-default">
                         <?php echo form_open('Report/view_get_rep_trans', 'role="form"', 'enctype="multipart/form-data"'); ?>
-                            <!-- <div class="portlet-body form-horizontal hidden-print" style="margin-top: 20px"> -->
-                            <div class="portlet-body form-horizontal hidden-print">
+                            <div class="portlet-body form-horizontal hidden-print" style="margin-top: 20px">
                                 <div>
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr class="bg-blue-dark font-white">
-                                                <th class="text-center" width="5%"></th>
-                                                <th class="text-center" width="18%">Branch / Site</th>
-                                                <th class="text-center" width="18%">Account No Start</th>
-                                                <th class="text-center" width="18%">Account No End</th>
-                                                <th class="text-center" width="18%">Date Start</th>
-                                                <th class="text-center" width="18%">Date End</th>        
-                                                <th class="text-center" width="5%" class="text-center">Action</th>        
+                                                <th valign="top" width="5%"></th>
+                                                <th valign="top" width="18%">Branch / Site</th>
+                                                <th valign="top" width="18%">Account No Start</th>
+                                                <th valign="top" width="18%">Account No End</th>
+                                                <th valign="top" width="18%">Date Start</th>
+                                                <th valign="top" width="18%">Date End</th>        
+                                                <th valign="top" width="5%" class="text-center">Action</th>        
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -110,10 +107,8 @@
                         <?php echo form_close(); ?>
                     </div>  
                 </div>
-                <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="portlet bordered light bg-blue-dark"> -->
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -20px;">
-                    <div class="portlet light bordered">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="portlet bordered light bg-blue-dark">
                         <div class="caption">
                             <span class="caption-subject bold uppercase font-white"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Date :  <span id="label_tbl_date_start"><?= date('01-01-Y'); ?></span> --> <span id="label_tbl_date_finish"><?= date('d-m-Y'); ?></span>
                                 <div class="input-group input-large pull-right" style="margin-top: -5px">
@@ -142,8 +137,7 @@
                             <div class="table-responsive">
                                 <table id="table_gl" class="table table-bordered table-stripped table-condensed">
                                     <thead>
-                                        <!-- <tr style="background-color: #22313F" class="font-white"> -->
-                                        <tr style="background-color: #2C3E50" class="font-white">
+                                        <tr style="background-color: #22313F" class="font-white">
                                             <th class="text-center" width="3%"> No. </th>
                                             <th class="text-center" width="7%"> Date </th>
                                             <th class="text-center" width="8%"> Doc No </th>
@@ -179,15 +173,14 @@
                                                 ?>
                                             <?php endif; ?> -->
 
-                                            <!-- <tr class="font-white sbold"> -->
-                                            <tr class="font-dark sbold">
+                                            <tr class="font-white sbold">
                                                 <td class="bold" align="center"><?= $i+1 ?></td>
                                                 <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
                                                 <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
                                                 <td class="bold" align="center"><?= $cur_branch ?></td>
-                                                <td class="bold" align="left"><?= $ledger[$i]['Department'] ?></td>
-                                                <td class="bold" align="left"><?= $ledger[$i]['CostCenter'] ?></td>
-                                                <td class="bold" align="left"><?= $ledger[$i]['AccNo'] . ' - ' . $ledger[$i]['Acc_Name'] ?></td>
+                                                <td class="bold" align="center"><?= $ledger[$i]['Department'] ?></td>
+                                                <td class="bold" align="center"><?= $ledger[$i]['CostCenter'] ?></td>
+                                                <td class="bold" align="center"><?= $ledger[$i]['AccNo'] . ' - ' . $ledger[$i]['Acc_Name'] ?></td>
                                                 <td class="bold" align="left"><?= $ledger[$i]['Remarks'] ?></td>
                                                 <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></td>
                                                 <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></td>
@@ -213,13 +206,11 @@
                                                 <?php
                                                     $subtotal_balance = $subtotal_debit - $subtotal_credit;
                                                 ?>
-                                                <!-- <tr class="font-white sbold"> -->
-                                                <tr class="font-dark sbold">
+                                                <tr class="font-white sbold">
                                                     <td class="bold" align="right" colspan="8">Beginning Balance</td>
                                                     <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></td>
                                                 </tr>
-                                                <!-- <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa"> -->
-                                                <tr style="border-top: solid 2px;" class="font-dark sbold bg-default">
+                                                <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
                                                     <td align="right" colspan="8">Total :</td>                                    
                                                     <td align="right"><?= number_format($subtotal_debit, 0, ',', '.') ?></td>
                                                     <td align="right"><?= number_format($subtotal_credit, 0, ',', '.') ?></td>

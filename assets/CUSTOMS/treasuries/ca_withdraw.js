@@ -25,8 +25,8 @@ var CAWithdraw = () => {
                             $('tbody').append(
                                 `<tr class="font-white sbold">
                                     <td align="center">${response[i].TransDate}</td>
-                                    <td align="left">${response[i].DocNo}</td>
-                                    <td align="left">${response[i].TransType}</td>
+                                    <td align="center">${response[i].DocNo}</td>
+                                    <td align="center">${response[i].TransType}</td>
                                     <td align="left">${response[i].Branch} - ${response[i].BranchName}</td>
                                     <td align="left">${response[i].Remarks}</td>
                                     <td align="right">${response[i].TotalAmount}</td>

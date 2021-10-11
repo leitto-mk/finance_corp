@@ -94,12 +94,11 @@ var GLBranch = () => {
                                 <td class="bold" align="center">${i+1}</td>
                                 <td class="bold" align="center">${response[i].TransDate}</td>
                                 <td class="bold" align="center">${response[i].DocNo}</td>
-                                <td class="bold" align="center"></td>
                                 <td class="bold" align="center">${response[i].Branch}</td>
                                 <td class="bold" align="center">${response[i].Department}</td>
-                                <td class="bold" align="right">${response[i].CostCenter || ''}</td>
-                                <td class="bold" align="right">${response[i].AccNo}</td>
-                                <td class="bold" align="center">${response[i].Remarks}</td>
+                                <td class="bold" align="center">${response[i].CostCenter || ''}</td>
+                                <td class="bold" align="center">${response[i].AccNo}</td>
+                                <td class="bold" align="left">${response[i].Remarks}</td>
                                 <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].Debit)}</td>
                                 <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].Credit)}</td>
                                 <td class="bold" align="right">
@@ -117,11 +116,11 @@ var GLBranch = () => {
     
                                 table.append(`
                                     <tr class="font-white sbold">
-                                        <td class="bold" align="right" colspan="9">Beginning Balance</td>
+                                        <td class="bold" align="right" colspan="8">Beginning Balance</td>
                                         <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response[i].beg_balance)}</td>
                                     </tr>
                                     <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
-                                        <td align="right" colspan="9">Total :</td>                                    
+                                        <td align="right" colspan="8">Total :</td>                                    
                                         <td align="right">${Intl.NumberFormat('id').format(subtotal_debit)}</td>
                                         <td align="right">${Intl.NumberFormat('id').format(subtotal_credit)}</td>
                                         <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('id').format(subtotal_balance)}</td>
@@ -134,11 +133,11 @@ var GLBranch = () => {
     
                                 table.append(`
                                     <tr class="font-white sbold">
-                                        <td class="bold" align="right" colspan="9">Beginning Balance</td>
+                                        <td class="bold" align="right" colspan="8">Beginning Balance</td>
                                         <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response[i].BalanceBranch)}</td>
                                     </tr>
                                     <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
-                                        <td align="right" colspan="9">Total :</td>                                    
+                                        <td align="right" colspan="8">Total :</td>                                    
                                         <td align="right">${Intl.NumberFormat('id').format(subtotal_debit)}</td>
                                         <td align="right">${Intl.NumberFormat('id').format(subtotal_credit)}</td>
                                         <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('id').format(subtotal_balance)}</td>

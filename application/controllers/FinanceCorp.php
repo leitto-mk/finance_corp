@@ -11,6 +11,7 @@ class FinanceCorp extends CI_Controller
         $this->load->model('financecorp/Mdl_corp_treasury');
         $this->load->model('financecorp/Mdl_corp_branch');
         $this->load->model('financecorp/Mdl_corp_personal');
+        $this->load->model('financecorp/Mdl_corp_balance_sheet');
     }
 
     //DASHBOARD
@@ -1613,7 +1614,7 @@ class FinanceCorp extends CI_Controller
             'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $datestart, $datefinish),
 
             //SCRIPT
-            'script' => 'fincorp_gl_branch'
+            'script' => 'report/fincorp_gl_branch'
         ];
         
         $this->load->view('finance_corp/reports/v_gl_branch', $data);
@@ -1639,7 +1640,7 @@ class FinanceCorp extends CI_Controller
             'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish),
 
             //SCRIPT
-            'script' => 'fincorp_gl_branch'
+            'script' => 'report/fincorp_gl_branch'
         ];
         
         $this->load->view('finance_corp/reports/v_reps_gl', $data);
@@ -1658,29 +1659,19 @@ class FinanceCorp extends CI_Controller
     }
 
     function view_balance_sheet(){
+
+        list($company, $asset, $liabilities, $capital) = $this->Mdl_corp_balance_sheet->get_report();
+
         $data = [
             'title' => 'Balance Sheet',
             'h1' => 'Balance',
             'h2' => 'Sheet',
             'h3' => '',
 
-            'ledger' => $this->Mdl_corp_personal->get_general_ledger()
-        ];
-        
-        $this->load->view('finance_corp/reports/v_balance_sheet', $data);
-    }
-
-    function view_balance_sheet_report(){
-        $data = [
-            'title' => 'Form Cash Advance Receipt',
-            
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('REC'),
-            'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
-            'branch' => $this->Mdl_corp_treasury->get_branch(),
-            'employee' => $this->Mdl_corp_treasury->get_employee(),
-            'currency' => $this->Mdl_corp_treasury->get_currency(),
-
-            'script' => 'add/fincorp_add_balance_sheet'
+            'company' => $company->ComName,
+            'asset' => $asset,
+            'liabilities' => $liabilities,
+            'capital' => $capital
         ];
         
         $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);

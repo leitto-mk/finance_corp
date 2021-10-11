@@ -170,8 +170,8 @@
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </td>
-                                                                        <td><input type="number" name="debit[]" class="form-control" min="0" value="0" required></td>
-                                                                        <td><input type="number" name="credit[]" class="form-control" min="0" value="0" required></td>
+                                                                        <td><input type="number" name="debit[]" class="form-control text-right" min="0" value="0" required></td>
+                                                                        <td><input type="number" name="credit[]" class="form-control text-right" min="0" value="0" required></td>
                                                                     </tr>
                                                                 </tbody>
                                                                 <tbody>

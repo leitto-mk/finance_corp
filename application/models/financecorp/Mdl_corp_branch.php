@@ -29,6 +29,11 @@ class Mdl_corp_branch extends CI_Model
 
       $result = $this->db->query(
          "SELECT 
+            company.ComCode,
+            company.ComName,
+            CONCAT(company.Address,', ',company.City,', ',company.Province,', ',company.PostalCode) AS Address,
+            CONCAT(company.PhoneNo,'/',company.ContactNo) AS Contact,
+            company.Email,
             trans.CtrlNo,
             trans.DocNo,
             acc.Acc_Name,
@@ -44,7 +49,7 @@ class Mdl_corp_branch extends CI_Model
             trans.Credit, 
             trans.Currency,
             (SELECT BalanceBranch 
-             FROM tbl_fa_transaction 
+             FROM tbl_fa_transaction
              WHERE AccNo = trans.AccNo 
              AND Branch = trans.Branch
              AND TransDate < '$datestart'
@@ -55,6 +60,8 @@ class Mdl_corp_branch extends CI_Model
           FROM tbl_fa_transaction AS trans
           LEFT JOIN tbl_fa_account_no AS acc
             ON trans.AccNo = acc.Acc_No
+          LEFT JOIN abase_01_com AS company
+            ON trans.Branch = company.ComCode
           WHERE $branch_condition
           AND trans.AccNo BETWEEN $accno_start AND $accno_finish
           AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'

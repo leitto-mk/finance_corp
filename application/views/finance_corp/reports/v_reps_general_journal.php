@@ -81,17 +81,19 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php for($i = 0; $i < count($report); $i++) : ?>
-                                                        <tr>
-                                                            <td align="center"><?= $i+1 ?></td>
-                                                            <td><?= $report[$i]['Remarks']?></td>
-                                                            <td><?= $report[$i]['Department']?></td>
-                                                            <td><?= $report[$i]['CostCenter']?></td>
-                                                            <td><?= $report[$i]['AccNo']?></td>
-                                                            <td><?= $report[$i]['Acc_Name']?></td>
-                                                            <td align="center" class="sbold"><?= $report[$i]['Currency']?></td>
-                                                            <td align="right" class="sbold"><?= number_format($report[$i]['Debit'], 0, '.',',') ?></td>
-                                                            <td align="right" class="sbold"><?= number_format($report[$i]['Credit'], 0, '.',',') ?></td>
-                                                        </tr>
+                                                        <?php if($report[$i]['ItemNo'] > 0) : ?>
+                                                            <tr>
+                                                                <td align="center"><?= $i+1 ?></td>
+                                                                <td><?= $report[$i]['Remarks']?></td>
+                                                                <td><?= $report[$i]['Department']?></td>
+                                                                <td><?= $report[$i]['CostCenter']?></td>
+                                                                <td><?= $report[$i]['AccNo']?></td>
+                                                                <td><?= $report[$i]['Acc_Name']?></td>
+                                                                <td align="center" class="sbold"><?= $report[$i]['Currency']?></td>
+                                                                <td align="right" class="sbold"><?= number_format($report[$i]['Debit'], 0, '.',',') ?></td>
+                                                                <td align="right" class="sbold"><?= number_format($report[$i]['Credit'], 0, '.',',') ?></td>
+                                                            </tr>
+                                                        <?php endif; ?>
                                                     <?php endfor; ?>
                                                 </tbody>
                                             </table>
