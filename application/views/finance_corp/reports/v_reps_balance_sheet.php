@@ -120,6 +120,7 @@
                                                     $cur_header_liabilities_h1 = '';
                                                     $cur_header_liabilities_h2 = '';
                                                     $cur_header_liabilities_h3 = '';
+                                                    $total_left_rows = 0;
                                                 ?>
                                                 <?php for($i = 0; $i < count($liabilities); $i++) : ?>
                                                     <?php 
@@ -149,6 +150,7 @@
                                                         <?php
                                                             $cur_total_liabilities += $liabilities[$i]['Amount'];
                                                             $grand_total_liabilities += $liabilities[$i]['Amount'];
+                                                            $total_left_rows += 1;
                                                         ?>
                                                     </tr>
                                                     <?php if($i < (count($liabilities)-1)) : ?>
@@ -188,6 +190,7 @@
                                                     $cur_header_capital_h1 = '';
                                                     $cur_header_capital_h2 = '';
                                                     $cur_header_capital_h3 = '';
+                                                    $total_right_rows = 0;
                                                 ?>
                                                 <?php for($i = 0; $i < count($capital); $i++) : ?>
                                                     <?php 
@@ -217,6 +220,7 @@
                                                         <?php
                                                             $cur_total_capital += $capital[$i]['Amount'];
                                                             $grand_total_capital += $capital[$i]['Amount'];
+                                                            $total_right_rows += 1;
                                                         ?>
                                                     </tr>
                                                     <?php if($i < (count($capital)-1)) : ?>
@@ -245,6 +249,17 @@
                                                 <tr>
                                                     <td style="padding:5px;border-top:none;" class="sbold" width="75%">Total <?= $capital[0]['Acc_Name']?> </td>
                                                     <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($grand_total_capital == 0 ? '-' : number_format($grand_total_capital, 2, ',','.')) ?></td>
+                                                </tr>
+                                                <?php for($i = 0; $i <= ($total_left_rows - ($total_right_rows+1)); $i++) : ?>
+                                                    <tr class="font-dark bg-white">
+                                                        <td style="padding:5px;border-top:none;"></td>
+                                                        <td style="padding:5px;border-top:none;"></td>
+                                                    </tr>
+                                                <?php endfor; ?>
+                                                <?= $grand_total_liabilities_capital = $grand_total_liabilities + $grand_total_capital; ?>
+                                                <tr>
+                                                    <td style="padding:5px;border-top:none;" class="sbold" width="75%">Total Liability & Capital </td>
+                                                    <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($grand_total_liabilities_capital == 0 ? '-' : number_format($grand_total_liabilities_capital, 2, ',','.')) ?></td>
                                                 </tr>
                                             </tbody>
                                         </table>
