@@ -48,6 +48,7 @@
                                                     $cur_header_asset_h1 = '';
                                                     $cur_header_asset_h2 = '';
                                                     $cur_header_asset_h3 = '';
+                                                    $total_left_rows = 0;
                                                 ?>
                                                 <?php for($i = 0; $i < count($asset); $i++) : ?>
                                                     <?php 
@@ -63,48 +64,53 @@
                                                     <tr class="font-dark bg-white">
                                                         <?php if($asset[$i]['TransGroup'] == 'H1') : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%"><?= $asset[$i]['Acc_Name'] ?> - <?= $asset[$i]['Acc_No']?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"></td>
                                                         <?php elseif($asset[$i]['TransGroup'] == 'H2') : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $asset[$i]['Acc_Name'] ?> - <?= $asset[$i]['Acc_No']?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"></td>
                                                         <?php elseif($asset[$i]['TransGroup'] == 'H3') : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $asset[$i]['Acc_Name'] ?> - <?= $asset[$i]['Acc_No']?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"></td>
                                                         <?php else : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $asset[$i]['Acc_No']?> - <?= $asset[$i]['Acc_Name'] ?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"><?= ($asset[$i]['Amount'] == 0 ? '-' : number_format($asset[$i]['Amount'], 2, ',','.')) ?></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"><?= ($asset[$i]['Amount'] == 0 ? '-' : number_format($asset[$i]['Amount'], 2, ',','.')) ?>&nbsp;</td>
                                                         <?php endif; ?>
                                                         <?php
                                                             $cur_total_asset += $asset[$i]['Amount'];
                                                             $grand_total_asset += $asset[$i]['Amount'];
+                                                            $total_left_rows += 1;
                                                         ?>
                                                     </tr>
                                                     <?php if($i < (count($asset)-1)) : ?>
-                                                        <?php if(($asset[$i+1]['TransGroup'] == 'H3' || $asset[$i+1]['TransGroup'] == 'H2') && $i > 2) : ?>
+                                                        <?php if($asset[$i+1]['TransGroup'] == 'H3' && $asset[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
                                                             <tr>
                                                                 <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_asset_h3 ?> </td>
-                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_asset == 0 ? '-' : number_format($cur_total_asset, 2, ',','.')) ?></td>
+                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_asset == 0 ? '-' : number_format($cur_total_asset, 2, ',','.')) ?></td>
                                                             </tr>
-                                                        <?php elseif($asset[$i+1]['TransGroup'] == 'H2' && $i != 0) : ?>
+                                                        <?php elseif($asset[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                             <tr>
-                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_asset_h2 ?> </td>
-                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_asset == 0 ? '-' : number_format($cur_total_asset, 2, ',','.')) ?></td>
+                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_asset_h3 ?> </td>
+                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_asset == 0 ? '-' : number_format($cur_total_asset, 2, ',','.')) ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_asset_h2 ?> </td>
+                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($grand_total_asset == 0 ? '-' : number_format($grand_total_asset, 2, ',','.')) ?></td>
                                                             </tr>
                                                         <?php endif; ?>
                                                     <?php elseif($i < count($asset) && $i != 0) : ?>
                                                         <tr>
                                                             <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_asset_h3 ?> </td>
-                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_asset == 0 ? '-' : number_format($cur_total_asset, 2, ',','.')) ?></td>
+                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_asset == 0 ? '-' : number_format($cur_total_asset, 2, ',','.')) ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_asset_h2 ?> </td>
-                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_asset == 0 ? '-' : number_format($cur_total_asset, 2, ',','.')) ?></td>
+                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_asset == 0 ? '-' : number_format($cur_total_asset, 2, ',','.')) ?></td>
                                                         </tr>
                                                     <?php endif; ?>
                                                 <?php endfor; ?>                                   
                                                 <tr>
                                                     <td style="padding:5px;border-top:none;" class="sbold" width="75%">Total <?= $asset[0]['Acc_Name']?> </td>
-                                                    <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($grand_total_asset == 0 ? '-' : number_format($grand_total_asset, 2, ',','.')) ?></td>
+                                                    <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($grand_total_asset == 0 ? '-' : number_format($grand_total_asset, 2, ',','.')) ?></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -120,7 +126,7 @@
                                                     $cur_header_liabilities_h1 = '';
                                                     $cur_header_liabilities_h2 = '';
                                                     $cur_header_liabilities_h3 = '';
-                                                    $total_left_rows = 0;
+                                                    $total_right_rows = 0;
                                                 ?>
                                                 <?php for($i = 0; $i < count($liabilities); $i++) : ?>
                                                     <?php 
@@ -136,49 +142,53 @@
                                                     <tr class="font-dark bg-white">
                                                         <?php if($liabilities[$i]['TransGroup'] == 'H1') : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%"><?= $liabilities[$i]['Acc_Name'] ?> - <?= $liabilities[$i]['Acc_No']?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"></td>
                                                         <?php elseif($liabilities[$i]['TransGroup'] == 'H2') : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $liabilities[$i]['Acc_Name'] ?> - <?= $liabilities[$i]['Acc_No']?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"></td>
                                                         <?php elseif($liabilities[$i]['TransGroup'] == 'H3') : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $liabilities[$i]['Acc_Name'] ?> - <?= $liabilities[$i]['Acc_No']?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"></td>
                                                         <?php else : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $liabilities[$i]['Acc_No']?> - <?= $liabilities[$i]['Acc_Name'] ?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"><?= ($liabilities[$i]['Amount'] == 0 ? '-' : number_format($liabilities[$i]['Amount'], 2, ',','.')) ?></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"><?= ($liabilities[$i]['Amount'] == 0 ? '-' : number_format($liabilities[$i]['Amount'], 2, ',','.')) ?>&nbsp;</td>
                                                         <?php endif; ?>
                                                         <?php
                                                             $cur_total_liabilities += $liabilities[$i]['Amount'];
                                                             $grand_total_liabilities += $liabilities[$i]['Amount'];
-                                                            $total_left_rows += 1;
+                                                            $total_right_rows += 1;
                                                         ?>
                                                     </tr>
                                                     <?php if($i < (count($liabilities)-1)) : ?>
-                                                        <?php if(($liabilities[$i+1]['TransGroup'] == 'H3' || $liabilities[$i+1]['TransGroup'] == 'H2') && $i > 2) : ?>
+                                                        <?php if($liabilities[$i+1]['TransGroup'] == 'H3' && $liabilities[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
                                                             <tr>
                                                                 <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_liabilities_h3 ?> </td>
-                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_liabilities == 0 ? '-' : number_format($cur_total_liabilities, 2, ',','.')) ?></td>
+                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_liabilities == 0 ? '-' : number_format($cur_total_liabilities, 2, ',','.')) ?></td>
                                                             </tr>
-                                                        <?php elseif($liabilities[$i+1]['TransGroup'] == 'H2' && $i != 0) : ?>
+                                                        <?php elseif($liabilities[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                             <tr>
-                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_liabilities_h2 ?> </td>
-                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_liabilities == 0 ? '-' : number_format($cur_total_liabilities, 2, ',','.')) ?></td>
+                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_liabilities_h3 ?> </td>
+                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_liabilities == 0 ? '-' : number_format($cur_total_liabilities, 2, ',','.')) ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_liabilities_h2 ?> </td>
+                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($grand_total_liabilities == 0 ? '-' : number_format($grand_total_liabilities, 2, ',','.')) ?></td>
                                                             </tr>
                                                         <?php endif; ?>
                                                     <?php elseif($i < count($liabilities) && $i != 0) : ?>
                                                         <tr>
                                                             <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_liabilities_h3 ?> </td>
-                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_liabilities == 0 ? '-' : number_format($cur_total_liabilities, 2, ',','.')) ?></td>
+                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_liabilities == 0 ? '-' : number_format($cur_total_liabilities, 2, ',','.')) ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_liabilities_h2 ?> </td>
-                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_liabilities == 0 ? '-' : number_format($cur_total_liabilities, 2, ',','.')) ?></td>
+                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_liabilities == 0 ? '-' : number_format($cur_total_liabilities, 2, ',','.')) ?></td>
                                                         </tr>
                                                     <?php endif; ?>
                                                 <?php endfor; ?>                                   
                                                 <tr>
                                                     <td style="padding:5px;border-top:none;" class="sbold" width="75%">Total <?= $liabilities[0]['Acc_Name']?> </td>
-                                                    <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($grand_total_liabilities == 0 ? '-' : number_format($grand_total_liabilities, 2, ',','.')) ?></td>
+                                                    <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($grand_total_liabilities == 0 ? '-' : number_format($grand_total_liabilities, 2, ',','.')) ?></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -190,7 +200,6 @@
                                                     $cur_header_capital_h1 = '';
                                                     $cur_header_capital_h2 = '';
                                                     $cur_header_capital_h3 = '';
-                                                    $total_right_rows = 0;
                                                 ?>
                                                 <?php for($i = 0; $i < count($capital); $i++) : ?>
                                                     <?php 
@@ -206,16 +215,16 @@
                                                     <tr class="font-dark bg-white">
                                                         <?php if($capital[$i]['TransGroup'] == 'H1') : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%"><?= $capital[$i]['Acc_Name'] ?> - <?= $capital[$i]['Acc_No']?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"></td>
                                                         <?php elseif($capital[$i]['TransGroup'] == 'H2') : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $capital[$i]['Acc_Name'] ?> - <?= $capital[$i]['Acc_No']?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"></td>
                                                         <?php elseif($capital[$i]['TransGroup'] == 'H3') : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $capital[$i]['Acc_Name'] ?> - <?= $capital[$i]['Acc_No']?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"></td>
                                                         <?php else : ?>
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $capital[$i]['Acc_No']?> - <?= $capital[$i]['Acc_Name'] ?></td>
-                                                            <td style="padding:0px;border-top:none;" align="right" width="25%"><?= ($capital[$i]['Amount'] == 0 ? '-' : number_format($capital[$i]['Amount'], 2, ',','.')) ?></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"><?= ($capital[$i]['Amount'] == 0 ? '-' : number_format($capital[$i]['Amount'], 2, ',','.')) ?>&nbsp;</td>
                                                         <?php endif; ?>
                                                         <?php
                                                             $cur_total_capital += $capital[$i]['Amount'];
@@ -224,42 +233,46 @@
                                                         ?>
                                                     </tr>
                                                     <?php if($i < (count($capital)-1)) : ?>
-                                                        <?php if(($capital[$i+1]['TransGroup'] == 'H3' || $capital[$i+1]['TransGroup'] == 'H2') && $i > 2) : ?>
+                                                        <?php if($capital[$i+1]['TransGroup'] == 'H3' && $capital[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
                                                             <tr>
                                                                 <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h3 ?> </td>
-                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
+                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
                                                             </tr>
-                                                        <?php elseif($capital[$i+1]['TransGroup'] == 'H2' && $i != 0) : ?>
+                                                        <?php elseif($capital[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                             <tr>
-                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h2 ?> </td>
-                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
+                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h3 ?> </td>
+                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h2 ?> </td>
+                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($grand_total_capital == 0 ? '-' : number_format($grand_total_capital, 2, ',','.')) ?></td>
                                                             </tr>
                                                         <?php endif; ?>
                                                     <?php elseif($i < count($capital) && $i != 0) : ?>
                                                         <tr>
                                                             <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h3 ?> </td>
-                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
+                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h2 ?> </td>
-                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
+                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
                                                         </tr>
                                                     <?php endif; ?>
                                                 <?php endfor; ?>                                   
                                                 <tr>
                                                     <td style="padding:5px;border-top:none;" class="sbold" width="75%">Total <?= $capital[0]['Acc_Name']?> </td>
-                                                    <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($grand_total_capital == 0 ? '-' : number_format($grand_total_capital, 2, ',','.')) ?></td>
+                                                    <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($grand_total_capital == 0 ? '-' : number_format($grand_total_capital, 2, ',','.')) ?></td>
                                                 </tr>
-                                                <?php for($i = 0; $i <= ($total_left_rows - ($total_right_rows+1)); $i++) : ?>
+                                                <?php for($i = 0; $i < ($total_left_rows - $total_right_rows+4); $i++) : ?>
                                                     <tr class="font-dark bg-white">
                                                         <td style="padding:5px;border-top:none;"></td>
                                                         <td style="padding:5px;border-top:none;"></td>
                                                     </tr>
                                                 <?php endfor; ?>
-                                                <?= $grand_total_liabilities_capital = $grand_total_liabilities + $grand_total_capital; ?>
+                                                <?php $grand_total_liabilities_capital = $grand_total_liabilities + $grand_total_capital; ?>
                                                 <tr>
                                                     <td style="padding:5px;border-top:none;" class="sbold" width="75%">Total Liability & Capital </td>
-                                                    <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" align="right" width="25%"><?= ($grand_total_liabilities_capital == 0 ? '-' : number_format($grand_total_liabilities_capital, 2, ',','.')) ?></td>
+                                                    <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($grand_total_liabilities_capital == 0 ? '-' : number_format($grand_total_liabilities_capital, 2, ',','.')) ?></td>
                                                 </tr>
                                             </tbody>
                                         </table>
