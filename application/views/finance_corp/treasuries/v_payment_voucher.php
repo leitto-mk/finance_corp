@@ -9,10 +9,10 @@
                     </div>
                 </div>
             </div>
-            <div class="portlet bordered light bg-blue-dark">
+            <div class="portlet bordered light" style="margin-top: -10px">
                 <div class="caption">
                     <span class="caption-subject bold uppercase font-white">
-                        <div class="input-group input-large pull-left" style="margin-top: -5px">
+                        <div class="input-group input-large pull-left">
                             <span class="input-group-btn">
                                 <a class="btn btn-md btn blue-oleo">
                                     From
@@ -20,7 +20,7 @@
                             </span>
                             <input type="date" class="form-control" id="date_from" value="<?= date('Y-01-01') ?>" style="width: 150px">
                         </div>
-                        <div class="input-group input-large pull-left" style="margin-top: -5px; margin-left: -100px ">
+                        <div class="input-group input-large pull-left" style="margin-left: -95px ">
                             <span class="input-group-btn">
                                 <a class="btn btn-md btn blue-oleo">
                                     To
@@ -28,7 +28,7 @@
                             </span>
                             <input type="date" class="form-control" id="date_to" value="<?= date('Y-m-d') ?>" style="width: 150px">
                         </div>
-                        <div class="input-group input-large pull-left" style="margin-top: -5px; margin-left: -120px">
+                        <div class="input-group input-large pull-left" style="margin-left: -115px">
                             <span class="input-group-btn">
                                 <a id="preview" class="btn btn-md btn bg-dark font-white">
                                     Preview
@@ -37,7 +37,7 @@
                         </div>
 
 
-                        <div class="input-group input-large pull-right" style="margin-top: -5px">
+                        <div class="input-group input-large pull-right">
                             <input type="text" class="form-control" placeholder="Search By Doc No" name="search_item" id="search_item">
                             <span class="input-group-btn">
                                 <button id="search" class="btn dark">
@@ -56,7 +56,7 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-stripped table-condensed">
                             <thead>
-                                <tr style="background-color: #22313F" class="font-white">
+                                <tr style="background-color: #2C3E50" class="font-white">
                                     <th class="text-center" width="10%"> Trans Date </th>
                                     <th class="text-center" width="10%"> Doc No </th>
                                     <th class="text-center" width="10%"> Trans Type </th>

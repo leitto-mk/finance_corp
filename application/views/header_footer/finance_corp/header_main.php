@@ -197,6 +197,12 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
+                                        <a href="<?= site_url('FinanceCorp/view_trial_balance') ?>" target="_blank" class="nav-link">
+                                            <!-- <i class="icon-bar-chart"></i> -->
+                                            <span class="title">&bull;&nbsp;&nbsp;Trial Balance</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start">
                                         <a href="<?= site_url('FinanceCorp/view_income_statement') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Income Statement</span>

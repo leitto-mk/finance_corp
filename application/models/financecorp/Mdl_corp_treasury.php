@@ -97,12 +97,12 @@ class Mdl_corp_treasury extends CI_Model
         return $this->db->get('tbl_fa_mas_cur')->result();
     }
 
-    function get_emp_last_balance($emp){
+    function get_accno_last_balance($accno){
         $query = $this->db->select('Balance')
                       ->limit(1)
                       ->order_by('CtrlNo', 'DESC')
                       ->get_where('tbl_fa_transaction', [
-                         'IDNumber' => $emp
+                         'AccNo' => $accno
                       ])->row();
 
         return ($query ? $query->Balance : 0);

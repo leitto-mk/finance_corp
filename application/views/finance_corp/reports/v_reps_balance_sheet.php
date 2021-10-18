@@ -10,13 +10,100 @@
 </style> -->
 <div class="portlet light">
     <div class="row">
+        <div class="col-lg-2 hidden-print">
+        </div>
+        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 pull-left hidden-print">
+            <div class="portlet light form-horizontal bg-default">
+                <?php echo form_open('Report/view_get_rep_trans', 'role="form"', 'enctype="multipart/form-data"'); ?>
+                    <div class="portlet-body form-horizontal hidden-print" style="margin-top: 20px">
+                        <div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="bg-blue-dark font-white">
+                                        <th width="5%"></th>
+                                        <th class="text-center" width="40%">Branch / Site</th>
+                                        <th class="text-center" width="25%">Year</th>
+                                        <th class="text-center" width="25%">Month</th>
+                                        <th class="text-center" width="5%">Action</th>        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <label class="col-md-12 control-label bold">Parameters</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <select id="branch" name="branch" class="form-control" required>
+                                                        <option value="">Default Branch User Login</option>
+                                                        <option value="All">All</option>
+                                                       
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <select id="year" name="year" class="form-control" required>
+                                                        <option value="">Default Current Year</option>
+                                                        <option value="2021">2021</option>
+                                                        <option value="2020">2020</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <select id="month" name="month" class="form-control" required>
+                                                        <option value="">Default Current Month</option>
+                                                        <option value="Jan">January</option>
+                                                        <option value="Feb">February</option>
+                                                        <option value="Mar">March</option>
+                                                        <option value="Apr">April</option>
+                                                        <option value="May">May</option>
+                                                        <option value="Jun">June</option>
+                                                        <option value="Jul">July</option>
+                                                        <option value="Aug">August</option>
+                                                        <option value="Sep">September</option>
+                                                        <option value="Oct">October</option>
+                                                        <option value="Nov">November</option>
+                                                        <option value="Dec">December</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group text-center">
+                                                <div class="col-md-12">
+                                                    <a class="btn btn-sm btn-success" id="submit_filter">
+                                                        <center>PREVIEW</center>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                                                           
+                    </div>
+                <?php echo form_close(); ?>
+            </div>  
+        </div>
+        <div class="col-lg-2 hidden-print">
+        </div>
         <div class="col-md-12" id="printDiv" style="size: landscape; font-family: Open Sans, sans-serif;" >
             <div class="row invoice-logo" align="left">
             <!-- <php $date = date("d-M-Y") ?> -->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: 15px">
                     <div>
-                        <h1><?= $company ?></font>
-                        <h3><?= date('d M Y')?></h3>
+                        <font size="6" class="uppercase"><?= $company ?></font><br>
+                        <font size="4" class="font-dark sbold uppercase">Balance Sheet</font><br>
+                        <font size="4" class="font-dark sbold"><?= date("F Y")?></font><br>
                     </div>
                 </div>
                 <br>
