@@ -17,9 +17,9 @@ class Mdl_corp_balance_sheet extends CI_Model
                acc.Acc_Name,
                acc.Acc_Type,
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
-               IF(trans.Amount IS NOT NULL, trans.Amount, 0) AS Amount
+               IF(trans.Balance IS NOT NULL, trans.Balance, 0) AS Amount
             FROM tbl_fa_account_no AS acc
-            LEFT JOIN (SELECT AccNo, AccType, SUM(Amount) AS Amount FROM tbl_fa_transaction GROUP BY AccNo) AS trans
+            LEFT JOIN (SELECT AccNo, AccType, SUM(Balance) AS Balance FROM tbl_fa_transaction GROUP BY AccNo) AS trans
                ON acc.Acc_No = trans.AccNo
             WHERE acc.Acc_Type = 'A'"
       )->result_array();
@@ -30,9 +30,9 @@ class Mdl_corp_balance_sheet extends CI_Model
                acc.Acc_Name,
                acc.Acc_Type,
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
-               IF(trans.Amount IS NOT NULL, trans.Amount, 0) AS Amount
+               IF(trans.Balance IS NOT NULL, trans.Balance, 0) AS Amount
             FROM tbl_fa_account_no AS acc
-            LEFT JOIN (SELECT AccNo, AccType, SUM(Amount) AS Amount FROM tbl_fa_transaction GROUP BY AccNo) AS trans
+            LEFT JOIN (SELECT AccNo, AccType, SUM(Balance) AS Balance FROM tbl_fa_transaction GROUP BY AccNo) AS trans
                ON acc.Acc_No = trans.AccNo
             WHERE acc.Acc_Type = 'L'"
       )->result_array();
@@ -43,9 +43,9 @@ class Mdl_corp_balance_sheet extends CI_Model
                acc.Acc_Name,
                acc.Acc_Type,
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
-               IF(trans.Amount IS NOT NULL, trans.Amount, 0) AS Amount
+               IF(trans.Balance IS NOT NULL, trans.Balance, 0) AS Amount
             FROM tbl_fa_account_no AS acc
-            LEFT JOIN (SELECT AccNo, AccType, SUM(Amount) AS Amount FROM tbl_fa_transaction GROUP BY AccNo) AS trans
+            LEFT JOIN (SELECT AccNo, AccType, SUM(Balance) AS Balance FROM tbl_fa_transaction GROUP BY AccNo) AS trans
                ON acc.Acc_No = trans.AccNo
             WHERE acc.Acc_Type = 'C'"
       )->result_array();
