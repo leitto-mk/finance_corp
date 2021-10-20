@@ -1690,8 +1690,11 @@ class FinanceCorp extends CI_Controller
     }
 
     function view_balance_sheet(){
+        $branch = (isset($_GET['branch']) ? $_GET['branch'] : null);
+        $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
+        $month = (isset($_GET['month']) ? $_GET['month'] : date('m'));
 
-        list($company, $asset, $liabilities, $capital) = $this->Mdl_corp_balance_sheet->get_report();
+        list($company, $asset, $liabilities, $capital) = $this->Mdl_corp_balance_sheet->get_report($branch, $year, $month);
 
         $data = [
             'title' => 'Balance Sheet',
@@ -1700,9 +1703,12 @@ class FinanceCorp extends CI_Controller
             'h3' => '',
 
             'company' => $company->ComName,
+            'branch' => $this->db->select('BranchCode, BranchName')->get('abase_02_branch')->result(),
             'asset' => $asset,
             'liabilities' => $liabilities,
-            'capital' => $capital
+            'capital' => $capital,
+
+            'script' => 'report/fin_balance_sheet'
         ];
         
         $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);
@@ -1880,7 +1886,11 @@ class FinanceCorp extends CI_Controller
 
     //Reports Income Statement
     function view_income_statement(){
-        list($company, $revenue, $operational, $other_rev, $other_expense) = $this->Mdl_corp_income_statement->get_report();
+        $branch = (isset($_GET['branch']) ? $_GET['branch'] : null);
+        $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
+        $month = (isset($_GET['month']) ? $_GET['month'] : date('m'));
+
+        list($company, $revenue, $operational, $other_rev, $other_expense) = $this->Mdl_corp_income_statement->get_report($branch, $year, $month);
 
         $data = [
             'title' => 'Income Statement',
@@ -1889,10 +1899,13 @@ class FinanceCorp extends CI_Controller
             'h3' => '',
 
             'company' => $company->ComName,
+            'branch' => $this->db->select('BranchCode, BranchName')->get('abase_02_branch')->result(),
             'revenue' => $revenue,
             'operational' => $operational,
             'other_revenue' => $other_rev,
-            'other_expenses' => $other_expense
+            'other_expenses' => $other_expense,
+
+            'script' => 'report/fin_income_statement'
         ];
 
         $this->load->view('finance_corp/reports/v_reps_income_statement', $data);

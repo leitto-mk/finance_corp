@@ -38,9 +38,10 @@
                                             <div class="form-group">
                                                 <div class="col-md-12">
                                                     <select id="branch" name="branch" class="form-control" required>
-                                                        <option value="">Default Branch User Login</option>
-                                                        <option value="All">All</option>
-                                                       
+                                                        <option value="">--Select Branch--</option>
+                                                        <?php foreach($branch as $br) :  ?>
+                                                            <option value="<?= $br->BranchCode?>"><?= $br->BranchName ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -49,9 +50,10 @@
                                             <div class="form-group">
                                                 <div class="col-md-12">
                                                     <select id="year" name="year" class="form-control" required>
-                                                        <option value="">Default Current Year</option>
-                                                        <option value="2021">2021</option>
-                                                        <option value="2020">2020</option>
+                                                    <option value="">--Select Year--</option>
+                                                        <?php for($i = date('Y'); $i >= 2000; $i--) : ?>
+                                                            <option value="<?= $i ?>"><?= $i ?></option>
+                                                        <?php endfor; ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -60,19 +62,19 @@
                                             <div class="form-group">
                                                 <div class="col-md-12">
                                                     <select id="month" name="month" class="form-control" required>
-                                                        <option value="">Default Current Month</option>
-                                                        <option value="Jan">January</option>
-                                                        <option value="Feb">February</option>
-                                                        <option value="Mar">March</option>
-                                                        <option value="Apr">April</option>
-                                                        <option value="May">May</option>
-                                                        <option value="Jun">June</option>
-                                                        <option value="Jul">July</option>
-                                                        <option value="Aug">August</option>
-                                                        <option value="Sep">September</option>
-                                                        <option value="Oct">October</option>
-                                                        <option value="Nov">November</option>
-                                                        <option value="Dec">December</option>
+                                                        <option value="">--Select Month--</option>
+                                                        <option value="01">January</option>
+                                                        <option value="02">February</option>
+                                                        <option value="03">March</option>
+                                                        <option value="04">April</option>
+                                                        <option value="05">May</option>
+                                                        <option value="06">June</option>
+                                                        <option value="07">July</option>
+                                                        <option value="08">August</option>
+                                                        <option value="09">September</option>
+                                                        <option value="10">October</option>
+                                                        <option value="11">November</option>
+                                                        <option value="12">December</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -80,7 +82,7 @@
                                         <td>
                                             <div class="form-group text-center">
                                                 <div class="col-md-12">
-                                                    <a class="btn btn-sm btn-success" id="submit_filter">
+                                                    <a href="<?= base_url('financecorp/view_balance_sheet')?>" class="btn btn-sm btn-success" id="submit_filter">
                                                         <center>PREVIEW</center>
                                                     </a>
                                                 </div>
