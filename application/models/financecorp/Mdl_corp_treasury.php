@@ -197,8 +197,13 @@ class Mdl_corp_treasury extends CI_Model
         
         // print("<pre>".print_r($query,true)."</pre>");
         // die();
-        
-        $lastBalance = (int)(is_null($query[0]['beg_balance']) ? 0 : $query[0]['beg_balance']);
+
+        $lastBalance;
+        if($query[0]['beg_balance'] == '' || is_null($query[0]['beg_balance']) || !isset($query[0]['beg_balance'])){
+            $lastBalance = 0;
+        }else{
+            $lastBalance = (int)$query[0]['beg_balance'];
+        }
         
         for($i = 0; $i < count($query); $i++){
 

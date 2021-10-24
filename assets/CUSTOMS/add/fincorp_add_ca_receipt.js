@@ -63,6 +63,32 @@ var addCAReceipt = () => {
         })
     }
 
+    const eventDeleteRow = () => {
+        $(document).on('click','input[name="itemno[]"]',function(){
+            var total = $('#tbody_detail').children('tr').length
+            if(total <= 1){
+                return
+            }
+
+            $(this).parents('tr').remove()
+
+            var index = 0
+            $('#tbody_detail input[name="itemno[]"]').each(function(){
+                $(this).val(index+1)
+
+                ++index
+            })
+
+            var totalamount = 0;
+            $('[name="amount[]"]').each(function(){
+                totalamount += +$(this).val()
+            })
+
+            $('#totalamount').val(totalamount)
+            $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
+        })
+    }
+
     const eventInputUnit = () => {
         $(document).on('focusout','[name="unit[]"]', function(){
             
@@ -119,6 +145,7 @@ var addCAReceipt = () => {
             eventAddPaidTo()
             eventSelectEmployee()
             eventNextRow()
+            eventDeleteRow()
             eventInputUnit()
             eventSubmitCAReceipt()
         }

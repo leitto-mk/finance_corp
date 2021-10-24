@@ -193,15 +193,15 @@
                                                     <td></td>
                                                     <td align="center"><?= $revenue[$i]['Acc_No']?></td>
                                                     <td><?= $revenue[$i]['Acc_Name'] ?></td>
-                                                    <td align="right"><?= number_format($revenue[$i]['Amount'],2,',','.') ?></td>
-                                                    <td align="right"><?= number_format($revenue[$i]['Amount'],2,',','.') ?></td>
+                                                    <td align="right"><?= number_format($revenue[$i]['Monthly'],2,',','.') ?></td>
+                                                    <td align="right"><?= number_format($revenue[$i]['Yearly'],2,',','.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                             <?php
-                                                $cur_total_rev_month += $revenue[$i]['Amount'];
-                                                $cur_total_rev_year += $revenue[$i]['Amount'];
-                                                $grand_total_rev_month += $revenue[$i]['Amount'];
-                                                $grand_total_rev_year += $revenue[$i]['Amount'];
+                                                $cur_total_rev_month += $revenue[$i]['Monthly'];
+                                                $cur_total_rev_year += $revenue[$i]['Yearly'];
+                                                $grand_total_rev_month += $revenue[$i]['Monthly'];
+                                                $grand_total_rev_year += $revenue[$i]['Yearly'];
                                             ?>
                                             <?php if($i < (count($revenue)-1)) : ?>
                                                 <?php if($revenue[$i+1]['TransGroup'] == 'H3' && $revenue[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
@@ -312,15 +312,15 @@
                                                     <td></td>
                                                     <td align="center"><?= $operational[$i]['Acc_No']?></td>
                                                     <td><?= $operational[$i]['Acc_Name'] ?></td>
-                                                    <td align="right"><?= number_format($operational[$i]['Amount'],2,',','.') ?></td>
-                                                    <td align="right"><?= number_format($operational[$i]['Amount'],2,',','.') ?></td>
+                                                    <td align="right"><?= number_format($operational[$i]['Monthly'],2,',','.') ?></td>
+                                                    <td align="right"><?= number_format($operational[$i]['Yearly'],2,',','.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                             <?php
-                                                $cur_total_opr_month += $operational[$i]['Amount'];
-                                                $cur_total_opr_year+= $operational[$i]['Amount'];
-                                                $grand_total_opr_month += $operational[$i]['Amount'];
-                                                $grand_total_opr_year+= $operational[$i]['Amount'];
+                                                $cur_total_opr_month += $operational[$i]['Monthly'];
+                                                $cur_total_opr_year+= $operational[$i]['Yearly'];
+                                                $grand_total_opr_month += $operational[$i]['Monthly'];
+                                                $grand_total_opr_year+= $operational[$i]['Yearly'];
                                             ?>
                                             <?php if($i < (count($operational)-1)) : ?>
                                                 <?php if($operational[$i+1]['TransGroup'] == 'H3' && $operational[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
@@ -448,15 +448,15 @@
                                                     <td></td>
                                                     <td align="center"><?= $other_revenue[$i]['Acc_No']?></td>
                                                     <td><?= $other_revenue[$i]['Acc_Name'] ?></td>
-                                                    <td align="right"><?= number_format($other_revenue[$i]['Amount'],2,',','.') ?></td>
-                                                    <td align="right"><?= number_format($other_revenue[$i]['Amount'],2,',','.') ?></td>
+                                                    <td align="right"><?= number_format($other_revenue[$i]['Monthly'],2,',','.') ?></td>
+                                                    <td align="right"><?= number_format($other_revenue[$i]['Yearly'],2,',','.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                             <?php
-                                                $cur_total_other_rev_month += $other_revenue[$i]['Amount'];
-                                                $cur_total_other_rev_year += $other_revenue[$i]['Amount'];
-                                                $grand_total_other_rev_month += $other_revenue[$i]['Amount'];
-                                                $grand_total_other_rev_year += $other_revenue[$i]['Amount'];
+                                                $cur_total_other_rev_month += $other_revenue[$i]['Monthly'];
+                                                $cur_total_other_rev_year += $other_revenue[$i]['Yearly'];
+                                                $grand_total_other_rev_month += $other_revenue[$i]['Monthly'];
+                                                $grand_total_other_rev_year += $other_revenue[$i]['Yearly'];
                                             ?>
                                             <?php if($i < (count($other_revenue)-1)) : ?>
                                                 <?php if($other_revenue[$i+1]['TransGroup'] == 'H3' && $other_revenue[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
@@ -564,15 +564,15 @@
                                                     <td></td>
                                                     <td align="center"><?= $other_expenses[$i]['Acc_No']?></td>
                                                     <td><?= $other_expenses[$i]['Acc_Name'] ?></td>
-                                                    <td align="right"><?= number_format($other_expenses[$i]['Amount'],2,',','.') ?></td>
-                                                    <td align="right"><?= number_format($other_expenses[$i]['Amount'],2,',','.') ?></td>
+                                                    <td align="right"><?= number_format($other_expenses[$i]['Monthly'],2,',','.') ?></td>
+                                                    <td align="right"><?= number_format($other_expenses[$i]['Yearly'],2,',','.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                             <?php
-                                                $cur_total_other_expenses_month += $other_expenses[$i]['Amount'];
-                                                $cur_total_other_expenses_year += $other_expenses[$i]['Amount'];
-                                                $grand_total_other_expenses_month += $other_expenses[$i]['Amount'];
-                                                $grand_total_other_expenses_year += $other_expenses[$i]['Amount'];
+                                                $cur_total_other_expenses_month += $other_expenses[$i]['Monthly'];
+                                                $cur_total_other_expenses_year += $other_expenses[$i]['Yearly'];
+                                                $grand_total_other_expenses_month += $other_expenses[$i]['Monthly'];
+                                                $grand_total_other_expenses_year += $other_expenses[$i]['Yearly'];
                                             ?>
                                             <?php if($i < (count($other_expenses)-1)) : ?>
                                                 <?php if($other_expenses[$i+1]['TransGroup'] == 'H3' && $other_expenses[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
