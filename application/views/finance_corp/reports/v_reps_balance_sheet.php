@@ -105,7 +105,12 @@
                     <div>
                         <font size="6" class="uppercase"><?= $company ?></font><br>
                         <font size="4" class="font-dark sbold uppercase">Balance Sheet</font><br>
-                        <font size="4" class="font-dark sbold"><?= date("F Y")?></font><br>
+
+                        <?php
+                            $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
+                            $month = (isset($_GET['month']) ? date('F', mktime(0, 0, 0, (int)$_GET['month'], 10)) : date('F'));
+                        ?>
+                        <font size="4" class="font-dark sbold"><?= $month ?> <?= $year ?></font><br>
                     </div>
                 </div>
                 <br>

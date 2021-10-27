@@ -30,6 +30,7 @@ class Mdl_corp_balance_sheet extends CI_Model
             LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Balance) AS Balance, TransDate, EntryDate 
                         FROM tbl_fa_transaction
                         WHERE TransDate <= '$date'
+                        AND ItemNo != 0
                         AND $branch GROUP BY AccNo) AS trans
                ON acc.Acc_No = trans.AccNo
             WHERE acc.Acc_Type = 'A'"
@@ -46,6 +47,7 @@ class Mdl_corp_balance_sheet extends CI_Model
             LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Balance) AS Balance, TransDate, EntryDate 
                         FROM tbl_fa_transaction
                         WHERE TransDate <= '$date'
+                        AND ItemNo != 0
                         AND $branch GROUP BY AccNo) AS trans
                ON acc.Acc_No = trans.AccNo
             WHERE acc.Acc_Type = 'L'"
@@ -62,6 +64,7 @@ class Mdl_corp_balance_sheet extends CI_Model
             LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Balance) AS Balance, TransDate, EntryDate 
                         FROM tbl_fa_transaction
                         WHERE TransDate <= '$date'
+                        AND ItemNo != 0
                         AND $branch GROUP BY AccNo) AS trans
                ON acc.Acc_No = trans.AccNo
             WHERE acc.Acc_Type = 'C'"

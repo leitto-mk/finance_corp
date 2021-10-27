@@ -31,11 +31,13 @@ class Mdl_corp_income_statement extends CI_Model
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
                      WHERE TransDate BETWEEN CAST('$year-$month-01' AS DATETIME) AND LAST_DAY('$year-$month-01')
+                     AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS mTrans
             ON acc.Acc_No = mTrans.AccNo
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
                      WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND '$date'
+                     AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
          WHERE acc.Acc_No BETWEEN 40000 AND 49999"
@@ -53,11 +55,13 @@ class Mdl_corp_income_statement extends CI_Model
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
                      WHERE TransDate BETWEEN CAST('$year-$month-01' AS DATETIME) AND LAST_DAY('$year-$month-01')
+                     AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS mTrans
             ON acc.Acc_No = mTrans.AccNo
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
                      WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND '$date'
+                     AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
          WHERE acc.Acc_No BETWEEN 50000 AND 59999"
@@ -75,11 +79,13 @@ class Mdl_corp_income_statement extends CI_Model
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
                      WHERE TransDate BETWEEN CAST('$year-$month-01' AS DATETIME) AND LAST_DAY('$year-$month-01')
+                     AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS mTrans
             ON acc.Acc_No = mTrans.AccNo
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
                      WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND '$date'
+                     AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
          WHERE acc.Acc_No BETWEEN 60000 AND 69999"
@@ -97,11 +103,13 @@ class Mdl_corp_income_statement extends CI_Model
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
                      WHERE TransDate BETWEEN CAST('$year-$month-01' AS DATETIME) AND LAST_DAY('$year-$month-01')
+                     AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS mTrans
             ON acc.Acc_No = mTrans.AccNo
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
                      WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND '$date'
+                     AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
          WHERE acc.Acc_No BETWEEN 70000 AND 79999"

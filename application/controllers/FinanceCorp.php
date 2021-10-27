@@ -97,7 +97,7 @@ class FinanceCorp extends CI_Controller
 
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $date_start, $date_finish);
         
         echo $result;
     }

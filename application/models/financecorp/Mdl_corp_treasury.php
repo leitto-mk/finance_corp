@@ -75,12 +75,13 @@ class Mdl_corp_treasury extends CI_Model
     }
 
     function get_mas_acc(){
-        return $this->db
+        $query = $this->db
                 ->order_by('Acc_No', 'ASC')
-                ->select('Acc_No, Acc_Name, Acc_Type')
-                ->get_where('tbl_fa_account_no', [
-                    'Acc_Type !=' => 'H'
-                ])->result_array();
+                ->select('Acc_No, Acc_Name, Acc_Type, TransGroup')
+                ->where_not_in('TransGroup', ['H1','H2','H3'])
+                ->get('tbl_fa_account_no')->result_array();
+
+        return $query;
     }
 
     function get_last_trans_date(){
@@ -153,6 +154,16 @@ class Mdl_corp_treasury extends CI_Model
          }
 
         $date_finish = $date_finish ?: date('Y-m-d');
+
+        $start = $finish = '';
+
+        if(strtotime($date_start) < strtotime($date_finish)){
+            $start = $date_start;
+            $finish = $date_finish;
+        }else{
+            $start = $date_finish;
+            $finish = $date_start;
+        }
      
         $query = $this->db->query(
             "SELECT 
@@ -176,7 +187,7 @@ class Mdl_corp_treasury extends CI_Model
                 FROM tbl_fa_transaction 
                 WHERE AccNo = trans.AccNo 
                 AND Branch = trans.Branch
-                AND TransDate < '$date_start'
+                AND TransDate < '$start'
                 ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
                trans.Balance,
                trans.BalanceBranch,
@@ -187,7 +198,7 @@ class Mdl_corp_treasury extends CI_Model
                ON trans.AccNo = acc.Acc_No
              WHERE $branch_condition
              AND trans.AccNo IN ($accno)
-             AND trans.TransDate BETWEEN '$date_start' AND '$date_finish'
+             AND trans.TransDate BETWEEN '$start' AND '$finish'
              AND trans.PostedStatus = 1
              ORDER BY AccNo, Branch, TransDate, DocNo, CtrlNo ASC"
         )->result_array();
@@ -198,20 +209,17 @@ class Mdl_corp_treasury extends CI_Model
         // print("<pre>".print_r($query,true)."</pre>");
         // die();
 
-        $lastBalance;
-        if($query[0]['beg_balance'] == '' || is_null($query[0]['beg_balance']) || !isset($query[0]['beg_balance'])){
-            $lastBalance = 0;
-        }else{
-            $lastBalance = (int)$query[0]['beg_balance'];
+        $lastBalance = 0;
+        if(!empty($query)){
+            if($query[0]['beg_balance'] !== '' || is_null($query[0]['beg_balance']) == false){
+                $lastBalance = (int)$query[0]['beg_balance'];
+            }
         }
         
         for($i = 0; $i < count($query); $i++){
 
             $debit = (int)$query[$i]['Debit'];
             $credit = (int)$query[$i]['Credit'];
-        
-            $typedeb = gettype($debit);
-            $typecre = gettype($credit);
         
             if($debit > 0 && $query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1'){
                $query[$i]['BalanceBranch'] = $debit + $lastBalance;

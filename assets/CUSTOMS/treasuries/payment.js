@@ -23,7 +23,7 @@ var Payment = () => {
 
                         for(let i=0; i < response.length; i++){
                             $('tbody').append(
-                                `<tr class="font-white sbold">
+                                `<tr class="font-dark sbold">
                                     <td align="center">${response[i].TransDate}</td>
                                     <td align="center">${response[i].DocNo}</td>
                                     <td align="center">${response[i].TransType}</td>

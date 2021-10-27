@@ -105,7 +105,12 @@
                     <div>
                         <font size="6" class="uppercase">Company Name</font><br>
                         <font size="4" class="font-dark sbold uppercase">Income Statement</font><br>
-                        <font size="4" class="font-dark sbold"><?= date('F Y') ?></font><br>
+
+                        <?php
+                            $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
+                            $month = (isset($_GET['month']) ? date('F', mktime(0, 0, 0, (int)$_GET['month'], 10)) : date('F'));
+                        ?>
+                        <font size="4" class="font-dark sbold"><?= $month ?> <?= $year ?></font><br>
                     </div>
                 </div>
                 <br>
@@ -386,8 +391,8 @@
                                         ?>
                                         <tr class="font-yellow-gold">
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Gross Profit / Loss</td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_month ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_year ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_month,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_year,2,',','.') ?></td>
                                         </tr>
 
                                         <tr>
@@ -653,8 +658,8 @@
                                         ?>
                                         <tr class="font-yellow-gold">
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Net Profit / Loss</td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $net_gain_month ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $net_gain_year ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($net_gain_month,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($net_gain_year,2,',','.') ?></td>
                                         </tr>
                                                                   
                                     </tbody>

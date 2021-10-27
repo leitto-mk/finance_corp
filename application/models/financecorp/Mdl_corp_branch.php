@@ -66,7 +66,7 @@ class Mdl_corp_branch extends CI_Model
           AND trans.AccNo BETWEEN $accno_start AND $accno_finish
           AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
           AND trans.PostedStatus = 1
-          ORDER BY AccNo, Branch, TransDate, DocNo, CtrlNo ASC"
+          ORDER BY TransDate, AccNo, Branch, DocNo, CtrlNo ASC"
       )->result_array();
 
       return $result;

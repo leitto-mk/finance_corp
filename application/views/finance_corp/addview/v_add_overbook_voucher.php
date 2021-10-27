@@ -69,9 +69,11 @@
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_caccount">
                                                                             <select name="accno" id="accno" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
-                                                                                <?php foreach($accno as $acc) : ?>
-                                                                                    <option value="<?= $acc->Acc_No ?>"><?= $acc->Acc_No ?> | <?= $acc->Acc_Name ?> - [<?= $acc->Acc_Type?>]</option>
-                                                                                <?php endforeach; ?>
+                                                                                <?php for($i=0; $i < count($accno); $i++) : ?>
+                                                                                    <?php if($accno[$i]['TransGroup'] == 'CB') : ?>
+                                                                                        <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?> - [<?= $accno[$i]['Acc_Type']?>]</option>
+                                                                                    <?php endif; ?>
+                                                                                <?php endfor; ?>
                                                                             </select>
                                                                         </div>
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="accdesc"><b></b></span>
@@ -233,8 +235,8 @@
                                                                             <select name="accnos[]" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
                                                                                 <?php for($i=0; $i < count($accno); $i++) : ?>
-                                                                                    <?php if($accno[$i]['Acc_No'] < 11300) : ?>
-                                                                                        <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?> - [<?= $accno[$i]['Acc_Type'] ?>]</option>
+                                                                                    <?php if($accno[$i]['TransGroup'] == 'CB') : ?>
+                                                                                        <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?> - [<?= $accno[$i]['Acc_Type']?>]</option>
                                                                                     <?php endif; ?>
                                                                                 <?php endfor; ?>
                                                                             </select>
