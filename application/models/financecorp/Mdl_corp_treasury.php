@@ -112,7 +112,7 @@ class Mdl_corp_treasury extends CI_Model
     function get_branch_last_balance($branch, $accno, $transdate){
         $query = $this->db->select('BalanceBranch')
                       ->limit(1)
-                      ->order_by('TransDate DESC, CtrlNo DESC')
+                      ->order_by('EntryDate DESC, CtrlNo DESC')
                       ->get_where('tbl_fa_transaction', [
                         'Branch' => $branch,
                         'AccNo' => $accno,
@@ -200,7 +200,7 @@ class Mdl_corp_treasury extends CI_Model
              AND trans.AccNo IN ($accno)
              AND trans.TransDate BETWEEN '$start' AND '$finish'
              AND trans.PostedStatus = 1
-             ORDER BY AccNo, Branch, TransDate, DocNo, CtrlNo ASC"
+             ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
         )->result_array();
 
         // print_r($this->db->last_query());

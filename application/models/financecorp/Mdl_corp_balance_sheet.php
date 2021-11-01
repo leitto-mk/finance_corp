@@ -25,13 +25,14 @@ class Mdl_corp_balance_sheet extends CI_Model
                acc.Acc_Name,
                acc.Acc_Type,
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
-               IF(trans.Balance IS NOT NULL, trans.Balance, 0) AS Amount
+               IF(trans.BalanceBranch IS NOT NULL, trans.BalanceBranch, 0) AS Amount
             FROM tbl_fa_account_no AS acc
-            LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Balance) AS Balance, TransDate, EntryDate 
+            LEFT JOIN (SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
                         FROM tbl_fa_transaction
                         WHERE TransDate <= '$date'
-                        AND ItemNo != 0
-                        AND $branch GROUP BY AccNo) AS trans
+                        AND $branch 
+                        GROUP BY AccNo
+                        ORDER BY EntryDate DESC LIMIT 1) AS trans
                ON acc.Acc_No = trans.AccNo
             WHERE acc.Acc_Type = 'A'"
       )->result_array();
