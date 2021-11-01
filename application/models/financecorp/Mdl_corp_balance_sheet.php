@@ -67,7 +67,7 @@ class Mdl_corp_balance_sheet extends CI_Model
                         AND ItemNo != 0
                         AND $branch GROUP BY AccNo) AS trans
                ON acc.Acc_No = trans.AccNo
-            WHERE acc.Acc_Type = 'C'"
+            WHERE acc.Acc_Type IN ('C','CX')"
       )->result_array();
 
       return [$company, $asset, $liabilities, $capital];
