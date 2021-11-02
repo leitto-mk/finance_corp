@@ -1708,8 +1708,15 @@ class FinanceCorp extends CI_Controller
             'liabilities' => $liabilities,
             'capital' => $capital,
 
+            //Earnings (C1, CX)
+            'retain_earnings' => $this->Mdl_corp_balance_sheet->get_retaining_earning($branch, $year),
+            'current_earnings' => $this->Mdl_corp_balance_sheet->get_current_earning($branch, $year),
+
             'script' => 'report/fin_balance_sheet'
         ];
+
+        // print('<pre>'.print_r($data, true).'</pre>');
+        // die();
         
         $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);
     }
