@@ -110,14 +110,22 @@ class Mdl_corp_treasury extends CI_Model
     }
     
     function get_branch_last_balance($branch, $accno, $transdate){
-        $query = $this->db->select('BalanceBranch')
-                      ->limit(1)
-                      ->order_by('EntryDate DESC, CtrlNo DESC')
-                      ->get_where('tbl_fa_transaction', [
-                        'Branch' => $branch,
-                        'AccNo' => $accno,
-                        'TransDate <=' => $transdate
-                      ])->row();
+        //Get AccNo Type
+        $acc_type = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $accno])->row()->Acc_Type;
+
+        $query = $this->db->select('BalanceBranch')->limit(1)->order_by('EntryDate DESC, CtrlNo DESC');
+        
+        if($acc_type == 'R' || $acc_type == 'E'){
+            $year = date('Y', strtotime($transdate));
+            $query = $this->db->where("TransDate >= '$year-01-01' AND TransDate <= '$transdate'");
+        }else{
+            $query = $this->db->where("TransDate <= '$transdate'");
+        }
+
+        $query = $this->db->get_where('tbl_fa_transaction', [
+                                        'Branch' => $branch,
+                                        'AccNo' => $accno
+                                    ])->row();
 
         return ($query ? $query->BalanceBranch : 0);
     }

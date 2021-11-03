@@ -90,18 +90,25 @@
                                                 ?>
                                             <?php endif; ?>
 
-                                            <tr class="sbold">
-                                                <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
-                                                <td class="bold" align="left"><?= $ledger[$i]['Remarks'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['TransType'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['Department'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['CostCenter'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['Currency'] ?></td>
-                                                <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 2, ',', '.') ?></td>
-                                                <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 2, ',', '.') ?></td>
-                                                <td class="bold" align="right"><?= number_format($ledger[$i]['BalanceBranch'], 2, ',', '.') ?></td>
-                                            </tr>
+                                            <?php
+                                                $curdate = date('Y-m-d', strtotime($ledger[$i]['TransDate']));
+                                                $start = date('Y-m-d', strtotime($date_start));
+                                                $end = date('Y-m-d', strtotime($date_end));
+                                            ?>
+                                            <?php if(($curdate >= $start) && ($curdate <= $end)) :?>
+                                                <tr class="sbold">
+                                                    <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
+                                                    <td class="bold" align="left"><?= $ledger[$i]['Remarks'] ?></td>
+                                                    <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
+                                                    <td class="bold" align="center"><?= $ledger[$i]['TransType'] ?></td>
+                                                    <td class="bold" align="center"><?= $ledger[$i]['Department'] ?></td>
+                                                    <td class="bold" align="center"><?= $ledger[$i]['CostCenter'] ?></td>
+                                                    <td class="bold" align="center"><?= $ledger[$i]['Currency'] ?></td>
+                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 2, ',', '.') ?></td>
+                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 2, ',', '.') ?></td>
+                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['BalanceBranch'], 2, ',', '.') ?></td>
+                                                </tr>
+                                            <?php endif; ?>
                                         <?php endfor; ?>
                                     </tbody>
                                 </table>

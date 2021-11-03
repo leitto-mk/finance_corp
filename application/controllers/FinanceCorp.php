@@ -78,7 +78,6 @@ class FinanceCorp extends CI_Controller
     }
 
     function ajax_delete_receipt(){
-        $docno = $_POST['docno'];
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
@@ -97,7 +96,7 @@ class FinanceCorp extends CI_Controller
 
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $date_start, $date_finish);
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
         echo $result;
     }
