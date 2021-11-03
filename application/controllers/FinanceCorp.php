@@ -78,7 +78,6 @@ class FinanceCorp extends CI_Controller
     }
 
     function ajax_delete_receipt(){
-        $docno = $_POST['docno'];
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
@@ -97,7 +96,7 @@ class FinanceCorp extends CI_Controller
 
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $date_start, $date_finish);
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
         echo $result;
     }
@@ -392,8 +391,6 @@ class FinanceCorp extends CI_Controller
     public function ajax_submit_payment(){
         $master = $details = $trans = [];
 
-        $cur_nis = '';
-        $cur_branch = '';
         $itemno = 0;
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
@@ -458,8 +455,6 @@ class FinanceCorp extends CI_Controller
             'CostCenter' => ''
         ]);
         
-        $cur_emp_bal = 0;
-        $cur_branch_bal = 0;
         $cur_accno_bal = [$_POST['accno'] => $counter_balance];
         for($i = 0; $i < count($_POST['itemno']); $i++){
             $itemno += 1;
@@ -546,8 +541,7 @@ class FinanceCorp extends CI_Controller
         $result = '';
         $accnos = '';
         if($submit == 'success'){
-
-            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            //INSERT ACCNOS FOR `WHERE_IN` CONDITION
             for($i = 0; $i < count($cur_accno_bal); $i++){
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 

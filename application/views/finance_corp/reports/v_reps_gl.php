@@ -75,13 +75,22 @@
                                             $subtotal_credit = $subtotal_debit = 0;
                                         ?>
                                         <?php for($i = 0; $i < count($ledger); $i++) : ?>
-
+                                            <?php
+                                                $curdate = date('Y-m-d', strtotime($ledger[$i]['TransDate']));
+                                                $start = date('Y-m-d', strtotime($date_start));
+                                                $end = date('Y-m-d', strtotime($date_end));
+                                            ?>
                                             <?php if($ledger[$i]['Acc_Name'] !== $cur_acc) : ?>
                                                 <tr style="background-color: #eff2f6c9">
                                                     <td colspan="11" class="bold"><?= $ledger[$i]['AccNo'] ?> -- <?= $ledger[$i]['Acc_Name'] ?> | <?= $ledger[$i]['Acc_Type']?></td>
                                                 </tr>
                                                 <tr class="font-dark sbold">
                                                     <td class="bold" align="right" colspan="2">Beginning Balance</td>
+                                                    <?php 
+                                                        if(($ledger[$i]['Acc_Type'] == 'R' || $ledger[$i]['Acc_Type'] == 'E') && $curdate < $start){
+                                                            $ledger[$i]['beg_balance'] = 0;
+                                                        }
+                                                    ?>
                                                     <td class="sbold uppercase font-green-meadow" align="right" colspan="8" style="font-size: 1.25em"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></td>
                                                 </tr>
                                                 <?php
@@ -89,19 +98,20 @@
                                                     $cur_acc = $ledger[$i]['Acc_Name'];
                                                 ?>
                                             <?php endif; ?>
-
-                                            <tr class="sbold">
-                                                <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
-                                                <td class="bold" align="left"><?= $ledger[$i]['Remarks'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['TransType'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['Department'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['CostCenter'] ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['Currency'] ?></td>
-                                                <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 2, ',', '.') ?></td>
-                                                <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 2, ',', '.') ?></td>
-                                                <td class="bold" align="right"><?= number_format($ledger[$i]['BalanceBranch'], 2, ',', '.') ?></td>
-                                            </tr>
+                                            <?php if(($curdate >= $start) && ($curdate <= $end)) :?>
+                                                <tr class="sbold">
+                                                    <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
+                                                    <td class="bold" align="left"><?= $ledger[$i]['Remarks'] ?></td>
+                                                    <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
+                                                    <td class="bold" align="center"><?= $ledger[$i]['TransType'] ?></td>
+                                                    <td class="bold" align="center"><?= $ledger[$i]['Department'] ?></td>
+                                                    <td class="bold" align="center"><?= $ledger[$i]['CostCenter'] ?></td>
+                                                    <td class="bold" align="center"><?= $ledger[$i]['Currency'] ?></td>
+                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 2, ',', '.') ?></td>
+                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 2, ',', '.') ?></td>
+                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['BalanceBranch'], 2, ',', '.') ?></td>
+                                                </tr>
+                                            <?php endif; ?>
                                         <?php endfor; ?>
                                     </tbody>
                                 </table>

@@ -110,14 +110,24 @@ class Mdl_corp_treasury extends CI_Model
     }
     
     function get_branch_last_balance($branch, $accno, $transdate){
-        $query = $this->db->select('BalanceBranch')
-                      ->limit(1)
-                      ->order_by('EntryDate DESC, CtrlNo DESC')
-                      ->get_where('tbl_fa_transaction', [
-                        'Branch' => $branch,
-                        'AccNo' => $accno,
-                        'TransDate <=' => $transdate
-                      ])->row();
+        //Get AccNo Type
+        $acc_type = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $accno])->row()->Acc_Type;
+
+        $query = $this->db->select('BalanceBranch')->limit(1)->order_by('EntryDate DESC, CtrlNo DESC');
+        
+        //IF AccType either R/E, don't get running balance from Last Year,
+        //ELSE is permitable
+        if($acc_type == 'R' || $acc_type == 'E'){
+            $year = date('Y', strtotime($transdate));
+            $query = $this->db->where("TransDate >= '$year-01-01' AND TransDate <= '$transdate'");
+        }else{
+            $query = $this->db->where("TransDate <= '$transdate'");
+        }
+
+        $query = $this->db->get_where('tbl_fa_transaction', [
+                                        'Branch' => $branch,
+                                        'AccNo' => $accno
+                                    ])->row();
 
         return ($query ? $query->BalanceBranch : 0);
     }
@@ -156,7 +166,6 @@ class Mdl_corp_treasury extends CI_Model
         $date_finish = $date_finish ?: date('Y-m-d');
 
         $start = $finish = '';
-
         if(strtotime($date_start) < strtotime($date_finish)){
             $start = $date_start;
             $finish = $date_finish;
@@ -164,6 +173,8 @@ class Mdl_corp_treasury extends CI_Model
             $start = $date_finish;
             $finish = $date_start;
         }
+
+        $year = date('Y', strtotime($start));
      
         $query = $this->db->query(
             "SELECT 
@@ -184,10 +195,14 @@ class Mdl_corp_treasury extends CI_Model
                trans.Credit, 
                trans.Currency,
                (SELECT BalanceBranch 
-                FROM tbl_fa_transaction 
-                WHERE AccNo = trans.AccNo 
-                AND Branch = trans.Branch
-                AND TransDate < '$start'
+                 FROM tbl_fa_transaction
+                 WHERE AccNo = acc.Acc_No 
+                 AND Branch = trans.Branch
+                 AND IF(
+                    AccType IN('R','E'),
+                    TransDate >= '$year-01-01' AND TransDate < '$start',
+                    TransDate < '$start'
+                 )
                 ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
                trans.Balance,
                trans.BalanceBranch,
@@ -198,7 +213,11 @@ class Mdl_corp_treasury extends CI_Model
                ON trans.AccNo = acc.Acc_No
              WHERE $branch_condition
              AND trans.AccNo IN ($accno)
-             AND trans.TransDate BETWEEN '$start' AND '$finish'
+             AND IF(
+               acc.Acc_Type IN('R','E'),
+               trans.TransDate >= '$year-01-01' AND TransDate < '$finish',
+               trans.TransDate BETWEEN '$start' AND '$finish'
+             )
              AND trans.PostedStatus = 1
              ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
         )->result_array();

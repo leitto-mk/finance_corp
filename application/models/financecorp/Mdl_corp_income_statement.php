@@ -36,7 +36,7 @@ class Mdl_corp_income_statement extends CI_Model
             ON acc.Acc_No = mTrans.AccNo
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
-                     WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND '$date'
+                     WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND LAST_DAY('$date')
                      AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
@@ -60,7 +60,7 @@ class Mdl_corp_income_statement extends CI_Model
             ON acc.Acc_No = mTrans.AccNo
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
-                     WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND '$date'
+                     WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND LAST_DAY('$date')
                      AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
@@ -84,7 +84,7 @@ class Mdl_corp_income_statement extends CI_Model
             ON acc.Acc_No = mTrans.AccNo
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
-                     WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND '$date'
+                     WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND LAST_DAY('$date')
                      AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
@@ -108,7 +108,7 @@ class Mdl_corp_income_statement extends CI_Model
             ON acc.Acc_No = mTrans.AccNo
          LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
                      FROM tbl_fa_transaction
-                     WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND '$date'
+                     WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND LAST_DAY('$date')
                      AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo

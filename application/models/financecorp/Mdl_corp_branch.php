@@ -25,7 +25,7 @@ class Mdl_corp_branch extends CI_Model
          $branch_condition = "trans.Branch = '$branch'";
       }
 
-      $date = date('Y-01-01');
+      $year = date('Y', strtotime($datestart))-1;
 
       $result = $this->db->query(
          "SELECT 
@@ -50,10 +50,14 @@ class Mdl_corp_branch extends CI_Model
             trans.Currency,
             (SELECT BalanceBranch 
              FROM tbl_fa_transaction
-             WHERE AccNo = trans.AccNo 
+             WHERE AccNo = acc.Acc_No 
              AND Branch = trans.Branch
-             AND TransDate < '$datestart'
-             ORDER BY EntryDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
+             AND IF(
+               AccType IN('R','E'),
+               TransDate >= '$year-01-01' AND TransDate < '$datestart',
+               TransDate < '$datestart'
+             )
+             ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
             trans.Balance,
             trans.BalanceBranch,
             trans.EntryDate
@@ -63,8 +67,12 @@ class Mdl_corp_branch extends CI_Model
           LEFT JOIN abase_01_com AS company
             ON trans.Branch = company.ComCode
           WHERE $branch_condition
+          AND IF(
+               acc.Acc_Type IN('R','E'),
+               trans.TransDate >= '$year-01-01' AND TransDate < '$datefinish',
+               trans.TransDate BETWEEN '$datestart' AND '$datefinish'
+          )
           AND trans.AccNo BETWEEN $accno_start AND $accno_finish
-          AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
           AND trans.PostedStatus = 1
           ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
       )->result_array();
