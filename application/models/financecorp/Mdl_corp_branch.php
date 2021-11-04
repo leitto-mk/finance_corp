@@ -25,7 +25,7 @@ class Mdl_corp_branch extends CI_Model
          $branch_condition = "trans.Branch = '$branch'";
       }
 
-      $year = date('Y', strtotime($datestart))-1;
+      $year = date('Y', strtotime($datestart));
 
       $result = $this->db->query(
          "SELECT 
@@ -67,11 +67,7 @@ class Mdl_corp_branch extends CI_Model
           LEFT JOIN abase_01_com AS company
             ON trans.Branch = company.ComCode
           WHERE $branch_condition
-          AND IF(
-               acc.Acc_Type IN('R','E'),
-               trans.TransDate >= '$year-01-01' AND TransDate < '$datefinish',
-               trans.TransDate BETWEEN '$datestart' AND '$datefinish'
-          )
+          AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
           AND trans.AccNo BETWEEN $accno_start AND $accno_finish
           AND trans.PostedStatus = 1
           ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"

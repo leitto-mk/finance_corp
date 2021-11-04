@@ -34,7 +34,11 @@
                 "-dxdebug.mode=debug",
                 "-dxdebug.start_with_request=yes",
                 "-S",
+<<<<<<< HEAD
                 "localhost:8080"
+=======
+                "localhost:0"
+>>>>>>> b658ad46c8a6990155f8d998e98f422a15fc2ea9
             ],
             "program": "",
             "cwd": "${workspaceRoot}",
