@@ -11,6 +11,7 @@ class Mdl_corp_branch extends CI_Model
    function get_account_no(){
       return $this->db->select('Acc_No, Acc_Name')
                       ->order_by('Acc_No', 'ASC')
+                      ->where_not_in('TransGroup',['H1','H2','H3'])
                       ->get_where('tbl_fa_account_no', [
                         'Acc_Type !=' => 'H'
                       ])   
