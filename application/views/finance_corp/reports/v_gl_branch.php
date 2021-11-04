@@ -142,12 +142,10 @@
                             <div class="table-responsive">
                                 <table id="table_gl" class="table table-bordered table-stripped table-condensed">
                                     <thead>
-                                        <!-- <tr style="background-color: #22313F" class="font-white"> -->
                                         <tr style="background-color: #2C3E50" class="font-white">
                                             <th class="text-center" width="3%"> No. </th>
                                             <th class="text-center" width="7%"> Date </th>
                                             <th class="text-center" width="8%"> Doc No </th>
-                                            <!-- <th class="text-center" width="8%"> Cheque/Giro </th> -->
                                             <th class="text-center" width="3%"> Branch </th>
                                             <th class="text-center" width="2%"> Department </th>
                                             <th class="text-center" width="3%"> Cost Center </th>
@@ -160,7 +158,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $cur_acc = $cur_branch = '';
+                                            $cur_branch = '';
+                                            $cur_accno = $ledger[0]['AccNo'];
                                             $subtotal_credit = $subtotal_debit = 0;
                                         ?>
                                         <?php for($i = 0; $i < count($ledger); $i++) : ?>
@@ -170,16 +169,12 @@
                                                 ?>
                                             <?php endif; ?>
 
-                                            <!-- <?php if($ledger[$i]['Acc_Name'] !== $cur_acc) : ?>
-                                                <tr style="background-color: white">
-                                                    <td colspan="12" class="bold"><?= $ledger[$i]['AccNo'] ?> - <?= $ledger[$i]['Acc_Name'] ?></td>
+                                            <?php if($ledger[$i]['AccNo'] !== $cur_accno) :?>
+                                                <tr class="bg-default">
+                                                    <td colspan="11"></td>
                                                 </tr>
-                                                <?php
-                                                    $cur_acc = $ledger[$i]['Acc_Name'];
-                                                ?>
-                                            <?php endif; ?> -->
+                                            <?php endif ?>
 
-                                            <!-- <tr class="font-white sbold"> -->
                                             <tr class="font-dark sbold">
                                                 <td class="bold" align="center"><?= $i+1 ?></td>
                                                 <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
@@ -205,6 +200,7 @@
                                             </tr>
 
                                             <?php
+                                                $cur_accno = $ledger[$i]['AccNo'];
                                                 $subtotal_debit += $ledger[$i]['Debit'];
                                                 $subtotal_credit += $ledger[$i]['Credit'];
                                             ?>
