@@ -159,7 +159,11 @@
                                     <tbody>
                                         <?php
                                             $cur_branch = '';
-                                            $cur_accno = $ledger[0]['AccNo'];
+                                            if(!empty($ledger)){
+                                                $cur_accno = $ledger[0]['AccNo'];
+                                            }else{
+                                                $cur_accno = [];
+                                            }
                                             $subtotal_credit = $subtotal_debit = 0;
                                         ?>
                                         <?php for($i = 0; $i < count($ledger); $i++) : ?>
