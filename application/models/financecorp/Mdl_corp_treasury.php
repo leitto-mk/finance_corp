@@ -200,7 +200,7 @@ class Mdl_corp_treasury extends CI_Model
                           WHERE AccNo = acc.Acc_No 
                           AND Branch = trans.Branch
                           AND TransDate < '$start'
-                          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$start') 
+                          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$finish')
                         AND trans.AccType IN('R','E') THEN
                         0
                     ELSE
