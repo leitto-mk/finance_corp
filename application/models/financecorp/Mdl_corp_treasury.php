@@ -163,7 +163,7 @@ class Mdl_corp_treasury extends CI_Model
             $branch_condition = "trans.Branch = '$branch'";
          }
 
-        $date_finish = $date_finish ?: date('Y-m-d');
+        // $date_finish = $date_finish ?: date('Y-m-d');
 
         $start = $finish = '';
         if(strtotime($date_start) < strtotime($date_finish)){
@@ -194,16 +194,23 @@ class Mdl_corp_treasury extends CI_Model
                trans.Debit,
                trans.Credit, 
                trans.Currency,
-               (SELECT BalanceBranch 
-                 FROM tbl_fa_transaction
-                 WHERE AccNo = acc.Acc_No 
-                 AND Branch = trans.Branch
-                 AND IF(
-                    AccType IN('R','E'),
-                    TransDate >= '$year-01-01' AND TransDate < '$start',
-                    TransDate < '$start'
-                 )
-                ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
+               CASE
+                    WHEN (SELECT YEAR(TransDate) 
+                          FROM tbl_fa_transaction 
+                          WHERE AccNo = acc.Acc_No 
+                          AND Branch = trans.Branch
+                          AND TransDate < '$start'
+                          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$start') 
+                        AND trans.AccType IN('R','E') THEN
+                        0
+                    ELSE
+                        (SELECT BalanceBranch
+                          FROM tbl_fa_transaction 
+                          WHERE AccNo = acc.Acc_No 
+                          AND Branch = trans.Branch
+                          AND TransDate < '$start'
+                          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+               END AS beg_balance,
                trans.Balance,
                trans.BalanceBranch,
                trans.EntryDate,
@@ -213,11 +220,7 @@ class Mdl_corp_treasury extends CI_Model
                ON trans.AccNo = acc.Acc_No
              WHERE $branch_condition
              AND trans.AccNo IN ($accno)
-             AND IF(
-               acc.Acc_Type IN('R','E'),
-               trans.TransDate >= '$year-01-01' AND TransDate < '$finish',
-               trans.TransDate BETWEEN '$start' AND '$finish'
-             )
+             AND trans.TransDate BETWEEN '$start' AND '$finish'
              AND trans.PostedStatus = 1
              ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
         )->result_array();
@@ -230,7 +233,7 @@ class Mdl_corp_treasury extends CI_Model
         }
         
         for($i = 0; $i < count($query); $i++){
-
+            
             $debit = (int)$query[$i]['Debit'];
             $credit = (int)$query[$i]['Credit'];
         

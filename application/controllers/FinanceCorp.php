@@ -96,6 +96,7 @@ class FinanceCorp extends CI_Controller
 
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
         echo $result;
@@ -269,27 +270,28 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        echo $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
         
-        // $result = '';
-        // $accnos = '';
-        // if($submit == 'success'){
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
 
-        //     //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
-        //     for($i = 0; $i < count($cur_accno_bal); $i++){
-        //         $cur_accno = array_keys($cur_accno_bal)[$i];
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
 
-        //         if($i < count($cur_accno_bal)-1){
-        //             $accnos .= "'$cur_accno'," ;
-        //         }else{
-        //             $accnos .= "'$cur_accno'" ;
-        //         }
-        //     }
-        // }
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
 
-        // $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        // echo $result;
+        echo $result;
     }
 
     //PAYMENT VOUCHER
@@ -367,6 +369,7 @@ class FinanceCorp extends CI_Controller
 
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
         echo $result;
@@ -536,26 +539,28 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        echo $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
         
-        // $result = '';
-        // $accnos = '';
-        // if($submit == 'success'){
-        //     //INSERT ACCNOS FOR `WHERE_IN` CONDITION
-        //     for($i = 0; $i < count($cur_accno_bal); $i++){
-        //         $cur_accno = array_keys($cur_accno_bal)[$i];
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
 
-        //         if($i < count($cur_accno_bal)-1){
-        //             $accnos .= "'$cur_accno'," ;
-        //         }else{
-        //             $accnos .= "'$cur_accno'" ;
-        //         }
-        //     }
-        // }
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
 
-        // $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
 
-        // echo $result;
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+
+        echo $result;
     }
 
     //OVERBOOK VOUCHER
@@ -633,6 +638,7 @@ class FinanceCorp extends CI_Controller
 
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
         echo $result;
@@ -809,27 +815,28 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        echo $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
         
-        // $result = '';
-        // $accnos = '';
-        // if($submit == 'success'){
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
 
-        //     //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
-        //     for($i = 0; $i < count($cur_accno_bal); $i++){
-        //         $cur_accno = array_keys($cur_accno_bal)[$i];
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
 
-        //         if($i < count($cur_accno_bal)-1){
-        //             $accnos .= "'$cur_accno'," ;
-        //         }else{
-        //             $accnos .= "'$cur_accno'" ;
-        //         }
-        //     }
-        // }
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
 
-        // $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        // echo $result;
+        echo $result;
     }
 
     //GENERAL JOURNAL
@@ -907,6 +914,7 @@ class FinanceCorp extends CI_Controller
 
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
         echo $result;
@@ -1038,27 +1046,28 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        echo $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
         
-        // $result = '';
-        // $accnos = '';
-        // if($submit == 'success'){
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
 
-        //     //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
-        //     for($i = 0; $i < count($cur_accno_bal); $i++){
-        //         $cur_accno = array_keys($cur_accno_bal)[$i];
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
 
-        //         if($i < count($cur_accno_bal)-1){
-        //             $accnos .= "'$cur_accno'," ;
-        //         }else{
-        //             $accnos .= "'$cur_accno'" ;
-        //         }
-        //     }
-        // }
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
 
-        // $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        // echo $result;
+        echo $result;
     }
 
     //CASH ADVANCE WITHDRAW
@@ -1138,6 +1147,7 @@ class FinanceCorp extends CI_Controller
 
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
         echo $result;
@@ -1312,27 +1322,28 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        echo $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
         
-        // $result = '';
-        // $accnos = '';
-        // if($submit == 'success'){
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
 
-        //     //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
-        //     for($i = 0; $i < count($cur_accno_bal); $i++){
-        //         $cur_accno = array_keys($cur_accno_bal)[$i];
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
 
-        //         if($i < count($cur_accno_bal)-1){
-        //             $accnos .= "'$cur_accno'," ;
-        //         }else{
-        //             $accnos .= "'$cur_accno'" ;
-        //         }
-        //     }
-        // }
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
 
-        // $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        // echo $result;
+        echo $result;
     }
 
     //CASH ADVANCE RECEIPT
@@ -1412,6 +1423,7 @@ class FinanceCorp extends CI_Controller
 
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
         echo $result;
@@ -1585,27 +1597,28 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        echo $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
         
-        // $result = '';
-        // $accnos = '';
-        // if($submit == 'success'){
+        $result = '';
+        $accnos = '';
+        if($submit == 'success'){
 
-        //     //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
-        //     for($i = 0; $i < count($cur_accno_bal); $i++){
-        //         $cur_accno = array_keys($cur_accno_bal)[$i];
+            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            for($i = 0; $i < count($cur_accno_bal); $i++){
+                $cur_accno = array_keys($cur_accno_bal)[$i];
 
-        //         if($i < count($cur_accno_bal)-1){
-        //             $accnos .= "'$cur_accno'," ;
-        //         }else{
-        //             $accnos .= "'$cur_accno'" ;
-        //         }
-        //     }
-        // }
+                if($i < count($cur_accno_bal)-1){
+                    $accnos .= "'$cur_accno'," ;
+                }else{
+                    $accnos .= "'$cur_accno'" ;
+                }
+            }
+        }
 
-        // $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
+        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        // echo $result;
+        echo $result;
     }
 
     //GL REPORT
