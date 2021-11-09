@@ -222,12 +222,6 @@ class Mdl_corp_treasury extends CI_Model
              ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
         )->result_array();
 
-        // print_r($this->db->last_query());
-        // die();
-        
-        // print("<pre>".print_r($query,true)."</pre>");
-        // die();
-
         $lastBalance = 0;
         if(!empty($query)){
             if($query[0]['beg_balance'] !== '' || is_null($query[0]['beg_balance']) == false){

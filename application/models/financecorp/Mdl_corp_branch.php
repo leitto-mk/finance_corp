@@ -149,9 +149,6 @@ class Mdl_corp_branch extends CI_Model
          $debit = (int)$query[$i]['Debit'];
          $credit = (int)$query[$i]['Credit'];
 
-         $typedeb = gettype($debit);
-         $typecre = gettype($credit);
-
          if($debit > 0 && $query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1'){
             $query[$i]['BalanceBranch'] = $debit + $lastBalance;
          }elseif($credit > 0 && $query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1'){
