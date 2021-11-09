@@ -68,7 +68,15 @@ class Mdl_corp_branch extends CI_Model
           LEFT JOIN abase_01_com AS company
             ON trans.Branch = company.ComCode
           WHERE $branch_condition
-          AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
+          AND IF(
+            acc.Acc_Type IN('R','E'),
+            trans.TransDate >= '$year-01-01' AND TransDate < '$datefinish',
+            trans.TransDate BETWEEN '$datestart' AND '$datefinish'
+          )
+          AND IF(
+             EXISTS(SELECT AccNo FROM tbl_fa_transaction WHERE $branch_condition AND TransDate < '$datestart'),
+
+          )
           AND trans.AccNo BETWEEN $accno_start AND $accno_finish
           AND trans.PostedStatus = 1
           ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
@@ -169,10 +177,10 @@ class Mdl_corp_branch extends CI_Model
 
       $this->db->trans_begin();
       
-      $this->db->delete('tbl_fa_transaction', [
-            'TransDate >=' => $date_start,
-            'Branch' => $branch
-      ]);
+      // $this->db->delete('tbl_fa_transaction', [
+      //       'TransDate >=' => $date_start,
+      //       'Branch' => $branch
+      // ]);
 
       $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
       
