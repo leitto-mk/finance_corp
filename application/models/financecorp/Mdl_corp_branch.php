@@ -85,46 +85,54 @@ class Mdl_corp_branch extends CI_Model
          $branch_condition = "trans.Branch = '$branch'";
       }
 
-      $query = $this->db->query(
-         "SELECT 
-            trans.CtrlNo,
-            trans.DocNo,
-            acc.Acc_Name,
-            trans.AccType,
-            trans.TransDate, 
-            trans.TransType, 
-            trans.JournalGroup,
-            trans.Branch,
-            trans.Department,
-            trans.CostCenter,
-            trans.AccNo,
-            trans.IDNumber,
-            trans.Remarks,
-            trans.Debit,
-            trans.Credit, 
-            trans.Currency,
-            (SELECT BalanceBranch 
-             FROM tbl_fa_transaction 
-             WHERE AccNo = trans.AccNo 
-             AND Branch = trans.Branch
-             AND TransDate < '$date_start'
-             ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
-            trans.Balance,
-            trans.BalanceBranch,
-            trans.EntryDate,
-            trans.EntryBy
-          FROM tbl_fa_transaction AS trans
-          LEFT JOIN tbl_fa_account_no AS acc
-            ON trans.AccNo = acc.Acc_No
-          WHERE $branch_condition
-          AND trans.AccNo BETWEEN $accno_start AND $accno_finish
-          AND trans.TransDate BETWEEN '$date_start' AND '$date_finish'
-          AND trans.PostedStatus = 1
-          ORDER BY AccNo, Branch, TransDate, DocNo, CtrlNo ASC"
-      )->result_array();
+      $year = date('Y', strtotime($date_start));
 
-      // print("<pre>".print_r($query,true)."</pre>");
-      // die();
+      $query = $this->db->query(
+            "SELECT 
+               trans.CtrlNo,
+               trans.DocNo,
+               acc.Acc_Name,
+               trans.AccType,
+               trans.TransDate, 
+               trans.TransType, 
+               trans.JournalGroup,
+               trans.Branch,
+               trans.Department,
+               trans.CostCenter,
+               trans.AccNo,
+               trans.IDNumber,
+               trans.Remarks,
+               trans.Debit,
+               trans.Credit, 
+               trans.Currency,
+               (SELECT BalanceBranch 
+                 FROM tbl_fa_transaction
+                 WHERE AccNo = acc.Acc_No 
+                 AND Branch = trans.Branch
+                 AND IF(
+                    AccType IN('R','E'),
+                    TransDate >= '$year-01-01' AND TransDate < '$date_start',
+                    TransDate < '$date_start'
+                 )
+                ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
+               trans.Balance,
+               trans.BalanceBranch,
+               trans.EntryDate,
+               trans.EntryBy
+             FROM tbl_fa_transaction AS trans
+             LEFT JOIN tbl_fa_account_no AS acc
+               ON trans.AccNo = acc.Acc_No
+             WHERE $branch_condition
+             AND trans.AccNo BETWEEN CAST('$accno_start' AS DECIMAL) AND CAST('$accno_finish' AS DECIMAL)
+             AND acc.TransGroup NOT IN('H1','H2','H3')
+             AND IF(
+               acc.Acc_Type IN('R','E'),
+               trans.TransDate >= '$year-01-01' AND TransDate < '$date_finish',
+               trans.TransDate BETWEEN '$date_start' AND '$date_finish'
+             )
+             AND trans.PostedStatus = 1
+             ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
+      )->result_array();
 
       $lastBalance = (int)(is_null($query[0]['beg_balance']) ? 0 : $query[0]['beg_balance']);
 
