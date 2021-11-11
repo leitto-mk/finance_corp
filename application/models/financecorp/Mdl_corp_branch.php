@@ -28,7 +28,8 @@ class Mdl_corp_branch extends CI_Model
 
       $year = date('Y', strtotime($datestart));
 
-      $result = $this->db->query(
+      //GET RESULT IN SELECTED DATE RANGE
+      $ondate_selected_result = $this->db->query(
          "SELECT 
             company.ComCode,
             company.ComName,
@@ -68,15 +69,49 @@ class Mdl_corp_branch extends CI_Model
           LEFT JOIN abase_01_com AS company
             ON trans.Branch = company.ComCode
           WHERE $branch_condition
-          AND IF(
-            acc.Acc_Type IN('R','E'),
-            trans.TransDate >= '$year-01-01' AND TransDate < '$datefinish',
-            trans.TransDate BETWEEN '$datestart' AND '$datefinish'
-          )
+          AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
           AND trans.AccNo BETWEEN $accno_start AND $accno_finish
           AND trans.PostedStatus = 1
           ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
       )->result_array();
+
+      //GET RUNNING BALANCE OF EACH EXCLUDED ACCNO IN SELECTED DATE RANGE
+      $other_accno_result = $this->db->query(
+         "SELECT 
+            trans.AccNo,
+            acc.Acc_Name,
+            acc.Acc_Type,
+            trans.TransDate,
+            trans.Remarks,
+            trans.DocNo,
+            trans.TransType,
+            trans.Department,
+            trans.CostCenter,
+            trans.Currency,
+            trans.Debit,
+            trans.Credit,
+            trans.BalanceBranch,
+            trans.BalanceBranch AS beg_balance
+          FROM tbl_fa_transaction AS trans
+          LEFT JOIN tbl_fa_account_no AS acc
+            ON trans.AccNo = acc.Acc_No
+          WHERE AccNo NOT IN (
+             SELECT AccNo 
+             FROM tbl_fa_transaction 
+             WHERE TransDate 
+             BETWEEN '$datestart' AND '$datefinish' 
+             GROUP BY AccNo
+          )
+          AND TransDate < '$datestart'
+          AND AccType IN ('A','L','C')
+          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1"
+      )->result_array();
+
+      $result = array_merge($ondate_selected_result, $other_accno_result);
+      
+      usort($result, function ($item, $compare){
+         return $item['AccNo'] > $compare['AccNo'] ? 1 : -1;
+      });
 
       return $result;
    }

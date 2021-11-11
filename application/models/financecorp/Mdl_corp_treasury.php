@@ -159,11 +159,9 @@ class Mdl_corp_treasury extends CI_Model
     function calculate_balance($branch, $accno, $date_start, $date_finish){
         if($branch == 'All' || $branch == ''){
             $branch_condition = "trans.Branch IS NOT NULL";
-         }else{
+        }else{
             $branch_condition = "trans.Branch = '$branch'";
-         }
-
-        // $date_finish = $date_finish ?: date('Y-m-d');
+        }
 
         $start = $finish = '';
         if(strtotime($date_start) < strtotime($date_finish)){
@@ -173,8 +171,6 @@ class Mdl_corp_treasury extends CI_Model
             $start = $date_finish;
             $finish = $date_start;
         }
-
-        $year = date('Y', strtotime($start));
      
         $query = $this->db->query(
             "SELECT 
@@ -200,7 +196,7 @@ class Mdl_corp_treasury extends CI_Model
                           WHERE AccNo = acc.Acc_No 
                           AND Branch = trans.Branch
                           AND TransDate < '$start'
-                          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$finish')
+                          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$start')
                         AND trans.AccType IN('R','E') THEN
                         0
                     ELSE
