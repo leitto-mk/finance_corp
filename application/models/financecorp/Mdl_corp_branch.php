@@ -82,6 +82,7 @@ class Mdl_corp_branch extends CI_Model
             acc.Acc_Name,
             acc.Acc_Type,
             trans.TransDate,
+            trans.Branch,
             trans.Remarks,
             trans.DocNo,
             trans.TransType,
@@ -99,13 +100,15 @@ class Mdl_corp_branch extends CI_Model
              SELECT AccNo 
              FROM tbl_fa_transaction 
              WHERE TransDate 
-             BETWEEN '$datestart' AND '$datefinish' 
+             BETWEEN ? AND ?
              GROUP BY AccNo
           )
-          AND TransDate < '$datestart'
+          AND TransDate < ?
           AND AccType IN ('A','L','C')
           ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1"
-      )->result_array();
+      ,[
+         $datestart, $datefinish, $datestart
+      ])->result_array();
 
       $result = array_merge($ondate_selected_result, $other_accno_result);
       
@@ -144,16 +147,23 @@ class Mdl_corp_branch extends CI_Model
                trans.Debit,
                trans.Credit, 
                trans.Currency,
-               (SELECT BalanceBranch 
-                 FROM tbl_fa_transaction
-                 WHERE AccNo = acc.Acc_No 
-                 AND Branch = trans.Branch
-                 AND IF(
-                    AccType IN('R','E'),
-                    TransDate >= '$year-01-01' AND TransDate < '$date_start',
-                    TransDate < '$date_start'
-                 )
-                ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
+               CASE
+                    WHEN (SELECT YEAR(TransDate) 
+                          FROM tbl_fa_transaction 
+                          WHERE AccNo = acc.Acc_No 
+                          AND Branch = trans.Branch
+                          AND TransDate < '$date_start'
+                          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$date_start')
+                        AND trans.AccType IN('R','E') THEN
+                        0
+                    ELSE
+                        (SELECT BalanceBranch
+                          FROM tbl_fa_transaction 
+                          WHERE AccNo = acc.Acc_No 
+                          AND Branch = trans.Branch
+                          AND TransDate < '$date_start'
+                          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+               END AS beg_balance,
                trans.Balance,
                trans.BalanceBranch,
                trans.EntryDate,
@@ -173,7 +183,12 @@ class Mdl_corp_branch extends CI_Model
              ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
       )->result_array();
 
-      $lastBalance = (int)(is_null($query[0]['beg_balance']) ? 0 : $query[0]['beg_balance']);
+      $lastBalance = 0;
+      if(!empty($query)){
+         if($query[0]['beg_balance'] !== '' || is_null($query[0]['beg_balance']) == false){
+               $lastBalance = (int)$query[0]['beg_balance'];
+         }
+      }
 
       for($i = 0; $i < count($query); $i++){
 

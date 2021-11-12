@@ -119,7 +119,7 @@ class Mdl_corp_treasury extends CI_Model
         //ELSE is permitable
         if($acc_type == 'R' || $acc_type == 'E'){
             $year = date('Y', strtotime($transdate));
-            $query = $this->db->where("TransDate >= '$year-01-01' AND TransDate <= '$transdate'");
+            $query = $this->db->where("YEAR(TransDate) = YEAR('$transdate')");
         }else{
             $query = $this->db->where("TransDate <= '$transdate'");
         }
