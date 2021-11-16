@@ -121,8 +121,6 @@ class FinanceCorp extends CI_Controller
     public function ajax_submit_receipt(){
         $master = $details = $trans = [];
 
-        $cur_nis = '';
-        $cur_branch = '';
         $itemno = 0;
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
@@ -187,8 +185,6 @@ class FinanceCorp extends CI_Controller
             'CostCenter' => ''
         ]);
         
-        $cur_emp_bal = 0;
-        $cur_branch_bal = 0;
         $cur_accno_bal = [$_POST['accno'] => $counter_balance];
         for($i = 0; $i < count($_POST['itemno']); $i++){
             $itemno += 1;
