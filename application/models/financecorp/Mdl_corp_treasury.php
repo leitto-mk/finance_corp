@@ -170,6 +170,8 @@ class Mdl_corp_treasury extends CI_Model
             $start = $date_finish;
             $finish = $date_start;
         }
+
+        $this->db->trans_begin();
      
         $query = $this->db->query(
             "SELECT 
@@ -215,10 +217,15 @@ class Mdl_corp_treasury extends CI_Model
                ON trans.AccNo = acc.Acc_No
              WHERE $branch_condition
              AND trans.AccNo IN ($accno)
-             AND trans.TransDate BETWEEN '$start' AND '$finish'
+             AND trans.TransDate > $start
              AND trans.PostedStatus = 1
              ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
         )->result_array();
+
+        if(empty($query)){
+            $this->db->trans_complete();
+            return ($this->db->trans_status() ? 'success' : $this->db->error());
+        }
 
         $lastBalance = 0;
         if(!empty($query)){
@@ -236,7 +243,7 @@ class Mdl_corp_treasury extends CI_Model
             * IF CURRENT INDEX'S YEAR NOT EQUAL TO PREVIOUS INDEX'S AND ACCTYPE EITHER 'R' OR 'E',
             * SET BEGINNING BALANCE TO 0  
             */ 
-            if($i > 0 && date('Y', strtotime($query[$i-1]['TransDate']) !== date('Y', strtotime($query[$i]['TransDate']))) && ($query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'E')){
+            if($i > 0 && date('Y', strtotime($query[$i-1]['TransDate'])) !== date('Y', strtotime($query[$i]['TransDate'])) && ($query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'E')){
                 $lastBalance = 0;
             }
         
@@ -273,6 +280,8 @@ class Mdl_corp_treasury extends CI_Model
     
         $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
         
+        $this->db->trans_complete();
+
         return ($this->db->trans_status() ? 'success' : $this->db->error());
     }
 

@@ -26,7 +26,14 @@ class Mdl_corp_branch extends CI_Model
          $branch_condition = "trans.Branch = '$branch'";
       }
 
-      $year = date('Y', strtotime($datestart));
+      $start = $finish = '';
+      if(strtotime($datestart) < strtotime($datefinish)){
+         $start = $datestart;
+         $finish = $datefinish;
+      }else{
+         $start = $datefinish;
+         $finish = $datestart;
+      }
 
       //GET RESULT IN SELECTED DATE RANGE
       $ondate_selected_result = $this->db->query(
@@ -50,16 +57,23 @@ class Mdl_corp_branch extends CI_Model
             trans.Debit,
             trans.Credit, 
             trans.Currency,
-            (SELECT BalanceBranch 
-             FROM tbl_fa_transaction
-             WHERE AccNo = acc.Acc_No 
-             AND Branch = trans.Branch
-             AND IF(
-               AccType IN('R','E'),
-               TransDate >= '$year-01-01' AND TransDate < '$datestart',
-               TransDate < '$datestart'
-             )
-             ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) AS beg_balance,
+            CASE
+                  WHEN (SELECT YEAR(TransDate) 
+                        FROM tbl_fa_transaction 
+                        WHERE AccNo = acc.Acc_No 
+                        AND Branch = trans.Branch
+                        AND TransDate < '$start'
+                        ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$start')
+                     AND (trans.AccType = 'R' OR trans.AccType = 'E') THEN
+                     0
+                  ELSE
+                     (SELECT BalanceBranch
+                        FROM tbl_fa_transaction 
+                        WHERE AccNo = acc.Acc_No 
+                        AND Branch = trans.Branch
+                        AND TransDate < '$start'
+                        ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+            END AS beg_balance,
             trans.Balance,
             trans.BalanceBranch,
             trans.EntryDate
@@ -69,7 +83,7 @@ class Mdl_corp_branch extends CI_Model
           LEFT JOIN abase_01_com AS company
             ON trans.Branch = company.ComCode
           WHERE $branch_condition
-          AND trans.TransDate BETWEEN '$datestart' AND '$datefinish'
+          AND trans.TransDate BETWEEN '$start' AND '$finish'
           AND trans.AccNo BETWEEN $accno_start AND $accno_finish
           AND trans.PostedStatus = 1
           ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
@@ -92,7 +106,23 @@ class Mdl_corp_branch extends CI_Model
             trans.Debit,
             trans.Credit,
             trans.BalanceBranch,
-            trans.BalanceBranch AS beg_balance
+            CASE
+                  WHEN (SELECT YEAR(TransDate) 
+                        FROM tbl_fa_transaction 
+                        WHERE AccNo = acc.Acc_No 
+                        AND Branch = trans.Branch
+                        AND TransDate < ?
+                        ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR(?)
+                     AND (trans.AccType = 'R' OR trans.AccType = 'E') THEN
+                     0
+                  ELSE
+                     (SELECT BalanceBranch
+                        FROM tbl_fa_transaction 
+                        WHERE AccNo = acc.Acc_No 
+                        AND Branch = trans.Branch
+                        AND TransDate < ?
+                        ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+            END AS beg_balance
           FROM tbl_fa_transaction AS trans
           LEFT JOIN tbl_fa_account_no AS acc
             ON trans.AccNo = acc.Acc_No
@@ -103,17 +133,15 @@ class Mdl_corp_branch extends CI_Model
              BETWEEN ? AND ?
              GROUP BY AccNo
           )
-          AND 
-            CASE
-               WHEN trans.AccType IN ('R','E') THEN
-                  YEAR(TransDate) = YEAR('$datestart')
-               ELSE
-                  TransDate < ?
-            END
-          AND CtrlNo IN (SELECT MAX(CtrlNo) FROM tbl_fa_transaction WHERE AccNo = trans.AccNo)
+          AND TransDate IN (
+             SELECT MAX(TransDate) 
+             FROM tbl_fa_transaction 
+             WHERE AccNo = trans.AccNo
+             AND TransDate < ?
+          )
           ORDER BY TransDate DESC, CtrlNo DESC"
       ,[
-         $datestart, $datefinish, $datestart
+         $datestart, $datestart, $datestart, $datestart, $datefinish, $datestart
       ])->result_array();
 
       $result = array_merge($ondate_selected_result, $other_accno_result);
