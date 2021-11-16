@@ -103,7 +103,13 @@ class Mdl_corp_branch extends CI_Model
              BETWEEN ? AND ?
              GROUP BY AccNo
           )
-          AND TransDate < ?
+          AND 
+            CASE
+               WHEN trans.AccType IN ('R','E') THEN
+                  YEAR(TransDate) = YEAR('$datestart')
+               ELSE
+                  TransDate < ?
+            END
           AND CtrlNo IN (SELECT MAX(CtrlNo) FROM tbl_fa_transaction WHERE AccNo = trans.AccNo)
           ORDER BY TransDate DESC, CtrlNo DESC"
       ,[
