@@ -104,8 +104,8 @@ class Mdl_corp_branch extends CI_Model
              GROUP BY AccNo
           )
           AND TransDate < ?
-          AND AccType IN ('A','L','C')
-          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1"
+          AND CtrlNo IN (SELECT MAX(CtrlNo) FROM tbl_fa_transaction WHERE AccNo = trans.AccNo)
+          ORDER BY TransDate DESC, CtrlNo DESC"
       ,[
          $datestart, $datefinish, $datestart
       ])->result_array();
