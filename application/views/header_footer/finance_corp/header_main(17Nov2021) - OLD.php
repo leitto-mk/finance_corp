@@ -79,7 +79,7 @@
                     </div> -->
                     <div class="page-logo" style="margin-left: -10px; margin-top: -10px">
                         <a href="#">
-                            <h2 class="font-dark bold uppercase">Finance<font color="white">_</font>Accounting</h2></a>
+                            <h2 class="font-dark bold">Finance<font color="white">_</font>Accounting</h2></a>
                         <div class="menu-toggler sidebar-toggler">
                             <span></span>
                         </div>
@@ -158,78 +158,20 @@
                                             <span class="title">&bull;&nbsp;&nbsp;General Journal</span>
                                         </a>
                                     </li>
-                                </ul>
-                            </li>
-                            <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Account</span>
-                                </a>
-                                <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('Acc_pay/index2') ?>" target="_blank class="nav-link">
+                                        <a href="<?= site_url('FinanceCorp/view_ca_withdraw') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;Accounts Payable</span>
+                                            <span class="title">&bull;&nbsp;&nbsp;Cash Advance Withdraw</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('Acc_rec/index2') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= site_url('FinanceCorp/view_ca_receipt') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;Accounts Receivable</span>
+                                            <span class="title">&bull;&nbsp;&nbsp;Cash Advance Receipt</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Asset</span>
-                                </a>
-                            </li>
-                            <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Payroll</span>
-                                </a>
-                            </li>
-                            <li class="nav-head nav-item active">
-                                <a href="<?php echo site_url('Cash_adv') ?>" target="_blank" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Cash Advance</span>
-                                </a>
-                            </li>
-                            <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">General</span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item start">
-                                        <a href="#" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;Budget & Forcast</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item start">
-                                        <a href="#" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;Invoice Management</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item start">
-                                        <a href="#" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;Job Costing</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Report</span>
-                                </a>
-                            </li> -->
                             <li class="nav-head nav-item active">
                                 <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
                                     <i class="fa fa-edit"></i>
@@ -273,12 +215,6 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Setting</span>
-                                </a>
                             </li>
                         </ul>
                     </div>

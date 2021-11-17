@@ -1,11 +1,11 @@
-<?php $this->load->view('finance_corp/cashadvance/header_corp'); ?>
+<?php $this->load->view('header_footer/finance_corp/header_main'); ?>
 <div class="main_content">
     <div class="row">
         <div class="col-md-12">
             <div class="bg-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
                 <div class="row">
                     <div class="col-md-8">
-                        <h4 class="text-uppercase font-dark bold" style="margin-left: 10px">Cash Advance Withdraw</h4>
+                        <h4 class="text-uppercase font-dark bold" style="margin-left: 10px">Cash Advance Receipt</h4>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                                 </button>
                             </span>
                             <span class="input-group-btn">
-                                <a href="<?php echo site_url('FinanceCorp/add_ca_withdraw') ?>" target="_blank" class="btn btn-md btn blue-oleo">
+                                <a href="<?php echo site_url('FinanceCorp/add_ca_receipt') ?>" target="_blank" class="btn btn-md btn blue-oleo">
                                     <i class="fa fa-plus"></i>&nbsp;Add New</i>
                                 </a>
                             </span>
@@ -77,10 +77,10 @@
                                         <td align="left"><?= $list[$i]['Remarks'] ?></td>
                                         <td align="right"><?= $list[$i]['TotalAmount'] ?></td>
                                         <td align="center">
-                                            <a href="<?= base_url("FinanceCorp/edit_ca_withdraw?docno=$docno")?>" target="_blank" type="button" class="btn btn-xs green">
+                                            <a href="<?= base_url("FinanceCorp/edit_ca_receipt?docno=$docno")?>" target="_blank" type="button" class="btn btn-xs green">
                                                 <i class="fa fa-edit"> </i>
                                             </a>
-                                            <a href="<?php echo site_url('FinanceCorp/view_reps_cash_withdraw?') . "docno=" . $list[$i]['DocNo'] . "&branch=" . $list[$i]['Branch'] . "&transdate=" . $list[$i]['TransDate'] ?>" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                                            <a href="<?php echo site_url('FinanceCorp/view_reps_cash_receipt?') . "docno=" . $list[$i]['DocNo'] . "&branch=" . $list[$i]['Branch'] . "&transdate=" . $list[$i]['TransDate'] ?>" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                                                 <i class="fa fa-print"> </i>
                                             </a>
                                             <a href="javascript:;" name="delete" data-docno="<?= $list[$i]['DocNo'] ?>" data-branch="<?= $list[$i]['Branch'] ?>" data-transdate="<?= $list[$i]['TransDate'] ?>" type="button" class="btn btn-xs red">
@@ -105,4 +105,4 @@
         document.body.style.zoom = 0.9;
     }
 </script>
-<?php $this->load->view('finance_corp/cashadvance/footer'); ?>
+<?php $this->load->view('header_footer/finance_corp/footer_main'); ?>

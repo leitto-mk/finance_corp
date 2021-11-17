@@ -1073,7 +1073,11 @@ class FinanceCorp extends CI_Controller
         $end = date('Y-m-d');
 
         $data = [
-            'title' => 'List CA Withdraw',
+            'title' => 'Cash Advance Withdraw',
+            'h1' => 'Cash',
+            'h2' => 'Advance',
+            'h3' => '',
+            'h4' => '',
             
             'list' => $this->Mdl_corp_treasury->get_annual_treasury('CA-WITHDRAW', $docno, $start, $end),
             'script' => 'treasuries/ca_withdraw'
@@ -1349,7 +1353,11 @@ class FinanceCorp extends CI_Controller
         $end = date('Y-m-d');
 
         $data = [
-            'title' => 'List CA Receipt',
+            'title' => 'Cash Advance Receipt',
+            'h1' => 'Cash',
+            'h2' => 'Advance',
+            'h3' => '',
+            'h4' => '',
             
             'list' => $this->Mdl_corp_treasury->get_annual_treasury('CA-RECEIPT', $docno, $start, $end),
             'script' => 'treasuries/ca_receipt'

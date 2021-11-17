@@ -1,4 +1,4 @@
-<?php $this->load->view('header_footer/finance_corp/header_main'); ?>
+<?php $this->load->view('finance_corp/cashadvance/header_corp'); ?>
 <div class="main_content">
     <div class="row">
         <div class="col-md-12">
@@ -105,4 +105,4 @@
         document.body.style.zoom = 0.9;
     }
 </script>
-<?php $this->load->view('header_footer/finance_corp/footer_main'); ?>
+<?php $this->load->view('finance_corp/cashadvance/footer'); ?>
