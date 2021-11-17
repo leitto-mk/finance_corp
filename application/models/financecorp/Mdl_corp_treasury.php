@@ -217,7 +217,11 @@ class Mdl_corp_treasury extends CI_Model
                ON trans.AccNo = acc.Acc_No
              WHERE $branch_condition
              AND trans.AccNo IN ($accno)
-             AND trans.TransDate > $start
+             AND IF(
+               acc.Acc_Type IN('R','E'),
+               YEAR(trans.TransDate) = YEAR('$date_finish') AND trans,
+               trans.TransDate BETWEEN '$start' AND '$finish'
+             )
              AND trans.PostedStatus = 1
              ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
         )->result_array();

@@ -92,6 +92,11 @@ class Mdl_corp_branch extends CI_Model
       //GET RUNNING BALANCE OF EACH EXCLUDED ACCNO IN SELECTED DATE RANGE
       $other_accno_result = $this->db->query(
          "SELECT 
+            company.ComCode,
+            company.ComName,
+            CONCAT(company.Address,', ',company.City,', ',company.Province,', ',company.PostalCode) AS Address,
+            CONCAT(company.PhoneNo,'/',company.ContactNo) AS Contact,
+            company.Email,
             trans.AccNo,
             acc.Acc_Name,
             acc.Acc_Type,
@@ -126,6 +131,8 @@ class Mdl_corp_branch extends CI_Model
           FROM tbl_fa_transaction AS trans
           LEFT JOIN tbl_fa_account_no AS acc
             ON trans.AccNo = acc.Acc_No
+          LEFT JOIN abase_01_com AS company
+            ON trans.Branch = company.ComCode
           WHERE AccNo NOT IN (
              SELECT AccNo 
              FROM tbl_fa_transaction 
@@ -139,7 +146,7 @@ class Mdl_corp_branch extends CI_Model
              WHERE AccNo = trans.AccNo
              AND TransDate < ?
           )
-          ORDER BY TransDate DESC, CtrlNo DESC"
+          ORDER BY trans.TransDate DESC, trans.CtrlNo DESC"
       ,[
          $datestart, $datestart, $datestart, $datestart, $datefinish, $datestart
       ])->result_array();
@@ -229,6 +236,14 @@ class Mdl_corp_branch extends CI_Model
          $debit = (int)$query[$i]['Debit'];
          $credit = (int)$query[$i]['Credit'];
 
+         /*
+         * IF CURRENT INDEX'S YEAR NOT EQUAL TO PREVIOUS INDEX'S AND ACCTYPE EITHER 'R' OR 'E',
+         * SET BEGINNING BALANCE TO 0  
+         */ 
+         if($i > 0 && date('Y', strtotime($query[$i-1]['TransDate'])) !== date('Y', strtotime($query[$i]['TransDate'])) && ($query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'E')){
+            $lastBalance = 0;
+         }
+
          if($debit > 0 && $query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1'){
             $query[$i]['BalanceBranch'] = $debit + $lastBalance;
          }elseif($credit > 0 && $query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1'){
@@ -241,9 +256,19 @@ class Mdl_corp_branch extends CI_Model
 
          $lastBalance = $query[$i]['BalanceBranch'];
 
-         if($i < (count($query)-1)){
+         /*
+         * IF NEXT INDEX ACCNO IS DIFFERENT THAN CURRENT INDEX'S,
+         * SET THE `lastBalance` TO NEXT INDEX'S BEGINNING BALANCE
+         */
+         if($i+1 < count($query)){
             if($query[$i]['AccNo'] !== $query[$i+1]['AccNo'] || $query[$i]['Branch'] !== $query[$i+1]['Branch']){
-               $lastBalance = (int)$query[$i+1]['beg_balance'];
+               if($query[$i]['beg_balance'] !== '' || is_null($query[$i]['beg_balance']) == false){
+                  $lastBalance = (int)$query[$i]['beg_balance'];
+               }else{
+                  $lastBalance = 0;
+               }
+            }else{
+               $lastBalance = $query[$i]['BalanceBranch'];
             }
          }
 
