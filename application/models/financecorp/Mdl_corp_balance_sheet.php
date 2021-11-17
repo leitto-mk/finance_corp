@@ -35,6 +35,7 @@ class Mdl_corp_balance_sheet extends CI_Model
                   SELECT MAX(TransDate) 
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
+                  AND YEAR(TransDate) = YEAR('$date')
                   AND MONTH(TransDate) = MONTH('$date')
                )
                AND $branch
@@ -61,6 +62,7 @@ class Mdl_corp_balance_sheet extends CI_Model
                   SELECT MAX(TransDate) 
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
+                  AND YEAR(TransDate) = YEAR('$date')
                   AND MONTH(TransDate) = MONTH('$date')
                )
                AND $branch
@@ -87,20 +89,21 @@ class Mdl_corp_balance_sheet extends CI_Model
                   SELECT MAX(TransDate) 
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
+                  AND YEAR(TransDate) = YEAR('$date')
                   AND MONTH(TransDate) = MONTH('$date')
                )
                AND $branch
                ORDER BY TransDate DESC
             ) AS trans
                ON acc.Acc_No = trans.AccNo
-            WHERE acc.Acc_Type IN ('C','C
-            ORDER BY acc.Acc_No ASCX','C1')"
+            WHERE acc.Acc_Type IN ('C','CX', 'C1')
+            ORDER BY acc.Acc_No ASC"
       )->result_array();
 
       return [$company, $asset, $liabilities, $capital];
    }
 
-   function get_retaining_earning($branch, $year, $month){
+   function get_current_earning($branch, $year, $month){
       if($branch){
          $branch = "Branch = '$branch'";
       }else{
@@ -123,13 +126,13 @@ class Mdl_corp_balance_sheet extends CI_Model
                   AND YEAR(TransDate) = $year AND MONTH(TransDate) <= $month
                   AND AccType IN ('E', 'E1')
                )
-            ) AS RetainingEarning"
+            ) AS CurrentEarning"
       )->row();
 
-      return !empty($query) ? $query->RetainingEarning : 0;
+      return !empty($query) ? $query->CurrentEarning : 0;
    }
 
-   function get_current_earning($branch, $year, $month){
+   function get_retaining_earning($branch, $year, $month){
       if($branch){
          $branch = "Branch = '$branch'";
       }else{
@@ -137,13 +140,13 @@ class Mdl_corp_balance_sheet extends CI_Model
       }
 
       $query = $this->db->query(
-         "SELECT SUM(Amount) AS CurrentEarning
+         "SELECT SUM(Amount) AS RetainingEarning
           FROM tbl_fa_transaction
           WHERE $branch
-          AND YEAR(TransDate) = $year AND MONTH(TransDate) = $month
+          AND YEAR(TransDate) = $year AND MONTH(TransDate) <= $month
           AND Itemno != 0"
       )->row();
 
-      return !empty($query) ? $query->CurrentEarning : 0;
+      return !empty($query) ? $query->RetainingEarning : 0;
    }
 }
