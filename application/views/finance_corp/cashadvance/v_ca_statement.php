@@ -1,4 +1,4 @@
-<?php $this->load->view('finance/student/header'); ?>
+<?php $this->load->view('finance_corp/cashadvance/header_st'); ?>
 
 
 <style type="text/css">
@@ -425,4 +425,4 @@ window.print();
 document.body.innerHTML = originalContents;
 }
 </script>
-<?php $this->load->view('finance/student/footer'); ?>
+<?php $this->load->view('finance_corp/cashadvance/footer_st'); ?>
