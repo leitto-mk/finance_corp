@@ -31,12 +31,18 @@ class Mdl_corp_balance_sheet extends CI_Model
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
                FROM tbl_fa_transaction AS parent
                WHERE MONTH(TransDate) = MONTH('$date')
-               AND $branch 
-               AND CtrlNo IN (SELECT MAX(CtrlNo) FROM tbl_fa_transaction GROUP BY AccNo)
+               AND TransDate = (
+                  SELECT MAX(TransDate) 
+                  FROM tbl_fa_transaction 
+                  WHERE AccNo = parent.AccNo 
+                  AND MONTH(TransDate) = MONTH('$date')
+               )
+               AND $branch
                ORDER BY TransDate DESC
             ) AS trans
                ON acc.Acc_No = trans.AccNo
-            WHERE acc.Acc_Type = 'A'"
+            WHERE acc.Acc_Type = 'A'
+            ORDER BY acc.Acc_No ASC"
       )->result_array();
 
       $liabilities = $this->db->query(
@@ -47,15 +53,22 @@ class Mdl_corp_balance_sheet extends CI_Model
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
                IF(trans.BalanceBranch IS NOT NULL, trans.BalanceBranch, 0) AS Amount
             FROM tbl_fa_account_no AS acc
-            LEFT JOIN (SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
-                        FROM tbl_fa_transaction AS parent
-                        WHERE TransDate <= '$date'
-                        AND $branch 
-                        AND TransDate = (SELECT MAX(TransDate) FROM tbl_fa_transaction WHERE AccNo = parent.AccNo)
-                        GROUP BY AccNo
-                        ORDER BY TransDate DESC) AS trans
+            LEFT JOIN (
+               SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
+               FROM tbl_fa_transaction AS parent
+               WHERE MONTH(TransDate) = MONTH('$date')
+               AND TransDate = (
+                  SELECT MAX(TransDate) 
+                  FROM tbl_fa_transaction 
+                  WHERE AccNo = parent.AccNo 
+                  AND MONTH(TransDate) = MONTH('$date')
+               )
+               AND $branch
+               ORDER BY TransDate DESC
+            ) AS trans
                ON acc.Acc_No = trans.AccNo
-            WHERE acc.Acc_Type = 'L'"
+            WHERE acc.Acc_Type = 'L'
+            ORDER BY acc.Acc_No ASC"
       )->result_array();
 
       $capital = $this->db->query(
@@ -66,21 +79,28 @@ class Mdl_corp_balance_sheet extends CI_Model
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
                IF(trans.BalanceBranch IS NOT NULL, trans.BalanceBranch, 0) AS Amount
             FROM tbl_fa_account_no AS acc
-            LEFT JOIN (SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
-                        FROM tbl_fa_transaction AS parent
-                        WHERE TransDate <= '$date'
-                        AND $branch 
-                        AND TransDate = (SELECT MAX(TransDate) FROM tbl_fa_transaction WHERE AccNo = parent.AccNo)
-                        GROUP BY AccNo
-                        ORDER BY TransDate DESC) AS trans
+            LEFT JOIN (
+               SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
+               FROM tbl_fa_transaction AS parent
+               WHERE MONTH(TransDate) = MONTH('$date')
+               AND TransDate = (
+                  SELECT MAX(TransDate) 
+                  FROM tbl_fa_transaction 
+                  WHERE AccNo = parent.AccNo 
+                  AND MONTH(TransDate) = MONTH('$date')
+               )
+               AND $branch
+               ORDER BY TransDate DESC
+            ) AS trans
                ON acc.Acc_No = trans.AccNo
-            WHERE acc.Acc_Type IN ('C','CX','C1')"
+            WHERE acc.Acc_Type IN ('C','C
+            ORDER BY acc.Acc_No ASCX','C1')"
       )->result_array();
 
       return [$company, $asset, $liabilities, $capital];
    }
 
-   function get_retaining_earning($branch, $year){
+   function get_retaining_earning($branch, $year, $month){
       if($branch){
          $branch = "Branch = '$branch'";
       }else{
@@ -93,26 +113,23 @@ class Mdl_corp_balance_sheet extends CI_Model
                (
                   SELECT SUM(Amount) FROM tbl_fa_transaction
                   WHERE $branch
-                  AND YEAR(TransDate) = '$year'
+                  AND YEAR(TransDate) = $year AND MONTH(TransDate) <= $month
                   AND AccType IN ('R', 'R1')
                ) 
                -
                (
                   SELECT SUM(Amount) FROM tbl_fa_transaction
                   WHERE $branch
-                  AND YEAR(TransDate) = '$year'
+                  AND YEAR(TransDate) = $year AND MONTH(TransDate) <= $month
                   AND AccType IN ('E', 'E1')
                )
-            ) AS RetainingEarning
-          FROM tbl_fa_transaction
-          WHERE $branch
-          AND YEAR(TransDate) < '$year'"
+            ) AS RetainingEarning"
       )->row();
 
       return !empty($query) ? $query->RetainingEarning : 0;
    }
 
-   function get_current_earning($branch, $year){
+   function get_current_earning($branch, $year, $month){
       if($branch){
          $branch = "Branch = '$branch'";
       }else{
@@ -123,7 +140,7 @@ class Mdl_corp_balance_sheet extends CI_Model
          "SELECT SUM(Amount) AS CurrentEarning
           FROM tbl_fa_transaction
           WHERE $branch
-          AND YEAR(TransDate) = '$year'
+          AND YEAR(TransDate) = $year AND MONTH(TransDate) = $month
           AND Itemno != 0"
       )->row();
 

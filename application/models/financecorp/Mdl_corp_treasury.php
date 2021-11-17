@@ -219,7 +219,7 @@ class Mdl_corp_treasury extends CI_Model
              AND trans.AccNo IN ($accno)
              AND IF(
                acc.Acc_Type IN('R','E'),
-               YEAR(trans.TransDate) = YEAR('$date_finish') AND trans,
+               YEAR(trans.TransDate) = YEAR('$finish'),
                trans.TransDate BETWEEN '$start' AND '$finish'
              )
              AND trans.PostedStatus = 1
