@@ -163,9 +163,9 @@ class Mdl_corp_branch extends CI_Model
    function recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish){
 
       if($branch == 'All' || $branch == ''){
-         $branch_condition = "trans.Branch IS NOT NULL";
+         $branch_condition = "Branch IS NOT NULL";
       }else{
-         $branch_condition = "trans.Branch = '$branch'";
+         $branch_condition = "Branch = '$branch'";
       }
 
       $year = date('Y', strtotime($date_start));
@@ -212,7 +212,7 @@ class Mdl_corp_branch extends CI_Model
              FROM tbl_fa_transaction AS trans
              LEFT JOIN tbl_fa_account_no AS acc
                ON trans.AccNo = acc.Acc_No
-             WHERE $branch_condition
+             WHERE trans.$branch_condition
              AND trans.AccNo BETWEEN CAST('$accno_start' AS DECIMAL) AND CAST('$accno_finish' AS DECIMAL)
              AND acc.TransGroup NOT IN('H1','H2','H3')
              AND IF(
@@ -278,11 +278,6 @@ class Mdl_corp_branch extends CI_Model
       }
 
       $this->db->trans_begin();
-      
-      // $this->db->delete('tbl_fa_transaction', [
-      //       'TransDate >=' => $date_start,
-      //       'Branch' => $branch
-      // ]);
 
       $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
       

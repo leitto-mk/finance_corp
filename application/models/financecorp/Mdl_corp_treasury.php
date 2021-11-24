@@ -155,20 +155,15 @@ class Mdl_corp_treasury extends CI_Model
         return ($this->db->trans_status() ? 'success' : $this->db->error());
     }
 
-    function calculate_balance($branch, $accno, $date_start, $date_finish){
-        if($branch == 'All' || $branch == ''){
-            $branch_condition = "trans.Branch IS NOT NULL";
-        }else{
-            $branch_condition = "trans.Branch = '$branch'";
-        }
-
+    function calculate_balance($branch, $accno, $cur_date, $last_date){
         $start = $finish = '';
-        if(strtotime($date_start) < strtotime($date_finish)){
-            $start = $date_start;
-            $finish = $date_finish;
+
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
         }else{
-            $start = $date_finish;
-            $finish = $date_start;
+            $start = $last_date;
+            $finish = $cur_date;
         }
 
         $this->db->trans_begin();
@@ -215,7 +210,7 @@ class Mdl_corp_treasury extends CI_Model
              FROM tbl_fa_transaction AS trans
              LEFT JOIN tbl_fa_account_no AS acc
                ON trans.AccNo = acc.Acc_No
-             WHERE $branch_condition
+             WHERE trans.Branch = '$branch'
              AND trans.AccNo IN ($accno)
              AND IF(
                acc.Acc_Type IN('R','E'),
@@ -283,6 +278,22 @@ class Mdl_corp_treasury extends CI_Model
         }
     
         $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
+
+        $is_retaining_curmonth_exist = $this->db->query(
+            "SELECT COUNT(Month) AS Total FROM tbl_fa_retaining_earning
+               WHERE Branch = '$branch'
+               AND Month = YEAR('$cur_date')
+               AND Year = MONTH('$cur_date')"
+         )->row()->Total;
+   
+         $year = date('Y', strtotime($cur_date));
+         $month = date('m', strtotime($cur_date));
+   
+         if($is_retaining_curmonth_exist > 0){
+            $this->db->query("CALL retaining_earnings_update('$branch',$year,$month)");
+         }else{
+            $this->db->query("CALL retaining_earnings_insert('$branch',$year,$month)");
+         }
         
         $this->db->trans_complete();
 
