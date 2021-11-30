@@ -988,8 +988,8 @@ class FinanceCorp extends CI_Controller
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
                 $accno_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
-                $branch_beg_bal = $this->Mdl_corp_general->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
-                $accno_beg_bal = $this->Mdl_corp_general->$this->Mdl_corp_treasury->get_accno_last_balance($_POST['accnos'][$i]);
+                $branch_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
+                $accno_beg_bal = $this->Mdl_corp_treasury->$this->Mdl_corp_treasury->get_accno_last_balance($_POST['accnos'][$i]);
 
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
@@ -1301,7 +1301,7 @@ class FinanceCorp extends CI_Controller
                 'ItemNo' => $itemno,
                 'AccNo' => $_POST['accnos'][$i],
                 'AccType' => $acctypes,
-                'IDNumber' => '',
+                'IDNumber' => ($itemno == 0 ? $_POST['emp_master_id'] : ''),
                 'Currency' => $_POST['currency'][$i],
                 'Rate' => $_POST['rate'][$i],
                 'Unit' => $_POST['unit'][$i],
@@ -1488,7 +1488,7 @@ class FinanceCorp extends CI_Controller
             'ItemNo' => $itemno,
             'AccNo' => $_POST['accno'],
             'AccType' => $acctype,
-            // 'IDNumber' => $_POST['paidto'],
+            'IDNumber' => $_POST['emp_master_id'],
             'Currency' => 'IDR',
             'Rate' => 1,
             'Unit' => $_POST['totalamount'],
@@ -1504,7 +1504,7 @@ class FinanceCorp extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
-            // 'IDNumber' => $_POST['paidto'],
+            'IDNumber' => $_POST['emp_master_id'],
             'SubmitBy' => '',
             'TransType' => 'CA-RECEIPT',
             'TransDate' => $_POST['transdate'],
@@ -1580,7 +1580,7 @@ class FinanceCorp extends CI_Controller
                 'ItemNo' => $itemno,
                 'AccNo' => $_POST['accnos'][$i],
                 'AccType' => $acctypes,
-                // 'IDNumber' => '',
+                'IDNumber' => ($itemno == 0 ? $_POST['emp_master_id'] : ''),
                 'Currency' => $_POST['currency'][$i],
                 'Rate' => $_POST['rate'][$i],
                 'Unit' => $_POST['unit'][$i],
