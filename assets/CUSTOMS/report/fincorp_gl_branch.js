@@ -80,6 +80,7 @@ var GLBranch = () => {
                     $('#label_tbl_date_finish').html(date_finish)
 
                     let cur_branch = ''
+                    let cur_accno = response[0].AccNo
                     let subtotal_credit = subtotal_debit = 0
 
                     for(let i = 0; i < response.length; i++){
@@ -87,7 +88,13 @@ var GLBranch = () => {
                             cur_branch = response[i].Branch
                         }
 
-                        // if(response[i].Balance)
+                        if(response[i].AccNo !== cur_accno){
+                            table.append(`
+                                <tr class="bg-default">
+                                    <td colspan="11"></td>
+                                </tr>`
+                            )
+                        }
 
                         table.append(`
                             <tr class="font-dark sbold">
@@ -107,6 +114,7 @@ var GLBranch = () => {
                             </tr>`
                         )
 
+                        cur_accno = response[i].AccNo
                         subtotal_debit += +response[i].Debit;
                         subtotal_credit += +response[i].Credit;
                         

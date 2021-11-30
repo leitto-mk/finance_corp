@@ -157,9 +157,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if(count($ledger) < 1 ) : ?>
+                                            <tr class="text-center" style="background-color: white">
+                                                <td colspan="12" class="bold">NO RECORD FOUND</td>
+                                            </tr>
+                                        <?php endif; ?>
+
                                         <?php
                                             $cur_branch = '';
-                                            $cur_accno = (!empty($ledger) ? $ledger[0]['AccNo'] : []);
+                                            $cur_accno = $ledger[0]['AccNo'];
                                             $subtotal_credit = $subtotal_debit = 0;
                                         ?>
                                         <?php for($i = 0; $i < count($ledger); $i++) : ?>
