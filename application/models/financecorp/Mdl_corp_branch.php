@@ -189,13 +189,7 @@ class Mdl_corp_branch extends CI_Model
                trans.Credit, 
                trans.Currency,
                CASE
-                    WHEN (SELECT YEAR(TransDate) 
-                          FROM tbl_fa_transaction 
-                          WHERE AccNo = acc.Acc_No 
-                          AND Branch = trans.Branch
-                          AND TransDate < '$date_start'
-                          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$date_start')
-                        AND trans.AccType IN('R','E') THEN
+                    WHEN YEAR(trans.TransDate) < YEAR('$date_finish') AND trans.AccType IN('R','E') THEN
                         0
                     ELSE
                         (SELECT BalanceBranch
@@ -215,11 +209,7 @@ class Mdl_corp_branch extends CI_Model
              WHERE trans.$branch_condition
              AND trans.AccNo BETWEEN CAST('$accno_start' AS DECIMAL) AND CAST('$accno_finish' AS DECIMAL)
              AND acc.TransGroup NOT IN('H1','H2','H3')
-             AND IF(
-               acc.Acc_Type IN('R','E'),
-               trans.TransDate >= '$year-01-01' AND TransDate < '$date_finish',
-               trans.TransDate BETWEEN '$date_start' AND '$date_finish'
-             )
+             AND trans.TransDate BETWEEN '$date_start' AND '$date_finish'
              AND trans.PostedStatus = 1
              ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
       )->result_array();
