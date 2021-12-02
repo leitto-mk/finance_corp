@@ -197,6 +197,7 @@ class Mdl_corp_branch extends CI_Model
                           WHERE AccNo = acc.Acc_No 
                           AND Branch = trans.Branch
                           AND TransDate < '$date_start'
+                          AND CtrlNo < trans.CtrlNo
                           ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
                END AS beg_balance,
                trans.Balance,
@@ -234,17 +235,15 @@ class Mdl_corp_branch extends CI_Model
             $lastBalance = 0;
          }
 
-         if($debit > 0 && $query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1'){
+         if($debit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
             $query[$i]['BalanceBranch'] = $debit + $lastBalance;
-         }elseif($credit > 0 && $query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1'){
+         }elseif($credit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
             $query[$i]['BalanceBranch'] = $lastBalance - $credit;
-         }elseif($credit > 0 && $query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2'){
+         }elseif($credit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
             $query[$i]['BalanceBranch'] = $credit + $lastBalance;
-         }else{
+         }elseif($debit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
             $query[$i]['BalanceBranch'] = $lastBalance - $debit;
          }
-
-         $lastBalance = $query[$i]['BalanceBranch'];
 
          /*
          * IF NEXT INDEX ACCNO IS DIFFERENT THAN CURRENT INDEX'S,
@@ -253,7 +252,9 @@ class Mdl_corp_branch extends CI_Model
          if($i+1 < count($query)){
             if($query[$i]['AccNo'] !== $query[$i+1]['AccNo'] || $query[$i]['Branch'] !== $query[$i+1]['Branch']){
                if($query[$i]['beg_balance'] !== '' || is_null($query[$i]['beg_balance']) == false){
-                  $lastBalance = (int)$query[$i]['beg_balance'];
+                  $query[$i+1]['beg_balance'] = (is_null($query[$i+1]['beg_balance']) ? 0 : $query[$i+1]['beg_balance']);
+               
+                  $lastBalance = (int) $query[$i+1]['beg_balance'];
                }else{
                   $lastBalance = 0;
                }
