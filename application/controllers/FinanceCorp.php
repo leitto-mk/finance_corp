@@ -989,7 +989,7 @@ class FinanceCorp extends CI_Controller
                 $accno_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
                 $branch_beg_bal = $this->Mdl_corp_treasury->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
-                $accno_beg_bal = $this->$this->Mdl_corp_treasury->get_accno_last_balance($_POST['accnos'][$i]);
+                $accno_beg_bal = $this->Mdl_corp_treasury->get_accno_last_balance($_POST['accnos'][$i]);
 
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
