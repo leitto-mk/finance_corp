@@ -8,6 +8,8 @@ class Cash_adv extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->load->model('financecorp/Mdl_corp_treasury');
     }
 
     //Corporation Finance
@@ -28,6 +30,9 @@ class Cash_adv extends CI_Controller
             'h1' => 'Personal',
             'h2' => 'Statement',
             'h3' => '',
+
+            //List
+            'employees' => $this->Mdl_corp_treasury->get_ca_employees()
         ];
         
         $this->load->view('finance_corp/cashadvance/v_ca_statement', $data);
@@ -92,7 +97,6 @@ class Cash_adv extends CI_Controller
         
         $this->load->view('finance_corp/cashadvance/v_ca_request_report', $data);
     }
-
 }
 
 

@@ -114,22 +114,6 @@
 
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="col-md-2 control-label"><b>Outstading</b></label>
-                                                                        <div class="col-md-3">
-                                                                            <input type="number" class="form-control">
-                                                                        </div>
-                                                                        <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
-                                                                        <div class="col-md-3">
-                                                                            <select class="form-control" name="journalgroup" id="journalgroup" required>
-                                                                                <option selected="true" value="">--Select Journal--</option>
-                                                                                <option value="Cash">Cash</option>
-                                                                                <option value="Bank">Bank</option>
-                                                                                <option value="General Ledger">General Ledger</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_namestd"><b></b></span>
-                                                                    </div>
-                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Description</b></label>
                                                                         <div class="col-md-10">
                                                                             <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>

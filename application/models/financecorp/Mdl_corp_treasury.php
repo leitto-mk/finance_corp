@@ -108,6 +108,18 @@ class Mdl_corp_treasury extends CI_Model
 
         return ($query ? $query->Balance : 0);
     }
+
+    function get_emp_last_balance($branch, $id){
+        $query = $this->db->select('Balance')
+                      ->limit(1)
+                      ->order_by('CtrlNo', 'DESC')
+                      ->get_where('tbl_fa_transaction', [
+                            'Branch' => $branch,
+                            'IDNumber' => $id
+                      ])->row();
+
+        return ($query ? $query->Balance : 0);
+    }
     
     function get_branch_last_balance($branch, $accno, $transdate){
         //Get AccNo Type
@@ -305,6 +317,40 @@ class Mdl_corp_treasury extends CI_Model
              AND trans.TransType = '$type'
              ORDER BY ItemNo ASC"
         )->result_array();
+
+        return $query;
+    }
+
+    //CASH ADVANCE REPORT
+    function get_ca_employees(){
+        $query = $this->db->select('
+            IDNumber,
+            Department,
+            Branch,
+            CostCenter
+        ')->order_by('Department ASC, IDNumber ASC')->get_where('tbl_fa_transaction', [
+            'TransType' => 'CA-WITHDRAW',
+            'TransType' => 'CA-RECEIPT'
+        ])->result_array();
+
+        return $query;
+    }
+
+    function get_ca_registered_ids(){
+        $query = $this->db->select('
+            DocNo,
+            IDNumber,
+            TransDate,
+            Branch,
+            Department,
+            CostCenter,
+            Remarks,
+            AccNo,
+            AccType,
+            Debit,
+            Credit,
+            Balance
+        ')->get_where;
 
         return $query;
     }

@@ -100,21 +100,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="col-md-2 control-label hidden"><b>Journal Group</b></label>
-                                                                        <label class="col-md-2 control-label"></label>
+                                                                        <label class="col-md-2 control-label"><b>Outstanding</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="text" id="emp_master_name" name="emp_master_name" class="form-control" placeholder="Nama Employee" readonly>
-                                                                        </div>
-                                                                        &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_namestd"><b></b></span>
-                                                                        <label class="col-md-2 control-label"><b>Transaction Date</b></label>
-                                                                        <div class="col-md-3">
-                                                                            <input type="date" id="transdate" name="transdate" class="form-control" required>
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="col-md-2 control-label"></label>
-                                                                        <div class="col-md-3">
+                                                                            <input type="number" class="form-control">
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
                                                                         <div class="col-md-3">

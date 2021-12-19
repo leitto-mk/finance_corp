@@ -30,15 +30,27 @@ class Mdl_corp_balance_sheet extends CI_Model
             LEFT JOIN (
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
                FROM tbl_fa_transaction AS parent
-               WHERE TransDate <= '$date'
+               WHERE YEAR(TransDate) = YEAR('$date')
+               AND MONTH(TransDate) <= MONTH('$date')
                AND TransDate = (
-                  SELECT MAX(TransDate) 
+                  SELECT TransDate
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
-                  AND TransDate <= '$date'
+                  AND YEAR(TransDate) = YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
+                  ORDER BY TransDate DESC, CtrlNo DESC
+                  LIMIT 1
+               )
+               AND CtrlNo = (
+                  SELECT CtrlNo
+                  FROM tbl_fa_transaction 
+                  WHERE AccNo = parent.AccNo 
+                  AND YEAR(TransDate) = YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
+                  ORDER BY TransDate DESC, CtrlNo DESC
+                  LIMIT 1
                )
                AND $branch
-               ORDER BY TransDate DESC
             ) AS trans
                ON acc.Acc_No = trans.AccNo
             WHERE acc.Acc_Type = 'A'
@@ -57,15 +69,27 @@ class Mdl_corp_balance_sheet extends CI_Model
             LEFT JOIN (
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
                FROM tbl_fa_transaction AS parent
-               WHERE TransDate <= '$date'
+               WHERE YEAR(TransDate) = YEAR('$date')
+               AND MONTH(TransDate) <= MONTH('$date')
                AND TransDate = (
-                  SELECT MAX(TransDate) 
+                  SELECT TransDate
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
-                  AND TransDate <= '$date'
+                  AND YEAR(TransDate) = YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
+                  ORDER BY TransDate DESC, CtrlNo DESC
+                  LIMIT 1
+               )
+               AND CtrlNo = (
+                  SELECT CtrlNo
+                  FROM tbl_fa_transaction 
+                  WHERE AccNo = parent.AccNo 
+                  AND YEAR(TransDate) = YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
+                  ORDER BY TransDate DESC, CtrlNo DESC
+                  LIMIT 1
                )
                AND $branch
-               ORDER BY TransDate DESC
             ) AS trans
                ON acc.Acc_No = trans.AccNo
             WHERE acc.Acc_Type = 'L'
@@ -84,15 +108,27 @@ class Mdl_corp_balance_sheet extends CI_Model
             LEFT JOIN (
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
                FROM tbl_fa_transaction AS parent
-               WHERE TransDate <= '$date'
+               WHERE YEAR(TransDate) = YEAR('$date')
+               AND MONTH(TransDate) <= MONTH('$date')
                AND TransDate = (
-                  SELECT MAX(TransDate) 
+                  SELECT TransDate
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
-                  AND TransDate <= '$date'
+                  AND YEAR(TransDate) = YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
+                  ORDER BY TransDate DESC, CtrlNo DESC
+                  LIMIT 1
+               )
+               AND CtrlNo = (
+                  SELECT CtrlNo
+                  FROM tbl_fa_transaction 
+                  WHERE AccNo = parent.AccNo 
+                  AND YEAR(TransDate) = YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
+                  ORDER BY TransDate DESC, CtrlNo DESC
+                  LIMIT 1
                )
                AND $branch
-               ORDER BY TransDate DESC
             ) AS trans
                ON acc.Acc_No = trans.AccNo
             WHERE acc.Acc_Type IN ('C','CX', 'C1')

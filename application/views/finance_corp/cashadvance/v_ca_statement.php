@@ -61,161 +61,25 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                           <td colspan="17" class="bold" style="background-color: #578ebe6b">Finance Accounting</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">1</td>
-                                                            <td>Eduard Salindeho</td>
-                                                            <td align="center">2000</td>
-                                                            <td align="center">250,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">2</td>
-                                                            <td>Sesca Londah</td>
-                                                            <td align="center">2001</td>
-                                                            <td align="center">100,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">3</td>
-                                                            <td>Pranayan Salindeho</td>
-                                                            <td align="center">2002</td>
-                                                            <td align="center">2,500,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">4</td>
-                                                            <td>Jannice Salindeho</td>
-                                                            <td align="center">2003</td>
-                                                            <td align="center">500,000</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                           <td colspan="17" class="bold" style="background-color: #578ebe6b">Operation Department</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">1</td>
-                                                            <td>Eduard Salindeho</td>
-                                                            <td align="center">2000</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">2</td>
-                                                            <td>Sesca Londah</td>
-                                                            <td align="center">2001</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">3</td>
-                                                            <td>Pranayan Salindeho</td>
-                                                            <td align="center">2002</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">4</td>
-                                                            <td>Jannice Salindeho</td>
-                                                            <td align="center">2003</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                           <td colspan="17" class="bold" style="background-color: #578ebe6b">Human Resource Department</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">1</td>
-                                                            <td>Eduard Salindeho</td>
-                                                            <td align="center">2000</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">2</td>
-                                                            <td>Sesca Londah</td>
-                                                            <td align="center">2001</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">3</td>
-                                                            <td>Pranayan Salindeho</td>
-                                                            <td align="center">2002</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">4</td>
-                                                            <td>Jannice Salindeho</td>
-                                                            <td align="center">2003</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr> 
-                                                        <tr class="sbold">
-                                                            <td align="center">1</td>
-                                                            <td>Eduard Salindeho</td>
-                                                            <td align="center">2000</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">2</td>
-                                                            <td>Sesca Londah</td>
-                                                            <td align="center">2001</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">3</td>
-                                                            <td>Pranayan Salindeho</td>
-                                                            <td align="center">2002</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">4</td>
-                                                            <td>Jannice Salindeho</td>
-                                                            <td align="center">2003</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr> 
-                                                        <tr class="sbold">
-                                                            <td align="center">1</td>
-                                                            <td>Eduard Salindeho</td>
-                                                            <td align="center">2000</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">2</td>
-                                                            <td>Sesca Londah</td>
-                                                            <td align="center">2001</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">3</td>
-                                                            <td>Pranayan Salindeho</td>
-                                                            <td align="center">2002</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">4</td>
-                                                            <td>Jannice Salindeho</td>
-                                                            <td align="center">2003</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr> 
-                                                        <tr class="sbold">
-                                                            <td align="center">1</td>
-                                                            <td>Eduard Salindeho</td>
-                                                            <td align="center">2000</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">2</td>
-                                                            <td>Sesca Londah</td>
-                                                            <td align="center">2001</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">3</td>
-                                                            <td>Pranayan Salindeho</td>
-                                                            <td align="center">2002</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>
-                                                        <tr class="sbold">
-                                                            <td align="center">4</td>
-                                                            <td>Jannice Salindeho</td>
-                                                            <td align="center">2003</td>
-                                                            <td align="center">750,000</td>
-                                                        </tr>                                                     
+                                                        <?php
+                                                            $cur_dep = '';
+                                                        ?>
+                                                        <?php for($i = 0;$i < count($employees); $i++) : ?>
+                                                            <?php if($employees[$i]['Department'] !== $cur_dep) : ?>
+                                                                <tr>
+                                                                   <td colspan="17" class="bold" style="background-color: #578ebe6b"><?= $employees[$i]['Department'] ?></td>
+                                                                </tr>
+                                                                <?php
+                                                                    $cur_dep = $employees[$i]['Department'];
+                                                                ?>
+                                                            <?php endif; ?>
+                                                            <tr class="sbold">
+                                                                <td align="center"><?= $i+1?></td>
+                                                                <td><?= $employees[$i]['IDNumber']?></td>
+                                                                <td align="center"><?= $employees[$i]['IDNumber'] ?></td>
+                                                                <td align="center"><?= '' ?></td>
+                                                            </tr>
+                                                        <?php endfor; ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -245,19 +109,19 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;ID Number<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="254875" readonly>                         
+                                                                                <input type="text" class="form-control bold" value="" readonly>                    
                                                                             </div>                                                             
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;Full Name<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="Eduard Salindeho" readonly>                          
+                                                                                <input type="text" class="form-control bold" value="" readonly>                     
                                                                             </div>                                                             
                                                                         </div> 
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;Job Title<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="I / IA" readonly>                       
+                                                                                <input type="text" class="form-control bold" value="" readonly>                  
                                                                             </div>                                                           
                                                                         </div>                                                    
                                                                     </div>
@@ -267,19 +131,19 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;Supervisor<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="SD" readonly>                          
+                                                                                <input type="text" class="form-control bold" value="" readonly>                     
                                                                             </div>                                                             
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;Department<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="I / IA" readonly>                         
+                                                                                <input type="text" class="form-control bold" value="" readonly>                    
                                                                             </div>                                                             
                                                                         </div> 
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;Outstanding<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="1,500,000" readonly>                       
+                                                                                <input type="text" class="form-control bold" value="" readonly>                  
                                                                             </div>                                                           
                                                                         </div>                                                    
                                                                     </div>
@@ -301,84 +165,6 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-
-                                                            <tr class="sbold">
-                                                                <td class="text-center">1</td>
-                                                                <td class="text-center">01-Jan-21</td>
-                                                                <td class="text-center">CWR2107-001</td>
-                                                                <td class="text-left">Biaya Pendaftaran 1 Jan 2021</td>
-                                                                <td class="text-left">51101 - CA Withdraw</td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right">1,000,000</td>
-                                                                <td class="text-right">1,000,000</td>
-                                                            </tr>
-
-                                                            <tr class="sbold">
-                                                                <td class="text-center">2</td>
-                                                                <td class="text-center">05-Jan-21</td>
-                                                                <td class="text-center">CWR2107-001</td>
-                                                                <td class="text-left">Biaya Pendaftaran 5 Jan 2021</td>
-                                                                <td class="text-left">Paid Electrical</td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right">500,000</td>
-                                                                <td class="text-right">1,500,000</td>
-                                                            </tr>
-
-                                                            <tr class="sbold">
-                                                                <td class="text-center">3</td>
-                                                                <td class="text-center">10-Jan-21</td>
-                                                                <td class="text-center">SRE2107-001</td>
-                                                                <td class="text-left">Pembayaran Pendaftaran 10 Jan 2021</td>
-                                                                <td class="text-left">Paid Phome</td>
-                                                                <td class="text-right">500,000</td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right">1,000,000</td>
-                                                            </tr>
-
-                                                            <tr class="sbold">
-                                                                <td class="text-center">4</td>
-                                                                <td class="text-center">01-Feb-21</td>
-                                                                <td class="text-center">SRE2107-001</td>
-                                                                <td class="text-left">Biaya Pendaftaran 1 Feb 2021</td>
-                                                                <td class="text-left">11401 - Student AR</td>
-                                                                <td class="text-right">500,000</td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right">500,000</td>
-                                                            </tr>
-
-                                                            <tr class="sbold">
-                                                                <td class="text-center">5</td>
-                                                                <td class="text-center">05-Feb-21</td>
-                                                                <td class="text-center">SRE2107-001</td>
-                                                                <td class="text-left">Pembayaran Pendaftaran 5 Feb 2021</td>
-                                                                <td class="text-left">11101 - Cash</td>
-                                                                <td class="text-right">100,000</td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right">400,000</td>
-                                                            </tr>
-
-                                                            <tr class="sbold">
-                                                                <td class="text-center">6</td>
-                                                                <td class="text-center">10-Feb-21</td>
-                                                                <td class="text-center">CWR2107-001</td>
-                                                                <td class="text-left">Biaya Pendaftaran 10 Feb 2021</td>
-                                                                <td class="text-left">51103 - Uniform Charge</td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right">100,000</td>
-                                                                <td class="text-right">500,000</td>
-                                                            </tr>
-
-                                                            <tr class="sbold">
-                                                                <td class="text-center">7</td>
-                                                                <td class="text-center"></td>
-                                                                <td class="text-left"></td>
-                                                                <td class="text-left"></td>
-                                                                <td class="text-left"></td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right"></td>
-                                                            </tr>
-
                                                             <tr class="sbold">
                                                                 <td class="text-center">8</td>
                                                                 <td class="text-center"></td>
@@ -389,7 +175,6 @@
                                                                 <td class="text-right"></td>
                                                                 <td class="text-right"></td>
                                                             </tr>
-                                                        
                                                         </tbody>
                                                     </table> 
                                                 </div>
