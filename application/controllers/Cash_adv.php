@@ -32,34 +32,19 @@ class Cash_adv extends CI_Controller
             'h3' => '',
 
             //List
-            'employees' => $this->Mdl_corp_treasury->get_ca_employees()
+            'employees' => $this->Mdl_corp_treasury->get_ca_employees(),
+
+            //SCRIPT
+            'script' => 'cash_advance/ca_statement'
         ];
         
         $this->load->view('finance_corp/cashadvance/v_ca_statement', $data);
     }
 
-    function view_cash_withdraw(){
-        $data = [
-            'title' => 'Cash Advance Withdraw',
-            'h1' => 'Cash',
-            'h2' => 'Advance',
-            'h3' => '',
-            'h4' => ''
-        ];
-        
-        $this->load->view('finance_corp/cashadvance/v_cashadvance', $data);
-    }
+    function ajax_get_emp_details(){
+        $id = $_POST['id'];
 
-    function view_cash_receipt(){
-        $data = [
-            'title' => 'Cash Advance Receipt',
-            'h1' => 'Cash',
-            'h2' => 'Advance',
-            'h3' => '',
-            'h4' => ''
-        ];
-        
-        $this->load->view('finance_corp/cashadvance/v_cashreceipt', $data);
+        echo json_encode($this->Mdl_corp_treasury->get_ca_registered_ids($id));
     }
 
     function ca_outstanding_report(){

@@ -41,6 +41,9 @@
         <script src="<?php echo base_url(); ?>assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
+
+        <script src="<?= base_url("assets/CUSTOMS/$script.js") ?>"></script>
+        
         <!-- END THEME LAYOUT SCRIPTS -->
     </body>
 

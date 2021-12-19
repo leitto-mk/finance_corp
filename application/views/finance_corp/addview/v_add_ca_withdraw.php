@@ -86,7 +86,7 @@
                                                                                 <select id="emp_master_id" name="emp_master_id" class="form-control" required>
                                                                                     <option value="">--Choose ID--</option>
                                                                                     <?php for($i = 0; $i < count($employee); $i++) : ?>        
-                                                                                        <option value="<?= $employee[$i]['IDNumber'] ?>" data-fullname="<?= $employee[$i]['FullName'] ?>" data-branch="<?= $employee[$i]['Branch'] ?>" data-dept="<?= $employee[$i]['DeptCode'] ?>" data-cc="<?= $employee[$i]['CostCenter'] ?>"><?= $employee[$i]['IDNumber'] ?> - <?= $employee[$i]['FullName'] ?></option>
+                                                                                        <option value="<?= $employee[$i]['IDNumber'] ?>" data-fullname="<?= $employee[$i]['FullName'] ?>" data-branch="<?= $employee[$i]['Branch'] ?>" data-dept="<?= $employee[$i]['DeptCode'] ?>" data-cc="<?= $employee[$i]['CostCenter'] ?>" data-balance="<?= $employee[$i]['Balance']?>"><?= $employee[$i]['IDNumber'] ?> - <?= $employee[$i]['FullName'] ?></option>
                                                                                     <?php endfor; ?>
                                                                                 </select>
                                                                                 <span class="input-group-btn">
@@ -102,7 +102,7 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Outstanding</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="number" class="form-control">
+                                                                            <input id="outstanding" name="outstanding" type="number" class="form-control" readonly>
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
                                                                         <div class="col-md-3">
@@ -113,7 +113,13 @@
                                                                                 <option value="General Ledger">General Ledger</option>
                                                                             </select>
                                                                         </div>
-                                                                        &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_namestd"><b></b></span>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                    <span class="help-inline" id="m_namestd"><b></b></span>
+                                                                        <label class="col-md-2 control-label"><b>Transaction Date</b></label>
+                                                                        <div class="col-md-3">
+                                                                            <input type="date" id="transdate" name="transdate" class="form-control" required>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Description</b></label>
@@ -137,6 +143,19 @@
                                                                             <b>
                                                                                 <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control">
                                                                                 <input type="number" class="form-control hidden" id="totalamount" name="totalamount">
+                                                                            </b>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mt-step-desc">
+                                                                        <div class="font-dark bold uppercase">Outstanding Left</div>
+                                                                        <br>
+                                                                    </div>
+                                                                    <div class="row static-info">
+                                                                        <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
+                                                                        <div class="col-md-12 value" style="margin-top: -15px">
+                                                                            <b>
+                                                                                <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_outstanding_left" value="0.00" readonly="true" class="input-group input-group-sm form-control">
+                                                                                <input hidden type="number" id="outstanding_left" name="outstanding_left">
                                                                             </b>
                                                                         </div>
                                                                     </div>

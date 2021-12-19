@@ -19,9 +19,11 @@ var addCAWithdraw = () => {
         $('#emp_master_id').change(function(){
             fullname = $(this).find('option:selected').attr('data-fullname')
             branch = $(this).find('option:selected').attr('data-branch')
+            balance = $(this).find('option:selected').attr('data-balance')
             
             $('#emp_master_name').val(fullname)
             $('#branch').val(branch)
+            $('#outstanding').val(balance)
         })
     }
 
@@ -103,8 +105,13 @@ var addCAWithdraw = () => {
                 totalamount += +$(this).val()
             })
 
+            let outstanding = +$(document).find('#outstanding').val()
+            let outstanding_left = (outstanding - totalamount)
+
             $('#totalamount').val(totalamount)
             $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
+            $('#outstanding_left').val(outstanding_left)
+            $('#label_outstanding_left').val(`Rp. ${Intl.NumberFormat('id').format(outstanding_left)}`)
         })
     }
 

@@ -70,8 +70,20 @@ class Mdl_corp_treasury extends CI_Model
     }
 
     function get_employee(){
-        return $this->db->select('IDNumber, FullName, DeptCode, Branch, CostCenter')
-                        ->get('tbl_fa_hr_append')->result_array();
+        $query = $this->db->query(
+            "SELECT
+                emp.IDNumber,
+                emp.FullName,
+                emp.DeptCode,
+                emp.Branch,
+                emp.CostCenter,
+                IF(trans.Balance IS NULL, 0, trans.Balance) AS Balance
+             FROM tbl_fa_hr_append AS emp
+             LEFT JOIN (SELECT Branch, IDNumber, Balance FROM tbl_fa_transaction ORDER BY CtrlNo DESC LIMIT 1) AS trans
+                ON emp.IDNumber = trans.IDNumber AND emp.Branch = trans.Branch"
+        )->result_array();
+        
+        return $query;
     }
 
     function get_mas_acc(){
@@ -325,32 +337,38 @@ class Mdl_corp_treasury extends CI_Model
     function get_ca_employees(){
         $query = $this->db->select('
             IDNumber,
-            Department,
-            Branch,
-            CostCenter
-        ')->order_by('Department ASC, IDNumber ASC')->get_where('tbl_fa_transaction', [
-            'TransType' => 'CA-WITHDRAW',
-            'TransType' => 'CA-RECEIPT'
-        ])->result_array();
+            FullName
+        ')->order_by('IDNumber ASC')->get_where('tbl_fa_hr_append')->result_array();
 
         return $query;
     }
 
-    function get_ca_registered_ids(){
-        $query = $this->db->select('
-            DocNo,
-            IDNumber,
-            TransDate,
-            Branch,
-            Department,
-            CostCenter,
-            Remarks,
-            AccNo,
-            AccType,
-            Debit,
-            Credit,
-            Balance
-        ')->get_where;
+    function get_ca_registered_ids($id){
+        $query = $this->db->query(
+            "SELECT
+                emp.IDNumber,
+                emp.FullName,
+                emp.JobTitle,
+                emp.JobTitleDes,
+                emp.Supervisor,
+                emp.SupervisorName,
+                trans.DocNo,
+                trans.TransDate,
+                trans.Branch,
+                trans.Department,
+                trans.CostCenter,
+                trans.Remarks,
+                trans.AccNo,
+                trans.AccType,
+                trans.Debit,
+                trans.Credit,
+                trans.Balance
+             FROM tbl_fa_hr_append AS emp
+             LEFT JOIN tbl_fa_transaction AS trans
+                ON emp.IDNumber = trans.IDNumber
+            WHERE emp.IDNumber = ?
+            ORDER BY trans.TransDate DESC, trans.CtrlNo DESC"
+        , $id)->result_array();
 
         return $query;
     }

@@ -56,28 +56,17 @@
                                                     <thead>
                                                         <tr class="bg-blue-madison font-white">   
                                                             <th width="70%" class="text-left uppercase" colspan="2">Register Name</th>         
-                                                            <th width="20%" class="text-center">ID No</th>         
-                                                            <th width="10%" class="text-center uppercase">Oustanding</th>         
+                                                            <th width="20%" class="text-center">ID No</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php
-                                                            $cur_dep = '';
-                                                        ?>
                                                         <?php for($i = 0;$i < count($employees); $i++) : ?>
-                                                            <?php if($employees[$i]['Department'] !== $cur_dep) : ?>
-                                                                <tr>
-                                                                   <td colspan="17" class="bold" style="background-color: #578ebe6b"><?= $employees[$i]['Department'] ?></td>
-                                                                </tr>
-                                                                <?php
-                                                                    $cur_dep = $employees[$i]['Department'];
-                                                                ?>
-                                                            <?php endif; ?>
                                                             <tr class="sbold">
                                                                 <td align="center"><?= $i+1?></td>
-                                                                <td><?= $employees[$i]['IDNumber']?></td>
+                                                                <td>
+                                                                    <a href="javascript:;" name="emp_id" data-id="<?= $employees[$i]['IDNumber']?>"><?= $employees[$i]['IDNumber']?></a>
+                                                                </td>
                                                                 <td align="center"><?= $employees[$i]['IDNumber'] ?></td>
-                                                                <td align="center"><?= '' ?></td>
                                                             </tr>
                                                         <?php endfor; ?>
                                                     </tbody>
@@ -109,19 +98,19 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;ID Number<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="" readonly>                    
+                                                                                <input type="text" id="idnumber" class="form-control bold" readonly>                    
                                                                             </div>                                                             
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;Full Name<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="" readonly>                     
+                                                                                <input type="text" id="fullname" class="form-control bold" readonly>                     
                                                                             </div>                                                             
                                                                         </div> 
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;Job Title<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="" readonly>                  
+                                                                                <input type="text" id="jobtitle" class="form-control bold" readonly>                  
                                                                             </div>                                                           
                                                                         </div>                                                    
                                                                     </div>
@@ -131,19 +120,19 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;Supervisor<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="" readonly>                     
+                                                                                <input type="text" id="supervisor" class="form-control bold" readonly>                     
                                                                             </div>                                                             
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;Department<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="" readonly>                    
+                                                                                <input type="text" id="department" class="form-control bold" readonly>                    
                                                                             </div>                                                             
                                                                         </div> 
                                                                         <div class="form-group">
                                                                             <label class="col-md-4 control-label"><b><font color="red">*</font>&nbsp;Outstanding<font color="white">_</font><span>:</span></b></label>
                                                                             <div class="col-md-6">
-                                                                                <input type="text" class="form-control bold" value="" readonly>                  
+                                                                                <input type="text" id="outstanding" class="form-control bold" readonly>                  
                                                                             </div>                                                           
                                                                         </div>                                                    
                                                                     </div>
@@ -164,16 +153,9 @@
                                                                 <th class="text-right" width="15%">Balance</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody id="tbody_statement_details">
                                                             <tr class="sbold">
-                                                                <td class="text-center">8</td>
-                                                                <td class="text-center"></td>
-                                                                <td class="text-left"></td>
-                                                                <td class="text-left"></td>
-                                                                <td class="text-left"></td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right"></td>
+                                                                <td colspan="8" class="text-center">Select IDNumber...</td>
                                                             </tr>
                                                         </tbody>
                                                     </table> 

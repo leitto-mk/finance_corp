@@ -139,16 +139,6 @@
                                                                             </b>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="mt-step-desc">
-                                                                        <div class="font-dark bold uppercase">Outstanding Left</div>
-                                                                        <br>
-                                                                    </div>
-                                                                    <div class="row static-info">
-                                                                        <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
-                                                                        <div class="col-md-12 value" style="margin-top: -15px">
-                                                                            <b><input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="outstanding_left" name="outstanding_left" value="0.00" readonly="true" class="input-group input-group-sm form-control"></b>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="portlet light" style="border-style: solid; border-color: lightgrey; margin-top: -26px">
