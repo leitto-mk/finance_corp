@@ -122,13 +122,13 @@
                             </li>
                             <!-- END SIDEBAR TOGGLER BUTTON -->
                             <li class="nav-head nav-item start" style="margin-top: -20px">
-                                <a href="<?php echo site_url('Cash_adv/index'); ?>" class="nav-link nav-toggle" style="background-color: #15bed1">
+                                <a href="<?= base_url('Cash_adv/index'); ?>" class="nav-link nav-toggle" style="background-color: #15bed1">
                                     <i class="icon-share font-white"></i>
                                     <span class="caption-subject font-white uppercase title bold"> Dashboard </span>
                                 </a>
                             </li>
                             <li class="nav-head nav-item active">
-                                <a href="<?php echo site_url('Cash_adv/view_ca_statement') ?>" target="_blank" class="nav-link nav-toggle" style="background-color: #44515d">
+                                <a href="<?= base_url('Cash_adv/view_ca_statement') ?>" target="_blank" class="nav-link nav-toggle" style="background-color: #44515d">
                                     <i class="fa fa-edit"></i>
                                     <span class="title uppercase bold">Personal Statment</span>
                                 </a>
@@ -146,15 +146,13 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <!-- <a href="<?= site_url('Cash_adv/view_cash_withdraw') ?>" class="nav-link"> -->
-                                        <a href="<?= site_url('FinanceCorp/view_ca_withdraw') ?>" class="nav-link">
+                                        <a href="<?= base_url('Cash_adv/view_ca_withdraw') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Cash Withdraw</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <!-- <a href="<?= site_url('Cash_adv/view_cash_receipt') ?>" class="nav-link"> -->
-                                        <a href="<?= site_url('FinanceCorp/view_ca_receipt') ?>" class="nav-link">
+                                        <a href="<?= base_url('Cash_adv/view_ca_receipt') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Cash Receipt</span>
                                         </a>
@@ -168,19 +166,19 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('Cash_adv/ca_outstanding_report') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Cash_adv/ca_outstanding_report') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Outstanding Report</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('Cash_adv/ca_transaction_details') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Cash_adv/ca_transaction_details') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Transaction Details</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('Cash_adv/ca_request_report') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Cash_adv/ca_request_report') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Request Report</span>
                                         </a>

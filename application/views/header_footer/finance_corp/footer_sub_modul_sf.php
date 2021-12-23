@@ -66,7 +66,7 @@
         <script src="<?= base_url();?>assets/pages/scripts/portfolio-1.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/components-bootstrap-select.min.js" type="text/javascript"></script>
-        <script src='<?= base_url("assets/CUSTOMS/$script.js");?>' type="text/javascript"></script>
+        <script src='<?= base_url("js/$script.js");?>' type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
      </body>
 </html>

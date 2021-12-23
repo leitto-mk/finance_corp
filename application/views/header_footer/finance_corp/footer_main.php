@@ -70,6 +70,6 @@
         <!-- data-pace-options='{ "ajax": true, "ghostTime": 10000 }' -->
         <!-- END PAGE LEVEL SCRIPTS -->
 
-        <script src="<?= base_url("assets/CUSTOMS/$script.js") ?>"></script>
+        <script src="<?= base_url("js/$script.js") ?>"></script>
      </body>
 </html>

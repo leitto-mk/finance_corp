@@ -87,7 +87,7 @@
             <script src="<?= base_url(); ?>assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
 
-            <script src="<?= base_url("assets/CUSTOMS/$script.js") ?>"></script>
+            <script src="<?= base_url("js/$script.js") ?>"></script>
             
             </body>
 
