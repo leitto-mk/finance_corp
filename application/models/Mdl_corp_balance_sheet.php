@@ -146,14 +146,17 @@ class Mdl_corp_balance_sheet extends CI_Model
           WHERE Branch = '$branch'
           AND YEAR(TransDate) = $year AND MONTH(TransDate) <= $month
           AND AccType IN ('R', 'R1')"
-      )->row()->Revenue;
+      )->row();
 
       $expense = $this->db->query(
          "SELECT SUM(Amount) AS Expense FROM tbl_fa_transaction
           WHERE Branch = '$branch'
           AND YEAR(TransDate) = $year AND MONTH(TransDate) <= $month
           AND AccType IN ('E', 'E1')"
-      )->row()->Expense;
+      )->row();
+
+      $revenue = is_null($revenue) ? 0 : $revenue->Revenue;
+      $expense = is_null($expense) ? 0 : $expense->Expense;
 
       $CurrentEarning = ($revenue - $expense);
 
