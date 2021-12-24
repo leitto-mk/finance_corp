@@ -165,7 +165,7 @@
 
                                         <?php
                                             $cur_branch = '';
-                                            $cur_accno = $ledger[0]['AccNo'];
+                                            $cur_accno = (isset($ledger[0]['AccNo']) ? $ledger[0]['AccNo'] : '');
                                             $subtotal_credit = $subtotal_debit = 0;
                                         ?>
                                         <?php for($i = 0; $i < count($ledger); $i++) : ?>
