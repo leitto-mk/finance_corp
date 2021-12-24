@@ -141,65 +141,52 @@ class Mdl_corp_balance_sheet extends CI_Model
 
    function get_current_earning($branch, $year, $month){
 
-      $query = $this->db->query(
-         "SELECT 
-            (
-               (
-                  SELECT SUM(Amount) FROM tbl_fa_transaction
-                  WHERE Branch = '$branch'
-                  AND YEAR(TransDate) = $year AND MONTH(TransDate) <= $month
-                  AND AccType IN ('R', 'R1')
-               ) 
-               -
-               (
-                  SELECT SUM(Amount) FROM tbl_fa_transaction
-                  WHERE Branch = '$branch'
-                  AND YEAR(TransDate) = $year AND MONTH(TransDate) <= $month
-                  AND AccType IN ('E', 'E1')
-               )
-            ) AS CurrentEarning"
-      )->row();
+      $revenue = $this->db->query(
+         "SELECT SUM(Amount) AS Revenue FROM tbl_fa_transaction
+          WHERE Branch = '$branch'
+          AND YEAR(TransDate) = $year AND MONTH(TransDate) <= $month
+          AND AccType IN ('R', 'R1')"
+      )->row()->Revenue;
 
-      return !empty($query) ? $query->CurrentEarning : 0;
+      $expense = $this->db->query(
+         "SELECT SUM(Amount) AS Expense FROM tbl_fa_transaction
+          WHERE Branch = '$branch'
+          AND YEAR(TransDate) = $year AND MONTH(TransDate) <= $month
+          AND AccType IN ('E', 'E1')"
+      )->row()->Expense;
+
+      $CurrentEarning = ($revenue - $expense);
+
+      return $CurrentEarning;
    }
 
    function get_retaining_earning($branch, $year, $month){
 
-      $is_retaining_curmonth_exist = $this->db->query(
-         "SELECT COUNT(Month) AS Total FROM tbl_fa_retaining_earning
-            WHERE Branch = '$branch'
-            AND Month = $year
-            AND Year = $month"
-      )->row()->Total;
+      $this->db->trans_begin();
 
-      if($is_retaining_curmonth_exist > 0){
-         $this->db->query("CALL retaining_earnings_update('$branch',$year,$month)");
-      }else{
-         $this->db->query("CALL retaining_earnings_insert('$branch',$year,$month)");
-      }
-
-      $query = $this->db->query(
-         "SELECT (
-            (
-             SELECT RetainingSum 
-             FROM tbl_fa_retaining_earning
-             WHERE Branch = '$branch'
-             AND Year = $year
-             ORDER BY CtrlNo DESC LIMIT 1
-            )
-            -
-            (
-               SELECT RetainingSum 
-               FROM tbl_fa_retaining_earning
-               WHERE Branch = '$branch'
-               AND Year = ($year-1)
-               ORDER BY CtrlNo DESC LIMIT 1
-            )
-         ) AS RetainingEarning"
+      $cur_year = $this->db->query(
+         "SELECT IFNULL(RetainingSum, 0) AS RetainingSum
+          FROM tbl_fa_retaining_earning
+          WHERE Branch = '$branch'
+          AND Year = $year
+          ORDER BY CtrlNo DESC LIMIT 1"
       )->row();
+
+      $pre_year = $this->db->query(
+         "SELECT IFNULL(RetainingSum, 0) AS RetainingSum
+          FROM tbl_fa_retaining_earning
+          WHERE Branch = '$branch'
+          AND Year = ($year-1)
+          ORDER BY CtrlNo DESC LIMIT 1"
+      )->row();
+
+      $cur_year = is_null($cur_year) ? 0 : $cur_year->RetainingSum;
+      $pre_year = is_null($pre_year) ? 0 : $pre_year->RetainingSum;
+
+      $RetainingEarning = ($cur_year - $pre_year);
      
       $this->db->trans_complete();
 
-      return !empty($query) ? $query->RetainingEarning : 0;
+      return $RetainingEarning;
    }
 }
