@@ -168,7 +168,7 @@ class Mdl_corp_branch extends CI_Model
          $branch_condition = "Branch = '$branch'";
       }
 
-      $year = date('Y', strtotime($date_start));
+      $this->db->trans_begin();
 
       $query = $this->db->query(
             "SELECT 
@@ -245,11 +245,11 @@ class Mdl_corp_branch extends CI_Model
             $query[$i]['BalanceBranch'] = $lastBalance - $debit;
          }
 
-         /*
-         * IF NEXT INDEX ACCNO IS DIFFERENT THAN CURRENT INDEX'S,
-         * SET THE `lastBalance` TO NEXT INDEX'S BEGINNING BALANCE
-         */
          if($i+1 < count($query)){
+            /*
+            * IF NEXT INDEX ACCNO IS DIFFERENT THAN CURRENT INDEX'S,
+            * SET THE `lastBalance` TO NEXT INDEX'S BEGINNING BALANCE
+            */
             if($query[$i]['AccNo'] !== $query[$i+1]['AccNo'] || $query[$i]['Branch'] !== $query[$i+1]['Branch']){
                if($query[$i]['beg_balance'] !== '' || is_null($query[$i]['beg_balance']) == false){
                   $query[$i+1]['beg_balance'] = (is_null($query[$i+1]['beg_balance']) ? 0 : $query[$i+1]['beg_balance']);
@@ -267,8 +267,6 @@ class Mdl_corp_branch extends CI_Model
          unset($query[$i]['Acc_Name']);
          unset($query[$i]['beg_balance']);
       }
-
-      $this->db->trans_begin();
 
       $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
       

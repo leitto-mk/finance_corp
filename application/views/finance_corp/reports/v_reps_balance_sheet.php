@@ -317,16 +317,8 @@
                                                             <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $capital[$i]['Acc_Name'] ?> - <?= $capital[$i]['Acc_No']?></td>
                                                             <td style="padding:0px;border-top:none;" class="text-right" width="25%"></td>
                                                         <?php else : ?>
-                                                            <?php if($capital[$i]['Acc_Type'] == 'CX') : ?>
-                                                                <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $capital[$i]['Acc_No']?> - <?= $capital[$i]['Acc_Name'] ?></td>
-                                                                <td style="padding:0px;border-top:none;" class="text-right" width="25%"><?= ($current_earnings == 0 ? '-' : number_format($current_earnings, 2, ',','.')) ?>&nbsp;</td>
-                                                                <?php
-                                                                    $grand_total_capital += $current_earnings;
-                                                                ?>
-                                                            <?php else: ?>
-                                                                <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $capital[$i]['Acc_No']?> - <?= $capital[$i]['Acc_Name'] ?></td>
-                                                                <td style="padding:0px;border-top:none;" class="text-right" width="25%"><?= ($capital[$i]['Amount'] == 0 ? '-' : number_format($capital[$i]['Amount'], 2, ',','.')) ?>&nbsp;</td>
-                                                            <?php endif; ?>
+                                                            <td style="padding:0px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $capital[$i]['Acc_No']?> - <?= $capital[$i]['Acc_Name'] ?></td>
+                                                            <td style="padding:0px;border-top:none;" class="text-right" width="25%"><?= ($capital[$i]['Amount'] == 0 ? '-' : number_format($capital[$i]['Amount'], 2, ',','.')) ?>&nbsp;</td>
                                                         <?php endif; ?>
                                                         <?php
                                                             $cur_total_capital += $capital[$i]['Amount'];
@@ -336,20 +328,10 @@
                                                     </tr>
                                                     <?php if($i < (count($capital)-1)) : ?>
                                                         <?php if($capital[$i+1]['TransGroup'] == 'H3' && $capital[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
-                                                            <?php if($capital[$i]['Acc_Type'] == 'C1') : ?>
-                                                                <tr>
-                                                                    <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h3 ?> </td>
-                                                                    <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($retain_earnings == 0 ? '-' : number_format($retain_earnings, 2, ',','.')) ?></td>
-                                                                </tr>
-                                                                <?php
-                                                                    $grand_total_capital += $retain_earnings;
-                                                                ?>
-                                                            <?php else : ?>
                                                                 <tr>
                                                                     <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h3 ?> </td>
                                                                     <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
                                                                 </tr>
-                                                            <?php endif; ?>
                                                         <?php elseif($capital[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                             <tr>
                                                                 <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h3 ?> </td>
@@ -361,24 +343,10 @@
                                                             </tr>
                                                         <?php endif; ?>
                                                     <?php elseif($i < count($capital) && $i != 0) : ?>
-                                                        <?php if($capital[$i]['Acc_Type'] == 'C1') : ?>
-                                                            <tr>
-                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h3 ?> </td>
-                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($retain_earnings == 0 ? '-' : number_format($retain_earnings, 2, ',','.')) ?></td>
-                                                            </tr>
-                                                            <?php
-                                                                $grand_total_capital += $retain_earnings;
-                                                            ?>
-                                                        <?php else : ?>
                                                             <tr>
                                                                 <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h3 ?> </td>
                                                                 <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
                                                             </tr>
-                                                        <?php endif; ?>
-                                                        <tr>
-                                                            <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h2 ?> </td>
-                                                            <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
-                                                        </tr>
                                                     <?php endif; ?>
                                                 <?php endfor; ?>                                   
                                                 <tr>

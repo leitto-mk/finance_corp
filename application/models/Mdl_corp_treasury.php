@@ -179,129 +179,136 @@ class Mdl_corp_treasury extends CI_Model
         return ($this->db->trans_status() ? 'success' : $this->db->error());
     }
 
-    function calculate_balance($branch, $accno, $cur_date, $last_date){
-        $start = $finish = '';
-
-        if(strtotime($cur_date) < strtotime($last_date)){
-            $start = $cur_date;
-            $finish = $last_date;
+    function calculate_balance($branch, $accno, $date_start, $date_finish){
+     
+        if($branch == 'All' || $branch == ''){
+            $branch_condition = "Branch IS NOT NULL";
         }else{
-            $start = $last_date;
-            $finish = $cur_date;
+            $branch_condition = "Branch = '$branch'";
         }
 
         $this->db->trans_begin();
-     
+
         $query = $this->db->query(
             "SELECT 
-               trans.CtrlNo,
-               trans.DocNo,
-               acc.Acc_Name,
-               trans.AccType,
-               trans.TransDate, 
-               trans.TransType, 
-               trans.JournalGroup,
-               trans.Branch,
-               trans.Department,
-               trans.CostCenter,
-               trans.AccNo,
-               trans.IDNumber,
-               trans.Remarks,
-               trans.Debit,
-               trans.Credit, 
-               trans.Currency,
-               CASE
-                    WHEN YEAR(trans.TransDate) < YEAR('$finish') AND trans.AccType IN('R','E') THEN
-                        0
+                trans.CtrlNo,
+                trans.DocNo,
+                acc.Acc_Name,
+                trans.AccType,
+                trans.TransDate, 
+                trans.TransType, 
+                trans.JournalGroup,
+                trans.Branch,
+                trans.Department,
+                trans.CostCenter,
+                trans.AccNo,
+                trans.IDNumber,
+                trans.Remarks,
+                trans.Debit,
+                trans.Credit, 
+                trans.Currency,
+                CASE
+                    WHEN trans.AccType IN('R','E') THEN
+                        IFNULL(
+                            (SELECT BalanceBranch
+                             FROM tbl_fa_transaction 
+                             WHERE AccNo = acc.Acc_No 
+                             AND Branch = trans.Branch
+                             AND TransDate < '$date_start'
+                             AND YEAR(TransDAte) = YEAR('$date_start')
+                             AND CtrlNo < trans.CtrlNo
+                             ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1), 
+                        0)
                     ELSE
-                        (SELECT BalanceBranch
-                          FROM tbl_fa_transaction 
-                          WHERE AccNo = acc.Acc_No 
-                          AND Branch = trans.Branch
-                          AND TransDate < '$start'
-                          ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
-               END AS beg_balance,
-               trans.Balance,
-               trans.BalanceBranch,
-               trans.EntryDate,
-               trans.EntryBy
-             FROM tbl_fa_transaction AS trans
-             LEFT JOIN tbl_fa_account_no AS acc
-               ON trans.AccNo = acc.Acc_No
-             WHERE trans.Branch = '$branch'
-             AND trans.AccNo IN ($accno)
-             AND trans.TransDate BETWEEN '$start' AND '$finish'
-             AND trans.PostedStatus = 1
-             ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
+                        IFNULL(
+                            (SELECT BalanceBranch
+                             FROM tbl_fa_transaction 
+                             WHERE AccNo = acc.Acc_No 
+                             AND Branch = trans.Branch
+                             AND TransDate < '$date_start'
+                             AND CtrlNo < trans.CtrlNo
+                             ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1), 
+                        0)
+                END AS beg_balance,
+                trans.Balance,
+                trans.BalanceBranch,
+                trans.EntryDate,
+                trans.EntryBy
+            FROM tbl_fa_transaction AS trans
+            LEFT JOIN tbl_fa_account_no AS acc
+                ON trans.AccNo = acc.Acc_No
+            WHERE trans.$branch_condition
+            AND trans.AccNo IN($accno)
+            AND acc.TransGroup NOT IN('H1','H2','H3')
+            AND trans.TransDate >= DATE_SUB('$date_finish', INTERVAL 1 MONTH)
+            AND trans.PostedStatus = 1
+            ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
         )->result_array();
-
-        if(empty($query)){
-            $this->db->trans_complete();
-            return ($this->db->trans_status() ? 'success' : $this->db->error());
-        }
-
+         
         $lastBalance = 0;
         if(!empty($query)){
             if($query[0]['beg_balance'] !== '' || is_null($query[0]['beg_balance']) == false){
                 $lastBalance = (int)$query[0]['beg_balance'];
             }
         }
-        
+   
         for($i = 0; $i < count($query); $i++){
-            
-            $debit = (int)$query[$i]['Debit'];
-            $credit = (int)$query[$i]['Credit'];
 
-            /*
-            * IF CURRENT INDEX'S YEAR NOT EQUAL TO PREVIOUS INDEX'S AND ACCTYPE EITHER 'R' OR 'E',
-            * SET BEGINNING BALANCE TO 0  
-            */ 
-            if($i > 0 && date('Y', strtotime($query[$i-1]['TransDate'])) !== date('Y', strtotime($query[$i]['TransDate'])) && ($query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'E')){
-                $lastBalance = 0;
-            }
-        
-            if($debit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
-               $query[$i]['BalanceBranch'] = $debit + $lastBalance;
-            }elseif($credit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
-               $query[$i]['BalanceBranch'] = $lastBalance - $credit;
-            }elseif($credit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
-               $query[$i]['BalanceBranch'] = $credit + $lastBalance;
-            }elseif($debit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
-               $query[$i]['BalanceBranch'] = $lastBalance - $debit;
-            }
-        
+        $debit = (int)$query[$i]['Debit'];
+        $credit = (int)$query[$i]['Credit'];
+
+        /*
+        * IF CURRENT INDEX'S YEAR NOT EQUAL TO PREVIOUS INDEX'S AND ACCTYPE EITHER 'R' OR 'E',
+        * SET BEGINNING BALANCE TO 0  
+        */ 
+        if($i > 0 && date('Y', strtotime($query[$i-1]['TransDate'])) !== date('Y', strtotime($query[$i]['TransDate'])) && ($query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'E')){
+            $lastBalance = 0;
+        }
+
+        if($debit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
+            $query[$i]['BalanceBranch'] = $debit + $lastBalance;
+        }elseif($credit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
+            $query[$i]['BalanceBranch'] = $lastBalance - $credit;
+        }elseif($credit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
+            $query[$i]['BalanceBranch'] = $credit + $lastBalance;
+        }elseif($debit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
+            $query[$i]['BalanceBranch'] = $lastBalance - $debit;
+        }
+
+        if($i+1 < count($query)){
             /*
             * IF NEXT INDEX ACCNO IS DIFFERENT THAN CURRENT INDEX'S,
             * SET THE `lastBalance` TO NEXT INDEX'S BEGINNING BALANCE
             */
-            if($i+1 < count($query)){
-                if($query[$i]['AccNo'] !== $query[$i+1]['AccNo'] || $query[$i]['Branch'] !== $query[$i+1]['Branch']){
-                    if($query[$i]['beg_balance'] !== '' || is_null($query[$i]['beg_balance']) == false){
-                        $lastBalance = (int)$query[$i]['beg_balance'];
-                    }else{
-                        $lastBalance = 0;
-                    }
+            if($query[$i]['AccNo'] !== $query[$i+1]['AccNo'] || $query[$i]['Branch'] !== $query[$i+1]['Branch']){
+                if($query[$i]['beg_balance'] !== '' || is_null($query[$i]['beg_balance']) == false){
+                    $query[$i+1]['beg_balance'] = (is_null($query[$i+1]['beg_balance']) ? 0 : $query[$i+1]['beg_balance']);
+                
+                    $lastBalance = (int) $query[$i+1]['beg_balance'];
                 }else{
-                    $lastBalance = $query[$i]['BalanceBranch'];
+                    $lastBalance = 0;
                 }
+            }else{
+                $lastBalance = $query[$i]['BalanceBranch'];
             }
-        
-            //REMOVE UNNECESSARY 'KEY' TO PREVENT UPDATE_BATCH FROM CRASHING
-            unset($query[$i]['Acc_Name']);
-            unset($query[$i]['beg_balance']);
         }
-    
+
+        //Remove Unnecessary 'Key'
+        unset($query[$i]['Acc_Name']);
+        unset($query[$i]['beg_balance']);
+        }
+
         $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
 
         $is_retaining_curmonth_exist = $this->db->query(
             "SELECT COUNT(Month) AS Total FROM tbl_fa_retaining_earning
                WHERE Branch = '$branch'
-               AND Month = YEAR('$cur_date')
-               AND Year = MONTH('$cur_date')"
+               AND Month = YEAR('$date_start')
+               AND Year = MONTH('$date_start')"
          )->row()->Total;
    
-         $year = date('Y', strtotime($cur_date));
-         $month = date('m', strtotime($cur_date));
+         $year = date('Y', strtotime($date_start));
+         $month = date('m', strtotime($date_start));
    
          if($is_retaining_curmonth_exist > 0){
             $this->db->query("CALL retaining_earnings_update('$branch',$year,$month)");
@@ -310,7 +317,7 @@ class Mdl_corp_treasury extends CI_Model
          }
         
         $this->db->trans_complete();
-
+        
         return ($this->db->trans_status() ? 'success' : $this->db->error());
     }
 
