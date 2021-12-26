@@ -1,8 +1,8 @@
 /*
  *  CORE SCRIPT
 */
-var CAStatement = () => {
-    var eventGetEmpDetails = () => {
+var CAStatement = (function(){
+    const eventGetEmpDetails = () => {
         $(document).on('click','[name=emp_id]',function(){
             let id = $(this).attr('data-id')
 
@@ -55,10 +55,8 @@ var CAStatement = () => {
             eventGetEmpDetails()
         }
     }
-}
+})()
 
 /* INITIALIZE CORE SCRIPT */
-(function(){
-    CAStatement().init()
-    CAStatement().events()
-})()
+CAStatement().init()
+CAStatement().events()
