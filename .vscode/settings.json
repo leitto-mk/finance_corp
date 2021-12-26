@@ -33,6 +33,7 @@
     "upload": true,
     "application\\libraries": true,
     "assets": true,
-    "vendors": true
+    "vendors": true,
+    "vendor": true
   }
 }
