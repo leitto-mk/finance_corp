@@ -15,14 +15,14 @@ class FinanceCorp extends CI_Controller
         $this->load->model('Mdl_corp_income_statement');
     }
 
-    //DASHBOARD
+    //* DASHBOARD
     function index(){
         $data['title'] = 'Dashboard';
         
         $this->load->view('finance_corp/dashboard/v_home', $data);
     }
 
-    //RECEIPT VOUCHER
+    //* RECEIPT VOUCHER
     function view_receipt_voucher(){
         $docno = '';
         $start = date('Y-01-01');
@@ -285,7 +285,7 @@ class FinanceCorp extends CI_Controller
         echo $result;
     }
 
-    //PAYMENT VOUCHER
+    //* PAYMENT VOUCHER
     function view_payment_voucher(){
         $docno = '';
         $start = date('Y-01-01');
@@ -549,7 +549,7 @@ class FinanceCorp extends CI_Controller
         echo $result;
     }
 
-    //OVERBOOK VOUCHER
+    //* OVERBOOK VOUCHER
     function view_overbook_voucher(){
         $docno = '';
         $start = date('Y-01-01');
@@ -814,7 +814,7 @@ class FinanceCorp extends CI_Controller
         echo $result;
     }
 
-    //GENERAL JOURNAL
+    //* GENERAL JOURNAL
     function view_general_journal(){
         $docno = '';
         $start = date('Y-01-01');
@@ -1039,7 +1039,7 @@ class FinanceCorp extends CI_Controller
         echo $result;
     }
 
-    //GL REPORT
+    //* GL REPORT
     function view_gl(){
         $data['title'] = 'General Ledger';
         $data['h1'] = 'General';
