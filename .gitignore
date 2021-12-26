@@ -23,6 +23,7 @@ system/
 template/
 user_guide/
 upload/
+.vscode
 .editorconfig
 .htaccess
 composer
