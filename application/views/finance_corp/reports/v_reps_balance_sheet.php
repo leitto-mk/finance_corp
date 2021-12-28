@@ -347,13 +347,17 @@
                                                                 <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h3 ?> </td>
                                                                 <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
                                                             </tr>
+                                                            <tr>
+                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h2 ?> </td>
+                                                                <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
+                                                            </tr>
                                                     <?php endif; ?>
                                                 <?php endfor; ?>                                   
                                                 <tr>
                                                     <td style="padding:5px;border-top:none;" class="sbold" width="75%">Total <?= $capital[0]['Acc_Name']?> </td>
                                                     <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($grand_total_capital == 0 ? '-' : number_format($grand_total_capital, 2, ',','.')) ?></td>
                                                 </tr>
-                                                <?php for($i = 0; $i < ($total_left_rows - $total_right_rows+4); $i++) : ?>
+                                                <?php for($i = 0; $i < ($total_left_rows - $total_right_rows+3); $i++) : ?>
                                                     <tr class="font-dark bg-white">
                                                         <td style="padding:5px;border-top:none;"></td>
                                                         <td style="padding:5px;border-top:none;"></td>

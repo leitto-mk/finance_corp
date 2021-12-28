@@ -157,6 +157,7 @@ class Mdl_corp_balance_sheet extends CI_Model
       return [$company, $asset, $liabilities, $capital];
    }
 
+   //! Currently Unused
    function get_current_earning($branch, $year, $month){
       
       $current_earning = $this->db->query(
@@ -168,9 +169,10 @@ class Mdl_corp_balance_sheet extends CI_Model
           ORDER BY CtrlNo DESC LIMIT 1"
       )->row()->CurrentEarning;
 
-      return $current_earning;
+      return ($current_earning ?: 0);
    }
 
+   //! Currently Unused
    function get_retaining_earning($branch, $year){
 
       $retaining_earning = $this->db->query(
@@ -181,6 +183,6 @@ class Mdl_corp_balance_sheet extends CI_Model
           ORDER BY Month DESC, CtrlNo DESC LIMIT 1"
       )->row()->RetainingEarning;
 
-      return $retaining_earning;
+      return ($retaining_earning ?: 0);
    }
 }
