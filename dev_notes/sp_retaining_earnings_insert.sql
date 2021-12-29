@@ -24,7 +24,14 @@ BEGIN
          AND AccType IN ('E', 'E1')
    ),0);
 
-   SELECT @retaining := (@revenue - @expense);
+   SELECT @generaljournal_re := IFNULL((
+         SELECT SUM(Amount) FROM tbl_fa_transaction
+         WHERE Branch = val_branch
+         AND YEAR(TransDate) = val_year AND MONTH(TransDate) = val_month
+         AND AccType IN ('C1')
+   ),0);
+
+   SELECT @retaining := (@revenue - @expense) + @generaljournal_re;
 
    -- REVENUE-EXPENSE EACH OF SELECTED MONTH --
    INSERT INTO `tbl_fa_retaining_earning` (Branch, Year, Month, Retaining)

@@ -133,7 +133,7 @@ class Mdl_corp_balance_sheet extends CI_Model
                   ELSE
                      YEAR(TransDate) <= YEAR('$date')
                   END
-               AND MONTH(TransDate) <= MONTH('$date')
+               -- AND MONTH(TransDate) <= MONTH('$date')
                AND TransDate = (
                   SELECT TransDate
                   FROM tbl_fa_transaction
@@ -144,7 +144,7 @@ class Mdl_corp_balance_sheet extends CI_Model
                      ELSE
                         YEAR(TransDate) <= YEAR('$date')
                      END
-                  AND MONTH(TransDate) <= MONTH('$date')
+                  -- AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -158,7 +158,7 @@ class Mdl_corp_balance_sheet extends CI_Model
                      ELSE
                         YEAR(TransDate) <= YEAR('$date')
                      END
-                  AND MONTH(TransDate) <= MONTH('$date')
+                  -- AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
