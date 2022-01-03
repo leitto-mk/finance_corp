@@ -10,7 +10,8 @@ class Mdl_corp_balance_sheet extends CI_Model
          $branch = "Branch IS NOT NULL";
       }
 
-      $date = "$year-$month-" . date('d');
+      //? Get last day of selected `year` and ``month``
+      $date = date('Y-m-t', strtotime("$year-$month-01"));
 
       $company = $this->db->select(
          "ComCode,
@@ -30,14 +31,12 @@ class Mdl_corp_balance_sheet extends CI_Model
             LEFT JOIN (
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
                FROM tbl_fa_transaction AS parent
-               WHERE YEAR(TransDate) = YEAR('$date')
-               AND MONTH(TransDate) <= MONTH('$date')
+               WHERE YEAR(TransDate) <= YEAR('$date')
                AND TransDate = (
                   SELECT TransDate
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
-                  AND YEAR(TransDate) = YEAR('$date')
-                  AND MONTH(TransDate) <= MONTH('$date')
+                  AND YEAR(TransDate) <= YEAR('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -45,8 +44,7 @@ class Mdl_corp_balance_sheet extends CI_Model
                   SELECT CtrlNo
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
-                  AND YEAR(TransDate) = YEAR('$date')
-                  AND MONTH(TransDate) <= MONTH('$date')
+                  AND YEAR(TransDate) <= YEAR('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -70,13 +68,11 @@ class Mdl_corp_balance_sheet extends CI_Model
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
                FROM tbl_fa_transaction AS parent
                WHERE YEAR(TransDate) = YEAR('$date')
-               AND MONTH(TransDate) <= MONTH('$date')
                AND TransDate = (
                   SELECT TransDate
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
                   AND YEAR(TransDate) = YEAR('$date')
-                  AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -85,7 +81,6 @@ class Mdl_corp_balance_sheet extends CI_Model
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
                   AND YEAR(TransDate) = YEAR('$date')
-                  AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -105,17 +100,17 @@ class Mdl_corp_balance_sheet extends CI_Model
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
                CASE
                   WHEN acc.Acc_No = '31201' THEN
-                     (SELECT IFNULL(RetainingSum, 0)
+                     (SELECT IFNULL(RetainingSum, 0) AS CurrentEarning
                       FROM tbl_fa_retaining_earning
                       WHERE Branch = '0101'
                       AND Year = YEAR('$date')
                       AND Month = MONTH('$date')
                       ORDER BY CtrlNo DESC LIMIT 1)
                   WHEN acc.Acc_No = '31202' THEN
-                     (SELECT IFNULL(RetainingSum, 0)
+                     (SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
                       FROM tbl_fa_retaining_earning
                       WHERE Branch = '0101'
-                      AND Year = YEAR(DATE_SUB('$date', INTERVAL 1 YEAR))
+                      AND Year <= YEAR(DATE_SUB('$date', INTERVAL 1 YEAR))
                       ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
                   WHEN  acc.TransGroup IN('H1','H2','H3') THEN
                      NULL
@@ -133,7 +128,6 @@ class Mdl_corp_balance_sheet extends CI_Model
                   ELSE
                      YEAR(TransDate) <= YEAR('$date')
                   END
-               -- AND MONTH(TransDate) <= MONTH('$date')
                AND TransDate = (
                   SELECT TransDate
                   FROM tbl_fa_transaction
@@ -144,7 +138,6 @@ class Mdl_corp_balance_sheet extends CI_Model
                      ELSE
                         YEAR(TransDate) <= YEAR('$date')
                      END
-                  -- AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -158,7 +151,6 @@ class Mdl_corp_balance_sheet extends CI_Model
                      ELSE
                         YEAR(TransDate) <= YEAR('$date')
                      END
-                  -- AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
