@@ -11,7 +11,7 @@ class Acc_rec extends CI_Controller
     }
 
     //Student Finance
-    function index(){
+    public function index(){
         $data = [
             'title' => 'Student Account Receivable',
             'h1' => 'Student',
@@ -22,7 +22,7 @@ class Acc_rec extends CI_Controller
         $this->load->view('finance/receivable/v_std_acc_rec', $data);
     }
 
-    function ar_aging_ctrl(){
+    public function ar_aging_ctrl(){
         $data = [
             'title' => 'AR Aging Control',
             'h1' => 'Account',
@@ -33,7 +33,7 @@ class Acc_rec extends CI_Controller
         $this->load->view('finance/receivable/v_ar_aging_ctrl', $data);
     }
 
-    function ar_aging_sum(){
+    public function ar_aging_sum(){
         $data = [
             'title' => 'AR Aging Summary',
             'h1' => 'Account',
@@ -44,7 +44,7 @@ class Acc_rec extends CI_Controller
         $this->load->view('finance/receivable/v_ar_aging_sum', $data);
     }
 
-    function ar_aging_det(){
+    public function ar_aging_det(){
         $data = [
             'title' => 'AR Aging Details',
             'h1' => 'Accounts',
@@ -57,7 +57,7 @@ class Acc_rec extends CI_Controller
 
 
     //Corporation Finance
-    function index2(){
+    public function index2(){
         $data = [
             'title' => 'Account Recevable',
             'h1' => 'Account',
@@ -68,7 +68,7 @@ class Acc_rec extends CI_Controller
         $this->load->view('finance_corp/receivable/v_acc_rec_corp', $data);
     }
 
-    function view_receipt_payment(){
+    public function view_receipt_payment(){
         $data = [
             'title' => 'Receipt Payment',
             'h1' => 'Account',
@@ -80,7 +80,7 @@ class Acc_rec extends CI_Controller
         $this->load->view('finance_corp/receivable/v_receipt_payment', $data);
     }
 
-    function add_receipt_payment(){
+    public function add_receipt_payment(){
         $data = [
             'title' => 'Form Receipt Payment',
         
@@ -90,7 +90,7 @@ class Acc_rec extends CI_Controller
         $this->load->view('finance_corp/receivable/v_add_receipt_payment', $data);
     }
 
-    function ar_aging_summary(){
+    public function ar_aging_summary(){
         $data = [
             'title' => 'Aging Report Summary',
             'h1' => 'Account',
@@ -102,7 +102,7 @@ class Acc_rec extends CI_Controller
         $this->load->view('finance_corp/receivable/v_ar_aging_sum', $data);
     }
 
-    function ar_aging_detail(){
+    public function ar_aging_detail(){
         $data = [
             'title' => 'Aging Report Detail',
             'h1' => 'Account',

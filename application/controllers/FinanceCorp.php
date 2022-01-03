@@ -16,14 +16,14 @@ class FinanceCorp extends CI_Controller
     }
 
     //* DASHBOARD
-    function index(){
+    public function index(){
         $data['title'] = 'Dashboard';
         
         $this->load->view('finance_corp/dashboard/v_home', $data);
     }
 
     //* RECEIPT VOUCHER
-    function view_receipt_voucher(){
+    public function view_receipt_voucher(){
         $docno = '';
         $start = date('Y-01-01');
         $end = date('Y-m-d');
@@ -38,13 +38,13 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/treasuries/v_receipt_voucher', $data);
     }
 
-    function ajax_get_annual_receipt(){
+    public function ajax_get_annual_receipt(){
         $result = $this->Mdl_corp_treasury->get_annual_treasury('RECEIPT', $_POST['docno'],$_POST['start'], $_POST['end']);
 
         echo json_encode($result);
     }
 
-    function edit_receipt(){
+    public function edit_receipt(){
         $docno = $_GET['docno'];
 
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
@@ -77,7 +77,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/editview/v_add_receipt_voucher_edit', $data);
     }
 
-    function ajax_delete_receipt(){
+    public function ajax_delete_receipt(){
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
@@ -102,7 +102,7 @@ class FinanceCorp extends CI_Controller
         echo $result;
     }
 
-    function add_receipt_voucher(){
+    public function add_receipt_voucher(){
         $data = [
             'title' => 'Form Receipt Voucher',
             
@@ -286,7 +286,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //* PAYMENT VOUCHER
-    function view_payment_voucher(){
+    public function view_payment_voucher(){
         $docno = '';
         $start = date('Y-01-01');
         $end = date('Y-m-d');
@@ -301,13 +301,13 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/treasuries/v_payment_voucher', $data);
     }
 
-    function ajax_get_annual_payment(){
+    public function ajax_get_annual_payment(){
         $result = $this->Mdl_corp_treasury->get_annual_treasury('PAYMENT', $_POST['docno'],$_POST['start'], $_POST['end']);
 
         echo json_encode($result);
     }
 
-    function edit_payment(){
+    public function edit_payment(){
         $docno = $_GET['docno'];
 
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
@@ -340,7 +340,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/editview/v_add_payment_voucher_edit', $data);
     }
 
-    function ajax_delete_payment(){
+    public function ajax_delete_payment(){
         $docno = $_POST['docno'];
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
@@ -366,7 +366,7 @@ class FinanceCorp extends CI_Controller
         echo $result;
     }
 
-    function add_payment_voucher(){
+    public function add_payment_voucher(){
         $data = [
             'title' => 'Form payment Voucher',
             
@@ -550,7 +550,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //* OVERBOOK VOUCHER
-    function view_overbook_voucher(){
+    public function view_overbook_voucher(){
         $docno = '';
         $start = date('Y-01-01');
         $end = date('Y-m-d');
@@ -565,13 +565,13 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/treasuries/v_overbook_voucher', $data);
     }
 
-    function ajax_get_annual_overbook(){
+    public function ajax_get_annual_overbook(){
         $result = $this->Mdl_corp_treasury->get_annual_treasury('OVERBOOK', $_POST['docno'],$_POST['start'], $_POST['end']);
 
         echo json_encode($result);
     }
 
-    function edit_overbook(){
+    public function edit_overbook(){
         $docno = $_GET['docno'];
 
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
@@ -604,7 +604,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/editview/v_add_overbook_voucher_edit', $data);
     }
 
-    function ajax_delete_overbook(){
+    public function ajax_delete_overbook(){
         $docno = $_POST['docno'];
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
@@ -630,7 +630,7 @@ class FinanceCorp extends CI_Controller
         echo $result;
     }
 
-    function add_overbook_voucher(){
+    public function add_overbook_voucher(){
         $data = [
             'title' => 'Form Overbook Voucher',
             
@@ -815,7 +815,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //* GENERAL JOURNAL
-    function view_general_journal(){
+    public function view_general_journal(){
         $docno = '';
         $start = date('Y-01-01');
         $end = date('Y-m-d');
@@ -830,13 +830,13 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/treasuries/v_general_journal', $data);
     }
 
-    function ajax_get_annual_general_journal(){
+    public function ajax_get_annual_general_journal(){
         $result = $this->Mdl_corp_treasury->get_annual_treasury('GENERAL', $_POST['docno'],$_POST['start'], $_POST['end']);
 
         echo json_encode($result);
     }
 
-    function edit_general_journal(){
+    public function edit_general_journal(){
         $docno = $_GET['docno'];
 
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
@@ -869,7 +869,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/editview/v_add_general_journal_edit', $data);
     }
 
-    function ajax_delete_general_journal(){
+    public function ajax_delete_general_journal(){
         $docno = $_POST['docno'];
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
@@ -895,7 +895,7 @@ class FinanceCorp extends CI_Controller
         echo $result;
     }
 
-    function add_general_journal(){
+    public function add_general_journal(){
         $data = [
             'title' => 'Form General Journal',
             
@@ -911,7 +911,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/addview/v_add_general_journal', $data);
     }
 
-    function ajax_submit_general_journal(){
+    public function ajax_submit_general_journal(){
         $master = $details = $trans = [];
 
         $itemno = 0;
@@ -1040,7 +1040,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //* GL REPORT
-    function view_gl(){
+    public function view_gl(){
         $data['title'] = 'General Ledger';
         $data['h1'] = 'General';
         $data['h2'] = 'Ledger';
@@ -1049,7 +1049,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/reports/v_gl', $data);
     }
 
-    function view_gl_branch(){
+    public function view_gl_branch(){
         
         $branch = 'All';
         $accno_start = $this->db->select('Acc_No')->order_by('Acc_No','ASC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
@@ -1076,7 +1076,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/reports/v_gl_branch', $data);
     }
 
-    function view_gl_branch_report(){
+    public function view_gl_branch_report(){
         $branch = isset($_GET['branch']) ? $_GET['branch'] : 'All';
         $accno_start = isset($_GET['accno_start']) ? $_GET['accno_start'] : '10000';
         $accno_finish = isset($_GET['accno_finish']) ? $_GET['accno_finish'] : '90000';
@@ -1102,7 +1102,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/reports/v_reps_gl', $data);
     }
 
-    function ajax_get_general_ledger(){
+    public function ajax_get_general_ledger(){
         $branch = $_POST['branch'];
         $accno_start = $_POST['accno_start'];
         $accno_finish = $_POST['accno_finish'];
@@ -1114,7 +1114,7 @@ class FinanceCorp extends CI_Controller
         echo json_encode($result);
     }
 
-    function view_balance_sheet(){
+    public function view_balance_sheet(){
         $branch = (isset($_GET['branch']) ? $_GET['branch'] : null);
         $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
         $month = (isset($_GET['month']) ? $_GET['month'] : date('m'));
@@ -1143,7 +1143,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);
     }
 
-    function view_incomestatement(){
+    public function view_incomestatement(){
         $data = [
             //HEADER
             'title' => 'Income Statement',
@@ -1155,7 +1155,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/reports/v_income_statement', $data);
     }
 
-    function view_trial_balance(){
+    public function view_trial_balance(){
         $data = [
             //HEADER
             'title' => 'Trial Balance',
@@ -1168,7 +1168,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //Re-Calculate
-    function ajax_recalculate_balance(){
+    public function ajax_recalculate_balance(){
         $branch = $_POST['branch'];
         $accno_start = $_POST['accno_start'];
         $accno_finish = $_POST['accno_finish'];
@@ -1181,7 +1181,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //Reports Rugi - Laba
-    function view_reps_rl(){
+    public function view_reps_rl(){
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
@@ -1200,7 +1200,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //Reports Balance Sheet
-    function view_reps_balance_sheet(){
+    public function view_reps_balance_sheet(){
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
@@ -1219,7 +1219,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //Reports Receipt Voucher
-    function view_reps_receipt_voucher(){
+    public function view_reps_receipt_voucher(){
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
@@ -1238,7 +1238,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //Reports Payment Voucher
-    function view_reps_payment_voucher(){
+    public function view_reps_payment_voucher(){
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
@@ -1257,7 +1257,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //Reports General Journal
-    function view_reps_general_journal(){
+    public function view_reps_general_journal(){
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
@@ -1276,7 +1276,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //Reports Cash Withdraw
-    function view_reps_cash_withdraw(){
+    public function view_reps_cash_withdraw(){
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
@@ -1295,7 +1295,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //Reports Cash Receipt
-    function view_reps_cash_receipt(){
+    public function view_reps_cash_receipt(){
         $docno = $_GET['docno'];
         $branch = $_GET['branch'];
         $transdate = $_GET['transdate'];
@@ -1314,7 +1314,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //Reports Income Statement
-    function view_income_statement(){
+    public function view_income_statement(){
         $branch = (isset($_GET['branch']) ? $_GET['branch'] : null);
         $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
         $month = (isset($_GET['month']) ? $_GET['month'] : date('m'));

@@ -13,7 +13,7 @@ class Cash_adv extends CI_Controller
     }
 
     //Corporation Finance
-    function index(){
+    public function index(){
         $data = [
             'title' => 'Cash Advance',
             'h1' => 'Cash',
@@ -25,7 +25,7 @@ class Cash_adv extends CI_Controller
     }
 
     //PERSONAL STATEMENT
-    function view_ca_statement(){
+    public function view_ca_statement(){
         $data = [
             'title' => 'Cash Advance Statement',
             'h1' => 'Personal',
@@ -42,14 +42,14 @@ class Cash_adv extends CI_Controller
         $this->load->view('finance_corp/cashadvance/v_ca_statement', $data);
     }
 
-    function ajax_get_emp_details(){
+    public function ajax_get_emp_details(){
         $id = $_POST['id'];
 
         echo json_encode($this->Mdl_corp_cash_advance->get_ca_registered_ids($id));
     }
 
     //TRANSACTION DETAILS - CASH ADVANCE WITHDRAW
-    function view_ca_withdraw(){
+    public function view_ca_withdraw(){
         $docno = '';
         $start = date('Y-01-01');
         $end = date('Y-m-d');
@@ -68,13 +68,13 @@ class Cash_adv extends CI_Controller
         $this->load->view('finance_corp/cashadvance/v_ca_withdraw', $data);
     }
 
-    function ajax_get_annual_ca_withdraw(){
+    public function ajax_get_annual_ca_withdraw(){
         $result = $this->Mdl_corp_cash_advance->get_annual_treasury('CA-WITHDRAW', $_POST['docno'],$_POST['start'], $_POST['end']);
 
         echo json_encode($result);
     }
 
-    function edit_ca_withdraw(){
+    public function edit_ca_withdraw(){
         $docno = $_GET['docno'];
 
         $result = $this->Mdl_corp_cash_advance->get_docno_details($docno);
@@ -109,7 +109,7 @@ class Cash_adv extends CI_Controller
         $this->load->view('finance_corp/editview/v_add_ca_withdraw_edit', $data);
     }
 
-    function ajax_delete_ca_withdraw(){
+    public function ajax_delete_ca_withdraw(){
         $docno = $_POST['docno'];
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
@@ -135,7 +135,7 @@ class Cash_adv extends CI_Controller
         echo $result;
     }
 
-    function add_ca_withdraw(){
+    public function add_ca_withdraw(){
         $data = [
             'title' => 'Form Cash Advance Withdraw',
             
@@ -322,7 +322,7 @@ class Cash_adv extends CI_Controller
     }
 
     //TRANSACTION DETAILS - CASH ADVANCE RECEIPT
-    function view_ca_receipt(){
+    public function view_ca_receipt(){
         $docno = '';
         $start = date('Y-01-01');
         $end = date('Y-m-d');
@@ -341,13 +341,13 @@ class Cash_adv extends CI_Controller
         $this->load->view('finance_corp/cashadvance/v_ca_receipt', $data);
     }
 
-    function ajax_get_annual_ca_receipt(){
+    public function ajax_get_annual_ca_receipt(){
         $result = $this->Mdl_corp_cash_advance->get_annual_treasury('CA-RECEIPT', $_POST['docno'],$_POST['start'], $_POST['end']);
 
         echo json_encode($result);
     }
 
-    function edit_ca_receipt(){
+    public function edit_ca_receipt(){
         $docno = $_GET['docno'];
 
         $result = $this->Mdl_corp_cash_advance->get_docno_details($docno);
@@ -382,7 +382,7 @@ class Cash_adv extends CI_Controller
         $this->load->view('finance_corp/editview/v_add_ca_receipt_edit', $data);
     }
 
-    function ajax_delete_ca_receipt(){
+    public function ajax_delete_ca_receipt(){
         $docno = $_POST['docno'];
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
@@ -408,7 +408,7 @@ class Cash_adv extends CI_Controller
         echo $result;
     }
 
-    function add_ca_receipt(){
+    public function add_ca_receipt(){
         $data = [
             'title' => 'Form Cash Advance Receipt',
             
@@ -595,7 +595,7 @@ class Cash_adv extends CI_Controller
     }
 
     //REPORT MANAGEMENT
-    function ca_outstanding_report(){
+    public function ca_outstanding_report(){
         $data = [
             'title' => 'Cash Advance Outstanding Report',
             'h1' => 'Cash',
@@ -607,7 +607,7 @@ class Cash_adv extends CI_Controller
         $this->load->view('finance_corp/cashadvance/v_ca_outstanding_report', $data);
     }
 
-    function ca_transaction_details(){
+    public function ca_transaction_details(){
         $data = [
             'title' => 'Cash Advance Transaction Details',
             'h1' => 'Cash',
@@ -619,7 +619,7 @@ class Cash_adv extends CI_Controller
         $this->load->view('finance_corp/cashadvance/v_ca_transaction_details', $data);
     }
 
-    function ca_request_report(){
+    public function ca_request_report(){
         $data = [
             'title' => 'Cash Advance Request Report',
             'h1' => 'Cash',

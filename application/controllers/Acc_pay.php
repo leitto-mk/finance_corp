@@ -11,7 +11,7 @@ class Acc_pay extends CI_Controller
     }
 
     //Corporation Finance
-     function index2(){
+    public function index2(){
         $data = [
             'title' => 'Account Payable',
             'h1' => 'Account',
@@ -22,7 +22,7 @@ class Acc_pay extends CI_Controller
         $this->load->view('finance_corp/payable/v_acc_pay_corp', $data);
     }
 
-    function view_payment_po(){
+    public function view_payment_po(){
         $data = [
             'title' => 'Payment PO',
             'h1' => 'Account',
@@ -34,7 +34,7 @@ class Acc_pay extends CI_Controller
         $this->load->view('finance_corp/payable/v_payment_po', $data);
     }
 
-    function add_payment_po(){
+    public function add_payment_po(){
         $data = [
             'title' => 'Form Payment PO',
         
@@ -45,7 +45,7 @@ class Acc_pay extends CI_Controller
     }
 
 
-    function ap_aging_summary(){
+    public function ap_aging_summary(){
         $data = [
             'title' => 'Aging Report Summary',
             'h1' => 'Account',
@@ -57,7 +57,7 @@ class Acc_pay extends CI_Controller
         $this->load->view('finance_corp/payable/v_ap_aging_sum', $data);
     }
 
-    function ap_aging_detail(){
+    public function ap_aging_detail(){
         $data = [
             'title' => 'Aging Report Detail',
             'h1' => 'Account',
