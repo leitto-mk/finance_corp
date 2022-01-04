@@ -32,11 +32,13 @@ class Mdl_corp_balance_sheet extends CI_Model
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
                FROM tbl_fa_transaction AS parent
                WHERE YEAR(TransDate) <= YEAR('$date')
+               AND MONTH(TransDate) <= MONTH('$date')
                AND TransDate = (
                   SELECT TransDate
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
                   AND YEAR(TransDate) <= YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -45,6 +47,7 @@ class Mdl_corp_balance_sheet extends CI_Model
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
                   AND YEAR(TransDate) <= YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -67,12 +70,14 @@ class Mdl_corp_balance_sheet extends CI_Model
             LEFT JOIN (
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
                FROM tbl_fa_transaction AS parent
-               WHERE YEAR(TransDate) = YEAR('$date')
+               WHERE YEAR(TransDate) <= YEAR('$date')
+               AND MONTH(TransDate) <= MONTH('$date')
                AND TransDate = (
                   SELECT TransDate
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
-                  AND YEAR(TransDate) = YEAR('$date')
+                  AND YEAR(TransDate) <= YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -80,7 +85,8 @@ class Mdl_corp_balance_sheet extends CI_Model
                   SELECT CtrlNo
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
-                  AND YEAR(TransDate) = YEAR('$date')
+                  AND YEAR(TransDate) <= YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -122,22 +128,14 @@ class Mdl_corp_balance_sheet extends CI_Model
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
                FROM tbl_fa_transaction AS parent
                WHERE $branch
-               AND 
-                  CASE WHEN parent.AccType IN('R','E') THEN
-                     YEAR(TransDate) = YEAR('$date')
-                  ELSE
-                     YEAR(TransDate) <= YEAR('$date')
-                  END
+               AND YEAR(TransDate) <= YEAR('$date')
+               AND MONTH(TransDate) <= MONTH('$date')
                AND TransDate = (
                   SELECT TransDate
                   FROM tbl_fa_transaction
                   WHERE AccNo = parent.AccNo 
-                  AND 
-                     CASE WHEN parent.AccType IN('R','E') THEN
-                        YEAR(TransDate) = YEAR('$date')
-                     ELSE
-                        YEAR(TransDate) <= YEAR('$date')
-                     END
+                  AND YEAR(TransDate) <= YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )
@@ -145,12 +143,8 @@ class Mdl_corp_balance_sheet extends CI_Model
                   SELECT CtrlNo
                   FROM tbl_fa_transaction 
                   WHERE AccNo = parent.AccNo 
-                  AND 
-                     CASE WHEN parent.AccType IN('R','E') THEN
-                        YEAR(TransDate) = YEAR('$date')
-                     ELSE
-                        YEAR(TransDate) <= YEAR('$date')
-                     END
+                  AND YEAR(TransDate) <= YEAR('$date')
+                  AND MONTH(TransDate) <= MONTH('$date')
                   ORDER BY TransDate DESC, CtrlNo DESC
                   LIMIT 1
                )

@@ -16,6 +16,8 @@ var balanceSheet = () => {
 
             let addr = `${location.href}?branch=${branch}&year=${year}&month=${month}`
 
+            window.history.pushState({}, document.title, `/FinanceCorp/view_balance_sheet`);
+
             $('#submit_filter').attr('href', addr)
         })
     }
