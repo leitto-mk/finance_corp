@@ -18,6 +18,7 @@ BEGIN
          AND AccType IN ('E', 'E1')
    ),0);
 
+   -- GET RETAINING EARNING FROM GENERAL JOURNAL INPUT --
    SELECT @generaljournal_re := IFNULL((
          SELECT SUM(Amount) FROM tbl_fa_transaction
          WHERE Branch = val_branch
