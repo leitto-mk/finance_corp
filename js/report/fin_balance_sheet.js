@@ -2,7 +2,18 @@
 /*
  *  CORE SCRIPT
 */
-var balanceSheet = () => {
+const balanceSheet = () => {
+    /**
+     ** Get URL Param as Select Options Value
+     */
+    const initGetURLParamAsFilter = () => {
+        var urlParams = new URLSearchParams(window.location.search)
+
+        $('#branch').val(urlParams.get('branch'))
+        $('#year').val(urlParams.get('year'))
+        $('#month').val(urlParams.get('month'))
+    }
+
     const eventChangeOption = () => {
         var branch, year, month
 
@@ -22,7 +33,7 @@ var balanceSheet = () => {
         })
     }
 
-    eventSubmitFilter = () => {
+    const eventSubmitFilter = () => {
         $('#submit_filter').click(function(e){
             branch = $('#branch').val()
             year = $('#year').val()
@@ -39,7 +50,7 @@ var balanceSheet = () => {
 
     return {
         init: () => {
-            //NO INIT FUNCTION FOR THIS SCRIPT
+            initGetURLParamAsFilter()
         },
         events: () => {
             eventChangeOption()
