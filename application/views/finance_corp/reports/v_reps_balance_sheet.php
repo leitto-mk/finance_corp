@@ -82,7 +82,7 @@
                                         <td>
                                             <div class="form-group text-center">
                                                 <div class="col-md-12">
-                                                    <a href="<?= base_url('financecorp/view_balance_sheet')?>" class="btn btn-sm btn-success" id="submit_filter">
+                                                    <a href="<?= base_url('FinanceCorp/view_balance_sheet')?>" class="btn btn-sm btn-success" id="submit_filter">
                                                         <center>PREVIEW</center>
                                                     </a>
                                                 </div>
