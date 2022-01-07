@@ -18,15 +18,7 @@ BEGIN
          AND AccType IN ('E', 'E1')
    ),0);
 
-   -- GET RETAINING EARNING FROM GENERAL JOURNAL INPUT --
-   SELECT @generaljournal_re := IFNULL((
-         SELECT SUM(Amount) FROM tbl_fa_transaction
-         WHERE Branch = val_branch
-         AND YEAR(TransDate) = val_year AND MONTH(TransDate) = val_month
-         AND AccType IN ('C1')
-   ),0);
-
-   SELECT @retaining := (@revenue - @expense) + @generaljournal_re;
+   SELECT @retaining := (@revenue - @expense);
 
    -- REVENUE-EXPENSE EACH OF SELECTED MONTH --
    UPDATE `tbl_fa_retaining_earning`

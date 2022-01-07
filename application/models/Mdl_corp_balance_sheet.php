@@ -99,19 +99,33 @@ class Mdl_corp_balance_sheet extends CI_Model
                acc.Acc_Type,
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
                CASE
+                  -- IF acc.Acc_No refers to `31201` (Current Earning - CX) OR `31202` (Retaining Earning - C1) --
+                  -- THEN GET TOTAL FROM tbl_fa_retaining_earning --
+                  -- ELSE, GET LAST `trans.BalanceBranch` --
                   WHEN acc.Acc_No = '31201' THEN
                      (SELECT IFNULL(RetainingSum, 0) AS CurrentEarning
                       FROM tbl_fa_retaining_earning
-                      WHERE Branch = '0101'
+                      WHERE $branch
                       AND Year = YEAR('$date')
                       AND Month = MONTH('$date')
                       ORDER BY CtrlNo DESC LIMIT 1)
                   WHEN acc.Acc_No = '31202' THEN
-                     (SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
-                      FROM tbl_fa_retaining_earning
-                      WHERE Branch = '0101'
-                      AND Year <= YEAR(DATE_SUB('$date', INTERVAL 1 YEAR))
-                      ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
+                     (SELECT (
+                        (
+                           SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
+                           FROM tbl_fa_retaining_earning
+                           WHERE $branch
+                           AND Year <= YEAR(DATE_SUB('$date', INTERVAL 1 YEAR))
+                           ORDER BY Month DESC, CtrlNo DESC LIMIT 1
+                        )
+                        +
+                        (
+                           SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
+                           FROM tbl_fa_transaction
+                           WHERE $branch
+                           AND AccType IN ('C1')
+                        )
+                      ))
                   WHEN  acc.TransGroup IN('H1','H2','H3') THEN
                      NULL
                   ELSE
