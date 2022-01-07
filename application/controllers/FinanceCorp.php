@@ -18,8 +18,39 @@ class FinanceCorp extends CI_Controller
     //* DASHBOARD
     public function index(){
         $data['title'] = 'Dashboard';
-        
+    
         $this->load->view('finance_corp/dashboard/v_home', $data);
+    }
+
+    public function test(){
+        $data = [
+            'header' => 'This is Header',
+            'body' => 'This is Body',
+            'data' => [
+                [
+                    'title' => 'Title 1', 
+                    'body' => 'Body 1'
+                ],
+                [
+                    'title' => 'Title 2', 
+                    'body' => 'Body 2'
+                ],
+                [
+                    'title' => 'Title 3', 
+                    'body' => 'Body 3'
+                ],
+                [
+                    'title' => 'Title 4', 
+                    'body' => 'Body 4'
+                ],
+                [
+                    'title' => 'Title 5', 
+                    'body' => 'Body 5'
+                ]
+            ]
+        ];
+
+        $this->parser->parse('test_parser', $data);
     }
 
     //* RECEIPT VOUCHER
@@ -1093,10 +1124,7 @@ class FinanceCorp extends CI_Controller
             //LEDGER TABLE
             'date_start' => date('d-M-Y', strtotime($date_start)),
             'date_end' => date('d-M-Y', strtotime($date_finish)),
-            'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish),
-
-            //SCRIPT
-            'script' => 'report/fincorp_gl_branch'
+            'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish)
         ];
         
         $this->load->view('finance_corp/reports/v_reps_gl', $data);

@@ -4,7 +4,6 @@
     ".htaccess": true,
     "application/.htaccess": true,
     "application/cache": true,
-    "application/config": true,
     "application/core": true,
     "application/helpers": true,
     "application/hooks": true,
