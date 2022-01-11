@@ -103,28 +103,39 @@ class Mdl_corp_balance_sheet extends CI_Model
                   -- THEN GET TOTAL FROM tbl_fa_retaining_earning --
                   -- ELSE, GET LAST `trans.BalanceBranch` --
                   WHEN acc.Acc_No = '31201' THEN
-                     (SELECT IFNULL(RetainingSum, 0) AS CurrentEarning
-                      FROM tbl_fa_retaining_earning
-                      WHERE $branch
-                      AND Year = YEAR('$date')
-                      AND Month = MONTH('$date')
-                      ORDER BY CtrlNo DESC LIMIT 1)
-                  WHEN acc.Acc_No = '31202' THEN
                      (SELECT (
-                        (
-                           SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
+                        COALESCE(
+                           (SELECT IFNULL(RetainingSum, 0) AS CurrentEarning
                            FROM tbl_fa_retaining_earning
                            WHERE $branch
-                           AND Year <= YEAR(DATE_SUB('$date', INTERVAL 1 YEAR))
-                           ORDER BY Month DESC, CtrlNo DESC LIMIT 1
-                        )
+                           AND Year = YEAR('$date')
+                           AND Month <= MONTH('$date')
+                           ORDER BY CtrlNo DESC LIMIT 1)
+                        ,0)
                         +
-                        (
-                           SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
+                        COALESCE(
+                           (SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
                            FROM tbl_fa_transaction
                            WHERE $branch
-                           AND AccType IN ('C1')
-                        )
+                           AND AccType IN ('CX'))
+                        ,0)
+                     ))
+                  WHEN acc.Acc_No = '31202' THEN
+                     (SELECT (
+                        COALESCE(
+                           (SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
+                           FROM tbl_fa_retaining_earning
+                           WHERE $branch
+                           AND Year = YEAR(DATE_SUB('$date', INTERVAL 1 YEAR))
+                           ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
+                        ,0)
+                        +
+                        COALESCE(
+                           (SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
+                           FROM tbl_fa_transaction
+                           WHERE $branch
+                           AND AccType IN ('C1'))
+                        ,0)
                       ))
                   WHEN  acc.TransGroup IN('H1','H2','H3') THEN
                      NULL

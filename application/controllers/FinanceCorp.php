@@ -1012,6 +1012,13 @@ class FinanceCorp extends CI_Controller
                 $branch_bal = ($branch_beg_bal - $_POST['debit'][$i]) + $_POST['credit'][$i];
             }
 
+            $amount = $_POST['debit'][$i] + $_POST['credit'][$i];
+            
+            //SET AMOUNT TO MINUS OR PLUS FOR CURRENT/RETAINING EARNINGS IF IT'S DEBIT
+            if($_POST['debit'] > 0 && ($_POST['accnos'][$i] == '31201' || $_POST['accnos'][$i] == '31202')) {
+                $amount = -1 * ($_POST['debit'][$i] + $_POST['credit'][$i]);
+            }
+
             //EMPLOYEE BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
@@ -1029,7 +1036,7 @@ class FinanceCorp extends CI_Controller
                 'Currency' => $_POST['currency'][$i],
                 'Rate' => 1,
                 'Unit' => $_POST['debit'][$i] + $_POST['credit'][$i],
-                'Amount' => $_POST['debit'][$i] + $_POST['credit'][$i],
+                'Amount' => $amount,
                 'Debit' => $_POST['debit'][$i],
                 'Credit' => $_POST['credit'][$i],
                 'Balance' => 0,
