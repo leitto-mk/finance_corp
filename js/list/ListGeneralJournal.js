@@ -1,7 +1,7 @@
 /*
  *  CORE SCRIPT
 */
-var GL = () => {
+var GeneralJournal = () => {
     const eventShowList = () => {
         $('#preview, #search').click(function(){
             let docno = $('#search_item').val()
@@ -93,6 +93,6 @@ var GL = () => {
 
 /* INITIALIZE CORE SCRIPT */
 (function(){
-    GL().init()
-    GL().events()
+    GeneralJournal().init()
+    GeneralJournal().events()
 })()

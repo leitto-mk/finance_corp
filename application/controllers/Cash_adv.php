@@ -36,7 +36,7 @@ class Cash_adv extends CI_Controller
             'employees' => $this->Mdl_corp_cash_advance->get_ca_employees(),
 
             //SCRIPT
-            'script' => 'cash_advance/ca_statement'
+            'script' => 'list/ListPersonalStatement'
         ];
         
         $this->load->view('finance_corp/cashadvance/v_ca_statement', $data);
@@ -62,7 +62,7 @@ class Cash_adv extends CI_Controller
             'h4' => '',
             
             'list' => $this->Mdl_corp_cash_advance->get_annual_treasury('CA-WITHDRAW', $docno, $start, $end),
-            'script' => 'cash_advanceh/ca_withdraw'
+            'script' => 'list/ListCAWithdraw'
         ];
         
         $this->load->view('finance_corp/cashadvance/v_ca_withdraw', $data);
@@ -103,7 +103,7 @@ class Cash_adv extends CI_Controller
             'branches' => $this->Mdl_corp_cash_advance->get_branch(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
 
-            'script' => 'cash_advance/fincorp_add_receipt'
+            'script' => 'form/FormCAWithdraw'
         ];
         
         $this->load->view('finance_corp/editview/v_add_ca_withdraw_edit', $data);
@@ -145,7 +145,7 @@ class Cash_adv extends CI_Controller
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
 
-            'script' => 'cash_advance/fincorp_add_ca_withdraw'
+            'script' => 'form/FormCAWithdraw'
         ];
         
         $this->load->view('finance_corp/cashadvance/v_add_ca_withdraw', $data);
@@ -333,7 +333,7 @@ class Cash_adv extends CI_Controller
             'h4' => '',
             
             'list' => $this->Mdl_corp_cash_advance->get_annual_treasury('CA-RECEIPT', $docno, $start, $end),
-            'script' => 'cash_advance/ca_receipt'
+            'script' => 'list/ListCAReceipt'
         ];
         
         $this->load->view('finance_corp/cashadvance/v_ca_receipt', $data);
@@ -374,7 +374,7 @@ class Cash_adv extends CI_Controller
             'branches' => $this->Mdl_corp_cash_advance->get_branch(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
 
-            'script' => 'cash_advance/fincorp_add_receipt'
+            'script' => 'form/FormCAReceipt'
         ];
         
         $this->load->view('finance_corp/editview/v_add_ca_receipt_edit', $data);
@@ -416,7 +416,7 @@ class Cash_adv extends CI_Controller
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
 
-            'script' => 'cash_advance/fincorp_add_ca_receipt'
+            'script' => 'form/FormCAReceipt'
         ];
         
         $this->load->view('finance_corp/cashadvance/v_add_ca_receipt', $data);

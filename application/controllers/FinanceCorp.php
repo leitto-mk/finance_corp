@@ -63,7 +63,7 @@ class FinanceCorp extends CI_Controller
             'title' => 'List Receipt Voucher',
             
             'list' => $this->Mdl_corp_treasury->get_annual_treasury('RECEIPT', $docno, $start, $end),
-            'script' => 'treasuries/receipt'
+            'script' => 'List/ListReceipt'
         ];
         
         $this->load->view('finance_corp/treasuries/v_receipt_voucher', $data);
@@ -102,7 +102,7 @@ class FinanceCorp extends CI_Controller
             'branches' => $this->Mdl_corp_treasury->get_branch(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'add/fincorp_add_receipt'
+            'script' => 'form/FormReceipt'
         ];
         
         $this->load->view('finance_corp/editview/v_add_receipt_voucher_edit', $data);
@@ -143,7 +143,7 @@ class FinanceCorp extends CI_Controller
             'employee' => $this->Mdl_corp_treasury->get_employee(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'add/fincorp_add_receipt'
+            'script' => 'FormReceipt'
         ];
         
         $this->load->view('finance_corp/addview/v_add_receipt_voucher', $data);
@@ -363,7 +363,7 @@ class FinanceCorp extends CI_Controller
             'branches' => $this->Mdl_corp_treasury->get_branch(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'add/fincorp_add_payment'
+            'script' => 'form/FormPayment'
         ];
         
         $this->load->view('finance_corp/editview/v_add_payment_voucher_edit', $data);
@@ -405,7 +405,7 @@ class FinanceCorp extends CI_Controller
             'employee' => $this->Mdl_corp_treasury->get_employee(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'add/fincorp_add_payment'
+            'script' => 'form/FormPayment'
         ];
 
         $this->load->view('finance_corp/addview/v_add_payment_voucher', $data);
@@ -586,7 +586,7 @@ class FinanceCorp extends CI_Controller
             'title' => 'List Overbook Voucher',
             
             'list' => $this->Mdl_corp_treasury->get_annual_treasury('OVERBOOK', $docno, $start, $end),
-            'script' => 'treasuries/overbook'
+            'script' => 'list/ListOverbook'
         ];
         
         $this->load->view('finance_corp/treasuries/v_overbook_voucher', $data);
@@ -625,7 +625,7 @@ class FinanceCorp extends CI_Controller
             'branches' => $this->Mdl_corp_treasury->get_branch(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'add/fincorp_add_overbook'
+            'script' => 'form/FormOverbook'
         ];
         
         $this->load->view('finance_corp/editview/v_add_overbook_voucher_edit', $data);
@@ -667,7 +667,7 @@ class FinanceCorp extends CI_Controller
             'employee' => $this->Mdl_corp_treasury->get_employee(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'add/fincorp_add_overbook'
+            'script' => 'form/FormOverbook'
         ];
         
         $this->load->view('finance_corp/addview/v_add_overbook_voucher', $data);
@@ -849,7 +849,7 @@ class FinanceCorp extends CI_Controller
             'title' => 'List General Journal',
             
             'list' => $this->Mdl_corp_treasury->get_annual_treasury('GENERAL', $docno, $start, $end),
-            'script' => 'treasuries/gl'
+            'script' => 'list/ListGeneralJournal'
         ];
         
         $this->load->view('finance_corp/treasuries/v_general_journal', $data);
@@ -888,7 +888,7 @@ class FinanceCorp extends CI_Controller
             'branches' => $this->Mdl_corp_treasury->get_branch(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'add/fincorp_add_general'
+            'script' => 'form/FormGeneralJournal'
         ];
         
         $this->load->view('finance_corp/editview/v_add_general_journal_edit', $data);
@@ -930,7 +930,7 @@ class FinanceCorp extends CI_Controller
             'employee' => $this->Mdl_corp_treasury->get_employee(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'add/fincorp_add_general'
+            'script' => 'form/FormGeneralJournal'
         ];
         
         $this->load->view('finance_corp/addview/v_add_general_journal', $data);
@@ -1100,7 +1100,7 @@ class FinanceCorp extends CI_Controller
             'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $datestart, $datefinish),
 
             //SCRIPT
-            'script' => 'report/fincorp_gl_branch'
+            'script' => 'report/ReportGeneralLedger'
         ];
         
         $this->load->view('finance_corp/reports/v_gl_branch', $data);
@@ -1164,7 +1164,7 @@ class FinanceCorp extends CI_Controller
             //! 'current_earnings' => $this->Mdl_corp_balance_sheet->get_current_earning($branch, $year, $month),
             //! 'retain_earnings' => $this->Mdl_corp_balance_sheet->get_retaining_earning($branch, $year),
 
-            'script' => 'report/fin_balance_sheet'
+            'script' => 'report/ReportBalanceSheet'
         ];
         
         $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);
@@ -1361,7 +1361,7 @@ class FinanceCorp extends CI_Controller
             'other_revenue' => $other_rev,
             'other_expenses' => $other_expense,
 
-            'script' => 'report/fin_income_statement'
+            'script' => 'report/ReportIncomeStatement'
         ];
 
         $this->load->view('finance_corp/reports/v_reps_income_statement', $data);
