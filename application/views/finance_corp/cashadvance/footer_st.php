@@ -42,7 +42,7 @@
         <script src="<?php echo base_url(); ?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
 
-        <script src="<?= base_url("assets/CUSTOMS/$script.js") ?>"></script>
+        <script src="<?= base_url("js/$script.js") ?>"></script>
         
         <!-- END THEME LAYOUT SCRIPTS -->
     </body>

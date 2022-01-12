@@ -55,18 +55,18 @@
                                                 <table class="table table-bordered" style="margin-top: -20px">
                                                     <thead>
                                                         <tr class="bg-blue-madison font-white">   
-                                                            <th width="70%" class="text-left uppercase" colspan="2">Register Name</th>         
                                                             <th width="20%" class="text-center">ID No</th>
+                                                            <th width="70%" class="text-left uppercase" colspan="2">Register Name</th>         
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php for($i = 0;$i < count($employees); $i++) : ?>
                                                             <tr class="sbold">
-                                                                <td align="center"><?= $i+1?></td>
-                                                                <td>
+                                                                <td align="center" width="5%"><?= $i+1?></td>
+                                                                <td align="center">
                                                                     <a href="javascript:;" name="emp_id" data-id="<?= $employees[$i]['IDNumber']?>"><?= $employees[$i]['IDNumber']?></a>
                                                                 </td>
-                                                                <td align="center"><?= $employees[$i]['IDNumber'] ?></td>
+                                                                <td><?= $employees[$i]['FullName'] ?></td>
                                                             </tr>
                                                         <?php endfor; ?>
                                                     </tbody>
@@ -172,24 +172,26 @@
     </div>
 </div>
 <script type="text/javascript">
-window.onload = load_function;
-function load_function(){
-    document.body.style.zoom = 0.85;
-}
-function printDivSum(divName) {
-var printContents = document.getElementById(divName).innerHTML;
-var originalContents = document.body.innerHTML;
-document.body.innerHTML = printContents;
-window.print();
-document.body.innerHTML = originalContents;
-}
+    window.onload = load_function;
 
-function printDivDet(divName) {
-var printContents = document.getElementById(divName).innerHTML;
-var originalContents = document.body.innerHTML;
-document.body.innerHTML = printContents;
-window.print();
-document.body.innerHTML = originalContents;
-}
+    function load_function(){
+        document.body.style.zoom = 0.85;
+    }
+
+    function printDivSum(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+
+    function printDivDet(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
 </script>
 <?php $this->load->view('finance_corp/cashadvance/footer_st'); ?>

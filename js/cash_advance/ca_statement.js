@@ -1,17 +1,16 @@
 /*
  *  CORE SCRIPT
 */
-var CAStatement = (function(){
+const CAStatement = () => {
+
     const eventGetEmpDetails = () => {
         $(document).on('click','[name=emp_id]',function(){
-            let id = $(this).attr('data-id')
-
             $.ajax({
                 url: 'ajax_get_emp_details',
                 method: 'POST',
                 dataType: 'JSON',
                 data: {
-                    id
+                    id: $(this).attr('data-id')
                 },
                 success: response => {
                     if(!response){
@@ -55,7 +54,7 @@ var CAStatement = (function(){
             eventGetEmpDetails()
         }
     }
-})()
+}
 
 /* INITIALIZE CORE SCRIPT */
 CAStatement().init()
