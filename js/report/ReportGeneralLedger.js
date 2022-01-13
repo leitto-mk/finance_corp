@@ -1,7 +1,7 @@
 /*
  *  CORE SCRIPT
 */
-var GLBranch = () => {
+const GeneralLedger = () => {
     var branch = accno_start = accno_finish = date_start = date_finish
     
     const eventPreviewFilter  = () => {
@@ -225,6 +225,6 @@ var GLBranch = () => {
 
 /* INITIALIZE CORE SCRIPT */
 (function(){
-    GLBranch().init()
-    GLBranch().events()
+    GeneralLedger().init()
+    GeneralLedger().events()
 })()

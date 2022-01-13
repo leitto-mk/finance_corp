@@ -2,7 +2,7 @@
 /*
  *  CORE SCRIPT
 */
-const balanceSheet = () => {
+const BalanceSheet = () => {
     /**
      ** Get URL Param as Select Options Value
      */
@@ -61,6 +61,6 @@ const balanceSheet = () => {
 
 /* INITIALIZE CORE SCRIPT */
 (function(){
-    balanceSheet().init()
-    balanceSheet().events()
+    BalanceSheet().init()
+    BalanceSheet().events()
 })()

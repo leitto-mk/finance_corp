@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_treasury extends CI_Model
 {
-    function get_annual_treasury($type, $docno, $start, $end){
+    function get_ranged_treasury($type, $docno, $start, $end){
         if($docno){
             $docno_condition = "DocNo LIKE '$docno%'";
         }else{

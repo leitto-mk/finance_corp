@@ -2,7 +2,7 @@
 /*
  *  CORE SCRIPT
 */
-var incomeStatement = () => {
+var IncomeStatement = () => {
     const eventChangeOption = () => {
         var branch, year, month
 
@@ -48,6 +48,6 @@ var incomeStatement = () => {
 
 /* INITIALIZE CORE SCRIPT */
 (function(){
-    incomeStatement().init()
-    incomeStatement().events()
+    IncomeStatement().init()
+    IncomeStatement().events()
 })()

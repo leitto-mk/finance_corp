@@ -3,7 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 date_default_timezone_set('Asia/Makassar');
 
-class FinanceCorp extends CI_Controller
+use chriskacerguis\RestServer\RestController;
+
+class FinanceCorp extends RestController
 {
     public function __construct(){
         parent::__construct();
@@ -22,37 +24,6 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/dashboard/v_home', $data);
     }
 
-    public function test(){
-        $data = [
-            'header' => 'This is Header',
-            'body' => 'This is Body',
-            'data' => [
-                [
-                    'title' => 'Title 1', 
-                    'body' => 'Body 1'
-                ],
-                [
-                    'title' => 'Title 2', 
-                    'body' => 'Body 2'
-                ],
-                [
-                    'title' => 'Title 3', 
-                    'body' => 'Body 3'
-                ],
-                [
-                    'title' => 'Title 4', 
-                    'body' => 'Body 4'
-                ],
-                [
-                    'title' => 'Title 5', 
-                    'body' => 'Body 5'
-                ]
-            ]
-        ];
-
-        $this->parser->parse('test_parser', $data);
-    }
-
     //* RECEIPT VOUCHER
     public function view_receipt_voucher(){
         $docno = '';
@@ -62,7 +33,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'List Receipt Voucher',
             
-            'list' => $this->Mdl_corp_treasury->get_annual_treasury('RECEIPT', $docno, $start, $end),
+            'list' => $this->Mdl_corp_treasury->get_ranged_treasury('RECEIPT', $docno, $start, $end),
             'script' => 'List/ListReceipt'
         ];
         
@@ -70,7 +41,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_annual_receipt(){
-        $result = $this->Mdl_corp_treasury->get_annual_treasury('RECEIPT', $_POST['docno'],$_POST['start'], $_POST['end']);
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury('RECEIPT', $_POST['docno'],$_POST['start'], $_POST['end']);
 
         echo json_encode($result);
     }
@@ -323,7 +294,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'List Payment Voucher',
             
-            'list' => $this->Mdl_corp_treasury->get_annual_treasury('PAYMENT', $docno, $start, $end),
+            'list' => $this->Mdl_corp_treasury->get_ranged_treasury('PAYMENT', $docno, $start, $end),
             'script' => 'treasuries/payment'
         ];
         
@@ -331,7 +302,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_annual_payment(){
-        $result = $this->Mdl_corp_treasury->get_annual_treasury('PAYMENT', $_POST['docno'],$_POST['start'], $_POST['end']);
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury('PAYMENT', $_POST['docno'],$_POST['start'], $_POST['end']);
 
         echo json_encode($result);
     }
@@ -585,7 +556,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'List Overbook Voucher',
             
-            'list' => $this->Mdl_corp_treasury->get_annual_treasury('OVERBOOK', $docno, $start, $end),
+            'list' => $this->Mdl_corp_treasury->get_ranged_treasury('OVERBOOK', $docno, $start, $end),
             'script' => 'list/ListOverbook'
         ];
         
@@ -593,7 +564,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_annual_overbook(){
-        $result = $this->Mdl_corp_treasury->get_annual_treasury('OVERBOOK', $_POST['docno'],$_POST['start'], $_POST['end']);
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury('OVERBOOK', $_POST['docno'],$_POST['start'], $_POST['end']);
 
         echo json_encode($result);
     }
@@ -848,7 +819,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'List General Journal',
             
-            'list' => $this->Mdl_corp_treasury->get_annual_treasury('GENERAL', $docno, $start, $end),
+            'list' => $this->Mdl_corp_treasury->get_ranged_treasury('GENERAL', $docno, $start, $end),
             'script' => 'list/ListGeneralJournal'
         ];
         
@@ -856,7 +827,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_annual_general_journal(){
-        $result = $this->Mdl_corp_treasury->get_annual_treasury('GENERAL', $_POST['docno'],$_POST['start'], $_POST['end']);
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury('GENERAL', $_POST['docno'],$_POST['start'], $_POST['end']);
 
         echo json_encode($result);
     }
