@@ -2,15 +2,31 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 if(!function_exists('validate')){
-    function validate($forms)
+    /**
+     * Constructor for the REST API.
+     *
+     * @param array  form     takes POST OR GET form data 
+     * @param array  ignore   form data's name, ex: ['docno','idnumber', ...]
+    */
+    function validate($forms,$ignores)
     {
         $CI =& get_instance();
         $CI->load->library('form_validation');
 
+        if($CI->input->server('REQUEST_METHOD') === "GET"){
+            $CI->form_validation->set_data($forms);
+        }
+
         $list = array_keys($forms);
         
-        if(is_array($forms) && count($forms) > 0){    
+        if(is_array($forms) && count($forms) > 0){
             foreach($list as $val){
+                //Check if $val is in ignore list
+                if(in_array($val, $ignores, TRUE)){
+                    continue;
+                }
+
+                //Check if $val is Array & validate every iteration
                 if(is_array($forms[$val]) && count($forms[$val]) > 0){
                     for($i=0;$i<count($forms[$val]);$i++){
                         $CI->form_validation->set_rules($val ."[]",strtoupper($val) . "at index [$i]",'required|trim|xss_clean');
@@ -19,6 +35,7 @@ if(!function_exists('validate')){
                     continue;
                 }
 
+                //Validate current $val
                 $CI->form_validation->set_rules($val,strtoupper($val),'required|trim|xss_clean');
             }
         }

@@ -5,6 +5,21 @@ date_default_timezone_set('Asia/Makassar');
 
 class FinanceCorp extends CI_Controller
 {
+    /**
+     * Common HTTP status codes and their respective description.
+     *
+     * @link http://www.restapitutorial.com/httpstatuscodes.html
+     */
+    const HTTP_OK = 200;
+    const HTTP_CREATED = 201;
+    const HTTP_NOT_MODIFIED = 304;
+    const HTTP_BAD_REQUEST = 400;
+    const HTTP_UNAUTHORIZED = 401;
+    const HTTP_FORBIDDEN = 403;
+    const HTTP_NOT_FOUND = 404;
+    const HTTP_NOT_ACCEPTABLE = 406;
+    const HTTP_INTERNAL_ERROR = 500;
+
     public function __construct(){
         parent::__construct();
 
@@ -47,18 +62,18 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_get_annual_receipt(){
 
+        $form = $this->input->post();
+        $ignore = ['docno']; //Form Name here, ex: ['docno','idnumber','amount',...], leave blank if all is required
+        $validation = validate($form, $ignore);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
         $docno = $this->input->post('docno');
         $start = $this->input->post('start');
         $end = $this->input->post('end');
-
-        $this->form_validation->set_rules('docno', 'DocNo', 'required|trim');
-        $this->form_validation->set_rules('start', 'Date Start', 'required|trim');
-        $this->form_validation->set_rules('end', 'Date End', 'required|trim');
-
-        if($this->form_validation->run() == FALSE){
-            set_error_response(400, "Form is not Validated");
-            return;
-        }
 
         $result = $this->Mdl_corp_treasury->get_ranged_treasury('RECEIPT', $docno, $start, $end);
 
@@ -67,7 +82,21 @@ class FinanceCorp extends CI_Controller
     }
 
     public function edit_receipt(){
-        $docno = $_GET['docno'];
+        /**
+         * Constructor for the REST API.
+         *
+         * @param array     Either POST OR GET form data 
+         * @param array     Form Name here, ex: ['docno','idnumber','amount',...]
+         *                  leave blank if all is required
+        */
+        $validation = validate($this->input->get(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->get('docno');
 
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
 
@@ -101,12 +130,17 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_delete_receipt(){
 
-        $this->form_validation->set_rules('docno','Doc. No','required|trim');
-        $this->form_validation->set_rules('branch','Branch','required|trim');
-        $this->form_validation->set_rules('transdate','TransDate','required|trim');
-
-        if($this->form_validation->run() === FALSE) {
-            set_error_response(400, $this->form_validation->error());
+        /**
+         * Constructor for the REST API.
+         *
+         * @param array  $form    takes POST OR GET form data 
+         * @param array  $ignore  form data's Name, ex: ['docno','idnumber','amount',...]
+         *                        leave blank if all is required
+        */
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
 
@@ -154,6 +188,14 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_submit_receipt(){
+        
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
         $master = $details = $trans = [];
 
         $itemno = 0;
@@ -335,13 +377,33 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_annual_payment(){
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury('PAYMENT', $_POST['docno'],$_POST['start'], $_POST['end']);
+        
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->post('docno') ;
+        $start = $this->input->post('start') ;
+        $end = $this->input->post('end');
+        
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury('PAYMENT', $docno, $start, $end);
 
         echo json_encode($result);
     }
 
     public function edit_payment(){
-        $docno = $_GET['docno'];
+        
+        $validation = validate($this->input->get(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->post('docno');
 
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
 
@@ -374,11 +436,19 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_delete_payment(){
-        $docno = $_POST['docno'];
-        $branch = $_POST['branch'];
-        $cur_date = $_POST['transdate'];
+        
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->post('docno');
+        $branch = $this->input->post('branch');
+        $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
-        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($_POST['docno']);
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
         $accnos = '';
 
         for($i = 0; $i < count($acc_no); $i++){
@@ -391,7 +461,7 @@ class FinanceCorp extends CI_Controller
             }
         }
 
-        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+        $this->Mdl_corp_treasury->delete_existed_docno($docno);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
@@ -416,6 +486,14 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_submit_payment(){
+        
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
         $master = $details = $trans = [];
 
         $itemno = 0;
@@ -597,13 +675,32 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_annual_overbook(){
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury('OVERBOOK', $_POST['docno'],$_POST['start'], $_POST['end']);
+        
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->post('docno') ;
+        $start = $this->input->post('start') ;
+        $end = $this->input->post('end');
+        
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury('OVERBOOK', $docno, $start, $end);
 
         echo json_encode($result);
     }
 
     public function edit_overbook(){
-        $docno = $_GET['docno'];
+        $validation = validate($this->input->get(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->get('docno');;
 
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
 
@@ -636,11 +733,18 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_delete_overbook(){
-        $docno = $_POST['docno'];
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->post('docno');;
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
-        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($_POST['docno']);
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
         $accnos = '';
 
         for($i = 0; $i < count($acc_no); $i++){
@@ -653,7 +757,7 @@ class FinanceCorp extends CI_Controller
             }
         }
 
-        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+        $this->Mdl_corp_treasury->delete_existed_docno($docno);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
@@ -678,6 +782,13 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_submit_overbook(){
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
         $master = $details = $trans = [];
 
         $itemno = 0;
@@ -860,13 +971,31 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_annual_general_journal(){
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury('GENERAL', $_POST['docno'],$_POST['start'], $_POST['end']);
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->post('docno') ;
+        $start = $this->input->post('start') ;
+        $end = $this->input->post('end');
+        
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury('GENERAL', $docno, $start, $end);
 
         echo json_encode($result);
     }
 
     public function edit_general_journal(){
-        $docno = $_GET['docno'];
+        $validation = validate($this->input->get(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->get('docno');;
 
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
 
@@ -899,11 +1028,18 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_delete_general_journal(){
-        $docno = $_POST['docno'];
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->get('docno');
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
-        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($_POST['docno']);
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
         $accnos = '';
 
         for($i = 0; $i < count($acc_no); $i++){
@@ -916,7 +1052,7 @@ class FinanceCorp extends CI_Controller
             }
         }
 
-        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+        $this->Mdl_corp_treasury->delete_existed_docno($docno);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
@@ -941,12 +1077,21 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_submit_general_journal(){
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
         $master = $details = $trans = [];
 
-        $validation = validate($this->input->post());
-
+        $form = $this->input->post();
+        $ignore = ['remark']; //Form Name here, ex: ['docno','idnumber','amount',...], leave blank if all is required
+        $validation = validate($form, $ignore);
+        
         if($validation !== "success"){
-            set_error_response(400, $validation);
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
 
@@ -1118,11 +1263,18 @@ class FinanceCorp extends CI_Controller
     }
 
     public function view_gl_branch_report(){
-        $branch = isset($_GET['branch']) ? $_GET['branch'] : 'All';
-        $accno_start = isset($_GET['accno_start']) ? $_GET['accno_start'] : '10000';
-        $accno_finish = isset($_GET['accno_finish']) ? $_GET['accno_finish'] : '90000';
-        $date_start = isset($_GET['date_start']) ? $_GET['date_start'] : date('Y-01-01');
-        $date_finish = isset($_GET['date_finish']) ? $_GET['date_finish'] : date('Y-m-d');
+        $validation = validate($this->input->get(), ['branch']);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $branch = $this->input->get('branch') || 'All';
+        $accno_start = $this->input->get('accno_start');
+        $accno_finish = $this->input->get('accno_finish');
+        $date_start = $this->input->get('date_start');
+        $date_finish = $this->input->get('date_finish');
 
         $data = [
             //HEADER
@@ -1141,11 +1293,18 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_general_ledger(){
-        $branch = $_POST['branch'];
-        $accno_start = $_POST['accno_start'];
-        $accno_finish = $_POST['accno_finish'];
-        $date_start = $_POST['date_start'];
-        $date_finish = $_POST['date_finish'];
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $branch = $this->input->post('branch');
+        $accno_start = $this->input->post('accno_start');
+        $accno_finish = $this->input->post('accno_finish');
+        $date_start = $this->input->post('date_start');
+        $date_finish = $this->input->post('date_finish');
 
         $result = $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 
@@ -1153,9 +1312,9 @@ class FinanceCorp extends CI_Controller
     }
 
     public function view_balance_sheet(){
-        $branch = (isset($_GET['branch']) ? $_GET['branch'] : null);
-        $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
-        $month = (isset($_GET['month']) ? $_GET['month'] : date('m'));
+        $branch = $this->input->get('branch') || null;
+        $year =  $this->input->get('year') || date('Y');
+        $month = $this->input->get('month') || date('m');
 
         list($company, $asset, $liabilities, $capital) = $this->Mdl_corp_balance_sheet->get_report($branch, $year, $month);
 
@@ -1181,18 +1340,6 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);
     }
 
-    public function view_incomestatement(){
-        $data = [
-            //HEADER
-            'title' => 'Income Statement',
-            'h1' => 'Income',
-            'h2' => 'Statement',
-            'h3' => '',
-        ];
-
-        $this->load->view('finance_corp/reports/v_income_statement', $data);
-    }
-
     public function view_trial_balance(){
         $data = [
             //HEADER
@@ -1207,10 +1354,18 @@ class FinanceCorp extends CI_Controller
 
     //Re-Calculate
     public function ajax_recalculate_balance(){
-        $branch = $_POST['branch'];
-        $accno_start = $_POST['accno_start'];
-        $accno_finish = $_POST['accno_finish'];
-        $date_start = $_POST['date_start'];
+        $validation = validate($this->input->post(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $branch = $this->input->post('branch');
+        $accno_start = $this->input->post('accno_start');
+        $accno_finish = $this->input->post('accno_finish');
+        $date_start = $this->input->post('date_start');
+
         $date_finish = $this->Mdl_corp_treasury->get_last_trans_date();
 
         $result = $this->Mdl_corp_branch->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
@@ -1218,50 +1373,18 @@ class FinanceCorp extends CI_Controller
         echo $result;
     }
 
-    //Reports Rugi - Laba
-    public function view_reps_rl(){
-        $docno = $_GET['docno'];
-        $branch = $_GET['branch'];
-        $transdate = $_GET['transdate'];
-        $idnumber = $_GET['idnumber'];
-
-        $data = [
-            'title' => 'Reports',
-            'h1' => '',
-            'h2' => '',
-            'h3' => '',
-
-            // 'report' => $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate)
-        ];
-        
-        $this->load->view('finance_corp/reports/v_reps_rl', $data);
-    }
-
-    //Reports Balance Sheet
-    public function view_reps_balance_sheet(){
-        $docno = $_GET['docno'];
-        $branch = $_GET['branch'];
-        $transdate = $_GET['transdate'];
-        $idnumber = $_GET['idnumber'];
-
-        $data = [
-            'title' => 'Reports',
-            'h1' => '',
-            'h2' => '',
-            'h3' => '',
-
-            // 'report' => $this->Mdl_corp_treasury->get_treasury_report('',$docno, $branch, $transdate)
-        ];
-        
-        $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);
-    }
-
     //Reports Receipt Voucher
     public function view_reps_receipt_voucher(){
-        $docno = $_GET['docno'];
-        $branch = $_GET['branch'];
-        $transdate = $_GET['transdate'];
-        // $idnumber = $_GET['idnumber'];
+        $validation = validate($this->input->get(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
 
         $data = [
             'title' => 'Reports',
@@ -1277,10 +1400,16 @@ class FinanceCorp extends CI_Controller
 
     //Reports Payment Voucher
     public function view_reps_payment_voucher(){
-        $docno = $_GET['docno'];
-        $branch = $_GET['branch'];
-        $transdate = $_GET['transdate'];
-        // $idnumber = $_GET['idnumber'];
+        $validation = validate($this->input->get(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
 
         $data = [
             'title' => 'Reports',
@@ -1296,10 +1425,16 @@ class FinanceCorp extends CI_Controller
 
     //Reports General Journal
     public function view_reps_general_journal(){
-        $docno = $_GET['docno'];
-        $branch = $_GET['branch'];
-        $transdate = $_GET['transdate'];
-        // $idnumber = $_GET['idnumber'];
+        $validation = validate($this->input->get(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
 
         $data = [
             'title' => 'Reports',
@@ -1315,10 +1450,16 @@ class FinanceCorp extends CI_Controller
 
     //Reports Cash Withdraw
     public function view_reps_cash_withdraw(){
-        $docno = $_GET['docno'];
-        $branch = $_GET['branch'];
-        $transdate = $_GET['transdate'];
-        // $idnumber = $_GET['idnumber'];
+        $validation = validate($this->input->get(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
 
         $data = [
             'title' => 'Reports',
@@ -1334,10 +1475,16 @@ class FinanceCorp extends CI_Controller
 
     //Reports Cash Receipt
     public function view_reps_cash_receipt(){
-        $docno = $_GET['docno'];
-        $branch = $_GET['branch'];
-        $transdate = $_GET['transdate'];
-        // $idnumber = $_GET['idnumber'];
+        $validation = validate($this->input->get(), []);
+        
+        if($validation !== "success"){
+            set_error_response(self::HTTP_BAD_REQUEST, $validation);
+            return;
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
 
         $data = [
             'title' => 'Reports',
@@ -1353,9 +1500,9 @@ class FinanceCorp extends CI_Controller
 
     //Reports Income Statement
     public function view_income_statement(){
-        $branch = (isset($_GET['branch']) ? $_GET['branch'] : null);
-        $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
-        $month = (isset($_GET['month']) ? $_GET['month'] : date('m'));
+        $branch = $this->input->get('branch') || null;
+        $year =  $this->input->get('year') || date('Y');
+        $month = $this->input->get('month') || date('m');
 
         list($company, $revenue, $operational, $other_rev, $other_expense) = $this->Mdl_corp_income_statement->get_report($branch, $year, $month);
 
