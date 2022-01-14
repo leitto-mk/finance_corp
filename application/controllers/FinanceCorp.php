@@ -3,12 +3,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 date_default_timezone_set('Asia/Makassar');
 
-use chriskacerguis\RestServer\RestController;
-
-class FinanceCorp extends RestController
+class FinanceCorp extends CI_Controller
 {
     public function __construct(){
         parent::__construct();
+
+        $this->load->library('form_validation');
+
+        $this->load->helper([
+            'response',
+            'validate'
+        ]);
 
         $this->load->model('Mdl_corp_treasury');
         $this->load->model('Mdl_corp_branch');
@@ -41,9 +46,24 @@ class FinanceCorp extends RestController
     }
 
     public function ajax_get_annual_receipt(){
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury('RECEIPT', $_POST['docno'],$_POST['start'], $_POST['end']);
 
-        echo json_encode($result);
+        $docno = $this->input->post('docno');
+        $start = $this->input->post('start');
+        $end = $this->input->post('end');
+
+        $this->form_validation->set_rules('docno', 'DocNo', 'required|trim');
+        $this->form_validation->set_rules('start', 'Date Start', 'required|trim');
+        $this->form_validation->set_rules('end', 'Date End', 'required|trim');
+
+        if($this->form_validation->run() == FALSE){
+            set_error_response(400, "Form is not Validated");
+            return;
+        }
+
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury('RECEIPT', $docno, $start, $end);
+
+        set_success_response($result);
+        return;
     }
 
     public function edit_receipt(){
@@ -80,10 +100,22 @@ class FinanceCorp extends RestController
     }
 
     public function ajax_delete_receipt(){
-        $branch = $_POST['branch'];
-        $cur_date = $_POST['transdate'];
+
+        $this->form_validation->set_rules('docno','Doc. No','required|trim');
+        $this->form_validation->set_rules('branch','Branch','required|trim');
+        $this->form_validation->set_rules('transdate','TransDate','required|trim');
+
+        if($this->form_validation->run() === FALSE) {
+            set_error_response(400, $this->form_validation->error());
+            return;
+        }
+
+        $docno = $this->input->post('docno');
+        $branch = $this->input->post('branch');
+        $cur_date = $this->input->post('transdate');
+
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
-        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($_POST['docno']);
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
         $accnos = '';
 
         for($i = 0; $i < count($acc_no); $i++){
@@ -100,8 +132,9 @@ class FinanceCorp extends RestController
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
-        
-        echo $result;
+
+        set_success_response($result);
+        return;
     }
 
     public function add_receipt_voucher(){
@@ -295,7 +328,7 @@ class FinanceCorp extends RestController
             'title' => 'List Payment Voucher',
             
             'list' => $this->Mdl_corp_treasury->get_ranged_treasury('PAYMENT', $docno, $start, $end),
-            'script' => 'treasuries/payment'
+            'script' => 'list/ListPayment'
         ];
         
         $this->load->view('finance_corp/treasuries/v_payment_voucher', $data);
@@ -910,6 +943,13 @@ class FinanceCorp extends RestController
     public function ajax_submit_general_journal(){
         $master = $details = $trans = [];
 
+        $validation = validate($this->input->post());
+
+        if($validation !== "success"){
+            set_error_response(400, $validation);
+            return;
+        }
+
         $itemno = 0;
         $branch = $_POST['branch'];
         $cur_date = $_POST['transdate'];
@@ -978,7 +1018,7 @@ class FinanceCorp extends RestController
             $amount = $_POST['debit'][$i] + $_POST['credit'][$i];
             
             //SET AMOUNT TO MINUS OR PLUS FOR CURRENT/RETAINING EARNINGS IF IT'S DEBIT
-            if($_POST['debit'] > 0 && ($_POST['accnos'][$i] == '31201' || $_POST['accnos'][$i] == '31202')) {
+            if($_POST['debit'][$i] > 0 && ($_POST['accnos'][$i] == '31201' || $_POST['accnos'][$i] == '31202')) {
                 $amount = -1 * ($_POST['debit'][$i] + $_POST['credit'][$i]);
             }
 

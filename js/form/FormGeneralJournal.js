@@ -1,7 +1,7 @@
 /*
  *  CORE SCRIPT
 */
-var addGeneral = () => {
+var FormGeneralJournal = () => {
     const eventNextRow = () => {
         $(document).on('keydown','[name="credit[]"]', function(e){
             if(e.keyCode == 9){
@@ -113,9 +113,10 @@ var addGeneral = () => {
             $.ajax({
                 url: 'ajax_submit_general_journal',
                 method: 'POST',
+                dataType: 'JSON',
                 data: obj,
                 success: response => {
-                    if(response == 'success'){
+                    if(response.status == 'success'){
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
@@ -124,7 +125,11 @@ var addGeneral = () => {
 
                         location.reload()
                     }else{
-                        alert('SERVER PROBLEM')
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ABORTED',
+                            'text': response.desc
+                        })
                     }
                 },
                 error: () => alert('NETWORK PROBLEM')
@@ -147,6 +152,6 @@ var addGeneral = () => {
 
 /* INITIALIZE CORE SCRIPT */
 (function(){
-    addGeneral().init()
-    addGeneral().events()
+    FormGeneralJournal().init()
+    FormGeneralJournal().events()
 })()

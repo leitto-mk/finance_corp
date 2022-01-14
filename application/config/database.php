@@ -98,10 +98,10 @@ $db['default'] = array(
 
 //? VPS
 // $db['default'] = array(
-// 	'dsn'	=> 'http://185.201.9.81:3306',
-// 	'hostname' => 'localhost',
-// 	'username' => 'abase_chio@localhost',
-// 	'password' => '7xk2jwxyed',
+// 	'dsn'	=> '',
+// 	'hostname' => '185.201.9.81:3306',
+// 	'username' => 'develop',
+// 	'password' => '172304200761Xx',
 // 	'database' => 'db_finance',
 // 	'dbdriver' => 'mysqli',
 // 	'dbprefix' => '',

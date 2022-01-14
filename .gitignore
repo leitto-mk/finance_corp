@@ -1,7 +1,6 @@
 application/cache/
 application/config/
 application/core/
-application/helpers/
 application/hooks/
 application/language/
 application/libraries/
@@ -19,7 +18,6 @@ assets/bootzard-registration/
 assets/colorlib/
 assets/CUSTOM-PLUGINS/
 assets/.DS_Store
-system/
 template/
 user_guide/
 upload/
