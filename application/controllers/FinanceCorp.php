@@ -82,13 +82,6 @@ class FinanceCorp extends CI_Controller
     }
 
     public function edit_receipt(){
-        /**
-         * Constructor for the REST API.
-         *
-         * @param array     Either POST OR GET form data 
-         * @param array     Form Name here, ex: ['docno','idnumber','amount',...]
-         *                  leave blank if all is required
-        */
         $validation = validate($this->input->get(), []);
         
         if($validation !== "success"){
@@ -189,7 +182,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_submit_receipt(){
         
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post(), ['remark','remarks']);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -487,7 +480,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_submit_payment(){
         
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post(), ['remark','remarks']);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -782,7 +775,8 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_submit_overbook(){
-        $validation = validate($this->input->post(), []);
+
+        $validation = validate($this->input->post(), ['remark','remarks']);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1077,7 +1071,8 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_submit_general_journal(){
-        $validation = validate($this->input->post(), []);
+
+        $validation = validate($this->input->post(), ['remark','remarks']);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1085,15 +1080,6 @@ class FinanceCorp extends CI_Controller
         }
 
         $master = $details = $trans = [];
-
-        $form = $this->input->post();
-        $ignore = ['remark']; //Form Name here, ex: ['docno','idnumber','amount',...], leave blank if all is required
-        $validation = validate($form, $ignore);
-        
-        if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
-        }
 
         $itemno = 0;
         $branch = $_POST['branch'];
