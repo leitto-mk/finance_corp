@@ -5,7 +5,7 @@ if(!function_exists('validate')){
     /**
      * Constructor for the REST API.
      *
-     * @param array  form     takes POST OR GET form data 
+     * @param array  form     takes `POST` or `GET` form data 
      * @param array  ignore   form data's name, ex: ['docno','idnumber', ...]
     */
     function validate($forms,$ignores)
