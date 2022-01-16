@@ -62,9 +62,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_get_annual_receipt(){
 
-        $form = $this->input->post();
-        $ignore = ['docno']; //Form Name here, ex: ['docno','idnumber','amount',...], leave blank if all is required
-        $validation = validate($form, $ignore);
+        $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
