@@ -18,7 +18,7 @@ var Overbook = () => {
                     end
                 },
                 success: response => {
-                    if(response){
+                    if(response.success == true){
                         $('tbody').empty()
 
                         for(let i=0; i < response.length; i++){
@@ -41,6 +41,12 @@ var Overbook = () => {
                                  </tr>`
                             )
                         }
+                    }else{
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ERROR',
+                            'text': response.desc
+                        })
                     }
                 },
                 error: () => alert('NETWORK PROBLEM')

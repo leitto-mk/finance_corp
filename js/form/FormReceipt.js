@@ -116,7 +116,7 @@ var addReceipt = () => {
                 method: 'POST',
                 data: obj,
                 success: response => {
-                    if(response == 'success'){
+                    if(response.success == true){
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
@@ -125,7 +125,11 @@ var addReceipt = () => {
 
                         location.reload()
                     }else{
-                        alert('SERVER PROBLEM')
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ERROR',
+                            'text': response.desc
+                        })
                     }
                 },
                 error: () => alert('NETWORK PROBLEM')

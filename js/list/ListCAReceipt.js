@@ -18,7 +18,7 @@ var CAReceipt = () => {
                     end
                 },
                 success: response => {
-                    if(response){
+                    if(response.success){
                         $('tbody').empty()
 
                         for(let i=0; i < response.length; i++){
@@ -44,6 +44,12 @@ var CAReceipt = () => {
                                  </tr>`
                             )
                         }
+                    }else{
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ERROR',
+                            'text': response.desc
+                        })
                     }
                 },
                 error: () => alert('NETWORK PROBLEM')

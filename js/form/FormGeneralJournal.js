@@ -116,7 +116,7 @@ var FormGeneralJournal = () => {
                 dataType: 'JSON',
                 data: obj,
                 success: response => {
-                    if(response.status == 'success'){
+                    if(response.success == true){
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
@@ -127,7 +127,7 @@ var FormGeneralJournal = () => {
                     }else{
                         Swal.fire({
                             'type': 'error',
-                            'title': 'ABORTED',
+                            'title': 'ERROR',
                             'text': response.desc
                         })
                     }

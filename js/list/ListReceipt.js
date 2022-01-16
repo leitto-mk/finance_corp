@@ -18,7 +18,7 @@ var Receipt = () => {
                     end
                 },
                 success: response => {
-                    if(response.status == "success"){
+                    if(response.success == true){
                         $('tbody').empty()
 
                         if(!Array.isArray(response.result) || response.result.length == 0){
@@ -51,7 +51,7 @@ var Receipt = () => {
                     }else{
                         Swal.fire({
                             'type': 'error',
-                            'title': 'ABORTED',
+                            'title': 'ERROR',
                             'text': response.desc
                         })
                     }

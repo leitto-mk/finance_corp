@@ -106,11 +106,10 @@ var addOverbook = () => {
             $.ajax({
                 url: 'ajax_submit_overbook',
                 method: 'POST',
+                dataType: 'JSON',
                 data: obj,
                 success: response => {
-                    console.log(JSON.stringify(response, null, '\t'))
-                    
-                    if(response == 'success'){
+                    if(response.success == true){
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
@@ -119,7 +118,11 @@ var addOverbook = () => {
 
                         location.reload()
                     }else{
-                        alert('SERVER PROBLEM')
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ERROR',
+                            'text': response.desc
+                        })
                     }
                 },
                 error: () => alert('NETWORK PROBLEM')

@@ -117,9 +117,10 @@ var addCAReceipt = () => {
             $.ajax({
                 url: 'ajax_submit_ca_receipt',
                 method: 'POST',
+                dataType: 'JSON',
                 data: obj,
                 success: response => {
-                    if(response == 'success'){
+                    if(response.success == true){
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
@@ -128,7 +129,11 @@ var addCAReceipt = () => {
 
                         location.reload()
                     }else{
-                        alert('SERVER PROBLEM')
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ERROR',
+                            'text': response.desc
+                        })
                     }
                 },
                 error: () => alert('NETWORK PROBLEM')

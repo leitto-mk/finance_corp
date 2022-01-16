@@ -13,7 +13,7 @@ if(!function_exists('set_success_response')){
         $CI->output->set_status_header(200);
         $CI->output->set_content_type('application/json','utf-8');
         $CI->output->set_output(json_encode([
-            'status' => 'success',
+            'success' => TRUE,
             'desc' => NULL,
             'result' => $body
         ]));
@@ -28,7 +28,7 @@ if(!function_exists('set_error_response')){
         $CI->output->set_status_header($code);
         $CI->output->set_content_type('application/json','utf-8');
         $CI->output->set_output(json_encode([
-            'status' => 'error',
+            'success' => FALSE,
             'desc' => $message,
             'result' => NULL
         ]));
