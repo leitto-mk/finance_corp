@@ -153,7 +153,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="10" class="bold uppercase">Approved</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Eduard Salindeho - 2929</td>
@@ -165,7 +165,7 @@
                                             <td align="right">25,000</td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Sesca Londah - 2000</td>
@@ -177,7 +177,7 @@
                                             <td align="right">250,000</td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Pranayan Salindeho - 2001</td>
@@ -189,7 +189,7 @@
                                             <td align="right">100,000</td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">4</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Jannice Salindeho - 2002</td>
@@ -201,7 +201,7 @@
                                             <td align="right">100,000</td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">5</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -217,7 +217,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="10" class="bold uppercase">Waiting Approval</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -229,7 +229,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -241,7 +241,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -257,7 +257,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="10" class="bold uppercase">Pending</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -269,7 +269,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -281,7 +281,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -297,7 +297,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="10" class="bold uppercase">Cancelled</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -309,7 +309,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -321,7 +321,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -333,7 +333,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">4</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -345,7 +345,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">4</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -357,7 +357,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">5</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -370,7 +370,7 @@
                                             <td align="left"></td>
                                         </tr>
 
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">6</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -382,7 +382,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">7</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>
@@ -394,7 +394,7 @@
                                             <td align="right"></td>
                                             <td align="left"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">8</td>                                 
                                             <td align="center">CAW2101-0001</td>
                                             <td align="left">Vallerie Salindeho - 2003</td>

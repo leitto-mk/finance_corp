@@ -181,7 +181,7 @@
                                                 </tr>
                                             <?php endif ?>
 
-                                            <tr class="font-dark sbold">
+                                            <tr class="font-white sbold">
                                                 <td class="bold" align="center"><?= $i+1 ?></td>
                                                 <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
                                                 <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
@@ -216,7 +216,7 @@
                                                     $subtotal_balance = $subtotal_debit - $subtotal_credit;
                                                 ?>
                                                 <!-- <tr class="font-white sbold"> -->
-                                                <tr class="font-dark sbold">
+                                                <tr class="font-white sbold">
                                                     <td class="bold" align="right" colspan="8">Beginning Balance</td>
                                                     <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></td>
                                                 </tr>

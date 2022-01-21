@@ -143,9 +143,9 @@ class FinanceCorp extends CI_Controller
             $cur_accno = $acc_no[$i]['AccNo'];
 
             if($i < count($acc_no)-1){
-                $accnos .= "'$cur_accno'," ;
+                $accnos .= "'$cur_accno',";
             }else{
-                $accnos .= "'$cur_accno'" ;
+                $accnos .= "'$cur_accno'";
             }
         }
 
@@ -340,9 +340,9 @@ class FinanceCorp extends CI_Controller
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
                 if($i < count($cur_accno_bal)-1){
-                    $accnos .= "'$cur_accno'," ;
+                    $accnos .= "'$cur_accno',";
                 }else{
-                    $accnos .= "'$cur_accno'" ;
+                    $accnos .= "'$cur_accno'";
                 }
             }
         }
@@ -381,8 +381,8 @@ class FinanceCorp extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $docno = $this->input->post('docno') ;
-        $start = $this->input->post('start') ;
+        $docno = $this->input->post('docno');
+        $start = $this->input->post('start');
         $end = $this->input->post('end');
         
         $result = $this->Mdl_corp_treasury->get_ranged_treasury('PAYMENT', $docno, $start, $end);
@@ -449,9 +449,9 @@ class FinanceCorp extends CI_Controller
             $cur_accno = $acc_no[$i]['AccNo'];
 
             if($i < count($acc_no)-1){
-                $accnos .= "'$cur_accno'," ;
+                $accnos .= "'$cur_accno',";
             }else{
-                $accnos .= "'$cur_accno'" ;
+                $accnos .= "'$cur_accno'";
             }
         }
 
@@ -646,9 +646,9 @@ class FinanceCorp extends CI_Controller
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
                 if($i < count($cur_accno_bal)-1){
-                    $accnos .= "'$cur_accno'," ;
+                    $accnos .= "'$cur_accno',";
                 }else{
-                    $accnos .= "'$cur_accno'" ;
+                    $accnos .= "'$cur_accno'";
                 }
             }
         }
@@ -687,8 +687,8 @@ class FinanceCorp extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $docno = $this->input->post('docno') ;
-        $start = $this->input->post('start') ;
+        $docno = $this->input->post('docno');
+        $start = $this->input->post('start');
         $end = $this->input->post('end');
         
         $result = $this->Mdl_corp_treasury->get_ranged_treasury('OVERBOOK', $docno, $start, $end);
@@ -753,9 +753,9 @@ class FinanceCorp extends CI_Controller
             $cur_accno = $acc_no[$i]['AccNo'];
 
             if($i < count($acc_no)-1){
-                $accnos .= "'$cur_accno'," ;
+                $accnos .= "'$cur_accno',";
             }else{
-                $accnos .= "'$cur_accno'" ;
+                $accnos .= "'$cur_accno'";
             }
         }
 
@@ -951,9 +951,9 @@ class FinanceCorp extends CI_Controller
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
                 if($i < count($cur_accno_bal)-1){
-                    $accnos .= "'$cur_accno'," ;
+                    $accnos .= "'$cur_accno',";
                 }else{
-                    $accnos .= "'$cur_accno'" ;
+                    $accnos .= "'$cur_accno'";
                 }
             }
         }
@@ -991,8 +991,8 @@ class FinanceCorp extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $docno = $this->input->post('docno') ;
-        $start = $this->input->post('start') ;
+        $docno = $this->input->post('docno');
+        $start = $this->input->post('start');
         $end = $this->input->post('end');
         
         $result = $this->Mdl_corp_treasury->get_ranged_treasury('GENERAL', $docno, $start, $end);
@@ -1057,9 +1057,9 @@ class FinanceCorp extends CI_Controller
             $cur_accno = $acc_no[$i]['AccNo'];
 
             if($i < count($acc_no)-1){
-                $accnos .= "'$cur_accno'," ;
+                $accnos .= "'$cur_accno',";
             }else{
-                $accnos .= "'$cur_accno'" ;
+                $accnos .= "'$cur_accno'";
             }
         }
 
@@ -1222,9 +1222,9 @@ class FinanceCorp extends CI_Controller
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
                 if($i < count($cur_accno_bal)-1){
-                    $accnos .= "'$cur_accno'," ;
+                    $accnos .= "'$cur_accno',";
                 }else{
-                    $accnos .= "'$cur_accno'" ;
+                    $accnos .= "'$cur_accno'";
                 }
             }
         }

@@ -133,7 +133,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="6" class="bold uppercase">Finance Accounting Department (Code)</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="center">2000</td>
                                             <td align="left">Eduard Salindeho</td>
@@ -141,7 +141,7 @@
                                             <td align="left">Sesca Londah - 2000</td>
                                             <td align="right"> 1,400,000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="center">2001</td>
                                             <td align="left">Sesca Londah</td>
@@ -149,7 +149,7 @@
                                             <td align="left">Sesca Londah - 2000</td>
                                             <td align="right"> 500,000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="center">2000</td>
                                             <td align="left">Pranayan Salindeho</td>
@@ -166,7 +166,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="6" class="bold uppercase">Operation Department (Code)</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="center">2000</td>
                                             <td align="left">Eduard Salindeho</td>
@@ -174,7 +174,7 @@
                                             <td align="left">Sesca Londah - 2000</td>
                                             <td align="right"> 1,400,000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="center">2001</td>
                                             <td align="left">Sesca Londah</td>
@@ -182,7 +182,7 @@
                                             <td align="left">Sesca Londah - 2000</td>
                                             <td align="right"> 500,000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="center">2000</td>
                                             <td align="left">Pranayan Salindeho</td>
@@ -199,7 +199,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="6" class="bold uppercase">Human Resource Department (Code)</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="center">2000</td>
                                             <td align="left">Eduard Salindeho</td>
@@ -207,7 +207,7 @@
                                             <td align="left">Sesca Londah - 2000</td>
                                             <td align="right"> 1,400,000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="center">2001</td>
                                             <td align="left">Sesca Londah</td>
@@ -215,7 +215,7 @@
                                             <td align="left">Sesca Londah - 2000</td>
                                             <td align="right"> 500,000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="center">2000</td>
                                             <td align="left">Pranayan Salindeho</td>

@@ -156,7 +156,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>
                                     <td align="center">Customer A</td>                                    
                                     <td align="right">1,100.000</td>
@@ -166,7 +166,7 @@
                                     <td align="right"></td>
                                     <td align="right"></td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>
                                     <td align="center">Customer B</td>                                    
                                     <td align="right">130,000</td>
@@ -176,7 +176,7 @@
                                     <td align="right"></td>
                                     <td align="right"></td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>
                                     <td align="center">Customer C</td>                                    
                                     <td align="right">1,750,000</td>
@@ -186,7 +186,7 @@
                                     <td align="right"></td>
                                     <td align="right">1.750.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">4</td>
                                     <td align="center">Customer D</td>                                    
                                     <td align="right">100,000</td>
@@ -196,7 +196,7 @@
                                     <td align="right">100.000</td>
                                     <td align="right"></td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">5</td>
                                     <td align="center">Customer E</td>                                    
                                     <td align="right">300.000</td>
@@ -206,7 +206,7 @@
                                     <td align="right">100.000</td>
                                     <td align="right"></td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">6</td>
                                     <td align="center">Customer F</td>                                    
                                     <td align="right">1,950,000</td>
@@ -262,7 +262,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold">Customer A - Code</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>                                 
                                     <td align="left">INV2107-001</td>
                                     <td align="center">30</td>
@@ -273,7 +273,7 @@
                                     <td align="right">200.000</td>
                                     <td align="right">30.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>                                 
                                     <td align="left">INV2108-001</td>
                                     <td align="center">30</td>
@@ -284,7 +284,7 @@
                                     <td align="right">500.000</td>
                                     <td align="right">500.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>                                 
                                     <td align="left">INV2109-001</td>
                                     <td align="center">30</td>
@@ -332,7 +332,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold">Customer A - Code</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>                                 
                                     <td align="left">INV2107-001</td>
                                     <td align="center">30</td>
@@ -343,7 +343,7 @@
                                     <td align="right">200.000</td>
                                     <td align="right">30.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>                                 
                                     <td align="left">INV2108-001</td>
                                     <td align="center">30</td>
@@ -354,7 +354,7 @@
                                     <td align="right">500.000</td>
                                     <td align="right">500.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>                                 
                                     <td align="left">INV2109-001</td>
                                     <td align="center">30</td>
@@ -377,7 +377,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold">Customer A - Code</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>                                 
                                     <td align="left">INV2107-001</td>
                                     <td align="center">30</td>
@@ -388,7 +388,7 @@
                                     <td align="right">200.000</td>
                                     <td align="right">30.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>                                 
                                     <td align="left">INV2108-001</td>
                                     <td align="center">30</td>
@@ -399,7 +399,7 @@
                                     <td align="right">500.000</td>
                                     <td align="right">500.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>                                 
                                     <td align="left">INV2109-001</td>
                                     <td align="center">30</td>
@@ -446,7 +446,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold">Customer A - Code</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>                                 
                                     <td align="left">INV2107-001</td>
                                     <td align="center">30</td>
@@ -457,7 +457,7 @@
                                     <td align="right">200.000</td>
                                     <td align="right">30.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>                                 
                                     <td align="left">INV2108-001</td>
                                     <td align="center">30</td>
@@ -468,7 +468,7 @@
                                     <td align="right">500.000</td>
                                     <td align="right">500.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>                                 
                                     <td align="left">INV2109-001</td>
                                     <td align="center">30</td>
@@ -515,7 +515,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold">Customer A - Code</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>                                 
                                     <td align="left">INV2107-001</td>
                                     <td align="center">30</td>
@@ -526,7 +526,7 @@
                                     <td align="right">200.000</td>
                                     <td align="right">30.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>                                 
                                     <td align="left">INV2108-001</td>
                                     <td align="center">30</td>
@@ -537,7 +537,7 @@
                                     <td align="right">500.000</td>
                                     <td align="right">500.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>                                 
                                     <td align="left">INV2109-001</td>
                                     <td align="center">30</td>
@@ -584,7 +584,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold">Customer A - Code</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>                                 
                                     <td align="left">INV2107-001</td>
                                     <td align="center">30</td>
@@ -595,7 +595,7 @@
                                     <td align="right">200.000</td>
                                     <td align="right">30.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>                                 
                                     <td align="left">INV2108-001</td>
                                     <td align="center">30</td>
@@ -606,7 +606,7 @@
                                     <td align="right">500.000</td>
                                     <td align="right">500.000</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>                                 
                                     <td align="left">INV2109-001</td>
                                     <td align="center">30</td>

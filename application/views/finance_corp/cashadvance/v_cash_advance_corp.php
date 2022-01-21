@@ -160,7 +160,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>
                                     <td align="center">CAW2101-0001</td>                                    
                                     <td align="left">Eduard Salindeho - 2929</td>
@@ -181,7 +181,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>
                                     <td align="center">CAW2101-0001</td>                                    
                                     <td align="left">Sesca Londah - 2000</td>
@@ -202,7 +202,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>
                                     <td align="center">CAW2101-0001</td>                                    
                                     <td align="left">Pranayan Salindeho - 2001</td>
@@ -253,7 +253,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold uppercase">Finance Accounting Department (Code)</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Eduard Salindeho</td>
@@ -272,7 +272,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>                                 
                                     <td align="center">2001</td>
                                     <td align="left">Sesca Londah</td>
@@ -291,7 +291,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Pranayan Salindeho</td>
@@ -320,7 +320,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold uppercase">Operation Department (Code)</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Eduard Salindeho</td>
@@ -339,7 +339,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>                                 
                                     <td align="center">2001</td>
                                     <td align="left">Sesca Londah</td>
@@ -358,7 +358,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Pranayan Salindeho</td>
@@ -387,7 +387,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold uppercase">Human Resource Department (Code)</td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">1</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Eduard Salindeho</td>
@@ -406,7 +406,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">2</td>                                 
                                     <td align="center">2001</td>
                                     <td align="left">Sesca Londah</td>
@@ -425,7 +425,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-dark sbold">
+                                <tr class="font-white sbold">
                                     <td align="center">3</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Pranayan Salindeho</td>

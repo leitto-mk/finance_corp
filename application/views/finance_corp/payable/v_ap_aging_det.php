@@ -140,7 +140,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="9" class="bold">Supplier / Vendor A - Code</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="left">PO2107-001</td>
                                             <td align="center">30</td>
@@ -151,7 +151,7 @@
                                             <td align="right">200.000</td>
                                             <td align="right">30.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="left">PO2108-001</td>
                                             <td align="center">30</td>
@@ -162,7 +162,7 @@
                                             <td align="right">500.000</td>
                                             <td align="right">500.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="left">PO2109-001</td>
                                             <td align="center">30</td>
@@ -210,7 +210,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="9" class="bold">Supplier / Vendor A - Code</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="left">PO2107-001</td>
                                             <td align="center">30</td>
@@ -221,7 +221,7 @@
                                             <td align="right">200.000</td>
                                             <td align="right">30.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="left">PO2108-001</td>
                                             <td align="center">30</td>
@@ -232,7 +232,7 @@
                                             <td align="right">500.000</td>
                                             <td align="right">500.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="left">PO2109-001</td>
                                             <td align="center">30</td>
@@ -255,7 +255,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="9" class="bold">Supplier / Vendor A - Code</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="left">PO2107-001</td>
                                             <td align="center">30</td>
@@ -266,7 +266,7 @@
                                             <td align="right">200.000</td>
                                             <td align="right">30.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="left">PO2108-001</td>
                                             <td align="center">30</td>
@@ -277,7 +277,7 @@
                                             <td align="right">500.000</td>
                                             <td align="right">500.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="left">PO2109-001</td>
                                             <td align="center">30</td>
@@ -324,7 +324,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="9" class="bold">Supplier / Vendor A - Code</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="left">PO2107-001</td>
                                             <td align="center">30</td>
@@ -335,7 +335,7 @@
                                             <td align="right">200.000</td>
                                             <td align="right">30.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="left">PO2108-001</td>
                                             <td align="center">30</td>
@@ -346,7 +346,7 @@
                                             <td align="right">500.000</td>
                                             <td align="right">500.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="left">PO2109-001</td>
                                             <td align="center">30</td>
@@ -393,7 +393,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="9" class="bold">Supplier / Vendor A - Code</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="left">PO2107-001</td>
                                             <td align="center">30</td>
@@ -404,7 +404,7 @@
                                             <td align="right">200.000</td>
                                             <td align="right">30.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="left">PO2108-001</td>
                                             <td align="center">30</td>
@@ -415,7 +415,7 @@
                                             <td align="right">500.000</td>
                                             <td align="right">500.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="left">PO2109-001</td>
                                             <td align="center">30</td>
@@ -462,7 +462,7 @@
                                         <tr style="background-color: #578ebe6b">
                                             <td colspan="9" class="bold">Supplier / Vendor A - Code</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>                                 
                                             <td align="left">PO2107-001</td>
                                             <td align="center">30</td>
@@ -473,7 +473,7 @@
                                             <td align="right">200.000</td>
                                             <td align="right">30.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>                                 
                                             <td align="left">PO2108-001</td>
                                             <td align="center">30</td>
@@ -484,7 +484,7 @@
                                             <td align="right">500.000</td>
                                             <td align="right">500.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>                                 
                                             <td align="left">PO2109-001</td>
                                             <td align="center">30</td>

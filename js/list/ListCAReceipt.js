@@ -23,7 +23,7 @@ var CAReceipt = () => {
 
                         for(let i=0; i < response.result.length; i++){
                             $('tbody').append(
-                                `<tr class="font-dark sbold">
+                                `<tr class="font-white sbold">
                                     <td align="center">${response.result[i].TransDate}</td>
                                     <td align="center">${response.result[i].DocNo}</td>
                                     <td align="center">${response.result[i].TransType}</td>

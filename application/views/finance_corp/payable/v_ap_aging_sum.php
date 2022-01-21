@@ -133,7 +133,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">1</td>
                                             <td align="center">Supplier A</td>                                    
                                             <td align="right">1,100.000</td>
@@ -143,7 +143,7 @@
                                             <td align="right"></td>
                                             <td align="right"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">2</td>
                                             <td align="center">Supplier B</td>                                    
                                             <td align="right">130,000</td>
@@ -153,7 +153,7 @@
                                             <td align="right"></td>
                                             <td align="right"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">3</td>
                                             <td align="center">Supplier C</td>                                    
                                             <td align="right">1,750,000</td>
@@ -163,7 +163,7 @@
                                             <td align="right"></td>
                                             <td align="right">1.750.000</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">4</td>
                                             <td align="center">Supplier D</td>                                    
                                             <td align="right">100,000</td>
@@ -173,7 +173,7 @@
                                             <td align="right">100.000</td>
                                             <td align="right"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">5</td>
                                             <td align="center">Supplier E</td>                                    
                                             <td align="right">300.000</td>
@@ -183,7 +183,7 @@
                                             <td align="right">100.000</td>
                                             <td align="right"></td>
                                         </tr>
-                                        <tr class="font-dark sbold">
+                                        <tr class="font-white sbold">
                                             <td align="center">6</td>
                                             <td align="center">Supplier F</td>                                    
                                             <td align="right">1,950,000</td>
