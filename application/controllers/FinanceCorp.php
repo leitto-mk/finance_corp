@@ -62,7 +62,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_get_annual_receipt(){
 
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post(), ['docno']);
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -375,7 +375,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_get_annual_payment(){
         
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post(), ['docno']);
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -387,7 +387,7 @@ class FinanceCorp extends CI_Controller
         
         $result = $this->Mdl_corp_treasury->get_ranged_treasury('PAYMENT', $docno, $start, $end);
 
-        echo json_encode($result);
+        return set_success_response($result);
     }
 
     public function edit_payment(){
@@ -681,7 +681,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_get_annual_overbook(){
         
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post(), ['docno']);
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -693,7 +693,7 @@ class FinanceCorp extends CI_Controller
         
         $result = $this->Mdl_corp_treasury->get_ranged_treasury('OVERBOOK', $docno, $start, $end);
 
-        echo json_encode($result);
+        return set_success_response($result);
     }
 
     public function edit_overbook(){
@@ -985,7 +985,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_annual_general_journal(){
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post(), ['docno']);
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -997,7 +997,7 @@ class FinanceCorp extends CI_Controller
         
         $result = $this->Mdl_corp_treasury->get_ranged_treasury('GENERAL', $docno, $start, $end);
 
-        echo json_encode($result);
+        return set_success_response($result);
     }
 
     public function edit_general_journal(){
@@ -1320,7 +1320,7 @@ class FinanceCorp extends CI_Controller
 
         $result = $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 
-        echo json_encode($result);
+        return set_success_response($result);
     }
 
     public function view_balance_sheet(){

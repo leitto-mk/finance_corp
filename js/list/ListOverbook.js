@@ -21,20 +21,20 @@ var Overbook = () => {
                     if(response.success == true){
                         $('tbody').empty()
 
-                        for(let i=0; i < response.length; i++){
+                        for(let i=0; i < response.result.length; i++){
                             $('tbody').append(
                                 `<tr class="font-dark sbold">
-                                    <td align="center">${response[i].TransDate}</td>
-                                    <td align="center">${response[i].DocNo}</td>
-                                    <td align="center">${response[i].TransType}</td>
-                                    <td align="left">${response[i].Branch} - ${response[i].BranchName}</td>
-                                    <td align="left">${response[i].Remarks}</td>
-                                    <td align="right">${response[i].TotalAmount}</td>
+                                    <td align="center">${response.result[i].TransDate}</td>
+                                    <td align="center">${response.result[i].DocNo}</td>
+                                    <td align="center">${response.result[i].TransType}</td>
+                                    <td align="left">${response.result[i].Branch} - ${response.result[i].BranchName}</td>
+                                    <td align="left">${response.result[i].Remarks}</td>
+                                    <td align="right">${response.result[i].TotalAmount}</td>
                                     <td align="center">
-                                        <a href="${base_url}FinanceCorp/edit_overbook?docno=${response[i].DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                                        <a href="${base_url}FinanceCorp/edit_overbook?docno=${response.result[i].DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                             <i class="fa fa-edit"> </i>
                                         </a>
-                                        <a href="javascript:;" name="delete" data-docno="${response[i].DocNo}" data-branch="${response[i].Branch}" data-transdate="${response[i].TransDate}" type="button" class="btn btn-xs red">
+                                        <a href="javascript:;" name="delete" data-docno="${response.result[i].DocNo}" data-branch="${response.result[i].Branch}" data-transdate="${response.result[i].TransDate}" type="button" class="btn btn-xs red">
                                             <i class="fa fa-trash"> </i>
                                         </a>
                                     </td>

@@ -27,17 +27,17 @@ const CAStatement = () => {
                         $('#department').val(response[0].Department || '-')
                         $('#outstanding').val(response[0].Balance || '-')
     
-                        for(let i = 0; i < response.length; i++){
+                        for(let i = 0; i < response.result.length; i++){
                             $('#tbody_statement_details').append(`
                                 <tr class="sbold">
                                     <td class="text-center">${i+1}</td>
-                                    <td class="text-center">${response[i].TransDate}</td>
-                                    <td class="text-center">${response[i].DocNo}</td>
-                                    <td class="text-left">${response[i].Remarks}</td>
-                                    <td class="text-left">${response[i].AccNo}</td>
-                                    <td class="text-left">${response[i].Debit}</td>
-                                    <td class="text-right">${response[i].Credit}</td>
-                                    <td class="text-right">${response[i].Balance}</td>
+                                    <td class="text-center">${response.result[i].TransDate}</td>
+                                    <td class="text-center">${response.result[i].DocNo}</td>
+                                    <td class="text-left">${response.result[i].Remarks}</td>
+                                    <td class="text-left">${response.result[i].AccNo}</td>
+                                    <td class="text-left">${response.result[i].Debit}</td>
+                                    <td class="text-right">${response.result[i].Credit}</td>
+                                    <td class="text-right">${response.result[i].Balance}</td>
                                 </tr>
                             `)
                         }
