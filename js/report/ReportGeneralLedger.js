@@ -97,7 +97,7 @@ const GeneralLedger = () => {
                             }
 
                             table.append(`
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td class="bold" align="center">${i+1}</td>
                                     <td class="bold" align="center">${response[i].TransDate}</td>
                                     <td class="bold" align="center">${response[i].DocNo}</td>
@@ -123,7 +123,7 @@ const GeneralLedger = () => {
                                     let subtotal_balance = subtotal_debit - subtotal_credit;
         
                                     table.append(`
-                                        <tr class="font-white sbold">
+                                        <tr class="font-dark sbold">
                                             <td class="bold" align="right" colspan="8">Beginning Balance</td>
                                             <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response[i].beg_balance)}</td>
                                         </tr>
@@ -140,7 +140,7 @@ const GeneralLedger = () => {
                                     let subtotal_balance = subtotal_debit + subtotal_credit;
         
                                     table.append(`
-                                        <tr class="font-white sbold">
+                                        <tr class="font-dark sbold">
                                             <td class="bold" align="right" colspan="8">Beginning Balance</td>
                                             <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response[i].BalanceBranch)}</td>
                                         </tr>
