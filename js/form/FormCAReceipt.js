@@ -124,7 +124,7 @@ var addCAReceipt = () => {
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
-                            'text': 'CA Receipt HAS BEEN SUBMITTED'
+                            'html': 'CA Receipt HAS BEEN SUBMITTED'
                         })
 
                         location.reload()
@@ -132,7 +132,7 @@ var addCAReceipt = () => {
                         Swal.fire({
                             'type': 'error',
                             'title': 'ERROR',
-                            'text': response.desc
+                            'html': response.desc
                         })
                     }
                 },
@@ -140,7 +140,7 @@ var addCAReceipt = () => {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'text': response.desc
+                        'html': response.responseJSON.desc
                     })
                 }
             })

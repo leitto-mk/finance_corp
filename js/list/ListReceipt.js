@@ -52,15 +52,15 @@ var Receipt = () => {
                         Swal.fire({
                             'type': 'error',
                             'title': 'ERROR',
-                            'text': response.desc
+                            'html': response.desc
                         })
                     }
                 },
                 error: response => {
                     Swal.fire({
-                            'type': 'error',
-                            'title': 'ABORTED',
-                            'text': response.desc
+                        'type': 'error',
+                        'title': 'ABORTED',
+                        'html': response.responseJSON.desc
                     })
                 }
             })

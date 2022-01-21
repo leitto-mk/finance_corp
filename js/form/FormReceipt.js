@@ -114,13 +114,14 @@ var addReceipt = () => {
             $.ajax({
                 url: 'ajax_submit_receipt',
                 method: 'POST',
+                dataType: 'JSON',
                 data: obj,
                 success: response => {
                     if(response.success == true){
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
-                            'text': 'RECEIPT HAS BEEN SUBMITTED'
+                            'html': 'RECEIPT HAS BEEN SUBMITTED'
                         })
 
                         location.reload()
@@ -128,7 +129,7 @@ var addReceipt = () => {
                         Swal.fire({
                             'type': 'error',
                             'title': 'ERROR',
-                            'text': response.desc
+                            'html': response.desc
                         })
                     }
                 },
@@ -136,7 +137,7 @@ var addReceipt = () => {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'text': response.desc
+                        'html': response.responseJSON.desc
                     })
                 }
             })

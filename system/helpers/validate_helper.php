@@ -13,6 +13,9 @@ if(!function_exists('validate')){
         $CI =& get_instance();
         $CI->load->library('form_validation');
 
+        //Remove Any Delimiters
+        $CI->form_validation->set_error_delimiters('<h4 class="sbold">', '</h4>');
+
         if($CI->input->server('REQUEST_METHOD') === "GET"){
             $CI->form_validation->set_data($forms);
         }

@@ -120,7 +120,7 @@ var FormGeneralJournal = () => {
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
-                            'text': 'GENERAL JOURNAL HAS BEEN SUBMITTED'
+                            'html': 'GENERAL JOURNAL HAS BEEN SUBMITTED'
                         })
 
                         location.reload()
@@ -128,7 +128,7 @@ var FormGeneralJournal = () => {
                         Swal.fire({
                             'type': 'error',
                             'title': 'ERROR',
-                            'text': response.desc
+                            'html': response.desc
                         })
                     }
                 },
@@ -136,7 +136,7 @@ var FormGeneralJournal = () => {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'text': response.desc
+                        'html': response.responseJSON.desc
                     })
                 }
             })

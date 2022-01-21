@@ -131,7 +131,7 @@ var addCAWithdraw = () => {
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
-                            'text': 'WITHDRAWAL HAS BEEN SUBMITTED'
+                            'html': 'WITHDRAWAL HAS BEEN SUBMITTED'
                         })
 
                         location.reload()
@@ -139,7 +139,7 @@ var addCAWithdraw = () => {
                         Swal.fire({
                             'type': 'error',
                             'title': 'ERROR',
-                            'text': response.desc
+                            'html': response.desc
                         })
                     }
                 },
@@ -147,7 +147,7 @@ var addCAWithdraw = () => {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'text': response.desc
+                        'html': response.responseJSON.desc
                     })
                 }
             })

@@ -113,7 +113,7 @@ var addOverbook = () => {
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
-                            'text': 'OVERBOOK HAS BEEN SUBMITTED'
+                            'html': 'OVERBOOK HAS BEEN SUBMITTED'
                         })
 
                         location.reload()
@@ -121,7 +121,7 @@ var addOverbook = () => {
                         Swal.fire({
                             'type': 'error',
                             'title': 'ERROR',
-                            'text': response.desc
+                            'html': response.desc
                         })
                     }
                 },
@@ -129,7 +129,7 @@ var addOverbook = () => {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'text': response.desc
+                        'html': response.responseJSON.desc
                     })
                 }
             })

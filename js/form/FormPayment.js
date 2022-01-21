@@ -113,7 +113,7 @@ var addPayment = () => {
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
-                            'text': 'PAYMENT HAS BEEN SUBMITTED'
+                            'html': 'PAYMENT HAS BEEN SUBMITTED'
                         })
 
                         location.reload()
@@ -121,7 +121,7 @@ var addPayment = () => {
                         Swal.fire({
                             'type': 'error',
                             'title': 'ERROR',
-                            'text': response.desc
+                            'html': response.desc
                         })
                     }
                 },
@@ -129,7 +129,7 @@ var addPayment = () => {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'text': response.desc
+                        'html': response.responseJSON.desc
                     })
                 }
             })
