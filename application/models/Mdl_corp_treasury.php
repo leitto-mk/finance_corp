@@ -253,49 +253,48 @@ class Mdl_corp_treasury extends CI_Model
         }
    
         for($i = 0; $i < count($query); $i++){
+            $debit = (int)$query[$i]['Debit'];
+            $credit = (int)$query[$i]['Credit'];
 
-        $debit = (int)$query[$i]['Debit'];
-        $credit = (int)$query[$i]['Credit'];
-
-        /*
-        * IF CURRENT INDEX'S YEAR NOT EQUAL TO PREVIOUS INDEX'S AND ACCTYPE EITHER 'R' OR 'E',
-        * SET BEGINNING BALANCE TO 0  
-        */ 
-        if($i > 0 && date('Y', strtotime($query[$i-1]['TransDate'])) !== date('Y', strtotime($query[$i]['TransDate'])) && ($query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'E')){
-            $lastBalance = 0;
-        }
-
-        if($debit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
-            $query[$i]['BalanceBranch'] = $debit + $lastBalance;
-        }elseif($credit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
-            $query[$i]['BalanceBranch'] = $lastBalance - $credit;
-        }elseif($credit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
-            $query[$i]['BalanceBranch'] = $credit + $lastBalance;
-        }elseif($debit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
-            $query[$i]['BalanceBranch'] = $lastBalance - $debit;
-        }
-
-        if($i+1 < count($query)){
             /*
-            * IF NEXT INDEX ACCNO IS DIFFERENT THAN CURRENT INDEX'S,
-            * SET THE `lastBalance` TO NEXT INDEX'S BEGINNING BALANCE
-            */
-            if($query[$i]['AccNo'] !== $query[$i+1]['AccNo'] || $query[$i]['Branch'] !== $query[$i+1]['Branch']){
-                if($query[$i]['beg_balance'] !== '' || is_null($query[$i]['beg_balance']) == false){
-                    $query[$i+1]['beg_balance'] = (is_null($query[$i+1]['beg_balance']) ? 0 : $query[$i+1]['beg_balance']);
-                
-                    $lastBalance = (int) $query[$i+1]['beg_balance'];
-                }else{
-                    $lastBalance = 0;
-                }
-            }else{
-                $lastBalance = $query[$i]['BalanceBranch'];
+            * IF CURRENT INDEX'S YEAR NOT EQUAL TO PREVIOUS INDEX'S AND ACCTYPE EITHER 'R' OR 'E',
+            * SET BEGINNING BALANCE TO 0  
+            */ 
+            if($i > 0 && date('Y', strtotime($query[$i-1]['TransDate'])) !== date('Y', strtotime($query[$i]['TransDate'])) && ($query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'E')){
+                $lastBalance = 0;
             }
-        }
 
-        //Remove Unnecessary 'Key'
-        unset($query[$i]['Acc_Name']);
-        unset($query[$i]['beg_balance']);
+            if($debit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
+                $query[$i]['BalanceBranch'] = $debit + $lastBalance;
+            }elseif($credit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
+                $query[$i]['BalanceBranch'] = $lastBalance - $credit;
+            }elseif($credit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
+                $query[$i]['BalanceBranch'] = $credit + $lastBalance;
+            }elseif($debit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
+                $query[$i]['BalanceBranch'] = $lastBalance - $debit;
+            }
+
+            if($i+1 < count($query)){
+                /*
+                * IF NEXT INDEX ACCNO IS DIFFERENT THAN CURRENT INDEX'S,
+                * SET THE `lastBalance` TO NEXT INDEX'S BEGINNING BALANCE
+                */
+                if($query[$i]['AccNo'] !== $query[$i+1]['AccNo'] || $query[$i]['Branch'] !== $query[$i+1]['Branch']){
+                    if($query[$i]['beg_balance'] !== '' || is_null($query[$i]['beg_balance']) == false){
+                        $query[$i+1]['beg_balance'] = (is_null($query[$i+1]['beg_balance']) ? 0 : $query[$i+1]['beg_balance']);
+                    
+                        $lastBalance = (int) $query[$i+1]['beg_balance'];
+                    }else{
+                        $lastBalance = 0;
+                    }
+                }else{
+                    $lastBalance = $query[$i]['BalanceBranch'];
+                }
+            }
+
+            //Remove Unnecessary 'Key'
+            unset($query[$i]['Acc_Name']);
+            unset($query[$i]['beg_balance']);
         }
 
         $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');

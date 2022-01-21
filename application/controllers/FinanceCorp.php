@@ -75,8 +75,7 @@ class FinanceCorp extends CI_Controller
 
         $result = $this->Mdl_corp_treasury->get_ranged_treasury('RECEIPT', $docno, $start, $end);
 
-        set_success_response($result);
-        return;
+        return set_success_response($result);
     }
 
     public function edit_receipt(){
@@ -158,8 +157,7 @@ class FinanceCorp extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        set_success_response($result);
-        return;
+        return set_success_response($result);
     }
 
     public function add_receipt_voucher(){
@@ -172,7 +170,7 @@ class FinanceCorp extends CI_Controller
             'employee' => $this->Mdl_corp_treasury->get_employee(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'FormReceipt'
+            'script' => 'form/FormReceipt'
         ];
         
         $this->load->view('finance_corp/addview/v_add_receipt_voucher', $data);
@@ -180,7 +178,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_submit_receipt(){
         
-        $validation = validate($this->input->post(), ['remark','remarks']);
+        $validation = validate($this->input->post(), ['remark','remarks','giro']);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -348,7 +346,7 @@ class FinanceCorp extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        echo $result;
+        return set_success_response($result);
     }
 
     //* PAYMENT VOUCHER
@@ -457,7 +455,7 @@ class FinanceCorp extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
-        echo $result;
+        return set_success_response($result);
     }
 
     public function add_payment_voucher(){
@@ -478,7 +476,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_submit_payment(){
         
-        $validation = validate($this->input->post(), ['remark','remarks']);
+        $validation = validate($this->input->post(), ['remark','remarks','giro']);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -646,7 +644,7 @@ class FinanceCorp extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        echo $result;
+        return set_success_response($result);
     }
 
     //* OVERBOOK VOUCHER
@@ -753,7 +751,7 @@ class FinanceCorp extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
-        echo $result;
+        return set_success_response($result);
     }
 
     public function add_overbook_voucher(){
@@ -774,7 +772,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_submit_overbook(){
 
-        $validation = validate($this->input->post(), ['remark','remarks']);
+        $validation = validate($this->input->post(), ['remark','remarks','giro']);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -943,7 +941,7 @@ class FinanceCorp extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        echo $result;
+        return set_success_response($result);
     }
 
     //* GENERAL JOURNAL
@@ -1049,7 +1047,7 @@ class FinanceCorp extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
         
-        echo $result;
+        return set_success_response($result);
     }
 
     public function add_general_journal(){
@@ -1070,7 +1068,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_submit_general_journal(){
 
-        $validation = validate($this->input->post(), ['remark','remarks']);
+        $validation = validate($this->input->post(), ['remark','remarks','giro']);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1206,7 +1204,7 @@ class FinanceCorp extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        echo $result;
+        return set_success_response($result);
     }
 
     //* GL REPORT
@@ -1354,7 +1352,7 @@ class FinanceCorp extends CI_Controller
 
         $result = $this->Mdl_corp_branch->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 
-        echo $result;
+        return set_success_response($result);
     }
 
     //Reports Receipt Voucher
