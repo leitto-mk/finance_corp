@@ -125,7 +125,13 @@ var addOverbook = () => {
                         })
                     }
                 },
-                error: () => alert('NETWORK PROBLEM')
+                error: response => {
+                    Swal.fire({
+                        'type': 'error',
+                        'title': 'ABORTED',
+                        'text': response.desc
+                    })
+                }
             })
         })
     }

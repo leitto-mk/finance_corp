@@ -56,7 +56,13 @@ var Receipt = () => {
                         })
                     }
                 },
-                error: () => alert('NETWORK PROBLEM')
+                error: response => {
+                    Swal.fire({
+                            'type': 'error',
+                            'title': 'ABORTED',
+                            'text': response.desc
+                    })
+                }
             })
         })
     }
@@ -85,7 +91,13 @@ var Receipt = () => {
                         alert("SERVER PROBLEM")
                     }
                 },
-                error: () => alert('NETWORK PROBLEM')
+                error: response => {
+        Swal.fire({
+                'type': 'error',
+                'title': 'ABORTED',
+                'text': response.desc
+         })
+}
             })
         })
     }

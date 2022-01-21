@@ -164,7 +164,13 @@ const GeneralLedger = () => {
                         })
                     }
                 },
-                error: () => alert('NETWORK PROBLEM')
+                error: response => {
+                    Swal.fire({
+                            'type': 'error',
+                            'title': 'ABORTED',
+                            'text': response.desc
+                    })
+                }
             })
         })
     }
@@ -214,7 +220,13 @@ const GeneralLedger = () => {
                         alert("SERVER PROBLEM")
                     }
                 },
-                error: () => alert('NETWORK PROBLEM')
+                error: response => {
+        Swal.fire({
+                'type': 'error',
+                'title': 'ABORTED',
+                'text': response.desc
+         })
+}
             })
         })
     }

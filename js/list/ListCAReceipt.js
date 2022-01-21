@@ -52,7 +52,13 @@ var CAReceipt = () => {
                         })
                     }
                 },
-                error: () => alert('NETWORK PROBLEM')
+                error: response => {
+                        Swal.fire({
+                                'type': 'error',
+                                'title': 'ABORTED',
+                                'text': response.desc
+                        })
+                }
             })
         })
     }
@@ -81,7 +87,13 @@ var CAReceipt = () => {
                         alert("SERVER PROBLEM")
                     }
                 },
-                error: () => alert('NETWORK PROBLEM')
+                error: response => {
+        Swal.fire({
+                'type': 'error',
+                'title': 'ABORTED',
+                'text': response.desc
+         })
+}
             })
         })
     }
