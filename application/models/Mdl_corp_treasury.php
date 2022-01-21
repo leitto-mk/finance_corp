@@ -10,13 +10,6 @@ class Mdl_corp_treasury extends CI_Model
             $docno_condition = "DocNo IS NOT NULL";
         }
 
-        // return $this->db->where("TransDate BETWEEN '$start' AND '$end'")
-        //                 ->where($docno_condition)
-        //                 ->where('TransType', $type)
-        //                 ->order_by('TransDate','DESC')
-        //                 ->get('tbl_fa_treasury_mas')
-        //                 ->result_array();
-
         $query = $this->db->query(
             "SELECT
                 t1.IDNumber,
