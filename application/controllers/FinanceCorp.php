@@ -65,8 +65,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->post('docno');
@@ -82,8 +81,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->get(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->get('docno');
@@ -130,8 +128,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->post('docno');
@@ -157,6 +154,10 @@ class FinanceCorp extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
+        
         return set_success_response($result);
     }
 
@@ -181,8 +182,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), ['remark','remarks','giro']);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $master = $details = $trans = [];
@@ -326,6 +326,10 @@ class FinanceCorp extends CI_Controller
 
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+
+        if($submit !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
+        }
         
         $result = '';
         $accnos = '';
@@ -346,6 +350,10 @@ class FinanceCorp extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
+        
         return set_success_response($result);
     }
 
@@ -370,8 +378,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->post('docno') ;
@@ -388,8 +395,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->get(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->post('docno');
@@ -429,8 +435,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->post('docno');
@@ -454,7 +459,11 @@ class FinanceCorp extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
-        
+
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
+    
         return set_success_response($result);
     }
 
@@ -479,8 +488,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), ['remark','remarks','giro']);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $master = $details = $trans = [];
@@ -624,6 +632,10 @@ class FinanceCorp extends CI_Controller
 
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+
+        if($submit !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
+        }
         
         $result = '';
         $accnos = '';
@@ -643,6 +655,10 @@ class FinanceCorp extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
 
         return set_success_response($result);
     }
@@ -668,8 +684,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->post('docno') ;
@@ -685,8 +700,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->get(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->get('docno');;
@@ -725,8 +739,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->post('docno');;
@@ -750,7 +763,11 @@ class FinanceCorp extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
-        
+
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
+    
         return set_success_response($result);
     }
 
@@ -775,8 +792,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), ['remark','remarks','giro']);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $master = $details = $trans = [];
@@ -921,6 +937,10 @@ class FinanceCorp extends CI_Controller
 
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+
+        if($submit !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
+        }
         
         $result = '';
         $accnos = '';
@@ -940,6 +960,10 @@ class FinanceCorp extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
 
         return set_success_response($result);
     }
@@ -964,8 +988,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->post('docno') ;
@@ -981,8 +1004,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->get(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->get('docno');;
@@ -1021,8 +1043,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->get('docno');
@@ -1046,7 +1067,11 @@ class FinanceCorp extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
-        
+
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
+    
         return set_success_response($result);
     }
 
@@ -1071,8 +1096,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), ['remark','remarks','giro']);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $master = $details = $trans = [];
@@ -1184,6 +1208,10 @@ class FinanceCorp extends CI_Controller
 
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+
+        if($submit !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
+        }
         
         $result = '';
         $accnos = '';
@@ -1203,6 +1231,10 @@ class FinanceCorp extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
 
         return set_success_response($result);
     }
@@ -1248,8 +1280,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->get(), ['branch']);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $branch = $this->input->get('branch') || 'All';
@@ -1278,8 +1309,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $branch = $this->input->post('branch');
@@ -1339,8 +1369,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $branch = $this->input->post('branch');
@@ -1360,8 +1389,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->get(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->get('docno');
@@ -1385,8 +1413,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->get(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->get('docno');
@@ -1410,8 +1437,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->get(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->get('docno');
@@ -1435,8 +1461,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->get(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->get('docno');
@@ -1460,8 +1485,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->get(), []);
         
         if($validation !== "success"){
-            set_error_response(self::HTTP_BAD_REQUEST, $validation);
-            return;
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $docno = $this->input->get('docno');

@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_cash_advance extends CI_Model
 {
-    function get_annual_treasury($type, $docno, $start, $end){
+    function get_ranged_treasury($type, $docno, $start, $end){
         if($docno){
             $docno_condition = "DocNo LIKE '$docno%'";
         }else{
@@ -33,7 +33,7 @@ class Mdl_corp_cash_advance extends CI_Model
              WHERE t1.TransDate BETWEEN '$start' AND '$end'
              AND t1.TransType = '$type'
              AND t1.$docno_condition
-             ORDER BY TransDate DESC"
+             ORDER BY TransDate DESC, DocNo DESC"
         )->result_array();
 
         return $query;

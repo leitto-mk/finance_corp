@@ -83,7 +83,7 @@ class Cash_adv extends CI_Controller
             'h3' => '',
             'h4' => '',
             
-            'list' => $this->Mdl_corp_cash_advance->get_annual_treasury('CA-WITHDRAW', $docno, $start, $end),
+            'list' => $this->Mdl_corp_cash_advance->get_ranged_treasury('CA-WITHDRAW', $docno, $start, $end),
             'script' => 'list/ListCAWithdraw'
         ];
         
@@ -102,7 +102,7 @@ class Cash_adv extends CI_Controller
         $start = $this->input->post('start');
         $end = $this->input->post('end');
 
-        $result = $this->Mdl_corp_cash_advance->get_annual_treasury('CA-WITHDRAW', $docno, $start, $end);
+        $result = $this->Mdl_corp_cash_advance->get_ranged_treasury('CA-WITHDRAW', $docno, $start, $end);
 
         echo json_encode($result);
     }
@@ -178,8 +178,12 @@ class Cash_adv extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_cash_advance->calculate_balance($branch, $accnos, $cur_date, $last_date);
+
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
         
-        echo $result;
+        return set_success_response($result);
     }
 
     public function add_ca_withdraw(){
@@ -350,6 +354,10 @@ class Cash_adv extends CI_Controller
 
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_cash_advance->submit_treasury($master, $details, $trans);
+
+        if($submit !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
+        }
         
         $result = '';
         $accnos = '';
@@ -370,7 +378,11 @@ class Cash_adv extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_cash_advance->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        echo $result;
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
+
+        return set_success_response($result);
     }
 
     //TRANSACTION DETAILS - CASH ADVANCE RECEIPT
@@ -386,7 +398,7 @@ class Cash_adv extends CI_Controller
             'h3' => '',
             'h4' => '',
             
-            'list' => $this->Mdl_corp_cash_advance->get_annual_treasury('CA-RECEIPT', $docno, $start, $end),
+            'list' => $this->Mdl_corp_cash_advance->get_ranged_treasury('CA-RECEIPT', $docno, $start, $end),
             'script' => 'list/ListCAReceipt'
         ];
         
@@ -405,7 +417,7 @@ class Cash_adv extends CI_Controller
         $start = $this->input->post('start');
         $end = $this->input->post('end');
 
-        $result = $this->Mdl_corp_cash_advance->get_annual_treasury('CA-RECEIPT', $docno, $start, $end);
+        $result = $this->Mdl_corp_cash_advance->get_ranged_treasury('CA-RECEIPT', $docno, $start, $end);
 
         echo json_encode($result);
     }
@@ -481,8 +493,12 @@ class Cash_adv extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_cash_advance->calculate_balance($branch, $accnos, $cur_date, $last_date);
+
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
         
-        echo $result;
+        return set_success_response($result);
     }
 
     public function add_ca_receipt(){
@@ -653,6 +669,10 @@ class Cash_adv extends CI_Controller
 
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_cash_advance->submit_treasury($master, $details, $trans);
+
+        if($submit !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
+        }
         
         $result = '';
         $accnos = '';
@@ -673,7 +693,11 @@ class Cash_adv extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_cash_advance->calculate_balance($branch, $accnos, $cur_date, $last_date);
 
-        echo $result;
+        if($result !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
+
+        return set_success_response($result);
     }
 
     //REPORT MANAGEMENT

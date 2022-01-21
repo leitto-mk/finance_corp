@@ -33,7 +33,7 @@ class Mdl_corp_treasury extends CI_Model
              WHERE t1.TransDate BETWEEN '$start' AND '$end'
              AND t1.TransType = '$type'
              AND t1.$docno_condition
-             ORDER BY TransDate DESC"
+             ORDER BY TransDate DESC, DocNo DESC"
         )->result_array();
 
         return $query;
