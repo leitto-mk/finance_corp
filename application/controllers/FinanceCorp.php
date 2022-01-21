@@ -1324,9 +1324,9 @@ class FinanceCorp extends CI_Controller
     }
 
     public function view_balance_sheet(){
-        $branch = $this->input->get('branch') || null;
-        $year =  $this->input->get('year') || date('Y');
-        $month = $this->input->get('month') || date('m');
+        $branch = $this->input->get('branch') ?? null;
+        $year =  $this->input->get('year') ?? date('Y');
+        $month = $this->input->get('month') ?? date('m');
 
         list($company, $asset, $liabilities, $capital) = $this->Mdl_corp_balance_sheet->get_report($branch, $year, $month);
 
