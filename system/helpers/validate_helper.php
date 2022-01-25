@@ -9,8 +9,8 @@ if(!function_exists('validate')){
      * Currently checks for any empty data or invalid number or date (Y-m-d)
      *
      * @param   array   $forms     takes `POST` or `GET` form data 
-     * @param   array   $case     set Specific Validation (currently supports only `date` & `number`)
-     * @param   array   $ignores   form data's name, ex: ['docno','idnumber', ...]
+     * @param   mixed   $case     set Specific Validation (currently supports only `date` & `number`)
+     * @param   mixed   $ignores   form data's name, ex: ['docno','idnumber', ...] or just single 'keyname' is doable
      * 
      * @return  string
      * @author  ABASE
@@ -32,8 +32,8 @@ if(!function_exists('validate')){
         
         if(is_array($forms) && count($forms) > 0){
             foreach($lists as $list){
-                //Check if $list is in ignore list
-                if(!empty($ignores) && in_array($list, $ignores, TRUE)){
+                //Check if $list(s) is in ignore list
+                if(!empty($ignores) && (in_array($list, $ignores, TRUE) || $list === $ignores)){
                     continue;
                 }
 
