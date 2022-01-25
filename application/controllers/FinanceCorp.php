@@ -61,8 +61,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_annual_receipt(){
-
-        $validation = validate($this->input->post(), ['docno']);
+        $validation = validate($this->input->post(), null, ['docno']);
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -117,14 +116,6 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_delete_receipt(){
-
-        /**
-         * Constructor for the REST API.
-         *
-         * @param array  $form    takes POST OR GET form data 
-         * @param array  $ignore  form data's Name, ex: ['docno','idnumber','amount',...]
-         *                        leave blank if all is required
-        */
         $validation = validate($this->input->post());
         
         if($validation !== "success"){
@@ -384,7 +375,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_get_annual_payment(){
         
-        $validation = validate($this->input->post(), ['docno']);
+        $validation = validate($this->input->post(), null, ['docno']);
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -699,7 +690,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_get_annual_overbook(){
         
-        $validation = validate($this->input->post(), ['docno']);
+        $validation = validate($this->input->post(), null, ['docno']);
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1012,7 +1003,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_annual_general_journal(){
-        $validation = validate($this->input->post(), ['docno']);
+        $validation = validate($this->input->post(), null, ['docno']);
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);

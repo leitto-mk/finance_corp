@@ -91,7 +91,7 @@ class Cash_adv extends CI_Controller
     }
 
     public function ajax_get_annual_ca_withdraw(){
-        $validation = validate($this->input->post(), ['docno']);
+        $validation = validate($this->input->post(), null, ['docno']);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -416,7 +416,7 @@ class Cash_adv extends CI_Controller
     }
 
     public function ajax_get_annual_ca_receipt(){
-        $validation = validate($this->input->post(), ['docno']);
+        $validation = validate($this->input->post(), null, ['docno']);
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
