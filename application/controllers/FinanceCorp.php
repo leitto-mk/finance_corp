@@ -493,8 +493,17 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_submit_payment(){
-        
-        $validation = validate($this->input->post(), ['remark','remarks','giro']);
+        $validation = validate($this->input->post(), 
+            [ //Specific Case
+                'date' => ['transdate'],
+                'number' => ['itemno','unit','rate','amount','totalamount']
+            ], 
+            [ //Ignore
+                'remark',
+                'remarks',
+                'giro'
+            ]
+        );
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -797,8 +806,17 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_submit_overbook(){
-
-        $validation = validate($this->input->post(), ['remark','remarks','giro']);
+        $validation = validate($this->input->post(), 
+            [ //Specific Case
+                'date' => ['transdate'],
+                'number' => ['itemno','unit','rate','amount','totalamount']
+            ], 
+            [ //Ignore
+                'remark',
+                'remarks',
+                'giro'
+            ]
+        );
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1101,8 +1119,17 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_submit_general_journal(){
-
-        $validation = validate($this->input->post(), ['remark','remarks','giro']);
+        $validation = validate($this->input->post(), 
+            [ //Specific Case
+                'date' => ['transdate'],
+                'number' => ['itemno','unit','rate','amount','totalamount']
+            ], 
+            [ //Ignore
+                'remark',
+                'remarks',
+                'giro'
+            ]
+        );
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
