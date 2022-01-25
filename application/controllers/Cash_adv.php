@@ -58,7 +58,7 @@ class Cash_adv extends CI_Controller
     }
 
     public function ajax_get_emp_details(){
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post());
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -108,7 +108,7 @@ class Cash_adv extends CI_Controller
     }
 
     public function edit_ca_withdraw(){
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -150,7 +150,7 @@ class Cash_adv extends CI_Controller
     }
 
     public function ajax_delete_ca_withdraw(){
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post());
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -423,7 +423,7 @@ class Cash_adv extends CI_Controller
     }
 
     public function edit_ca_receipt(){
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -465,7 +465,7 @@ class Cash_adv extends CI_Controller
     }
 
     public function ajax_delete_ca_receipt(){
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post());
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);

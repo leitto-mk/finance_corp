@@ -78,7 +78,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function edit_receipt(){
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -125,7 +125,7 @@ class FinanceCorp extends CI_Controller
          * @param array  $ignore  form data's Name, ex: ['docno','idnumber','amount',...]
          *                        leave blank if all is required
         */
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -178,8 +178,17 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_submit_receipt(){
-        
-        $validation = validate($this->input->post(), ['remark','remarks','giro']);
+        $validation = validate($this->input->post(), 
+            [ //Specific Case
+                'date' => ['transdate'],
+                'number' => ['itemno','unit','rate','amount','totalamount']
+            ], 
+            [ //Ignore
+                'remark',
+                'remarks',
+                'giro'
+            ]
+        );
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -392,7 +401,7 @@ class FinanceCorp extends CI_Controller
 
     public function edit_payment(){
         
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -432,7 +441,7 @@ class FinanceCorp extends CI_Controller
 
     public function ajax_delete_payment(){
         
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -697,7 +706,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function edit_overbook(){
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -736,7 +745,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_delete_overbook(){
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1001,7 +1010,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function edit_general_journal(){
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1040,7 +1049,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_delete_general_journal(){
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1306,7 +1315,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function ajax_get_general_ledger(){
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1366,7 +1375,7 @@ class FinanceCorp extends CI_Controller
 
     //Re-Calculate
     public function ajax_recalculate_balance(){
-        $validation = validate($this->input->post(), []);
+        $validation = validate($this->input->post());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1386,7 +1395,7 @@ class FinanceCorp extends CI_Controller
 
     //Reports Receipt Voucher
     public function view_reps_receipt_voucher(){
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1410,7 +1419,7 @@ class FinanceCorp extends CI_Controller
 
     //Reports Payment Voucher
     public function view_reps_payment_voucher(){
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1434,7 +1443,7 @@ class FinanceCorp extends CI_Controller
 
     //Reports General Journal
     public function view_reps_general_journal(){
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1458,7 +1467,7 @@ class FinanceCorp extends CI_Controller
 
     //Reports Cash Withdraw
     public function view_reps_cash_withdraw(){
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -1482,7 +1491,7 @@ class FinanceCorp extends CI_Controller
 
     //Reports Cash Receipt
     public function view_reps_cash_receipt(){
-        $validation = validate($this->input->get(), []);
+        $validation = validate($this->input->get());
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);

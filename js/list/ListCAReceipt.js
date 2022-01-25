@@ -48,7 +48,7 @@ var CAReceipt = () => {
                         Swal.fire({
                             'type': 'error',
                             'title': 'ERROR',
-                            'html': response.desc
+                            'html': `<h4 class="sbold">${response.desc}</h4>`
                         })
                     }
                 },
@@ -56,7 +56,7 @@ var CAReceipt = () => {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'html': response.responseJSON.desc
+                        'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
                     })
                 }
             })
