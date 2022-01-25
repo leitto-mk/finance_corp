@@ -98,7 +98,7 @@ if(!function_exists('date_valid')){
         if($d && $d->format('Y-m-d') === $date){
             return true;
         }else{
-            $CI->form_validation->set_message('date_valid', "$list is not a valid Date Format");
+            $CI->form_validation->set_message('date_valid', "The $list field is not a valid Date Format");
             return false;
         }
     }
