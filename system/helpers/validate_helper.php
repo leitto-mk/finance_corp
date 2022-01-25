@@ -15,7 +15,7 @@ if(!function_exists('validate')){
      * @return  string
      * @author  ABASE
     */
-    function validate($forms, $case = [], $ignores = NULL)
+    function validate($forms, ?array $case = [], ?array $ignores = NULL)
     {
         $CI =& get_instance();
         $CI->load->library('form_validation');
@@ -33,24 +33,33 @@ if(!function_exists('validate')){
         if(is_array($forms) && count($forms) > 0){
             foreach($lists as $list){
                 //Check if $list is in ignore list
-                if(in_array($list, $ignores, TRUE)){
+                if(!empty($ignores) && in_array($list, $ignores, TRUE)){
                     continue;
                 }
 
                 //Check if $list is Array & validate every iteration
                 if(is_array($forms[$list]) && count($forms[$list]) > 0){
                     for($i=0;$i<count($forms[$list]);$i++){
-                        $date = $list[$i];
+                        if(empty($case)){
+                            goto check_required_arr;
+                        }
+
                         if(in_array($list, $case['date']) || $case['date'] === $list){
+                            $date = $list[$i];
                             $CI->form_validation->set_rules($list . "[]", "`$list` at index [$i] ", "xss_clean|date_valid[$date,$list]");
                         }elseif(in_array($list, $case['number']) || $case['number'] === $list){
                             $CI->form_validation->set_rules($list . "[]", "`$list` at index [$i] ",'xss_clean|numeric|min_length[0]');
                         }else{
+                            check_required_arr:
                             $CI->form_validation->set_rules($list . "[]", "`$list` at index [$i] ",'required|trim|xss_clean');
                         }
                     }
 
                     continue;
+                }
+
+                if(empty($case)){
+                    goto check_required;
                 }
 
                 if(in_array($list, $case['date']) || $case['date'] === $list){
@@ -59,6 +68,7 @@ if(!function_exists('validate')){
                 }elseif(in_array($list, $case['number']) || $case['number'] === $list){
                     $CI->form_validation->set_rules($list, $list,'xss_clean|numeric|min_length[0]');
                 }else{
+                    check_required:
                     $CI->form_validation->set_rules($list, $list,'required|trim|xss_clean');
                 }
             }
