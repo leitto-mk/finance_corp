@@ -203,7 +203,17 @@ class Cash_adv extends CI_Controller
     }
 
     public function ajax_submit_ca_withdraw(){
-        $validation = validate($this->input->post(), ['remark','remarks','giro']);
+        $validation = validate($this->input->post(), 
+            [ //Specific Case
+                'date' => ['transdate'],
+                'number' => ['itemno','unit','rate','amount','totalamount']
+            ], 
+            [ //Ignore
+                'remark',
+                'remarks',
+                'giro'
+            ]
+        );
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -518,7 +528,17 @@ class Cash_adv extends CI_Controller
     }
 
     public function ajax_submit_ca_receipt(){
-        $validation = validate($this->input->post(), ['remark','remarks','giro']);
+        $validation = validate($this->input->post(), 
+            [ //Specific Case
+                'date' => ['transdate'],
+                'number' => ['itemno','unit','rate','amount','totalamount']
+            ], 
+            [ //Ignore
+                'remark',
+                'remarks',
+                'giro'
+            ]
+        );
         
         if($validation !== "success"){
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
