@@ -23,19 +23,6 @@ if(!function_exists('validate')){
         }
        
         $lists = array_keys($forms);
-
-        $validate_date_fun = function($label = NULL, $date = NULL){
-            $CI =& get_instance();
-            $CI->load->library('form_validation');
-
-            $d = DateTime::createFromFormat('Y-m-d', $date);
-            if($d && $d->format('Y-m-d') === $date){
-                $CI->form_validation->set_message($label, "$date is not a valid Date Format");
-                return false;
-            }else{
-                return true;
-            }
-        };
         
         if(is_array($forms) && count($forms) > 0){
             foreach($lists as $list){
