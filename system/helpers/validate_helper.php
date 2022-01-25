@@ -4,10 +4,16 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 if(!function_exists('validate')){
     /**
      * Constructor for the REST API.
+     * 
+     * Extended CI's Form Validation. 
+     * Currently checks for any empty data or invalid number or date (Y-m-d)
      *
-     * @param array  form     takes `POST` or `GET` form data 
-     * @param array  case     set Specific Validation (currently supports only `date` & `number`)
-     * @param array  ignore   form data's name, ex: ['docno','idnumber', ...]
+     * @param   array   $forms     takes `POST` or `GET` form data 
+     * @param   array   $case     set Specific Validation (currently supports only `date` & `number`)
+     * @param   array   $ignores   form data's name, ex: ['docno','idnumber', ...]
+     * 
+     * @return  string
+     * @author  ABASE
     */
     function validate($forms, $case = [], $ignores = NULL)
     {
@@ -69,7 +75,16 @@ if(!function_exists('validate')){
 if(!function_exists('date_valid')){
     /**
      * Validate Form Date
-     * @param string  date  takes string from Form Data
+     * 
+     * Special Method use for check valid date in helper validate.
+     * this method is primarily built for helper validate above,
+     * so do not use it outside that method
+     * 
+     * @param   string  $date  takes string from Form Data
+     * @param   string  $list  key name of the current POST or GET payload
+     * 
+     * @return  bool
+     * @author  ABASE
      */
     function date_valid($date,$list){
         $CI =& get_instance();
