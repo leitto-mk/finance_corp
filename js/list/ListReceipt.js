@@ -22,6 +22,12 @@ var Receipt = () => {
                         $('tbody').empty()
 
                         if(!Array.isArray(response.result) || response.result.length == 0){
+                            $('tbody').append(
+                                `<tr class="font-dark sbold">
+                                    <td align="center" colspan="7">${response.result}</td>
+                                 </tr>`
+                            )
+
                             return
                         }
 

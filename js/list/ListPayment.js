@@ -21,6 +21,16 @@ var Payment = () => {
                     if(response.success == true){
                         $('tbody').empty()
 
+                        if(!Array.isArray(response.result) || response.result.length == 0){
+                            $('tbody').append(
+                                `<tr class="font-dark sbold">
+                                    <td align="center" colspan="7">${response.result}</td>
+                                 </tr>`
+                            )
+
+                            return
+                        }
+
                         for(let i=0; i < response.result.length; i++){
                             $('tbody').append(
                                 `<tr class="font-dark sbold">
