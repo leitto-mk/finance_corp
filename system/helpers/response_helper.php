@@ -7,14 +7,17 @@ if(!function_exists('set_success_response')){
         $CI =& get_instance();
 
         if($body == 0 || $body == null || $body == '' || empty($body) == TRUE){
-            $body = "No Data Found";
+            $desc = "No Data Found";
+            $body = null;
+        }else{
+            $desc = null;
         }
     
         $CI->output->set_status_header(200);
         $CI->output->set_content_type('application/json','utf-8');
         $CI->output->set_output(json_encode([
             'success' => TRUE,
-            'desc' => NULL,
+            'desc' => $desc,
             'result' => $body
         ]));
     }
