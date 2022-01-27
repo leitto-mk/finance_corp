@@ -54,7 +54,7 @@ class FinanceCorp extends CI_Controller
             'title' => 'List Receipt Voucher',
             
             'list' => $this->Mdl_corp_treasury->get_ranged_treasury('RECEIPT', $docno, $start, $end),
-            'script' => 'List/ListReceipt'
+            'script' => 'list/ListReceipt'
         ];
         
         $this->load->view('finance_corp/treasuries/v_receipt_voucher', $data);
