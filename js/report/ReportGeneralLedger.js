@@ -209,24 +209,27 @@ const GeneralLedger = () => {
                     date_finish
                 },
                 success: response => {
-                    if(response == 'success'){
-                        // swal({
-                        //     'type': 'success',
-                        //     'title': 'SUCCESS',
-                        //     'text': 'Data has been Re-Calcualted'
-                        // });
-                        alert("Re-Calculate Success")
+                    if(response.success){
+                        Swal.fire({
+                            'type': 'success',
+                            'title': 'SUCCESS',
+                            'html': 'Data has been Re-Calcualted'
+                        });
                     }else{
-                        alert("SERVER PROBLEM")
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ABORTED',
+                            'html': response.desc
+                        })
                     }
                 },
                 error: response => {
-        Swal.fire({
-                'type': 'error',
-                'title': 'ABORTED',
-                'text': response.desc
-         })
-}
+                    Swal.fire({
+                            'type': 'error',
+                            'title': 'ABORTED',
+                            'html': response.responseJSON.desc
+                    })
+                }
             })
         })
     }
