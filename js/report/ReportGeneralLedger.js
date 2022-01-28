@@ -66,7 +66,7 @@ const GeneralLedger = () => {
                     
                         table.empty()
 
-                        if(response.length < 1){    
+                        if(!Array.isArray(response.result) || response.result.length == 0){
                             table.append(`
                                 <tr class="text-center" style="background-color: white">
                                     <td colspan="12" class="bold">NO RECORD FOUND</td>
@@ -83,7 +83,7 @@ const GeneralLedger = () => {
                         let cur_accno = response[0].AccNo
                         let subtotal_credit = subtotal_debit = 0
 
-                        for(let i = 0; i < response.length; i++){
+                        for(let i = 0; i < response.result.length; i++){
                             if(response[i].Branch !== cur_branch){
                                 cur_branch = response[i].Branch
                             }
