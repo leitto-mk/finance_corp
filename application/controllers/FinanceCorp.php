@@ -175,6 +175,7 @@ class FinanceCorp extends CI_Controller
                 'number' => ['itemno','unit','rate','amount','totalamount']
             ], 
             [ //Ignore
+                'paidto',
                 'remark',
                 'remarks',
                 'giro'
@@ -490,6 +491,7 @@ class FinanceCorp extends CI_Controller
                 'number' => ['itemno','unit','rate','amount','totalamount']
             ], 
             [ //Ignore
+                'paidto',
                 'remark',
                 'remarks',
                 'giro'
@@ -803,6 +805,7 @@ class FinanceCorp extends CI_Controller
                 'number' => ['itemno','unit','rate','amount','totalamount']
             ], 
             [ //Ignore
+                'paidto',
                 'remark',
                 'remarks',
                 'giro'
@@ -1116,6 +1119,7 @@ class FinanceCorp extends CI_Controller
                 'number' => ['itemno','unit','rate','amount','totalamount']
             ], 
             [ //Ignore
+                'paidto',
                 'remark',
                 'remarks',
                 'giro'
