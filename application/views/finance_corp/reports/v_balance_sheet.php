@@ -24,7 +24,7 @@
                                         <thead>
                                             <tr class="bg-blue-dark font-white">
                                                 <th width="5%"></th>
-                                                <th class="text-center" width="40%">Branch / Site</th>
+                                                <th class="text-center" width="40%">Branches / Sites</th>
                                                 <th class="text-center" width="25%">Year</th>
                                                 <th class="text-center" width="25%">Month</th>
                                                 <th class="text-center" width="5%">Action</th>        
