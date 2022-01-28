@@ -80,15 +80,15 @@ const GeneralLedger = () => {
                         $('#label_tbl_date_finish').html(date_finish)
 
                         let cur_branch = ''
-                        let cur_accno = response[0].AccNo
+                        let cur_accno = response.result[0].AccNo
                         let subtotal_credit = subtotal_debit = 0
 
                         for(let i = 0; i < response.result.length; i++){
-                            if(response[i].Branch !== cur_branch){
-                                cur_branch = response[i].Branch
+                            if(response.result[i].Branch !== cur_branch){
+                                cur_branch = response.result[i].Branch
                             }
 
-                            if(response[i].AccNo !== cur_accno){
+                            if(response.result[i].AccNo !== cur_accno){
                                 table.append(`
                                     <tr class="bg-default">
                                         <td colspan="11"></td>
@@ -99,24 +99,24 @@ const GeneralLedger = () => {
                             table.append(`
                                 <tr class="font-dark sbold">
                                     <td class="bold" align="center">${i+1}</td>
-                                    <td class="bold" align="center">${response[i].TransDate}</td>
-                                    <td class="bold" align="center">${response[i].DocNo}</td>
-                                    <td class="bold" align="center">${response[i].Branch}</td>
-                                    <td class="bold" align="center">${response[i].Department}</td>
-                                    <td class="bold" align="center">${response[i].CostCenter || ''}</td>
-                                    <td class="bold" align="center">${response[i].AccNo}</td>
-                                    <td class="bold" align="left">${response[i].Remarks}</td>
-                                    <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].Debit)}</td>
-                                    <td class="bold" align="right">${Intl.NumberFormat('id').format(response[i].Credit)}</td>
+                                    <td class="bold" align="center">${response.result[i].TransDate}</td>
+                                    <td class="bold" align="center">${response.result[i].DocNo}</td>
+                                    <td class="bold" align="center">${response.result[i].Branch}</td>
+                                    <td class="bold" align="center">${response.result[i].Department}</td>
+                                    <td class="bold" align="center">${response.result[i].CostCenter || ''}</td>
+                                    <td class="bold" align="center">${response.result[i].AccNo}</td>
+                                    <td class="bold" align="left">${response.result[i].Remarks}</td>
+                                    <td class="bold" align="right">${Intl.NumberFormat('id').format(response.result[i].Debit)}</td>
+                                    <td class="bold" align="right">${Intl.NumberFormat('id').format(response.result[i].Credit)}</td>
                                     <td class="bold" align="right">
-                                        ${Intl.NumberFormat('id').format(response[i].BalanceBranch)}
+                                        ${Intl.NumberFormat('id').format(response.result[i].BalanceBranch)}
                                     </td>
                                 </tr>`
                             )
 
-                            cur_accno = response[i].AccNo
-                            subtotal_debit += +response[i].Debit;
-                            subtotal_credit += +response[i].Credit;
+                            cur_accno = response.result[i].AccNo
+                            subtotal_debit += +response.result[i].Debit;
+                            subtotal_credit += +response.result[i].Credit;
                             
                             if(branch == 'All'){
                                 if(typeof response[i+1] !== 'undefined' && response[i+1].Branch !== cur_branch || i == (response.length-1)){
@@ -125,7 +125,7 @@ const GeneralLedger = () => {
                                     table.append(`
                                         <tr class="font-dark sbold">
                                             <td class="bold" align="right" colspan="8">Beginning Balance</td>
-                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response[i].beg_balance)}</td>
+                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response.result[i].beg_balance)}</td>
                                         </tr>
                                         <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
                                             <td align="right" colspan="8">Total :</td>                                    
@@ -142,7 +142,7 @@ const GeneralLedger = () => {
                                     table.append(`
                                         <tr class="font-dark sbold">
                                             <td class="bold" align="right" colspan="8">Beginning Balance</td>
-                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response[i].BalanceBranch)}</td>
+                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response.result[i].BalanceBranch)}</td>
                                         </tr>
                                         <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
                                             <td align="right" colspan="8">Total :</td>                                    

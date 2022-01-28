@@ -1308,7 +1308,7 @@ class FinanceCorp extends CI_Controller
     }
 
     public function view_gl_branch_report(){
-        $validation = validate($this->input->get(), ['branch']);
+        $validation = validate($this->input->get(), ['date' => ['date_start', 'date_finish']], ['branch']);
         
         if($validation !== "success"){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
