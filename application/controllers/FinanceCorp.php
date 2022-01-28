@@ -1537,9 +1537,15 @@ class FinanceCorp extends CI_Controller
 
     //Reports Income Statement
     public function view_income_statement(){
-        $branch = $this->input->get('branch') || null;
-        $year =  $this->input->get('year') || date('Y');
-        $month = $this->input->get('month') || date('m');
+        $branch = $this->input->get('branch') ?? null;
+        $year =  $this->input->get('year') ?? date('Y');
+        $month = $this->input->get('month') ?? date('m');
+
+        $validation = validate($this->input->get(), null, null);
+        
+        if($validation !== "success"){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
 
         list($company, $revenue, $operational, $other_rev, $other_expense) = $this->Mdl_corp_income_statement->get_report($branch, $year, $month);
 
