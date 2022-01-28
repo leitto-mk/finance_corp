@@ -15,14 +15,18 @@ if(!function_exists('validate')){
      * @return  string
      * @author  ABASE
     */
-    function validate($forms, ?array $case = [], ?array $ignores = NULL)
+    function validate($forms, ?array $case = [], ?array $ignores = [])
     {
         $CI =& get_instance();
         $CI->load->library('form_validation');
         $CI->load->helper('validate_helper');
 
+        if(!$forms || empty($forms)){
+            return true;
+        }
+
         //Remove Any Delimiters
-        $CI->form_validation->set_error_delimiters('', '');
+        $CI->form_validation->set_error_delimiters('','');
 
         if($CI->input->server('REQUEST_METHOD') === "GET"){
             $CI->form_validation->set_data($forms);
@@ -78,7 +82,7 @@ if(!function_exists('validate')){
             return validation_errors();
         }
 
-        return "success";
+        return true;
     }
 }
 
