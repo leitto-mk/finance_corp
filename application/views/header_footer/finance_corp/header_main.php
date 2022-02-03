@@ -28,8 +28,6 @@
     <link href="<?= base_url(); ?>assets/dropify-upload/css/dropify.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/toastr/css/toastr.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/jqueryui/css/jquery-ui.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="<?= base_url(); ?>assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />

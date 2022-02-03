@@ -37,8 +37,6 @@
     <link href="<?= base_url(); ?>assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/dropify-upload/css/dropify.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/toastr/css/toastr.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/jqueryui/css/jquery-ui.css" rel="stylesheet" type="text/css" />
     <!-- BEGIN PAGE LEVEL PLUGINS NEW UPDATE-->
     <!-- BEGIN PAGE LEVEL PLUGINS NEW UPDATE -->
     <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
