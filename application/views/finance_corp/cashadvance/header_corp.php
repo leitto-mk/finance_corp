@@ -60,7 +60,7 @@
     <link href="<?php echo base_url(); ?>assets/pages/css/invoice.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url(); ?>assets/pages/css/invoice-2.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS NEW UPDATE-->
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="" />
 
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
         <div class="page-wrapper">

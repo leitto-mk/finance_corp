@@ -55,7 +55,6 @@
             <script src="<?= base_url(); ?>assets/global/scripts/datatable.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
             <script src="<?= base_url();?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
 
             <script src="<?= base_url(); ?>assets/global/plugins/icheck/icheck.min.js" type="text/javascript"></script>
@@ -70,21 +69,18 @@
             <script src="<?= base_url(); ?>assets/pages/scripts/ui-modals.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>assets/pages/scripts/form-validation.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>assets/pages/scripts/ui-buttons.min.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>assets/pages/scripts/components-bootstrap-select.min.js" type="text/javascript"></script>
             <!-- END PAGE LEVEL SCRIPTS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
             <script src="<?= base_url(); ?>assets/global/scripts/app.min.js" type="text/javascript"></script>
 
             <script src="<?= base_url(); ?>assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>assets/dropify-upload/js/dropify.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>assets/toastr/js/toastr.min.js" type="text/javascript"></script>
             <!-- END THEME GLOBAL SCRIPTS -->
             <!-- BEGIN THEME LAYOUT SCRIPTS -->
             <script src="<?= base_url(); ?>assets/layouts/layout3/scripts/layout.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>assets/layouts/layout3/scripts/demo.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
 
             <script src="<?= base_url("js/$script.js") ?>"></script>

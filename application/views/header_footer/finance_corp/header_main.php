@@ -52,7 +52,6 @@
     <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN PAGE LEVEL STYLES -->
@@ -61,7 +60,7 @@
     <link href="<?= base_url(); ?>assets/pages/css/invoice.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/pages/css/invoice-2.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS NEW UPDATE-->
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="" />
 
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
         <div class="page-wrapper">

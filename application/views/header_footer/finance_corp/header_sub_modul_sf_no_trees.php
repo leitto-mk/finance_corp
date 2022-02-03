@@ -49,7 +49,6 @@
     <!-- BEGIN PAGE LEVEL PLUGINS NEW UPDATE-->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="<?= base_url(); ?>assets/global/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url()?>assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url()?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url()?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url()?>assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
@@ -64,7 +63,7 @@
     <link href="<?= base_url(); ?>assets/pages/css/invoice.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets/pages/css/invoice-2.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS NEW UPDATE-->
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="" />
 
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
         <div class="page-wrapper">
