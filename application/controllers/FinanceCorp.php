@@ -1308,13 +1308,13 @@ class FinanceCorp extends CI_Controller
     }
 
     public function view_gl_branch_report(){
-        $validation = validate($this->input->get(), ['date' => ['date_start', 'date_finish']], ['branch']);
+        $validation = validate($this->input->get(), ['date' => ['date_start', 'date_finish']], null);
         
         if(!$validation){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $branch = $this->input->get('branch') || 'All';
+        $branch = $this->input->get('branch');
         $accno_start = $this->input->get('accno_start');
         $accno_finish = $this->input->get('accno_finish');
         $date_start = $this->input->get('date_start');
