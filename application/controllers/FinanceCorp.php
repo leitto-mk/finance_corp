@@ -335,23 +335,26 @@ class FinanceCorp extends CI_Controller
         }
         
         $result = '';
-        $accnos = '';
+        $accnos = [];
         if($submit == 'success'){
-
-            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            //PUSH ALL UNIQUE ACCOUNT NUMBERS
             for($i = 0; $i < count($cur_accno_bal); $i++){
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
-                if($i < count($cur_accno_bal)-1){
-                    $accnos .= "'$cur_accno',";
-                }else{
-                    $accnos .= "'$cur_accno'";
-                }
+                array_push($accnos, $cur_accno);
             }
         }
 
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -653,23 +656,26 @@ class FinanceCorp extends CI_Controller
         }
         
         $result = '';
-        $accnos = '';
+        $accnos = [];
         if($submit == 'success'){
-
-            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            //PUSH ALL UNIQUE ACCOUNT NUMBERS
             for($i = 0; $i < count($cur_accno_bal); $i++){
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
-                if($i < count($cur_accno_bal)-1){
-                    $accnos .= "'$cur_accno',";
-                }else{
-                    $accnos .= "'$cur_accno'";
-                }
+                array_push($accnos, $cur_accno);
             }
         }
 
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -971,23 +977,26 @@ class FinanceCorp extends CI_Controller
         }
         
         $result = '';
-        $accnos = '';
+        $accnos = [];
         if($submit == 'success'){
-
-            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            //PUSH ALL UNIQUE ACCOUNT NUMBERS
             for($i = 0; $i < count($cur_accno_bal); $i++){
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
-                if($i < count($cur_accno_bal)-1){
-                    $accnos .= "'$cur_accno',";
-                }else{
-                    $accnos .= "'$cur_accno'";
-                }
+                array_push($accnos, $cur_accno);
             }
         }
 
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -1255,23 +1264,26 @@ class FinanceCorp extends CI_Controller
         }
         
         $result = '';
-        $accnos = '';
+        $accnos = [];
         if($submit == 'success'){
-
-            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            //PUSH ALL UNIQUE ACCOUNT NUMBERS
             for($i = 0; $i < count($cur_accno_bal); $i++){
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
-                if($i < count($cur_accno_bal)-1){
-                    $accnos .= "'$cur_accno',";
-                }else{
-                    $accnos .= "'$cur_accno'";
-                }
+                array_push($accnos, $cur_accno);
             }
         }
 
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
