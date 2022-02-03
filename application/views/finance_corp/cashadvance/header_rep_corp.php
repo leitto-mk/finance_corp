@@ -53,7 +53,6 @@
     <link href="<?= base_url()?>assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url()?>assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url()?>assets/global/plugins/clockface/css/clockface.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url()?>vendors/scripts/autocomplete/autocomplete.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- END PAGE LEVEL PLUGINS NEW UPDATE -->
     <link href="<?= base_url(); ?>assets/pages/css/profile.min.css" rel="stylesheet" type="text/css" />

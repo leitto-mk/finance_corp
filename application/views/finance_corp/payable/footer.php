@@ -52,7 +52,6 @@
         <script src="<?= base_url();?>assets/global/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <script src="<?= base_url();?>/assets/assets/pages/scripts/components-bootstrap-switch.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/table-bootstrap.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/pages/scripts/table-datatables-fixedheader.min.js" type="text/javascript"></script>
