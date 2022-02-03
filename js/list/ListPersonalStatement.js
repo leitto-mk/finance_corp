@@ -1,7 +1,7 @@
 /*
  *  CORE SCRIPT
 */
-const CAStatement = () => {
+const ListCAStatement = () => {
 
     const eventGetEmpDetails = () => {
         $(document).on('click','[name=emp_id]',function(){
@@ -71,5 +71,7 @@ const CAStatement = () => {
 }
 
 /* INITIALIZE CORE SCRIPT */
-CAStatement().init()
-CAStatement().events()
+(function(){
+    ListCAStatement().init()
+    ListCAStatement().events()
+})()

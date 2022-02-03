@@ -1,7 +1,7 @@
 /*
  *  CORE SCRIPT
 */
-var Payment = () => {
+const ListPayment = () => {
     const eventShowList = () => {
         $('#preview, #search').click(function(){
             let docno = $('#search_item').val()
@@ -89,21 +89,28 @@ var Payment = () => {
                     transdate
                 },
                 success: response => {
-                    if(response == 'success'){
-                        alert("Delete Success")
+                    if(response.success == true){
+                        Swal.fire({
+                            'type': 'success',
+                            'title': 'DELETED'
+                        })
                         
                         row.remove()
                     }else{
-                        alert("SERVER PROBLEM")
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ERROR',
+                            'html': `<h4 class="sbold">${response.desc}</h4>`
+                        })
                     }
                 },
                 error: response => {
-        Swal.fire({
-                'type': 'error',
-                'title': 'ABORTED',
-                'text': response.desc
-         })
-}
+                    Swal.fire({
+                        'type': 'error',
+                        'title': 'ERROR',
+                        'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
+                    })
+                }
             })
         })
     }
@@ -121,6 +128,6 @@ var Payment = () => {
 
 /* INITIALIZE CORE SCRIPT */
 (function(){
-    Payment().init()
-    Payment().events()
+    ListPayment().init()
+    ListPayment().events()
 })()
