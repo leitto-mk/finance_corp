@@ -69,7 +69,7 @@
                             <tbody>
                                 <?php for($i =0; $i < count($list); $i++) : ?>
                                     <?php $docno = $list[$i]['DocNo']; ?>
-                                    <tr class="font-white sbold">
+                                    <tr class="font-dark sbold">
                                         <td align="center"><?= $list[$i]['TransDate'] ?></td>
                                         <td align="center"><?= $list[$i]['DocNo'] ?></td>
                                         <td align="center"><?= $list[$i]['TransType'] ?></td>
