@@ -203,6 +203,11 @@ class Mdl_corp_branch extends CI_Model
 
       $this->db->trans_begin();
 
+      //SUBSTRACT `date_start` by one month
+      $date_start = new DateTime($date_start);
+      $date_start->modify("-1 month");
+      $date_start = $date_start->format('Y-m-d');
+
       $query = $this->db->query(
             "SELECT 
                trans.CtrlNo,
