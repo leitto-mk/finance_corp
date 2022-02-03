@@ -165,7 +165,8 @@ class Mdl_corp_branch extends CI_Model
             ON trans.AccNo = acc.Acc_No
           LEFT JOIN abase_01_com AS company
             ON trans.Branch = company.ComCode
-          WHERE AccNo NOT IN (
+          WHERE $branch_condition
+          AND AccNo NOT IN (
              SELECT AccNo 
              FROM tbl_fa_transaction 
              WHERE TransDate 
