@@ -125,25 +125,27 @@ class FinanceCorp extends CI_Controller
         $docno = $this->input->post('docno');
         $branch = $this->input->post('branch');
         $cur_date = $this->input->post('transdate');
-
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
         $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
-        $accnos = '';
+        $accnos = [];
 
         for($i = 0; $i < count($acc_no); $i++){
-            $cur_accno = $acc_no[$i]['AccNo'];
-
-            if($i < count($acc_no)-1){
-                $accnos .= "'$cur_accno',";
-            }else{
-                $accnos .= "'$cur_accno'";
-            }
+            array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -431,8 +433,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/editview/v_add_payment_voucher_edit', $data);
     }
 
-    public function ajax_delete_payment(){
-        
+    public function ajax_delete_payment(){ 
         $validation = validate($this->input->post());
         
         if(!$validation){
@@ -443,23 +444,26 @@ class FinanceCorp extends CI_Controller
         $branch = $this->input->post('branch');
         $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
         $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
-        $accnos = '';
+        $accnos = [];
 
         for($i = 0; $i < count($acc_no); $i++){
-            $cur_accno = $acc_no[$i]['AccNo'];
-
-            if($i < count($acc_no)-1){
-                $accnos .= "'$cur_accno',";
-            }else{
-                $accnos .= "'$cur_accno'";
-            }
+            array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
-        $this->Mdl_corp_treasury->delete_existed_docno($docno);
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -753,27 +757,30 @@ class FinanceCorp extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $docno = $this->input->post('docno');;
-        $branch = $_POST['branch'];
-        $cur_date = $_POST['transdate'];
+        $docno = $this->input->post('docno');
+        $branch = $this->input->post('branch');
+        $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
         $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
-        $accnos = '';
+        $accnos = [];
 
         for($i = 0; $i < count($acc_no); $i++){
-            $cur_accno = $acc_no[$i]['AccNo'];
-
-            if($i < count($acc_no)-1){
-                $accnos .= "'$cur_accno',";
-            }else{
-                $accnos .= "'$cur_accno'";
-            }
+            array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
-        $this->Mdl_corp_treasury->delete_existed_docno($docno);
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -1067,27 +1074,30 @@ class FinanceCorp extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $docno = $this->input->get('docno');
-        $branch = $_POST['branch'];
-        $cur_date = $_POST['transdate'];
+        $docno = $this->input->post('docno');
+        $branch = $this->input->post('branch');
+        $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
         $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
-        $accnos = '';
+        $accnos = [];
 
         for($i = 0; $i < count($acc_no); $i++){
-            $cur_accno = $acc_no[$i]['AccNo'];
-
-            if($i < count($acc_no)-1){
-                $accnos .= "'$cur_accno',";
-            }else{
-                $accnos .= "'$cur_accno'";
-            }
+            array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
-        $this->Mdl_corp_treasury->delete_existed_docno($docno);
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_treasury->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
