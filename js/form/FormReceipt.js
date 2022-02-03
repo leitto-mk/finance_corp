@@ -30,20 +30,47 @@ const FormReceipt = () => {
             
             if (key === 13) {
                 e.preventDefault()
-                e.stopImmediatePropagation()
 
                 // Get all focusable elements
                 var focusable = $(':focusable').not("a, button, #label_tot_amount, #totalamount, [name='itemno[]'], [name='amount[]']")
-                var index = focusable.index(document.activeElement) + 1
+                var index = focusable.index(document.activeElement)
                 
-                if (index >= focusable.length) index = 0
+                var cur_input = focusable.eq(index)
 
-                focusable.eq(index).focus()
+                if(cur_input.attr('name') == 'unit[]'){
+                    let remarks = cur_input.parents('tr').find('input[name="remarks[]"]').val()
+                    let departments = cur_input.parents('tr').find('input[name="departments[]"]').val()
+                    let costcenters = cur_input.parents('tr').find('input[name="costcenters[]"]').val()
+                    let accnos = cur_input.parents('tr').find('select[name="accnos[]"]').val()
+                    let currency = cur_input.parents('tr').find('select[name="currency[]"]').val()
+                    let rate = cur_input.parents('tr').find('input[name="rate[]"]').val()
+                    let unit = cur_input.parents('tr').find('input[name="unit[]"]').val()
+
+                    if(!remarks || !departments || !costcenters || !accnos || !currency || !rate || !unit){
+                        alert('PLEASE FILL ALL THE INPUT')
+                        
+                        return
+                    }
+
+                    row = cur_input.parents('tr').clone()
+
+                    if(cur_input.parents('tr').is(':last-child')){
+                        row.find('[name="remarks[]"]').val('')
+                        row.find('[name="departments[]"]').val('')
+                        row.find('[name="costcenters[]"]').val('')
+                        row.find('[name="unit[]"]').val(0)
+                        row.find('[name="amount[]"]').val(0)
+
+                        $('#tbody_detail').append(row)
+                    }
+                }else if(index >= focusable.length){
+                    index = 0
+                }
+
+                focusable.eq(index+1).focus()
             }
         });
     }
-
-    const eventAddPaidTo = () => {}
 
     const eventEnterToNextInput = () => {
         $('#form_receipt_voucher').keydown(function(e){
@@ -57,13 +84,13 @@ const FormReceipt = () => {
         $(document).on('keydown','[name="unit[]"]', function(e){
             if(e.keyCode == 9){
                 let remarks = $(this).parents('tr').find('input[name="remarks[]"]').val()
-                let departments = $(this).parents('tr') .find('input[name="departments[]"]').val()
-                let costcenters = $(this).parents('tr') .find('input[name="costcenters[]"]').val()
-                // let emp  = $(this).parents('tr') .find('select[name="emp[]"]').val()
-                let accnos = $(this).parents('tr') .find('select[name="accnos[]"]').val()
-                let currency = $(this).parents('tr') .find('select[name="currency[]"]').val()
-                let rate = $(this).parents('tr') .find('input[name="rate[]"]').val()
-                let unit = $(this).parents('tr') .find('input[name="unit[]"]').val()
+                let departments = $(this).parents('tr').find('input[name="departments[]"]').val()
+                let costcenters = $(this).parents('tr').find('input[name="costcenters[]"]').val()
+                // let emp  = $(this).parents('tr').find('select[name="emp[]"]').val()
+                let accnos = $(this).parents('tr').find('select[name="accnos[]"]').val()
+                let currency = $(this).parents('tr').find('select[name="currency[]"]').val()
+                let rate = $(this).parents('tr').find('input[name="rate[]"]').val()
+                let unit = $(this).parents('tr').find('input[name="unit[]"]').val()
 
                 if(!remarks || !departments || !costcenters || !accnos || !currency || !rate || !unit){
                     alert('PLEASE FILL ALL THE INPUT')
