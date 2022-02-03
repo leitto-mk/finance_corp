@@ -397,14 +397,13 @@ class FinanceCorp extends CI_Controller
     }
 
     public function edit_payment(){
-        
         $validation = validate($this->input->get());
         
         if(!$validation){
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $docno = $this->input->post('docno');
+        $docno = $this->input->get('docno');
 
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
 
