@@ -24,6 +24,25 @@ const FormPayment = () => {
         })
     }
 
+    const initSetEnterToFocus = () => {
+        $(document).on('keypress', function (e) {
+            const key = e.keyCode || e.which
+            
+            if (key === 13) {
+                e.preventDefault()
+                e.stopImmediatePropagation()
+
+                // Get all focusable elements
+                var focusable = $(':focusable').not("a, button, #label_tot_amount, #totalamount, [name='itemno[]'], [name='amount[]']")
+                var index = focusable.index(document.activeElement) + 1
+                
+                if (index >= focusable.length) index = 0
+
+                focusable.eq(index).focus()
+            }
+        });
+    }
+
     const eventAddPaidTo = () => {}
 
     const eventNextRow = () => {
@@ -151,6 +170,7 @@ const FormPayment = () => {
     return {
         init: () => {
             initDisableEnterKey()
+            initSetEnterToFocus()
         },
         events: () => {
             // eventSelectCurrency()
