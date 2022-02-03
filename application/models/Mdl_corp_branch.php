@@ -35,6 +35,12 @@ class Mdl_corp_branch extends CI_Model
          $finish = $datestart;
       }
 
+      $last_retainingsum = $this->db->select('RetainingSum')
+                                    ->where($branch_condition)
+                                    ->where("Year = YEAR(DATE_SUB('$finish', INTERVAL 1 YEAR))")
+                                    ->where("Month = 12")
+                                    ->get('tbl_fa_retaining_earning AS trans')->row()->RetainingSum ?? 0;
+
       //GET RESULT IN SELECTED DATE RANGE
       $ondate_selected_result = $this->db->query(
          "SELECT 
@@ -60,46 +66,34 @@ class Mdl_corp_branch extends CI_Model
             trans.Balance,
             CASE 
                WHEN trans.AccType = 'C1' THEN
-                  trans.BalanceBranch + 
-                  (SELECT IFNULL(RetainingSum, 0) 
-                    FROM tbl_fa_retaining_earning
-                    WHERE Branch = trans.Branch
-                    AND Year = YEAR(DATE_SUB('$finish', INTERVAL 1 YEAR))
-                    AND Month = 12)
+                  trans.BalanceBranch + $last_retainingsum
                ELSE
                   trans.BalanceBranch
             END AS BalanceBranch,
             CASE
-                  WHEN (SELECT YEAR(TransDate) 
-                        FROM tbl_fa_transaction 
-                        WHERE AccNo = acc.Acc_No 
-                        AND Branch = trans.Branch
-                        AND TransDate < '$start'
-                        ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$start')
-                     AND (trans.AccType = 'R' OR trans.AccType = 'E') THEN
-                     0
-                  WHEN trans.AccType = 'C1' THEN
-                     (SELECT 
-                        (SELECT BalanceBranch
-                         FROM tbl_fa_transaction 
-                         WHERE AccNo = acc.Acc_No 
-                         AND Branch = trans.Branch
-                         AND TransDate < '$start'
-                         ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
-                        +
-                        (SELECT IFNULL(RetainingSum, 0) 
-                         FROM tbl_fa_retaining_earning
-                         WHERE Branch = trans.Branch
-                         AND Year = YEAR(DATE_SUB('$finish', INTERVAL 1 YEAR))
-                         AND Month = 12)
-                     )
-                  ELSE
-                     (SELECT BalanceBranch
-                      FROM tbl_fa_transaction 
-                      WHERE AccNo = acc.Acc_No 
-                      AND Branch = trans.Branch
-                      AND TransDate < '$start'
-                      ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+               WHEN (SELECT YEAR(TransDate) 
+                     FROM tbl_fa_transaction 
+                     WHERE AccNo = acc.Acc_No 
+                     AND Branch = trans.Branch
+                     AND TransDate < '$start'
+                     ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$start')
+                  AND (trans.AccType = 'R' OR trans.AccType = 'E') THEN
+                  0
+               WHEN trans.AccType = 'C1' THEN
+                  (SELECT BalanceBranch
+                   FROM tbl_fa_transaction 
+                   WHERE AccNo = acc.Acc_No 
+                   AND Branch = trans.Branch
+                   AND TransDate < '$start'
+                   ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+                   + $last_retainingsum 
+               ELSE
+                  (SELECT BalanceBranch
+                     FROM tbl_fa_transaction 
+                     WHERE AccNo = acc.Acc_No 
+                     AND Branch = trans.Branch
+                     AND TransDate < '$start'
+                     ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
             END AS beg_balance,
             trans.EntryDate
           FROM tbl_fa_transaction AS trans
@@ -137,12 +131,7 @@ class Mdl_corp_branch extends CI_Model
             trans.Credit,
             CASE 
                WHEN trans.AccType = 'C1' THEN
-                  trans.BalanceBranch + 
-                  (SELECT IFNULL(RetainingSum, 0) 
-                    FROM tbl_fa_retaining_earning
-                    WHERE Branch = trans.Branch
-                    AND Year = YEAR(DATE_SUB(?, INTERVAL 1 YEAR))
-                    AND Month = 12)
+                  trans.BalanceBranch + $last_retainingsum
                ELSE
                   trans.BalanceBranch
             END AS BalanceBranch,
@@ -156,20 +145,13 @@ class Mdl_corp_branch extends CI_Model
                      AND (trans.AccType = 'R' OR trans.AccType = 'E') THEN
                      0
                   WHEN trans.AccType = 'C1' THEN
-                     (SELECT 
-                        (SELECT BalanceBranch
-                         FROM tbl_fa_transaction 
-                         WHERE AccNo = acc.Acc_No 
-                         AND Branch = trans.Branch
-                         AND TransDate < ?
-                         ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
-                        +
-                        (SELECT IFNULL(RetainingSum, 0) 
-                         FROM tbl_fa_retaining_earning
-                         WHERE Branch = trans.Branch
-                         AND Year = YEAR(DATE_SUB(?, INTERVAL 1 YEAR))
-                         AND Month = 12)
-                     )
+                     (SELECT BalanceBranch
+                     FROM tbl_fa_transaction 
+                     WHERE AccNo = acc.Acc_No 
+                     AND Branch = trans.Branch
+                     AND TransDate < ?
+                     ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+                     + $last_retainingsum
                   ELSE
                      (SELECT BalanceBranch
                         FROM tbl_fa_transaction 
@@ -199,7 +181,7 @@ class Mdl_corp_branch extends CI_Model
           )
           ORDER BY trans.TransDate DESC, trans.CtrlNo DESC"
       ,[
-         $datefinish, $datestart, $datestart, $datestart, $datefinish, $datestart, $datestart, $datefinish, $accno_start, $accno_finish, $datestart
+         $datestart, $datestart, $datestart, $datestart, $datestart, $datefinish, $accno_start, $accno_finish, $datestart
       ])->result_array();
 
       $result = array_merge($ondate_selected_result, $other_accno_result);
@@ -318,6 +300,9 @@ class Mdl_corp_branch extends CI_Model
          unset($query[$i]['Acc_Name']);
          unset($query[$i]['beg_balance']);
       }
+
+      var_dump($query);
+      die();
 
       $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
       
