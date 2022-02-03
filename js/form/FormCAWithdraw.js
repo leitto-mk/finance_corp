@@ -56,6 +56,9 @@ const FormCAWithdraw = () => {
                     row = cur_input.parents('tr').clone()
 
                     if(cur_input.parents('tr').is(':last-child')){
+                        cur_itemno = +row.find('[name="itemno[]"]').val()
+
+                        row.find('[name="itemno[]"]').val(cur_itemno+1)
                         row.find('[name="remarks[]"]').val('')
                         row.find('[name="departments[]"]').val('')
                         row.find('[name="costcenters[]"]').val('')
