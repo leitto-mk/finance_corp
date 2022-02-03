@@ -301,9 +301,6 @@ class Mdl_corp_branch extends CI_Model
          unset($query[$i]['beg_balance']);
       }
 
-      var_dump($query);
-      die();
-
       $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
       
       $this->db->trans_complete();
