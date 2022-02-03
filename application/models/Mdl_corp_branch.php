@@ -75,8 +75,8 @@ class Mdl_corp_branch extends CI_Model
                      FROM tbl_fa_transaction 
                      WHERE AccNo = acc.Acc_No 
                      AND Branch = trans.Branch
-                     AND TransDate < '$start'
-                     ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR('$start')
+                     AND TransDate < ?
+                     ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) < YEAR(?)
                   AND (trans.AccType = 'R' OR trans.AccType = 'E') THEN
                   0
                WHEN trans.AccType = 'C1' THEN
@@ -84,7 +84,7 @@ class Mdl_corp_branch extends CI_Model
                    FROM tbl_fa_transaction 
                    WHERE AccNo = acc.Acc_No 
                    AND Branch = trans.Branch
-                   AND TransDate < '$start'
+                   AND TransDate < ?
                    ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
                    + $last_retainingsum 
                ELSE
@@ -92,7 +92,7 @@ class Mdl_corp_branch extends CI_Model
                      FROM tbl_fa_transaction 
                      WHERE AccNo = acc.Acc_No 
                      AND Branch = trans.Branch
-                     AND TransDate < '$start'
+                     AND TransDate < ?
                      ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
             END AS beg_balance,
             trans.EntryDate
@@ -102,11 +102,13 @@ class Mdl_corp_branch extends CI_Model
           LEFT JOIN abase_01_com AS company
             ON trans.Branch = company.ComCode
           WHERE $branch_condition
-          AND trans.TransDate BETWEEN '$start' AND '$finish'
-          AND trans.AccNo BETWEEN $accno_start AND $accno_finish
+          AND trans.TransDate BETWEEN ? AND ?
+          AND trans.AccNo BETWEEN ? AND ?
           AND trans.PostedStatus = 1
           ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
-      )->result_array();
+      ,[
+         $start, $start, $start, $start, $start, $finish, $accno_start, $accno_finish
+      ])->result_array();
 
       //GET RUNNING BALANCE OF EACH EXCLUDED ACCNO IN SELECTED DATE RANGE
       $other_accno_result = $this->db->query(
