@@ -160,24 +160,27 @@ class Cash_adv extends CI_Controller
         $docno = $this->input->post('docno');
         $branch = $this->input->post('branch');
         $cur_date = $this->input->post('transdate');
-        $last_date = $this->Mdl_corp_cash_advance->get_last_trans_date();
-        $acc_no = $this->Mdl_corp_cash_advance->get_docno_accnos($docno);
-        $accnos = '';
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
+        $accnos = [];
 
         for($i = 0; $i < count($acc_no); $i++){
-            $cur_accno = $acc_no[$i]['AccNo'];
-
-            if($i < count($acc_no)-1){
-                $accnos .= "'$cur_accno'," ;
-            }else{
-                $accnos .= "'$cur_accno'" ;
-            }
+            array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
-        $this->Mdl_corp_cash_advance->delete_existed_docno($docno);
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_cash_advance->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -371,23 +374,26 @@ class Cash_adv extends CI_Controller
         }
         
         $result = '';
-        $accnos = '';
+        $accnos = [];
         if($submit == 'success'){
-
-            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            //PUSH ALL UNIQUE ACCOUNT NUMBERS
             for($i = 0; $i < count($cur_accno_bal); $i++){
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
-                if($i < count($cur_accno_bal)-1){
-                    $accnos .= "'$cur_accno'," ;
-                }else{
-                    $accnos .= "'$cur_accno'" ;
-                }
+                array_push($accnos, $cur_accno);
             }
         }
 
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_cash_advance->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -484,26 +490,29 @@ class Cash_adv extends CI_Controller
         }
 
         $docno = $this->input->post('docno');
-        $branch = $_POST['branch'];
-        $cur_date = $_POST['transdate'];
-        $last_date = $this->Mdl_corp_cash_advance->get_last_trans_date();
-        $acc_no = $this->Mdl_corp_cash_advance->get_docno_accnos($docno);
-        $accnos = '';
+        $branch = $this->input->post('branch');
+        $cur_date = $this->input->post('transdate');
+        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
+        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
+        $accnos = [];
 
         for($i = 0; $i < count($acc_no); $i++){
-            $cur_accno = $acc_no[$i]['AccNo'];
-
-            if($i < count($acc_no)-1){
-                $accnos .= "'$cur_accno'," ;
-            }else{
-                $accnos .= "'$cur_accno'" ;
-            }
+            array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
-        $this->Mdl_corp_cash_advance->delete_existed_docno($docno);
+        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_cash_advance->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -697,23 +706,26 @@ class Cash_adv extends CI_Controller
         }
         
         $result = '';
-        $accnos = '';
+        $accnos = [];
         if($submit == 'success'){
-
-            //INSERT STRING ACCNO FOR `WHERE_IN` CONDITION
+            //PUSH ALL UNIQUE ACCOUNT NUMBERS
             for($i = 0; $i < count($cur_accno_bal); $i++){
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
-                if($i < count($cur_accno_bal)-1){
-                    $accnos .= "'$cur_accno'," ;
-                }else{
-                    $accnos .= "'$cur_accno'" ;
-                }
+                array_push($accnos, $cur_accno);
             }
         }
 
+        if(strtotime($cur_date) < strtotime($last_date)){
+            $start = $cur_date;
+            $finish = $last_date;
+         }else{
+            $start = $last_date;
+            $finish = $cur_date;
+         }
+
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_cash_advance->calculate_balance($branch, $accnos, $cur_date, $last_date);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
