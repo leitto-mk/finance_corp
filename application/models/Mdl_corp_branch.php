@@ -57,6 +57,18 @@ class Mdl_corp_branch extends CI_Model
             trans.Debit,
             trans.Credit, 
             trans.Currency,
+            trans.Balance,
+            CASE 
+               WHEN trans.AccType = 'C1' THEN
+                  trans.BalanceBranch + 
+                  (SELECT IFNULL(RetainingSum, 0) 
+                    FROM tbl_fa_retaining_earning
+                    WHERE Branch = trans.Branch
+                    AND Year = YEAR(DATE_SUB('$finish', INTERVAL 1 YEAR))
+                    AND Month = 12)
+               ELSE
+                  trans.BalanceBranch
+            END AS BalanceBranch,
             CASE
                   WHEN (SELECT YEAR(TransDate) 
                         FROM tbl_fa_transaction 
@@ -89,8 +101,6 @@ class Mdl_corp_branch extends CI_Model
                       AND TransDate < '$start'
                       ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
             END AS beg_balance,
-            trans.Balance,
-            trans.BalanceBranch,
             trans.EntryDate
           FROM tbl_fa_transaction AS trans
           LEFT JOIN tbl_fa_account_no AS acc
@@ -125,7 +135,17 @@ class Mdl_corp_branch extends CI_Model
             trans.Currency,
             trans.Debit,
             trans.Credit,
-            trans.BalanceBranch,
+            CASE 
+               WHEN trans.AccType = 'C1' THEN
+                  trans.BalanceBranch + 
+                  (SELECT IFNULL(RetainingSum, 0) 
+                    FROM tbl_fa_retaining_earning
+                    WHERE Branch = trans.Branch
+                    AND Year = YEAR(DATE_SUB(?, INTERVAL 1 YEAR))
+                    AND Month = 12)
+               ELSE
+                  trans.BalanceBranch
+            END AS BalanceBranch,
             CASE
                   WHEN (SELECT YEAR(TransDate) 
                         FROM tbl_fa_transaction 
@@ -170,6 +190,7 @@ class Mdl_corp_branch extends CI_Model
              BETWEEN ? AND ?
              GROUP BY AccNo
           )
+          AND AccNo BETWEEN ? AND ?
           AND TransDate IN (
              SELECT MAX(TransDate) 
              FROM tbl_fa_transaction 
@@ -178,7 +199,7 @@ class Mdl_corp_branch extends CI_Model
           )
           ORDER BY trans.TransDate DESC, trans.CtrlNo DESC"
       ,[
-         $datestart, $datestart, $datestart, $datefinish, $datestart, $datestart, $datefinish, $datestart
+         $datefinish, $datestart, $datestart, $datestart, $datefinish, $datestart, $datestart, $datefinish, $accno_start, $accno_finish, $datestart
       ])->result_array();
 
       $result = array_merge($ondate_selected_result, $other_accno_result);
