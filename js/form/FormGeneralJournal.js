@@ -1,7 +1,19 @@
 /*
  *  CORE SCRIPT
 */
-var FormGeneralJournal = () => {
+const FormGeneralJournal = () => {
+    const initDisableEnterKey = () => {
+        $(document).on('keyup keypress', function(e){
+            const key = e.keyCode || e.which
+
+            if(key === 13){
+                e.preventDefault()
+            }
+            
+            return;
+        })
+    }
+
     const eventNextRow = () => {
         $(document).on('keydown','[name="credit[]"]', function(e){
             if(e.keyCode == 9){
@@ -145,7 +157,7 @@ var FormGeneralJournal = () => {
 
     return {
         init: () => {
-            //NO INIT FUNCTION FOR THIS SCRIPT
+            initDisableEnterKey()
         },
         events: () => {
             eventNextRow()

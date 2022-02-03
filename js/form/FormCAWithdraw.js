@@ -2,7 +2,7 @@
 /*
  *  CORE SCRIPT
 */
-var addCAWithdraw = () => {
+const FormCAWithdraw = () => {
     // const eventSelectCurrency = () => {
     //     $(document).on('change', '[name="currency[]"]', function(){
     //         const API_KEY = 'efa820d81d9a4c6bb64b469e432b033e'
@@ -12,6 +12,18 @@ var addCAWithdraw = () => {
     //             .then(response => console.log(JSON.stringify(response, null, '\t')))
     //     })
     // }
+
+    const initDisableEnterKey = () => {
+        $(document).on('keyup keypress', function(e){
+            const key = e.keyCode || e.which
+
+            if(key === 13){
+                e.preventDefault()
+            }
+            
+            return;
+        })
+    }
 
     const eventAddPaidTo = () => {}
 
@@ -156,7 +168,7 @@ var addCAWithdraw = () => {
 
     return {
         init: () => {
-            //NO INIT FUNCTION FOR THIS SCRIPT
+            initDisableEnterKey()
         },
         events: () => {
             // eventSelectCurrency()
@@ -172,6 +184,6 @@ var addCAWithdraw = () => {
 
 /* INITIALIZE CORE SCRIPT */
 (function(){
-    addCAWithdraw().init()
-    addCAWithdraw().events()
+    FormCAWithdraw().init()
+    FormCAWithdraw().events()
 })()
