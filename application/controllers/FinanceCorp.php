@@ -145,7 +145,7 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -354,7 +354,7 @@ class FinanceCorp extends CI_Controller
          }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -466,7 +466,7 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -675,7 +675,7 @@ class FinanceCorp extends CI_Controller
          }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -786,7 +786,7 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -996,7 +996,7 @@ class FinanceCorp extends CI_Controller
          }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -1106,7 +1106,7 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -1283,7 +1283,7 @@ class FinanceCorp extends CI_Controller
          }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
