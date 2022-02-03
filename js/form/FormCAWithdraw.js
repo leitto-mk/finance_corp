@@ -222,7 +222,6 @@ const FormCAWithdraw = () => {
         },
         events: () => {
             // eventSelectCurrency()
-            eventAddPaidTo()
             eventSelectEmployee()
             eventNextRow()
             eventDeleteRow()

@@ -204,7 +204,6 @@ const FormPayment = () => {
         },
         events: () => {
             // eventSelectCurrency()
-            eventAddPaidTo()
             eventNextRow()
             eventDeleteRow()
             eventInputUnit()

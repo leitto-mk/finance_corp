@@ -215,7 +215,6 @@ const FormCAReceipt = () => {
         },
         events: () => {
             // eventSelectCurrency()
-            eventAddPaidTo()
             eventSelectEmployee()
             eventNextRow()
             eventDeleteRow()

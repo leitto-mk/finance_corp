@@ -212,7 +212,6 @@ const FormReceipt = () => {
         },
         events: () => {
             // eventSelectCurrency()
-            eventAddPaidTo()
             eventEnterToNextInput()
             eventNextRow()
             eventDeleteRow()

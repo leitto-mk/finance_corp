@@ -204,7 +204,6 @@ const FormOverbook = () => {
         },
         events: () => {
             // eventSelectCurrency()
-            eventAddPaidTo()
             eventNextRow()
             eventDeleteRow()
             eventInputUnit()
