@@ -26,3 +26,5 @@ upload/
 composer
 index.php
 /.vscode
+.vscode/settings.json
+.gitignore

@@ -59,6 +59,7 @@
     "system\\helpers\\text_helper.php": true,
     "system\\helpers\\typography_helper.php": true,
     "system\\helpers\\url_helper.php": true,
-    "system\\helpers\\xml_helper.php": true
+    "system\\helpers\\xml_helper.php": true,
+    "application\\helpers": true
   }
 }
