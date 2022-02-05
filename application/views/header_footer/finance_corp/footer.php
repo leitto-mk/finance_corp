@@ -83,7 +83,9 @@
             <script src="<?= base_url(); ?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
 
-            <script src="<?= base_url("js/$script.js") ?>"></script>
+            <?php if(isset($script) && $script !== '') : ?>
+                <script src="<?= base_url("js/$script.js") ?>"></script>
+            <?php endif; ?>
             
             </body>
 

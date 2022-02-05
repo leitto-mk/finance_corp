@@ -66,6 +66,8 @@
         <!-- data-pace-options='{ "ajax": true, "ghostTime": 10000 }' -->
         <!-- END PAGE LEVEL SCRIPTS -->
 
-        <script src="<?= base_url("js/$script.js") ?>"></script>
+        <?php if(isset($script) && $script !== '') : ?>
+            <script src="<?= base_url("js/$script.js") ?>"></script>
+        <?php endif; ?>
      </body>
 </html>
