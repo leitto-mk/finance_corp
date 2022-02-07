@@ -117,6 +117,7 @@ class Mdl_corp_balance_sheet extends CI_Model
                            (SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
                             FROM tbl_fa_transaction
                             WHERE $branch
+                            AND Year = YEAR('$date')
                             AND AccType IN ('CX'))
                         ,0)
                      ))
