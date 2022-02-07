@@ -67,6 +67,9 @@ const FormCAReceipt = () => {
 
                         $('#tbody_detail').append(row)
                     }
+
+                    //Set Focus on the next Description field
+                    $('#tbody_detail > tr > td > input[name="remarks[]"]').focus()
                 }else if(index >= focusable.length){
                     index = 0
                 }
@@ -170,8 +173,23 @@ const FormCAReceipt = () => {
     }
 
     const eventSubmitCAReceipt = () => {
-        $('#form_ca_receipt').submit(function(e){
-            e.preventDefault()
+        $('#btn_submit').on('click',function(){
+        
+            //Remove Row with empty Description
+            if($('#tbody_detail > tr').length > 1){
+                $(document).find('#tbody_detail tr').each(function(){
+                    var cur_remark_val = $(this).find('input[name="remarks[]"]').val()
+                    var cur_amount_val = +$(this).find('input[name="amount[]"]').val()
+    
+                    if(cur_remark_val == '' || cur_remark_val == null || cur_amount_val == 0 || cur_amount_val == null){
+                        $(this).remove()
+                    }
+                })
+            }
+
+
+            //Validate the rest fields if empty
+            $('#form_ca_receipt').valid()
             
             let obj = $(this).serializeArray()
 
