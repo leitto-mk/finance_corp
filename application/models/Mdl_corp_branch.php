@@ -38,7 +38,8 @@ class Mdl_corp_branch extends CI_Model
       $last_retainingsum = $this->db->select('RetainingSum')
                                     ->where($branch_condition)
                                     ->where("Year = YEAR(DATE_SUB('$finish', INTERVAL 1 YEAR))")
-                                    ->where("Month = 12")
+                                    ->order_by("Month DESC, CtrlNo DESC")
+                                    ->limit(1)
                                     ->get('tbl_fa_retaining_earning AS trans')->row()->RetainingSum ?? 0;
 
       //GET RESULT IN SELECTED DATE RANGE
