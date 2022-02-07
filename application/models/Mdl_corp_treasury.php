@@ -161,12 +161,29 @@ class Mdl_corp_treasury extends CI_Model
         );
     }
 
-    function submit_treasury($master, $details, $trans){
+    function submit_treasury($master, $details, $trans, $branch, $cur_date){
         $this->db->trans_begin();
         
         $this->db->insert_batch('tbl_fa_treasury_mas', $master);
         $this->db->insert_batch('tbl_fa_treasury_det', $details);
         $this->db->insert_batch('tbl_fa_transaction', $trans);
+
+        //Calculate Monthly Retaining Earning
+        $is_retaining_curmonth_exist = $this->db->query(
+            "SELECT COUNT(Month) AS Total FROM tbl_fa_retaining_earning
+               WHERE Branch = '$branch'
+               AND Month = YEAR('$cur_date')
+               AND Year = MONTH('$cur_date')"
+         )->row()->Total;
+   
+         $year = date('Y', strtotime($cur_date));
+         $month = date('m', strtotime($cur_date));
+   
+         if($is_retaining_curmonth_exist > 0){
+            $this->db->query("CALL retaining_earnings_update('$branch',$year,$month)");
+         }else{
+            $this->db->query("CALL retaining_earnings_insert('$branch',$year,$month)");
+         }
 
         $this->db->trans_complete();
 

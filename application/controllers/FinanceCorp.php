@@ -328,7 +328,7 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans, $branch, $cur_date);
 
         if($submit !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
@@ -648,7 +648,7 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans, $branch, $cur_date);
 
         if($submit !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
@@ -969,7 +969,7 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans, $branch, $cur_date);
 
         if($submit !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
@@ -1256,7 +1256,7 @@ class FinanceCorp extends CI_Controller
         $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans);
+        $submit = $this->Mdl_corp_treasury->submit_treasury($master, $details, $trans, $branch, $cur_date);
 
         if($submit !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
