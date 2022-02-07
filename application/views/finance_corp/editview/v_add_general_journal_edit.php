@@ -184,7 +184,7 @@
                                                                                     <?php endforeach; ?>
                                                                                 </select>
                                                                             </td>
-                                                                            <td><input type="number" name="debit[]" value="<?= $list[$i]['Debit'] ?>" class="form-control" min="1" value="1" required></td>
+                                                                            <td><input type="number" name="debit[]" value="<?= $list[$i]['Debit'] ?>" class="form-control" value="0" required></td>
                                                                             <td><input type="number" name="credit[]" value="<?= $list[$i]['Credit'] ?>" class="form-control" required></td>
                                                                         </tr>
                                                                         <?php
