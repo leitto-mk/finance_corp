@@ -41,12 +41,15 @@
                                                         </div>
                                                         <div class="actions">
                                                             <div class="btn-group btn-group-devided">
-                                                                <button class="btn btn-transparent green btn-sm" id="btn_submit" type="submit">
-                                                                    <i class="fa fa-check"></i> Submit
-                                                                </button>
-                                                                <a class="btn blue-madison btn-sm" id="tools_print_exprt">
+                                                                <a class="btn yellow-crusta btn-sm" id="new_transaction" style="visibility: hidden">
+                                                                    <i class="fa fa-plus"></i> New
+                                                                </a>
+                                                                <a class="btn blue-madison btn-sm" id="print_transaction" id="print_transaction" style="visibility: hidden">
                                                                     <i class="fa fa-print"></i> Print
                                                                 </a>
+                                                                <button class="btn btn-transparent green btn-sm" id="btn_submit" type="submit" style="visibility: visible">
+                                                                    <i class="fa fa-check"></i> Submit
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>

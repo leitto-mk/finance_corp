@@ -157,7 +157,8 @@ const FormGeneralJournal = () => {
     }
 
     const eventSubmitGeneral = () => {
-        $('#btn_submit').on('click',function(){
+        $('#btn_submit').on('click',function(e){
+            e.preventDefault()
         
             //Remove Row with empty Description
             if($('#tbody_detail > tr').length > 1){
@@ -188,6 +189,10 @@ const FormGeneralJournal = () => {
             
             let obj = $('#form_general_journal').serializeArray()
 
+            var docno = $('[name="docno"]').val()
+            var branch = $('[name="branch"]').val()
+            var transdate = $('[name="transdate"]').val()
+
             $.ajax({
                 url: 'ajax_submit_general_journal',
                 method: 'POST',
@@ -202,7 +207,16 @@ const FormGeneralJournal = () => {
                             'html': 'GENERAL JOURNAL HAS BEEN SUBMITTED'
                         })
 
-                        location.reload()
+                        $('input, textarea').prop('readonly', true)
+                        $('select').prop('disabled', true)
+
+                        $('#new_transaction').prop('href', window.location.origin + '/FinanceCorp/add_general_journal')
+                        $('#new_transaction').css('visibility', 'visible')
+                        
+                        $('#print_transaction').prop('href', window.location.origin + '/FinanceCorp/view_reps_general_journal' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').css('visibility', 'visible')
+                        
+                        $('#btn_submit').css('visibility', 'hidden')
                     }else{
                         Swal.fire({
                             'type': 'error',

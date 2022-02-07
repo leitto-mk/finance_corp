@@ -21,9 +21,9 @@ class Mdl_corp_branch extends CI_Model
    function get_general_ledger($branch, $accno_start, $accno_finish, $datestart, $datefinish){
 
       if($branch == 'All' || $branch == ''){
-         $branch_condition = "trans.Branch IS NOT NULL";
+         $branch_condition = "Branch IS NOT NULL";
       }else{
-         $branch_condition = "trans.Branch = '$branch'";
+         $branch_condition = "Branch = '$branch'";
       }
 
       $start = $finish = '';
@@ -35,12 +35,48 @@ class Mdl_corp_branch extends CI_Model
          $finish = $datestart;
       }
 
-      $last_retainingsum = $this->db->select('RetainingSum')
-                                    ->where($branch_condition)
-                                    ->where("Year = YEAR(DATE_SUB('$finish', INTERVAL 1 YEAR))")
-                                    ->order_by("Month DESC, CtrlNo DESC")
-                                    ->limit(1)
-                                    ->get('tbl_fa_retaining_earning AS trans')->row()->RetainingSum ?? 0;
+      $cur_earning_last_year = $this->db->query(
+         "SELECT (
+            COALESCE(
+               (SELECT IFNULL(RetainingSum, 0) AS CurrentEarning
+                FROM tbl_fa_retaining_earning
+                WHERE $branch_condition
+                AND Year = YEAR(?)
+                AND Month <= MONTH(?)
+                ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
+            ,0)
+            +
+            COALESCE(
+               (SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
+                FROM tbl_fa_transaction
+                WHERE $branch_condition
+                AND YEAR(TransDate) = YEAR(?)
+                AND AccType IN ('CX'))
+            ,0)
+         ) AS CurrentEarningPrevYear"
+      , [$start, $start, $start])->row()->CurrentEarningPrevYear;
+
+      $retaining_earning_last_year = $this->db->query(
+         "SELECT (
+            COALESCE(
+               (SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
+                FROM tbl_fa_retaining_earning
+                WHERE $branch_condition
+                AND Year = YEAR(DATE_SUB(?, INTERVAL 1 YEAR))
+                ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
+            ,0)
+            +
+            COALESCE(
+               (SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
+                FROM tbl_fa_transaction
+                WHERE $branch_condition
+                AND TransDate <= ?
+                AND AccType IN ('C1'))
+            ,0)
+          ) AS RetainingEarning"
+      , [$start, $finish])->row()->RetainingEarning;
+
+      $retaining_earning = $cur_earning_last_year + $retaining_earning_last_year;
 
       //GET RESULT IN SELECTED DATE RANGE
       $ondate_selected_result = $this->db->query(
@@ -67,7 +103,7 @@ class Mdl_corp_branch extends CI_Model
             trans.Balance,
             CASE 
                WHEN trans.AccType = 'C1' THEN
-                  trans.BalanceBranch + $last_retainingsum
+                  trans.BalanceBranch + $retaining_earning
                ELSE
                   trans.BalanceBranch
             END AS BalanceBranch,
@@ -82,12 +118,12 @@ class Mdl_corp_branch extends CI_Model
                   0
                WHEN trans.AccType = 'C1' THEN
                   (SELECT BalanceBranch
-                   FROM tbl_fa_transaction 
-                   WHERE AccNo = acc.Acc_No 
-                   AND Branch = trans.Branch
-                   AND TransDate < ?
-                   ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
-                   + $last_retainingsum 
+                     FROM tbl_fa_transaction 
+                     WHERE AccNo = acc.Acc_No 
+                     AND Branch = trans.Branch
+                     AND TransDate < ?
+                     ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+                  + $retaining_earning
                ELSE
                   (SELECT BalanceBranch
                      FROM tbl_fa_transaction 
@@ -102,7 +138,7 @@ class Mdl_corp_branch extends CI_Model
             ON trans.AccNo = acc.Acc_No
           LEFT JOIN abase_01_com AS company
             ON trans.Branch = company.ComCode
-          WHERE $branch_condition
+          WHERE trans.$branch_condition
           AND trans.TransDate BETWEEN ? AND ?
           AND trans.AccNo BETWEEN ? AND ?
           AND trans.PostedStatus = 1
@@ -134,7 +170,7 @@ class Mdl_corp_branch extends CI_Model
             trans.Credit,
             CASE 
                WHEN trans.AccType = 'C1' THEN
-                  trans.BalanceBranch + $last_retainingsum
+                  trans.BalanceBranch + $retaining_earning
                ELSE
                   trans.BalanceBranch
             END AS BalanceBranch,
@@ -154,7 +190,7 @@ class Mdl_corp_branch extends CI_Model
                      AND Branch = trans.Branch
                      AND TransDate < ?
                      ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
-                     + $last_retainingsum
+                     + $retaining_earning
                   ELSE
                      (SELECT BalanceBranch
                         FROM tbl_fa_transaction 
@@ -168,7 +204,7 @@ class Mdl_corp_branch extends CI_Model
             ON trans.AccNo = acc.Acc_No
           LEFT JOIN abase_01_com AS company
             ON trans.Branch = company.ComCode
-          WHERE $branch_condition
+          WHERE trans.$branch_condition
           AND AccNo NOT IN (
              SELECT AccNo 
              FROM tbl_fa_transaction 

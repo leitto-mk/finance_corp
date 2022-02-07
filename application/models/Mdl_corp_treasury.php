@@ -168,22 +168,106 @@ class Mdl_corp_treasury extends CI_Model
         $this->db->insert_batch('tbl_fa_treasury_det', $details);
         $this->db->insert_batch('tbl_fa_transaction', $trans);
 
-        //Calculate Monthly Retaining Earning
+        /**
+         ** UPDATE RETAINING EARNING
+         */
+        $this->db->query(
+            "DELETE FROM `tbl_fa_retaining_earning`
+             WHERE Branch = ''
+             OR Branch IS NULL"
+        );
+
         $is_retaining_curmonth_exist = $this->db->query(
             "SELECT COUNT(Month) AS Total FROM tbl_fa_retaining_earning
-               WHERE Branch = '$branch'
-               AND Month = YEAR('$cur_date')
-               AND Year = MONTH('$cur_date')"
-         )->row()->Total;
-   
-         $year = date('Y', strtotime($cur_date));
-         $month = date('m', strtotime($cur_date));
-   
-         if($is_retaining_curmonth_exist > 0){
-            $this->db->query("CALL retaining_earnings_update('$branch',$year,$month)");
-         }else{
-            $this->db->query("CALL retaining_earnings_insert('$branch',$year,$month)");
-         }
+             WHERE Branch = '$branch'
+             AND Month = YEAR('$cur_date')
+             AND Year = MONTH('$cur_date')"
+        )->row()->Total;
+
+        $year = date('Y', strtotime($cur_date));
+        $month = date('m', strtotime($cur_date));
+
+        if($is_retaining_curmonth_exist == 0){
+            $this->db->query(
+                "DELETE FROM `tbl_fa_retaining_earning`
+                 WHERE Branch = ?
+                 AND Year = ?
+                 AND Month = ?"
+            , [$branch, $year, $month]);
+
+            $retaining = $this->db->query(
+                "SELECT 
+                    (
+                        (
+                            SELECT SUM(Amount) FROM tbl_fa_transaction
+                            WHERE Branch = ?
+                            AND YEAR(TransDate) = ? AND MONTH(TransDate) = ?
+                            AND AccType IN ('R', 'R1')
+                        ) +
+                        (
+                            SELECT SUM(Amount) FROM tbl_fa_transaction
+                            WHERE Branch = ?
+                            AND YEAR(TransDate) = ? AND MONTH(TransDate) = ?
+                            AND AccType IN ('E', 'E1')
+                        )
+                    ) AS Retaining"
+            ,[$branch, $year, $month, $branch, $year, $month])->row()->Retaining;
+
+            $this->db->query(
+                "INSERT INTO `tbl_fa_retaining_earning` (Branch, Year, Month, Retaining)
+                 SELECT ?, ?, ?, ?"
+            ,[$branch, $year, $month, $retaining]);
+
+            $this->db->query(
+                "UPDATE `tbl_fa_retaining_earning` AS parent
+                 SET RetainingSum = (
+                    SELECT SUM(Retaining) FROM tbl_fa_retaining_earning
+                    WHERE Branch = ?
+                    AND Year = ?
+                    AND Month <= parent.Month
+                 )
+                 WHERE Branch = ?
+                 AND Year = ?"
+            ,[$branch, $year, $branch, $year]);
+        }else{
+            $retaining = $this->db->query(
+                "SELECT 
+                    (
+                        (
+                            SELECT SUM(Amount) FROM tbl_fa_transaction
+                            WHERE Branch = ?
+                            AND YEAR(TransDate) = ? AND MONTH(TransDate) = ?
+                            AND AccType IN ('R', 'R1')
+                        ) +
+                        (
+                            SELECT SUM(Amount) FROM tbl_fa_transaction
+                            WHERE Branch = ?
+                            AND YEAR(TransDate) = ? AND MONTH(TransDate) = ?
+                            AND AccType IN ('E', 'E1')
+                        )
+                    ) AS Retaining"
+            ,[$branch, $year, $month, $branch, $year, $month])->row()->Retaining;
+
+            $this->db->query(
+                "UPDATE `tbl_fa_retaining_earning`
+                 SET Retaining = ?
+                 WHERE Branch = ?
+                 AND Year = ?
+                 AND Month = ?"
+            ,[$retaining, $branch, $year, $month]);
+
+            $this->db->query(
+                "UPDATE `tbl_fa_retaining_earning` AS parent
+                 SET RetainingSum = (
+                    SELECT SUM(Retaining) FROM tbl_fa_retaining_earning
+                    WHERE Branch = ?
+                    AND Year = ?
+                    AND Month <= parent.Month
+                 )
+                 WHERE Branch = ?
+                 AND Year = ?"
+            ,[$branch, $year, $branch, $year]);
+        }
 
         $this->db->trans_complete();
 

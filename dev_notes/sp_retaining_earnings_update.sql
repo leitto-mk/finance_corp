@@ -1,7 +1,14 @@
+DROP PROCEDURE IF EXISTS `retaining_earnings_update`;
+
 DELIMITER $$
 CREATE PROCEDURE `retaining_earnings_update` (IN `val_branch` VARCHAR(255), IN `val_year` INT(11), IN `val_month` INT(11))
 BEGIN
    START TRANSACTION;
+
+   -- DELETE EMPTY BRANCH --
+   DELETE FROM `tbl_fa_retaining_earning`
+   WHERE Branch = ''
+   OR Branch IS NULL;
 
    -- GET ACCUMULATED ACCNO AMOUNT --
    SELECT @revenue := IFNULL((
@@ -37,6 +44,4 @@ BEGIN
    )
    WHERE Branch = val_branch
    AND Year = val_year;
-
-   COMMIT;
 END $$

@@ -173,7 +173,8 @@ const FormCAReceipt = () => {
     }
 
     const eventSubmitCAReceipt = () => {
-        $('#btn_submit').on('click',function(){
+        $('#btn_submit').on('click',function(e){
+            e.preventDefault()
         
             //Remove Row with empty Description
             if($('#tbody_detail > tr').length > 1){
@@ -189,6 +190,10 @@ const FormCAReceipt = () => {
             
             let obj = $('#form_ca_receipt').serializeArray()
 
+            var docno = $('[name="docno"]').val()
+            var branch = $('[name="branch"]').val()
+            var transdate = $('[name="transdate"]').val()
+
             $.ajax({
                 url: 'ajax_submit_ca_receipt',
                 method: 'POST',
@@ -202,7 +207,20 @@ const FormCAReceipt = () => {
                             'html': 'CA Receipt HAS BEEN SUBMITTED'
                         })
 
-                        location.reload()
+                        $('input, textarea').prop('readonly', true)
+                        $('select').prop('disabled', true)
+
+                        $('#new_transaction').prop('href', window.location.origin + '/FinanceCorp/add_ca_receipt')
+                        $('#new_transaction').css('visibility', 'visible')
+                        
+                        $('#print_transaction').prop('href', window.location.origin + '/FinanceCorp/view_reps_cash_receipt' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').css('visibility', 'visible')
+                        
+                        $('#btn_submit').css('visibility', 'hidden')
+                        
+                        $('#print_transaction').css('visibility', 'visible')
+                        
+                        $('#btn_submit').css('visibility', 'hidden')
                     }else{
                         Swal.fire({
                             'type': 'error',

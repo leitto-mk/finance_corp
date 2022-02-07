@@ -162,7 +162,8 @@ const FormOverbook = () => {
     }
 
     const eventSubmitOverbook = () => {
-        $('#btn_submit').on('click',function(){
+        $('#btn_submit').on('click',function(e){
+            e.preventDefault()
         
             //Remove Row with empty Description
             if($('#tbody_detail > tr').length > 1){
@@ -178,6 +179,10 @@ const FormOverbook = () => {
             
             let obj = $('#form_overbook').serializeArray()
 
+            var docno = $('[name="docno"]').val()
+            var branch = $('[name="branch"]').val()
+            var transdate = $('[name="transdate"]').val()
+
             $.ajax({
                 url: 'ajax_submit_overbook',
                 method: 'POST',
@@ -191,7 +196,16 @@ const FormOverbook = () => {
                             'html': 'OVERBOOK HAS BEEN SUBMITTED'
                         })
 
-                        location.reload()
+                        $('input, textarea').prop('readonly', true)
+                        $('select').prop('disabled', true)
+
+                        $('#new_transaction').prop('href', window.location.origin + '/FinanceCorp/add_overbook_voucher')
+                        $('#new_transaction').css('visibility', 'visible')
+                        
+                        $('#print_transaction').prop('href', window.location.origin + '/FinanceCorp/view_reps_overbook' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').css('visibility', 'visible')
+                        
+                        $('#btn_submit').css('visibility', 'hidden')
                     }else{
                         Swal.fire({
                             'type': 'error',
