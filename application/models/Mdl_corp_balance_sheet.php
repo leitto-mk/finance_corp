@@ -110,7 +110,7 @@ class Mdl_corp_balance_sheet extends CI_Model
                             WHERE $branch
                             AND Year = YEAR('$date')
                             AND Month <= MONTH('$date')
-                            ORDER BY CtrlNo DESC LIMIT 1)
+                            ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
                         ,0)
                         +
                         COALESCE(
