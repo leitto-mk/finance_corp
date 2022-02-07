@@ -22,21 +22,21 @@ const FormGeneralJournal = () => {
                 e.preventDefault()
 
                 // Get all focusable elements
-                var focusable = $(':focusable').not("a, button, #label_tot_amount, #totalamount, [name='itemno[]'], [name='amount[]']")
+                var focusable = $(':focusable').not("a, button, #label_tot_amount, #totalamount, [name='itemno[]'], [name='amount[]'], #total_debit, #total_credit")
                 var index = focusable.index(document.activeElement)
                 
                 var cur_input = focusable.eq(index)
 
-                if(cur_input.attr('name') == 'unit[]'){
+                if(cur_input.attr('name') == 'credit[]'){
                     let remarks = cur_input.parents('tr').find('input[name="remarks[]"]').val()
                     let departments = cur_input.parents('tr').find('input[name="departments[]"]').val()
                     let costcenters = cur_input.parents('tr').find('input[name="costcenters[]"]').val()
                     let accnos = cur_input.parents('tr').find('select[name="accnos[]"]').val()
                     let currency = cur_input.parents('tr').find('select[name="currency[]"]').val()
-                    let rate = cur_input.parents('tr').find('input[name="rate[]"]').val()
-                    let unit = cur_input.parents('tr').find('input[name="unit[]"]').val()
+                    let debit = cur_input.parents('tr').find('input[name="debit[]"]').val()
+                    let credit = cur_input.parents('tr').find('input[name="credit[]"]').val()
 
-                    if(!remarks || !departments || !costcenters || !accnos || !currency || !rate || !unit){
+                    if(!remarks || !departments || !costcenters || !accnos || !currency || !debit || !credit){
                         alert('PLEASE FILL ALL THE INPUT')
                         
                         return
@@ -51,8 +51,8 @@ const FormGeneralJournal = () => {
                         row.find('[name="remarks[]"]').val('')
                         row.find('[name="departments[]"]').val('')
                         row.find('[name="costcenters[]"]').val('')
-                        row.find('[name="unit[]"]').val(0)
-                        row.find('[name="amount[]"]').val(0)
+                        row.find('[name="debit[]"]').val(0)
+                        row.find('[name="credit[]"]').val(0)
 
                         $('#tbody_detail').append(row)
                     }
@@ -163,9 +163,10 @@ const FormGeneralJournal = () => {
             if($('#tbody_detail > tr').length > 1){
                 $(document).find('#tbody_detail tr').each(function(){
                     var cur_remark_val = $(this).find('input[name="remarks[]"]').val()
-                    var cur_amount_val = +$(this).find('input[name="amount[]"]').val()
+                    var cur_debit_val = +$(this).find('input[name="debit[]"]').val()
+                    var cur_credit_val = +$(this).find('input[name="credit[]"]').val()
     
-                    if(cur_remark_val == '' || cur_remark_val == null || cur_amount_val == 0 || cur_amount_val == null){
+                    if(cur_remark_val == '' || (cur_debit_val == 0 && cur_credit_val == 0)){
                         $(this).remove()
                     }
                 })
