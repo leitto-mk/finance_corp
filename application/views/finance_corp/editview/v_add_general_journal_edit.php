@@ -165,12 +165,10 @@
                                                                                             $acctype = $accnos[$j]['Acc_Type']; 
                                                                                             $accname = $accnos[$j]['Acc_Name'];
                                                                                         ?>
-                                                                                        <?php if($acctype == 'R') : ?>
-                                                                                            <?php if($accn == $list[$i]['AccNo']) : ?>
-                                                                                                <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
-                                                                                            <?php else: ?>
-                                                                                                <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
-                                                                                            <?php endif; ?>
+                                                                                        <?php if($accn == $list[$i]['AccNo']) : ?>
+                                                                                            <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                        <?php else: ?>
+                                                                                            <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
                                                                                         <?php endif; ?>
                                                                                     <?php endfor; ?>
                                                                                 </select>
