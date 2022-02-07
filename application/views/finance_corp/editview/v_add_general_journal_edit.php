@@ -150,7 +150,7 @@
                                                                         $debit_total = 0;
                                                                         $credit_total = 0;
                                                                     ?>
-                                                                    <?php for($i=1; $i < count($list); $i++) : ?>
+                                                                    <?php for($i=0; $i < count($list); $i++) : ?>
                                                                         <tr style="background-color: #E9EDEF">
                                                                             <td><input type="number" name="itemno[]" class="form-control" readonly value="<?= $list[$i]['ItemNo'] ?>"></td>
                                                                             <td><input type="text" name="remarks[]" class="form-control" value="<?= $list[$i]['Remarks'] ?>" required></td>

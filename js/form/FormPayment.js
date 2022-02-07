@@ -175,12 +175,8 @@ const FormPayment = () => {
                     }
                 })
             }
-
-
-            //Validate the rest fields if empty
-            $('#form_payment_voucher').valid()
             
-            let obj = $(this).serializeArray()
+            let obj = $('#form_payment_voucher').serializeArray()
 
             $.ajax({
                 url: 'ajax_submit_payment',

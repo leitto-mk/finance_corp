@@ -184,7 +184,7 @@ const FormReceipt = () => {
                 })
             }
             
-            let obj = $(this).serializeArray()
+            let obj = $('#form_receipt_voucher').serializeArray()
 
             $.ajax({
                 url: 'ajax_submit_receipt',

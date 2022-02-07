@@ -186,12 +186,8 @@ const FormCAReceipt = () => {
                     }
                 })
             }
-
-
-            //Validate the rest fields if empty
-            $('#form_ca_receipt').valid()
             
-            let obj = $(this).serializeArray()
+            let obj = $('#form_ca_receipt').serializeArray()
 
             $.ajax({
                 url: 'ajax_submit_ca_receipt',

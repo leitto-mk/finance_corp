@@ -193,12 +193,8 @@ const FormCAWithdraw = () => {
                     }
                 })
             }
-
-
-            //Validate the rest fields if empty
-            $('#form_ca_withdraw').valid()
             
-            let obj = $(this).serializeArray()
+            let obj = $('#form_ca_withdraw').serializeArray()
 
             $.ajax({
                 url: 'ajax_submit_ca_withdraw',

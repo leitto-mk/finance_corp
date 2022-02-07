@@ -172,10 +172,6 @@ const FormGeneralJournal = () => {
                 })
             }
 
-
-            //Validate the rest fields if empty
-            $('#form_general_journal').valid()
-
             let count_row = $('#tbody_detail').children('tr').length
             let total_debit = +$('#total_debit').val()
             let total_credit = +$('#total_credit').val()
@@ -190,7 +186,7 @@ const FormGeneralJournal = () => {
                 return
             }
             
-            let obj = $(this).serializeArray()
+            let obj = $('#form_general_journal').serializeArray()
 
             $.ajax({
                 url: 'ajax_submit_general_journal',
@@ -198,6 +194,7 @@ const FormGeneralJournal = () => {
                 dataType: 'JSON',
                 data: obj,
                 success: response => {
+                    alert(response)
                     if(response.success == true){
                         Swal.fire({
                             'type': 'success',

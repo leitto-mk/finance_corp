@@ -1134,7 +1134,7 @@ class FinanceCorp extends CI_Controller
         $validation = validate($this->input->post(), 
             [ //Specific Case
                 'date' => ['transdate'],
-                'number' => ['itemno','unit','rate','amount','totalamount']
+                'number' => ['itemno','debit','credit']
             ], 
             [ //Ignore
                 'paidto',

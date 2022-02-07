@@ -175,12 +175,8 @@ const FormOverbook = () => {
                     }
                 })
             }
-
-
-            //Validate the rest fields if empty
-            $('#form_overbook').valid()
             
-            let obj = $(this).serializeArray()
+            let obj = $('#form_overbook').serializeArray()
 
             $.ajax({
                 url: 'ajax_submit_overbook',
