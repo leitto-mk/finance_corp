@@ -1,5 +1,6 @@
 application/cache/
 application/config/
+/application/config/database.php
 application/core/
 application/hooks/
 application/language/
