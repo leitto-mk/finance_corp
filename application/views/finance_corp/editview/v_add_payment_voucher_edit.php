@@ -70,15 +70,17 @@
                                                                             <select name="accno" id="accno" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
                                                                                 <?php for($i=0; $i < count($accnos); $i++) : ?>
-                                                                                    <?php
-                                                                                        $accn = $accnos[$i]['Acc_No'];
-                                                                                        $acctype = $accnos[$i]['Acc_Type']; 
-                                                                                        $accname = $accnos[$i]['Acc_Name'];
-                                                                                    ?>
-                                                                                    <?php if($accn == $accno) : ?>
-                                                                                        <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
-                                                                                    <?php else: ?>
-                                                                                        <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                    <?php if($accnos[$i]['TransGroup'] == 'CB') : ?>
+                                                                                        <?php
+                                                                                            $accn = $accnos[$i]['Acc_No'];
+                                                                                            $acctype = $accnos[$i]['Acc_Type']; 
+                                                                                            $accname = $accnos[$i]['Acc_Name'];
+                                                                                        ?>
+                                                                                        <?php if($accn == $accno) : ?>
+                                                                                            <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                        <?php else: ?>
+                                                                                            <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                        <?php endif; ?>
                                                                                     <?php endif; ?>
                                                                                 <?php endfor; ?>
                                                                             </select>
@@ -244,12 +246,10 @@
                                                                                             $acctype = $accnos[$j]['Acc_Type']; 
                                                                                             $accname = $accnos[$j]['Acc_Name'];
                                                                                         ?>
-                                                                                        <?php if($acctype == 'E') : ?>
-                                                                                            <?php if($accn == $list[$i]['AccNo']) : ?>
-                                                                                                <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
-                                                                                            <?php else: ?>
-                                                                                                <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
-                                                                                            <?php endif; ?>
+                                                                                        <?php if($accn == $list[$i]['AccNo']) : ?>
+                                                                                            <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                        <?php else: ?>
+                                                                                            <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
                                                                                         <?php endif; ?>
                                                                                     <?php endfor; ?>
                                                                                 </select>

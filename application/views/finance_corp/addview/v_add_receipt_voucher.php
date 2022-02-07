@@ -70,7 +70,7 @@
                                                                             <select name="accno" id="accno" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
                                                                                 <?php for($i=0; $i < count($accno); $i++) : ?>
-                                                                                    <?php if($accno[$i]['Acc_Type'] == 'A' || $accno[$i]['Acc_Type'] == 'L') : ?>
+                                                                                    <?php if($accno[$i]['TransGroup'] == 'CB') : ?>
                                                                                         <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?> - [<?= $accno[$i]['Acc_Type'] ?>]</option>
                                                                                     <?php endif; ?>
                                                                                 <?php endfor; ?>
@@ -235,9 +235,7 @@
                                                                             <select name="accnos[]" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
                                                                                 <?php for($i=0; $i < count($accno); $i++) : ?>
-                                                                                    <?php if($accno[$i]['Acc_Type'] == 'R' || $accno[$i]['Acc_Type'] == 'R1' || $accno[$i]['TransGroup'] == 'RV') : ?>
-                                                                                        <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?> - [<?= $accno[$i]['Acc_Type'] ?>]</option>
-                                                                                    <?php endif; ?>
+                                                                                    <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?> - [<?= $accno[$i]['Acc_Type'] ?>]</option>
                                                                                 <?php endfor; ?>
                                                                             </select>
                                                                         </td>
