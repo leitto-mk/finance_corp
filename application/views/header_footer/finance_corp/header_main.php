@@ -110,7 +110,7 @@
                 <!-- BEGIN SIDEBAR -->
                 <div class="page-sidebar-wrapper">
                     <!-- BEGIN SIDEBAR -->
-                    <div class="page-sidebar navbar-collapse collapse" style="background-color: #4d5b69">
+                    <div class="page-sidebar navbar-collapse collapse bg-blue-ebonyclay">
                         <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="true" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
                             <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                             <li class="sidebar-toggler-wrapper hide">
@@ -120,15 +120,16 @@
                             </li>
                             <!-- END SIDEBAR TOGGLER BUTTON -->
                             <li class="nav-head nav-item start" style="margin-top: -20px">
-                                <a href="<?= site_url('FinanceCorp'); ?>" class="nav-link nav-toggle" style="background-color: #15bed1">
+                                <a href="<?php echo site_url('FinanceCorp'); ?>" class="nav-link nav-toggle" style="background-color: #67809fcc">
                                     <i class="icon-share font-white"></i>
                                     <span class="caption-subject font-white uppercase title bold"> Dashboard </span>
                                 </a>
                             </li>
                             <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Treasury</span>
+                                <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
+                                    <i class="fa fa-edit font-green"></i>
+                                    <span class="title uppercase">Transaction</span>
+                                    <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
@@ -158,9 +159,10 @@
                                 </ul>
                             </li>
                             <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Account</span>
+                                <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
+                                    <i class="fa fa-edit font-green"></i>
+                                    <span class="title uppercase">Account</span>
+                                    <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
@@ -178,59 +180,22 @@
                                 </ul>
                             </li>
                             <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Asset</span>
+                                <a href="<?= site_url('FinanceCorp/view_gl_branch') ?>" target="_blank" class="nav-link nav-toggle bg-blue-ebonyclay">
+                                    <i class="fa fa-edit font-green"></i>
+                                    <span class="title uppercase">Ledger</span>
                                 </a>
                             </li>
-                            <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Payroll</span>
-                                </a>
-                            </li>
-                            <li class="nav-head nav-item active">
-                                <a href="<?php echo site_url('Cash_adv') ?>" target="_blank" class="nav-link nav-toggle" style="background-color: #44515d">
+                            <!-- <li class="nav-head nav-item active">
+                                <a href="<?php echo site_url('Cash_adv') ?>" target="_blank" class="nav-link nav-toggle bg-blue-ebonyclay">
                                     <i class="fa fa-edit"></i>
                                     <span class="title">Cash Advance</span>
                                 </a>
-                            </li>
-                            <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">General</span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item start">
-                                        <a href="#" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;Budget & Forcast</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item start">
-                                        <a href="#" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;Invoice Management</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item start">
-                                        <a href="#" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;Job Costing</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Report</span>
-                                </a>
                             </li> -->
                             <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Report</span>
+                                <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
+                                    <i class="fa fa-edit font-green"></i>
+                                    <span class="title uppercase">Report</span>
+                                    <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
                                     <!-- <li class="nav-item start">
@@ -239,10 +204,15 @@
                                             <span class="title">&bull;&nbsp;&nbsp;Generala Ledger All</span>
                                         </a>
                                     </li> -->
-                                    <li class="nav-item start">
+                                    <!-- <li class="nav-item start">
                                         <a href="<?= site_url('FinanceCorp/view_gl_branch') ?>" target="_blank" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;General Ledger</span>
+                                        </a>
+                                    </li> -->
+                                    <li class="nav-item start">
+                                        <a href="<?= site_url('FinanceCorp/view_income_statement') ?>" target="_blank" class="nav-link">
+                                            <!-- <i class="icon-bar-chart"></i> -->
+                                            <span class="title">&bull;&nbsp;&nbsp;Income Statement</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
@@ -252,29 +222,55 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
+                                        <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Cash Flow</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start">
+                                        <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Journal Transaction</span>
+                                        </a>
+                                    </li>
+                                    <!-- <li class="nav-item start">
                                         <a href="<?= site_url('FinanceCorp/view_trial_balance') ?>" target="_blank" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Trial Balance</span>
                                         </a>
-                                    </li>
+                                    </li> -->
+                                    <!-- <li class="nav-item start">
+                                        <a href="<?= site_url('FinanceCorp/view_gl_stockcard') ?>" target="_blank" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Stockcard</span>
+                                        </a>
+                                    </li> -->
+                                </ul>
+                            </li>
+                            <li class="nav-head nav-item active">
+                                <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
+                                    <i class="fa fa-edit font-green"></i>
+                                    <span class="title uppercase">Workspace</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_income_statement') ?>" target="_blank" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;Income Statement</span>
+                                        <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Employee</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_gl_stockcard') ?>" target="_blank" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
-                                            <span class="title">&bull;&nbsp;&nbsp;Stockcard</span>
+                                        <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Inventory</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start">
+                                        <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Invoice Admin</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
-                                    <i class="fa fa-edit"></i>
-                                    <span class="title">Setting</span>
+                                <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
+                                    <i class="fa fa-edit font-green"></i>
+                                    <span class="title uppercase">Master</span>
                                 </a>
                             </li>
                         </ul>
@@ -286,7 +282,7 @@
                 <div class="page-content-wrapper">
                     <!-- BEGIN CONTENT BODY -->
                     <div class="page-content" style="background-color: #eef1f5">
-                        <div class="page-bar" style="margin-bottom: 20px; background-color: #67809F">
+                        <div class="page-bar bg-blue-dark" style="margin-bottom: 20px;">
                             <ul class="page-breadcrumb">
                                 <li>
                                     <a href="#" class="font-white uppercase">Preview</a>
