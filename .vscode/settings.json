@@ -61,9 +61,5 @@
     "system\\helpers\\url_helper.php": true,
     "system\\helpers\\xml_helper.php": true,
     "application\\helpers": true
-  },
-  "autoHide.autoHideSideBar": true,
-  "autoHide.autoHidePanel": false,
-  "autoHide.sideBarDelay": 50,
-  "autoHide.hideOnOpen": false
+  }
 }
