@@ -80,7 +80,7 @@
                                                     <td colspan="11" class="bold"><?= $ledger[$i]['AccNo'] ?> -- <?= $ledger[$i]['Acc_Name'] ?> | <?= $ledger[$i]['Acc_Type']?></td>
                                                 </tr>
                                                 <tr class="font-white sbold">
-                                                    <td class="bold" align="right" colspan="2">Beginning Balance</td>
+                                                    <td class="bold font-dark" align="right" colspan="2">Beginning Balance</td>
                                                     <td class="sbold uppercase font-green-meadow" align="right" colspan="8" style="font-size: 1.25em"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></td>
                                                 </tr>
                                                 <?php

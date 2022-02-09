@@ -35,7 +35,7 @@ class Mdl_corp_branch extends CI_Model
          $finish = $datestart;
       }
 
-      $cur_earning_last_year = $this->db->query(
+      $current_earnings = $this->db->query(
          "SELECT (
             COALESCE(
                (SELECT IFNULL(RetainingSum, 0) AS CurrentEarning
@@ -76,7 +76,7 @@ class Mdl_corp_branch extends CI_Model
           ) AS RetainingEarning"
       , [$start, $finish])->row()->RetainingEarning;
 
-      $retaining_earning = $cur_earning_last_year + $retaining_earning_last_year;
+      $retaining_earning = $current_earnings + $retaining_earning_last_year;
 
       //GET RESULT IN SELECTED DATE RANGE
       $ondate_selected_result = $this->db->query(
@@ -101,12 +101,6 @@ class Mdl_corp_branch extends CI_Model
             trans.Credit, 
             trans.Currency,
             trans.Balance,
-            CASE 
-               WHEN trans.AccType = 'C1' THEN
-                  trans.BalanceBranch + $retaining_earning
-               ELSE
-                  trans.BalanceBranch
-            END AS BalanceBranch,
             CASE
                WHEN (SELECT YEAR(TransDate) 
                      FROM tbl_fa_transaction 
@@ -123,7 +117,7 @@ class Mdl_corp_branch extends CI_Model
                      AND Branch = trans.Branch
                      AND TransDate < ?
                      ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
-                  + $retaining_earning
+                  + $current_earnings
                ELSE
                   (SELECT BalanceBranch
                      FROM tbl_fa_transaction 
@@ -132,6 +126,18 @@ class Mdl_corp_branch extends CI_Model
                      AND TransDate < ?
                      ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
             END AS beg_balance,
+            CASE 
+               WHEN trans.AccType = 'C1' THEN
+                  (SELECT BalanceBranch
+                   FROM tbl_fa_transaction 
+                   WHERE AccNo = acc.Acc_No 
+                   AND Branch = trans.Branch
+                   AND TransDate < ?
+                   ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) 
+                  + $retaining_earning
+               ELSE
+                  trans.BalanceBranch
+            END AS BalanceBranch,
             trans.EntryDate
           FROM tbl_fa_transaction AS trans
           LEFT JOIN tbl_fa_account_no AS acc
@@ -144,7 +150,7 @@ class Mdl_corp_branch extends CI_Model
           AND trans.PostedStatus = 1
           ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
       ,[
-         $start, $start, $start, $start, $start, $finish, $accno_start, $accno_finish
+         $start, $start, $start, $start, $start, $start, $finish, $accno_start, $accno_finish
       ])->result_array();
 
       //GET RUNNING BALANCE OF EACH EXCLUDED ACCNO IN SELECTED DATE RANGE
