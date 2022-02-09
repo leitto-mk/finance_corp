@@ -53,6 +53,8 @@ if(!function_exists('validate')){
                             $CI->form_validation->set_rules($list . "[]", "`$list` at index [$i] ", "xss_clean|date_valid[$date,$list]");
                         }elseif(array_key_exists('number', $case) && (in_array($list, $case['number']) || $case['number'] === $list)){
                             $CI->form_validation->set_rules($list . "[]", "`$list` at index [$i] ",'xss_clean|numeric|min_length[0]');
+                        }elseif(array_key_exists('email', $case) && (in_array($list, $case['email']) || $case['email'] === $list)){
+                            $CI->form_validation->set_rules($list . "[]", "`$list` at index [$i] ",'xss_clean|email');
                         }else{
                             check_required_arr:
                             $CI->form_validation->set_rules($list . "[]", "`$list` at index [$i] ",'required|trim|xss_clean');
@@ -71,6 +73,8 @@ if(!function_exists('validate')){
                     $CI->form_validation->set_rules($list, $list, "xss_clean|date_valid[$date,$list]");
                 }elseif(array_key_exists('number', $case) && (in_array($list, $case['number']) || $case['number'] === $list)){
                     $CI->form_validation->set_rules($list, $list,'xss_clean|numeric|min_length[0]');
+                }elseif(array_key_exists('email', $case) && (in_array($list, $case['email']) || $case['email'] === $list)){
+                    $CI->form_validation->set_rules($list, $list,'xss_clean|email');
                 }else{
                     check_required:
                     $CI->form_validation->set_rules($list, $list,'required|trim|xss_clean');
