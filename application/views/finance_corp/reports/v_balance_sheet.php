@@ -7,7 +7,7 @@
                 <!-- <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 invoice-logo-space hidden-print">
                     <img src="<?php echo base_url(); ?>assets/assets/pages/img/logos/logotwc.png" width="20%" class="img-responsive" alt="" /><br>
                     <div>
-                        <font size="6"><?= $company ?></font><br>
+                        <font size="6">Company Name</font><br>
                         <font>Jl. Company Address</font><br>
                         <font>City, Postal Code</font><br>
                         <font>Phone : (0431) xxx-xxx</font><br>

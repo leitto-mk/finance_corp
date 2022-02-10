@@ -127,7 +127,7 @@
                     <div class="portlet bordered light">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: -5px">
                             <div>
-                                <font size="6"><?= $company ?></font><br>
+                                <font size="6">Company Name</font><br>
                                 <font size="4" class="font-dark sbold uppercase">Cash Advance Request</font><br>
                                 <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Date : 01-Jan-2021 - 01-Jan-2021</font>
                             </div>

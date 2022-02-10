@@ -24,13 +24,6 @@ class Cash_adv extends CI_Controller
     {
         parent::__construct();
 
-        $this->load->library('form_validation');
-
-        $this->load->helper([
-            'response',
-            'validate'
-        ]);
-
         $this->load->model('Mdl_corp_cash_advance');
     }
 

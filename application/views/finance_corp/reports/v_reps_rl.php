@@ -15,7 +15,7 @@
             <!-- <php $date = date("d-M-Y") ?> -->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: 15px">
                     <div>
-                        <font size="6" class="uppercase"><?= $company ?></font><br>
+                        <font size="6" class="uppercase">Company Name</font><br>
                         <font size="4" class="font-dark sbold uppercase">Perhitungan Rugi - Laba</font><br>
                         <font size="4" class="font-dark sbold">untuk Tahun yang Berakhir 31 Desember 2020</font><br>
                     </div>

@@ -1454,7 +1454,6 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            'company' => $this->db->select("ComName")->get('abase_01_com')->row()->ComName,
             'report' => $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate)
         ];
         
@@ -1479,7 +1478,6 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            'company' => $this->db->select("ComName")->get('abase_01_com')->row()->ComName,
             'report' => $this->Mdl_corp_treasury->get_treasury_report('PAYMENT',$docno, $branch, $transdate)
         ];
         
@@ -1504,7 +1502,6 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            'company' => $this->db->select("ComName")->get('abase_01_com')->row()->ComName,
             'report' => $this->Mdl_corp_treasury->get_treasury_report('GENERAL',$docno, $branch, $transdate)
         ];
         
@@ -1529,7 +1526,6 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            'company' => $this->db->select("ComName")->get('abase_01_com')->row()->ComName,
             'report' => $this->Mdl_corp_treasury->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate)
         ];
         
@@ -1554,7 +1550,6 @@ class FinanceCorp extends CI_Controller
             'h2' => '',
             'h3' => '',
 
-            'company' => $this->db->select("ComName")->get('abase_01_com')->row()->ComName,
             'report' => $this->Mdl_corp_treasury->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate)
         ];
         
