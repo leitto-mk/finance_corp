@@ -1,0 +1,11 @@
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > th {
+	padding-bottom: 4px;
+	padding-top: 4px;
+}
+
+.page-content-wrapper .page-content {
+	margin-left: 0;
+}
