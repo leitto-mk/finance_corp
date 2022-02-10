@@ -20,18 +20,28 @@ const ListCAStatement = () => {
     
                         $('#tbody_statement_details').empty()
     
-                        $('#idnumber').val(response[0].IDNumber)
-                        $('#fullname').val(response[0].FullName || '-')
-                        $('#jobtitle').val(response[0].JobTitle || '-')
-                        $('#supervisor').val(response[0].Supervisor || '-')
-                        $('#department').val(response[0].Department || '-')
-                        $('#outstanding').val(response[0].Balance || '-')
+                        $('#idnumber').val(response.result[0].IDNumber)
+                        $('#fullname').val(response.result[0].FullName || '-')
+                        $('#jobtitle').val(response.result[0].JobTitle || '-')
+                        $('#supervisor').val(response.result[0].Supervisor || '-')
+                        $('#department').val(response.result[0].Department || '-')
+                        $('#outstanding').val(response.result[0].Balance || '-')
     
+                        if(response.result.length <= 1 && !response.result[0].DocNo ){
+                            $('#tbody_statement_details').append(
+                                `<tr class="sbold"> 
+                                    <td class="text-center" colspan="8"> No Record Found... </td>
+                                </tr>`
+                            )
+
+                            return
+                        }
+
                         for(let i = 0; i < response.result.length; i++){
                             $('#tbody_statement_details').append(`
                                 <tr class="sbold">
                                     <td class="text-center">${i+1}</td>
-                                    <td class="text-center">${response.result[i].TransDate}</td>
+                                    <td class="text-center">${response.result[i].TransDate ?? ''}</td>
                                     <td class="text-center">${response.result[i].DocNo}</td>
                                     <td class="text-left">${response.result[i].Remarks}</td>
                                     <td class="text-left">${response.result[i].AccNo}</td>

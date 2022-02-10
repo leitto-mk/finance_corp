@@ -74,7 +74,9 @@ class Cash_adv extends CI_Controller
 
         $id = $this->input->post('id');
 
-        echo json_encode($this->Mdl_corp_cash_advance->get_ca_registered_ids($id));
+        $result = $this->Mdl_corp_cash_advance->get_ca_registered_ids($id);
+
+        return set_success_response($result);
     }
 
     //TRANSACTION DETAILS - CASH ADVANCE WITHDRAW
