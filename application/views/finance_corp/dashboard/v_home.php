@@ -163,7 +163,7 @@
             </div>
         </div> -->
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="portlet bordered light">
                 <div class="caption">
@@ -223,8 +223,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
+    </div> -->
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="tabbable-custom nav-justified">
                 <ul class="nav nav-tabs nav-justified">
@@ -237,10 +237,10 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="rec">
-                        <!-- <div class="portlet bordered light"> -->
-                            <!-- <div class="caption">
+                        <div class="portlet bordered light">
+                            <div class="caption">
                                 <span class="caption-subject bold uppercase font-white"><i class="fa fa-files-o"></i> Account Receivable Aging</span>
-                            </div> -->
+                            </div>
                             <div class="portlet-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-stripped table-condensed">
@@ -331,13 +331,13 @@
                                     </table>
                                 </div>
                             </div>
-                        <!-- </div> -->
+                        </div>
                     </div>
                     <div class="tab-pane" id="pay">
-                        <!-- <div class="portlet bordered light"> -->
-                            <!-- <div class="caption">
+                        <div class="portlet bordered light">
+                            <div class="caption">
                                 <span class="caption-subject bold uppercase font-white"><i class="fa fa-files-o"></i> Account Receivable Aging</span>
-                            </div> -->
+                            </div>
                             <div class="portlet-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-stripped table-condensed">
@@ -428,7 +428,205 @@
                                     </table>
                                 </div>
                             </div>
-                        <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet bordered light">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase font-dark"><i class="fa fa-files-o"></i> Accounts Receivable Aging</span>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-stripped table-condensed">
+                            <thead>
+                                <tr style="background-color: #22313F" class="font-white">
+                                    <th class="text-center" width="3%"> No </th>
+                                    <th class="text-center" width="15%"> Customer </th>
+                                    <th class="text-center" width="15%"> Outstanding </th>
+                                    <th class="text-center" width="15%"> Current </th>
+                                    <th class="text-center" width="15%"> 1 - 30 Days </th>
+                                    <th class="text-center" width="15%"> 31 - 60 Days </th>
+                                    <th class="text-center" width="15%"> 61 - 90 Days </th>
+                                    <th class="text-center" width="17%"> 91 and Over </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="font-dark sbold">
+                                    <td align="center">1</td>
+                                    <td align="center">Customer A</td>                                    
+                                    <td align="right">600.000</td>
+                                    <td align="right">500.000</td>
+                                    <td align="right">500.000</td>
+                                    <td align="right">100.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                </tr>
+                                <tr class="font-dark sbold">
+                                    <td align="center">2</td>
+                                    <td align="center">Customer B</td>                                    
+                                    <td align="right">90.000</td>
+                                    <td align="right">40.000</td>
+                                    <td align="right">40.000</td>
+                                    <td align="right">50.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                </tr>
+                                <tr class="font-dark sbold">
+                                    <td align="center">3</td>
+                                    <td align="center">Customer C</td>                                    
+                                    <td align="right">1.750.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right">1.750.000</td>
+                                </tr>
+                                <tr class="font-dark sbold">
+                                    <td align="center">4</td>
+                                    <td align="center">Customer D</td>                                    
+                                    <td align="right">100.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right">100.000</td>
+                                    <td align="right"></td>
+                                </tr>
+                                <tr class="font-dark sbold">
+                                    <td align="center">5</td>
+                                    <td align="center">Customer E</td>                                    
+                                    <td align="right">300.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right">200.000</td>
+                                    <td align="right">100.000</td>
+                                    <td align="right"></td>
+                                </tr>
+                                <tr class="font-dark sbold">
+                                    <td align="center">6</td>
+                                    <td align="center">Customer F</td>                                    
+                                    <td align="right">1.950.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right">200.000</td>
+                                    <td align="right"></td>
+                                    <td align="right">1.750.000</td>
+                                </tr>
+                                <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
+                                    <td align="center"></td>
+                                    <td align="center">Total :</td>                                    
+                                    <td align="right" class="font-white sbold bg bg-blue-ebonyclay">4.250.000</td>
+                                    <td align="right">540.000</td>
+                                    <td align="right">540.000</td>
+                                    <td align="right">550.000</td>
+                                    <td align="right">200.000</td>
+                                    <td align="right">3.500.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet bordered light">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase font-dark"><i class="fa fa-files-o"></i> Accounts Payable Aging</span>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-stripped table-condensed">
+                            <thead>
+                                <tr style="background-color: #22313F" class="font-white">
+                                    <th class="text-center" width="3%"> No </th>
+                                    <th class="text-center" width="15%"> Supplier / Vendor </th>
+                                    <th class="text-center" width="15%"> Outstanding </th>
+                                    <th class="text-center" width="15%"> Current </th>
+                                    <th class="text-center" width="15%"> 1 - 30 Days </th>
+                                    <th class="text-center" width="15%"> 31 - 60 Days </th>
+                                    <th class="text-center" width="15%"> 61 - 90 Days </th>
+                                    <th class="text-center" width="17%"> 91 and Over </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="font-dark sbold">
+                                    <td align="center">1</td>
+                                    <td align="center">Supplier A</td>                                    
+                                    <td align="right">600.000</td>
+                                    <td align="right">500.000</td>
+                                    <td align="right">500.000</td>
+                                    <td align="right">100.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                </tr>
+                                <tr class="font-dark sbold">
+                                    <td align="center">2</td>
+                                    <td align="center">Supplier B</td>                                    
+                                    <td align="right">90.000</td>
+                                    <td align="right">40.000</td>
+                                    <td align="right">40.000</td>
+                                    <td align="right">50.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                </tr>
+                                <tr class="font-dark sbold">
+                                    <td align="center">3</td>
+                                    <td align="center">Supplier C</td>                                    
+                                    <td align="right">1.750.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right">1.750.000</td>
+                                </tr>
+                                <tr class="font-dark sbold">
+                                    <td align="center">4</td>
+                                    <td align="center">Supplier D</td>                                    
+                                    <td align="right">100.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right">100.000</td>
+                                    <td align="right"></td>
+                                </tr>
+                                <tr class="font-dark sbold">
+                                    <td align="center">5</td>
+                                    <td align="center">Supplier E</td>                                    
+                                    <td align="right">300.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right">200.000</td>
+                                    <td align="right">100.000</td>
+                                    <td align="right"></td>
+                                </tr>
+                                <tr class="font-dark sbold">
+                                    <td align="center">6</td>
+                                    <td align="center">Supplier F</td>                                    
+                                    <td align="right">1.950.000</td>
+                                    <td align="right"></td>
+                                    <td align="right"></td>
+                                    <td align="right">200.000</td>
+                                    <td align="right"></td>
+                                    <td align="right">1.750.000</td>
+                                </tr>
+                                <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
+                                    <td align="center"></td>
+                                    <td align="center">Total :</td>                                    
+                                    <td align="right" class="font-white sbold bg bg-blue-ebonyclay">4.250.000</td>
+                                    <td align="right">540.000</td>
+                                    <td align="right">540.000</td>
+                                    <td align="right">550.000</td>
+                                    <td align="right">200.000</td>
+                                    <td align="right">3.500.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
