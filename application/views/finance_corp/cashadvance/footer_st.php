@@ -25,6 +25,7 @@
         <script src="<?php echo base_url(); ?>assets/global/plugins/ladda/ladda.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <!-- <script src="<?php echo base_url(); ?>assets/pages/scripts/profile.min.js" type="text/javascript"></script> -->
