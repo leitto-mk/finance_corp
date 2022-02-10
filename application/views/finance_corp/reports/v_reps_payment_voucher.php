@@ -13,9 +13,9 @@
         <div class="col-md-12" id="printDiv" style="size: landscape; font-family: Open Sans, sans-serif;" >
             <div class="row invoice-logo" align="left">
             <!-- <php $date = date("d-M-Y") ?> -->
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: 15px">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: 0px">
                     <div>
-                        <font size="6" class="uppercase">Company Name</font><br>
+                        <font size="5" class="uppercase"><?= $company ?></font><br>
                         <font size="4" class="font-dark sbold uppercase">Payment Voucher</font><br>
                         <font size="4" class="font-dark sbold"></font><br>
                     </div>
@@ -96,15 +96,15 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12" style="margin-top: 15px">
+                                    <div class="col-md-12" style="margin-top: -15px">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-bordered table-hover">
                                                 <thead class="well">
                                                     <tr>
                                                         <th width="3%"  class="text-center"> No </th>
-                                                        <th width="20%" class="text-center"> Description </th>
-                                                        <th width="15%" class="text-center"> Department </th>
-                                                        <th width="15%"  class="text-center"> Cost Center </th>
+                                                        <th width="30%" class="text-center"> Description </th>
+                                                        <th width="10%" class="text-center"> Department </th>
+                                                        <th width="10%"  class="text-center"> Cost Center </th>
                                                         <th width="7%" class="text-center"> Account No </th>
                                                         <th width="10%" class="text-center"> Account Name </th>
                                                         <th width="5%" class="text-center"> Cry </th>
@@ -135,7 +135,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" style="margin-top: 240px">
                                     <div class="col-xs-3">
                                         <dl>
                                             <dt>Prepared By :</dt>

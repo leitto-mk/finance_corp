@@ -21,37 +21,37 @@
 <div class="main_content">
     <div class="row">
         <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bg-blue-ebonyclay" style="border-top: solid 2px;">
+            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bg-blue-ebonyclay">
                 <div class="row">
                     <div class="col-md-12" style="float: left;">
-                        <h1 class="widget-thumb-heading text-uppercase font-white" style="margin-top: 5px"><font size="4">Receipt (0)</font></h1>
+                        <h1 class="widget-thumb-heading text-uppercase font-white" style="margin-top: 5px"><font size="4">Supplier (0)</font></h1>
                     </div>
                 </div>
             </div>
         </div>
         <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bg-blue-sharp" style="border-top: solid 2px;">
+            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bg-blue-sharp">
                 <div class="row">
                     <div class="col-md-12" style="float: left">
-                        <h1 class="widget-thumb-heading text-uppercase font-white" style="margin-top: 5px"><font size="4">Payment (0)</font></h1>
+                        <h1 class="widget-thumb-heading text-uppercase font-white" style="margin-top: 5px"><font size="4">Customer (0)</font></h1>
                     </div>
                 </div>
             </div>
         </div>
         <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bg-green" style="border-top: solid 2px;">
+            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bg-green">
                 <div class="row">
                     <div class="col-md-12" style="float: left">
-                        <h1 class="widget-thumb-heading text-uppercase font-white" style="margin-top: 5px"><font size="4">Journal (0)</font></h1>
+                        <h1 class="widget-thumb-heading text-uppercase font-white" style="margin-top: 5px"><font size="4">Stockcode (0)</font></h1>
                     </div>
                 </div>
             </div>
         </div>
         <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bg-grey-salsa" style="border-top: solid 2px;">
+            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bg-grey-salsa">
                 <div class="row">
                     <div class="col-md-12" style="float: left">
-                        <h1 class="widget-thumb-heading text-uppercase font-white" style="margin-top: 5px"><font size="4">Aging Control (0)</font></h1>
+                        <h1 class="widget-thumb-heading text-uppercase font-white" style="margin-top: 5px"><font size="4">User (0)</font></h1>
                     </div>
                 </div>
             </div>
