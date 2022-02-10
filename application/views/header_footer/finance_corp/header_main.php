@@ -158,10 +158,10 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-head nav-item">
+                            <li class="nav-head nav-item active">
                                 <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
                                     <i class="fa fa-edit font-green"></i>
-                                    <span class="title uppercase font-white">A / R</span>
+                                    <span class="title uppercase">A / R</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
@@ -259,7 +259,13 @@
                             <li class="nav-head nav-item active">
                                 <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
                                     <i class="fa fa-edit font-green"></i>
-                                    <span class="title uppercase">Report</span>
+                                    <span class="title uppercase">Employee</span>
+                                </a>
+                            </li>
+                            <li class="nav-head nav-item">
+                                <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
+                                    <i class="fa fa-edit font-green"></i>
+                                    <span class="title uppercase font-white">Report</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
@@ -282,6 +288,11 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
+                                        <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;ES Columnar</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start">
                                         <a href="<?= site_url('FinanceCorp/view_gl_branch') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;General Ledger</span>
                                         </a>
@@ -289,6 +300,11 @@
                                     <li class="nav-item start">
                                         <a href="#" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Cash Flow</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start">
+                                        <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Journal Transaction</span>
                                         </a>
                                     </li>
                                     <!-- <li class="nav-item start">
@@ -302,12 +318,6 @@
                                         </a>
                                     </li> -->
                                 </ul>
-                            </li>
-                            <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
-                                    <i class="fa fa-edit font-green"></i>
-                                    <span class="title uppercase">Employee</span>
-                                </a>
                             </li>
                             <li class="nav-head nav-item active">
                                 <a href="<?php echo site_url('Cmaster') ?>" target="_blank" class="nav-link nav-toggle bg-blue-ebonyclay">
