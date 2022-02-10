@@ -35,48 +35,21 @@ class Mdl_corp_branch extends CI_Model
          $finish = $datestart;
       }
 
-      $current_earnings = $this->db->query(
-         "SELECT (
-            COALESCE(
-               (SELECT IFNULL(RetainingSum, 0) AS CurrentEarning
-                FROM tbl_fa_retaining_earning
-                WHERE $branch_condition
-                AND Year = YEAR(?)
-                AND Month <= MONTH(?)
-                ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
-            ,0)
-            +
-            COALESCE(
-               (SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
-                FROM tbl_fa_transaction
-                WHERE $branch_condition
-                AND YEAR(TransDate) = YEAR(?)
-                AND AccType IN ('CX'))
-            ,0)
-         ) AS CurrentEarningPrevYear"
-      , [$start, $start, $start])->row()->CurrentEarningPrevYear;
+      $retaining_earning = $this->db->query(
+         "SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
+          FROM tbl_fa_retaining_earning
+          WHERE $branch_condition
+          AND YEAR = YEAR(DATE_SUB(?, INTERVAL 1 YEAR))
+          ORDER BY Month DESC, CtrlNo DESC LIMIT 1"
+      ,[$start])->row()->RetainingEarning ?? 0;
 
-      $retaining_earning_last_year = $this->db->query(
-         "SELECT (
-            COALESCE(
-               (SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
-                FROM tbl_fa_retaining_earning
-                WHERE $branch_condition
-                AND Year = YEAR(DATE_SUB(?, INTERVAL 1 YEAR))
-                ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
-            ,0)
-            +
-            COALESCE(
-               (SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
-                FROM tbl_fa_transaction
-                WHERE $branch_condition
-                AND TransDate <= ?
-                AND AccType IN ('C1'))
-            ,0)
-          ) AS RetainingEarning"
-      , [$start, $finish])->row()->RetainingEarning;
-
-      $retaining_earning = $current_earnings + $retaining_earning_last_year;
+      $retaining_earning_general_journal = $this->db->query(
+         "SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
+          FROM tbl_fa_transaction
+          WHERE $branch_condition
+          AND TransDate <= ?
+          AND AccType IN ('C1')"
+      ,[$start])->row()->GeneralJournalRE;
 
       //GET RESULT IN SELECTED DATE RANGE
       $ondate_selected_result = $this->db->query(
@@ -112,12 +85,11 @@ class Mdl_corp_branch extends CI_Model
                   0
                WHEN trans.AccType = 'C1' THEN
                   (SELECT BalanceBranch
-                     FROM tbl_fa_transaction 
-                     WHERE AccNo = acc.Acc_No 
-                     AND Branch = trans.Branch
-                     AND TransDate < ?
-                     ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
-                  + $current_earnings
+                   FROM tbl_fa_transaction 
+                   WHERE AccNo = acc.Acc_No 
+                   AND Branch = trans.Branch
+                   AND TransDate < ?
+                   ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
                ELSE
                   (SELECT BalanceBranch
                      FROM tbl_fa_transaction 
@@ -132,9 +104,16 @@ class Mdl_corp_branch extends CI_Model
                    FROM tbl_fa_transaction 
                    WHERE AccNo = acc.Acc_No 
                    AND Branch = trans.Branch
-                   AND TransDate < ?
-                   ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1) 
-                  + $retaining_earning
+                   AND TransDate <= ?
+                   ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+                  +
+                  (SELECT IFNULL(SUM(Amount),0)
+                   FROM tbl_fa_transaction 
+                   WHERE AccNo = acc.Acc_No 
+                   AND Branch = trans.Branch
+                   AND YEAR(TransDate) = YEAR(?)
+                   AND TransDate <= ?
+                   ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
                ELSE
                   trans.BalanceBranch
             END AS BalanceBranch,
@@ -150,7 +129,7 @@ class Mdl_corp_branch extends CI_Model
           AND trans.PostedStatus = 1
           ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
       ,[
-         $start, $start, $start, $start, $start, $start, $finish, $accno_start, $accno_finish
+         $start, $start, $finish, $start, $finish, $finish, $finish, $start, $finish, $accno_start, $accno_finish
       ])->result_array();
 
       //GET RUNNING BALANCE OF EACH EXCLUDED ACCNO IN SELECTED DATE RANGE
@@ -174,12 +153,7 @@ class Mdl_corp_branch extends CI_Model
             trans.Currency,
             trans.Debit,
             trans.Credit,
-            CASE 
-               WHEN trans.AccType = 'C1' THEN
-                  trans.BalanceBranch + $retaining_earning
-               ELSE
-                  trans.BalanceBranch
-            END AS BalanceBranch,
+            trans.BalanceBranch,
             CASE
                   WHEN (SELECT YEAR(TransDate) 
                         FROM tbl_fa_transaction 
@@ -191,12 +165,19 @@ class Mdl_corp_branch extends CI_Model
                      0
                   WHEN trans.AccType = 'C1' THEN
                      (SELECT BalanceBranch
-                     FROM tbl_fa_transaction 
-                     WHERE AccNo = acc.Acc_No 
-                     AND Branch = trans.Branch
-                     AND TransDate < ?
-                     ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
-                     + $retaining_earning
+                      FROM tbl_fa_transaction 
+                      WHERE AccNo = acc.Acc_No 
+                      AND Branch = trans.Branch
+                      AND TransDate <= ?
+                      ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+                     +
+                     (SELECT IFNULL(SUM(Amount),0)
+                      FROM tbl_fa_transaction 
+                      WHERE AccNo = acc.Acc_No 
+                      AND Branch = trans.Branch
+                      AND YEAR(TransDate) = YEAR(?)
+                      AND TransDate <= ?
+                      ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
                   ELSE
                      (SELECT BalanceBranch
                         FROM tbl_fa_transaction 
@@ -227,7 +208,7 @@ class Mdl_corp_branch extends CI_Model
           )
           ORDER BY trans.TransDate DESC, trans.CtrlNo DESC"
       ,[
-         $datestart, $datestart, $datestart, $datestart, $datestart, $datefinish, $accno_start, $accno_finish, $datestart
+         $start, $start, $finish, $finish, $finish, $start, $start, $finish, $accno_start, $accno_finish, $start
       ])->result_array();
 
       $result = array_merge($ondate_selected_result, $other_accno_result);
