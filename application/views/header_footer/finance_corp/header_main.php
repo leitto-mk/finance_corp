@@ -304,6 +304,12 @@
                                 </ul>
                             </li>
                             <li class="nav-head nav-item active">
+                                <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
+                                    <i class="fa fa-edit font-green"></i>
+                                    <span class="title uppercase">Employee</span>
+                                </a>
+                            </li>
+                            <li class="nav-head nav-item active">
                                 <a href="<?php echo site_url('Cmaster') ?>" target="_blank" class="nav-link nav-toggle bg-blue-ebonyclay">
                                     <i class="fa fa-edit font-green"></i>
                                     <span class="title uppercase">Master</span>
