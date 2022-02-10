@@ -18,7 +18,7 @@
                                     From
                                 </a>
                             </span>
-                            <input type="date" class="form-control" id="date_from" value="<?= date('Y-01-01') ?>" style="width: 150px">
+                            <input type="date" class="form-control" id="date_from" value="<?= date('Y-m-01') ?>" style="width: 150px">
                         </div>
                         <div class="input-group input-large pull-left" style="margin-top: -5px; margin-left: -100px ">
                             <span class="input-group-btn">
@@ -26,7 +26,7 @@
                                     To
                                 </a>
                             </span>
-                            <input type="date" class="form-control" id="date_to" value="<?= date('Y-m-d') ?>" style="width: 150px">
+                            <input type="date" class="form-control" id="date_to" value="<?= date('Y-m-t') ?>" style="width: 150px">
                         </div>
                         <div class="input-group input-large pull-left" style="margin-top: -5px; margin-left: -120px">
                             <span class="input-group-btn">

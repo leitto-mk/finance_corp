@@ -68,7 +68,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <!-- Row 2 -->
-                                                                        <label class="col-md-2 control-label"><b>Account No.</b></label>
+                                                                        <label class="col-md-2 control-label"><b>Account From</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_caccount">
                                                                             <select name="accno" id="accno" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
