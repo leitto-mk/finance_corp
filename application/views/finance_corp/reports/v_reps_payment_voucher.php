@@ -130,12 +130,16 @@
                                                             </tr>
                                                         <?php endif; ?>
                                                     <?php endfor; ?>
+                                                            <tr>
+                                                                <td class="text-right bold" colspan="9">Grand Total :</td>
+                                                                <td align="right" class="bold">0</td>
+                                                            </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="margin-top: 240px">
+                                <div class="row" style="margin-top: 220px">
                                     <div class="col-xs-3">
                                         <dl>
                                             <dt>Prepared By :</dt>
