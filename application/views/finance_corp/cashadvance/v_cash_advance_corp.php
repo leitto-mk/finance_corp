@@ -27,113 +27,6 @@
     }
 </style>
 <div class="main_content">
-    <!-- <div class="row">
-        <div id="col_box" class="col-md-3">
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
-                <div class="row">
-                    <div class="col-md-8" style="float: left">
-                        <h4 class="widget-thumb-heading text-uppercase font-dark">SD</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" class="icon" class="btn blue btn-sm btn-outline" title="Show Data" style="float: right"><i class="fa fa-bars"></i></a>
-                    </div>
-                </div>
-                <a href="#">
-                    <div class="widget-thumb-wrap">
-                        <i class="widget-thumb-icon bg-blue-hoki fa fa-line-chart"></i>
-                        <div class="widget-thumb-body">
-                            <span class="widget-thumb-subtitle">Total</span>
-                            <span class="widget-thumb-body-stat"><font size="5">4.250.000</font></span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div id="col_box" class="col-md-3">
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
-                <div class="row">
-                    <div class="col-md-8" style="float: left">
-                        <h4 class="widget-thumb-heading text-uppercase font-dark">SMP</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" class="icon" class="btn blue btn-sm btn-outline" title="Show Data" style="float: right"><i class="fa fa-bars"></i></a>
-                    </div>
-                </div>
-                <a href="#">
-                    <div class="widget-thumb-wrap">
-                        <i class="widget-thumb-icon bg-blue-sharp fa fa-line-chart"></i>
-                        <div class="widget-thumb-body">
-                            <span class="widget-thumb-subtitle">Total</span>
-                            <span class="widget-thumb-body-stat"><font size="5">5.250.000</font></span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div id="col_box" class="col-md-3">
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
-                <div class="row">
-                    <div class="col-md-8" style="float: left">
-                        <h4 class="widget-thumb-heading text-uppercase font-dark">SMA</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" class="icon" class="btn blue btn-sm btn-outline" title="Show Data" style="float: right"><i class="fa fa-bars"></i></a>
-                    </div>
-                </div>
-                <a href="#">
-                    <div class="widget-thumb-wrap">
-                        <i class="widget-thumb-icon bg-green fa fa-line-chart"></i>
-                        <div class="widget-thumb-body">
-                            <span class="widget-thumb-subtitle">Total</span>
-                            <span class="widget-thumb-body-stat"><font size="5">0</font></span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div id="col_box" class="col-md-3">
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
-                <div class="row">
-                    <div class="col-md-8" style="float: left">
-                        <h4 class="widget-thumb-heading text-uppercase font-dark">SMK</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" class="icon" class="btn blue btn-sm btn-outline" title="Show Total Data" style="float: right"><i class="fa fa-bars"></i></a>
-                    </div>
-                </div>
-                <a href="#">
-                    <div class="widget-thumb-wrap">
-                        <i class="widget-thumb-icon bg-blue-madison fa fa-line-chart"></i>
-                        <div class="widget-thumb-body">
-                            <span class="widget-thumb-subtitle">Total</span>
-                            <span class="widget-thumb-body-stat"><font size="5">0</font></span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div id="col_box" class="col-md-3">
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
-                <div class="row">
-                    <div class="col-md-8" style="float: left">
-                        <h4 class="widget-thumb-heading text-uppercase font-dark"> Total</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" class="icon" class="btn blue btn-sm btn-outline" title="Show Total Data" style="float: right"><i class="fa fa-bars"></i></a>
-                    </div>
-                </div>
-                <a href="#">
-                    <div class="widget-thumb-wrap">
-                        <i class="widget-thumb-icon bg-blue-dark fa fa-line-chart"></i>
-                        <div class="widget-thumb-body">
-                            <span class="widget-thumb-subtitle">Total</span>
-                            <span class="widget-thumb-body-stat"><font size="5">9.500.000</font></span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div> -->
     <div class="row">
         <div class="col-md-12">
             <div class="portlet bordered light">
@@ -160,7 +53,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">1</td>
                                     <td align="center">CAW2101-0001</td>                                    
                                     <td align="left">Eduard Salindeho - 2929</td>
@@ -181,7 +74,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">2</td>
                                     <td align="center">CAW2101-0001</td>                                    
                                     <td align="left">Sesca Londah - 2000</td>
@@ -202,7 +95,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">3</td>
                                     <td align="center">CAW2101-0001</td>                                    
                                     <td align="left">Pranayan Salindeho - 2001</td>
@@ -253,7 +146,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold uppercase">Finance Accounting Department (Code)</td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">1</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Eduard Salindeho</td>
@@ -272,7 +165,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">2</td>                                 
                                     <td align="center">2001</td>
                                     <td align="left">Sesca Londah</td>
@@ -291,7 +184,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">3</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Pranayan Salindeho</td>
@@ -320,7 +213,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold uppercase">Operation Department (Code)</td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">1</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Eduard Salindeho</td>
@@ -339,7 +232,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">2</td>                                 
                                     <td align="center">2001</td>
                                     <td align="left">Sesca Londah</td>
@@ -358,7 +251,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">3</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Pranayan Salindeho</td>
@@ -387,7 +280,7 @@
                                 <tr style="background-color: #578ebe6b">
                                     <td colspan="9" class="bold uppercase">Human Resource Department (Code)</td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">1</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Eduard Salindeho</td>
@@ -406,7 +299,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">2</td>                                 
                                     <td align="center">2001</td>
                                     <td align="left">Sesca Londah</td>
@@ -425,7 +318,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="font-white sbold">
+                                <tr class="font-dark sbold">
                                     <td align="center">3</td>                                 
                                     <td align="center">2000</td>
                                     <td align="left">Pranayan Salindeho</td>

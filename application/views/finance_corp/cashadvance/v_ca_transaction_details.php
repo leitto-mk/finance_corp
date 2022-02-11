@@ -136,7 +136,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="font-white sbold">
+                                        <tr class="font-dark sbold">
                                             <td align="center">01-Jan-2021</td>                                 
                                             <td align="center">12345</td>
                                             <td align="center">Withdraw</td>
@@ -149,7 +149,7 @@
                                             <td align="right">1,000,000</td>
                                             <td align="right">1,000,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
+                                        <tr class="font-dark sbold">
                                             <td align="center">02-Jan-2021</td>                                 
                                             <td align="center">12345</td>
                                             <td align="center">Receipt</td>
@@ -162,7 +162,7 @@
                                             <td align="right">500,000</td>
                                             <td align="right">500,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
+                                        <tr class="font-dark sbold">
                                             <td align="center">03-Jan-2021</td>                                 
                                             <td align="center">12346</td>
                                             <td align="center">Withdraw</td>
@@ -175,7 +175,7 @@
                                             <td align="right">2,000,000</td>
                                             <td align="right">2,000,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
+                                        <tr class="font-dark sbold">
                                             <td align="center">04-Jan-2021</td>                                 
                                             <td align="center">12347</td>
                                             <td align="center">Withdraw</td>
@@ -188,7 +188,7 @@
                                             <td align="right">5,000,000</td>
                                             <td align="right">5,000,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
+                                        <tr class="font-dark sbold">
                                             <td align="center">05-Jan-2021</td>                                 
                                             <td align="center">12347</td>
                                             <td align="center">Withdraw</td>
@@ -201,7 +201,7 @@
                                             <td align="right">1,000,000</td>
                                             <td align="right">1,000,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
+                                        <tr class="font-dark sbold">
                                             <td align="center">06-Jan-2021</td>                                 
                                             <td align="center">12345</td>
                                             <td align="center">Receipt</td>
@@ -214,7 +214,7 @@
                                             <td align="right">500,000</td>
                                             <td align="right">500,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
+                                        <tr class="font-dark sbold">
                                             <td align="center">07-Jan-2021</td>                                 
                                             <td align="center">12346</td>
                                             <td align="center">Withdraw</td>
@@ -227,7 +227,7 @@
                                             <td align="right">2,000,000</td>
                                             <td align="right">2,000,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
+                                        <tr class="font-dark sbold">
                                             <td align="center">08-Jan-2021</td>                                 
                                             <td align="center">12347</td>
                                             <td align="center">Withdraw</td>
