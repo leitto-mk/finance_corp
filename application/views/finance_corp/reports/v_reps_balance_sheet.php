@@ -357,17 +357,12 @@
                                                     <td style="padding:5px;border-top:none;" class="sbold" width="75%">Total <?= $capital[0]['Acc_Name']?> </td>
                                                     <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($grand_total_capital == 0 ? '-' : number_format($grand_total_capital, 2, ',','.')) ?></td>
                                                 </tr>
-                                                <?php for($i = 0; $i < ($total_left_rows - $total_right_rows+3); $i++) : ?>
+                                                <?php for($i = 0; $i < ($total_left_rows - $total_right_rows+4); $i++) : ?>
                                                     <tr class="font-dark bg-white">
                                                         <td style="padding:5px;border-top:none;"></td>
                                                         <td style="padding:5px;border-top:none;"></td>
                                                     </tr>
                                                 <?php endfor; ?>
-
-
-
-
-
                                                 <?php $grand_total_liabilities_capital = $grand_total_liabilities + $grand_total_capital; ?>
                                                 <tr>
                                                     <td style="padding:5px;border-top:none;" class="sbold" width="75%">Total Liability & Capital </td>

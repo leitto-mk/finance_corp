@@ -15,15 +15,13 @@ const BalanceSheet = () => {
     }
 
     const eventChangeOption = () => {
-        var branch, year, month
-
         $(document).on('change','#branch, #year, #month',function(){
-            branch = $('#branch').val()
-            year = $('#year').val()
-            month = $('#month').val()
+            var branch = $('#branch').val()
+            var year = $('#year').val()
+            var month = $('#month').val()
 
             //Empty before re-fill the address
-            $('#submit_filter').attr('href',null)
+            $('#submit_filter').prop('href',null)
 
             let addr = `${location.href}?branch=${branch}&year=${year}&month=${month}`
 

@@ -103,42 +103,35 @@ class Mdl_corp_balance_sheet extends CI_Model
                   -- THEN GET TOTAL FROM tbl_fa_retaining_earning --
                   -- ELSE, GET LAST `trans.BalanceBranch` --
                   WHEN acc.Acc_No = '31201' THEN
-                     (SELECT (
-                        COALESCE(
-                           (SELECT IFNULL(RetainingSum, 0) AS CurrentEarning
-                            FROM tbl_fa_retaining_earning
-                            WHERE $branch
-                            AND Year = YEAR('$date')
-                            AND Month <= MONTH('$date')
-                            ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
-                        ,0)
-                        +
-                        COALESCE(
-                           (SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
-                            FROM tbl_fa_transaction
-                            WHERE $branch
-                            AND YEAR(TransDate) = YEAR('$date')
-                            AND AccType IN ('CX'))
-                        ,0)
-                     ))
-                  WHEN acc.Acc_No = '31202' THEN
-                     (SELECT (
+                     (SELECT
                         COALESCE(
                            (SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
                             FROM tbl_fa_retaining_earning
                             WHERE $branch
-                            AND Year = YEAR(DATE_SUB('$date', INTERVAL 1 YEAR))
+                            AND Year = YEAR('$date')
+                            AND Month <= MONTH('$date')
+                            AND (Retaining IS NOT NULL OR RetainingSum IS NOT NULL)
                             ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
+                        ,0)
+                     )
+                  WHEN acc.Acc_No = '31202' THEN
+                     (SELECT
+                        COALESCE(
+                           (SELECT IFNULL(RetainingSum, 0) AS LastYearEarning
+                           FROM tbl_fa_retaining_earning
+                           WHERE $branch
+                           AND YEAR = YEAR(DATE_SUB('$date', INTERVAL 1 YEAR))
+                           ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
                         ,0)
                         +
                         COALESCE(
-                           (SELECT IFNULL(SUM(Amount),0) AS GeneralJournalRE
-                            FROM tbl_fa_transaction
-                            WHERE $branch
-                            AND TransDate <= '$date'
-                            AND AccType IN ('C1'))
+                           (SELECT IFNULL((SUM(Credit)-SUM(Debit)),0) AS GeneralJournalRE
+                           FROM tbl_fa_transaction
+                           WHERE $branch
+                           AND YEAR(TransDate) <= YEAR('$date')
+                           AND AccType IN ('C1'))
                         ,0)
-                      ))
+                     )
                   WHEN  acc.TransGroup IN('H1','H2','H3') THEN
                      NULL
                   ELSE
@@ -174,34 +167,5 @@ class Mdl_corp_balance_sheet extends CI_Model
       )->result_array();
 
       return [$company, $asset, $liabilities, $capital];
-   }
-
-   //! Currently Unused
-   function get_current_earning($branch, $year, $month){
-      
-      $current_earning = $this->db->query(
-         "SELECT IFNULL(RetainingSum, 0) AS CurrentEarning
-          FROM tbl_fa_retaining_earning
-          WHERE Branch = '$branch'
-          AND Year = $year
-          AND Month = $month
-          ORDER BY CtrlNo DESC LIMIT 1"
-      )->row()->CurrentEarning;
-
-      return ($current_earning ?: 0);
-   }
-
-   //! Currently Unused
-   function get_retaining_earning($branch, $year){
-
-      $retaining_earning = $this->db->query(
-         "SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
-          FROM tbl_fa_retaining_earning
-          WHERE Branch = '$branch'
-          AND Year = ($year-1)
-          ORDER BY Month DESC, CtrlNo DESC LIMIT 1"
-      )->row()->RetainingEarning;
-
-      return ($retaining_earning ?: 0);
    }
 }

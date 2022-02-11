@@ -126,16 +126,16 @@
                                             </tr>
 
                                             
-                                                <tr class="font-white sbold">
-                                                    <td class="bold" align="right" colspan="6">Beginning Balance</td>
-                                                    <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">0</td>
-                                                </tr>
-                                                <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
-                                                    <td align="right" colspan="4">Total :</td>                                    
-                                                    <td align="right">0</td>
-                                                    <td align="right">0</td>
-                                                    <td align="right" class="font-white sbold bg bg-blue-ebonyclay">0</td>
-                                                </tr>
+                                            <tr class="font-white sbold">
+                                                <td class="bold" align="right" colspan="6">Beginning Balance</td>
+                                                <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">0</td>
+                                            </tr>
+                                            <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
+                                                <td align="right" colspan="4">Total :</td>                                    
+                                                <td align="right">0</td>
+                                                <td align="right">0</td>
+                                                <td align="right" class="font-white sbold bg bg-blue-ebonyclay">0</td>
+                                            </tr>
                                     </tbody>
                                 </table>
                             </div>
