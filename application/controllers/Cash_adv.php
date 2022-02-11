@@ -482,7 +482,7 @@ class Cash_adv extends CI_Controller
             
             //Multiple
             'accnos' => $this->Mdl_corp_cash_advance->get_mas_acc(),
-                        ''costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
+            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'employees' => $this->Mdl_corp_cash_advance->get_employee(),
             'branches' => $this->Mdl_corp_cash_advance->get_branch(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
@@ -541,7 +541,7 @@ class Cash_adv extends CI_Controller
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
-                        'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
+            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
 
             'script' => 'form/FormCAReceipt'
