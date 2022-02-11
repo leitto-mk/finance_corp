@@ -110,4 +110,10 @@ class Mdl_corp_coa extends CI_Model
       return $this->db->error();
     }
   }
+
+  public function reset_coa(){
+      $tables = array('tbl_fa_account_no');
+      $this->db->where('Disc', 'No');
+      $this->db->delete($tables);
+  }
 }

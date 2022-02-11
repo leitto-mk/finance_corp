@@ -16,6 +16,7 @@
         <!-- BEGIN PAGE BASE CONTENT -->
         <div class="row">
           <div class="col-lg-12">
+            <?php echo $this->session->flashdata('success_reset'); ?>  
             <div class="portlet light">
               <div class="portlet-title">
                 <div class="caption">
@@ -24,6 +25,7 @@
                 </div>
                 <div class="actions">
                   <a href="#modal-finance" data-toggle="modal" class="btn blue-chambray" id="btn-new-heading" data-url="<?= base_url('C_Finance/get_form') ?>" title="Create Header For Level 1"><i class="fa fa-plus"></i> Heading</a>
+                  <a href="<?php echo site_url('C_Finance/reset_coa') ?>" class="btn red" id="btn-new-heading"  title="Reset All Chart Of Account" onclick="return confirm('Are you sure to reset COA?')"><i class="fa fa-refresh"></i> Reset COA</a>
                 </div>
               </div>
               <div class="portlet-body" style="margin-top: -20px">

@@ -238,4 +238,10 @@ class C_Finance extends CI_Controller
 
     return $result;
   }
+
+  function reset_coa(){
+      $this->finance->reset_coa();
+      $this->session->set_flashdata('success_reset', '<div class="alert alert-success alert-dismissable"> <button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button> <center><strong>Success!</strong> COA has been reset</center> </div>');
+      redirect('C_Finance');  
+  }
 }
