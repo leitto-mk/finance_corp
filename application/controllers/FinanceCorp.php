@@ -1394,10 +1394,6 @@ class FinanceCorp extends CI_Controller
             'liabilities' => $liabilities,
             'capital' => $capital,
 
-            //! Retaining Earnings (C1, CX). Currently Unused
-            //! 'current_earnings' => $this->Mdl_corp_balance_sheet->get_current_earning($branch, $year, $month),
-            //! 'retain_earnings' => $this->Mdl_corp_balance_sheet->get_retaining_earning($branch, $year),
-
             'script' => 'report/ReportBalanceSheet'
         ];
         
@@ -1512,58 +1508,6 @@ class FinanceCorp extends CI_Controller
         ];
         
         $this->load->view('finance_corp/reports/v_reps_general_journal', $data);
-    }
-
-    //Reports Cash Withdraw
-    public function view_reps_cash_withdraw(){
-        $validation = validate($this->input->get());
-        
-        if(!$validation){
-            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
-        }
-
-        $docno = $this->input->get('docno');
-        $branch = $this->input->get('branch');
-        $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate);
-
-        $data = [
-            'title' => 'Reports',
-            'h1' => '',
-            'h2' => '',
-            'h3' => '',
-
-            'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
-            'report' => $report
-        ];
-        
-        $this->load->view('finance_corp/reports/v_reps_cash_withdraw', $data);
-    }
-
-    //Reports Cash Receipt
-    public function view_reps_cash_receipt(){
-        $validation = validate($this->input->get());
-        
-        if(!$validation){
-            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
-        }
-
-        $docno = $this->input->get('docno');
-        $branch = $this->input->get('branch');
-        $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate);
-
-        $data = [
-            'title' => 'Reports',
-            'h1' => '',
-            'h2' => '',
-            'h3' => '',
-
-            'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
-            'report' => $report
-        ];
-        
-        $this->load->view('finance_corp/reports/v_reps_cash_receipt', $data);
     }
 
     //Reports Income Statement
