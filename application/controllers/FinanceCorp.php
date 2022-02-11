@@ -1447,6 +1447,7 @@ class FinanceCorp extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -1455,7 +1456,7 @@ class FinanceCorp extends CI_Controller
             'h3' => '',
 
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
-            'report' => $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate)
+            'report' => $report
         ];
         
         $this->load->view('finance_corp/reports/v_reps_receipt_voucher', $data);
@@ -1472,6 +1473,7 @@ class FinanceCorp extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_treasury->get_treasury_report('PAYMENT',$docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -1480,7 +1482,7 @@ class FinanceCorp extends CI_Controller
             'h3' => '',
 
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
-            'report' => $this->Mdl_corp_treasury->get_treasury_report('PAYMENT',$docno, $branch, $transdate)
+            'report' => $report
         ];
         
         $this->load->view('finance_corp/reports/v_reps_payment_voucher', $data);
@@ -1497,6 +1499,7 @@ class FinanceCorp extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_treasury->get_treasury_report('GENERAL',$docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -1505,7 +1508,7 @@ class FinanceCorp extends CI_Controller
             'h3' => '',
 
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
-            'report' => $this->Mdl_corp_treasury->get_treasury_report('GENERAL',$docno, $branch, $transdate)
+            'report' => $report
         ];
         
         $this->load->view('finance_corp/reports/v_reps_general_journal', $data);
@@ -1522,6 +1525,7 @@ class FinanceCorp extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_treasury->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -1530,7 +1534,7 @@ class FinanceCorp extends CI_Controller
             'h3' => '',
 
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
-            'report' => $this->Mdl_corp_treasury->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate)
+            'report' => $report
         ];
         
         $this->load->view('finance_corp/reports/v_reps_cash_withdraw', $data);
@@ -1547,6 +1551,7 @@ class FinanceCorp extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_treasury->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -1555,7 +1560,7 @@ class FinanceCorp extends CI_Controller
             'h3' => '',
 
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
-            'report' => $this->Mdl_corp_treasury->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate)
+            'report' => $report
         ];
         
         $this->load->view('finance_corp/reports/v_reps_cash_receipt', $data);

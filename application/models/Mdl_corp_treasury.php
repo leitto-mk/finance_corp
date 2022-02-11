@@ -292,44 +292,4 @@ class Mdl_corp_treasury extends CI_Model
 
         return $query;
     }
-
-    //CASH ADVANCE REPORT
-    function get_ca_employees(){
-        $query = $this->db->select('
-            IDNumber,
-            FullName
-        ')->order_by('IDNumber ASC')->get_where('tbl_fa_hr_append')->result_array();
-
-        return $query;
-    }
-
-    function get_ca_registered_ids($id){
-        $query = $this->db->query(
-            "SELECT
-                emp.IDNumber,
-                emp.FullName,
-                emp.JobTitle,
-                emp.JobTitleDes,
-                emp.Supervisor,
-                emp.SupervisorName,
-                trans.DocNo,
-                trans.TransDate,
-                trans.Branch,
-                trans.Department,
-                trans.CostCenter,
-                trans.Remarks,
-                trans.AccNo,
-                trans.AccType,
-                trans.Debit,
-                trans.Credit,
-                trans.Balance
-             FROM tbl_fa_hr_append AS emp
-             LEFT JOIN tbl_fa_transaction AS trans
-                ON emp.IDNumber = trans.IDNumber
-            WHERE emp.IDNumber = ?
-            ORDER BY trans.TransDate DESC, trans.CtrlNo DESC"
-        , $id)->result_array();
-
-        return $query;
-    }
 }
