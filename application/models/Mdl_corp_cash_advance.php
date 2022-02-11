@@ -38,7 +38,7 @@ class Mdl_corp_cash_advance extends CI_Model
                           ->num_rows();
 
         $iteration = str_pad($current+1, 4, 0, STR_PAD_LEFT);
-        $docno = date('YM') . '-' . $iteration . $type; 
+        $docno = date('ym') . '-' . $iteration . $type; 
 
         return $docno;
     }
