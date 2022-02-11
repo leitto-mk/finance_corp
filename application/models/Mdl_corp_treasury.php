@@ -174,7 +174,9 @@ class Mdl_corp_treasury extends CI_Model
         $this->db->query(
             "DELETE FROM `tbl_fa_retaining_earning`
              WHERE Branch = ''
-             OR Branch IS NULL"
+             OR Branch IS NULL
+             OR Retaining IS NULL
+             OR RetainingSum IS NULL"
         );
 
         $is_retaining_curmonth_exist = $this->db->query(
