@@ -203,7 +203,7 @@ class Cash_adv extends CI_Controller
         $data = [
             'title' => 'Form Cash Advance Withdraw',
             
-            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno('CAW'),
+            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno('CW'),
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
@@ -537,7 +537,7 @@ class Cash_adv extends CI_Controller
         $data = [
             'title' => 'Form Cash Advance Receipt',
             
-            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno('CAR'),
+            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno('CR'),
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),

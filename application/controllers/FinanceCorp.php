@@ -160,7 +160,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form Receipt Voucher',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('REC'),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('RE'),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -484,7 +484,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form payment Voucher',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('PAY'),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('PA'),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -808,7 +808,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form Overbook Voucher',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('OVB'),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('OB'),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -1132,7 +1132,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form General Journal',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('GNR'),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('GJ'),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),

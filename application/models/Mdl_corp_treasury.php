@@ -32,13 +32,13 @@ class Mdl_corp_treasury extends CI_Model
         return $query;
     }
 
-    function get_new_treasury_docno($type){
-        $iteration = date('Y') . '-' . $type . date('m');
-        $docno = $this->db->select('DocNo')
-                          ->get_where('tbl_fa_treasury_mas', "DocNo LIKE '$iteration%'")
-                          ->num_rows() + 1;
+    function get_new_treasury_docno($type){ 
+        $current = $this->db->select('DocNo')
+                          ->get_where('tbl_fa_treasury_mas', "DocNo LIKE '%$type'")
+                          ->num_rows();
 
-        $docno = $iteration . str_pad($docno, 3, 0, STR_PAD_LEFT);
+        $iteration = str_pad($current+1, 4, 0, STR_PAD_LEFT);
+        $docno = date('YM') . '-' . $iteration . $type; 
 
         return $docno;
     }
