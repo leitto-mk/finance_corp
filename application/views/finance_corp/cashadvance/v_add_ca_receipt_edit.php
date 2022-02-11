@@ -193,35 +193,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- <div class="portlet-title" style="background-color: lightblue">
-                                                                <div class="caption ">
-                                                                    <span class="caption-subject font-dark bold uppercase" style="padding-left: 20px">Issue List</span> |
-                                                                    <span class="caption-helper font-dark bold">
-                                                                        <font size="2"><b>Status</b> : <label class="label label-success label-sm bold" style="font-size: 10px;">Approved</label></font>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="portlet-body">
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-advanced table-striped table-hover">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Document No</th>
-                                                                                <th class="">Account No</th>
-                                                                                <th class="">Trans Date</th>
-                                                                                <th class="">Charges</th>
-                                                                                <th class="">Credit</th>
-                                                                                <th class="text-center">Balance</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody id="idetailss">
-                                                                            <tr>
-                                                                                <td colspan="8" align="center">--- Select Customer First ---</td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div> -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -259,25 +230,51 @@
                                                                         <tr style="background-color: #E9EDEF">
                                                                             <td><input type="number" name="itemno[]" class="form-control" readonly value="<?= $list[$i]['ItemNo'] ?>"></td>
                                                                             <td><input type="text" name="remarks[]" class="form-control" value="<?= $list[$i]['Remarks'] ?>" required></td>
-                                                                            <td><input type="text" name="departments[]" class="form-control" value="<?= $list[$i]['Department'] ?>" required></td>
-                                                                            <td><input type="text" name="costcenters[]" class="form-control" value="<?= $list[$i]['CostCenter'] ?>" required><span class="input-group-btn" type="button"></span></td>
+                                                                            <td>
+                                                                                <select name="departments[]" class="form-control" required>
+                                                                                    <option value="">--Choose Department --</option>
+                                                                                    <?php if(!empty($department)) : ?>
+                                                                                        <?php for($j=0; $j < count($department); $j++) : ?>
+                                                                                            <?php if($departments[$j]['DeptCode'] == $list[$i]['Department']) : ?>
+                                                                                                <option selected value="<?= $department[$j]['DeptCode'] ?>" data-branch="<?= $department[$j]['Branch'] ?>"><?= $department[$j]['DeptDes'] ?></option>
+                                                                                            <?php else : ?>
+                                                                                                <option value="<?= $department[$j]['DeptCode'] ?>" data-branch="<?= $department[$j]['Branch'] ?>"><?= $department[$j]['DeptDes'] ?></option>
+                                                                                            <?php endif; ?>
+                                                                                        <?php endfor; ?>
+                                                                                    <?php endif; ?>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td>
+                                                                                <select name="costcenters[]" class="form-control" required>
+                                                                                    <option value="">--Choose Cost Center --</option>
+                                                                                    <?php if(!empty($costcenter)) : ?>
+                                                                                        <?php for($k=0; $k < count($costcenter); $k++) : ?>
+                                                                                            <?php if($costcenter[$k]['DeptCode'] == $list[$i]['CostCenter']) : ?>
+                                                                                                <option selected value="<?= $costcenter[$k]['CostCenter'] ?>" data-department="<?= $costcenter[$k]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
+                                                                                            <?php else :?>
+                                                                                                <option value="<?= $costcenter[$k]['CostCenter'] ?>" data-department="<?= $costcenter[$k]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
+                                                                                            <?php endif; ?>
+                                                                                        <?php endfor; ?>
+                                                                                    <?php endif; ?>
+                                                                                </select>
+                                                                            </td>
                                                                             <td>
                                                                                 <select name="accnos[]" class="form-control" required>
                                                                                     <option value="">--Choose Account No--</option>
-                                                                                    <?php for($j=0; $j < count($accnos); $j++) : ?>
-                                                                                        <?php
-                                                                                            $accn = $accnos[$j]['Acc_No'];
-                                                                                            $acctype = $accnos[$j]['Acc_Type']; 
-                                                                                            $accname = $accnos[$j]['Acc_Name'];
-                                                                                        ?>
-                                                                                        <?php if($acctype == 'R') : ?>
+                                                                                    <?php if(!empty($accnos)) : ?>
+                                                                                        <?php for($l=0; $l < count($accnos); $l++) : ?>
+                                                                                            <?php
+                                                                                                $accname = $accnos[$l]['Acc_Name'];
+                                                                                                $accn = $accnos[$l]['Acc_No'];
+                                                                                                $acctype = $accnos[$l]['Acc_Type']; 
+                                                                                            ?>
                                                                                             <?php if($accn == $list[$i]['AccNo']) : ?>
-                                                                                                <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                                <option selected value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
                                                                                             <?php else: ?>
                                                                                                 <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
                                                                                             <?php endif; ?>
-                                                                                        <?php endif; ?>
-                                                                                    <?php endfor; ?>
+                                                                                        <?php endfor; ?>
+                                                                                    <?php endif; ?>
                                                                                 </select>
                                                                             </td>
                                                                             <td>

@@ -107,6 +107,8 @@ class FinanceCorp extends CI_Controller
             //Multiple
             'accnos' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branches' => $this->Mdl_corp_treasury->get_branch(),
+            'department' => $this->Mdl_corp_treasury->get_department(),
+            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
             'script' => 'form/FormReceipt'
@@ -162,6 +164,8 @@ class FinanceCorp extends CI_Controller
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'department' => $this->Mdl_corp_treasury->get_department(),
+            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
             'script' => 'form/FormReceipt'
@@ -427,6 +431,8 @@ class FinanceCorp extends CI_Controller
             //Multiple
             'accnos' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branches' => $this->Mdl_corp_treasury->get_branch(),
+            'department' => $this->Mdl_corp_treasury->get_department(),
+            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
             'script' => 'form/FormPayment'
@@ -482,6 +488,8 @@ class FinanceCorp extends CI_Controller
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'department' => $this->Mdl_corp_treasury->get_department(),
+            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
             'script' => 'form/FormPayment'
@@ -747,6 +755,8 @@ class FinanceCorp extends CI_Controller
             //Multiple
             'accnos' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branches' => $this->Mdl_corp_treasury->get_branch(),
+            'department' => $this->Mdl_corp_treasury->get_department(),
+            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
             'script' => 'form/FormOverbook'
@@ -802,6 +812,8 @@ class FinanceCorp extends CI_Controller
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'department' => $this->Mdl_corp_treasury->get_department(),
+            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
             'script' => 'form/FormOverbook'
@@ -1067,6 +1079,8 @@ class FinanceCorp extends CI_Controller
             //Multiple
             'accnos' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branches' => $this->Mdl_corp_treasury->get_branch(),
+            'department' => $this->Mdl_corp_treasury->get_department(),
+            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
             'script' => 'form/FormGeneralJournal'
@@ -1122,6 +1136,8 @@ class FinanceCorp extends CI_Controller
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
+            'department' => $this->Mdl_corp_treasury->get_department(),
+            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
             'script' => 'form/FormGeneralJournal'

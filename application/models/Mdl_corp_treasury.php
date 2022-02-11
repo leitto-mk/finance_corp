@@ -80,6 +80,18 @@ class Mdl_corp_treasury extends CI_Model
         return $query;
     }
 
+    function get_department(){
+        $query = $this->db->select('DeptCode, DeptDes, Branch')->get('abase_03_dept')->result_array();
+
+        return $query;
+    }
+
+    function get_costcenter(){
+        $query = $this->db->select('CostCenter, CCDes, DeptCode')->get('abase_04_cost_center')->result_array();
+
+        return $query;
+    }
+
     function get_mas_acc(){
         $query = $this->db
                 ->order_by('Acc_No', 'ASC')

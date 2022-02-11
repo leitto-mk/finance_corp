@@ -148,16 +148,22 @@
                                                                     <tr style="background-color: #E9EDEF">
                                                                         <td><input type="number" name="itemno[]" class="form-control" readonly value="1"></td>
                                                                         <td><input type="text" name="remarks[]" class="form-control" required></td>
-                                                                        <td><input type="text" name="departments[]" class="form-control" required></td>
-                                                                        <td><input type="text" name="costcenters[]" class="form-control" required><span class="input-group-btn" type="button"></span></td>
-                                                                        <!-- <td>
-                                                                            <select name="emp[]" class="form-control" required>
-                                                                                <option value="">--Choose ID--</option>
-                                                                                <?php foreach($employee as $emp) : ?>
-                                                                                    <option value="<?= $emp->IDNumber ?>" data-fullname="<?= $emp->FullName ?>" data-dept="<?= $emp->DeptCode ?>" data-cc="<?= $emp->CostCenter ?>"><?= $emp->IDNumber ?> - <?= $emp->FullName ?></option>
-                                                                                <?php endforeach; ?>
+                                                                        <td>
+                                                                            <select name="departments[]" class="form-control" required>
+                                                                                <option value="">--Choose Department --</option>
+                                                                                <?php for($i=0; $i < count($department); $i++) : ?>
+                                                                                    <option value="<?= $department[$i]['DeptCode'] ?>" data-branch="<?= $department[$i]['Branch'] ?>"><?= $department[$i]['DeptDes'] ?></option>
+                                                                                <?php endfor; ?>
                                                                             </select>
-                                                                        </td> -->
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="costcenters[]" class="form-control" required>
+                                                                                <option value="">--Choose Cost Center --</option>
+                                                                                <?php for($i=0; $i < count($costcenter); $i++) : ?>
+                                                                                    <option value="<?= $costcenter[$i]['CostCenter'] ?>" data-department="<?= $costcenter[$i]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
+                                                                                <?php endfor; ?>
+                                                                            </select>
+                                                                        </td>
                                                                         <td>
                                                                             <select name="accnos[]" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
