@@ -744,6 +744,56 @@ class Cash_adv extends CI_Controller
     }
 
     //REPORT MANAGEMENT
+    public function view_reps_cash_withdraw(){
+        $validation = validate($this->input->get());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_treasury->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate);
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
+            'report' => $report
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_cash_withdraw', $data);
+    }
+
+    public function view_reps_cash_receipt(){
+        $validation = validate($this->input->get());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_treasury->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate);
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
+            'report' => $report
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_cash_receipt', $data);
+    }
+
     public function ca_outstanding_report(){
         $data = [
             'title' => 'Cash Advance Outstanding Report',
