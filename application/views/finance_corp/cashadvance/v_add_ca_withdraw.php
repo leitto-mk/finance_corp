@@ -83,7 +83,7 @@
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_accdesc"><b></b></span>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="col-md-2 control-label"><b>Employee ID</b></label>
+                                                                        <label class="col-md-2 control-label"><b>Employee</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
                                                                                 <select id="emp_master_id" name="emp_master_id" class="form-control" required>
@@ -110,7 +110,7 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Outstanding</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input id="outstanding" name="outstanding" type="number" class="form-control" readonly>
+                                                                            <input id="outstanding" name="outstanding" type="number" placeholder="0" class="form-control" readonly>
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
                                                                         <div class="col-md-3">

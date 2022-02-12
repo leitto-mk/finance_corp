@@ -152,7 +152,7 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Description</b></label>
                                                                         <div class="col-md-10">
-                                                                            <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" value="<?= remark ?>" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
+                                                                            <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" value="<?= $remark ?>" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
                                                                         </div>
                                                                     </div>
                                                                     <br>
