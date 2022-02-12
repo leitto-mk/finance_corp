@@ -20,6 +20,12 @@ class FinanceCorp extends CI_Controller
     const HTTP_NOT_ACCEPTABLE = 406;
     const HTTP_INTERNAL_ERROR = 500;
 
+    //TransType
+    const REC = 'RECEIPT';
+    const PAY = 'PAYMENT';
+    const OVB = 'OVERBOOK';
+    const GNJ = 'GENERAL';
+
     public function __construct(){
         parent::__construct();
 
@@ -53,7 +59,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'List Receipt Voucher',
             
-            'list' => $this->Mdl_corp_treasury->get_ranged_treasury('RECEIPT', $docno, $start, $end),
+            'list' => $this->Mdl_corp_treasury->get_ranged_treasury(self::REC, $docno, $start, $end),
             'script' => 'list/ListReceipt'
         ];
         
@@ -71,7 +77,7 @@ class FinanceCorp extends CI_Controller
         $start = $this->input->post('start');
         $end = $this->input->post('end');
 
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury('RECEIPT', $docno, $start, $end);
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury(self::REC, $docno, $start, $end);
 
         return set_success_response($result);
     }
@@ -376,7 +382,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'List Payment Voucher',
             
-            'list' => $this->Mdl_corp_treasury->get_ranged_treasury('PAYMENT', $docno, $start, $end),
+            'list' => $this->Mdl_corp_treasury->get_ranged_treasury(self::PAY, $docno, $start, $end),
             'script' => 'list/ListPayment'
         ];
         
@@ -395,7 +401,7 @@ class FinanceCorp extends CI_Controller
         $start = $this->input->post('start');
         $end = $this->input->post('end');
         
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury('PAYMENT', $docno, $start, $end);
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury(self::PAY, $docno, $start, $end);
 
         return set_success_response($result);
     }
@@ -700,7 +706,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'List Overbook Voucher',
             
-            'list' => $this->Mdl_corp_treasury->get_ranged_treasury('OVERBOOK', $docno, $start, $end),
+            'list' => $this->Mdl_corp_treasury->get_ranged_treasury(self::OVB, $docno, $start, $end),
             'script' => 'list/ListOverbook'
         ];
         
@@ -719,7 +725,7 @@ class FinanceCorp extends CI_Controller
         $start = $this->input->post('start');
         $end = $this->input->post('end');
         
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury('OVERBOOK', $docno, $start, $end);
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury(self::OVB, $docno, $start, $end);
 
         return set_success_response($result);
     }
@@ -1025,7 +1031,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'List General Journal',
             
-            'list' => $this->Mdl_corp_treasury->get_ranged_treasury('GENERAL', $docno, $start, $end),
+            'list' => $this->Mdl_corp_treasury->get_ranged_treasury(self::GNJ, $docno, $start, $end),
             'script' => 'list/ListGeneralJournal'
         ];
         
@@ -1043,7 +1049,7 @@ class FinanceCorp extends CI_Controller
         $start = $this->input->post('start');
         $end = $this->input->post('end');
         
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury('GENERAL', $docno, $start, $end);
+        $result = $this->Mdl_corp_treasury->get_ranged_treasury(self::GNJ, $docno, $start, $end);
 
         return set_success_response($result);
     }
@@ -1459,7 +1465,7 @@ class FinanceCorp extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report('RECEIPT',$docno, $branch, $transdate);
+        $report = $this->Mdl_corp_treasury->get_treasury_report(self::REC, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -1485,7 +1491,7 @@ class FinanceCorp extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report('PAYMENT',$docno, $branch, $transdate);
+        $report = $this->Mdl_corp_treasury->get_treasury_report(self::PAY, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -1511,7 +1517,7 @@ class FinanceCorp extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report('OVERBOOK',$docno, $branch, $transdate);
+        $report = $this->Mdl_corp_treasury->get_treasury_report(self::OVB, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -1537,7 +1543,7 @@ class FinanceCorp extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report('GENERAL',$docno, $branch, $transdate);
+        $report = $this->Mdl_corp_treasury->get_treasury_report(self::GNJ, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',

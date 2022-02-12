@@ -56,7 +56,7 @@
                                                 <tr>
                                                     <th width="10%" style="border: none;">Description</th>
                                                     <td width="1%" style="border: none;">:</td>
-                                                    <td width="20%" style="border: none;"><?= $report[0]['Remarks'] ?></td>
+                                                    <td width="20%" style="border: none;"><?= $report[0]['DescMaster'] ?></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -80,11 +80,11 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php for($i = 0; $i < count($report); $i++) : ?>
+                                                    <?php for($i = 1; $i < count($report); $i++) : ?>
                                                         <?php if($report[$i]['ItemNo'] > 0) : ?>
                                                             <tr>
                                                                 <td align="center"><?= $i+1 ?></td>
-                                                                <td><?= $report[$i]['Remarks']?></td>
+                                                                <td><?= $report[$i]['DescDetail']?></td>
                                                                 <td><?= $report[$i]['Department']?></td>
                                                                 <td><?= $report[$i]['CostCenter']?></td>
                                                                 <td><?= $report[$i]['AccNo']?></td>
@@ -95,11 +95,11 @@
                                                             </tr>
                                                         <?php endif; ?>
                                                     <?php endfor; ?>
-                                                            <tr>
-                                                                <td class="text-right bold" colspan="7">Grand Total :</td>
-                                                                <td align="right" class="bold">0</td>
-                                                                <td align="right" class="bold">0</td>
-                                                            </tr>
+                                                        <tr>
+                                                            <td class="text-right bold" colspan="7">Grand Total :</td>
+                                                            <td align="right" class="bold">0</td>
+                                                            <td align="right" class="bold">0</td>
+                                                        </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -128,7 +128,6 @@
                                         <dl>
                                             <dt>Approved By :</dt>
                                             <dt style="margin-top: 100px; border-bottom: solid 1px;"></dt>
-                                            
                                         </dl>
                                     </div>
                                 </div>

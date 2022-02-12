@@ -292,11 +292,27 @@ class Mdl_corp_treasury extends CI_Model
     function get_treasury_report($type, $docno, $branch, $transdate){
         $query =  $this->db->query(
             "SELECT 
-                trans.*,
-                acc.Acc_Name
+                trans.ItemNo,
+                trans.DocNo,
+                trans.AccNo,
+                trans.JournalGroup,
+                mas.Remarks AS DescMaster,
+                trans.TransDate,
+                trans.IDNumber,
+                trans.Giro,
+                trans.Remarks AS DescDetail,
+                trans.Department,
+                trans.CostCenter,
+                acc.Acc_Name,
+                trans.Currency,
+                trans.Rate,
+                trans.Unit,
+                trans.Amount
              FROM tbl_fa_transaction AS trans
-             JOIN tbl_fa_account_no AS acc
+             LEFT JOIN tbl_fa_account_no AS acc
                 ON trans.AccNo = acc.Acc_No
+             LEFT JOIN tbl_fa_treasury_mas AS mas
+                USING(DocNo)
              WHERE trans.Docno = '$docno'
              AND trans.Branch = '$branch'
              AND trans.TransDate = '$transdate'
