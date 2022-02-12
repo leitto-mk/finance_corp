@@ -9,7 +9,7 @@
                         <div class="hor-menu  ">
                             <ul class="nav navbar-nav">
                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase">
-                                    <h4 style="color:#ffffff">Cash Advance Withdrawl</h4>
+                                    <h4 style="color:#ffffff">Cash Advance Withdraw</h4>
                                 </li>
                             </ul>
                         </div>
