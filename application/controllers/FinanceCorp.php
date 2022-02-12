@@ -1448,7 +1448,7 @@ class FinanceCorp extends CI_Controller
         return set_success_response($result);
     }
 
-    //Reports Receipt Voucher
+    //Report Receipt Voucher
     public function view_reps_receipt_voucher(){
         $validation = validate($this->input->get());
         
@@ -1474,7 +1474,7 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/reports/v_reps_receipt_voucher', $data);
     }
 
-    //Reports Payment Voucher
+    //Report Payment Voucher
     public function view_reps_payment_voucher(){
         $validation = validate($this->input->get());
         
@@ -1500,7 +1500,33 @@ class FinanceCorp extends CI_Controller
         $this->load->view('finance_corp/reports/v_reps_payment_voucher', $data);
     }
 
-    //Reports General Journal
+    //Report Overbook
+    public function view_reps_overbook(){
+        $validation = validate($this->input->get());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_treasury->get_treasury_report('OVERBOOK',$docno, $branch, $transdate);
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
+            'report' => $report
+        ];
+        
+        $this->load->view('finance_corp/reports/v_reps_payment_voucher', $data);
+    }
+
+    //Report General Journal
     public function view_reps_general_journal(){
         $validation = validate($this->input->get());
         
