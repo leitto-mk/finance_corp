@@ -100,12 +100,7 @@
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
-                                                                            <select name="branch" id="branch" class="form-control" data-live-search="true" data-size="8" required>
-                                                                                <option value="">--Choose Branch--</option>
-                                                                                <?php foreach($branch as $branch) : ?>
-                                                                                    <option value="<?= $branch->BranchCode ?>"><?= $branch->BranchCode ?> - <?= $branch->BranchName ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
+                                                                            <input type="text" id="branch" name="branch" class="form-control" placeholder="Branch" readonly>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">

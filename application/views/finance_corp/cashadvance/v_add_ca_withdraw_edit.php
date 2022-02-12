@@ -109,16 +109,7 @@
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
-                                                                            <select name="branch" id="branch" class="form-control" data-live-search="true" data-size="8" required>
-                                                                                <option value="">--Choose Branch--</option>
-                                                                                <?php foreach($branches as $branches) : ?>
-                                                                                    <?php if($branches->BranchCode == $branch ) : ?>
-                                                                                        <option selected value="<?= $branches->BranchCode ?>"><?= $branches->BranchCode ?> - <?= $branches->BranchName ?></option>    
-                                                                                    <?php else : ?>
-                                                                                        <option value="<?= $branches->BranchCode ?>"><?= $branches->BranchCode ?> - <?= $branches->BranchName ?></option>
-                                                                                    <?php endif; ?>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
+                                                                            <input type="text" id="branch" name="branch" class="form-control" placeholder="Branch" value="<?= $branch ?>" readonly>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
@@ -152,7 +143,7 @@
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Description</b></label>
                                                                         <div class="col-md-10">
-                                                                            <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" value="<?= remark ?>" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
+                                                                            <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" value="<?= $remark ?>" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
