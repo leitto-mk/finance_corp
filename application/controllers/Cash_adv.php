@@ -20,6 +20,10 @@ class Cash_adv extends CI_Controller
     const HTTP_NOT_ACCEPTABLE = 406;
     const HTTP_INTERNAL_ERROR = 500;
 
+    //TransType
+    const CAW = self::CAW;
+    const CAR = self::CAR;
+
     public function __construct()
     {
         parent::__construct();
@@ -92,7 +96,7 @@ class Cash_adv extends CI_Controller
             'h3' => '',
             'h4' => '',
             
-            'list' => $this->Mdl_corp_cash_advance->get_ranged_treasury('CA-WITHDRAW', $docno, $start, $end),
+            'list' => $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAW, $docno, $start, $end),
             'script' => 'list/ListCAWithdraw'
         ];
         
@@ -111,7 +115,7 @@ class Cash_adv extends CI_Controller
         $start = $this->input->post('start');
         $end = $this->input->post('end');
 
-        $result = $this->Mdl_corp_cash_advance->get_ranged_treasury('CA-WITHDRAW', $docno, $start, $end);
+        $result = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAW, $docno, $start, $end);
 
         echo json_encode($result);
     }
@@ -264,7 +268,7 @@ class Cash_adv extends CI_Controller
         array_push($trans, [
             'DocNo' => $_POST['docno'],
             'TransDate' => $_POST['transdate'],
-            'TransType' => 'CA-WITHDRAW',
+            'TransType' => self::CAW,
             'JournalGroup' => $_POST['journalgroup'],
             'Branch' => $_POST['branch'],
             'Department' => '',
@@ -291,7 +295,7 @@ class Cash_adv extends CI_Controller
             'DocNo' => $_POST['docno'],
             'IDNumber' => $_POST['emp_master_id'],
             'SubmitBy' => '',
-            'TransType' => 'CA-WITHDRAW',
+            'TransType' => self::CAW,
             'TransDate' => $_POST['transdate'],
             'JournalGroup' => $_POST['journalgroup'],
             'AccNo' => $_POST['accno'],
@@ -350,7 +354,7 @@ class Cash_adv extends CI_Controller
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
                 'TransDate' => $_POST['transdate'],
-                'TransType' => 'CA-WITHDRAW',
+                'TransType' => self::CAW,
                 'JournalGroup' => $_POST['journalgroup'],
                 'Branch' => $_POST['branch'],
                 'Department' => $_POST['departments'][$i],
@@ -428,7 +432,7 @@ class Cash_adv extends CI_Controller
             'h3' => '',
             'h4' => '',
             
-            'list' => $this->Mdl_corp_cash_advance->get_ranged_treasury('CA-RECEIPT', $docno, $start, $end),
+            'list' => $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAR, $docno, $start, $end),
             'script' => 'list/ListCAReceipt'
         ];
         
@@ -447,7 +451,7 @@ class Cash_adv extends CI_Controller
         $start = $this->input->post('start');
         $end = $this->input->post('end');
 
-        $result = $this->Mdl_corp_cash_advance->get_ranged_treasury('CA-RECEIPT', $docno, $start, $end);
+        $result = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAR, $docno, $start, $end);
 
         echo json_encode($result);
     }
@@ -600,7 +604,7 @@ class Cash_adv extends CI_Controller
         array_push($trans, [
             'DocNo' => $_POST['docno'],
             'TransDate' => $_POST['transdate'],
-            'TransType' => 'CA-RECEIPT',
+            'TransType' => self::CAR,
             'JournalGroup' => '',
             'Branch' => $_POST['branch'],
             'Department' => '',
@@ -627,7 +631,7 @@ class Cash_adv extends CI_Controller
             'DocNo' => $_POST['docno'],
             'IDNumber' => $_POST['emp_master_id'],
             'SubmitBy' => '',
-            'TransType' => 'CA-RECEIPT',
+            'TransType' => self::CAR,
             'TransDate' => $_POST['transdate'],
             'JournalGroup' => '',
             'AccNo' => $_POST['accno'],
@@ -686,7 +690,7 @@ class Cash_adv extends CI_Controller
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
                 'TransDate' => $_POST['transdate'],
-                'TransType' => 'CA-RECEIPT',
+                'TransType' => self::CAR,
                 'JournalGroup' => '',
                 'Branch' => $_POST['branch'],
                 'Department' => $_POST['departments'][$i],
@@ -762,7 +766,7 @@ class Cash_adv extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_cash_advance->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate);
+        $report = $this->Mdl_corp_cash_advance->get_treasury_report(self::CAW,$docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -787,7 +791,7 @@ class Cash_adv extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_cash_advance->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate);
+        $report = $this->Mdl_corp_cash_advance->get_treasury_report(self::CAR,$docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
