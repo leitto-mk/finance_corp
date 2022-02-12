@@ -109,7 +109,16 @@
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
-                                                                            <input type="text" id="branch" name="branch" class="form-control" value="<?= $branch ?>" readonly required>
+                                                                            <select name="branch" id="branch" class="form-control" data-live-search="true" data-size="8" required>
+                                                                                <option value="">--Choose Branch--</option>
+                                                                                <?php foreach($branches as $branches) : ?>
+                                                                                    <?php if($branches->BranchCode == $branch ) : ?>
+                                                                                        <option selected value="<?= $branches->BranchCode ?>"><?= $branches->BranchCode ?> - <?= $branches->BranchName ?></option>    
+                                                                                    <?php else : ?>
+                                                                                        <option value="<?= $branches->BranchCode ?>"><?= $branches->BranchCode ?> - <?= $branches->BranchName ?></option>
+                                                                                    <?php endif; ?>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">

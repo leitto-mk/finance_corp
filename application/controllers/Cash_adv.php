@@ -139,6 +139,7 @@ class Cash_adv extends CI_Controller
             'remark' => $result[0]['Remarks'],
             'accno' => $result[0]['AccNo'],
             'branch' => $result[0]['Branch'],
+            'outstanding' => $result[0]['Outstanding'],
             'paidto' => $result[0]['PaidTo'],
             'total' =>  $result[0]['Amount'],
             'giro' =>  $result[0]['Giro'],
@@ -208,6 +209,7 @@ class Cash_adv extends CI_Controller
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
             'department' => $this->Mdl_corp_cash_advance->get_department(),
+            'costcenter' => $this->Mdl_corp_cash_advance->get_costcenter(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
 
             'script' => 'form/FormCAWithdraw'
@@ -473,6 +475,7 @@ class Cash_adv extends CI_Controller
             'remark' => $result[0]['Remarks'],
             'accno' => $result[0]['AccNo'],
             'branch' => $result[0]['Branch'],
+            'outstanding' => $result[0]['Outstanding'],
             'paidto' => $result[0]['PaidTo'],
             'total' =>  $result[0]['Amount'],
             'giro' =>  $result[0]['Giro'],
@@ -541,6 +544,7 @@ class Cash_adv extends CI_Controller
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
+            'department' => $this->Mdl_corp_cash_advance->get_department(),
             'costcenter' => $this->Mdl_corp_cash_advance->get_costcenter(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
 

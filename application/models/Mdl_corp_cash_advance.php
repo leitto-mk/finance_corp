@@ -44,7 +44,14 @@ class Mdl_corp_cash_advance extends CI_Model
     }
 
     function get_docno_details($docno){
-        return $this->db->select("t1.*, t2.IDNumber AS PaidTo, t2.Giro")
+        return $this->db->select(
+                            "t1.*, 
+                             (SELECT Balance 
+                              FROM tbl_fa_transaction
+                              WHERE IDNumber = t1.IDNumber
+                              ORDER BY TransDate DESC, CtrlNo DESC) AS Outstanding,
+                             t2.IDNumber AS PaidTo, 
+                             t2.Giro")
                         ->join('tbl_fa_treasury_mas AS t2', 't1.DocNo = t2.DocNo', 'LEFT')
                         ->order_by('t1.CtrlNo', 'ASC')
                         ->get_where('tbl_fa_transaction AS t1', ['t1.DocNo' => $docno])->result_array();
