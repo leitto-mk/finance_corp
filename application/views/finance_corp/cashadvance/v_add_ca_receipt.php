@@ -83,7 +83,7 @@
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_accdesc"><b></b></span>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="col-md-2 control-label"><b>Employee ID</b></label>
+                                                                        <label class="col-md-2 control-label"><b>Employee</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
                                                                                 <select id="emp_master_id" name="emp_master_id" class="form-control" required>
@@ -100,14 +100,18 @@
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
-                                                                            <input type="text" id="branch" name="branch" class="form-control readonly" style="background-color:white;" readonly required>
+                                                                            <select name="branch" id="branch" class="form-control" data-live-search="true" data-size="8" required>
+                                                                                <option value="">--Choose Branch--</option>
+                                                                                <?php foreach($branch as $branch) : ?>
+                                                                                    <option value="<?= $branch->BranchCode ?>"><?= $branch->BranchCode ?> - <?= $branch->BranchName ?></option>
+                                                                                <?php endforeach; ?>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="col-md-2 control-label hidden"><b>Journal Group</b></label>
-                                                                        <label class="col-md-2 control-label"></label>
+                                                                        <label class="col-md-2 control-label"><b>Outstanding</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="text" id="emp_master_name" name="emp_master_name" class="form-control" placeholder="Nama Employee" readonly>
+                                                                            <input type="text" id="outstanding" name="outstanding" class="form-control" placeholder="0" readonly>
                                                                         </div>
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_namestd"><b></b></span>
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
