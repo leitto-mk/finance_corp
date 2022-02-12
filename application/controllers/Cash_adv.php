@@ -148,7 +148,7 @@ class Cash_adv extends CI_Controller
             
             //Multiple
             'accnos' => $this->Mdl_corp_cash_advance->get_mas_acc(),
-            'department' => $this->Mdl_corp_treasury->get_department(),
+            'department' => $this->Mdl_corp_cash_advance->get_department(),
             'employees' => $this->Mdl_corp_cash_advance->get_employee(),
             'branches' => $this->Mdl_corp_cash_advance->get_branch(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
@@ -170,7 +170,7 @@ class Cash_adv extends CI_Controller
         $docno = $this->input->post('docno');
         $branch = $this->input->post('branch');
         $cur_date = $this->input->post('transdate');
-        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+        $last_date = $this->Mdl_corp_cash_advance->get_last_trans_date();
 
         if(strtotime($cur_date) < strtotime($last_date)){
             $start = $cur_date;
@@ -180,14 +180,14 @@ class Cash_adv extends CI_Controller
             $finish = $cur_date;
          }
 
-        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
+        $acc_no = $this->Mdl_corp_cash_advance->get_docno_accnos($docno);
         $accnos = [];
 
         for($i = 0; $i < count($acc_no); $i++){
             array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
-        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+        $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
@@ -207,7 +207,7 @@ class Cash_adv extends CI_Controller
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
-            'department' => $this->Mdl_corp_treasury->get_department(),
+            'department' => $this->Mdl_corp_cash_advance->get_department(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
 
             'script' => 'form/FormCAWithdraw'
@@ -482,7 +482,7 @@ class Cash_adv extends CI_Controller
             
             //Multiple
             'accnos' => $this->Mdl_corp_cash_advance->get_mas_acc(),
-            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
+            'costcenter' => $this->Mdl_corp_cash_advance->get_costcenter(),
             'employees' => $this->Mdl_corp_cash_advance->get_employee(),
             'branches' => $this->Mdl_corp_cash_advance->get_branch(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
@@ -504,7 +504,7 @@ class Cash_adv extends CI_Controller
         $docno = $this->input->post('docno');
         $branch = $this->input->post('branch');
         $cur_date = $this->input->post('transdate');
-        $last_date = $this->Mdl_corp_treasury->get_last_trans_date();
+        $last_date = $this->Mdl_corp_cash_advance->get_last_trans_date();
 
         if(strtotime($cur_date) < strtotime($last_date)){
             $start = $cur_date;
@@ -514,14 +514,14 @@ class Cash_adv extends CI_Controller
             $finish = $cur_date;
          }
 
-        $acc_no = $this->Mdl_corp_treasury->get_docno_accnos($docno);
+        $acc_no = $this->Mdl_corp_cash_advance->get_docno_accnos($docno);
         $accnos = [];
 
         for($i = 0; $i < count($acc_no); $i++){
             array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
-        $this->Mdl_corp_treasury->delete_existed_docno($_POST['docno']);
+        $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
@@ -541,7 +541,7 @@ class Cash_adv extends CI_Controller
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
-            'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
+            'costcenter' => $this->Mdl_corp_cash_advance->get_costcenter(),
             'currency' => $this->Mdl_corp_cash_advance->get_currency(),
 
             'script' => 'form/FormCAReceipt'
@@ -758,7 +758,7 @@ class Cash_adv extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate);
+        $report = $this->Mdl_corp_cash_advance->get_treasury_report('CA-WITHDRAW',$docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -783,7 +783,7 @@ class Cash_adv extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate);
+        $report = $this->Mdl_corp_cash_advance->get_treasury_report('CA-RECEIPT',$docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
