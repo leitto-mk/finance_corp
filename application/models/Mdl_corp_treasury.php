@@ -37,7 +37,7 @@ class Mdl_corp_treasury extends CI_Model
                           ->get_where('tbl_fa_treasury_mas', "DocNo LIKE '%$type'")
                           ->num_rows();
 
-        $iteration = str_pad($current+1, 4, 0, STR_PAD_LEFT);
+        $iteration = str_pad($current+1, 5, 0, STR_PAD_LEFT);
         $docno = date('ym') . '-' . $iteration . $type; 
 
         return $docno;
