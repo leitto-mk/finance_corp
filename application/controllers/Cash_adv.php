@@ -21,8 +21,8 @@ class Cash_adv extends CI_Controller
     const HTTP_INTERNAL_ERROR = 500;
 
     //TransType
-    const CAW = self::CAW;
-    const CAR = self::CAR;
+    const CAW = 'CA-WITHDRW';
+    const CAR = 'CA-RECEIPT';
 
     public function __construct()
     {
