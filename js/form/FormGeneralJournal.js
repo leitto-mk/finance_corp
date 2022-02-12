@@ -29,8 +29,8 @@ const FormGeneralJournal = () => {
 
                 if(cur_input.attr('name') == 'credit[]'){
                     let remarks = cur_input.parents('tr').find('input[name="remarks[]"]').val()
-                    let departments = cur_input.parents('tr').find('input[name="departments[]"]').val()
-                    let costcenters = cur_input.parents('tr').find('input[name="costcenters[]"]').val()
+                    let departments = cur_input.parents('tr').find('select[name="departments[]"] option:selected').val()
+                    let costcenters = cur_input.parents('tr').find('select[name="costcenters[]"] option:selected').val()
                     let accnos = cur_input.parents('tr').find('select[name="accnos[]"]').val()
                     let currency = cur_input.parents('tr').find('select[name="currency[]"]').val()
                     let debit = cur_input.parents('tr').find('input[name="debit[]"]').val()
@@ -72,8 +72,8 @@ const FormGeneralJournal = () => {
         $(document).on('keydown','[name="credit[]"]', function(e){
             if(e.keyCode == 9){
                 let remarks = $(this).parents('tr').find('input[name="remarks[]"]').val()
-                let departments = $(this).parents('tr') .find('input[name="departments[]"]').val()
-                let costcenters = $(this).parents('tr') .find('input[name="costcenters[]"]').val()
+                let departments = $(this).parents('tr') .find('select[name="departments[]"] option:selected').val()
+                let costcenters = $(this).parents('tr') .find('select[name="costcenters[]"] option:selected').val()
                 // let emp  = $(this).parents('tr') .find('select[name="emp[]"]').val()
                 let accnos = $(this).parents('tr') .find('select[name="accnos[]"]').val()
                 let debit = $(this).parents('tr') .find('input[name="debit[]"]').val()
@@ -153,6 +153,38 @@ const FormGeneralJournal = () => {
             
             $('#total_debit').val(total_debit)
             $('#total_credit').val(total_credit)
+        })
+    }
+
+    const eventChangeBranch = () => {
+        $(document).on('change','.branch', function(){
+            var branch = $(this).find('option:selected').val()
+
+            $('#tbody_detail').find('select[name="departments[]"] option:first').prop('selected', true)
+        
+            $('#tbody_detail').find('select[name="departments[]"] option:selected').each(function(){
+                $(this).show()
+
+                if($(this).is('[data-department]') && $(this).attr('data-branch') !== branch){
+                    $(this).hide()
+                }
+            })
+        })
+    }
+
+    const eventChangeDepartment = () => {
+        $(document).on('change','select[name="departments[]"]', function(){
+            var department = $(this).find('option:selected').val()
+
+            $('#tbody_detail').find('select[name="costcenters[]"] option:first').prop('selected', true)
+
+            $('#tbody_detail').find('select[name="costcenters[]"] option').each(function(){
+                $(this).show()
+
+                if($(this).is('[data-department]') && $(this).attr('data-department') !== department){
+                    $(this).hide()
+                }
+            })
         })
     }
 
@@ -245,6 +277,8 @@ const FormGeneralJournal = () => {
             eventNextRow()
             eventDeleteRow()
             eventInputAmount()
+            eventChangeBranch()
+            eventChangeDepartment()
             eventSubmitGeneral()
         }
     }

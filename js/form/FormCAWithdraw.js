@@ -40,8 +40,8 @@ const FormCAWithdraw = () => {
 
                 if(cur_input.attr('name') == 'unit[]'){
                     let remarks = cur_input.parents('tr').find('input[name="remarks[]"]').val()
-                    let departments = cur_input.parents('tr').find('input[name="departments[]"]').val()
-                    let costcenters = cur_input.parents('tr').find('input[name="costcenters[]"]').val()
+                    let departments = cur_input.parents('tr').find('select[name="departments[]"] option:selected').val()
+                    let costcenters = cur_input.parents('tr').find('select[name="costcenters[]"] option:selected').val()
                     let accnos = cur_input.parents('tr').find('select[name="accnos[]"]').val()
                     let currency = cur_input.parents('tr').find('select[name="currency[]"]').val()
                     let rate = cur_input.parents('tr').find('input[name="rate[]"]').val()
@@ -95,8 +95,8 @@ const FormCAWithdraw = () => {
         $(document).on('keydown','[name="unit[]"]', function(e){
             if(e.keyCode == 9){
                 let remarks = $(this).parents('tr').find('input[name="remarks[]"]').val()
-                let departments = $(this).parents('tr') .find('input[name="departments[]"]').val()
-                let costcenters = $(this).parents('tr') .find('input[name="costcenters[]"]').val()
+                let departments = $(this).parents('tr') .find('select[name="departments[]"] option:selected').val()
+                let costcenters = $(this).parents('tr') .find('select[name="costcenters[]"] option:selected').val()
                 // let emp  = $(this).parents('tr') .find('select[name="emp[]"]').val()
                 let accnos = $(this).parents('tr') .find('select[name="accnos[]"]').val()
                 let currency = $(this).parents('tr') .find('select[name="currency[]"]').val()
@@ -156,7 +156,7 @@ const FormCAWithdraw = () => {
     }
 
     const eventInputUnit = () => {
-        $(document).on('focusout','[name="unit[]"]', function(){
+        $(document).on('input','[name="unit[]"],[name="rate[]"]', function(){
             
             let totalamount = 0
             let rate = +$(this).parents('tr').find('[name="rate[]"]').val()
@@ -176,6 +176,38 @@ const FormCAWithdraw = () => {
             $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
             $('#outstanding_left').val(outstanding_left)
             $('#label_outstanding_left').val(`Rp. ${Intl.NumberFormat('id').format(outstanding_left)}`)
+        })
+    }
+
+    const eventChangeBranch = () => {
+        $(document).on('change','.branch', function(){
+            var branch = $(this).find('option:selected').val()
+
+            $('#tbody_detail').find('select[name="departments[]"] option:first').prop('selected', true)
+        
+            $('#tbody_detail').find('select[name="departments[]"] option:selected').each(function(){
+                $(this).show()
+
+                if($(this).is('[data-department]') && $(this).attr('data-branch') !== branch){
+                    $(this).hide()
+                }
+            })
+        })
+    }
+
+    const eventChangeDepartment = () => {
+        $(document).on('change','select[name="departments[]"]', function(){
+            var department = $(this).find('option:selected').val()
+
+            $('#tbody_detail').find('select[name="costcenters[]"] option:first').prop('selected', true)
+
+            $('#tbody_detail').find('select[name="costcenters[]"] option').each(function(){
+                $(this).show()
+
+                if($(this).is('[data-department]') && $(this).attr('data-department') !== department){
+                    $(this).hide()
+                }
+            })
         })
     }
 
@@ -254,6 +286,8 @@ const FormCAWithdraw = () => {
             eventNextRow()
             eventDeleteRow()
             eventInputUnit()
+            eventChangeBranch()
+            eventChangeDepartment()
             eventSubmitCAWithdraw()
         }
     }
