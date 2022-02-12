@@ -774,7 +774,7 @@ class Cash_adv extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('finance_corp/reports/v_reps_cash_withdraw', $data);
+        $this->load->view('finance_corp/cashadvance/v_reps_cash_withdraw', $data);
     }
 
     public function view_reps_cash_receipt(){
@@ -799,7 +799,7 @@ class Cash_adv extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('finance_corp/reports/v_reps_cash_receipt', $data);
+        $this->load->view('finance_corp/cashadvance/v_reps_cash_receipt', $data);
     }
 
     public function ca_outstanding_report(){
