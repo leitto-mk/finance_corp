@@ -49,7 +49,8 @@ class Mdl_corp_cash_advance extends CI_Model
                              (SELECT Balance 
                               FROM tbl_fa_transaction
                               WHERE IDNumber = t1.IDNumber
-                              ORDER BY TransDate DESC, CtrlNo DESC) AS Outstanding,
+                              ORDER BY TransDate DESC, CtrlNo DESC
+                              LIMIT 1) AS Outstanding,
                              t2.IDNumber AS PaidTo, 
                              t2.Giro")
                         ->join('tbl_fa_treasury_mas AS t2', 't1.DocNo = t2.DocNo', 'LEFT')

@@ -766,7 +766,7 @@ class Cash_adv extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_cash_advance->get_treasury_report(self::CAW,$docno, $branch, $transdate);
+        $report = $this->Mdl_corp_cash_advance->get_treasury_report(self::CAW, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -791,7 +791,7 @@ class Cash_adv extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_cash_advance->get_treasury_report(self::CAR,$docno, $branch, $transdate);
+        $report = $this->Mdl_corp_cash_advance->get_treasury_report(self::CAR, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
