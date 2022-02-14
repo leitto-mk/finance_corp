@@ -6,7 +6,7 @@ class Cmaster extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Mdl_corp_master', 'master');
-        $this->load->library(array('Datatables' => 'dtables', 'Zend'));
+        // $this->load->library(array('Datatables' => 'dtables', 'Zend'));
 	}
 
 	public function index(){
