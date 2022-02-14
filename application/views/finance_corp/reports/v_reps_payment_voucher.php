@@ -138,7 +138,7 @@
                                                     <?php endfor; ?>
                                                     <tr>
                                                         <td class="text-right bold" colspan="9">Grand Total :</td>
-                                                        <td align="right" class="bold"><?= number_format($grand_total, 2,'','.') ?></td>
+                                                        <td align="right" class="bold"><?= number_format($grand_total, 2,'',',') ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

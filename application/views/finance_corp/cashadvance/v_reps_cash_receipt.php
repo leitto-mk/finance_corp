@@ -134,7 +134,7 @@
                                                     <tr>
                                                         <td colspan="8"></td>
                                                         <td align="right" class="sbold">Total Amount :</td>
-                                                        <td align="right" class="sbold"><?= $total_amount ?></td>
+                                                        <td align="right" class="sbold"><?= number_format($total_amount,0,'',',') ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
