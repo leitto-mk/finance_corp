@@ -228,7 +228,7 @@
                                                                                     <option value="">--Choose Cost Center --</option>
                                                                                     <?php if(!empty($costcenter)) : ?>
                                                                                         <?php for($k=0; $k < count($costcenter); $k++) : ?>
-                                                                                            <?php if($costcenter[$k]['DeptCode'] == $list[$i]['CostCenter']) : ?>
+                                                                                            <?php if($costcenter[$k]['CostCenter'] == $list[$i]['CostCenter']) : ?>
                                                                                                 <option selected value="<?= $costcenter[$k]['CostCenter'] ?>" data-department="<?= $costcenter[$k]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
                                                                                             <?php else :?>
                                                                                                 <option value="<?= $costcenter[$k]['CostCenter'] ?>" data-department="<?= $costcenter[$k]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
