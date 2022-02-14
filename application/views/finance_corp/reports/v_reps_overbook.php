@@ -114,6 +114,9 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php
+                                                        $grand_total = 0;
+                                                    ?>
                                                     <?php for($i = 1; $i < count($report); $i++) : ?>
                                                         <?php if($report[$i]['ItemNo'] > 0) : ?>
                                                             <tr>
@@ -128,12 +131,15 @@
                                                                 <td align="right" class="sbold"><?= number_format($report[$i]['Unit'], 0, '.',',') ?></td>
                                                                 <td align="right" class="sbold"><?= number_format($report[$i]['Amount'], 0, '.',',') ?></td>
                                                             </tr>
+                                                            <?php 
+                                                                $grand_total += $report[$i]['Amount'];
+                                                            ?>
                                                         <?php endif; ?>
                                                     <?php endfor; ?>
-                                                            <tr>
-                                                                <td class="text-right bold" colspan="9">Grand Total :</td>
-                                                                <td align="right" class="bold">0</td>
-                                                            </tr>
+                                                    <tr>
+                                                        <td class="text-right bold" colspan="9">Grand Total :</td>
+                                                        <td align="right" class="bold"><?= number_format($grand_total, 2,'','.') ?></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
