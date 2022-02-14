@@ -96,9 +96,9 @@
                                                                                     <option value="">--Choose ID--</option>
                                                                                     <?php for($i = 0; $i < count($employees); $i++) :?>
                                                                                         <?php if($employees[$i]['IDNumber'] == $id) : ?>
-                                                                                            <option selected value="<?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?></option>
+                                                                                            <option selected value="<?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['FullName'] ?></option>
                                                                                         <?php else : ?>
-                                                                                            <option value="<?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?></option>
+                                                                                            <option value="<?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['FullName'] ?></option>
                                                                                         <?php endif;?>
                                                                                     <?php endfor; ?>
                                                                                 </select>
@@ -161,7 +161,7 @@
                                                                         <div class="col-md-12 value" style="margin-top: -15px">
                                                                             <b>
                                                                                 <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control">
-                                                                                <input type="number" class="form-control hidden" id="totalamount" name="totalamount">
+                                                                                <input type="number" class="form-control hidden" id="totalamount" name="totalamount" value="<?= $total ?>">
                                                                             </b>
                                                                         </div>
                                                                     </div>
