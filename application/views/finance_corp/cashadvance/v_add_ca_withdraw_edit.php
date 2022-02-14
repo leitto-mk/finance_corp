@@ -113,22 +113,11 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="col-md-2 control-label hidden"><b>Journal Group</b></label>
-                                                                        <label class="col-md-2 control-label"></label>
+                                                                        <label class="col-md-2 control-label"><b>Outstanding</b></label>
                                                                         <div class="col-md-3">
-                                                                            
+                                                                            <input type="input" id="outstanding" name="outstanding" readonly value="<?= $outstanding ?>" class="form-control" required>
                                                                         </div>
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_namestd"><b></b></span>
-                                                                        <label class="col-md-2 control-label"><b>Transaction Date</b></label>
-                                                                        <div class="col-md-3">
-                                                                            <input type="date" id="transdate" name="transdate" value="<?= $transdate ?>" class="form-control" required>
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="col-md-2 control-label"></label>
-                                                                        <div class="col-md-3">
-                                                                        </div>
                                                                         <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
                                                                         <div class="col-md-3">
                                                                             <select class="form-control" name="journalgroup" id="journalgroup" required>
@@ -137,6 +126,15 @@
                                                                                 <option value="Bank" <?= ($journalgroup == 'Bank' ? 'selected' : '')?>>Bank</option>
                                                                                 <option value="General Ledger" <?= ($journalgroup == 'General Ledger' ? 'selected' : '')?>>General Ledger</option>
                                                                             </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-md-2 control-label"><b>Transaction Date</b></label>
+                                                                        <div class="col-md-3">
+                                                                            <input type="date" id="transdate" name="transdate" value="<?= $transdate ?>" class="form-control" required>
+                                                                        </div>
+                                                                        <label class="col-md-2 control-label"></label>
+                                                                        <div class="col-md-3">
                                                                         </div>
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_namestd"><b></b></span>
                                                                     </div>
@@ -223,7 +221,7 @@
                                                                                     <option value="">--Choose Department --</option>
                                                                                     <?php if(!empty($department)) : ?>
                                                                                         <?php for($j=0; $j < count($department); $j++) : ?>
-                                                                                            <?php if($departments[$j]['DeptCode'] == $list[$i]['Department']) : ?>
+                                                                                            <?php if($department[$j]['DeptCode'] == $list[$i]['Department']) : ?>
                                                                                                 <option selected value="<?= $department[$j]['DeptCode'] ?>" data-branch="<?= $department[$j]['Branch'] ?>"><?= $department[$j]['DeptDes'] ?></option>
                                                                                             <?php else : ?>
                                                                                                 <option value="<?= $department[$j]['DeptCode'] ?>" data-branch="<?= $department[$j]['Branch'] ?>"><?= $department[$j]['DeptDes'] ?></option>
@@ -237,7 +235,7 @@
                                                                                     <option value="">--Choose Cost Center --</option>
                                                                                     <?php if(!empty($costcenter)) : ?>
                                                                                         <?php for($k=0; $k < count($costcenter); $k++) : ?>
-                                                                                            <?php if($costcenter[$k]['DeptCode'] == $list[$i]['CostCenter']) : ?>
+                                                                                            <?php if($costcenter[$k]['CostCenter'] == $list[$i]['CostCenter']) : ?>
                                                                                                 <option selected value="<?= $costcenter[$k]['CostCenter'] ?>" data-department="<?= $costcenter[$k]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
                                                                                             <?php else :?>
                                                                                                 <option value="<?= $costcenter[$k]['CostCenter'] ?>" data-department="<?= $costcenter[$k]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>

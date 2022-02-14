@@ -125,22 +125,6 @@
 
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="col-md-2 control-label"><b>Outstading</b></label>
-                                                                        <div class="col-md-3">
-                                                                            <input type="number" class="form-control">
-                                                                        </div>
-                                                                        <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
-                                                                        <div class="col-md-3">
-                                                                            <select class="form-control" name="journalgroup" id="journalgroup" required>
-                                                                                <option value="">--Select Journal--</option>
-                                                                                <option value="Cash" <?= ($journalgroup == 'Cash' ? 'selected' : '')?>>Cash</option>
-                                                                                <option value="Bank" <?= ($journalgroup == 'Bank' ? 'selected' : '')?>>Bank</option>
-                                                                                <option value="General Ledger" <?= ($journalgroup == 'General Ledger' ? 'selected' : '')?>>General Ledger</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_namestd"><b></b></span>
-                                                                    </div>
-                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Description</b></label>
                                                                         <div class="col-md-10">
                                                                             <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" value="<?= $remark ?>" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
@@ -164,16 +148,6 @@
                                                                                 <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" readonly="true" value="Rp. <?= number_format($total,2,',','.') ?>" class="input-group input-group-sm form-control">
                                                                                 <input type="number" class="form-control hidden" id="totalamount" name="totalamount" value="<?= $total ?>">
                                                                             </b>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="mt-step-desc">
-                                                                        <div class="font-dark bold uppercase">Outstanding Left</div>
-                                                                        <br>
-                                                                    </div>
-                                                                    <div class="row static-info">
-                                                                        <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
-                                                                        <div class="col-md-12 value" style="margin-top: -15px">
-                                                                            <b><input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="outstanding_left" name="outstanding_left" value="0.00" readonly="true" class="input-group input-group-sm form-control"></b>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -234,7 +208,7 @@
                                                                                     <option value="">--Choose Department --</option>
                                                                                     <?php if(!empty($department)) : ?>
                                                                                         <?php for($j=0; $j < count($department); $j++) : ?>
-                                                                                            <?php if($departments[$j]['DeptCode'] == $list[$i]['Department']) : ?>
+                                                                                            <?php if($department[$j]['DeptCode'] == $list[$i]['Department']) : ?>
                                                                                                 <option selected value="<?= $department[$j]['DeptCode'] ?>" data-branch="<?= $department[$j]['Branch'] ?>"><?= $department[$j]['DeptDes'] ?></option>
                                                                                             <?php else : ?>
                                                                                                 <option value="<?= $department[$j]['DeptCode'] ?>" data-branch="<?= $department[$j]['Branch'] ?>"><?= $department[$j]['DeptDes'] ?></option>
@@ -248,7 +222,7 @@
                                                                                     <option value="">--Choose Cost Center --</option>
                                                                                     <?php if(!empty($costcenter)) : ?>
                                                                                         <?php for($k=0; $k < count($costcenter); $k++) : ?>
-                                                                                            <?php if($costcenter[$k]['DeptCode'] == $list[$i]['CostCenter']) : ?>
+                                                                                            <?php if($costcenter[$k]['CostCenter'] == $list[$i]['CostCenter']) : ?>
                                                                                                 <option selected value="<?= $costcenter[$k]['CostCenter'] ?>" data-department="<?= $costcenter[$k]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
                                                                                             <?php else :?>
                                                                                                 <option value="<?= $costcenter[$k]['CostCenter'] ?>" data-department="<?= $costcenter[$k]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
