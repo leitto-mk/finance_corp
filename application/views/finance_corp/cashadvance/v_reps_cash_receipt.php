@@ -109,33 +109,35 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php
-                                                        $total_amount = 0;
-                                                    ?>
-                                                    <?php for($i = 1; $i < count($report); $i++) : ?>
-                                                        <?php if($report[$i]['ItemNo'] > 0) : ?>
-                                                            <tr>
-                                                                <td align="center"><?= $i ?></td>
-                                                                <td><?= $report[$i]['DescDetail']?></td>
-                                                                <td><?= $report[$i]['Department']?></td>
-                                                                <td><?= $report[$i]['CostCenter']?></td>
-                                                                <td><?= $report[$i]['AccNo']?></td>
-                                                                <td><?= $report[$i]['Acc_Name']?></td>
-                                                                <td align="center" class="sbold"><?= $report[$i]['Currency']?></td>
-                                                                <td align="right" class="sbold"><?= $report[$i]['Rate']?></td>
-                                                                <td align="right" class="sbold"><?= number_format($report[$i]['Unit'], 0, '.',',') ?></td>
-                                                                <td align="right" class="sbold"><?= number_format($report[$i]['Amount'], 0, '.',',') ?></td>
-                                                            </tr>
-                                                            <?php
-                                                                $total_amount += $report[$i]['Amount'];
-                                                            ?>
-                                                        <?php endif; ?>
-                                                    <?php endfor; ?>
-                                                    <tr>
-                                                        <td colspan="8"></td>
-                                                        <td align="right" class="sbold">Total Amount :</td>
-                                                        <td align="right" class="sbold"><?= number_format($total_amount,0,'',',') ?></td>
-                                                    </tr>
+                                                    <?php if(!empty($report)) : ?>
+                                                        <?php
+                                                            $total_amount = 0;
+                                                        ?>
+                                                        <?php for($i = 1; $i < count($report); $i++) : ?>
+                                                            <?php if($report[$i]['ItemNo'] > 0) : ?>
+                                                                <tr>
+                                                                    <td align="center"><?= $i ?></td>
+                                                                    <td><?= $report[$i]['DescDetail']?></td>
+                                                                    <td><?= $report[$i]['Department']?></td>
+                                                                    <td><?= $report[$i]['CostCenter']?></td>
+                                                                    <td><?= $report[$i]['AccNo']?></td>
+                                                                    <td><?= $report[$i]['Acc_Name']?></td>
+                                                                    <td align="center" class="sbold"><?= $report[$i]['Currency']?></td>
+                                                                    <td align="right" class="sbold"><?= $report[$i]['Rate']?></td>
+                                                                    <td align="right" class="sbold"><?= number_format($report[$i]['Unit'], 0, '.',',') ?></td>
+                                                                    <td align="right" class="sbold"><?= number_format($report[$i]['Amount'], 0, '.',',') ?></td>
+                                                                </tr>
+                                                                <?php
+                                                                    $total_amount += $report[$i]['Amount'];
+                                                                ?>
+                                                            <?php endif; ?>
+                                                        <?php endfor; ?>
+                                                        <tr>
+                                                            <td colspan="8"></td>
+                                                            <td align="right" class="sbold">Total Amount :</td>
+                                                            <td align="right" class="sbold"><?= number_format($total_amount,0,'',',') ?></td>
+                                                        </tr>
+                                                    <?php endif; ?>
                                                 </tbody>
                                             </table>
                                         </div>
