@@ -83,7 +83,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th width="10%" style="border: none;"></th>
-                                                    <td width="1%" style="border: none;">:</td>
+                                                    <td width="1%" style="border: none;"></td>
                                                     <td width="20%" style="border: none;"></td>
                                                 </tr>
                                                 <tr>
