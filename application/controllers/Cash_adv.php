@@ -133,7 +133,7 @@ class Cash_adv extends CI_Controller
         $result = $this->Mdl_corp_cash_advance->get_docno_details($docno);
 
         $data = [
-            'title' => 'Form Receipt Voucher',
+            'title' => 'Form Cash Withdraw',
             
             //DocNo Master
             'docno' => $docno,

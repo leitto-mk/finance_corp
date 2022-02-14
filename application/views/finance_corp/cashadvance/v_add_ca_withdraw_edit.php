@@ -96,9 +96,9 @@
                                                                                     <option value="">--Choose ID--</option>
                                                                                     <?php for($i = 0; $i < count($employees); $i++) :?>
                                                                                         <?php if($employees[$i]['IDNumber'] == $id) : ?>
-                                                                                            <option selected value="<?= $emp_master_id->IDNumber ?>" data-fullname="<?= $emp_master_id->FullName ?>" data-branch="<?= $emp_master_id->Branch ?>" data-dept="<?= $emp_master_id->DeptCode ?>" data-cc="<?= $emp_master_id->CostCenter ?>"><?= $emp_master_id->IDNumber ?></option>
+                                                                                            <option selected value="<?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?></option>
                                                                                         <?php else : ?>
-                                                                                            <option value="<?= $emp_master_id->IDNumber ?>" data-fullname="<?= $emp_master_id->FullName ?>" data-branch="<?= $emp_master_id->Branch ?>" data-dept="<?= $emp_master_id->DeptCode ?>" data-cc="<?= $emp_master_id->CostCenter ?>"><?= $emp_master_id->IDNumber ?></option>
+                                                                                            <option value="<?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?></option>
                                                                                         <?php endif;?>
                                                                                     <?php endfor; ?>
                                                                                 </select>
