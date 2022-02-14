@@ -97,9 +97,9 @@
                                                     <td class="bold" align="center"><?= $ledger[$i]['Department'] ?></td>
                                                     <td class="bold" align="center"><?= $ledger[$i]['CostCenter'] ?></td>
                                                     <td class="bold" align="center"><?= $ledger[$i]['Currency'] ?></td>
-                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 2, ',', '.') ?></td>
-                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 2, ',', '.') ?></td>
-                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['BalanceBranch'], 2, ',', '.') ?></td>
+                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></td>
+                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></td>
+                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['BalanceBranch'], 0, ',', '.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                         <?php endfor; ?>
