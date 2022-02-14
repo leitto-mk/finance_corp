@@ -160,7 +160,7 @@
                                                                         <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                                         <div class="col-md-12 value" style="margin-top: -15px">
                                                                             <b>
-                                                                                <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control">
+                                                                                <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" value="Rp. <?= number_format($total,2,',','.') ?>" readonly="true" class="input-group input-group-sm form-control">
                                                                                 <input type="number" class="form-control hidden" id="totalamount" name="totalamount" value="<?= $total ?>">
                                                                             </b>
                                                                         </div>
