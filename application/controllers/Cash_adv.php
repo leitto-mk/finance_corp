@@ -161,7 +161,7 @@ class Cash_adv extends CI_Controller
             'script' => 'form/FormCAWithdraw'
         ];
         
-        $this->load->view('finance_corp/editview/v_add_ca_withdraw_edit', $data);
+        $this->load->view('finance_corp/cashadvance/v_add_ca_withdraw_edit', $data);
     }
 
     public function ajax_delete_ca_withdraw(){
@@ -497,7 +497,7 @@ class Cash_adv extends CI_Controller
             'script' => 'form/FormCAReceipt'
         ];
         
-        $this->load->view('finance_corp/editview/v_add_ca_receipt_edit', $data);
+        $this->load->view('finance_corp/cashadvance/v_add_ca_receipt_edit', $data);
     }
 
     public function ajax_delete_ca_receipt(){
