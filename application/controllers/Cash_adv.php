@@ -36,6 +36,7 @@ class Cash_adv extends CI_Controller
         ]);
 
         $this->load->model('Mdl_corp_cash_advance');
+        $this->load->model('Mdl_corp_branch');
     }
 
     //Corporation Finance
