@@ -96,10 +96,13 @@ const GeneralLedger = () => {
                                 )
                             }
 
+                            let transdate = response.result[i].TransDate
+                            transdate = moment(transdate,'YYYY-MM-DD').format('DD-MM-YY')
+
                             table.append(`
                                 <tr class="font-dark sbold">
                                     <td class="bold" align="center">${i+1}</td>
-                                    <td class="bold" align="center">${response.result[i].TransDate}</td>
+                                    <td class="bold" align="center">${transdate}</td>
                                     <td class="bold" align="center">${response.result[i].DocNo}</td>
                                     <td class="bold" align="center">${response.result[i].Branch}</td>
                                     <td class="bold" align="center">${response.result[i].Department}</td>
