@@ -150,7 +150,7 @@ class Mdl_corp_cash_advance extends CI_Model
         //Get AccNo Type
         $acc_type = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $accno])->row()->Acc_Type;
 
-        $query = $this->db->select('BalanceBranch')->limit(1)->order_by('EntryDate DESC, CtrlNo DESC');
+        $query = $this->db->select('BalanceBranch')->limit(1)->order_by('TransDate DESC, CtrlNo DESC');
         
         //IF AccType either R/E, don't get running balance from Last Year,
         //ELSE is permitable
