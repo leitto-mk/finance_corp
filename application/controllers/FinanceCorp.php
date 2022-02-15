@@ -21,10 +21,10 @@ class FinanceCorp extends CI_Controller
     const HTTP_INTERNAL_ERROR = 500;
 
     //TransType
-    const REC = 'RECEIPT';
-    const PAY = 'PAYMENT';
-    const OVB = 'OVERBOOK';
-    const GNJ = 'GENERAL';
+    const REC = 'RE';
+    const PAY = 'PA';
+    const OVB = 'OB';
+    const GNJ = 'GJ';
 
     public function __construct(){
         parent::__construct();
@@ -166,7 +166,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form Receipt Voucher',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('RE'),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(self::REC),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -490,7 +490,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form payment Voucher',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('PA'),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(self::PAY),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -814,7 +814,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form Overbook Voucher',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('OB'),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(self::OVB),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),
@@ -1138,7 +1138,7 @@ class FinanceCorp extends CI_Controller
         $data = [
             'title' => 'Form General Journal',
             
-            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno('GJ'),
+            'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(self::GNJ),
             'branch' => $this->Mdl_corp_treasury->get_branch(),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
             'employee' => $this->Mdl_corp_treasury->get_employee(),

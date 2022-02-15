@@ -21,8 +21,8 @@ class Cash_adv extends CI_Controller
     const HTTP_INTERNAL_ERROR = 500;
 
     //TransType
-    const CAW = 'CA-WITHDRAW';
-    const CAR = 'CA-RECEIPT';
+    const CAW = 'CW';
+    const CAR = 'CR';
 
     public function __construct()
     {
@@ -210,7 +210,7 @@ class Cash_adv extends CI_Controller
         $data = [
             'title' => 'Form Cash Advance Withdraw',
             
-            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno('CW'),
+            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno(self::CAW),
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
@@ -547,7 +547,7 @@ class Cash_adv extends CI_Controller
         $data = [
             'title' => 'Form Cash Advance Receipt',
             
-            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno('CR'),
+            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno(self::CAR),
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
