@@ -258,7 +258,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="portlet light bg-grey-cararra">
-                                        <h1 class="uppercase bold"><i class="fa fa-share-alt"></i> Department</h1>
+                                        <h1 class="uppercase bold"><i class="fa fa-share-alt"></i> Departmentsss</h1>
                                     </div>
                                 </div>
                             </div>
