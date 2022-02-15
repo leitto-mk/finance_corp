@@ -51,5 +51,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $route['default_controller'] = 'FinanceCorp';
 $route['finance'] = 'FinanceCorp';
+$route['cashadvance'] = 'Cash_adv';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
