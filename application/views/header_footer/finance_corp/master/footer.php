@@ -1,7 +1,7 @@
 <!-- BEGIN FOOTER -->
-                <p class="copyright">  2020 &copy; ABase Retail
-                    <a href="#">PanDara</a> &nbsp;|&nbsp;
-                    <a href="<?php echo site_url('PurchaseOrder/form_po_entry'); ?>" target="_blank">Purchase Order Shortcut</a>
+                <p class="copyright">  2022 &copy; ABase
+                    <a href="#"></a> &nbsp;|&nbsp;
+                    <a href="#">Master Data</a>
                 </p>
                 <a href="#index" class="go2top">
                     <i class="icon-arrow-up"></i>
@@ -37,10 +37,6 @@
         <script src="<?=base_url('assets')?>/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/pages/scripts/components-select2.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/js/dataTables.rowGroup.min.js" type="text/javascript"></script>
-        <script src="<?=base_url('assets')?>/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
-        <script src="<?=base_url('assets')?>/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
-        <script src="<?=base_url('assets')?>/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
-        <script src="<?=base_url('assets')?>/Chart.js/Chart.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/moment.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
@@ -52,10 +48,7 @@
         <script src="<?=base_url('assets')?>/layouts/layout5/scripts/layout.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>assets/toastr/js/toastr.min.js" type="text/javascript"></script>
-        <!-- <script src="<?= base_url('assets/')?>js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="<?= base_url('assets/')?>js/dataTables.responsive.min.js" type="text/javascript"></script> -->
-        <!-- <script src="<?=base_url('assets')?>/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script> -->
+        <script src="<?=base_url('assets')?>/toastr/js/toastr.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         
     </body>

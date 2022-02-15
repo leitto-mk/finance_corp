@@ -181,7 +181,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="#" class="nav-link">
+                                        <a href="<?php echo site_url('Acc_rec/ar_aging') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Aging</span>
                                         </a>
                                     </li>
@@ -205,7 +205,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="#" class="nav-link">
+                                        <a href="<?php echo site_url('Acc_pay/ap_aging') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Aging</span>
                                         </a>
                                     </li>
@@ -288,8 +288,9 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="#" class="nav-link">
-                                            <span class="title">&bull;&nbsp;&nbsp;ES Columnar</span>
+                                        <a href="<?= site_url('FinanceCorp/view_income_statement_columnar') ?>" target="_blank" class="nav-link">
+                                            <!-- <i class="icon-bar-chart"></i> -->
+                                            <span class="title">&bull;&nbsp;&nbsp;IS Columnar</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
@@ -303,7 +304,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="#" class="nav-link">
+                                        <a href="<?php echo site_url('FinanceCorp/view_report_journal_transaction') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Journal Transaction</span>
                                         </a>
                                     </li>

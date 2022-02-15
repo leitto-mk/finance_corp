@@ -114,6 +114,18 @@ class Acc_rec extends CI_Controller
         $this->load->view('finance_corp/receivable/v_ar_aging_det', $data);
     }
 
+    public function ar_aging(){
+        $data = [
+            'title' => 'Aging Report Receivable',
+            'h1' => 'Account',
+            'h2' => 'Receivable',
+            'h3' => 'Aging',
+            'h4' => ''
+        ];
+        
+        $this->load->view('finance_corp/receivable/v_ar_aging', $data);
+    }
+
 }
 
 

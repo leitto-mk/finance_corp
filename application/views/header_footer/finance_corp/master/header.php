@@ -51,7 +51,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?=base_url('assets')?>/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
        <!--  <link href="<?=base_url('assets')?>/js/rowGroup.dataTables.min.css" rel="stylesheet" type="text/css" /> -->
-        <link href="<?=base_url('assets')?>/Chart.js/Chart.css" rel="stylesheet" type="text/css" />
+       
         <link href="<?=base_url('assets')?>/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
@@ -62,7 +62,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="<?=base_url('assets')?>/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?php echo base_url(); ?>assets/toastr/css/toastr.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url('assets')?>/toastr/css/toastr.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->

@@ -69,6 +69,18 @@ class Acc_pay extends CI_Controller
         $this->load->view('finance_corp/payable/v_ap_aging_det', $data);
     }
 
+    public function ap_aging(){
+        $data = [
+            'title' => 'Aging Report Payable',
+            'h1' => 'Account',
+            'h2' => 'Payable',
+            'h3' => 'Aging',
+            'h4' => ''
+        ];
+        
+        $this->load->view('finance_corp/payable/v_ap_aging', $data);
+    }
+
 }
 
 
