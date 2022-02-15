@@ -118,7 +118,7 @@ class Cash_adv extends CI_Controller
 
         $result = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAW, $docno, $start, $end);
 
-        echo json_encode($result);
+        return set_success_response($result);
     }
 
     public function edit_ca_withdraw(){
@@ -455,7 +455,7 @@ class Cash_adv extends CI_Controller
 
         $result = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAR, $docno, $start, $end);
 
-        echo json_encode($result);
+        return set_success_response($result);
     }
 
     public function edit_ca_receipt(){
