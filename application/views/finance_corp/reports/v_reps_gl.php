@@ -102,7 +102,7 @@
                                             <?php endif; ?>
                                             <?php if(date('Y-m-d', strtotime($ledger[$i]['TransDate'])) >= date('Y-m-d', strtotime($date_start))) : ?>
                                                 <tr class="sbold">
-                                                    <td><h6 class="text-center bold"><?= $ledger[$i]['TransDate'] ?></h6></td>
+                                                    <td><h6 class="text-center bold"><?= date('d-m-y', strtotime($ledger[$i]['TransDate'])) ?></h6></td>
                                                     <td><h6 class="text-left bold"><?= $ledger[$i]['Remarks'] ?></h6></td>
                                                     <td><h6 class="text-left bold"><?= $ledger[$i]['DocNo'] ?></h6></td>
                                                     <td><h6 class="text-center bold"><?= $ledger[$i]['TransType'] ?></h6></td>

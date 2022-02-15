@@ -183,7 +183,7 @@
 
                                             <tr class="font-dark sbold">
                                                 <td class="bold" align="center"><?= $i+1 ?></td>
-                                                <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
+                                                <td class="bold" align="center"><?= date('d-m-y', strtotime($ledger[$i]['TransDate'])) ?></td>
                                                 <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
                                                 <td class="bold" align="center"><?= $cur_branch ?></td>
                                                 <td class="bold" align="left"><?= $ledger[$i]['Department'] ?></td>
