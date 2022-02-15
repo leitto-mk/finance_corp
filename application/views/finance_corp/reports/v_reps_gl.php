@@ -1,13 +1,24 @@
 <?php $this->load->view('header_footer/finance_corp/header_sub_modul_sf_no_trees'); ?>
-<!-- <style type="text/css">
-    tr:nth-child(even){
+<style type="text/css">
+    /*tr:nth-child(even){
         background-color: #E1E5EC;
     }
 
     tr:nth-child(odd){
         background-color: white;
+    }*/
+    .table td h6 {
+        font-size: 12px;
     }
-</style> -->
+
+    .table td {
+        font-size: 12px;
+    }
+
+    .table th h5 {
+        font-size: 12px;
+    }
+</style>
 <div class="portlet light" style="background-color: #eff2f6;">
     <div class="row">
         <div class="col-md-12" id="printDiv" style="size: landscape; font-family: Open Sans, sans-serif;" >
@@ -57,16 +68,17 @@
                                     <thead>
                                         <tr class="font-dark bg-default">
                                             <!-- <th class="text-center"> No </th> -->
-                                            <th class="text-center" width="5%"> Trans Date </th>
-                                            <th class="text-center" width="15%"> Description </th>
-                                            <th class="text-center" width="7%"> Doc No </th>
-                                            <th class="text-center" width="5%"> Trans Type </th>
-                                            <th class="text-center" width="7%"> Dept. </th>
-                                            <th class="text-center" width="7%"> Cost Center </th>
-                                            <th class="text-center" width="5%"> Cry </th>
-                                            <th class="text-right" width="10%"> Debit </th>
-                                            <th class="text-right" width="10%"> Credit </th>
-                                            <th class="text-right" width="10%"> Balance </th>
+                                            <th width="7%"><h5 class="text-center bold">Trans Date</h5></th>
+                                            <th width="17%"><h5 class="text-center bold">Description</h5></th>
+                                            <th width="7%"><h5 class="text-center bold">Doc No</h5></th>
+                                            <th width="5%"><h5 class="text-center bold">Trans Type</h5></th>
+                                            <th width="7%"><h5 class="text-center bold">Dept.</h5></th>
+                                            <th width="7%"><h5 class="text-center bold">Cost Center</h5></th>
+                                            <th width="7%"><h5 class="text-center bold">Account</h5></th>
+                                            <th width="3%"><h5 class="text-center bold">Cry</h5></th>
+                                            <th width="7%"><h5 class="text-right bold">Debit</h5></th>
+                                            <th width="7%"><h5 class="text-right bold">Credit</h5></th>
+                                            <th width="7%"><h5 class="text-right bold">Balance</h5></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -80,8 +92,8 @@
                                                     <td colspan="11" class="bold"><?= $ledger[$i]['AccNo'] ?> -- <?= $ledger[$i]['Acc_Name'] ?> | <?= $ledger[$i]['Acc_Type']?></td>
                                                 </tr>
                                                 <tr class="font-white sbold">
-                                                    <td class="bold font-dark" align="right" colspan="2">Beginning Balance</td>
-                                                    <td class="sbold uppercase font-green-meadow" align="right" colspan="8" style="font-size: 1.25em"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></td>
+                                                    <td colspan="2"><h6 class="text-right font-dark bold">Beginning Balance</h6></td>
+                                                    <td class="sbold uppercase font-green-meadow" colspan="9" style="font-size: 1.25em"><span style="float: right;"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></span></td>
                                                 </tr>
                                                 <?php
                                                     // $no = 0;
@@ -90,16 +102,17 @@
                                             <?php endif; ?>
                                             <?php if(date('Y-m-d', strtotime($ledger[$i]['TransDate'])) >= date('Y-m-d', strtotime($date_start))) : ?>
                                                 <tr class="sbold">
-                                                    <td class="bold" align="center"><?= $ledger[$i]['TransDate'] ?></td>
-                                                    <td class="bold" align="left"><?= $ledger[$i]['Remarks'] ?></td>
-                                                    <td class="bold" align="center"><?= $ledger[$i]['DocNo'] ?></td>
-                                                    <td class="bold" align="center"><?= $ledger[$i]['TransType'] ?></td>
-                                                    <td class="bold" align="center"><?= $ledger[$i]['Department'] ?></td>
-                                                    <td class="bold" align="center"><?= $ledger[$i]['CostCenter'] ?></td>
-                                                    <td class="bold" align="center"><?= $ledger[$i]['Currency'] ?></td>
-                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></td>
-                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></td>
-                                                    <td class="bold" align="right"><?= number_format($ledger[$i]['BalanceBranch'], 0, ',', '.') ?></td>
+                                                    <td><h6 class="text-center bold"><?= $ledger[$i]['TransDate'] ?></h6></td>
+                                                    <td><h6 class="text-left bold"><?= $ledger[$i]['Remarks'] ?></h6></td>
+                                                    <td><h6 class="text-left bold"><?= $ledger[$i]['DocNo'] ?></h6></td>
+                                                    <td><h6 class="text-center bold"><?= $ledger[$i]['TransType'] ?></h6></td>
+                                                    <td><h6 class="text-center bold"><?= $ledger[$i]['Department'] ?></h6></td>
+                                                    <td><h6 class="text-center bold"><?= $ledger[$i]['CostCenter'] ?></h6></td>
+                                                    <td><h6 class="text-center bold"><?= $ledger[$i]['AccNo'] ?></h6></td>
+                                                    <td><h6 class="text-center bold"><?= $ledger[$i]['Currency'] ?></h6></td>
+                                                    <td><h6 class="bold" style="float: right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></h6></td>
+                                                    <td><h6 class="bold" style="float: right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></h6></td>
+                                                    <td><h6 class="bold" style="float: right"><?= number_format($ledger[$i]['BalanceBranch'], 0, ',', '.') ?></h6></td>
                                                 </tr>
                                             <?php endif; ?>
                                         <?php endfor; ?>
