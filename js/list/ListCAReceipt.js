@@ -41,10 +41,10 @@ const ListCAReceipt = () => {
                                     <td align="left">${response.result[i].Remarks}</td>
                                     <td align="right">${response.result[i].TotalAmount}</td>
                                     <td align="center">
-                                        <a href="${base_url}FinanceCorp/edit_ca_receipt?docno=${response.result[i].DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                                        <a href="${base_url}Cash_adv/edit_ca_receipt?docno=${response.result[i].DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                             <i class="fa fa-edit"> </i>
                                         </a>
-                                        <a href="${base_url}FinanceCorp/view_reps_cash_receipt?docno=${response.result[i].DocNo}&branch=${response.result[i].Branch}&transdate=${response.result[i].TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                                        <a href="${base_url}Cash_adv/view_reps_cash_receipt?docno=${response.result[i].DocNo}&branch=${response.result[i].Branch}&transdate=${response.result[i].TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                                             <i class="fa fa-print"> </i>
                                         </a>
                                         <a href="javascript:;" name="delete" data-docno="${response.result[i].DocNo}" data-branch="${response.result[i].Branch}" data-transdate="${response.result[i].TransDate}" type="button" class="btn btn-xs red">
