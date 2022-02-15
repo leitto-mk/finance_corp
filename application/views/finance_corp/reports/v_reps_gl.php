@@ -45,7 +45,7 @@
                                     <img src="" class="img-responsive" alt="" width="50px">
                                         <address>
                                             <h4>
-                                                <i class="fa fa-building"></i><stro>&nbsp;&nbsp;<?= ($ledger[0]['ComName'] ?? 'N/A') ?></stro)ng>
+                                                <i class="fa fa-building"></i><strong>&nbsp;&nbsp;<?= ($ledger[0]['ComName'] ?? 'N/A') ?></strong>
                                                 <br> <i class="fa fa-map-marker"></i>&nbsp;&nbsp;<?= ($ledger[0]['Address'] ?? 'N/A') ?>
                                                 <br> <i class="fa fa-phone"></i>&nbsp;&nbsp;<?= ($ledger[0]['Contact'] ?? 'N/A') ?>
                                                 <br> <i class="fa fa-envelope"></i>&nbsp;&nbsp;<?= ($ledger[0]['Email'] ?? 'N/A') ?>
