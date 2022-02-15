@@ -4,7 +4,6 @@ application/config/
 application/core/
 application/hooks/
 application/language/
-application/libraries/
 application/logs/
 application/third_party/
 application/.htaccess
@@ -17,7 +16,6 @@ assets/pages/
 assets/photos/
 assets/bootzard-registration/
 assets/colorlib/
-assets/CUSTOM-PLUGINS/
 assets/.DS_Store
 template/
 user_guide/
