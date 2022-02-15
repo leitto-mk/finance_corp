@@ -33,7 +33,7 @@ const ListCAWithdraw = () => {
 
                         for(let i=0; i < response.result.length; i++){
                             $('tbody').append(
-                                `<tr class="font-dark sbold">
+                                `<tr class="font-white sbold">
                                     <td align="center">${response.result[i].TransDate}</td>
                                     <td align="center">${response.result[i].DocNo}</td>
                                     <td align="center">${response.result[i].TransType}</td>
@@ -41,10 +41,10 @@ const ListCAWithdraw = () => {
                                     <td align="left">${response.result[i].Remarks}</td>
                                     <td align="right">${response.result[i].TotalAmount}</td>
                                     <td align="center">
-                                        <a href="${base_url}FinanceCorp/edit_ca_withdraw?docno=${response.result[i].DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                                        <a href="${base_url}Cash_adv/edit_ca_withdraw?docno=${response.result[i].DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                             <i class="fa fa-edit"> </i>
                                         </a>
-                                        <a href="${base_url}FinanceCorp/view_reps_cash_withdraw?docno=${response.result[i].DocNo}&branch=${response.result[i].Branch}&transdate=${response.result[i].TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                                        <a href="${base_url}Cash_adv/view_reps_cash_withdraw?docno=${response.result[i].DocNo}&branch=${response.result[i].Branch}&transdate=${response.result[i].TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                                             <i class="fa fa-print"> </i>
                                         </a>
                                         <a href="javascript:;" name="delete" data-docno="${response.result[i].DocNo}" data-branch="${response.result[i].Branch}" data-transdate="${response.result[i].TransDate}" type="button" class="btn btn-xs red">

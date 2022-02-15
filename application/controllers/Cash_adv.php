@@ -21,8 +21,8 @@ class Cash_adv extends CI_Controller
     const HTTP_INTERNAL_ERROR = 500;
 
     //TransType
-    const CAW = 'CA-WITHDRAW';
-    const CAR = 'CA-RECEIPT';
+    const CAW = 'CW';
+    const CAR = 'CR';
 
     public function __construct()
     {
@@ -118,7 +118,7 @@ class Cash_adv extends CI_Controller
 
         $result = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAW, $docno, $start, $end);
 
-        echo json_encode($result);
+        return set_success_response($result);
     }
 
     public function edit_ca_withdraw(){
@@ -210,7 +210,7 @@ class Cash_adv extends CI_Controller
         $data = [
             'title' => 'Form Cash Advance Withdraw',
             
-            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno('CW'),
+            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno(self::CAW),
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
@@ -455,7 +455,7 @@ class Cash_adv extends CI_Controller
 
         $result = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAR, $docno, $start, $end);
 
-        echo json_encode($result);
+        return set_success_response($result);
     }
 
     public function edit_ca_receipt(){
@@ -547,7 +547,7 @@ class Cash_adv extends CI_Controller
         $data = [
             'title' => 'Form Cash Advance Receipt',
             
-            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno('CR'),
+            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno(self::CAR),
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
             'employee' => $this->Mdl_corp_cash_advance->get_employee(),
@@ -621,8 +621,8 @@ class Cash_adv extends CI_Controller
             'Rate' => 1,
             'Unit' => $_POST['totalamount'],
             'Amount' => $_POST['totalamount'],
-            'Debit' => 0,
-            'Credit' => $_POST['totalamount'],
+            'Debit' => $_POST['totalamount'],
+            'Credit' => 0,
             'Balance' => ($emp_beg_bal - $_POST['totalamount']),
             'BalanceBranch' => $counter_balance,
             'Remarks' => $_POST['remark'],
@@ -707,8 +707,8 @@ class Cash_adv extends CI_Controller
                 'Rate' => $_POST['rate'][$i],
                 'Unit' => $_POST['unit'][$i],
                 'Amount' => $_POST['amount'][$i],
-                'Debit' => $_POST['amount'][$i],
-                'Credit' => 0,
+                'Debit' => 0,
+                'Credit' => $_POST['amount'][$i],
                 'Balance' => 0,
                 'BalanceBranch' => $branch_bal,
                 'Remarks' => $_POST['remarks'][$i],

@@ -62,5 +62,8 @@
         <script src="<?= base_url();?>assets/pages/scripts/portfolio-1.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
+        <?php if(isset($script) && $script !== '') : ?>
+            <script src="<?= base_url("js/$script.js") ?>"></script>
+        <?php endif; ?>
      </body>
 </html>

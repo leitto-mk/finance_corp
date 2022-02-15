@@ -50,6 +50,7 @@
         <script src="<?= base_url();?>assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
+        <script src="<?= base_url();?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="<?= base_url();?>assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
@@ -62,5 +63,8 @@
         <script src="<?= base_url();?>assets/pages/scripts/portfolio-1.min.js" type="text/javascript"></script>
         <script src="<?= base_url();?>assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
+        <?php if(isset($script) && $script !== '') : ?>
+            <script src="<?= base_url("js/$script.js") ?>"></script>
+        <?php endif; ?>
      </body>
 </html>
