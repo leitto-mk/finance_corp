@@ -38,6 +38,15 @@ const ListCAStatement = () => {
                         }
 
                         for(let i = 0; i < response.result.length; i++){
+                            let debit = 0
+                            let credit = 0
+
+                            if (response.result[i].TransType == 'CW') {
+                                debit = Intl.NumberFormat('id').format(response.result[i].Credit)
+                            }else if (response.result[i].TransType == 'CR'){
+                                credit = Intl.NumberFormat('id').format(response.result[i].Credit)
+                            }
+
                             $('#tbody_statement_details').append(`
                                 <tr class="sbold">
                                     <td class="text-center">${i+1}</td>
@@ -45,8 +54,8 @@ const ListCAStatement = () => {
                                     <td class="text-center">${response.result[i].DocNo}</td>
                                     <td class="text-left">${response.result[i].Remarks}</td>
                                     <td class="text-left">${response.result[i].AccNo}</td>
-                                    <td class="text-left">${response.result[i].Debit}</td>
-                                    <td class="text-right">${response.result[i].Credit}</td>
+                                    <td class="text-left">${debit}</td>
+                                    <td class="text-right">${credit}</td>
                                     <td class="text-right">${response.result[i].Balance}</td>
                                 </tr>
                             `)

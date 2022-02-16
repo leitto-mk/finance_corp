@@ -449,6 +449,7 @@ class Mdl_corp_cash_advance extends CI_Model
                 emp.SupervisorName,
                 trans.DocNo,
                 trans.TransDate,
+                trans.TransType,
                 trans.Branch,
                 trans.Department,
                 trans.CostCenter,
