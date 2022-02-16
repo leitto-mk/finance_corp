@@ -118,18 +118,18 @@
                                             <th width="2%"></th>
                                             <th width="2%"></th>
                                             <th width="14%"></th>
-                                            <th width="6%" class="text-center">01-2021</th>
-                                            <th width="6%" class="text-center">02-2021</th>
-                                            <th width="6%" class="text-center">03-2021</th>
-                                            <th width="6%" class="text-center">04-2021</th>
-                                            <th width="6%" class="text-center">05-2021</th>
-                                            <th width="6%" class="text-center">06-2021</th>
-                                            <th width="6%" class="text-center">07-2021</th>
-                                            <th width="6%" class="text-center">08-2021</th>
-                                            <th width="6%" class="text-center">09-2021</th>
-                                            <th width="6%" class="text-center">10-2021</th>
-                                            <th width="6%" class="text-center">11-2021</th>
-                                            <th width="6%" class="text-center">12-2021</th>
+                                            <th width="6%" class="text-center">Jan-2021</th>
+                                            <th width="6%" class="text-center">Feb-2021</th>
+                                            <th width="6%" class="text-center">Mar-2021</th>
+                                            <th width="6%" class="text-center">Apr-2021</th>
+                                            <th width="6%" class="text-center">May-2021</th>
+                                            <th width="6%" class="text-center">Jun-2021</th>
+                                            <th width="6%" class="text-center">Jul-2021</th>
+                                            <th width="6%" class="text-center">Aug-2021</th>
+                                            <th width="6%" class="text-center">Sep-2021</th>
+                                            <th width="6%" class="text-center">Oct-2021</th>
+                                            <th width="6%" class="text-center">Nov-2021</th>
+                                            <th width="6%" class="text-center">Dec-2021</th>
                                             <th width="6%" class="text-center">Total</th>
                                     
                                         </tr>

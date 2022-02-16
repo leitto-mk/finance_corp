@@ -22,7 +22,7 @@
                                             <tr class="bg-blue-dark font-white">
                                                 <th width="5%"></th>
                                                 <th class="text-center" width="15%">Branch</th>
-                                                <th class="text-center" width="15%">Trans Type</th>
+                                                <th class="text-center" width="15%">Type</th>
                                                 <th class="text-center" width="15%">Start Date</th>
                                                 <th class="text-center" width="20%">End Date</th>
                                                 <th class="text-center" width="15%">Doc No Start</th>
@@ -125,7 +125,7 @@
                                         <tr class="bg-blue-dark font-white">
                                             <th class="text-center" width="7%"> Trans Date </th>
                                             <th class="text-center" width="5%"> Doc No </th>
-                                            <th class="text-center" width="5%"> Trans Type </th>
+                                            <th class="text-center" width="5%"> Type </th>
                                             <th class="text-center" width="12%"> Description </th>
                                             <th class="text-center" width="8%"> Dept </th>
                                             <th class="text-center" width="8%"> CostC </th>
