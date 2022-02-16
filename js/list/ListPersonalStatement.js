@@ -54,8 +54,8 @@ const ListCAStatement = () => {
                                     <td class="text-center">${response.result[i].TransDate ?? ''}</td>
                                     <td class="text-center">${response.result[i].DocNo}</td>
                                     <td class="text-left">${response.result[i].Remarks}</td>
-                                    <td class="text-left">${response.result[i].AccNo}</td>
-                                    <td class="text-left">${debit}</td>
+                                    <td class="text-center">${response.result[i].AccNo}</td>
+                                    <td class="text-right">${debit}</td>
                                     <td class="text-right">${credit}</td>
                                     <td class="text-right">${balance}</td>
                                 </tr>
