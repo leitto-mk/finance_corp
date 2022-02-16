@@ -40,6 +40,7 @@ const ListCAStatement = () => {
                         for(let i = 0; i < response.result.length; i++){
                             let debit = 0
                             let credit = 0
+                            let balance = Intl.NumberFormat('id').format(response.result[i].Balance)
 
                             if (response.result[i].TransType == 'CW') {
                                 debit = Intl.NumberFormat('id').format(response.result[i].Credit)
@@ -56,7 +57,7 @@ const ListCAStatement = () => {
                                     <td class="text-left">${response.result[i].AccNo}</td>
                                     <td class="text-left">${debit}</td>
                                     <td class="text-right">${credit}</td>
-                                    <td class="text-right">${response.result[i].Balance}</td>
+                                    <td class="text-right">${balance}</td>
                                 </tr>
                             `)
                         }
