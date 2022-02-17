@@ -83,6 +83,15 @@
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_accdesc"><b></b></span>
                                                                     </div>
                                                                     <div class="form-group">
+                                                                        <label class="col-md-2 control-label"><b>Reference No.</b></label>
+                                                                        <div class="col-md-3">
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon">
+                                                                                    #
+                                                                                </span>
+                                                                                <input type="text" name="refno" class="form-control" placeholder="Reference No. (Optional)"  value="" style="background-color:white;">
+                                                                            </div>
+                                                                        </div>
                                                                         <label class="col-md-2 control-label"><b>Employee</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
@@ -97,16 +106,18 @@
                                                                                 </span>
                                                                             </div>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
                                                                             <input type="text" id="branch" name="branch" class="form-control" placeholder="Branch" readonly>
                                                                         </div>
+                                                                        <label class="col-md-2 control-label"><b>Transaction Date</b></label>
+                                                                        <div class="col-md-3">
+                                                                            <input type="date" id="transdate" name="transdate" class="form-control" required>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="col-md-2 control-label"><b>Outstanding</b></label>
-                                                                        <div class="col-md-3">
-                                                                            <input id="outstanding" name="outstanding" type="number" placeholder="0" class="form-control" readonly>
-                                                                        </div>
                                                                         <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
                                                                         <div class="col-md-3">
                                                                             <select class="form-control" name="journalgroup" id="journalgroup" required>
@@ -116,12 +127,9 @@
                                                                                 <option value="General Ledger">General Ledger</option>
                                                                             </select>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                    <span class="help-inline" id="m_namestd"><b></b></span>
-                                                                        <label class="col-md-2 control-label"><b>Transaction Date</b></label>
+                                                                        <label class="col-md-2 control-label"><b>Outstanding</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="date" id="transdate" name="transdate" class="form-control" required>
+                                                                            <input id="outstanding" name="outstanding" type="number" placeholder="0" class="form-control" readonly>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">

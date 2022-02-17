@@ -82,10 +82,21 @@
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="accdesc"><b></b></span>
                                                                     </div>
                                                                     <div class="form-group">
+                                                                        <label class="col-md-2 control-label"><b>Reference No.</b></label>
+                                                                        <div class="col-md-3">
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon">
+                                                                                    #
+                                                                                </span>
+                                                                                <input type="text" name="refno" placeholder="Reference No (Optional)" class="form-control"  value="" style="background-color:white;">
+                                                                            </div>
+                                                                        </div>
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
                                                                         <div class="col-md-3">
                                                                             <input type="date" id="transdate" name="transdate" class="form-control" required>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
                                                                             <select name="branch" id="branch" class="form-control" data-live-search="true" data-size="8" required>
@@ -95,8 +106,6 @@
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
                                                                         <div class="col-md-3">
                                                                             <select class="form-control" name="journalgroup" id="journalgroup" required>
@@ -107,6 +116,8 @@
                                                                             </select>
                                                                         </div>
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="namestd"><b></b></span>
+                                                                    </div>
+                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Paid To</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
@@ -116,7 +127,6 @@
                                                                                 </span>
                                                                             </div>
                                                                         </div>
-
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Description</b></label>

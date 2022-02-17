@@ -67,21 +67,22 @@
                                                                                 <input type="text" name="docno" class="form-control" readonly value="<?= $docno ?>" style="background-color:white;">
                                                                             </div>
                                                                         </div>
-                                                                        <!-- Row 2 -->
-                                                                        <label class="col-md-2 control-label"><b>Account From</b></label>
+                                                                        <label class="col-md-2 control-label"><b>Account No.</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_caccount">
                                                                             <select name="accno" id="accno" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
                                                                                 <?php for($i=0; $i < count($accnos); $i++) : ?>
-                                                                                    <?php
-                                                                                        $accn = $accnos[$i]['Acc_No'];
-                                                                                        $acctype = $accnos[$i]['Acc_Type']; 
-                                                                                        $accname = $accnos[$i]['Acc_Name'];
-                                                                                    ?>
-                                                                                    <?php if($accn == $accno) : ?>
-                                                                                        <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
-                                                                                    <?php else: ?>
-                                                                                        <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                    <?php if($accnos[$i]['TransGroup'] == 'CB') : ?>
+                                                                                        <?php
+                                                                                            $accn = $accnos[$i]['Acc_No'];
+                                                                                            $acctype = $accnos[$i]['Acc_Type']; 
+                                                                                            $accname = $accnos[$i]['Acc_Name'];
+                                                                                        ?>
+                                                                                        <?php if($accn == $accno) : ?>
+                                                                                            <option value="<?= $accn ?>" selected><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                        <?php else: ?>
+                                                                                            <option value="<?= $accn ?>"><?= $accn ?> | <?= $accname ?> - [<?= $acctype ?>]</option>
+                                                                                        <?php endif; ?>
                                                                                     <?php endif; ?>
                                                                                 <?php endfor; ?>
                                                                             </select>
@@ -89,10 +90,21 @@
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="accdesc"><b></b></span>
                                                                     </div>
                                                                     <div class="form-group">
+                                                                        <label class="col-md-2 control-label"><b>Reference No.</b></label>
+                                                                        <div class="col-md-3">
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon">
+                                                                                    #
+                                                                                </span>
+                                                                                <input type="text" name="refno" class="form-control" placeholder="Reference No. (Optional)"  value="<?= $refno ?>" style="background-color:white;">
+                                                                            </div>
+                                                                        </div>
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
                                                                         <div class="col-md-3">
                                                                             <input type="date" id="transdate" name="transdate" class="form-control" value="<?= $transdate ?>" required>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
                                                                             <select name="branch" id="branch" class="form-control" data-live-search="true" data-size="8" required>
@@ -106,8 +118,6 @@
                                                                                 <?php endforeach; ?>
                                                                             </select>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><font color="red" size="2">*</font> <b>Journal Group</b></label>
                                                                         <div class="col-md-3">
                                                                             <select class="form-control" name="journalgroup" id="journalgroup" required>
@@ -117,8 +127,9 @@
                                                                                 <option value="General Ledger" <?= ($journalgroup == 'General Ledger' ? 'selected' : '')?>>General Ledger</option>
                                                                             </select>
                                                                         </div>
-                                                                        &nbsp;&nbsp;&nbsp;<span class="help-inline" id="namestd"><b></b></span>
-                                                                        <label class="col-md-2 control-label"><b>Paid To</b></label>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                    <label class="col-md-2 control-label"><b>Paid To</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
                                                                                 <input name="paidto" id="paidto" class="form-control" value="<?= $paidto ?>"/>
@@ -127,7 +138,6 @@
                                                                                 </span>
                                                                             </div>
                                                                         </div>
-
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Description</b></label>

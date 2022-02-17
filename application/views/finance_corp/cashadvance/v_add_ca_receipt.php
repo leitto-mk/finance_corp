@@ -83,6 +83,15 @@
                                                                         &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_accdesc"><b></b></span>
                                                                     </div>
                                                                     <div class="form-group">
+                                                                        <label class="col-md-2 control-label"><b>Reference No.</b></label>
+                                                                        <div class="col-md-3">
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon">
+                                                                                    #
+                                                                                </span>
+                                                                                <input type="text" name="refno" class="form-control" placeholder="Reference No. (Optional)"  value="" style="background-color:white;">
+                                                                            </div>
+                                                                        </div>
                                                                         <label class="col-md-2 control-label"><b>Employee</b></label>
                                                                         <div class="col-md-3">
                                                                             <div class="input-group">
@@ -98,22 +107,22 @@
                                                                                 </span>
                                                                             </div>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Branch</b></label>
                                                                         <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
                                                                             <input type="text" id="branch" name="branch" class="form-control" placeholder="Branch" readonly>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Outstanding</b></label>
                                                                         <div class="col-md-3">
                                                                             <input type="text" id="outstanding" name="outstanding" class="form-control" placeholder="0" readonly>
                                                                         </div>
-                                                                        &nbsp;&nbsp;&nbsp;<span class="help-inline" id="m_namestd"><b></b></span>
+                                                                    </div>
+                                                                    <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
                                                                         <div class="col-md-3">
                                                                             <input type="date" id="transdate" name="transdate" class="form-control" required>
                                                                         </div>
-
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label class="col-md-2 control-label"><b>Description</b></label>

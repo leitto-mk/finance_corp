@@ -138,6 +138,7 @@ class Cash_adv extends CI_Controller
             
             //DocNo Master
             'docno' => $docno,
+            'refno' => $result[0]['RefNo'],
             'transdate' => $result[0]['TransDate'],
             'id' => $result[0]['IDNumber'],
             'journalgroup' => $result[0]['JournalGroup'],
@@ -269,6 +270,7 @@ class Cash_adv extends CI_Controller
         //COUNTER-BALANCE
         array_push($trans, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'TransDate' => $_POST['transdate'],
             'TransType' => self::CAW,
             'JournalGroup' => $_POST['journalgroup'],
@@ -295,6 +297,7 @@ class Cash_adv extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'IDNumber' => $_POST['emp_master_id'],
             'SubmitBy' => '',
             'TransType' => self::CAW,
@@ -475,6 +478,7 @@ class Cash_adv extends CI_Controller
             
             //DocNo Master
             'docno' => $docno,
+            'refno' => $result[0]['RefNo'],
             'transdate' => $result[0]['TransDate'],
             'id' => $result[0]['IDNumber'],
             'journalgroup' => $result[0]['JournalGroup'],
@@ -606,6 +610,7 @@ class Cash_adv extends CI_Controller
         //COUNTER-BALANCE
         array_push($trans, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'TransDate' => $_POST['transdate'],
             'TransType' => self::CAR,
             'JournalGroup' => '',
@@ -632,6 +637,7 @@ class Cash_adv extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'IDNumber' => $_POST['emp_master_id'],
             'SubmitBy' => '',
             'TransType' => self::CAR,

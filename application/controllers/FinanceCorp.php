@@ -98,6 +98,7 @@ class FinanceCorp extends CI_Controller
             
             //DocNo Master
             'docno' => $docno,
+            'refno' => $result[0]['RefNo'],
             'transdate' => $result[0]['TransDate'],
             'journalgroup' => $result[0]['JournalGroup'],
             'remark' => $result[0]['Remarks'],
@@ -221,6 +222,7 @@ class FinanceCorp extends CI_Controller
         //COUNTER-BALANCE
         array_push($trans, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'TransDate' => $_POST['transdate'],
             'TransType' => self::REC,
             'JournalGroup' => $_POST['journalgroup'],
@@ -247,6 +249,7 @@ class FinanceCorp extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'IDNumber' => $_POST['paidto'],
             'SubmitBy' => '',
             'TransType' => self::REC,
@@ -422,6 +425,7 @@ class FinanceCorp extends CI_Controller
             
             //DocNo Master
             'docno' => $docno,
+            'refno' => $result[0]['RefNo'],
             'transdate' => $result[0]['TransDate'],
             'journalgroup' => $result[0]['JournalGroup'],
             'remark' => $result[0]['Remarks'],
@@ -545,6 +549,7 @@ class FinanceCorp extends CI_Controller
         //COUNTER-BALANCE
         array_push($trans, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'TransDate' => $_POST['transdate'],
             'TransType' => self::PAY,
             'JournalGroup' => $_POST['journalgroup'],
@@ -571,6 +576,7 @@ class FinanceCorp extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'IDNumber' => $_POST['paidto'],
             'SubmitBy' => '',
             'TransType' => self::PAY,
@@ -746,6 +752,7 @@ class FinanceCorp extends CI_Controller
             
             //DocNo Master
             'docno' => $docno,
+            'refno' => $result[0]['RefNo'],
             'transdate' => $result[0]['TransDate'],
             'journalgroup' => $result[0]['JournalGroup'],
             'remark' => $result[0]['Remarks'],
@@ -869,6 +876,7 @@ class FinanceCorp extends CI_Controller
         //COUNTER-BALANCE
         array_push($trans, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'TransDate' => $_POST['transdate'],
             'TransType' => self::OVB,
             'JournalGroup' => $_POST['journalgroup'],
@@ -895,6 +903,7 @@ class FinanceCorp extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'IDNumber' => $_POST['paidto'],
             'SubmitBy' => '',
             'TransType' => self::OVB,
@@ -1070,6 +1079,7 @@ class FinanceCorp extends CI_Controller
             
             //DocNo Master
             'docno' => $docno,
+            'refno' => $result[0]['RefNo'],
             'transdate' => $result[0]['TransDate'],
             'journalgroup' => $result[0]['JournalGroup'],
             'remark' => $result[0]['Remarks'],
@@ -1179,6 +1189,7 @@ class FinanceCorp extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
+            'RefNo' => $_POST['refno'],
             'IDNumber' => $_POST['paidto'],
             'SubmitBy' => '',
             'TransType' => self::GNJ,
