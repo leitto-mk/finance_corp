@@ -308,6 +308,8 @@ class Mdl_corp_treasury extends CI_Model
                 trans.Currency,
                 trans.Rate,
                 trans.Unit,
+                trans.Debit,
+                trans.Credit,
                 trans.Amount
              FROM tbl_fa_transaction AS trans
              LEFT JOIN tbl_fa_account_no AS acc
