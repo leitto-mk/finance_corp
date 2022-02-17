@@ -80,6 +80,12 @@ const ListReceipt = () => {
             let branch = $(this).attr('data-branch')
             let transdate = $(this).attr('data-transdate')
 
+            let confirmed = confirm(`Are You sure want to delete ${docno} ? `)
+
+            if(!confirmed){
+                return
+            }
+
             $.ajax({
                 url: 'ajax_delete_receipt',
                 method: 'POST',
