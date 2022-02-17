@@ -121,7 +121,7 @@
                                                     <?php
                                                         $grand_total = 0;
                                                     ?>
-                                                    <?php for($i = 1; $i < count($report); $i++) : ?>
+                                                    <?php for($i = 0; $i < count($report); $i++) : ?>
                                                         <?php if($report[$i]['ItemNo'] > 0) : ?>
                                                             <tr>
                                                                 <td><h6 class="text-center bold"><?= $i ?></h6></td>
