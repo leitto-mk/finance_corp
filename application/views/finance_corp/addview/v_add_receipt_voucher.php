@@ -7,7 +7,7 @@
                 <div class="container-fluid">
                     <div class="hor-menu">
                         <ul class="nav navbar-nav">
-                            <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase">
+                            <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase" style="margin-left: -30px">
                                 <h4 style="color:#ffffff">Receipt Voucher</h4>
                             </li>
                         </ul>
@@ -18,14 +18,14 @@
             <!-- END HEADER MENU -->
         </div>
     </div>
-    <div class="portlet light" style="margin-top: -20px">
+    <div class="portlet light" style="margin-top: -25px">
         <form method="post" class="form-horizontal" id="form_receipt_voucher" autocomplete="off">
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet light">
                         <div class="portlet-title">
                             <div class="caption">
-                                <span class="caption-subject bold uppercase font-dark"><i class="fa fa-edit"></i> Master Transaction </span>
+                                <span class="caption-subject bold uppercase font-dark" style="margin-left: -10px"><i class="fa fa-edit"></i> Master Transaction </span>
                             </div>
                             <div class="actions">
                                 <div class="btn-group btn-group-devided">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-9 col-xs-12 col-sm-12" style="background-color: #E9EDEF;">
+                            <div class="col-lg-9 col-xs-12 col-sm-12" style="background-color: #E9EDEF; margin-top: -10px">
                                 <div class="portlet-body form-horizontal">
                                     <div class="form-body" style="margin-top: 10px">
                                         <div class="form-group">
@@ -125,7 +125,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-xs-12 col-sm-12" style="padding: 0px">
+                            <div class="col-lg-3 col-xs-12 col-sm-12" style="padding: 0px; margin-top: -10px">
                                 <div class="portlet light" style="border-style: solid; border-color: lightgrey;">
                                     <div class="portlet-body">
                                         <div class="mt-step-desc">
@@ -136,7 +136,7 @@
                                             <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                             <div class="col-md-12 value" style="margin-top: 8px">
                                                 <b>
-                                                    <input style="text-align:right; background: #E9EDEF; font-size: 35px; border:none;" type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control">
+                                                    <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control">
                                                     <input type="number" class="form-control hidden" id="totalamount" name="totalamount">
                                                 </b>
                                             </div>
@@ -163,74 +163,72 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12" style="margin-top: -50px">
-                    <div class="col-md-12" style="padding: 5px">
-                        <div class="portlet light bg-default">
-                            <div class="portlet-body">
-                                <div id="r_tbl_stockcode" class="portlet" style="margin-bottom: 5px;">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <span class="caption-subject font-dark bold"><i class="icon-list"></i> Detail Transaction </span>
-                                        </div>
+                <div class="col-md-12" style="margin-top: -65px; padding: 0px">
+                    <div class="portlet light">
+                        <div class="portlet-body">
+                            <div id="r_tbl_stockcode" class="portlet" style="margin-bottom: 5px;">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <span class="caption-subject font-dark bold"><i class="icon-list"></i> Detail Transaction </span>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table table-striped" id="table_detail_transaction">
-                                        <thead>
-                                            <tr class="bg-blue-ebonyclay font-white">
-                                                <th class="text-center" width="3%">Item<font color="#22313F">_</font>No</th>
-                                                <th class="text-center" width="32%"> Description Det. </th>
-                                                <th class="text-center" width="10%"> Department </th>
-                                                <th class="text-center" width="10%"> Cost Center </th>
-                                                <th class="text-center" width="10%"> Account No. </th>
-                                                <th class="text-center" width="5%"> Cry </th>
-                                                <th class="text-center" width="10%"> Rate </th>
-                                                <th class="text-center" width="10%"> Unit </th>
-                                                <th class="text-center" width="10%"> Amount </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbody_detail">
-                                            <tr style="background-color: #E9EDEF">
-                                                <td><input type="number" name="itemno[]" class="form-control" readonly value="1"></td>
-                                                <td><input type="text" name="remarks[]" class="form-control" required></td>
-                                                <td>
-                                                    <select name="departments[]" class="form-control" required>
-                                                        <option value="">--Choose Department --</option>
-                                                        <?php for($i=0; $i < count($department); $i++) : ?>
-                                                            <option value="<?= $department[$i]['DeptCode'] ?>" data-branch="<?= $department[$i]['Branch'] ?>"><?= $department[$i]['DeptDes'] ?></option>
-                                                        <?php endfor; ?>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <select name="costcenters[]" class="form-control" required>
-                                                        <option value="">--Choose Cost Center --</option>
-                                                        <?php for($i=0; $i < count($costcenter); $i++) : ?>
-                                                            <option value="<?= $costcenter[$i]['CostCenter'] ?>" data-department="<?= $costcenter[$i]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
-                                                        <?php endfor; ?>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <select name="accnos[]" class="form-control" required>
-                                                        <option value="">--Choose Account No--</option>
-                                                        <?php for($i=0; $i < count($accno); $i++) : ?>
-                                                            <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?></option>
-                                                        <?php endfor; ?>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <select name="currency[]" class="form-control" required>
-                                                        <?php foreach($currency as $cur) : ?> 
-                                                            <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </td>
-                                                <td><input type="number" name="rate[]" class="form-control text-right" min="1" value="1" required></td>
-                                                <td><input type="number" name="unit[]" class="form-control text-right" required></td>
-                                                <td><input type="" name="amount[]" class="form-control text-right" readonly></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            </div>
+                            <div class="table-responsive" style="margin-top: -10px">
+                                <table class="table table-striped" id="table_detail_transaction">
+                                    <thead>
+                                        <tr class="bg-blue-ebonyclay font-white">
+                                            <th class="text-center" width="3%">Item<font color="#22313F">_</font>No</th>
+                                            <th class="text-center" width="32%"> Description Det. </th>
+                                            <th class="text-center" width="10%"> Department </th>
+                                            <th class="text-center" width="10%"> Cost Center </th>
+                                            <th class="text-center" width="10%"> Account No. </th>
+                                            <th class="text-center" width="5%"> Cry </th>
+                                            <th class="text-center" width="10%"> Rate </th>
+                                            <th class="text-center" width="10%"> Unit </th>
+                                            <th class="text-center" width="10%"> Amount </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody_detail">
+                                        <tr style="background-color: #E9EDEF">
+                                            <td><input type="number" name="itemno[]" class="form-control text-center" readonly value="1"></td>
+                                            <td><input type="text" name="remarks[]" class="form-control" required></td>
+                                            <td>
+                                                <select name="departments[]" class="form-control" required>
+                                                    <option value="">--Choose Department --</option>
+                                                    <?php for($i=0; $i < count($department); $i++) : ?>
+                                                        <option value="<?= $department[$i]['DeptCode'] ?>" data-branch="<?= $department[$i]['Branch'] ?>"><?= $department[$i]['DeptDes'] ?></option>
+                                                    <?php endfor; ?>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="costcenters[]" class="form-control" required>
+                                                    <option value="">--Choose Cost Center --</option>
+                                                    <?php for($i=0; $i < count($costcenter); $i++) : ?>
+                                                        <option value="<?= $costcenter[$i]['CostCenter'] ?>" data-department="<?= $costcenter[$i]['DeptCode'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
+                                                    <?php endfor; ?>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="accnos[]" class="form-control" required>
+                                                    <option value="">--Choose Account No--</option>
+                                                    <?php for($i=0; $i < count($accno); $i++) : ?>
+                                                        <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?></option>
+                                                    <?php endfor; ?>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="currency[]" class="form-control" required>
+                                                    <?php foreach($currency as $cur) : ?> 
+                                                        <option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </td>
+                                            <td><input type="number" name="rate[]" class="form-control text-right" min="1" value="1" required></td>
+                                            <td><input type="number" name="unit[]" class="form-control text-right" required></td>
+                                            <td><input type="" name="amount[]" class="form-control text-right" readonly></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
