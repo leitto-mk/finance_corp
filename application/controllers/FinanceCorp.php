@@ -310,6 +310,7 @@ class FinanceCorp extends CI_Controller
             //EMPLOYEE BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
+                'RefNo' => $_POST['refno'],
                 'TransDate' => $_POST['transdate'],
                 'TransType' => self::REC,
                 'JournalGroup' => $_POST['journalgroup'],
@@ -637,6 +638,7 @@ class FinanceCorp extends CI_Controller
             //EMPLOYEE BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
+                'RefNo' => $_POST['refno'],
                 'TransDate' => $_POST['transdate'],
                 'TransType' => self::PAY,
                 'JournalGroup' => $_POST['journalgroup'],
@@ -965,6 +967,7 @@ class FinanceCorp extends CI_Controller
             //EMPLOYEE BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
+                'RefNo' => $_POST['refno'],
                 'TransDate' => $_POST['transdate'],
                 'TransType' => self::OVB,
                 'JournalGroup' => $_POST['journalgroup'],
@@ -1258,6 +1261,7 @@ class FinanceCorp extends CI_Controller
             //EMPLOYEE BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
+                'RefNo' => $_POST['refno'],
                 'TransDate' => $_POST['transdate'],
                 'TransType' => self::GNJ,
                 'JournalGroup' => '',

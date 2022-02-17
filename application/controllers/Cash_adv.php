@@ -358,6 +358,7 @@ class Cash_adv extends CI_Controller
             //EMPLOYEE BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
+                'RefNo' => $_POST['refno'],
                 'TransDate' => $_POST['transdate'],
                 'TransType' => self::CAW,
                 'JournalGroup' => $_POST['journalgroup'],
@@ -698,6 +699,7 @@ class Cash_adv extends CI_Controller
             //EMPLOYEE BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
+                'RefNo' => $_POST['refno'],
                 'TransDate' => $_POST['transdate'],
                 'TransType' => self::CAR,
                 'JournalGroup' => '',
