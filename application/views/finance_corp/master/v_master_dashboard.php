@@ -1874,7 +1874,7 @@ function load_function(){
         var whmval = $(this).val();
         if (whmval.length > 0) {
             $.ajax({
-                url: "<?php echo site_url('APOSMaster/get_detwarehouseman_by_whmid') ?>",
+                url: "<?php echo site_url('Cmaster/get_detwarehouseman_by_whmid') ?>",
                 data: {
                     id: whmval
                 },
@@ -1901,7 +1901,7 @@ function load_function(){
         var whmval = $(this).val();
         if (whmval.length > 0) {
             $.ajax({
-                url: "<?php echo site_url('APOSMaster/get_detwarehouseman_by_whmid') ?>",
+                url: "<?php echo site_url('Cmaster/get_detwarehouseman_by_whmid') ?>",
                 data: {
                     id: whmval
                 },
@@ -2257,7 +2257,7 @@ function transt_action(){
 function get_list_branch() {
     var html = '';
     $.ajax({
-        url: "<?php echo site_url('APOSMaster/get_list_branch'); ?>",
+        url: "<?php echo site_url('Cmaster/get_list_branch'); ?>",
         type: "GET",
         dataType: "json",
         success: function(data) {
@@ -2280,7 +2280,7 @@ function get_list_branch() {
 function get_list_person_incharge() {
     var html = '';
     $.ajax({
-        url: "<?php echo site_url('APOSMaster/get_list_warehouseman'); ?>",
+        url: "<?php echo site_url('Cmaster/get_list_warehouseman'); ?>",
         type: "GET",
         dataType: "json",
         success: function(data) {
@@ -2429,7 +2429,7 @@ function get_list_stock_dt(){
                 processing : true,
                 serverSide : true,
                 ajax : {
-                    url     : "<?php echo site_url('APOSMaster/list_stock_dt'); ?>",
+                    url     : "<?php echo site_url('Cmaster/list_stock_dt'); ?>",
                     type    : "POST"
                 },
                 columns : [
@@ -2495,7 +2495,7 @@ function get_list_stock_dt_disc(){
                 processing : true,
                 serverSide : true,
                 ajax : {
-                    url     : "<?php echo site_url('APOSMaster/list_stock_dt_disc'); ?>",
+                    url     : "<?php echo site_url('Cmaster/list_stock_dt_disc'); ?>",
                     type    : "POST"
                 },
                 columns : [
@@ -2545,7 +2545,7 @@ $(document).on('click', '#disc_stockcode', function(){
                         stcode: stcode,
                         remarks: remarks
                     },
-                    url: '<?=site_url("APOSMaster/discDataStockcode")?>',
+                    url: '<?=site_url("Cmaster/discDataStockcode")?>',
                     success: function(data){
                         alert('Stockcode has been discontinue');
                         location.reload();
@@ -2568,7 +2568,7 @@ $(document).on('click', '#continue_stockcode', function(){
             data: {
                 stcode: stcode,
             },
-            url: '<?=site_url("APOSMaster/continueDataStockcode")?>',
+            url: '<?=site_url("Cmaster/continueDataStockcode")?>',
             success: function(data){
                 alert('Stockcode has been continue');
                 location.reload();

@@ -56,6 +56,11 @@ class Mdl_corp_master extends CI_Model {
 		return $result;
 	}
 
+    public function updateData2($where, $val, $table, $data){
+        $this->db->where($where, $val);
+        return $this->db->update($table, $data);
+    }
+
 	public function getDataByID($table, $where, $id){
 		return $this->db->get_where($table, [$where => $id])->row_array();
 	}
@@ -265,6 +270,16 @@ class Mdl_corp_master extends CI_Model {
         }
     }
 
+    function get_detwarehouseman_by_whmid($id){
+        $query = $this->db->query("SELECT BusinessPhone, FaxNumber, Email FROM tbl_mat_cat_officer WHERE IDNumber = '$id'");
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+        
+    }
+
     function get_list_status($storagecode){
         $query = $this->db->query("SELECT is_active FROM tbl_mat_cat_storage WHERE StorageCode = '$storagecode'");
         if ($query->num_rows() > 0) {
@@ -289,6 +304,27 @@ class Mdl_corp_master extends CI_Model {
         }
     }
     //End - Storage
+
+    //Start - Stockcode
+    function get_list_stock_dt(){
+        $this->dtables->select('CtrlNo, Stockcode, ManufactureNo, Superceded, Barcode, StockDescription, ManufactureDesc, ModelNo, Size, Color, UOM, UOMQty, StockGroup, Photo, DiscDate, Remarks');
+        $this->dtables->from('tbl_mat_stockcode');
+        $this->dtables->where('Disc', '0');
+        $this->dtables->add_column('view', '<a href="'.site_url('APOSMaster/v_detail_stockcode/').'$1" class="btn btn-outline btn-xs blue detail-stock" title="Detail" target="_blank"><i class="fa fa-search"></i></a>'. 
+                                            '<a href="'.site_url('APOSMaster/v_edit_stockcode/').'$1" class="btn btn-outline btn-xs green" target="_blank" title="Edit"><i class="fa fa-pencil"></i></a>' . '<button id="disc_stockcode" class="btn btn-outline btn-xs yellow" title="Discontinue" stock-code="$1"><i class="fa fa-close"></i></button>'/*. 
+                                            '<a href="#" class="btn btn-outline btn-xs red" title="Delete"><i class="fa fa-trash"></i></a>'*/, 'Stockcode');
+        return $this->dtables->generate();
+    }
+
+     function get_list_stock_dt_disc(){
+        $this->dtables->select('CtrlNo, Stockcode, ManufactureNo, Superceded, Barcode, StockDescription, ManufactureDesc, ModelNo, Size, Color, UOM, UOMQty, StockGroup, Photo, DiscDate, Remarks');
+        $this->dtables->from('tbl_mat_stockcode');
+        $this->dtables->where('Disc', '1');
+        $this->dtables->add_column('view','<button id="continue_stockcode" class="btn btn-outline btn-xs green" title="Continue" stock-code="$1"><i class="fa fa-check-square-o" title="Continue"></i></button>','Stockcode');
+        return $this->dtables->generate();
+    }
+
+    //End - Stockcode
 
 
 
