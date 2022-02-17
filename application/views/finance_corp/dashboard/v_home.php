@@ -12,14 +12,14 @@
         width: 25%;
     }
 
-    @media only screen and (max-width: 900px) {
+/*    @media only screen and (max-width: 900px) {
         #col_box {
             width: 100%;
         }
-    }
+    }*/
 </style>
 <div class="main_content">
-    <div class="row">
+    <!-- <div class="row">
         <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bg-blue-ebonyclay">
                 <div class="row">
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <!-- <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <div id="col_box" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
                 <div class="row">
                     <div class="col-md-8" style="float: left">
@@ -140,8 +140,8 @@
                     </div>
                 </a>
             </div>
-        </div> -->
-        <!-- <div id="col_box" class="col-md-3">
+        </div>
+        <div id="col_box" class="col-md-3">
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
                 <div class="row">
                     <div class="col-md-8" style="float: left">
@@ -161,8 +161,8 @@
                     </div>
                 </a>
             </div>
-        </div> -->
-    </div>
+        </div>
+    </div> -->
     <!-- <div class="row">
         <div class="col-md-12">
             <div class="portlet bordered light">
@@ -434,7 +434,7 @@
             </div>
         </div>
     </div> -->
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="portlet bordered light">
                 <div class="caption">
@@ -631,13 +631,19 @@
                 </div>
             </div>
         </div>
+    </div> -->
+    <div class="row">
+        <div class="col-md-12">
+            <marquee><h1 class="text-center" style="margin-top: -5px">Automation Based Resource System</h1></marquee>
+            <center><img src="<?php echo base_url(); ?>assets/bg4.jpeg" alt="" height="85%" width="85%"/></center>
+        </div>
     </div>
 </div>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     window.onload = load_function;
 
     function load_function() {
         document.body.style.zoom = 0.9;
     }
-</script>
+</script> -->
 <?php $this->load->view('header_footer/finance_corp/footer_main'); ?>

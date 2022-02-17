@@ -156,12 +156,22 @@
                                             <span class="title">&bull;&nbsp;&nbsp;General Journal</span>
                                         </a>
                                     </li>
+                                    <li class="nav-item start">
+                                        <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Re-Calculate | Repost</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start">
+                                        <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Year End Close</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="nav-head nav-item active">
+                            <li class="nav-head nav-item">
                                 <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
                                     <i class="fa fa-edit font-green"></i>
-                                    <span class="title uppercase">A / R</span>
+                                    <span class="title uppercase font-white">A / R</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
