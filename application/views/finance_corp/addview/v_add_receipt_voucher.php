@@ -224,7 +224,7 @@
                                                                             <select name="accnos[]" class="form-control" required>
                                                                                 <option value="">--Choose Account No--</option>
                                                                                 <?php for($i=0; $i < count($accno); $i++) : ?>
-                                                                                    <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?></option>
+                                                                                    <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?></option>
                                                                                 <?php endfor; ?>
                                                                             </select>
                                                                         </td>
