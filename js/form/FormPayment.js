@@ -52,10 +52,10 @@ const FormPayment = () => {
                         return
                     }
 
-                    row = cur_input.parents('tr').clone()
+                    let row = cur_input.parents('tr').clone()
 
                     if(cur_input.parents('tr').is(':last-child')){
-                        cur_itemno = +row.find('[name="itemno[]"]').val()
+                        let cur_itemno = +row.find('[name="itemno[]"]').val()
 
                         row.find('[name="itemno[]"]').val(cur_itemno+1)
                         row.find('[name="remarks[]"]').val('')
