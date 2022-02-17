@@ -191,13 +191,14 @@ class Mdl_corp_treasury extends CI_Model
              OR RetainingSum IS NULL"
         );
 
-        $is_retaining_curmonth_exist = $this->db->query(
+        $is_retaining_curmonth_exist = (int) $this->db->query(
             "SELECT COUNT(Month) AS Total FROM tbl_fa_retaining_earning
              WHERE Branch = '$branch'
              AND Month = YEAR('$cur_date')
              AND Year = MONTH('$cur_date')"
         )->row()->Total;
 
+        $retaining = 0;
         $year = date('Y', strtotime($cur_date));
         $month = date('m', strtotime($cur_date));
 
@@ -206,26 +207,28 @@ class Mdl_corp_treasury extends CI_Model
                 "DELETE FROM `tbl_fa_retaining_earning`
                  WHERE Branch = ?
                  AND Year = ?
-                 AND Month = ?"
-            , [$branch, $year, $month]);
+                 AND Month = MONTH(?)"
+            , [$branch, $year, $cur_date]);
 
             $retaining = $this->db->query(
                 "SELECT 
                     (
-                        (
-                            SELECT SUM(Amount) FROM tbl_fa_transaction
+                        COALESCE(
+                            (SELECT SUM(Amount) FROM tbl_fa_transaction
                             WHERE Branch = ?
-                            AND YEAR(TransDate) = ? AND MONTH(TransDate) = ?
-                            AND AccType IN ('R', 'R1')
-                        ) +
-                        (
-                            SELECT SUM(Amount) FROM tbl_fa_transaction
+                            AND YEAR(TransDate) = ? 
+                            AND MONTH(TransDate) = MONTH(?)
+                            AND AccType IN ('R', 'R1'))
+                        ,0) -
+                        COALESCE(
+                            (SELECT SUM(Amount) FROM tbl_fa_transaction
                             WHERE Branch = ?
-                            AND YEAR(TransDate) = ? AND MONTH(TransDate) = ?
-                            AND AccType IN ('E', 'E1')
-                        )
+                            AND YEAR(TransDate) = ? 
+                            AND MONTH(TransDate) = MONTH(?)
+                            AND AccType IN ('E', 'E1'))
+                        ,0)
                     ) AS Retaining"
-            ,[$branch, $year, $month, $branch, $year, $month])->row()->Retaining;
+            ,[$branch, $year, $cur_date, $branch, $year, $cur_date])->row()->Retaining ?? 0;
 
             $this->db->query(
                 "INSERT INTO `tbl_fa_retaining_earning` (Branch, Year, Month, Retaining)
@@ -247,20 +250,22 @@ class Mdl_corp_treasury extends CI_Model
             $retaining = $this->db->query(
                 "SELECT 
                     (
-                        (
-                            SELECT SUM(Amount) FROM tbl_fa_transaction
+                        COALESCE(
+                            (SELECT SUM(Amount) FROM tbl_fa_transaction
                             WHERE Branch = ?
-                            AND YEAR(TransDate) = ? AND MONTH(TransDate) = ?
-                            AND AccType IN ('R', 'R1')
-                        ) +
-                        (
-                            SELECT SUM(Amount) FROM tbl_fa_transaction
+                            AND YEAR(TransDate) = ? 
+                            AND MONTH(TransDate) = MONTH(?)
+                            AND AccType IN ('R', 'R1'))
+                        ,0) -
+                        COALESCE(
+                            (SELECT SUM(Amount) FROM tbl_fa_transaction
                             WHERE Branch = ?
-                            AND YEAR(TransDate) = ? AND MONTH(TransDate) = ?
-                            AND AccType IN ('E', 'E1')
-                        )
+                            AND YEAR(TransDate) = ? 
+                            AND MONTH(TransDate) = MONTH(?)
+                            AND AccType IN ('E', 'E1'))
+                        ,0)
                     ) AS Retaining"
-            ,[$branch, $year, $month, $branch, $year, $month])->row()->Retaining;
+            ,[$branch, $year, $cur_date, $branch, $year, $cur_date])->row()->Retaining ?? 0;
 
             $this->db->query(
                 "UPDATE `tbl_fa_retaining_earning`
