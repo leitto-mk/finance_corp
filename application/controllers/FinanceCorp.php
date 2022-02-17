@@ -1544,7 +1544,7 @@ class FinanceCorp extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('finance_corp/reports/v_reps_payment_voucher', $data);
+        $this->load->view('finance_corp/reports/v_reps_overbook', $data);
     }
 
     //Report General Journal
