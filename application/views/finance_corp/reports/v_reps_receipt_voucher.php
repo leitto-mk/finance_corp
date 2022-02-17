@@ -1,21 +1,45 @@
 <?php $this->load->view('header_footer/finance_corp/header_sub_modul_sf_no_trees'); ?>
-<style type="text/css">
-    /*tr:nth-child(even){
-        background-color: #E1E5EC;
-    }
+<div class="portlet light" id="printDiv">
+    <style type="text/css">
+        /*tr:nth-child(even){
+            background-color: #E1E5EC;
+        }
 
-    tr:nth-child(odd){
-        background-color: white;
-    }*/
-</style>
-<div class="portlet light">
+        tr:nth-child(odd){
+            background-color: white;
+        }*/
+
+        .table tbody tr th{
+            line-height: 0.1em;
+        }
+
+        .table tbody tr td{
+            line-height: 0.1em;
+        }
+
+        .table th h5 {
+            font-size: 12px;
+        }
+
+        .table th h5 {
+            line-height: 0.1em;
+        }
+
+        .table td h6 {
+            font-size: 12px;
+        }
+
+        .table td h6 {
+            line-height: 0.1em;
+        }
+    </style>
     <div class="row">
-        <div class="col-md-12" id="printDiv" style="size: landscape; font-family: Open Sans, sans-serif;" >
+        <div class="col-md-12" style="size: landscape; font-family: Open Sans, sans-serif;" >
             <div class="row invoice-logo" align="left">
             <!-- <php $date = date("d-M-Y") ?> -->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: 0px">
                     <div>
-                        <font size="5" class="uppercase"><?= $company ?></font><br>
+                        <font size="4" class="uppercase"><?= $company ?></font><br>
                         <font size="4" class="font-dark sbold uppercase">Receipt Voucher</font><br>
                         <font size="4" class="font-dark sbold"></font><br>
                     </div>
@@ -66,11 +90,16 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3">
                                     </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
                                         <table class="table">
                                             <tbody>
+                                                <tr>
+                                                    <th width="10%" style="border: none;">Voucher Ref. No</th>
+                                                    <td width="1%" style="border: none;">:</td>
+                                                    <td width="20%" style="border: none;"><?= $report[0]['RefNo'] ?></td>
+                                                </tr>
                                                 <tr>
                                                     <th width="10%" style="border: none;">Transaction Date</th>
                                                     <td width="1%" style="border: none;">:</td>
@@ -82,11 +111,6 @@
                                                     <td width="20%" style="border: none;"><?= $report[0]['IDNumber'] ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <th width="10%" style="border: none;"></th>
-                                                    <td width="1%" style="border: none;"></td>
-                                                    <td width="20%" style="border: none;"></td>
-                                                </tr>
-                                                 <tr>
                                                     <th width="10%" style="border: none;">Cheque / Giro</th>
                                                     <td width="1%" style="border: none;">:</td>
                                                     <td width="20%" style="border: none;"><?= $report[0]['Giro'] ?></td>
@@ -98,19 +122,19 @@
                                 <div class="row">
                                     <div class="col-md-12" style="margin-top: -15px">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover">
-                                                <thead class="well">
-                                                    <tr>
-                                                        <th width="3%"  class="text-center"> No </th>
-                                                        <th width="30%" class="text-center"> Description </th>
-                                                        <th width="10%" class="text-center"> Department </th>
-                                                        <th width="10%"  class="text-center"> Cost Center </th>
-                                                        <th width="7%" class="text-center"> Account No </th>
-                                                        <th width="10%" class="text-center"> Account Name </th>
-                                                        <th width="5%" class="text-center"> Cry </th>
-                                                        <th width="5%" class="text-right"> Rate </th>
-                                                        <th width="10%" class="text-right"> Unit  </th>
-                                                        <th width="20%" class="text-right"> Amount </th>
+                                            <table class="table table-bordered table-stripped table-condensed">
+                                                <thead>
+                                                    <tr class="font-dark bg-default">
+                                                        <th width="3%"><h5 class="text-center bold">No</h5></th>
+                                                        <th width="34%"><h5 class="text-center bold">Description</h5></th>
+                                                        <th width="8%"><h5 class="text-center bold">Dept</h5></th>
+                                                        <th width="8%"><h5 class="text-center bold">CostC</h5></th>
+                                                        <th width="7%"><h5 class="text-center bold">Account</h5></th>
+                                                        <th width="10%"><h5 class="text-center bold">Name</h5></th>
+                                                        <th width="5%"><h5 class="text-center bold">Cry</h5></th>
+                                                        <th width="5%"><h5 class="text-right bold">Rate</h5></th>
+                                                        <th width="10%"><h5 class="text-right bold">Unit</h5></th>
+                                                        <th width="10%"><h5 class="text-right bold">Amount</h5></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -120,16 +144,16 @@
                                                     <?php for($i = 1; $i < count($report); $i++) : ?>
                                                         <?php if($report[$i]['ItemNo'] > 0) : ?>
                                                             <tr>
-                                                                <td align="center"><?= $i ?></td>
-                                                                <td><?= $report[$i]['DescDetail']?></td>
-                                                                <td><?= $report[$i]['Department']?></td>
-                                                                <td><?= $report[$i]['CostCenter']?></td>
-                                                                <td><?= $report[$i]['AccNo']?></td>
-                                                                <td><?= $report[$i]['Acc_Name']?></td>
-                                                                <td align="center" class="sbold"><?= $report[$i]['Currency']?></td>
-                                                                <td align="right" class="sbold"><?= $report[$i]['Rate']?></td>
-                                                                <td align="right" class="sbold"><?= number_format($report[$i]['Unit'], 0, '.',',') ?></td>
-                                                                <td align="right" class="sbold"><?= number_format($report[$i]['Amount'], 0, '.',',') ?></td>
+                                                                <td><h6 class="text-center bold"><?= $i ?></h6></td>
+                                                                <td><h6 class="bold"><?= $report[$i]['DescDetail']?></h6></td>
+                                                                <td><h6 class="text-center bold"><?= $report[$i]['Department']?></h6></td>
+                                                                <td><h6 class="text-center bold"><?= $report[$i]['CostCenter']?></h6></td>
+                                                                <td><h6 class="text-center bold"><?= $report[$i]['AccNo']?></h6></td>
+                                                                <td><h6 class="bold"><?= $report[$i]['Acc_Name']?></h6></td>
+                                                                <td><h6 class="text-center bold"><?= $report[$i]['Currency']?></h6></td>
+                                                                <td><h6 style="float: right" class="bold"><?= $report[$i]['Rate']?></h6></td>
+                                                                <td><h6 style="float: right" class="bold"><?= number_format($report[$i]['Unit'], 0, '.',',') ?></h6></td>
+                                                                <td><h6 style="float: right" class="bold"><?= number_format($report[$i]['Amount'], 0, '.',',') ?></h6></td>
                                                             </tr>
                                                             <?php 
                                                                 $grand_total += $report[$i]['Amount'];
@@ -137,8 +161,8 @@
                                                         <?php endif; ?>
                                                     <?php endfor; ?>
                                                     <tr>
-                                                        <td class="text-right bold" colspan="9">Grand Total :</td>
-                                                        <td align="right" class="bold"><?= number_format($grand_total, 0,'',',') ?></td>
+                                                        <td colspan="9"><h6 class="text-right bold">Grand Total :</h6></td>
+                                                        <td ><h6 style="float: right;" class="bold"><?= number_format($grand_total, 0,'',',') ?></h6></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

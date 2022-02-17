@@ -1487,11 +1487,27 @@ class Cmaster extends CI_Controller {
             'is_active' => '1',
             'RegBy' => $this->session->userdata('uid')
         );
-        $rstatus = $this->m_master->insert('tbl_mat_cat_storage', $dstorage);
+        $rstatus = $this->master->insert('tbl_mat_cat_storage', $dstorage);
         echo json_encode(array(
             'rstatus' => $rstatus,
             'StorageCode' => $dstorage['StorageCode']
         ));
+    }
+
+    function get_list_branch(){
+        $data = $this->master->get_list_branch();
+        echo json_encode($data);
+    }
+
+    function get_list_warehouseman(){
+        $data = $this->master->get_list_warehouseman();
+        echo json_encode($data);
+    }
+
+    function get_detwarehouseman_by_whmid(){
+        $whmid = $this->input->post('id');
+        $result = $this->master->get_detwarehouseman_by_whmid($whmid);
+        echo json_encode($result);
     }
 
 
@@ -1560,5 +1576,38 @@ class Cmaster extends CI_Controller {
         }        
     }
 	//End - Storage
+
+
+	//Start - Stockcode
+	function list_stock_dt()
+    {
+        $result = $this->master->get_list_stock_dt();
+        echo $result;
+    }
+
+     function list_stock_dt_disc()
+    {
+        $result = $this->master->get_list_stock_dt_disc();
+        echo $result;
+    }
+
+    public function discDataStockcode(){
+        $stcode = $this->input->post('stcode');
+        $remarks = $this->input->post('remarks');
+        $data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock', $data);
+        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stockcode', $data);
+        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock_reg', $data);
+    }
+
+    public function continueDataStockcode(){
+        $stcode = $this->input->post('stcode');
+        $data = ['Disc' => '0','DiscDate' => null, 'Remarks' => null];
+        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock', $data);
+        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stockcode', $data);
+        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock_reg', $data);
+    }
+
+	//End - Stockcode
   
 }
