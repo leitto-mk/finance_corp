@@ -130,7 +130,7 @@ class Mdl_corp_treasury extends CI_Model
     function get_emp_last_balance($branch, $id){
         $query = $this->db->select('Balance')
                       ->limit(1)
-                      ->order_by('CtrlNo', 'DESC')
+                      ->order_by("TransDate DESC, CtrlNo DESC")
                       ->get_where('tbl_fa_transaction', [
                             'Branch' => $branch,
                             'IDNumber' => $id
