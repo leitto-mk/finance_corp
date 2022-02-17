@@ -1,7 +1,11 @@
 /*
  *  CORE SCRIPT
 */
+
+import Helper from '../helper.js'
+
 const FormGeneralJournal = () => {
+
     const initDisableEnterKey = () => {
         $(document).on('keyup keypress', function(e){
             const key = e.keyCode || e.which
@@ -230,6 +234,11 @@ const FormGeneralJournal = () => {
                 method: 'POST',
                 dataType: 'JSON',
                 data: obj,
+                beforeSend: () => {
+                    Helper().blockUI({
+                        animate: true
+                    })
+                },
                 success: response => {
                     alert(response)
                     if(response.success == true){
@@ -264,6 +273,8 @@ const FormGeneralJournal = () => {
                         'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
                     })
                 }
+            }).done(() => {
+                Helper().unblockUI()
             })
         })
     }

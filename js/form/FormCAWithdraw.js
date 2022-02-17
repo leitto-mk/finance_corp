@@ -2,16 +2,10 @@
 /*
  *  CORE SCRIPT
 */
+
+import Helper from '../helper.js'
+
 const FormCAWithdraw = () => {
-    // const eventSelectCurrency = () => {
-    //     $(document).on('change', '[name="currency[]"]', function(){
-    //         const API_KEY = 'efa820d81d9a4c6bb64b469e432b033e'
-            
-    //         fetch(`https://api.currencyfreaks.com/latest?apikey=${API_KEY}`)
-    //             .then(response => response.json())
-    //             .then(response => console.log(JSON.stringify(response, null, '\t')))
-    //     })
-    // }
 
     const initDisableEnterKey = () => {
         $(document).on('keyup keypress', function(e){
@@ -238,6 +232,11 @@ const FormCAWithdraw = () => {
                 method: 'POST',
                 dataType: 'JSON',
                 data: obj,
+                beforeSend: () => {
+                    Helper().blockUI({
+                        animate: true
+                    })
+                },
                 success: response => {
                     if(response.success == true){
                         Swal.fire({
@@ -271,6 +270,8 @@ const FormCAWithdraw = () => {
                         'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
                     })
                 }
+            }).done(() => {
+                Helper().unblockUI()
             })
         })
     }
