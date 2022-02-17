@@ -7,7 +7,7 @@
             <!-- BEGIN FOOTER -->
             <div class="page-footer">
                 <div class="page-footer-inner"> <?= Date('Y')?> &copy; Andalan Banua Sejahtera | 
-                    <a href="#">ABase</a>
+                    <a href="#"><img src="<?php echo base_url(); ?>assets/abasewhite.png" alt="" height="5%" width="5%"/></a>
                 </div>
                 <div class="scroll-to-top">
                     <i class="icon-arrow-up"></i>
