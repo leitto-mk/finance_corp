@@ -1522,7 +1522,7 @@ class FinanceCorp extends CI_Controller
     }
 
     //Report Overbook
-    public function view_reps_overbook(){
+    public function view_reps_overbook_voucher(){
         $validation = validate($this->input->get());
         
         if(!$validation){
@@ -1544,7 +1544,7 @@ class FinanceCorp extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('finance_corp/reports/v_reps_overbook', $data);
+        $this->load->view('finance_corp/reports/v_reps_overbook_voucher', $data);
     }
 
     //Report General Journal
