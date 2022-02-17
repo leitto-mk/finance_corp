@@ -7,6 +7,7 @@ const helper = {
             .then(response => console.log(JSON.stringify(response, null, '\t')))
     },
 
+    //Display Page Loader
     blockUI: options => {
         options = $.extend(true, {}, options);
         var html = '';
@@ -59,6 +60,7 @@ const helper = {
         }
     },
 
+    //Undisplay Page Loader
     unblockUI: target => {
         if (target) {
             $(target).unblock({
