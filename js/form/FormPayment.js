@@ -2,7 +2,7 @@
  *  CORE SCRIPT
 */
 
-import Helper from '../helper.js'
+import helper from '../helper.js'
 
 const FormPayment = () => {
 
@@ -215,7 +215,7 @@ const FormPayment = () => {
                 dataType: 'JSON',
                 data: obj,
                 beforeSend: () => {
-                    Helper().blockUI({
+                    helper.blockUI({
                         animate: true
                     })
                 },
@@ -253,7 +253,7 @@ const FormPayment = () => {
                     })
                 }
             }).done(() => {
-                Helper().unblockUI()
+                helper.unblockUI()
             })
         })
     }

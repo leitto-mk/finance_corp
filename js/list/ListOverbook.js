@@ -1,6 +1,9 @@
 /*
  *  CORE SCRIPT
 */
+
+import helper from "../helper.js"
+
 const ListOverbook = () => {
     const eventShowList = () => {
         $('#preview, #search').click(function(){
@@ -16,6 +19,11 @@ const ListOverbook = () => {
                     docno,
                     start,
                     end
+                },
+                beforeSend: () => {
+                    helper.blockUI({
+                        animate: true
+                    })
                 },
                 success: response => {
                     if(response.success == true){
@@ -66,6 +74,8 @@ const ListOverbook = () => {
                         'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
                     })
                 }
+            }).done(() => {
+                helper.unblockUI()
             })
         })
     }
@@ -91,6 +101,11 @@ const ListOverbook = () => {
                     branch,
                     transdate
                 },
+                beforeSend: () => {
+                    helper.blockUI({
+                        animate: true
+                    })
+                },
                 success: response => {
                     if(response.success == true){
                         Swal.fire({
@@ -114,6 +129,8 @@ const ListOverbook = () => {
                         'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
                     })
                 }
+            }).done(() => {
+                helper.unblockUI()
             })
         })
     }

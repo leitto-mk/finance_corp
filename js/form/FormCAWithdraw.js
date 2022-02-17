@@ -3,7 +3,7 @@
  *  CORE SCRIPT
 */
 
-import Helper from '../helper.js'
+import helper from '../helper.js'
 
 const FormCAWithdraw = () => {
 
@@ -233,7 +233,7 @@ const FormCAWithdraw = () => {
                 dataType: 'JSON',
                 data: obj,
                 beforeSend: () => {
-                    Helper().blockUI({
+                    helper.blockUI({
                         animate: true
                     })
                 },
@@ -271,7 +271,7 @@ const FormCAWithdraw = () => {
                     })
                 }
             }).done(() => {
-                Helper().unblockUI()
+                helper.unblockUI()
             })
         })
     }

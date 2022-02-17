@@ -2,7 +2,7 @@
  *  CORE SCRIPT
 */
 
-import Helper from '../helper.js'
+import helper from '../helper.js'
 
 const FormGeneralJournal = () => {
 
@@ -235,7 +235,7 @@ const FormGeneralJournal = () => {
                 dataType: 'JSON',
                 data: obj,
                 beforeSend: () => {
-                    Helper().blockUI({
+                    helper.blockUI({
                         animate: true
                     })
                 },
@@ -274,7 +274,7 @@ const FormGeneralJournal = () => {
                     })
                 }
             }).done(() => {
-                Helper().unblockUI()
+                helper.unblockUI()
             })
         })
     }

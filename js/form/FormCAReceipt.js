@@ -3,7 +3,7 @@
  *  CORE SCRIPT
 */
 
-import Helper from '../helper.js'
+import helper from '../helper.js'
 
 const FormCAReceipt = () => {
 
@@ -226,7 +226,7 @@ const FormCAReceipt = () => {
                 dataType: 'JSON',
                 data: obj,
                 beforeSend: () => {
-                    Helper().blockUI({
+                    helper.blockUI({
                         animate: true
                     })
                 },
@@ -268,7 +268,7 @@ const FormCAReceipt = () => {
                     })
                 }
             }).done(() => {
-                Helper().unblockUI()
+                helper.unblockUI()
             })
         })
     }

@@ -1,6 +1,9 @@
 /*
  *  CORE SCRIPT
 */
+
+import helper from "../helper.js"
+
 const ListCAWithdraw = () => {
     const eventShowList = () => {
         $('#preview, #search').click(function(){
@@ -16,6 +19,11 @@ const ListCAWithdraw = () => {
                     docno,
                     start,
                     end
+                },
+                beforeSend: () => {
+                    helper.blockUI({
+                        animate: true
+                    })
                 },
                 success: response => {
                     if(response.success == true){
@@ -69,6 +77,8 @@ const ListCAWithdraw = () => {
                         'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
                     })
                 }
+            }).done(() => {
+                helper.unblockUI()
             })
         })
     }
@@ -94,6 +104,11 @@ const ListCAWithdraw = () => {
                     branch,
                     transdate
                 },
+                beforeSend: () => {
+                    helper.blockUI({
+                        animate: true
+                    })
+                },
                 success: response => {
                     if(response.success == true){
                         Swal.fire({
@@ -117,6 +132,8 @@ const ListCAWithdraw = () => {
                         'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
                     })
                 }
+            }).done(() => {
+                helper.unblockUI()
             })
         })
     }

@@ -2,7 +2,7 @@
  *  CORE SCRIPT
 */
 
-import Helper from '../helper.js'
+import helper from '../helper.js'
 
 const FormOverbook = () => {
 
@@ -215,7 +215,7 @@ const FormOverbook = () => {
                 dataType: 'JSON',
                 data: obj,
                 beforeSend: () => {
-                    Helper().blockUI({
+                    helper.blockUI({
                         animate: true
                     })
                 },
@@ -253,7 +253,7 @@ const FormOverbook = () => {
                     })
                 }
             }).done(() => {
-                Helper().unblockUI()
+                helper.unblockUI()
             })
         })
     }
