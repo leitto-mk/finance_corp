@@ -1,3 +1,5 @@
+import helper from "../helper"
+
 /*
  *  CORE SCRIPT
 */
@@ -59,6 +61,11 @@ const GeneralLedger = () => {
                     accno_finish,
                     date_start,
                     date_finish,
+                },
+                beforeSend: () => {
+                    helper.blockUI({
+                        animate: true
+                    })
                 },
                 success: response => {
                     if(response.success == true){
@@ -174,6 +181,8 @@ const GeneralLedger = () => {
                             'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
                     })
                 }
+            }).done(() => {
+                helper.unblockUI()
             })
         })
     }
@@ -211,6 +220,11 @@ const GeneralLedger = () => {
                     date_start,
                     date_finish
                 },
+                beforeSend: () => {
+                    helper.blockUI({
+                        animate: true
+                    })
+                },
                 success: response => {
                     if(response.success){
                         Swal.fire({
@@ -233,6 +247,8 @@ const GeneralLedger = () => {
                             'html': response.responseJSON.desc
                     })
                 }
+            }).done(() => {
+                helper.unblockUI()
             })
         })
     }
