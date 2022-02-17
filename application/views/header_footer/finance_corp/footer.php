@@ -84,7 +84,7 @@
             <!-- END THEME LAYOUT SCRIPTS -->
 
             <?php if(isset($script) && $script !== '') : ?>
-                <script src="<?= base_url("js/$script.js") ?>"></script>
+                <script type="module" src="<?= base_url("js/$script.js") ?>"></script>
             <?php endif; ?>
             
             </body>
