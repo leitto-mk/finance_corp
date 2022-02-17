@@ -482,6 +482,7 @@ class Mdl_corp_cash_advance extends CI_Model
                  LIMIT 1) AS Outstanding,
                 trans.ItemNo,
                 trans.DocNo,
+                trans.RefNo,
                 trans.AccNo,
                 trans.JournalGroup,
                 mas.Remarks AS DescMaster,

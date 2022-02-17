@@ -294,6 +294,7 @@ class Mdl_corp_treasury extends CI_Model
             "SELECT 
                 trans.ItemNo,
                 trans.DocNo,
+                trans.RefNo,
                 trans.AccNo,
                 trans.JournalGroup,
                 mas.Remarks AS DescMaster,
