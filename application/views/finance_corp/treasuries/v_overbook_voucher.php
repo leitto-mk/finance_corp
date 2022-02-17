@@ -80,9 +80,9 @@
                                             <a href="<?= base_url("FinanceCorp/edit_overbook?docno=$docno")?>" target="_blank" type="button" class="btn btn-xs green">
                                                 <i class="fa fa-edit"> </i>
                                             </a>
-                                            <!-- <a href="<?php echo site_url('FinanceCorp/view_reps_overbook_voucher?') . "docno=" . $list[$i]['DocNo'] . "&branch=" . $list[$i]['Branch'] . "&transdate=" . $list[$i]['TransDate'] ?>" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                                            <a href="<?php echo site_url('FinanceCorp/view_reps_overbook_voucher?') . "docno=" . $list[$i]['DocNo'] . "&branch=" . $list[$i]['Branch'] . "&transdate=" . $list[$i]['TransDate'] ?>" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                                                 <i class="fa fa-print"> </i>
-                                            </a> -->
+                                            </a>
                                             <a href="javascript:;" name="delete" data-docno="<?= $list[$i]['DocNo'] ?>" data-branch="<?= $list[$i]['Branch'] ?>" data-transdate="<?= $list[$i]['TransDate'] ?>" type="button" class="btn btn-xs red">
                                                 <i class="fa fa-trash"> </i>
                                             </a>
