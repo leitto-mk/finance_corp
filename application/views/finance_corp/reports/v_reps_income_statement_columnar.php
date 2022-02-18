@@ -1116,13 +1116,13 @@
                                             $other_gain_oct = $grand_total_other_rev_oct - $grand_total_other_exp_oct;
                                             $other_gain_nov = $grand_total_other_rev_nov - $grand_total_other_exp_nov;
                                             $other_gain_des = $grand_total_other_rev_des - $grand_total_other_exp_des;
-                                            $other_gain_year = $grand_total_other_rev_year - $grand_total_other_expenses_year;
+                                            $other_gain_year = $grand_total_other_rev_year - $grand_total_other_exp_year;
                                         ?>
                                         <tr class="font-yellow">
                                             <td colspan="7" class="font-white">_</td>
                                         </tr>
                                         <tr class="font-yellow-gold">
-                                            <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h1 ?> & <?= $cur_header_other_expenses_h1 ?></td>
+                                            <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h1 ?> & <?= $cur_header_other_exp_h1 ?></td>
                                             <td align="right" style="border-top: solid 2px">0</td>
                                             <td align="right" style="border-top: solid 2px">0</td>
                                             <td align="right" style="border-top: solid 2px">0</td>
