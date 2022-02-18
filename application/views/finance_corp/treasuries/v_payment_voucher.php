@@ -20,7 +20,7 @@
                             </span>
                             <input type="date" class="form-control" id="date_from" value="<?= date('Y-m-01') ?>" style="width: 150px">
                         </div>
-                        <div class="input-group input-large pull-left" style="margin-left: -95px ">
+                        <div class="input-group input-large pull-left" style="margin-left: -95px">
                             <span class="input-group-btn">
                                 <a class="btn btn-md btn blue-oleo">
                                     To

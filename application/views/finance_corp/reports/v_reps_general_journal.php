@@ -9,28 +9,16 @@
             background-color: white;
         }*/
 
-        .table tbody tr th{
-            line-height: 0.1em;
-        }
-
-        .table tbody tr td{
-            line-height: 0.1em;
-        }
-
         .table th h5 {
-            font-size: 12px;
-        }
-
-        .table th h5 {
-            line-height: 0.1em;
-        }
-
-        .table td h6 {
+            margin-top: -1px;
+            margin-bottom: -1px;
             font-size: 12px;
         }
 
         .table td h6 {
-            line-height: 0.1em;
+            margin-top: -1px;
+            margin-bottom: -1px;
+            font-size: 12px;
         }
     </style>
     <div class="row">
@@ -64,43 +52,45 @@
                         <div class="portlet-body">
                             <div id="detail_preview_po" class="portlet-body">
                                 <div class="row sbold">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <th width="10%" style="border: none;">Document No</th>
-                                                    <td width="1%" style="border: none;">:</td>
-                                                    <td width="20%" style="border: none;"><?= $report[0]['DocNo'] ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th width="10%" style="border: none;">Description</th>
-                                                    <td width="1%" style="border: none;">:</td>
-                                                    <td width="20%" style="border: none;"><?= $report[0]['DescMaster'] ?></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <div class="table-responsive">
+                                            <table class="table table-stripped table-condensed">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%" style="border: none;"><h6 class="bold">Document No</h6></td>
+                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
+                                                        <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['DocNo'] ?></h6></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="10%" style="border: none;"><h6 class="bold">Description</h6></td>
+                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
+                                                        <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['DescMaster'] ?></h6></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <th width="10%" style="border: none;">Voucher Ref. No</th>
-                                                    <td width="1%" style="border: none;">:</td>
-                                                    <td width="20%" style="border: none;"><?= $report[0]['RefNo'] ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th width="10%" style="border: none;">Transaction Date</th>
-                                                    <td width="1%" style="border: none;">:</td>
-                                                    <td width="20%" style="border: none;"><?= $report[0]['TransDate'] ?></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="table-responsive">
+                                            <table class="table table-stripped table-condensed">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%" style="border: none;"><h6 class="bold">Voucher Ref. No</h6></td>
+                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
+                                                        <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['RefNo'] ?></h6></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="10%" style="border: none;"><h6 class="bold">Transaction Date</h6></td>
+                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
+                                                        <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['TransDate'] ?></h6></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12" style="margin-top: -15px">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -15px">
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-stripped table-condensed">
                                                 <thead>
