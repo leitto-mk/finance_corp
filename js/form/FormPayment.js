@@ -175,9 +175,9 @@ const FormPayment = () => {
         $(document).on('change','select[name="departments[]"]', function(){
             var department = $(this).find('option:selected').val()
 
-            $('#tbody_detail').find('select[name="costcenters[]"] option:first').prop('selected', true)
+            $(this).parents('tr').find('select[name="costcenters[]"] option:first').prop('selected', true)
 
-            $('#tbody_detail').find('select[name="costcenters[]"] option').each(function(){
+            $(this).parents('tr').find('select[name="costcenters[]"] option').each(function(){
                 $(this).show()
 
                 if($(this).is('[data-department]') && $(this).attr('data-department') !== department){
