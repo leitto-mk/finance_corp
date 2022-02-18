@@ -1,6 +1,9 @@
 /*
  *  CORE SCRIPT
 */
+
+import helper from '../helper.js'
+
 const ListCAStatement = () => {
 
     const eventGetEmpDetails = () => {
@@ -12,7 +15,14 @@ const ListCAStatement = () => {
                 data: {
                     id: $(this).attr('data-id')
                 },
+                beforeSend: () => {
+                    helper.blockUI({
+                        animate: true
+                    })
+                },
                 success: response => {
+                    helper.unblockUI()
+
                     if(response.success == true){
                         if(response.data){
                             return
@@ -70,6 +80,8 @@ const ListCAStatement = () => {
                     }
                 },
                 error: response => {
+                    helper.unblockUI()
+                    
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
