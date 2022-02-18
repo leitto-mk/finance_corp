@@ -86,18 +86,13 @@ class Cash_adv extends CI_Controller
 
     //TRANSACTION DETAILS - CASH ADVANCE WITHDRAW
     public function view_ca_withdraw(){
-        $docno = '';
-        $start = date('Y-01-01');
-        $end = date('Y-m-d');
-
         $data = [
             'title' => 'Cash Advance Withdraw',
             'h1' => 'Cash',
             'h2' => 'Advance',
             'h3' => '',
             'h4' => '',
-            
-            'list' => $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAW, $docno, $start, $end),
+
             'script' => 'list/ListCAWithdraw'
         ];
         
@@ -112,11 +107,21 @@ class Cash_adv extends CI_Controller
             return;
         }
 
-        $docno = $this->input->post('docno');
-        $start = $this->input->post('start');
-        $end = $this->input->post('end');
+        $datatable = [
+            'docno' => $this->input->post('docno'),
+            'date_start' => $this->input->post('date_start'),
+            'date_end' => $this->input->post('date_end'),
 
-        $result = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAW, $docno, $start, $end);
+            'limit' => $this->input->post('length'),
+            'start' => $this->input->post('start')
+        ];
+
+        $query = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAW, $datatable);
+
+        $result = [
+            'draw' => $this->input->post('draw'),
+            'data' => $query
+        ];
 
         return set_success_response($result);
     }
@@ -427,18 +432,13 @@ class Cash_adv extends CI_Controller
 
     //TRANSACTION DETAILS - CASH ADVANCE RECEIPT
     public function view_ca_receipt(){
-        $docno = '';
-        $start = date('Y-01-01');
-        $end = date('Y-m-d');
-
         $data = [
             'title' => 'Cash Advance Receipt',
             'h1' => 'Cash',
             'h2' => 'Advance',
             'h3' => '',
             'h4' => '',
-            
-            'list' => $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAR, $docno, $start, $end),
+
             'script' => 'list/ListCAReceipt'
         ];
         
@@ -453,11 +453,21 @@ class Cash_adv extends CI_Controller
             return;
         }
 
-        $docno = $this->input->post('docno');
-        $start = $this->input->post('start');
-        $end = $this->input->post('end');
+        $datatable = [
+            'docno' => $this->input->post('docno'),
+            'date_start' => $this->input->post('date_start'),
+            'date_end' => $this->input->post('date_end'),
 
-        $result = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAR, $docno, $start, $end);
+            'limit' => $this->input->post('length'),
+            'start' => $this->input->post('start')
+        ];
+
+        $query = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAR, $datatable);
+
+        $result = [
+            'draw' => $this->input->post('draw'),
+            'data' => $query
+        ];
 
         return set_success_response($result);
     }

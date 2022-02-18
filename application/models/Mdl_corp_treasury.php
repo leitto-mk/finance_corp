@@ -3,7 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_treasury extends CI_Model
 {
-    function get_ranged_treasury($type, $docno, $start, $end){
+    function get_ranged_treasury($type, $datatable){
+        extract($datatable);
+
         if($docno){
             $docno_condition = "DocNo LIKE '$docno%'";
         }else{
@@ -23,10 +25,11 @@ class Mdl_corp_treasury extends CI_Model
              FROM tbl_fa_treasury_mas AS t1
              LEFT JOIN abase_02_branch AS t2
                 ON t1.Branch = t2.BranchCode
-             WHERE t1.TransDate BETWEEN '$start' AND '$end'
+             WHERE t1.TransDate BETWEEN '$date_start' AND '$date_end'
              AND t1.TransType = '$type'
              AND t1.$docno_condition
-             ORDER BY TransDate DESC, DocNo DESC"
+             ORDER BY TransDate DESC, DocNo DESC
+             LIMIT $limit OFFSET $start"
         )->result_array();
 
         return $query;

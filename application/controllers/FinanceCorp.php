@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 date_default_timezone_set('Asia/Makassar');
@@ -52,14 +55,8 @@ class FinanceCorp extends CI_Controller
 
     //* RECEIPT VOUCHER
     public function view_receipt_voucher(){
-        $docno = '';
-        $start = date('Y-01-01');
-        $end = date('Y-m-d');
-
         $data = [
             'title' => 'List Receipt Voucher',
-            
-            'list' => $this->Mdl_corp_treasury->get_ranged_treasury(self::REC, $docno, $start, $end),
             'script' => 'list/ListReceipt'
         ];
         
@@ -73,11 +70,21 @@ class FinanceCorp extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $docno = $this->input->post('docno');
-        $start = $this->input->post('start');
-        $end = $this->input->post('end');
+        $datatable = [
+            'docno' => $this->input->post('docno'),
+            'date_start' => $this->input->post('date_start'),
+            'date_end' => $this->input->post('date_end'),
 
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury(self::REC, $docno, $start, $end);
+            'limit' => $this->input->post('length'),
+            'start' => $this->input->post('start')
+        ];
+
+        $query = $this->Mdl_corp_treasury->get_ranged_treasury(self::REC, $datatable);
+
+        $result = [
+            'draw' => $this->input->post('draw'),
+            'data' => $query
+        ];
 
         return set_success_response($result);
     }
@@ -379,14 +386,8 @@ class FinanceCorp extends CI_Controller
 
     //* PAYMENT VOUCHER
     public function view_payment_voucher(){
-        $docno = '';
-        $start = date('Y-01-01');
-        $end = date('Y-m-d');
-
         $data = [
             'title' => 'List Payment Voucher',
-            
-            'list' => $this->Mdl_corp_treasury->get_ranged_treasury(self::PAY, $docno, $start, $end),
             'script' => 'list/ListPayment'
         ];
         
@@ -401,11 +402,21 @@ class FinanceCorp extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $docno = $this->input->post('docno');
-        $start = $this->input->post('start');
-        $end = $this->input->post('end');
-        
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury(self::PAY, $docno, $start, $end);
+        $datatable = [
+            'docno' => $this->input->post('docno'),
+            'date_start' => $this->input->post('date_start'),
+            'date_end' => $this->input->post('date_end'),
+
+            'limit' => $this->input->post('length'),
+            'start' => $this->input->post('start')
+        ];
+
+        $query = $this->Mdl_corp_treasury->get_ranged_treasury(self::PAY, $datatable);
+
+        $result = [
+            'draw' => $this->input->post('draw'),
+            'data' => $query
+        ];
 
         return set_success_response($result);
     }
@@ -707,14 +718,8 @@ class FinanceCorp extends CI_Controller
 
     //* OVERBOOK VOUCHER
     public function view_overbook_voucher(){
-        $docno = '';
-        $start = date('Y-01-01');
-        $end = date('Y-m-d');
-
         $data = [
             'title' => 'List Overbook Voucher',
-            
-            'list' => $this->Mdl_corp_treasury->get_ranged_treasury(self::OVB, $docno, $start, $end),
             'script' => 'list/ListOverbook'
         ];
         
@@ -729,11 +734,21 @@ class FinanceCorp extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $docno = $this->input->post('docno');
-        $start = $this->input->post('start');
-        $end = $this->input->post('end');
-        
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury(self::OVB, $docno, $start, $end);
+        $datatable = [
+            'docno' => $this->input->post('docno'),
+            'date_start' => $this->input->post('date_start'),
+            'date_end' => $this->input->post('date_end'),
+
+            'limit' => $this->input->post('length'),
+            'start' => $this->input->post('start')
+        ];
+
+        $query = $this->Mdl_corp_treasury->get_ranged_treasury(self::OVB, $datatable);
+
+        $result = [
+            'draw' => $this->input->post('draw'),
+            'data' => $query
+        ];
 
         return set_success_response($result);
     }
@@ -1036,14 +1051,8 @@ class FinanceCorp extends CI_Controller
 
     //* GENERAL JOURNAL
     public function view_general_journal(){
-        $docno = '';
-        $start = date('Y-01-01');
-        $end = date('Y-m-d');
-
         $data = [
             'title' => 'List General Journal',
-            
-            'list' => $this->Mdl_corp_treasury->get_ranged_treasury(self::GNJ, $docno, $start, $end),
             'script' => 'list/ListGeneralJournal'
         ];
         
@@ -1057,11 +1066,21 @@ class FinanceCorp extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $docno = $this->input->post('docno');
-        $start = $this->input->post('start');
-        $end = $this->input->post('end');
-        
-        $result = $this->Mdl_corp_treasury->get_ranged_treasury(self::GNJ, $docno, $start, $end);
+        $datatable = [
+            'docno' => $this->input->post('docno'),
+            'date_start' => $this->input->post('date_start'),
+            'date_end' => $this->input->post('date_end'),
+
+            'limit' => $this->input->post('length'),
+            'start' => $this->input->post('start')
+        ];
+
+        $query = $this->Mdl_corp_treasury->get_ranged_treasury(self::GNJ, $datatable);
+
+        $result = [
+            'draw' => $this->input->post('draw'),
+            'data' => $query
+        ];
 
         return set_success_response($result);
     }
