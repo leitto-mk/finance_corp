@@ -104,7 +104,7 @@ const ListGeneralJournal = () => {
                         var location = window.location.protocol + '//' + window.location.hostname
 
                         return `
-                            <a href="${location}FinanceCorp/edit_general_journal?docno=${response.docno}" target="_blank" type="button" class="btn btn-xs green">
+                            <a href="${location}/FinanceCorp/edit_general_journal?docno=${response.docno}" target="_blank" type="button" class="btn btn-xs green">
                                 <i class="fa fa-edit"> </i>
                             </a>
                             <a href="${location}/FinanceCorp/view_reps_general_journal?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
