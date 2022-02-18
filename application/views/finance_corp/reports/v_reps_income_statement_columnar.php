@@ -622,19 +622,19 @@
                                         ?>
                                         <tr class="font-yellow-gold">
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Gross Profit / Loss</td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_jan ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_feb ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_mar ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_apr ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_may ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_jun ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_jul ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_aug ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_sep ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_oct ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_nov ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_des ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= $gross_gain_year ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_jan, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_feb, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_mar, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_apr, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_may, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_jun, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_jul, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_aug, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_sep, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_oct, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_nov, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_des, 2, '.', ',')  ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_year, 2, '.', ',')  ?></td>
                                         </tr>
 
                                         <tr>
@@ -1123,19 +1123,19 @@
                                         </tr>
                                         <tr class="font-yellow-gold">
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h1 ?> & <?= $cur_header_other_exp_h1 ?></td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
-                                            <td align="right" style="border-top: solid 2px">0</td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_jan, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_feb, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_mar, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_apr, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_may, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_jun, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_jul, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_aug, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_sep, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_oct, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_nov, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_des, 2, '.',',') ?></td>
+                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_year, 2, '.',',') ?></td>
                                         </tr>
 
 
