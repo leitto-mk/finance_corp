@@ -1628,45 +1628,48 @@ class FinanceCorp extends CI_Controller
     //Reports Income Statement Columnar
     public function view_income_statement_columnar(){
         $validation = validate($this->input->get(), null, null);
-         
-         if(!$validation){
-             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
-         }
-         
-         $branch = $this->input->get('branch') ?? null;
-         $year =  $this->input->get('year') ?? date('Y');
-         $month = $this->input->get('month') ?? date('m');
- 
-         list($company, $revenue, $operational, $other_rev, $other_expense) = $this->Mdl_corp_income_statement->get_report($branch, $year, $month);
- 
-         $data = [
-             'title' => 'Income Statement Columnar',
-             'h1' => 'Income',
-             'h2' => 'Statement',
-             'h3' => 'Columnar',
- 
-             'company' => $company->ComName,
-             'branch' => $this->db->select('BranchCode, BranchName')->get('abase_02_branch')->result(),
-             'revenue' => $revenue,
-             'operational' => $operational,
-             'other_revenue' => $other_rev,
-             'other_expenses' => $other_expense,
- 
-             'script' => 'report/ReportIncomeStatement'
-         ];
- 
-         $this->load->view('finance_corp/reports/v_reps_income_statement_columnar', $data);
+
+        if(!$validation){
+        return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $branch = $this->input->get('branch') ?? null;
+        $year =  $this->input->get('year') ?? date('Y');
+
+        [$company, $revenue, $operational, $other_rev, $other_expense] = $this->Mdl_corp_income_statement->get_columnar_report($branch, $year);
+
+        $data = [
+            'title' => 'Report Journal Transaction',
+            'h1' => 'Report',
+            'h2' => 'Journal',
+            'h3' => 'Transaction',
+            'h4' => '',
+
+            'company' => $company->ComName,
+            'branch' => $this->db->select('BranchCode, BranchName')->get('abase_02_branch')->result(),
+            'year' => $year,
+            'revenue' => $revenue,
+            'operational' => $operational,
+            'other_revenue' => $other_rev,
+            'other_expenses' => $other_expense,
+
+            'script' => 'report/ReportIncomeStatementColumnar'
+        ];
+
+        $this->load->view('finance_corp/reports/v_reps_income_statement_columnar', $data);
      }
  
      //Reports Journal Transaction
      public function view_report_journal_transaction(){
-         $data = [
-             'title' => 'Report Journal Transaction',
-             'h1' => 'Report',
-             'h2' => 'Journal',
-             'h3' => 'Transaction',
-             'h4' => '',
-         ];
-         $this->load->view('finance_corp/reports/v_reps_journal_transaction', $data);
+         
+        $data = [
+            'title' => 'Report Journal Transaction',
+            'h1' => 'Report',
+            'h2' => 'Journal',
+            'h3' => 'Transaction',
+            'h4' => '',
+        ];
+
+        $this->load->view('finance_corp/reports/v_reps_journal_transaction', $data);
      }
 }
