@@ -153,6 +153,6 @@ const modules = {
     if(fn in modules){
         modules[fn]()
     }else{
-        console.log(`%cERROR: %cUnrecognised module of %c\`receipt\``,'color: red','color: white','color: yellow')
+        console.log(`%cERROR: %cUnrecognised module of %c\`${fn}\``,'color: red','color: white','color: yellow')
     }
 })()

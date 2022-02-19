@@ -1378,7 +1378,7 @@ class FinanceCorp extends CI_Controller
             'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $datestart, $datefinish),
 
             //SCRIPT
-            'script' => 'report/ReportGeneralLedger'
+            'script' => 'generalLedger'
         ];
         
         $this->load->view('finance_corp/reports/v_gl_branch', $data);
