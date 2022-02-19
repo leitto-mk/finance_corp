@@ -57,7 +57,7 @@ class FinanceCorp extends CI_Controller
     public function view_receipt_voucher(){
         $data = [
             'title' => 'List Receipt Voucher',
-            'script' => 'receipt'
+            'script' => 'receipts'
         ];
         
         $this->load->view('finance_corp/treasuries/v_receipt_voucher', $data);
