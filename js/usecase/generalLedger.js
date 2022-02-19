@@ -89,7 +89,8 @@ const gl = {
 
                         let cur_branch = ''
                         let cur_accno = response.result[0].AccNo
-                        let subtotal_credit = subtotal_debit = 0
+                        let subtotal_credit = 0
+                        let subtotal_debit = 0
 
                         for(let i = 0; i < response.result.length; i++){
                             if(response.result[i].Branch !== cur_branch){
