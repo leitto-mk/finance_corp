@@ -135,7 +135,7 @@ const modules = {
 
     incomeStatement: () => {
         ics.eventChangeOption()
-        ics.eventSubmitFilter()
+        ics.eventSubmitFilter.eventChangeOption()
     },
 
     incomeStatementColumnar: () => {
@@ -153,6 +153,6 @@ const modules = {
     if(fn in modules){
         modules[fn]()
     }else{
-        console.error(`Unrecognised Module`)
+        console.log(`%cERROR: %cUnrecognised module of \`receipt\``,'color: red','color: white','color: yellow')
     }
 })()
