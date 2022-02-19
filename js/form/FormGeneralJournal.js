@@ -240,7 +240,6 @@ const FormGeneralJournal = () => {
                     })
                 },
                 success: response => {
-                    alert(response)
                     if(response.success == true){
                         Swal.fire({
                             'type': 'success',
