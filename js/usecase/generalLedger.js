@@ -1,12 +1,13 @@
-import helper from "../helper"
-
 /*
- *  CORE SCRIPT
+ * Core Script
 */
-const GeneralLedger = () => {
-    var branch = accno_start = accno_finish = date_start = date_finish
-    
-    const eventPreviewFilter  = () => {
+
+import helper from '../helper.js'
+
+var branch, accno_start, accno_finish, date_start, date_finish;
+
+const gl = {
+    eventPreviewFilter: () => {
         $('#submit_filter').click(function(){
             branch = $('#branch').val()
             accno_start = +$('#accno_start').val()
@@ -185,9 +186,9 @@ const GeneralLedger = () => {
                 helper.unblockUI()
             })
         })
-    }
+    },
 
-    const eventRecalculate = () => {
+    eventRecalculate: () => {
         $('#recalculate').click(function(e){
             e.preventDefault()
 
@@ -251,21 +252,7 @@ const GeneralLedger = () => {
                 helper.unblockUI()
             })
         })
-    }
-
-    return {
-        init: () => {
-            //NO INIT FUNCTION FOR THIS SCRIPT
-        },
-        events: () => {
-            eventPreviewFilter()
-            eventRecalculate()
-        }
-    }
+    },
 }
 
-/* INITIALIZE CORE SCRIPT */
-(function(){
-    GeneralLedger().init()
-    GeneralLedger().events()
-})()
+export default gl

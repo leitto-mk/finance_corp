@@ -43,12 +43,9 @@
         <script src="<?php echo base_url(); ?>assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
-
-        <?php if(isset($script) && $script !== '') : ?>
-            <script type="module" src="<?= base_url("js/$script.js") ?>"></script>
-        <?php endif; ?>
-        
         <!-- END THEME LAYOUT SCRIPTS -->
+        <?php if(isset($script) && $script !== '') : ?>
+            <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
+        <?php endif; ?>
     </body>
-
 </html>

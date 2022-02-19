@@ -44,7 +44,7 @@
         <!-- END THEME LAYOUT SCRIPTS -->
         <!-- END PAGE LEVEL SCRIPTS -->
         <?php if(isset($script) && $script !== '') : ?>
-            <script type="module" src="<?= base_url("js/$script.js") ?>"></script>
+            <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/interfaces.js") ?>"></script>
         <?php endif; ?>
      </body>
 </html>

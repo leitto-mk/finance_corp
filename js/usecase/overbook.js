@@ -2,23 +2,192 @@
  *  CORE SCRIPT
 */
 
-import helper from '../helper.js'
+const ob = {
+    initDataTable: (docno, date_start, date_end) => {
+        let today = new Date()
+        let firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), +1).toLocaleDateString('fr-CA')
+        let lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).toLocaleDateString('fr-CA')
 
-const FormPayment = () => {
+        docno = docno ?? ''
+        date_start = date_start ?? firstDayOfMonth
+        date_end = date_end ?? lastDayOfMonth
+        
+        $('table').DataTable({
+            destroy: true,
+            serverSide: true,
+            searching: false,
+            info: false,
+            lengthMenu: [30, 50, 100, 300],
+            ajax: {
+                url: 'ajax_get_annual_overbook',
+                method: 'POST',
+                data: {
+                    docno,
+                    date_start,
+                    date_end
+                },
+                beforeSend: () => {
+                    helper.blockUI({
+                        animate: true
+                    })
+                },
+                dataSrc: response => {
+                    helper.unblockUI()
+                    return response.result.data
+                },
+                error: response => {
+                    helper.unblockUI()
+                    
+                    Swal.fire({
+                        'type': 'error',
+                        'title': 'ABORTED',
+                        'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
+                    })
+                },
+            },
+            columns: [
+                {
+                    data: 'TransDate',
+                    createdCell: response => response.setAttribute('align', 'center'),
+                    render: row => {
+                        return `<div class="font-dark sbold">${row}</div>`
+                    },
+                    orderable: false,
+                },
+                {
+                    data: 'DocNo',
+                    createdCell: response => response.setAttribute('align', 'center'),
+                    render: row => {
+                        return `<div class="font-dark sbold">${row}</div>`
+                    },
+                    orderable: false,
+                },
+                {
+                    data: 'TransType',
+                    createdCell: response => response.setAttribute('align', 'center'),
+                    render: row => {
+                        return `<div class="font-dark sbold">${row}</div>`
+                    },
+                    orderable: false,
+                },
+                {
+                    data: response => {
+                        return response.Branch + ' | ' + response.BranchName
+                    },
+                    createdCell: response => response.setAttribute('align', 'left'),
+                    render: row => {
+                        return `<div class="font-dark sbold">${row}</div>`
+                    },
+                    orderable: false,
+                },
+                {
+                    data: 'Remarks',
+                    createdCell: response => response.setAttribute('align', 'left'),
+                    render: row => {
+                        return `<div class="font-dark sbold">${row}</div>`
+                    },
+                    orderable: false,
+                },
+                {
+                    data: 'TotalAmount',
+                    createdCell: response => response.setAttribute('align', 'right'),
+                    render: row => {
+                        return `<div class="font-dark sbold">${row}</div>`
+                    },
+                    orderable: false,
+                },
+                {
+                    data: response => {
+                        var location = window.location.protocol + '//' + window.location.hostname
 
-    const initDisableEnterKey = () => {
-        $(document).on('keyup keypress', function(e){
-            const key = e.keyCode || e.which
-
-            if(key === 13){
-                e.preventDefault()
-            }
-            
-            return;
+                        return `
+                            <a href="${location}/FinanceCorp/edit_overbook?docno=${response.docno}" target="_blank" type="button" class="btn btn-xs green">
+                                <i class="fa fa-edit"> </i>
+                            </a>
+                            <a href="${location}/FinanceCorp/view_reps_overbook_voucher?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                                <i class="fa fa-print"> </i>
+                            </a>
+                            <a href="javascript:;" name="delete" data-docno="${response.DocNo}" data-branch="${response.Branch}" data-transdate="${response.TransDate}" type="button" class="btn btn-xs red">
+                                <i class="fa fa-trash"> </i>
+                            </a>
+                        `
+                    },
+                    createdCell: response => response.setAttribute('align', 'center'),
+                    render: response => {
+                        return `<div>${response}</div>`
+                    },
+                    orderable: false
+                },
+            ]
         })
-    }
+    },
 
-    const initSetEnterToFocus = () => {
+    eventShowList: () => {
+        $('#preview, #search').click(function(){
+            let docno = $('#search_item').val()
+            let date_start = $('#date_from').val()
+            let date_end = $('#date_to').val()
+
+            initDataTable(docno, date_start, date_end)
+        })
+    },
+
+    eventDeleteButton: () => {
+        $(document).on('click','[name=delete]', function(){
+            var row = $(this).parents('tr')
+            let docno = $(this).attr('data-docno')
+            let branch = $(this).attr('data-branch')
+            let transdate = $(this).attr('data-transdate')
+
+            let confirmed = confirm(`Are You sure want to delete ${docno} ? `)
+
+            if(!confirmed){
+                return
+            }
+
+            $.ajax({
+                url: 'ajax_delete_overbook',
+                method: 'POST',
+                data: {
+                    docno,
+                    branch,
+                    transdate
+                },
+                beforeSend: () => {
+                    helper.blockUI({
+                        animate: true
+                    })
+                },
+                success: response => {
+                    if(response.success == true){
+                        Swal.fire({
+                            'type': 'success',
+                            'title': 'DELETED'
+                        })
+                        
+                        row.remove()
+                    }else{
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ERROR',
+                            'html': `<h4 class="sbold">${response.desc}</h4>`
+                        })
+                    }
+                },
+                error: response => {
+                    Swal.fire({
+                        'type': 'error',
+                        'title': 'ERROR',
+                        'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
+                    })
+                }
+            }).done(() => {
+                helper.unblockUI()
+            })
+        })
+    },
+
+    initSetEnterToFocus: () => {
         $(document).on('keypress', function (e) {
             const key = e.keyCode || e.which
             
@@ -70,9 +239,9 @@ const FormPayment = () => {
                 focusable.eq(index+1).focus()
             }
         });
-    }
+    },
 
-    const eventNextRow = () => {
+    eventNextRow: () => {
         $(document).on('keydown','[name="unit[]"]', function(e){
             if(e.keyCode == 9){
                 let remarks = $(this).parents('tr').find('input[name="remarks[]"]').val()
@@ -108,9 +277,9 @@ const FormPayment = () => {
                 $('tbody').append(clone)
             }
         })
-    }
+    },
 
-    const eventDeleteRow = () => {
+    eventDeleteRow: () => {
         $(document).on('click','input[name="itemno[]"]',function(){
             var total = $('#tbody_detail').children('tr').length
             if(total <= 1){
@@ -134,9 +303,9 @@ const FormPayment = () => {
             $('#totalamount').val(totalamount)
             $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
         })
-    }
+    },
 
-    const eventInputUnit = () => {
+    eventInputUnit: () => {
         $(document).on('input','[name="unit[]"],[name="rate[]"]', function(){
             
             let totalamount = 0
@@ -153,9 +322,9 @@ const FormPayment = () => {
             $('#totalamount').val(totalamount)
             $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
         })
-    }
+    },
 
-    const eventChangeBranch = () => {
+    eventChangeBranch: () => {
         $(document).on('change','.branch', function(){
             var branch = $(this).find('option:selected').val()
 
@@ -169,9 +338,9 @@ const FormPayment = () => {
                 }
             })
         })
-    }
+    },
 
-    const eventChangeDepartment = () => {
+    eventChangeDepartment: () => {
         $(document).on('change','select[name="departments[]"]', function(){
             var department = $(this).find('option:selected').val()
 
@@ -185,9 +354,9 @@ const FormPayment = () => {
                 }
             })
         })
-    }
+    },
 
-    const eventSubmitPayment = () => {
+    eventSubmitOverbook: () => {
         $('#btn_submit').on('click',function(e){
             e.preventDefault()
         
@@ -203,14 +372,14 @@ const FormPayment = () => {
                 })
             }
             
-            let obj = $('#form_payment_voucher').serializeArray()
+            let obj = $('#form_overbook').serializeArray()
 
             var docno = $('[name="docno"]').val()
             var branch = $('[name="branch"]').val()
             var transdate = $('[name="transdate"]').val()
 
             $.ajax({
-                url: 'ajax_submit_payment',
+                url: 'ajax_submit_overbook',
                 method: 'POST',
                 dataType: 'JSON',
                 data: obj,
@@ -224,16 +393,16 @@ const FormPayment = () => {
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
-                            'html': 'PAYMENT HAS BEEN SUBMITTED'
+                            'html': 'OVERBOOK HAS BEEN SUBMITTED'
                         })
 
                         $('input, textarea').prop('readonly', true)
                         $('select').prop('disabled', true)
 
-                        $('#new_transaction').prop('href', window.location.origin + '/FinanceCorp/add_payment_voucher')
+                        $('#new_transaction').prop('href', window.location.origin + '/FinanceCorp/add_overbook_voucher')
                         $('#new_transaction').css('visibility', 'visible')
                         
-                        $('#print_transaction').prop('href', window.location.origin + '/FinanceCorp/view_reps_payment_voucher' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').prop('href', window.location.origin + '/FinanceCorp/view_reps_overbook' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
                         $('#print_transaction').css('visibility', 'visible')
                         
                         $('#btn_submit').css('visibility', 'hidden')
@@ -256,27 +425,7 @@ const FormPayment = () => {
                 helper.unblockUI()
             })
         })
-    }
-
-    return {
-        init: () => {
-            initDisableEnterKey()
-            initSetEnterToFocus()
-        },
-        events: () => {
-            // eventSelectCurrency()
-            eventNextRow()
-            eventDeleteRow()
-            eventInputUnit()
-            eventChangeBranch()
-            eventChangeDepartment()
-            eventSubmitPayment()
-        }
-    }
+    },
 }
 
-/* INITIALIZE CORE SCRIPT */
-(function(){
-    FormPayment().init()
-    FormPayment().events()
-})()
+export default ob

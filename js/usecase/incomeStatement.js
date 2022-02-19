@@ -1,9 +1,9 @@
 /*
-/*
  *  CORE SCRIPT
 */
-var IncomeStatement = () => {
-    const eventChangeOption = () => {
+
+const ics =  {
+    eventChangeOption: () => {
         var branch, year, month
 
         $(document).on('change','#branch, #year, #month',function(){
@@ -18,9 +18,9 @@ var IncomeStatement = () => {
 
             $('#submit_filter').attr('href', addr)
         })
-    }
+    },
 
-    eventSubmitFilter = () => {
+    eventSubmitFilter: () => {
         $('#submit_filter').click(function(e){
             branch = $('#branch').val()
             year = $('#year').val()
@@ -33,21 +33,7 @@ var IncomeStatement = () => {
                 return
             }
         })
-    }
-
-    return {
-        init: () => {
-            //NO INIT FUNCTION FOR THIS SCRIPT
-        },
-        events: () => {
-            eventChangeOption()
-            eventSubmitFilter()
-        }
-    }
+    },
 }
 
-/* INITIALIZE CORE SCRIPT */
-(function(){
-    IncomeStatement().init()
-    IncomeStatement().events()
-})()
+export default ics

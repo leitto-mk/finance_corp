@@ -57,7 +57,7 @@ class FinanceCorp extends CI_Controller
     public function view_receipt_voucher(){
         $data = [
             'title' => 'List Receipt Voucher',
-            'script' => 'list/ListReceipt'
+            'script' => 'receipt'
         ];
         
         $this->load->view('finance_corp/treasuries/v_receipt_voucher', $data);
@@ -125,7 +125,7 @@ class FinanceCorp extends CI_Controller
             'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'form/FormReceipt'
+            'script' => 'receipt'
         ];
         
         $this->load->view('finance_corp/editview/v_add_receipt_voucher_edit', $data);
@@ -182,7 +182,7 @@ class FinanceCorp extends CI_Controller
             'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'form/FormReceipt'
+            'script' => 'receipt'
         ];
         
         $this->load->view('finance_corp/addview/v_add_receipt_voucher', $data);
@@ -388,7 +388,7 @@ class FinanceCorp extends CI_Controller
     public function view_payment_voucher(){
         $data = [
             'title' => 'List Payment Voucher',
-            'script' => 'list/ListPayment'
+            'script' => 'payment'
         ];
         
         $this->load->view('finance_corp/treasuries/v_payment_voucher', $data);
@@ -457,7 +457,7 @@ class FinanceCorp extends CI_Controller
             'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'form/FormPayment'
+            'script' => 'payment'
         ];
         
         $this->load->view('finance_corp/editview/v_add_payment_voucher_edit', $data);
@@ -514,7 +514,7 @@ class FinanceCorp extends CI_Controller
             'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'form/FormPayment'
+            'script' => 'payment'
         ];
 
         $this->load->view('finance_corp/addview/v_add_payment_voucher', $data);
@@ -720,7 +720,7 @@ class FinanceCorp extends CI_Controller
     public function view_overbook_voucher(){
         $data = [
             'title' => 'List Overbook Voucher',
-            'script' => 'list/ListOverbook'
+            'script' => 'overbook'
         ];
         
         $this->load->view('finance_corp/treasuries/v_overbook_voucher', $data);
@@ -789,7 +789,7 @@ class FinanceCorp extends CI_Controller
             'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'form/FormOverbook'
+            'script' => 'overbook'
         ];
         
         $this->load->view('finance_corp/editview/v_add_overbook_voucher_edit', $data);
@@ -846,7 +846,7 @@ class FinanceCorp extends CI_Controller
             'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'form/FormOverbook'
+            'script' => 'overbook'
         ];
         
         $this->load->view('finance_corp/addview/v_add_overbook_voucher', $data);
@@ -1053,7 +1053,7 @@ class FinanceCorp extends CI_Controller
     public function view_general_journal(){
         $data = [
             'title' => 'List General Journal',
-            'script' => 'list/ListGeneralJournal'
+            'script' => 'generalJournal'
         ];
         
         $this->load->view('finance_corp/treasuries/v_general_journal', $data);
@@ -1121,7 +1121,7 @@ class FinanceCorp extends CI_Controller
             'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'form/FormGeneralJournal'
+            'script' => 'generalJournal'
         ];
         
         $this->load->view('finance_corp/editview/v_add_general_journal_edit', $data);
@@ -1178,7 +1178,7 @@ class FinanceCorp extends CI_Controller
             'costcenter' => $this->Mdl_corp_treasury->get_costcenter(),
             'currency' => $this->Mdl_corp_treasury->get_currency(),
 
-            'script' => 'form/FormGeneralJournal'
+            'script' => 'generalJournal'
         ];
         
         $this->load->view('finance_corp/addview/v_add_general_journal', $data);

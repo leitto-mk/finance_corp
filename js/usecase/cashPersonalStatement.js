@@ -1,12 +1,11 @@
 /*
- *  CORE SCRIPT
+ * Core Script
 */
 
 import helper from '../helper.js'
 
-const ListCAStatement = () => {
-
-    const eventGetEmpDetails = () => {
+const cap = {
+    eventGetEmpDetails: () => {
         $(document).on('click','[name=emp_id]',function(){
             $.ajax({
                 url: 'ajax_get_emp_details',
@@ -91,19 +90,6 @@ const ListCAStatement = () => {
             })
         })
     }
-
-    return {
-        init: () => {
-            //NO INIT FUNCTION FOR THIS SCRIPT
-        },
-        events: () => {
-            eventGetEmpDetails()
-        }
-    }
 }
 
-/* INITIALIZE CORE SCRIPT */
-(function(){
-    ListCAStatement().init()
-    ListCAStatement().events()
-})()
+export default cap

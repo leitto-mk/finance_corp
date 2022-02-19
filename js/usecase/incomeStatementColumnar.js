@@ -1,9 +1,9 @@
 /*
-/*
  *  CORE SCRIPT
 */
-var IncomeStatementColumnar = () => {
-    const eventChangeOption = () => {
+
+const icsc = {
+    eventChangeOption: () => {
         var branch, year
 
         $(document).on('change','#branch, #year, #month',function(){
@@ -17,9 +17,9 @@ var IncomeStatementColumnar = () => {
 
             $('#submit_filter').attr('href', addr)
         })
-    }
+    },
 
-    eventSubmitFilter = () => {
+    eventSubmitFilter: () => {
         $('#submit_filter').click(function(e){
             branch = $('#branch').val()
             year = $('#year').val()
@@ -31,21 +31,7 @@ var IncomeStatementColumnar = () => {
                 return
             }
         })
-    }
-
-    return {
-        init: () => {
-            //NO INIT FUNCTION FOR THIS SCRIPT
-        },
-        events: () => {
-            eventChangeOption()
-            eventSubmitFilter()
-        }
-    }
+    },
 }
 
-/* INITIALIZE CORE SCRIPT */
-(function(){
-    IncomeStatementColumnar().init()
-    IncomeStatementColumnar().events()
-})()
+export default icsc

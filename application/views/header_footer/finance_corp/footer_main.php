@@ -66,9 +66,8 @@
         <!-- <script src="<?= base_url();?>assets/global/plugins/pace/pace.min.js" type="text/javascript"></script>  -->
         <!-- data-pace-options='{ "ajax": true, "ghostTime": 10000 }' -->
         <!-- END PAGE LEVEL SCRIPTS -->
-
         <?php if(isset($script) && $script !== '') : ?>
-            <script type="module" src="<?= base_url("js/$script.js") ?>"></script>
+            <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
         <?php endif; ?>
      </body>
 </html>
