@@ -124,7 +124,7 @@
                                                                         </div>
                                                                         <label class="col-md-2 control-label"><b>Transaction Date</b></label>
                                                                         <div class="col-md-3">
-                                                                            <input type="date" id="transdate" name="transdate" value="<?= $transdate ?>" class="form-control" required>
+                                                                            <input type="date" id="transdate" name="transdate" min="<?= date('Y-m-d') ?>" value="<?= $transdate ?>" class="form-control" required>
                                                                         </div>
 
                                                                     </div>
