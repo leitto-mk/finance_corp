@@ -100,7 +100,7 @@ const pay = {
                 },
                 {
                     data: response => {
-                        var location = window.location.protocol + '//' + window.location.hostname
+                        var location = window.location.protocol
 
                         return `
                             <a href="${location}/FinanceCorp/edit_payment?docno=${response.docno}" target="_blank" type="button" class="btn btn-xs green">
