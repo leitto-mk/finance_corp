@@ -21,7 +21,7 @@ const car = {
             info: false,
             lengthMenu: [30, 50, 100, 300],
             ajax: {
-                url: 'ajax_get_annual_ca_receipt',
+                url: 'ajax_get_ranged_ca_receipt',
                 method: 'POST',
                 data: {
                     docno,

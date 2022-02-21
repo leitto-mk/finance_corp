@@ -21,7 +21,7 @@ const ob = {
             info: false,
             lengthMenu: [30, 50, 100, 300],
             ajax: {
-                url: 'ajax_get_annual_overbook',
+                url: 'ajax_get_ranged_overbook',
                 method: 'POST',
                 data: {
                     docno,

@@ -21,7 +21,7 @@ const pay = {
             info: false,
             lengthMenu: [30, 50, 100, 300],
             ajax: {
-                url: 'ajax_get_annual_payment',
+                url: 'ajax_get_ranged_payment',
                 method: 'POST',
                 data: {
                     docno,

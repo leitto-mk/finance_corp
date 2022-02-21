@@ -51,7 +51,7 @@ class Cash_adv extends CI_Controller
         $this->load->view('entry/cashadvance/v_cash_advance_corp', $data);
     }
 
-    //PERSONAL STATEMENT
+    //* PERSONAL STATEMENT
     public function view_ca_statement(){
         $data = [
             'title' => 'Cash Advance Statement',
@@ -84,7 +84,7 @@ class Cash_adv extends CI_Controller
         return set_success_response($result);
     }
 
-    //TRANSACTION DETAILS - CASH ADVANCE WITHDRAW
+    //* CASH ADVANCE WITHDRAW
     public function view_ca_withdraw(){
         $data = [
             'title' => 'Cash Advance Withdraw',
@@ -99,7 +99,7 @@ class Cash_adv extends CI_Controller
         $this->load->view('entry/cashadvance/v_ca_withdraw', $data);
     }
 
-    public function ajax_get_annual_ca_withdraw(){
+    public function ajax_get_ranged_ca_withdraw(){
         $validation = validate($this->input->post(), null, ['docno']);
         
         if(!$validation){
@@ -116,7 +116,7 @@ class Cash_adv extends CI_Controller
             'start' => $this->input->post('start')
         ];
 
-        $query = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAW, $datatable);
+        $query = $this->Mdl_corp_cash_advance->get_ranged_ca(self::CAW, $datatable);
 
         $result = [
             'draw' => $this->input->post('draw'),
@@ -430,7 +430,32 @@ class Cash_adv extends CI_Controller
         return set_success_response($result);
     }
 
-    //TRANSACTION DETAILS - CASH ADVANCE RECEIPT
+    public function view_reps_cash_withdraw(){
+        $validation = validate($this->input->get());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_reports->get_ca_report(self::CAW, $docno, $branch, $transdate);
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
+            'report' => $report
+        ];
+        
+        $this->load->view('entry/cashadvance/v_reps_cash_withdraw', $data);
+    }
+
+    //* CASH ADVANCE RECEIPT
     public function view_ca_receipt(){
         $data = [
             'title' => 'Cash Advance Receipt',
@@ -445,7 +470,7 @@ class Cash_adv extends CI_Controller
         $this->load->view('entry/cashadvance/v_ca_receipt', $data);
     }
 
-    public function ajax_get_annual_ca_receipt(){
+    public function ajax_get_ranged_ca_receipt(){
         $validation = validate($this->input->post(), null, ['docno']);
         
         if(!$validation){
@@ -462,7 +487,7 @@ class Cash_adv extends CI_Controller
             'start' => $this->input->post('start')
         ];
 
-        $query = $this->Mdl_corp_cash_advance->get_ranged_treasury(self::CAR, $datatable);
+        $query = $this->Mdl_corp_cash_advance->get_ranged_ca(self::CAR, $datatable);
 
         $result = [
             'draw' => $this->input->post('draw'),
@@ -774,5 +799,69 @@ class Cash_adv extends CI_Controller
         }
 
         return set_success_response($result);
+    }
+
+    public function view_reps_cash_receipt(){
+        $validation = validate($this->input->get());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_reports->get_ca_report(self::CAR, $docno, $branch, $transdate);
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
+            'report' => $report
+        ];
+        
+        $this->load->view('entry/cashadvance/v_reps_cash_receipt', $data);
+    }
+
+    //* CASH OUTSTANDING REPORT
+    public function ca_outstanding_report(){
+        $data = [
+            'title' => 'Cash Advance Outstanding Report',
+            'h1' => 'Cash',
+            'h2' => 'Advance',
+            'h3' => 'Outstanding',
+            'h4' => 'Report'
+        ];
+        
+        $this->load->view('entry/cashadvance/v_ca_outstanding_report', $data);
+    }
+
+    //* CASH TRANSACTION DETAILS
+    public function ca_transaction_details(){
+        $data = [
+            'title' => 'Cash Advance Transaction Details',
+            'h1' => 'Cash',
+            'h2' => 'Advance',
+            'h3' => 'Transaction',
+            'h4' => 'Details'
+        ];
+        
+        $this->load->view('entry/cashadvance/v_ca_transaction_details', $data);
+    }
+
+    //* CASH REQUEST REPORT
+    public function ca_request_report(){
+        $data = [
+            'title' => 'Cash Advance Request Report',
+            'h1' => 'Cash',
+            'h2' => 'Advance',
+            'h3' => 'Request',
+            'h4' => 'Report'
+        ];
+        
+        $this->load->view('entry/cashadvance/v_ca_request_report', $data);
     }
 }

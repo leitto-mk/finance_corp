@@ -21,7 +21,7 @@ const caw = {
             info: false,
             lengthMenu: [30, 50, 100, 300],
             ajax: {
-                url: 'ajax_get_annual_ca_withdraw',
+                url: 'ajax_get_ranged_ca_withdraw',
                 method: 'POST',
                 data: {
                     docno,

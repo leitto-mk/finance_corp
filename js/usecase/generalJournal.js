@@ -21,7 +21,7 @@ const gj = {
             info: false,
             lengthMenu: [30, 50, 100, 300],
             ajax: {
-                url: 'ajax_get_annual_general_journal',
+                url: 'ajax_get_ranged_general_journal',
                 method: 'POST',
                 data: {
                     docno,
