@@ -144,15 +144,12 @@ const modules = {
     },
 };
 
-/* INITIALIZE CORE SCRIPT */
-(function(){
-    //Get Sript Name
-    var fn = $('#script').attr('data-load-module')
-    
-    //Load Script
-    if(fn in modules){
-        modules[fn]()
-    }else{
-        console.log(`%cERROR: %cUnrecognised module of %c\`${fn}\``,'color: red','color: white','color: yellow')
-    }
-})()
+//Get Sript Name
+var fn = document.querySelector('#script').getAttribute('data-load-module')
+
+//Load Script
+if(fn in modules){
+    modules[fn]()
+}else{
+    console.log(`%cERROR: %cUnrecognised module of %c\`${fn}\``,'color: red','color: white','color: yellow')
+}
