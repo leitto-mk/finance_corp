@@ -104,7 +104,7 @@ const caw = {
                         var location = window.location.origin
 
                         return `
-                            <a href="${location}/Cash_adv/edit_cash_withdraw?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                            <a href="${location}/Cash_adv/edit_ca_withdraw?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                 <i class="fa fa-edit"> </i>
                             </a>
                             <a href="${location}/Cash_adv/view_reps_cash_withdraw?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
