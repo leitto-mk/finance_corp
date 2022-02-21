@@ -103,7 +103,7 @@ const rec = {
                         var location = window.location.protocol
 
                         return `
-                        <a href="${location}/FinanceCorp/edit_receipt?docno=${response.docno}" target="_blank" type="button" class="btn btn-xs green">
+                        <a href="${location}/FinanceCorp/edit_receipt?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                 <i class="fa fa-edit"> </i>
                             </a>
                             <a href="${location}/FinanceCorp/view_reps_receipt_voucher?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
