@@ -135,7 +135,7 @@
                                                         <?php if($report[$i]['ItemNo'] > 0) : ?>
                                                             <tr>
                                                                 <td><h6 class="text-center bold"><?= $i ?></h6></td>
-                                                                <td><h6 class="bold"><?= $report[$i]['DescDetail']?></td>
+                                                                <td><h6 class="bold"><?php echo substr($report[$i]['DescDetail'], 0,105) ?></h6></td>
                                                                 <td><h6 class="text-center bold"><?= $report[$i]['Department']?></h6></td>
                                                                 <td><h6 class="text-center bold"><?= $report[$i]['CostCenter']?></h6></td>
                                                                 <td><h6 class="text-center bold"><?= $report[$i]['AccNo']?></h6></td>

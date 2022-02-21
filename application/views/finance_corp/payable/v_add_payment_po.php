@@ -6,7 +6,7 @@
                 <!-- BEGIN HEADER MENU -->
                 <div class="page-header-menu" style="background:#444d58;">
                     <div class="container-fluid">
-                        <div class="hor-menu  ">
+                        <div class="hor-menu">
                             <ul class="nav navbar-nav">
                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase">
                                     <h4 style="color:#ffffff">Payment PO</h4>
