@@ -381,6 +381,9 @@ const rec = {
     eventSubmitReceipt: () => {
         $('#btn_submit').on('click',function(e){
             e.preventDefault()
+
+            alert('TEST')
+            return
             
             //Remove Row with empty Description
             if($('#tbody_detail > tr').length > 1){
