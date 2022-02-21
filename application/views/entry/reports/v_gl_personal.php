@@ -1,4 +1,4 @@
-<?php $this->load->view('header_footer/entry/header_sub_modul_sf_no_trees'); ?>
+<?php $this->load->view('header_footer/header_sub_modul_sf_no_trees'); ?>
 <div class="portlet light">
     <div class="row">
         <div class="col-md-12" id="printDiv" style="size: landscape; font-family: Open Sans, sans-serif;" >
@@ -112,4 +112,4 @@
         document.body.innerHTML = originalContents;
     }
 </script>
-<?php $this->load->view('header_footer/entry/footer_sub_modul_sf'); ?>
+<?php $this->load->view('header_footer/footer_sub_modul_sf'); ?>

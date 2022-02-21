@@ -30,7 +30,7 @@ class C_Finance extends CI_Controller
       'container' => $container_view,
     ];
 
-    $this->load->view('header_footer/entry/coa/header_footer', $data);
+    $this->load->view('header_footer/coa/header_footer', $data);
   }
 
   public function get_form()

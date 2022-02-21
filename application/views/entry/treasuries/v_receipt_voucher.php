@@ -1,4 +1,4 @@
-<?php $this->load->view('header_footer/entry/header_main'); ?>
+<?php $this->load->view('header_footer/header_main'); ?>
 <div class="main_content">
     <div class="row">
         <div class="col-md-12">
@@ -84,4 +84,4 @@
         document.body.style.zoom = 0.9;
     }
 </script>
-<?php $this->load->view('header_footer/entry/footer_main'); ?>
+<?php $this->load->view('header_footer/footer_main'); ?>

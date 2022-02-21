@@ -1,4 +1,4 @@
-<?php $this->load->view('header_footer/entry/header'); ?>
+<?php $this->load->view('header_footer/header'); ?>
 <div class="page-wrapper bg-white">
     <div class="page-wrapper-row">
         <div class="page-wrapper-top">
@@ -247,4 +247,4 @@
         document.body.style.zoom = 0.8;
     }
 </script>
-<?php $this->load->view('header_footer/entry/footer'); ?>
+<?php $this->load->view('header_footer/footer'); ?>

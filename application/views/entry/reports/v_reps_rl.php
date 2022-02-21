@@ -1,4 +1,4 @@
-<?php $this->load->view('header_footer/entry/header_sub_modul_sf_no_trees'); ?>
+<?php $this->load->view('header_footer/header_sub_modul_sf_no_trees'); ?>
 <!-- <style type="text/css">
     tr:nth-child(even){
         background-color: #E1E5EC;
@@ -513,4 +513,4 @@
         document.body.innerHTML = originalContents;
     }
 </script>
-<?php $this->load->view('header_footer/entry/footer_sub_modul_sf'); ?>
+<?php $this->load->view('header_footer/footer_sub_modul_sf'); ?>

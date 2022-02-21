@@ -1,5 +1,5 @@
 <?php
-    $this->load->view('header_footer/entry/master/header');
+    $this->load->view('header_footer/master/header');
 ?>
 <style type="text/css">
     .table td,th{
@@ -50,7 +50,7 @@
         <!-- BEGIN SIDEBAR CONTENT LAYOUT -->
         <div class="page-content-container" style="margin-top: -40px">
             <div class="page-content-row">
-                <?php $this->load->view('header_footer/entry/master/sidebar_master'); ?>
+                <?php $this->load->view('header_footer/master/sidebar_master'); ?>
                 <div class="page-content-col">
                     <!-- BEGIN PAGE BASE CONTENT -->
                     <div class="tab-content">
@@ -1552,7 +1552,7 @@
 </div>
 <?php
     $this->load->view('entry/master/v_modal_master_crud'); 
-    $this->load->view('header_footer/entry/master/footer'); ?>
+    $this->load->view('header_footer/master/footer'); ?>
 <script type="text/javascript">
 window.onload = load_function;
 

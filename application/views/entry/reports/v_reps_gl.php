@@ -1,4 +1,4 @@
-<?php $this->load->view('header_footer/entry/header_sub_modul_sf_no_trees'); ?>
+<?php $this->load->view('header_footer/header_sub_modul_sf_no_trees'); ?>
 <div class="portlet light" style="background-color: #eff2f6;" id="printDiv">
     <style type="text/css">
         /*tr:nth-child(even){
@@ -202,4 +202,4 @@
         document.body.innerHTML = originalContents;
     }
 </script>
-<?php $this->load->view('header_footer/entry/footer_sub_modul_sf'); ?>
+<?php $this->load->view('header_footer/footer_sub_modul_sf'); ?>
