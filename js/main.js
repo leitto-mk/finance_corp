@@ -106,18 +106,18 @@ const modules = {
 
         if(page == 'view'){ /* List Page */
             caw.initDataTable()
-            caw.eventShowList
-            caw.eventDeleteButton
+            caw.eventShowList()
+            caw.eventDeleteButton()
         }else if(page == 'add' || page == 'edit'){ /* Form Page */
-            caw.initDisableEnterKey
-            caw.initSetEnterToFocus
-            caw.eventSelectEmployee
-            caw.eventNextRow
-            caw.eventDeleteRow
-            caw.eventInputUnit
-            caw.eventChangeBranch
-            caw.eventChangeDepartment
-            caw.eventSubmitCAWithdraw
+            caw.initDisableEnterKey()
+            caw.initSetEnterToFocus()
+            caw.eventSelectEmployee()
+            caw.eventNextRow()
+            caw.eventDeleteRow()
+            caw.eventInputUnit()
+            caw.eventChangeBranch()
+            caw.eventChangeDepartment()
+            caw.eventSubmitCAWithdraw()
         }
     },
 
