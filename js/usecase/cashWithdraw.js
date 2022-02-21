@@ -126,7 +126,7 @@ const caw = {
     },
 
     eventShowList: () => {
-        $('#preview, #search').click(function(){
+        $(document).on('click', '#preview, #search', function(){
             let docno = $('#search_item').val()
             let date_start = $('#date_from').val()
             let date_end = $('#date_to').val()
@@ -257,10 +257,10 @@ const caw = {
     },
 
     eventSelectEmployee: () => {
-        $('#emp_master_id').change(function(){
-            fullname = $(this).find('option:selected').attr('data-fullname')
-            branch = $(this).find('option:selected').attr('data-branch')
-            balance = $(this).find('option:selected').attr('data-balance')
+        $(document).on('change', '#emp_master_id',function(){
+            let fullname = $(this).find('option:selected').attr('data-fullname')
+            let branch = $(this).find('option:selected').attr('data-branch')
+            let balance = $(this).find('option:selected').attr('data-balance')
             
             $('#emp_master_name').val(fullname)
             $('#branch').val(branch)
@@ -389,7 +389,7 @@ const caw = {
     },
 
     eventSubmitCAWithdraw: () => {
-        $('#btn_submit').on('click',function(e){
+        $(document).on('click', '#btn_submit',function(e){
             e.preventDefault()
         
             //Remove Row with empty Description
