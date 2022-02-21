@@ -5,7 +5,11 @@
 import helper from '../helper.js'
 
 const ob = {
-    initDataTable: (docno, date_start, date_end) => {
+    initDataTable: (run, docno, date_start, date_end) => {
+        if(run == false){
+            return
+        }
+        
         let today = new Date()
         let firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), +1).toLocaleDateString('fr-CA')
         let lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).toLocaleDateString('fr-CA')
@@ -100,7 +104,7 @@ const ob = {
                 },
                 {
                     data: response => {
-                        var location = window.location.protocol
+                        var location = window.location.origin
 
                         return `
                             <a href="${location}/FinanceCorp/edit_overbook?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">

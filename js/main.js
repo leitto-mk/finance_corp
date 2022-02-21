@@ -17,7 +17,7 @@ import icsc from  './usecase/incomeStatementColumnar.js'
 const modules = {
     receipt: () => {
         /* List Page */
-        rec.initDataTable()
+        rec.initDataTable(false)
         rec.eventShowList()
         rec.eventDeleteButton()
 
@@ -35,7 +35,7 @@ const modules = {
 
     payment: () => {
         /* List Page */
-        pay.initDataTable()
+        pay.initDataTable(false)
         pay.eventShowList()
         pay.eventDeleteButton()
 
@@ -52,7 +52,7 @@ const modules = {
 
     overbook: () => {
         /* List Page */
-        ob.initDataTable()
+        ob.initDataTable(false)
         ob.eventShowList()
         ob.eventDeleteButton()
 
@@ -68,7 +68,7 @@ const modules = {
 
     generalJournal: () => {
         /* List Page */
-        gj.initDataTable()
+        gj.initDataTable(false)
 
         /* Form Page */
         gj.initDisableEnterKey()
@@ -83,7 +83,7 @@ const modules = {
 
     cashWithdraw: () => {
         /* List Page */
-        caw.initDataTable()
+        caw.initDataTable(false)
         caw.eventShowList
         caw.eventDeleteButton
 
@@ -101,7 +101,7 @@ const modules = {
 
     cashReceipt: () => {
         /* List Page */
-        car.initDataTable()
+        car.initDataTable(false)
         car.eventShowList()
         car.eventDeleteButton()
 
