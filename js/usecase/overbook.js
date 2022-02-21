@@ -7,9 +7,8 @@ import helper from '../helper.js'
 const ob = {
     initDataTable: (docno, date_start, date_end) => {
         
-        let today = new Date()
-        let firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), +1).toLocaleDateString('fr-CA')
-        let lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).toLocaleDateString('fr-CA')
+        let firstDayOfMonth = date_start ?? helper.firstDayOfMonth()
+        let lastDayOfMonth = date_end ?? helper.lastDayOfMonth()
 
         docno = docno ?? ''
         date_start = date_start ?? firstDayOfMonth

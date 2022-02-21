@@ -7,6 +7,16 @@ const helper = {
             .then(response => console.log(JSON.stringify(response, null, '\t')))
     },
 
+    firstDayOfMonth: () => {
+        let today = new Date()
+        return new Date(today.getFullYear(), today.getMonth(), +1).toLocaleDateString('fr-CA')
+    },
+
+    lastDayOfMonth: () => {
+        let today = new Date()
+        return new Date(today.getFullYear(), today.getMonth()+1, 0).toLocaleDateString('fr-CA')
+    },
+
     //Display Page Loader
     blockUI: options => {
         options = $.extend(true, {}, options);
