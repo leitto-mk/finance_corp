@@ -22,7 +22,7 @@ const caw = {
             info: false,
             lengthMenu: [30, 50, 100, 300],
             ajax: {
-                url: 'ajax_get_annual_ca_receipt',
+                url: 'ajax_get_annual_ca_withdraw',
                 method: 'POST',
                 data: {
                     docno,
@@ -104,10 +104,10 @@ const caw = {
                         var location = window.location.origin
 
                         return `
-                            <a href="${location}/FinanceCorp/edit_cash_withdraw?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                            <a href="${location}/Cash_adv/edit_cash_withdraw?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                 <i class="fa fa-edit"> </i>
                             </a>
-                            <a href="${location}/FinanceCorp/view_reps_cash_withdraw?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                            <a href="${location}/Cash_adv/view_reps_cash_withdraw?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                                 <i class="fa fa-print"> </i>
                             </a>
                             <a href="javascript:;" name="delete" data-docno="${response.DocNo}" data-branch="${response.Branch}" data-transdate="${response.TransDate}" type="button" class="btn btn-xs red">
@@ -431,10 +431,10 @@ const caw = {
                         $('input, textarea').prop('readonly', true)
                         $('select').prop('disabled', true)
 
-                        $('#new_transaction').prop('href', window.location.origin + '/FinanceCorp/add_ca_withdraw')
+                        $('#new_transaction').prop('href', window.location.origin + '/Cash_adv/add_ca_withdraw')
                         $('#new_transaction').css('visibility', 'visible')
                         
-                        $('#print_transaction').prop('href', window.location.origin + '/FinanceCorp/view_reps_cash_withdraw' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').prop('href', window.location.origin + '/Cash_adv/view_reps_cash_withdraw' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
                         $('#print_transaction').css('visibility', 'visible')
                         
                         $('#btn_submit').css('visibility', 'hidden')
