@@ -36,7 +36,7 @@ class Cash_adv extends CI_Controller
         ]);
 
         $this->load->model('Mdl_corp_cash_advance');
-        $this->load->model('Mdl_corp_branch');
+        $this->load->model('Mdl_corp_reports');
     }
 
     //Corporation Finance
@@ -203,7 +203,7 @@ class Cash_adv extends CI_Controller
         $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_reports->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -421,7 +421,7 @@ class Cash_adv extends CI_Controller
          }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_reports->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -574,7 +574,7 @@ class Cash_adv extends CI_Controller
         $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_reports->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
@@ -792,7 +792,7 @@ class Cash_adv extends CI_Controller
          }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_branch->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $result = $this->Mdl_corp_reports->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
 
         if($result !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);

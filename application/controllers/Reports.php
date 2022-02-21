@@ -38,9 +38,6 @@ class Reports extends CI_Controller
             'validate'
         ]);
 
-        $this->load->model('Mdl_corp_branch');
-        $this->load->model('Mdl_corp_balance_sheet');
-        $this->load->model('Mdl_corp_income_statement');
         $this->load->model('Mdl_corp_reports');
     }
 
@@ -61,15 +58,33 @@ class Reports extends CI_Controller
             'h3' => '(Branch)',
 
             //LEDGER TABLE
-            'branch' => $this->Mdl_corp_branch->get_branch(),
-            'account_no' => $this->Mdl_corp_branch->get_account_no(),
-            'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $datestart, $datefinish),
+            'branch' => $this->Mdl_corp_reports->get_branch(),
+            'account_no' => $this->Mdl_corp_reports->get_account_no(),
+            'ledger' => $this->Mdl_corp_reports->get_general_ledger($branch, $accno_start, $accno_finish, $datestart, $datefinish),
 
             //SCRIPT
             'script' => 'generalLedger'
         ];
         
         $this->load->view('entry/reports/v_gl_branch', $data);
+    }
+
+    public function ajax_get_general_ledger(){
+        $validation = validate($this->input->post());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $branch = $this->input->post('branch');
+        $accno_start = $this->input->post('accno_start');
+        $accno_finish = $this->input->post('accno_finish');
+        $date_start = $this->input->post('date_start');
+        $date_finish = $this->input->post('date_finish');
+
+        $result = $this->Mdl_corp_reports->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish);
+
+        return set_success_response($result);
     }
 
     public function view_gl_branch_report(){
@@ -95,28 +110,10 @@ class Reports extends CI_Controller
             //LEDGER TABLE
             'date_start' => date('d-M-Y', strtotime($date_start)),
             'date_end' => date('d-M-Y', strtotime($date_finish)),
-            'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish)
+            'ledger' => $this->Mdl_corp_reports->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish)
         ];
         
         $this->load->view('entry/reports/v_reps_gl', $data);
-    }
-
-    public function ajax_get_general_ledger(){
-        $validation = validate($this->input->post());
-        
-        if(!$validation){
-            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
-        }
-
-        $branch = $this->input->post('branch');
-        $accno_start = $this->input->post('accno_start');
-        $accno_finish = $this->input->post('accno_finish');
-        $date_start = $this->input->post('date_start');
-        $date_finish = $this->input->post('date_finish');
-
-        $result = $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish);
-
-        return set_success_response($result);
     }
 
     // ------------ Re-Calculate ------------ \\
@@ -134,7 +131,7 @@ class Reports extends CI_Controller
 
         $date_finish = $this->Mdl_corp_reports->get_last_trans_date();
 
-        $result = $this->Mdl_corp_branch->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
+        $result = $this->Mdl_corp_reports->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 
         return set_success_response($result);
     }
@@ -145,7 +142,7 @@ class Reports extends CI_Controller
         $year =  $this->input->get('year') ?? date('Y');
         $month = $this->input->get('month') ?? date('m');
 
-        list($company, $asset, $liabilities, $capital) = $this->Mdl_corp_balance_sheet->get_report($branch, $year, $month);
+        list($company, $asset, $liabilities, $capital) = $this->Mdl_corp_reports->get_balance_sheet_report($branch, $year, $month);
 
         $data = [
             'title' => 'Balance Sheet',
@@ -190,7 +187,7 @@ class Reports extends CI_Controller
         $year =  $this->input->get('year') ?? date('Y');
         $month = $this->input->get('month') ?? date('m');
 
-        list($company, $revenue, $operational, $other_rev, $other_expense) = $this->Mdl_corp_income_statement->get_report($branch, $year, $month);
+        list($company, $revenue, $operational, $other_rev, $other_expense) = $this->Mdl_corp_reports->get_income_report($branch, $year, $month);
 
         $data = [
             'title' => 'Income Statement',
@@ -222,7 +219,7 @@ class Reports extends CI_Controller
         $branch = $this->input->get('branch') ?? null;
         $year =  $this->input->get('year') ?? date('Y');
 
-        [$company, $revenue, $operational, $other_rev, $other_expense] = $this->Mdl_corp_income_statement->get_columnar_report($branch, $year);
+        [$company, $revenue, $operational, $other_rev, $other_expense] = $this->Mdl_corp_reports->get_columnar_report($branch, $year);
 
         $data = [
             'title' => 'Report Journal Transaction',

@@ -47,7 +47,6 @@
                                                         <div class="col-md-12">
                                                             <select id="branch" name="branch" class="form-control" required>
                                                                 <option value="">-- Choose --</option>
-                                                                <option value="All">All</option>
                                                                 <?php foreach($branch as $branch) : ?>
                                                                     <option value="<?= $branch->BranchCode?>">[<?= $branch->BranchCode?>] <?= $branch->BranchName ?></option>
                                                                 <?php endforeach; ?>
@@ -128,7 +127,7 @@
                                             $date_start = date('Y-01-01');
                                             $date_finish = date('Y-m-d');
                                         ?>
-                                        <a id="print_report" href="<?= base_url("Entry/view_gl_branch_report?branch=All&accno_start=10000&accno_finish=99999&date_start=$date_start&date_finish=$date_finish") ?>" target="_blank" class="btn btn-xs btn green hidden-print pull-right" style="margin-left: 5px">
+                                        <a id="print_report" href="<?= base_url("Reports/view_gl_branch_report?branch=All&accno_start=10000&accno_finish=99999&date_start=$date_start&date_finish=$date_finish") ?>" target="_blank" class="btn btn-xs btn green hidden-print pull-right" style="margin-left: 5px">
                                             <i class="fa fa-plus"></i>&nbsp;Print</i>
                                         </a>
                                         <a onclick="window.close();" class="btn btn-xs btn red hidden-print pull-right"><i class="fa fa-close"></i> Close</a>
