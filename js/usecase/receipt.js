@@ -5,10 +5,7 @@
 import helper from '../helper.js'
 
 const rec = {
-    initDataTable: (run, docno, date_start, date_end) => {
-        if(run == false){
-            return
-        }
+    initDataTable: (docno, date_start, date_end) => {
         
         let today = new Date()
         let firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), +1).toLocaleDateString('fr-CA')

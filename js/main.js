@@ -16,109 +16,134 @@ import icsc from  './usecase/incomeStatementColumnar.js'
  */
 const modules = {
     receipt: () => {
-        /* List Page */
-        rec.initDataTable(false)
-        rec.eventShowList()
-        rec.eventDeleteButton()
+        let path = window.location.pathname
+        let segment = path.split('/')[2]
+        let page = segment.split('_')[0]
 
-        /* Form Page */
-        rec.initDisableEnterKey()
-        rec.initSetEnterToFocus()
-        rec.eventEnterToNextInput()
-        rec.eventNextRow()
-        rec.eventDeleteRow()
-        rec.eventInputUnit()
-        rec.eventChangeBranch()
-        rec.eventChangeDepartment()
-        rec.eventSubmitReceipt()
+        if(page == 'view'){ /* List Page */
+            rec.initDataTable()
+            rec.eventShowList()
+            rec.eventDeleteButton()
+        }else if(page == 'add' || page == 'edit'){ /* Form Page */
+            rec.initDisableEnterKey()
+            rec.initSetEnterToFocus()
+            rec.eventEnterToNextInput()
+            rec.eventNextRow()
+            rec.eventDeleteRow()
+            rec.eventInputUnit()
+            rec.eventChangeBranch()
+            rec.eventChangeDepartment()
+            rec.eventSubmitReceipt()
+        }
     },
 
     payment: () => {
-        /* List Page */
-        pay.initDataTable(false)
-        pay.eventShowList()
-        pay.eventDeleteButton()
+        let path = window.location.pathname
+        let segment = path.split('/')[2]
+        let page = segment.split('_')[0]
 
-        /* Form Page */
-        pay.initDisableEnterKey()
-        pay.initSetEnterToFocus()
-        pay.eventNextRow()
-        pay.eventDeleteRow()
-        pay.eventInputUnit()
-        pay.eventChangeBranch()
-        pay.eventChangeDepartment()
-        pay.eventSubmitPayment()
+        if(page == 'view'){ /* List Page */
+            pay.initDataTable()
+            pay.eventShowList()
+            pay.eventDeleteButton()
+        }else if(page == 'add' || page == 'edit'){ /* Form Page */
+            pay.initDisableEnterKey()
+            pay.initSetEnterToFocus()
+            pay.eventNextRow()
+            pay.eventDeleteRow()
+            pay.eventInputUnit()
+            pay.eventChangeBranch()
+            pay.eventChangeDepartment()
+            pay.eventSubmitPayment()
+        }
     },
 
     overbook: () => {
-        /* List Page */
-        ob.initDataTable(false)
-        ob.eventShowList()
-        ob.eventDeleteButton()
+        let path = window.location.pathname
+        let segment = path.split('/')[2]
+        let page = segment.split('_')[0]
 
-        /* Form Page */
-        ob.initSetEnterToFocus()
-        ob.eventNextRow()
-        ob.eventDeleteRow()
-        ob.eventInputUnit()
-        ob.eventChangeBranch()
-        ob.eventChangeDepartment()
-        ob.eventSubmitOverbook()
+        if(page == 'view'){ /* List Page */
+            ob.initDataTable()
+            ob.eventShowList()
+            ob.eventDeleteButton()
+        }else if(page == 'add' || page == 'edit'){ /* Form Page */
+            ob.initSetEnterToFocus()
+            ob.eventNextRow()
+            ob.eventDeleteRow()
+            ob.eventInputUnit()
+            ob.eventChangeBranch()
+            ob.eventChangeDepartment()
+            ob.eventSubmitOverbook()
+        }
     },
 
     generalJournal: () => {
-        /* List Page */
-        gj.initDataTable(false)
+        let path = window.location.pathname
+        let segment = path.split('/')[2]
+        let page = segment.split('_')[0]
 
-        /* Form Page */
-        gj.initDisableEnterKey()
-        gj.initSetEnterToFocus()
-        gj.eventNextRow()
-        gj.eventDeleteRow()
-        gj.eventInputAmount()
-        gj.eventChangeBranch()
-        gj.eventChangeDepartment()
-        gj.eventSubmitGeneral()
+        if(page == 'view'){ /* List Page */
+            gj.initDataTable()
+            ob.eventShowList()
+            ob.eventDeleteButton()
+        }else if(page == 'add' || page == 'edit'){ /* Form Page */
+            gj.initDisableEnterKey()
+            gj.initSetEnterToFocus()
+            gj.eventNextRow()
+            gj.eventDeleteRow()
+            gj.eventInputAmount()
+            gj.eventChangeBranch()
+            gj.eventChangeDepartment()
+            gj.eventSubmitGeneral()
+        }
     },
 
     cashWithdraw: () => {
-        /* List Page */
-        caw.initDataTable(false)
-        caw.eventShowList
-        caw.eventDeleteButton
+        let path = window.location.pathname
+        let segment = path.split('/')[2]
+        let page = segment.split('_')[0]
 
-        /* Form Page */
-        caw.initDisableEnterKey
-        caw.initSetEnterToFocus
-        caw.eventSelectEmployee
-        caw.eventNextRow
-        caw.eventDeleteRow
-        caw.eventInputUnit
-        caw.eventChangeBranch
-        caw.eventChangeDepartment
-        caw.eventSubmitCAWithdraw
+        if(page == 'view'){ /* List Page */
+            caw.initDataTable()
+            caw.eventShowList
+            caw.eventDeleteButton
+        }else if(page == 'add' || page == 'edit'){ /* Form Page */
+            caw.initDisableEnterKey
+            caw.initSetEnterToFocus
+            caw.eventSelectEmployee
+            caw.eventNextRow
+            caw.eventDeleteRow
+            caw.eventInputUnit
+            caw.eventChangeBranch
+            caw.eventChangeDepartment
+            caw.eventSubmitCAWithdraw
+        }
     },
 
     cashReceipt: () => {
-        /* List Page */
-        car.initDataTable(false)
-        car.eventShowList()
-        car.eventDeleteButton()
+        let path = window.location.pathname
+        let segment = path.split('/')[2]
+        let page = segment.split('_')[0]
 
-        /* Form Page */
-        car.initDisableEnterKey()
-        car.initSetEnterToFocus()
-        car.eventSelectEmployee()
-        car.eventNextRow()
-        car.eventDeleteRow()
-        car.eventInputUnit()
-        car.eventChangeBranch()
-        car.eventChangeDepartment()
-        car.eventSubmitCAReceipt()
+        if(page == 'view'){ /* List Page */
+            car.initDataTable()
+            car.eventShowList()
+            car.eventDeleteButton()
+        }else if(page == 'add' || page == 'edit'){ /* Form Page */
+            car.initDisableEnterKey()
+            car.initSetEnterToFocus()
+            car.eventSelectEmployee()
+            car.eventNextRow()
+            car.eventDeleteRow()
+            car.eventInputUnit()
+            car.eventChangeBranch()
+            car.eventChangeDepartment()
+            car.eventSubmitCAReceipt()
+        }
     },
 
     cashPersonalStatement: () => {
-        /* List Page  */
         cap.eventGetEmpDetails()
     },
 
