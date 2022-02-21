@@ -135,7 +135,7 @@ const modules = {
 
     incomeStatement: () => {
         ics.eventChangeOption()
-        ics.eventSubmitFilter.eventChangeOption()
+        ics.eventSubmitFilter()
     },
 
     incomeStatementColumnar: () => {

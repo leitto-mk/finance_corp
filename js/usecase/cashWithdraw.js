@@ -130,7 +130,7 @@ const caw = {
             let date_start = $('#date_from').val()
             let date_end = $('#date_to').val()
 
-            initDataTable(docno, date_start, date_end)
+            caw.initDataTable(docno, date_start, date_end)
         })
     },
 

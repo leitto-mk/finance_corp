@@ -130,7 +130,7 @@ const rec = {
             let date_start = $('#date_from').val()
             let date_end = $('#date_to').val()
 
-            initDataTable(docno, date_start, date_end)
+            rec.initDataTable(docno, date_start, date_end)
         })
     },
 
