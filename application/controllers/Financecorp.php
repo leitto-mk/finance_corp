@@ -11,7 +11,7 @@ class FinanceCorp extends CI_Controller {
     public function index(){
         $data['title'] = 'Dashboard';
         
-        $this->load->view('dashboard/v_home', $data);
+        $this->load->view('dashboard/v_home_2', $data);
     }
 
     public function not_found(){
