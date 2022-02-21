@@ -222,7 +222,7 @@
                                                                                     <option value="">--Choose Department --</option>
                                                                                     <?php if(!empty($department)) : ?>
                                                                                         <?php for($j=0; $j < count($department); $j++) : ?>
-                                                                                            <?php if($departments[$j]['DeptCode'] == $list[$i]['Department']) : ?>
+                                                                                            <?php if($department[$j]['DeptCode'] == $list[$i]['Department']) : ?>
                                                                                                 <option selected value="<?= $department[$j]['DeptCode'] ?>" data-branch="<?= $department[$j]['Branch'] ?>"><?= $department[$j]['DeptDes'] ?></option>
                                                                                             <?php else : ?>
                                                                                                 <option value="<?= $department[$j]['DeptCode'] ?>" data-branch="<?= $department[$j]['Branch'] ?>"><?= $department[$j]['DeptDes'] ?></option>
