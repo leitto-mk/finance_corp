@@ -246,7 +246,7 @@ class Reports extends CI_Controller
     }
  
     //* JOURNAL TRANSACTION
-    public function view_report_journal_transaction(){
+    public function view_journal_transaction(){
         
         $data = [
             'title' => 'Report Journal Transaction',

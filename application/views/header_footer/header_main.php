@@ -283,7 +283,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= base_url('Reports/view_report_journal_transaction') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Reports/view_journal_transaction') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Journal Transaction</span>
                                         </a>
                                     </li>
