@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
                         
-class Mdl_corp_reports_model extends CI_Model {
+class Mdl_corp_reports extends CI_Model {
 
     //* ENTRY REPORT
     function get_treasury_report($type, $docno, $branch, $transdate){
