@@ -4,11 +4,9 @@
 
 const icsc = {
     eventChangeOption: () => {
-        var branch, year
-
         $(document).on('change','#branch, #year, #month',function(){
-            branch = $('#branch').val()
-            year = $('#year').val()
+            let branch = $('#branch').val()
+            let year = $('#year').val()
 
             //Empty before re-fill the address
             $('#submit_filter').attr('href',null)
@@ -21,8 +19,8 @@ const icsc = {
 
     eventSubmitFilter: () => {
         $('#submit_filter').click(function(e){
-            branch = $('#branch').val()
-            year = $('#year').val()
+            let branch = $('#branch').val()
+            let year = $('#year').val()
 
             if (branch == "" || year == "") {
                 alert('Please Select All Options')
