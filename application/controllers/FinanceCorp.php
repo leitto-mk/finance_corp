@@ -41,9 +41,6 @@ class FinanceCorp extends CI_Controller
 
         $this->load->model('Mdl_corp_treasury');
         $this->load->model('Mdl_corp_branch');
-        $this->load->model('Mdl_corp_personal');
-        $this->load->model('Mdl_corp_balance_sheet');
-        $this->load->model('Mdl_corp_income_statement');
     }
 
     //* DASHBOARD
