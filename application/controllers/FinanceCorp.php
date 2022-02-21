@@ -433,7 +433,7 @@ class FinanceCorp extends CI_Controller
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
 
         $data = [
-            'title' => 'Form Receipt Voucher',
+            'title' => 'Form Payment Voucher',
             
             //DocNo Master
             'docno' => $docno,
@@ -504,7 +504,7 @@ class FinanceCorp extends CI_Controller
 
     public function add_payment_voucher(){
         $data = [
-            'title' => 'Form payment Voucher',
+            'title' => 'Form Payment Voucher',
             
             'docno' => $this->Mdl_corp_treasury->get_new_treasury_docno(self::PAY),
             'accno' => $this->Mdl_corp_treasury->get_mas_acc(),
@@ -765,7 +765,7 @@ class FinanceCorp extends CI_Controller
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
 
         $data = [
-            'title' => 'Form Receipt Voucher',
+            'title' => 'Form Overbook Voucher',
             
             //DocNo Master
             'docno' => $docno,
@@ -1097,7 +1097,7 @@ class FinanceCorp extends CI_Controller
         $result = $this->Mdl_corp_treasury->get_docno_details($docno);
 
         $data = [
-            'title' => 'Form General Journal Voucher',
+            'title' => 'Form General Journal',
             
             //DocNo Master
             'docno' => $docno,
