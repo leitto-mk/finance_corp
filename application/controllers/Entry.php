@@ -384,7 +384,7 @@ class Entry extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->mdl_corp_treasury->get_entry_report(self::REC, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_entry->get_entry_report(self::REC, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -741,7 +741,7 @@ class Entry extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->mdl_corp_treasury->get_entry_report(self::PAY, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_entry->get_entry_report(self::PAY, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -1099,7 +1099,7 @@ class Entry extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->mdl_corp_treasury->get_entry_report(self::OVB, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_entry->get_entry_report(self::OVB, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -1422,7 +1422,7 @@ class Entry extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->mdl_corp_treasury->get_entry_report(self::GNJ, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_entry->get_entry_report(self::GNJ, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',

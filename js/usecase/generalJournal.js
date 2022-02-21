@@ -106,7 +106,7 @@ const gj = {
                             <a href="${location}/Entry/edit_general_journal?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                 <i class="fa fa-edit"> </i>
                             </a>
-                            <a href="${location}/Reports/view_reps_general_journal?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                            <a href="${location}/Entry/view_reps_general_journal?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                                 <i class="fa fa-print"> </i>
                             </a>
                             <a href="javascript:;" name="delete" data-docno="${response.DocNo}" data-branch="${response.Branch}" data-transdate="${response.TransDate}" type="button" class="btn btn-xs red">
@@ -436,7 +436,7 @@ const gj = {
                         $('#new_transaction').prop('href', window.location.origin + '/Entry/add_general_journal')
                         $('#new_transaction').css('visibility', 'visible')
                         
-                        $('#print_transaction').prop('href', window.location.origin + '/Reports/view_reps_general_journal' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').prop('href', window.location.origin + '/Entry/view_reps_general_journal' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
                         $('#print_transaction').css('visibility', 'visible')
                         
                         $('#btn_submit').css('visibility', 'hidden')
