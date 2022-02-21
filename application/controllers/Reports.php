@@ -36,11 +36,10 @@ class Reports extends CI_Controller
             'validate'
         ]);
 
-        $this->load->model('Mdl_corp_treasury');
         $this->load->model('Mdl_corp_branch');
-        $this->load->model('Mdl_corp_personal');
         $this->load->model('Mdl_corp_balance_sheet');
         $this->load->model('Mdl_corp_income_statement');
+        $this->load->model('Mdl_corp_reports');
     }
 
     //* GENERAL LEDGER
@@ -131,7 +130,7 @@ class Reports extends CI_Controller
         $accno_finish = $this->input->post('accno_finish');
         $date_start = $this->input->post('date_start');
 
-        $date_finish = $this->Mdl_corp_treasury->get_last_trans_date();
+        $date_finish = $this->Mdl_corp_reports->get_last_trans_date();
 
         $result = $this->Mdl_corp_branch->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 
@@ -188,7 +187,7 @@ class Reports extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report(self::REC, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_reports->get_treasury_report(self::REC, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -214,7 +213,7 @@ class Reports extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report(self::PAY, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_reports->get_treasury_report(self::PAY, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -240,7 +239,7 @@ class Reports extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report(self::OVB, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_reports->get_treasury_report(self::OVB, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -266,7 +265,7 @@ class Reports extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_treasury->get_treasury_report(self::GNJ, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_reports->get_treasury_report(self::GNJ, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',

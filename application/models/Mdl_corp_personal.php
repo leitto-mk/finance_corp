@@ -33,5 +33,5 @@ class Mdl_corp_personal extends CI_Model
             WHERE trans.PostedStatus = 1
             ORDER BY trans.IDNumber, trans.CtrlNo ASC"
       )->result_array();
-  }
+   }
 }
