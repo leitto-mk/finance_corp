@@ -19,14 +19,6 @@ class Reports extends CI_Controller
     const HTTP_NOT_ACCEPTABLE = 406;
     const HTTP_INTERNAL_ERROR = 500;
 
-    //TransType
-    const REC = 'RE';
-    const PAY = 'PA';
-    const OVB = 'OB';
-    const GNJ = 'GJ';
-    const CAW = 'CW';
-    const CAR = 'CR';
-
     public function __construct()
     {
         parent::__construct();
