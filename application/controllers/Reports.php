@@ -24,6 +24,8 @@ class Reports extends CI_Controller
     const PAY = 'PA';
     const OVB = 'OB';
     const GNJ = 'GJ';
+    const CAW = 'CW';
+    const CAR = 'CR';
 
     public function __construct()
     {
@@ -187,7 +189,7 @@ class Reports extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_reports->get_treasury_report(self::REC, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_reports->get_entry_report(self::REC, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -213,7 +215,7 @@ class Reports extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_reports->get_treasury_report(self::PAY, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_reports->get_entry_report(self::PAY, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -239,7 +241,7 @@ class Reports extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_reports->get_treasury_report(self::OVB, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_reports->get_entry_report(self::OVB, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -265,7 +267,7 @@ class Reports extends CI_Controller
         $docno = $this->input->get('docno');
         $branch = $this->input->get('branch');
         $transdate = $this->input->get('transdate');
-        $report = $this->Mdl_corp_reports->get_treasury_report(self::GNJ, $docno, $branch, $transdate);
+        $report = $this->Mdl_corp_reports->get_entry_report(self::GNJ, $docno, $branch, $transdate);
 
         $data = [
             'title' => 'Reports',
@@ -278,6 +280,97 @@ class Reports extends CI_Controller
         ];
         
         $this->load->view('entry/reports/v_reps_general_journal', $data);
+    }
+
+    //* CASH WITHDRAW
+    public function view_reps_cash_withdraw(){
+        $validation = validate($this->input->get());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_reports->get_ca_report(self::CAW, $docno, $branch, $transdate);
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
+            'report' => $report
+        ];
+        
+        $this->load->view('entry/cashadvance/v_reps_cash_withdraw', $data);
+    }
+
+    //* CASH RECEIPT
+    public function view_reps_cash_receipt(){
+        $validation = validate($this->input->get());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $docno = $this->input->get('docno');
+        $branch = $this->input->get('branch');
+        $transdate = $this->input->get('transdate');
+        $report = $this->Mdl_corp_reports->get_ca_report(self::CAR, $docno, $branch, $transdate);
+
+        $data = [
+            'title' => 'Reports',
+            'h1' => '',
+            'h2' => '',
+            'h3' => '',
+
+            'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
+            'report' => $report
+        ];
+        
+        $this->load->view('entry/cashadvance/v_reps_cash_receipt', $data);
+    }
+
+    //* CASH OUTSTANDING
+    public function ca_outstanding_report(){
+        $data = [
+            'title' => 'Cash Advance Outstanding Report',
+            'h1' => 'Cash',
+            'h2' => 'Advance',
+            'h3' => 'Outstanding',
+            'h4' => 'Report'
+        ];
+        
+        $this->load->view('entry/cashadvance/v_ca_outstanding_report', $data);
+    }
+
+    //* CASH TRANSACTION DETAILS
+    public function ca_transaction_details(){
+        $data = [
+            'title' => 'Cash Advance Transaction Details',
+            'h1' => 'Cash',
+            'h2' => 'Advance',
+            'h3' => 'Transaction',
+            'h4' => 'Details'
+        ];
+        
+        $this->load->view('entry/cashadvance/v_ca_transaction_details', $data);
+    }
+
+    //* CASH REQUEST
+    public function ca_request_report(){
+        $data = [
+            'title' => 'Cash Advance Request Report',
+            'h1' => 'Cash',
+            'h2' => 'Advance',
+            'h3' => 'Request',
+            'h4' => 'Report'
+        ];
+        
+        $this->load->view('entry/cashadvance/v_ca_request_report', $data);
     }
 
     //* INCOME STATEMENT

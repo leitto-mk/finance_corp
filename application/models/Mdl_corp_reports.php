@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Mdl_corp_reports extends CI_Model {
 
     //* ENTRY REPORT
-    function get_treasury_report($type, $docno, $branch, $transdate){
+    function get_entry_report($type, $docno, $branch, $transdate){
         $query =  $this->db->query(
             "SELECT 
                 trans.ItemNo,
@@ -32,6 +32,51 @@ class Mdl_corp_reports extends CI_Model {
                 ON trans.AccNo = acc.Acc_No
              LEFT JOIN tbl_fa_treasury_mas AS mas
                 USING(DocNo)
+             WHERE trans.Docno = '$docno'
+             AND trans.Branch = '$branch'
+             AND trans.TransDate = '$transdate'
+             AND trans.TransType = '$type'
+             ORDER BY ItemNo ASC"
+        )->result_array();
+
+        return $query;
+    }
+
+    //* CA REPORT
+    function get_ca_report($type, $docno, $branch, $transdate){
+        $query =  $this->db->query(
+            "SELECT 
+                mas.IDNumber,
+                emp.FullName,
+                emp.JobTitleDes AS Position,
+                (SELECT Balance 
+                 FROM tbl_fa_transaction
+                 WHERE IDNumber = mas.IDNumber
+                 ORDER BY TransDate DESC, CtrlNo DESC
+                 LIMIT 1) AS Outstanding,
+                trans.ItemNo,
+                trans.DocNo,
+                trans.RefNo,
+                trans.AccNo,
+                trans.JournalGroup,
+                mas.Remarks AS DescMaster,
+                trans.TransDate,
+                trans.Giro,
+                trans.Remarks AS DescDetail,
+                trans.Department,
+                trans.CostCenter,
+                acc.Acc_Name,
+                trans.Currency,
+                trans.Rate,
+                trans.Unit,
+                trans.Amount
+             FROM tbl_fa_transaction AS trans
+             LEFT JOIN tbl_fa_account_no AS acc
+                ON trans.AccNo = acc.Acc_No
+             LEFT JOIN tbl_fa_treasury_mas AS mas
+                USING(DocNo)
+             LEFT JOIN tbl_fa_hr_append AS emp
+                ON mas.IDNumber = emp.IDNumber
              WHERE trans.Docno = '$docno'
              AND trans.Branch = '$branch'
              AND trans.TransDate = '$transdate'
