@@ -77,7 +77,7 @@
                         </div>
                     </div> -->
                     <div class="page-logo" style="margin-left: -10px; margin-top: -10px">
-                        <a href="<?= base_url('FinanceCorp') ?>">
+                        <a href="<?= base_url('Entry') ?>">
                             <h2 class="font-dark bold"><?= $h1; ?><font color="white">_</font><?= $h2; ?><font color="white">_</font><?= $h3; ?></h2>
                         </a>
                     </div>

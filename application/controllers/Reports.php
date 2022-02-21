@@ -67,7 +67,7 @@ class Reports extends CI_Controller
             'script' => 'generalLedger'
         ];
         
-        $this->load->view('finance_corp/reports/v_gl_branch', $data);
+        $this->load->view('entry/reports/v_gl_branch', $data);
     }
 
     public function view_gl_branch_report(){
@@ -96,7 +96,7 @@ class Reports extends CI_Controller
             'ledger' => $this->Mdl_corp_branch->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish)
         ];
         
-        $this->load->view('finance_corp/reports/v_reps_gl', $data);
+        $this->load->view('entry/reports/v_reps_gl', $data);
     }
 
     public function ajax_get_general_ledger(){
@@ -160,7 +160,7 @@ class Reports extends CI_Controller
             'script' => 'balanceSheet'
         ];
         
-        $this->load->view('finance_corp/reports/v_reps_balance_sheet', $data);
+        $this->load->view('entry/reports/v_reps_balance_sheet', $data);
     }
 
     //* TRIAL BALANCE
@@ -173,7 +173,7 @@ class Reports extends CI_Controller
             'h3' => '',
         ];
 
-        $this->load->view('finance_corp/reports/v_reps_trial_balance', $data);
+        $this->load->view('entry/reports/v_reps_trial_balance', $data);
     }
 
     //* RECEIPT VOUCHER
@@ -199,7 +199,7 @@ class Reports extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('finance_corp/reports/v_reps_receipt_voucher', $data);
+        $this->load->view('entry/reports/v_reps_receipt_voucher', $data);
     }
 
     //* PAYMENT VOUCHER
@@ -225,7 +225,7 @@ class Reports extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('finance_corp/reports/v_reps_payment_voucher', $data);
+        $this->load->view('entry/reports/v_reps_payment_voucher', $data);
     }
 
     //* OVERBOOK
@@ -251,7 +251,7 @@ class Reports extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('finance_corp/reports/v_reps_overbook_voucher', $data);
+        $this->load->view('entry/reports/v_reps_overbook_voucher', $data);
     }
 
     //* GENERAL JOURNAL
@@ -277,7 +277,7 @@ class Reports extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('finance_corp/reports/v_reps_general_journal', $data);
+        $this->load->view('entry/reports/v_reps_general_journal', $data);
     }
 
     //* INCOME STATEMENT
@@ -310,7 +310,7 @@ class Reports extends CI_Controller
             'script' => 'incomeStatement'
         ];
 
-        $this->load->view('finance_corp/reports/v_reps_income_statement', $data);
+        $this->load->view('entry/reports/v_reps_income_statement', $data);
     }
 
     //* INCOME STATEMENT COLUMNAR
@@ -344,7 +344,7 @@ class Reports extends CI_Controller
             'script' => 'incomeStatementColumnar'
         ];
 
-        $this->load->view('finance_corp/reports/v_reps_income_statement_columnar', $data);
+        $this->load->view('entry/reports/v_reps_income_statement_columnar', $data);
     }
  
     //* JOURNAL TRANSACTION
@@ -358,6 +358,6 @@ class Reports extends CI_Controller
             'h4' => '',
         ];
 
-        $this->load->view('finance_corp/reports/v_reps_journal_transaction', $data);
+        $this->load->view('entry/reports/v_reps_journal_transaction', $data);
     }
 }

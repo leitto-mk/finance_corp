@@ -1,4 +1,4 @@
-<?php $this->load->view('header_footer/finance_corp/header_main'); ?>
+<?php $this->load->view('header_footer/entry/header_main'); ?>
 <style type="text/css">
     .td-color_raiseddate {
         color: #3598dc;
@@ -442,4 +442,4 @@
         document.body.style.zoom = 0.9;
     }
 </script>
-<?php $this->load->view('header_footer/finance_corp/footer_main'); ?>
+<?php $this->load->view('header_footer/entry/footer_main'); ?>

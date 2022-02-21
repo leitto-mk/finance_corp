@@ -65,7 +65,7 @@ class Acc_rec extends CI_Controller
             'h3' => '',
         ];
         
-        $this->load->view('finance_corp/receivable/v_acc_rec_corp', $data);
+        $this->load->view('entry/receivable/v_acc_rec_corp', $data);
     }
 
     public function view_receipt_payment(){
@@ -77,7 +77,7 @@ class Acc_rec extends CI_Controller
             'h4' => ''
         ];
         
-        $this->load->view('finance_corp/receivable/v_receipt_payment', $data);
+        $this->load->view('entry/receivable/v_receipt_payment', $data);
     }
 
     public function add_receipt_payment(){
@@ -87,7 +87,7 @@ class Acc_rec extends CI_Controller
             'script' => 'add/fincorp_add_receipt'
         ];
         
-        $this->load->view('finance_corp/receivable/v_add_receipt_payment', $data);
+        $this->load->view('entry/receivable/v_add_receipt_payment', $data);
     }
 
     public function ar_aging_summary(){
@@ -99,7 +99,7 @@ class Acc_rec extends CI_Controller
             'h4' => 'Summary'
         ];
         
-        $this->load->view('finance_corp/receivable/v_ar_aging_sum', $data);
+        $this->load->view('entry/receivable/v_ar_aging_sum', $data);
     }
 
     public function ar_aging_detail(){
@@ -111,7 +111,7 @@ class Acc_rec extends CI_Controller
             'h4' => 'Details'
         ];
         
-        $this->load->view('finance_corp/receivable/v_ar_aging_det', $data);
+        $this->load->view('entry/receivable/v_ar_aging_det', $data);
     }
 
     public function ar_aging(){
@@ -123,7 +123,7 @@ class Acc_rec extends CI_Controller
             'h4' => ''
         ];
         
-        $this->load->view('finance_corp/receivable/v_ar_aging', $data);
+        $this->load->view('entry/receivable/v_ar_aging', $data);
     }
 
 }

@@ -95,7 +95,7 @@
                             </li>
                             <!-- END SIDEBAR TOGGLER BUTTON -->
                             <li class="nav-head nav-item start" style="margin-top: -20px">
-                                <a href="<?= base_url('FinanceCorp'); ?>" class="nav-link nav-toggle" style="background-color: #67809fcc">
+                                <a href="<?= base_url('Entry'); ?>" class="nav-link nav-toggle" style="background-color: #67809fcc">
                                     <i class="icon-share font-white"></i>
                                     <span class="caption-subject font-white uppercase title bold"> Dashboard </span>
                                 </a>
@@ -108,25 +108,25 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_receipt_voucher') ?>" class="nav-link">
+                                        <a href="<?= site_url('Entry/view_receipt_voucher') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Receipt Voucher</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_payment_voucher') ?>" class="nav-link">
+                                        <a href="<?= site_url('Entry/view_payment_voucher') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Payment Voucher</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_overbook_voucher') ?>" class="nav-link">
+                                        <a href="<?= site_url('Entry/view_overbook_voucher') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Overbook Voucher</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_general_journal') ?>" class="nav-link">
+                                        <a href="<?= site_url('Entry/view_general_journal') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;General Journal</span>
                                         </a>
@@ -288,12 +288,12 @@
                                         </a>
                                     </li>
                                     <!-- <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_trial_balance') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= site_url('Entry/view_trial_balance') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Trial Balance</span>
                                         </a>
                                     </li> -->
                                     <!-- <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_gl_stockcard') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= site_url('Entry/view_gl_stockcard') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Stockcard</span>
                                         </a>
                                     </li> -->

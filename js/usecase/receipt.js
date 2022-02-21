@@ -103,7 +103,7 @@ const rec = {
                         var location = window.location.origin
 
                         return `
-                        <a href="${location}/FinanceCorp/edit_receipt?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                        <a href="${location}/Entry/edit_receipt?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                 <i class="fa fa-edit"> </i>
                             </a>
                             <a href="${location}/Reports/view_reps_receipt_voucher?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
@@ -421,7 +421,7 @@ const rec = {
                         $('input, textarea').prop('readonly', true)
                         $('select').prop('disabled', true)
 
-                        $('#new_transaction').prop('href', window.location.origin + '/FinanceCorp/add_receipt_voucher')
+                        $('#new_transaction').prop('href', window.location.origin + '/Entry/add_receipt_voucher')
                         $('#new_transaction').css('visibility', 'visible')
                         
                         $('#print_transaction').prop('href', window.location.origin + '/Reports/view_reps_receipt_voucher' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
