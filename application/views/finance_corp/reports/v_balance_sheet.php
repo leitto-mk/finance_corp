@@ -91,7 +91,7 @@
                                         </button>
                                     </span> -->
                                     <span class="input-group-btn">
-                                        <a id="print_report" href="<?php echo site_url('FinanceCorp/view_reps_balance_sheet') ?>" target="_blank" class="btn btn-xs btn green hidden-print pull-right" style="margin-left: 5px">
+                                        <a id="print_report" href="<?= base_url('Reports/view_reps_balance_sheet') ?>" target="_blank" class="btn btn-xs btn green hidden-print pull-right" style="margin-left: 5px">
                                             <i class="fa fa-plus"></i>&nbsp;Print</i>
                                         </a>
                                         <a onclick="window.close();" class="btn btn-xs btn red hidden-print pull-right"><i class="fa fa-close"></i> Close</a>

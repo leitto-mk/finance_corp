@@ -95,7 +95,7 @@
                             </li>
                             <!-- END SIDEBAR TOGGLER BUTTON -->
                             <li class="nav-head nav-item start" style="margin-top: -20px">
-                                <a href="<?php echo site_url('FinanceCorp'); ?>" class="nav-link nav-toggle" style="background-color: #67809fcc">
+                                <a href="<?= base_url('FinanceCorp'); ?>" class="nav-link nav-toggle" style="background-color: #67809fcc">
                                     <i class="icon-share font-white"></i>
                                     <span class="caption-subject font-white uppercase title bold"> Dashboard </span>
                                 </a>
@@ -166,7 +166,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('Acc_rec/ar_aging') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Acc_rec/ar_aging') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Aging</span>
                                         </a>
                                     </li>
@@ -190,7 +190,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('Acc_pay/ap_aging') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Acc_pay/ap_aging') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Aging</span>
                                         </a>
                                     </li>
@@ -204,13 +204,13 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('Acc_pay/index2') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Acc_pay/index2') ?>" target="_blank" class="nav-link">
                                             <i class="icon-bar-chart"></i>
                                             <span class="title">&bull;&nbsp;&nbsp;Accounts Payable</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('Acc_rec/index2') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Acc_rec/index2') ?>" target="_blank" class="nav-link">
                                             <i class="icon-bar-chart"></i>
                                             <span class="title">&bull;&nbsp;&nbsp;Accounts Receivable</span>
                                         </a>
@@ -236,7 +236,7 @@
                                 </a>
                             </li>
                             <li class="nav-head nav-item active">
-                                <a href="<?php echo site_url('Cash_adv') ?>" target="_blank" class="nav-link nav-toggle bg-blue-ebonyclay">
+                                <a href="<?= base_url('Cash_adv') ?>" target="_blank" class="nav-link nav-toggle bg-blue-ebonyclay">
                                     <i class="fa fa-edit font-green"></i>
                                     <span class="title uppercase">Cash Advance</span>
                                 </a>
@@ -254,33 +254,27 @@
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <!-- <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_gl') ?>" target="_blank" class="nav-link">
-                                            <i class="icon-bar-chart"></i>
-                                            <span class="title">&bull;&nbsp;&nbsp;Generala Ledger All</span>
+                                <li class="nav-item start">
+                                        <a href="<?= site_url('Reports/view_gl_branch') ?>" target="_blank" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;General Ledger</span>
                                         </a>
-                                    </li> -->
+                                    </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_balance_sheet') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= site_url('Reports/view_balance_sheet') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Balance Sheet</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_income_statement') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= site_url('Reports/view_income_statement') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Income Statement</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_income_statement_columnar') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= site_url('Reports/view_income_statement_columnar') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;IS Columnar</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item start">
-                                        <a href="<?= site_url('FinanceCorp/view_gl_branch') ?>" target="_blank" class="nav-link">
-                                            <span class="title">&bull;&nbsp;&nbsp;General Ledger</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
@@ -289,7 +283,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('FinanceCorp/view_report_journal_transaction') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Reports/view_report_journal_transaction') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Journal Transaction</span>
                                         </a>
                                     </li>
@@ -306,7 +300,7 @@
                                 </ul>
                             </li>
                             <li class="nav-head nav-item active">
-                                <a href="<?php echo site_url('Cmaster') ?>" target="_blank" class="nav-link nav-toggle bg-blue-ebonyclay">
+                                <a href="<?= base_url('Cmaster') ?>" target="_blank" class="nav-link nav-toggle bg-blue-ebonyclay">
                                     <i class="fa fa-edit font-green"></i>
                                     <span class="title uppercase">Master</span>
                                 </a>

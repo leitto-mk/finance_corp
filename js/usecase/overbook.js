@@ -106,7 +106,7 @@ const ob = {
                             <a href="${location}/FinanceCorp/edit_overbook?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                 <i class="fa fa-edit"> </i>
                             </a>
-                            <a href="${location}/FinanceCorp/view_reps_overbook_voucher?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                            <a href="${location}/Reports/view_reps_overbook_voucher?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                                 <i class="fa fa-print"> </i>
                             </a>
                             <a href="javascript:;" name="delete" data-docno="${response.DocNo}" data-branch="${response.Branch}" data-transdate="${response.TransDate}" type="button" class="btn btn-xs red">
@@ -404,7 +404,7 @@ const ob = {
                         $('#new_transaction').prop('href', window.location.origin + '/FinanceCorp/add_overbook_voucher')
                         $('#new_transaction').css('visibility', 'visible')
                         
-                        $('#print_transaction').prop('href', window.location.origin + '/FinanceCorp/view_reps_overbook' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').prop('href', window.location.origin + '/Reports/view_reps_overbook' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
                         $('#print_transaction').css('visibility', 'visible')
                         
                         $('#btn_submit').css('visibility', 'hidden')
