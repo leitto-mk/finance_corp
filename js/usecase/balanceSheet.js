@@ -16,9 +16,9 @@ const bal = {
 
     eventChangeOption: () => {
         $(document).on('change','#branch, #year, #month',function(){
-            var branch = $('#branch').val()
-            var year = $('#year').val()
-            var month = $('#month').val()
+            let branch = $('#branch').val()
+            let year = $('#year').val()
+            let month = $('#month').val()
 
             //Empty before re-fill the address
             $('#submit_filter').prop('href',null)
@@ -33,9 +33,9 @@ const bal = {
 
     eventSubmitFilter: () => {
         $('#submit_filter').click(function(e){
-            branch = $('#branch').val()
-            year = $('#year').val()
-            month = $('#month').val()
+            let branch = $('#branch').val()
+            let year = $('#year').val()
+            let month = $('#month').val()
 
             if (branch == "" || year == "" || month == "") {
                 alert('Please Select All Options')
