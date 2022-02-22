@@ -26,7 +26,7 @@
                         <div class="portlet light">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <span class="caption-subject bold uppercase font-dark"><i class="fa fa-edit"></i> Master Transaction </span>
+                                    <span class="caption-subject bold uppercase font-dark" style="margin-left: -10px"><i class="fa fa-edit"></i> Master Transaction </span>
                                 </div>
                                 <div class="actions">
                                     <div class="btn-group btn-group-devided">
