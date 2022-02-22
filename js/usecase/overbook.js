@@ -404,7 +404,7 @@ const ob = {
                         $('#new_transaction').prop('href', window.location.origin + '/Entry/add_overbook_voucher')
                         $('#new_transaction').css('visibility', 'visible')
                         
-                        $('#print_transaction').prop('href', window.location.origin + '/Entry/view_reps_overbook' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').prop('href', window.location.origin + '/Entry/view_reps_overbook_voucher' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
                         $('#print_transaction').css('visibility', 'visible')
                         
                         $('#btn_submit').css('visibility', 'hidden')

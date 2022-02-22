@@ -3,6 +3,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_cash_advance extends CI_Model
 {
+    function get_oustanding_bal(){
+        $query = $this->db->query(
+            "SELECT
+                dept.DeptCode,
+                dept.DeptDes,
+                emp.FullName,
+                emp.JobTitleDes,
+                emp.Supervisor,
+                COALESCE(trans.Balance, 0) AS Balance
+             FROM abase_03_dept AS dept
+             RIGHT JOIN tbl_fa_hr_append AS emp
+                USING (DeptCode)
+             LEFT JOIN (SELECT IDNumber, Balance
+                            FROM tbl_fa_transaction 
+                            ORDER BY CtrlNo DESC LIMIT 1) AS trans
+                ON trans.IDNumber = emp.IDNumber
+             ORDER BY dept.DeptDes ASC, emp.FullName ASC"
+        );
+
+        if($this->db->error()['code'] != 0){
+            return [null, $this->db->error()['message']];
+        }
+
+        return [$query->result_array(), null];
+    }
+
     function get_ranged_ca($type, $datatable){
         extract($datatable);
 

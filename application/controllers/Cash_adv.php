@@ -41,11 +41,17 @@ class Cash_adv extends CI_Controller
 
     //* CASH ADVANCE DASHBOARD
     public function index(){
+
+        [$outstanding, $error] = $this->Mdl_corp_cash_advance->get_oustanding_bal();
+
         $data = [
             'title' => 'Cash Advance',
             'h1' => 'Cash',
             'h2' => 'Advance',
             'h3' => '',
+
+            'ca_request' => null,
+            'cur_oustanding_bal' => ($error == null ? $outstanding : ''),
         ];
         
         $this->load->view('financecorp/cashadvance/v_index_ca', $data);
