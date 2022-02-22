@@ -57,22 +57,22 @@
                                                 <tr>
                                                     <td width="10%" style="border: none;"><h6 class="bold">Withdrawer</h6></td>
                                                     <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                    <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['FullName'] ?></h6></td>
+                                                    <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['FullName'] ?></h6></td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="10%" style="border: none;"><h6 class="bold"></h6></td>
+                                                    <td width="10%" style="border: none;"><h6 class="bold">Job Title</h6></td>
                                                     <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                    <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['Position'] ?></h6></td>
+                                                    <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['Position'] ?></h6></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="10%" style="border: none;"><h6 class="bold">Outstanding Amount</h6></td>
                                                     <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                    <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['Outstanding'] ?></h6></td>
+                                                    <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['Outstanding'] ?></h6></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="10%" style="border: none;"><h6 class="bold">Description</h6></td>
                                                     <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                    <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['DescMaster'] ?></h6></td>
+                                                    <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['DescMaster'] ?></h6></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -107,7 +107,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -15px">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover">
+                                            <table class="table table-bordered table-stripped table-condensed">
                                                 <thead>
                                                     <tr class="font-dark bg-default">
                                                         <th width="3%"><h5 class="text-center bold">No</h5></th>
