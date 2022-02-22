@@ -88,7 +88,7 @@
                             $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
                             $month = (isset($_GET['month']) ? date('F', mktime(0, 0, 0, (int)$_GET['month'], 10)) : date('F'));
                         ?>
-                        <font size="4" class="font-dark sbold">January 2021 - December 2021</font><br>
+                        <font size="4" class="font-dark sbold">Jan-22 - Dec-22</font><br>
                     </div>
                 </div>
                 <br>
