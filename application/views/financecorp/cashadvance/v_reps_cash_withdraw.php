@@ -52,7 +52,7 @@
                             <div id="detail_preview_po" class="portlet-body">
                                 <div class="row sbold">
                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        <table class="table">
+                                        <table class="table table-stripped table-condensed">
                                             <tbody>
                                                 <tr>
                                                     <td width="10%" style="border: none;"><h6 class="bold">Withdrawer</h6></td>
@@ -78,7 +78,7 @@
                                         </table>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                        <table class="table">
+                                        <table class="table table-stripped table-condensed">
                                             <tbody>
                                                 <tr>
                                                     <td width="10%" style="border: none;"><h6 class="bold">Document No</h6></td>
