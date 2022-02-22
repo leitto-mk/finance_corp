@@ -69,6 +69,8 @@ const gl = {
                     })
                 },
                 success: response => {
+                    helper.unblockUI()
+
                     if(response.success == true){
                         let table = $('#table_gl tbody')
                     
@@ -87,15 +89,11 @@ const gl = {
                         $('#label_tbl_date_start').html(date_start)
                         $('#label_tbl_date_finish').html(date_finish)
 
-                        let cur_branch = ''
-                        let cur_accno = response.result[0].AccNo
                         let subtotal_credit = 0
                         let subtotal_debit = 0
-
+                        
                         for(let i = 0; i < response.result.length; i++){
-                            if(response.result[i].Branch !== cur_branch){
-                                cur_branch = response.result[i].Branch
-                            }
+                            let cur_accno = response.result[i].AccNo
 
                             if(response.result[i].AccNo !== cur_accno){
                                 table.append(`
@@ -130,42 +128,23 @@ const gl = {
                             subtotal_debit += +response.result[i].Debit;
                             subtotal_credit += +response.result[i].Credit;
                             
-                            if(branch == 'All'){
-                                if(typeof response[i+1] !== 'undefined' && response[i+1].Branch !== cur_branch || i == (response.length-1)){
-                                    let subtotal_balance = subtotal_debit - subtotal_credit;
-        
-                                    table.append(`
-                                        <tr class="font-dark sbold">
-                                            <td class="bold" align="right" colspan="8">Beginning Balance</td>
-                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response.result[i].beg_balance)}</td>
-                                        </tr>
-                                        <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
-                                            <td align="right" colspan="8">Total :</td>                                    
-                                            <td align="right">${Intl.NumberFormat('id').format(subtotal_debit)}</td>
-                                            <td align="right">${Intl.NumberFormat('id').format(subtotal_credit)}</td>
-                                            <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('id').format(subtotal_balance)}</td>
-                                        </tr>`
-                                    )
-                                }
-                            }else{
-                                if(typeof response[i+1] !== 'undefined' && response[i+1].Branch !== cur_branch || i == (response.length-1)){
-                                    let subtotal_balance = subtotal_debit + subtotal_credit;
-        
-                                    table.append(`
-                                        <tr class="font-dark sbold">
-                                            <td class="bold" align="right" colspan="8">Beginning Balance</td>
-                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response.result[i].BalanceBranch)}</td>
-                                        </tr>
-                                        <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
-                                            <td align="right" colspan="8">Total :</td>                                    
-                                            <td align="right">${Intl.NumberFormat('id').format(subtotal_debit)}</td>
-                                            <td align="right">${Intl.NumberFormat('id').format(subtotal_credit)}</td>
-                                            <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('id').format(subtotal_balance)}</td>
-                                        </tr>`
-                                    )
-        
-                                    subtotal_credit = subtotal_debit = subtotal_balance = 0
-                                }
+                            if(typeof response.result[i+1].AccNo == 'undefined' || response.result[i+1].AccNo !== cur_accno || i == (response.result.length-1)){
+                                let subtotal_balance = subtotal_debit + subtotal_credit;
+    
+                                table.append(`
+                                    <tr class="font-dark sbold">
+                                        <td class="bold" align="right" colspan="8">Balance</td>
+                                        <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response.result[i].BalanceBranch)}</td>
+                                    </tr>
+                                    <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
+                                        <td align="right" colspan="8">Total :</td>                                    
+                                        <td align="right">${Intl.NumberFormat('id').format(subtotal_debit)}</td>
+                                        <td align="right">${Intl.NumberFormat('id').format(subtotal_credit)}</td>
+                                        <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('id').format(subtotal_balance)}</td>
+                                    </tr>`
+                                )
+    
+                                subtotal_credit = subtotal_debit = subtotal_balance = 0
                             }
                         }
                     }else{
@@ -177,6 +156,8 @@ const gl = {
                     }
                 },
                 error: response => {
+                    helper.unblockUI()
+
                     Swal.fire({
                             'type': 'error',
                             'title': 'ABORTED',
@@ -228,6 +209,8 @@ const gl = {
                     })
                 },
                 success: response => {
+                    helper.unblockUI()
+
                     if(response.success){
                         Swal.fire({
                             'type': 'success',
@@ -243,6 +226,8 @@ const gl = {
                     }
                 },
                 error: response => {
+                    helper.unblockUI()
+
                     Swal.fire({
                             'type': 'error',
                             'title': 'ABORTED',
