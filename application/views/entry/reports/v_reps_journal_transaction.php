@@ -23,10 +23,10 @@
                                                 <th width="5%"></th>
                                                 <th class="text-center" width="15%">Branch</th>
                                                 <th class="text-center" width="15%">Type</th>
-                                                <th class="text-center" width="15%">Start Date</th>
-                                                <th class="text-center" width="20%">End Date</th>
                                                 <th class="text-center" width="15%">Doc No Start</th>
                                                 <th class="text-center" width="15%">Doc No End</th>
+                                                <th class="text-center" width="15%">Start Date</th>
+                                                <th class="text-center" width="20%">End Date</th>
                                                 <th class="text-center" width="5%">Action</th>        
                                             </tr>
                                         </thead>
@@ -40,9 +40,11 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
+                                                            <select id="branch" name="branch" class="form-control" required>
+                                                                <option value="">-- Select Branch -- </option>
+                                                                <?php foreach($branch as $branch) : ?>
+                                                                    <option value="<?= $branch->BranchCode?>">[<?= $branch->BranchCode?>] <?= $branch->BranchName ?></option>
+                                                                <?php endforeach; ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -50,9 +52,38 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
+                                                            <select id="transtype" name="transtype" class="form-control" required>
+                                                                <option value="">-- Select Type -- </option>
+                                                                <option value="RE">Receipt</option>
+                                                                <option value="PA">Payment</option>
+                                                                <option value="OB">Overbook</option>
+                                                                <option value="GJ">General Journal</option>
+                                                                <option value="CAW">Cash Withdraw</option>
+                                                                <option value="CAR">Cash Receipt</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <select class="form-control" name="accno_start" id="accno_start">
+                                                                <option value="">-- Choose --</option>
+                                                                <?php foreach($account_no as $accno) : ?>
+                                                                    <option value="<?= $accno->Acc_No?>">[<?= $accno->Acc_No?>] <?= $accno->Acc_Name?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <select class="form-control" name="accno_finish" id="accno_finish">
+                                                                <option value="">-- Choose --</option>
+                                                                <?php foreach($account_no as $accno) : ?>
+                                                                    <option value="<?= $accno->Acc_No?>">[<?= $accno->Acc_No?>] <?= $accno->Acc_Name?></option>
+                                                                <?php endforeach; ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -71,27 +102,6 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
@@ -115,16 +125,19 @@
                             <div>
                                 <font size="6">Company Name</font><br>
                                 <font size="4" class="font-dark sbold uppercase">Journal Report</font><br>
-                                <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Period : 01-Jan-2021 - 31-Jan-2021</font>
+                                <!-- <font size="3" class="font-dark sbold">
+                                    <i class="fa fa-calendar"></i> 
+                                    <span id="period">Periode : - </span>
+                                </font> -->
                             </div>
                         </div>
                         <div class="portlet-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-stripped table-condensed">
+                                <table id="table_jtr" class="table table-bordered table-stripped table-condensed">
                                     <thead>
                                         <tr class="bg-blue-dark font-white">
                                             <th class="text-center" width="7%"> Trans Date </th>
-                                            <th class="text-center" width="5%"> Doc No </th>
+                                            <th class="text-center" width="8%"> Doc No </th>
                                             <th class="text-center" width="5%"> Type </th>
                                             <th class="text-center" width="12%"> Description </th>
                                             <th class="text-center" width="8%"> Dept </th>
@@ -134,118 +147,13 @@
                                             <th class="text-center" width="5%"> Cry </th>
                                             <th class="text-center" width="5%"> Rate </th>
                                             <th class="text-center" width="5%"> Unit </th>
-                                            <th class="text-center" width="10%"> Debet </th>
+                                            <th class="text-center" width="10%"> Debit </th>
                                             <th class="text-center" width="10%"> Credit </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="font-dark sbold">
-                                            <td align="center">1-Jan-2021</td>
-                                            <td align="center">12345</td>                                    
-                                            <td align="center">Receipt</td>
-                                            <td align="left">Cash</td>
-                                            <td align="left">AAA</td>
-                                            <td align="left">123</td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="center">IDR  </td>
-                                            <td align="center"></td>
-                                            <td align="center"></td>
-                                            <td align="right">10,000.00</td>
-                                            <td align="right">-</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2-Jan-2021</td>
-                                            <td align="center">12345</td>                                    
-                                            <td align="center">Receipt</td>
-                                            <td align="left">Penjualan Tunai Harian</td>
-                                            <td align="left">AAA</td>
-                                            <td align="left">123</td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="center">IDR  </td>
-                                            <td align="center"></td>
-                                            <td align="center"></td>
-                                            <td align="right">-</td>
-                                            <td align="right">10,000.00</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td colspan="11"></td>
-                                            <td align="right" style="border-top: solid 2px">10,000.00</td>
-                                            <td align="right" style="border-top: solid 2px">10,000.00</td>
-                                        </tr>
-
-
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1-Jan-2021</td>
-                                            <td align="center">12345</td>                                    
-                                            <td align="center">Receipt</td>
-                                            <td align="left">Cash</td>
-                                            <td align="left">AAA</td>
-                                            <td align="left">123</td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="center">IDR  </td>
-                                            <td align="center"></td>
-                                            <td align="center"></td>
-                                            <td align="right">20,000.00</td>
-                                            <td align="right">-</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2-Jan-2021</td>
-                                            <td align="center">12345</td>                                    
-                                            <td align="center">Receipt</td>
-                                            <td align="left">Penjualan Tunai Harian</td>
-                                            <td align="left">AAA</td>
-                                            <td align="left">123</td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="center">IDR  </td>
-                                            <td align="center"></td>
-                                            <td align="center"></td>
-                                            <td align="right">-</td>
-                                            <td align="right">20,000.00</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td colspan="11"></td>
-                                            <td align="right" style="border-top: solid 2px">20,000.00</td>
-                                            <td align="right" style="border-top: solid 2px">20,000.00</td>
-                                        </tr>
-
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1-Jan-2021</td>
-                                            <td align="center">12345</td>                                    
-                                            <td align="center">Receipt</td>
-                                            <td align="left">Penjualan Kredit</td>
-                                            <td align="left">AAA</td>
-                                            <td align="left">123</td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="center">IDR  </td>
-                                            <td align="center"></td>
-                                            <td align="center"></td>
-                                            <td align="right">5,000.00</td>
-                                            <td align="right">-</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2-Jan-2021</td>
-                                            <td align="center">12345</td>                                    
-                                            <td align="center">Receipt</td>
-                                            <td align="left">Penjualan Kredit Harian</td>
-                                            <td align="left">AAA</td>
-                                            <td align="left">123</td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="center">IDR  </td>
-                                            <td align="center"></td>
-                                            <td align="center"></td>
-                                            <td align="right">-</td>
-                                            <td align="right">5,000.00</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td colspan="11"></td>
-                                            <td align="right" style="border-top: solid 2px">5,000.00</td>
-                                            <td align="right" style="border-top: solid 2px">5,000.00</td>
+                                            <td align="center" colspan="13">-- Select Parameters --</td>
                                         </tr>
                                     </tbody>
                                 </table>

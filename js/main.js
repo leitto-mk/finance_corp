@@ -10,6 +10,7 @@ import gl from './usecase/generalLedger.js'
 import bal from './usecase/balanceSheet.js'
 import ics from  './usecase/incomeStatement.js'
 import icsc from  './usecase/incomeStatementColumnar.js'
+import jtr from './usecase/journalTransaction.js'
 
 /**
  * Load Script as Interface
@@ -167,6 +168,10 @@ const modules = {
         icsc.eventChangeOption()
         icsc.eventSubmitFilter()
     },
+
+    journalTransaction: () => {
+        jtr.eventPreviewFilter()
+    }
 };
 
 //Get Sript Name

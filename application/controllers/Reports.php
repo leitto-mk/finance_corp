@@ -243,8 +243,36 @@ class Reports extends CI_Controller
             'h2' => 'Journal',
             'h3' => 'Transaction',
             'h4' => '',
+
+            'branch' => $this->Mdl_corp_reports->get_branch(),
+            'account_no' => $this->Mdl_corp_reports->get_account_no(),
+
+            'script' => 'journalTransaction'
         ];
 
         $this->load->view('entry/reports/v_reps_journal_transaction', $data);
+    }
+
+    public function ajax_get_journal_transaction(){
+        $validation = validate($this->input->post());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $branch = $this->input->post('branch');
+        $transtype = $this->input->post('trans_type');
+        $accno_start = $this->input->post('accno_start');
+        $accno_finish = $this->input->post('accno_finish');
+        $date_start = $this->input->post('date_start');
+        $date_finish = $this->input->post('date_finish');
+
+        [$result, $error] = $this->Mdl_corp_reports->get_journal_transaction($branch, $transtype, $accno_start, $accno_finish, $date_start, $date_finish);
+
+        if($error){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
+        
+        return set_success_response($result);
     }
 }
