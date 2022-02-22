@@ -1551,7 +1551,7 @@
     </div>
 </div>
 <?php
-    $this->load->view('entry/master/v_modal_master_crud'); 
+    $this->load->view('financecorp/master/v_modal_master_crud'); 
     $this->load->view('header_footer/master/footer'); ?>
 <script type="text/javascript">
 window.onload = load_function;

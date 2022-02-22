@@ -1,4 +1,4 @@
-<?php $this->load->view('entry/receivable/header_rep_corp'); ?>
+<?php $this->load->view('financecorp/payable/header_rep_corp'); ?>
 <style type="text/css">
     tr:nth-child(even){
         background-color: #eef1f5;
@@ -113,7 +113,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: -5px">
                             <div>
                                 <font size="6">Company Name</font><br>
-                                <font size="4" class="font-dark sbold uppercase">Account Receivable Aging Summary</font><br>
+                                <font size="4" class="font-dark sbold uppercase">Account Payable Aging Summary</font><br>
                                 <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Date : 01-Jan-2021 - 01-Jan-2021</font>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
                                     <thead>
                                         <tr class="bg-blue-dark font-white">
                                             <th class="text-center" width="3%"> No </th>
-                                            <th class="text-center" width="10%"> Customer </th>
+                                            <th class="text-center" width="10%"> Supplier / Vendor </th>
                                             <th class="text-center" width="14%"> Outstanding </th>
                                             <th class="text-center" width="13%"> Current </th>
                                             <th class="text-center" width="15%"> 1-30 </th>
@@ -135,7 +135,7 @@
                                     <tbody>
                                         <tr class="font-white sbold">
                                             <td align="center">1</td>
-                                            <td align="center">Customer A</td>                                    
+                                            <td align="center">Supplier A</td>                                    
                                             <td align="right">1,100.000</td>
                                             <td align="right">500,000</td>
                                             <td align="right">500,000</td>
@@ -145,7 +145,7 @@
                                         </tr>
                                         <tr class="font-white sbold">
                                             <td align="center">2</td>
-                                            <td align="center">Customer B</td>                                    
+                                            <td align="center">Supplier B</td>                                    
                                             <td align="right">130,000</td>
                                             <td align="right">40,000</td>
                                             <td align="right">40,000</td>
@@ -155,7 +155,7 @@
                                         </tr>
                                         <tr class="font-white sbold">
                                             <td align="center">3</td>
-                                            <td align="center">Customer C</td>                                    
+                                            <td align="center">Supplier C</td>                                    
                                             <td align="right">1,750,000</td>
                                             <td align="right"></td>
                                             <td align="right"></td>
@@ -165,7 +165,7 @@
                                         </tr>
                                         <tr class="font-white sbold">
                                             <td align="center">4</td>
-                                            <td align="center">Customer D</td>                                    
+                                            <td align="center">Supplier D</td>                                    
                                             <td align="right">100,000</td>
                                             <td align="right"></td>
                                             <td align="right"></td>
@@ -175,7 +175,7 @@
                                         </tr>
                                         <tr class="font-white sbold">
                                             <td align="center">5</td>
-                                            <td align="center">Customer E</td>                                    
+                                            <td align="center">Supplier E</td>                                    
                                             <td align="right">300.000</td>
                                             <td align="right"></td>
                                             <td align="right"></td>
@@ -185,7 +185,7 @@
                                         </tr>
                                         <tr class="font-white sbold">
                                             <td align="center">6</td>
-                                            <td align="center">Customer F</td>                                    
+                                            <td align="center">Supplier F</td>                                    
                                             <td align="right">1,950,000</td>
                                             <td align="right"></td>
                                             <td align="right"></td>
@@ -228,4 +228,4 @@
         document.body.innerHTML = originalContents;
     }
 </script>
-<?php $this->load->view('entry/receivable/footer'); ?>
+<?php $this->load->view('financecorp/payable/footer'); ?>

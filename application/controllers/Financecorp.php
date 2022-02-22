@@ -11,10 +11,10 @@ class FinanceCorp extends CI_Controller {
     public function index(){
         $data['title'] = 'Dashboard';
         
-        $this->load->view('dashboard/v_home_2', $data);
+        $this->load->view('financecorp/dashboard/v_home_2', $data);
     }
 
     public function not_found(){
-        $this->load->view('dashboard/404');
+        $this->load->view('financecorp/dashboard/404');
     }
 }

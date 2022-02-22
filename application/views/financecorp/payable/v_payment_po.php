@@ -1,4 +1,4 @@
-<?php $this->load->view('entry/payable/header_corp'); ?>
+<?php $this->load->view('financecorp/payable/header_corp'); ?>
 <div class="main_content">
     <div class="row">
         <div class="col-md-12">
@@ -97,4 +97,4 @@
         document.body.style.zoom = 0.9;
     }
 </script>
-<?php $this->load->view('entry/payable/footer'); ?>
+<?php $this->load->view('financecorp/payable/footer'); ?>

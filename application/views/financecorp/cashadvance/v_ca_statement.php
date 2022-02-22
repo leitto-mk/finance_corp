@@ -1,4 +1,4 @@
-<?php $this->load->view('entry/cashadvance/header_st'); ?>
+<?php $this->load->view('financecorp/cashadvance/header_st'); ?>
 
 
 <style type="text/css">
@@ -194,4 +194,4 @@
         document.body.innerHTML = originalContents;
     }
 </script>
-<?php $this->load->view('entry/cashadvance/footer_st'); ?>
+<?php $this->load->view('financecorp/cashadvance/footer_st'); ?>

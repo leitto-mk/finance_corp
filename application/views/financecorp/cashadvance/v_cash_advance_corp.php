@@ -1,4 +1,4 @@
-<?php $this->load->view('entry/cashadvance/header_corp'); ?>
+<?php $this->load->view('financecorp/cashadvance/header_corp'); ?>
 <style type="text/css">
     .td-color_raiseddate {
         color: #3598dc;
@@ -363,4 +363,4 @@
         document.body.style.zoom = 0.9;
     }
 </script>
-<?php $this->load->view('entry/cashadvance/footer'); ?>
+<?php $this->load->view('financecorp/cashadvance/footer'); ?>

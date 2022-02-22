@@ -50,7 +50,7 @@ class Entry extends CI_Controller
             'script' => 'receipt'
         ];
         
-        $this->load->view('entry/treasuries/v_receipt_voucher', $data);
+        $this->load->view('financecorp/treasuries/v_receipt_voucher', $data);
     }
 
     public function ajax_get_ranged_receipt(){
@@ -94,7 +94,7 @@ class Entry extends CI_Controller
             'script' => 'receipt'
         ];
         
-        $this->load->view('entry/addview/v_add_receipt_voucher', $data);
+        $this->load->view('financecorp/addview/v_add_receipt_voucher', $data);
     }
 
     public function edit_receipt(){
@@ -136,7 +136,7 @@ class Entry extends CI_Controller
             'script' => 'receipt'
         ];
         
-        $this->load->view('entry/editview/v_add_receipt_voucher_edit', $data);
+        $this->load->view('financecorp/editview/v_add_receipt_voucher_edit', $data);
     }
 
     public function ajax_delete_receipt(){
@@ -396,7 +396,7 @@ class Entry extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('entry/reports/v_reps_receipt_voucher', $data);
+        $this->load->view('financecorp/reports/v_reps_receipt_voucher', $data);
     }
 
     //* PAYMENT VOUCHER
@@ -406,7 +406,7 @@ class Entry extends CI_Controller
             'script' => 'payment'
         ];
         
-        $this->load->view('entry/treasuries/v_payment_voucher', $data);
+        $this->load->view('financecorp/treasuries/v_payment_voucher', $data);
     }
 
     public function ajax_get_ranged_payment(){
@@ -451,7 +451,7 @@ class Entry extends CI_Controller
             'script' => 'payment'
         ];
 
-        $this->load->view('entry/addview/v_add_payment_voucher', $data);
+        $this->load->view('financecorp/addview/v_add_payment_voucher', $data);
     }
 
     public function edit_payment(){
@@ -493,7 +493,7 @@ class Entry extends CI_Controller
             'script' => 'payment'
         ];
         
-        $this->load->view('entry/editview/v_add_payment_voucher_edit', $data);
+        $this->load->view('financecorp/editview/v_add_payment_voucher_edit', $data);
     }
 
     public function ajax_delete_payment(){ 
@@ -753,7 +753,7 @@ class Entry extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('entry/reports/v_reps_payment_voucher', $data);
+        $this->load->view('financecorp/reports/v_reps_payment_voucher', $data);
     }
 
     //* OVERBOOK VOUCHER
@@ -763,7 +763,7 @@ class Entry extends CI_Controller
             'script' => 'overbook'
         ];
         
-        $this->load->view('entry/treasuries/v_overbook_voucher', $data);
+        $this->load->view('financecorp/treasuries/v_overbook_voucher', $data);
     }
 
     public function ajax_get_ranged_overbook(){
@@ -808,7 +808,7 @@ class Entry extends CI_Controller
             'script' => 'overbook'
         ];
         
-        $this->load->view('entry/addview/v_add_overbook_voucher', $data);
+        $this->load->view('financecorp/addview/v_add_overbook_voucher', $data);
     }
 
     public function edit_overbook(){
@@ -850,7 +850,7 @@ class Entry extends CI_Controller
             'script' => 'overbook'
         ];
         
-        $this->load->view('entry/editview/v_add_overbook_voucher_edit', $data);
+        $this->load->view('financecorp/editview/v_add_overbook_voucher_edit', $data);
     }
 
     public function ajax_delete_overbook(){
@@ -1111,7 +1111,7 @@ class Entry extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('entry/reports/v_reps_overbook_voucher', $data);
+        $this->load->view('financecorp/reports/v_reps_overbook_voucher', $data);
     }
 
     //* GENERAL JOURNAL
@@ -1121,7 +1121,7 @@ class Entry extends CI_Controller
             'script' => 'generalJournal'
         ];
         
-        $this->load->view('entry/treasuries/v_general_journal', $data);
+        $this->load->view('financecorp/treasuries/v_general_journal', $data);
     }
 
     public function ajax_get_ranged_general_journal(){
@@ -1165,7 +1165,7 @@ class Entry extends CI_Controller
             'script' => 'generalJournal'
         ];
         
-        $this->load->view('entry/addview/v_add_general_journal', $data);
+        $this->load->view('financecorp/addview/v_add_general_journal', $data);
     }
 
     public function edit_general_journal(){
@@ -1207,7 +1207,7 @@ class Entry extends CI_Controller
             'script' => 'generalJournal'
         ];
         
-        $this->load->view('entry/editview/v_add_general_journal_edit', $data);
+        $this->load->view('financecorp/editview/v_add_general_journal_edit', $data);
     }
 
     public function ajax_delete_general_journal(){
@@ -1434,6 +1434,6 @@ class Entry extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('entry/reports/v_reps_general_journal', $data);
+        $this->load->view('financecorp/reports/v_reps_general_journal', $data);
     }
 }

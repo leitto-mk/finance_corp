@@ -15,14 +15,14 @@ class Cmaster extends CI_Controller {
 		$data['check_company'] = $this->master->M_check_company();
 		$data['company'] = $this->master->M_get_company();
 		$data['storagecode'] = $this->master->get_last_storagecode();
-		$this->load->view('entry/master/v_master_dashboard', $data);
+		$this->load->view('financecorp/master/v_master_dashboard', $data);
 	}
 
 	function mt_mas_stock()
     {
     	$data['title'] = 'Master - Stockcode';
     	$data['h2'] = 'Master';
-        $this->load->view('entry/master/v_master_stockcode',$data);
+        $this->load->view('financecorp/master/v_master_stockcode',$data);
     }
 
 	//Master Abase Start

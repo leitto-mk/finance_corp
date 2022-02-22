@@ -58,7 +58,7 @@ class Reports extends CI_Controller
             'script' => 'generalLedger'
         ];
         
-        $this->load->view('entry/reports/v_gl_branch', $data);
+        $this->load->view('financecorp/reports/v_gl_branch', $data);
     }
 
     public function ajax_get_general_ledger(){
@@ -105,7 +105,7 @@ class Reports extends CI_Controller
             'ledger' => $this->Mdl_corp_reports->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish)
         ];
         
-        $this->load->view('entry/reports/v_reps_gl', $data);
+        $this->load->view('financecorp/reports/v_reps_gl', $data);
     }
 
     // ------------ Re-Calculate ------------ \\
@@ -151,7 +151,7 @@ class Reports extends CI_Controller
             'script' => 'balanceSheet'
         ];
         
-        $this->load->view('entry/reports/v_reps_balance_sheet', $data);
+        $this->load->view('financecorp/reports/v_reps_balance_sheet', $data);
     }
 
     //* TRIAL BALANCE
@@ -164,7 +164,7 @@ class Reports extends CI_Controller
             'h3' => '',
         ];
 
-        $this->load->view('entry/reports/v_reps_trial_balance', $data);
+        $this->load->view('financecorp/reports/v_reps_trial_balance', $data);
     }
 
     //* INCOME STATEMENT
@@ -197,7 +197,7 @@ class Reports extends CI_Controller
             'script' => 'incomeStatement'
         ];
 
-        $this->load->view('entry/reports/v_reps_income_statement', $data);
+        $this->load->view('financecorp/reports/v_reps_income_statement', $data);
     }
 
     //* INCOME STATEMENT COLUMNAR
@@ -231,7 +231,7 @@ class Reports extends CI_Controller
             'script' => 'incomeStatementColumnar'
         ];
 
-        $this->load->view('entry/reports/v_reps_income_statement_columnar', $data);
+        $this->load->view('financecorp/reports/v_reps_income_statement_columnar', $data);
     }
  
     //* JOURNAL TRANSACTION
@@ -250,7 +250,7 @@ class Reports extends CI_Controller
             'script' => 'journalTransaction'
         ];
 
-        $this->load->view('entry/reports/v_reps_journal_transaction', $data);
+        $this->load->view('financecorp/reports/v_reps_journal_transaction', $data);
     }
 
     public function ajax_get_journal_transaction(){

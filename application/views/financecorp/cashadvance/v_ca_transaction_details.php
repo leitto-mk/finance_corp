@@ -1,4 +1,4 @@
-<?php $this->load->view('entry/cashadvance/header_rep_corp'); ?>
+<?php $this->load->view('financecorp/cashadvance/header_rep_corp'); ?>
 <style type="text/css">
     tr:nth-child(even){
         background-color: #eef1f5;
@@ -265,4 +265,4 @@
         document.body.innerHTML = originalContents;
     }
 </script>
-<?php $this->load->view('entry/cashadvance/footer'); ?>
+<?php $this->load->view('financecorp/cashadvance/footer'); ?>

@@ -1,4 +1,4 @@
-<?php $this->load->view('entry/payable/header_rep_corp'); ?>
+<?php $this->load->view('financecorp/payable/header_rep_corp'); ?>
 <style type="text/css">
     tr:nth-child(even){
         background-color: #eef1f5;
@@ -180,4 +180,4 @@
         document.body.innerHTML = originalContents;
     }
 </script>
-<?php $this->load->view('entry/payable/footer'); ?>
+<?php $this->load->view('financecorp/payable/footer'); ?>

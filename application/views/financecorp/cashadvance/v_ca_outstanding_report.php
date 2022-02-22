@@ -1,4 +1,4 @@
-<?php $this->load->view('entry/payable/header_rep_corp'); ?>
+<?php $this->load->view('financecorp/cashadvance/header_rep_corp'); ?>
 <style type="text/css">
     tr:nth-child(even){
         background-color: #eef1f5;
@@ -113,7 +113,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: -5px">
                             <div>
                                 <font size="6">Company Name</font><br>
-                                <font size="4" class="font-dark sbold uppercase">Account Payable Aging Summary</font><br>
+                                <font size="4" class="font-dark sbold uppercase">Current Outstanding Balance</font><br>
                                 <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Date : 01-Jan-2021 - 01-Jan-2021</font>
                             </div>
                         </div>
@@ -122,86 +122,115 @@
                                 <table class="table table-bordered table-stripped table-condensed">
                                     <thead>
                                         <tr class="bg-blue-dark font-white">
-                                            <th class="text-center" width="3%"> No </th>
-                                            <th class="text-center" width="10%"> Supplier / Vendor </th>
-                                            <th class="text-center" width="14%"> Outstanding </th>
-                                            <th class="text-center" width="13%"> Current </th>
-                                            <th class="text-center" width="15%"> 1-30 </th>
-                                            <th class="text-center" width="15%"> 31-60 </th>
-                                            <th class="text-center" width="15%"> 61-90 </th>
-                                            <th class="text-center" width="15%"> 91 and Over </th>
+                                            <th class="text-center" width="15%" colspan="2"> Deparment </th>
+                                            <th class="text-center" width="25%"> Full Name </th>
+                                            <th class="text-center" width="25%"> Job Title </th>
+                                            <th class="text-center" width="25%"> Supervisor  </th>
+                                            <th class="text-center" width="10%"> Outstanding </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="font-white sbold">
-                                            <td align="center">1</td>
-                                            <td align="center">Supplier A</td>                                    
-                                            <td align="right">1,100.000</td>
-                                            <td align="right">500,000</td>
-                                            <td align="right">500,000</td>
-                                            <td align="right">100,000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
+                                        <tr style="background-color: #578ebe6b">
+                                            <td colspan="6" class="bold uppercase">Finance Accounting Department (Code)</td>
                                         </tr>
-                                        <tr class="font-white sbold">
-                                            <td align="center">2</td>
-                                            <td align="center">Supplier B</td>                                    
-                                            <td align="right">130,000</td>
-                                            <td align="right">40,000</td>
-                                            <td align="right">40,000</td>
-                                            <td align="right">50,000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
+                                        <tr class="font-dark sbold">
+                                            <td align="center">1</td>                                 
+                                            <td align="center">2000</td>
+                                            <td align="left">Eduard Salindeho</td>
+                                            <td align="left">Finance Accounting Supervisor</td>
+                                            <td align="left">Sesca Londah - 2000</td>
+                                            <td align="right"> 1,400,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
-                                            <td align="center">3</td>
-                                            <td align="center">Supplier C</td>                                    
-                                            <td align="right">1,750,000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right">1.750.000</td>
+                                        <tr class="font-dark sbold">
+                                            <td align="center">2</td>                                 
+                                            <td align="center">2001</td>
+                                            <td align="left">Sesca Londah</td>
+                                            <td align="left">Accountant Officer</td>
+                                            <td align="left">Sesca Londah - 2000</td>
+                                            <td align="right"> 500,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
-                                            <td align="center">4</td>
-                                            <td align="center">Supplier D</td>                                    
-                                            <td align="right">100,000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right">100.000</td>
-                                            <td align="right"></td>
+                                        <tr class="font-dark sbold">
+                                            <td align="center">3</td>                                 
+                                            <td align="center">2000</td>
+                                            <td align="left">Pranayan Salindeho</td>
+                                            <td align="left">Finance Coodinator</td>
+                                            <td align="left">Sesca Londah - 2000</td>
+                                            <td align="right"> 1,000,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
-                                            <td align="center">5</td>
-                                            <td align="center">Supplier E</td>                                    
-                                            <td align="right">300.000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right">200.000</td>
-                                            <td align="right">100.000</td>
-                                            <td align="right"></td>
+                                        <tr class="font-dark sbold" style="border-top: solid 2px;">                          
+                                            <td align="right" colspan="5">Total :</td>
+                                            <td align="right">2,900,000</td>
                                         </tr>
-                                        <tr class="font-white sbold">
-                                            <td align="center">6</td>
-                                            <td align="center">Supplier F</td>                                    
-                                            <td align="right">1,950,000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right">200.000</td>
-                                            <td align="right"></td>
-                                            <td align="right">1.750.000</td>
+
+
+                                        <tr style="background-color: #578ebe6b">
+                                            <td colspan="6" class="bold uppercase">Operation Department (Code)</td>
                                         </tr>
-                                        <tr style="border-top: solid 2px;" class="font-dark sbold">
-                                            <td align="center"></td>
-                                            <td align="right">Total Amount :</td>                                    
-                                            <td align="right">5,330.000</td>
-                                            <td align="right">540.000</td>
-                                            <td align="right">540.000</td>
-                                            <td align="right">550.000</td>
-                                            <td align="right">200.000</td>
-                                            <td align="right">3.500.000</td>
+                                        <tr class="font-dark sbold">
+                                            <td align="center">1</td>                                 
+                                            <td align="center">2000</td>
+                                            <td align="left">Eduard Salindeho</td>
+                                            <td align="left">Finance Accounting Supervisor</td>
+                                            <td align="left">Sesca Londah - 2000</td>
+                                            <td align="right"> 1,400,000</td>
+                                        </tr>
+                                        <tr class="font-dark sbold">
+                                            <td align="center">2</td>                                 
+                                            <td align="center">2001</td>
+                                            <td align="left">Sesca Londah</td>
+                                            <td align="left">Accountant Officer</td>
+                                            <td align="left">Sesca Londah - 2000</td>
+                                            <td align="right"> 500,000</td>
+                                        </tr>
+                                        <tr class="font-dark sbold">
+                                            <td align="center">3</td>                                 
+                                            <td align="center">2000</td>
+                                            <td align="left">Pranayan Salindeho</td>
+                                            <td align="left">Finance Coodinator</td>
+                                            <td align="left">Sesca Londah - 2000</td>
+                                            <td align="right"> 1,000,000</td>
+                                        </tr>
+                                        <tr class="font-dark sbold" style="border-top: solid 2px;">                          
+                                            <td align="right" colspan="5">Total :</td>
+                                            <td align="right">2,900,000</td>
+                                        </tr>
+
+
+                                        <tr style="background-color: #578ebe6b">
+                                            <td colspan="6" class="bold uppercase">Human Resource Department (Code)</td>
+                                        </tr>
+                                        <tr class="font-dark sbold">
+                                            <td align="center">1</td>                                 
+                                            <td align="center">2000</td>
+                                            <td align="left">Eduard Salindeho</td>
+                                            <td align="left">Finance Accounting Supervisor</td>
+                                            <td align="left">Sesca Londah - 2000</td>
+                                            <td align="right"> 1,400,000</td>
+                                        </tr>
+                                        <tr class="font-dark sbold">
+                                            <td align="center">2</td>                                 
+                                            <td align="center">2001</td>
+                                            <td align="left">Sesca Londah</td>
+                                            <td align="left">Accountant Officer</td>
+                                            <td align="left">Sesca Londah - 2000</td>
+                                            <td align="right"> 500,000</td>
+                                        </tr>
+                                        <tr class="font-dark sbold">
+                                            <td align="center">3</td>                                 
+                                            <td align="center">2000</td>
+                                            <td align="left">Pranayan Salindeho</td>
+                                            <td align="left">Finance Coodinator</td>
+                                            <td align="left">Sesca Londah - 2000</td>
+                                            <td align="right"> 1,000,000</td>
+                                        </tr>
+                                        <tr class="font-dark sbold" style="border-top: solid 2px;">                          
+                                            <td align="right" colspan="5">Total :</td>
+                                            <td align="right">2,900,000</td>
+                                        </tr>
+
+                                        <tr class="bg-blue-ebonyclay font-white bold">                          
+                                            <td align="right" colspan="5"> Grand Total :</td>
+                                            <td align="right">8,700,000</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -228,4 +257,4 @@
         document.body.innerHTML = originalContents;
     }
 </script>
-<?php $this->load->view('entry/payable/footer'); ?>
+<?php $this->load->view('financecorp/cashadvance/footer'); ?>

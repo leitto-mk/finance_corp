@@ -1,11 +1,11 @@
-<?php $this->load->view('entry/cashadvance/header_corp'); ?>
+<?php $this->load->view('financecorp/receivable/header_corp'); ?>
 <div class="main_content">
     <div class="row">
         <div class="col-md-12">
             <div class="bg-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
                 <div class="row">
                     <div class="col-md-8">
-                        <h4 class="text-uppercase font-dark bold" style="margin-left: 10px">List Cash Receipt</h4>
+                        <h4 class="text-uppercase font-dark bold" style="margin-left: 10px">List Receipt Payment</h4>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                                 </button>
                             </span>
                             <span class="input-group-btn">
-                                <a href="<?= base_url('Cash_adv/add_ca_receipt') ?>" target="_blank" class="btn btn-md btn blue-oleo">
+                                <a href="<?php echo site_url('Acc_rec/add_receipt_payment') ?>" target="_blank" class="btn btn-md btn blue-oleo">
                                     <i class="fa fa-plus"></i>&nbsp;Add New</i>
                                 </a>
                             </span>
@@ -97,4 +97,4 @@
         document.body.style.zoom = 0.9;
     }
 </script>
-<?php $this->load->view('entry/cashadvance/footer'); ?>
+<?php $this->load->view('financecorp/receivable/footer'); ?>
