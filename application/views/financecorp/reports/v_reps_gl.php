@@ -25,9 +25,9 @@
             <div class="row invoice-logo" align="left">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="portlet bordered light bg-white">
-                        <div class="caption" style="padding: 0px">
+                        <div class="caption">
                             <span class="caption-subject uppercase font-dark">
-                                <div class="input-group input-large pull-right" style="margin-top: -5px">
+                                <div class="input-group input-large pull-right" style="margin-top: -5px; padding: 0px">
                                     <span class="input-group-btn">
                                         <a href="#" class="btn btn-xs btn green hidden-print pull-right"  onclick="printDiv('printDiv')" style="margin-left: 5px">
                                             <i class="fa fa-plus"></i>&nbsp;Print</i>
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -20px; padding: 0px">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -22px; padding: 0px">
                                 <div class="portlet-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-stripped table-condensed">
