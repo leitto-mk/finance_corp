@@ -138,19 +138,19 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <a href="<?= base_url('Reports/ca_outstanding_report') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Cash_adv/ca_index_outstanding_report') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Outstanding Report</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= base_url('Reports/ca_transaction_details') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Cash_adv/ca_index_transaction_details') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Transaction Details</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= base_url('Reports/ca_request_report') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Cash_adv/ca_index_request_report') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Request Report</span>
                                         </a>
