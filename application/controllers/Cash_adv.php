@@ -39,7 +39,7 @@ class Cash_adv extends CI_Controller
         $this->load->model('Mdl_corp_reports');
     }
 
-    //Corporation Finance
+    //* CASH ADVANCE DASHBOARD
     public function index(){
         $data = [
             'title' => 'Cash Advance',
@@ -48,7 +48,7 @@ class Cash_adv extends CI_Controller
             'h3' => '',
         ];
         
-        $this->load->view('financecorp/cashadvance/v_cash_advance_corp', $data);
+        $this->load->view('financecorp/cashadvance/v_index_ca', $data);
     }
 
     //* PERSONAL STATEMENT
@@ -66,7 +66,7 @@ class Cash_adv extends CI_Controller
             'script' => 'cashPersonalStatement'
         ];
         
-        $this->load->view('financecorp/cashadvance/v_ca_statement', $data);
+        $this->load->view('financecorp/cashadvance/v_index_ca_statement', $data);
     }
 
     public function ajax_get_emp_details(){
@@ -96,7 +96,7 @@ class Cash_adv extends CI_Controller
             'script' => 'cashWithdraw'
         ];
         
-        $this->load->view('financecorp/cashadvance/v_ca_withdraw', $data);
+        $this->load->view('financecorp/cashadvance/v_index_ca_withdraw', $data);
     }
 
     public function ajax_get_ranged_ca_withdraw(){
@@ -169,7 +169,7 @@ class Cash_adv extends CI_Controller
             'script' => 'cashWithdraw'
         ];
         
-        $this->load->view('financecorp/cashadvance/v_add_ca_withdraw_edit', $data);
+        $this->load->view('financecorp/cashadvance/v_edit_ca_withdraw', $data);
     }
 
     public function ajax_delete_ca_withdraw(){
@@ -467,7 +467,7 @@ class Cash_adv extends CI_Controller
             'script' => 'cashReceipt'
         ];
         
-        $this->load->view('financecorp/cashadvance/v_ca_receipt', $data);
+        $this->load->view('financecorp/cashadvance/v_index_ca_receipt', $data);
     }
 
     public function ajax_get_ranged_ca_receipt(){
@@ -540,7 +540,7 @@ class Cash_adv extends CI_Controller
             'script' => 'cashReceipt'
         ];
         
-        $this->load->view('financecorp/cashadvance/v_add_ca_receipt_edit', $data);
+        $this->load->view('financecorp/cashadvance/v_edit_ca_receipt', $data);
     }
 
     public function ajax_delete_ca_receipt(){
@@ -836,7 +836,7 @@ class Cash_adv extends CI_Controller
             'h4' => 'Report'
         ];
         
-        $this->load->view('financecorp/cashadvance/v_ca_outstanding_report', $data);
+        $this->load->view('financecorp/cashadvance/v_index_ca_outstanding_report', $data);
     }
 
     //* CASH TRANSACTION DETAILS
@@ -849,7 +849,7 @@ class Cash_adv extends CI_Controller
             'h4' => 'Details'
         ];
         
-        $this->load->view('financecorp/cashadvance/v_ca_transaction_details', $data);
+        $this->load->view('financecorp/cashadvance/v_index_ca_transaction_details', $data);
     }
 
     //* CASH REQUEST REPORT
@@ -862,6 +862,6 @@ class Cash_adv extends CI_Controller
             'h4' => 'Report'
         ];
         
-        $this->load->view('financecorp/cashadvance/v_ca_request_report', $data);
+        $this->load->view('financecorp/cashadvance/v_index_ca_request_report', $data);
     }
 }

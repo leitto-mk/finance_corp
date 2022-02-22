@@ -50,7 +50,7 @@ class Entry extends CI_Controller
             'script' => 'receipt'
         ];
         
-        $this->load->view('financecorp/entry/v_receipt_voucher', $data);
+        $this->load->view('financecorp/entry/v_index_receipt_voucher', $data);
     }
 
     public function ajax_get_ranged_receipt(){
@@ -406,7 +406,7 @@ class Entry extends CI_Controller
             'script' => 'payment'
         ];
         
-        $this->load->view('financecorp/entry/v_payment_voucher', $data);
+        $this->load->view('financecorp/entry/v_index_payment_voucher', $data);
     }
 
     public function ajax_get_ranged_payment(){
@@ -763,7 +763,7 @@ class Entry extends CI_Controller
             'script' => 'overbook'
         ];
         
-        $this->load->view('financecorp/entry/v_overbook_voucher', $data);
+        $this->load->view('financecorp/entry/v_index_overbook_voucher', $data);
     }
 
     public function ajax_get_ranged_overbook(){
@@ -1121,7 +1121,7 @@ class Entry extends CI_Controller
             'script' => 'generalJournal'
         ];
         
-        $this->load->view('financecorp/entry/v_general_journal', $data);
+        $this->load->view('financecorp/entry/v_index_general_journal', $data);
     }
 
     public function ajax_get_ranged_general_journal(){
