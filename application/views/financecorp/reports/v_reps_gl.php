@@ -38,32 +38,29 @@
                                 </div> 
                             </span>
                         </div>   
-
                         <div class="row">
-                            <div class="col-md-12" style="padding: 0px">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <img src="" class="img-responsive" alt="" width="50px">
-                                        <address>
-                                            <h5>
-                                                <i class="fa fa-building"></i><strong>&nbsp;&nbsp;<?= ($ledger[0]['ComName'] ?? 'N/A') ?></strong>
-                                                <br> <i class="fa fa-map-marker"></i>&nbsp;&nbsp;<?= ($ledger[0]['Address'] ?? 'N/A') ?>
-                                                <br> <i class="fa fa-phone"></i>&nbsp;&nbsp;<?= ($ledger[0]['Contact'] ?? 'N/A') ?>
-                                                <br> <i class="fa fa-envelope"></i>&nbsp;&nbsp;<?= ($ledger[0]['Email'] ?? 'N/A') ?>
-                                            </h5>
-                                        </address>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right" style="margin-top: -20px;">
-                                    <p>
-                                        <font size="4"><b>#General Ledger</b></font>
-                                    </p>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0px">
+                                <img src="" class="img-responsive" alt="" width="50px">
                                     <address>
-                                        <h5><b><i class="fa fa-calendar"></i> Period : <?= $date_start ?> - <?= $date_end ?></b></h5>                                       
+                                        <h5>
+                                            <i class="fa fa-building"></i><strong>&nbsp;&nbsp;<?= ($ledger[0]['ComName'] ?? 'N/A') ?></strong>
+                                            <br> <i class="fa fa-map-marker"></i>&nbsp;&nbsp;<?= ($ledger[0]['Address'] ?? 'N/A') ?>
+                                            <br> <i class="fa fa-phone"></i>&nbsp;&nbsp;<?= ($ledger[0]['Contact'] ?? 'N/A') ?>
+                                            <br> <i class="fa fa-envelope"></i>&nbsp;&nbsp;<?= ($ledger[0]['Email'] ?? 'N/A') ?>
+                                        </h5>
                                     </address>
-                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right" style="margin-top: -20px; padding: 0px">
+                                <p>
+                                    <font size="4"><b>#General Ledger</b></font>
+                                </p>
+                                <address>
+                                    <h5><b><i class="fa fa-calendar"></i> Period : <?= $date_start ?> - <?= $date_end ?></b></h5>                                       
+                                </address>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12" style="margin-top: -15px; padding: 0px">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -15px; padding: 0px">
                                 <div class="portlet-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-stripped table-condensed">
