@@ -396,7 +396,7 @@ class Entry extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('financecorp/reports/v_reps_receipt_voucher', $data);
+        $this->load->view('financecorp/entry/v_reps_receipt_voucher', $data);
     }
 
     //* PAYMENT VOUCHER
@@ -753,7 +753,7 @@ class Entry extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('financecorp/reports/v_reps_payment_voucher', $data);
+        $this->load->view('financecorp/entry/v_reps_payment_voucher', $data);
     }
 
     //* OVERBOOK VOUCHER
@@ -1111,7 +1111,7 @@ class Entry extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('financecorp/reports/v_reps_overbook_voucher', $data);
+        $this->load->view('financecorp/entry/v_reps_overbook_voucher', $data);
     }
 
     //* GENERAL JOURNAL
@@ -1434,6 +1434,6 @@ class Entry extends CI_Controller
             'report' => $report
         ];
         
-        $this->load->view('financecorp/reports/v_reps_general_journal', $data);
+        $this->load->view('financecorp/entry/v_reps_general_journal', $data);
     }
 }
