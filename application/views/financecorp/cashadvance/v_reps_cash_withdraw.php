@@ -21,12 +21,12 @@
         }
     </style>
     <div class="row">
-        <div class="col-md-12" id="printDiv" style="size: landscape; font-family: Open Sans, sans-serif;" >
+        <div class="col-md-12" style="size: landscape; font-family: Open Sans, sans-serif;" >
             <div class="row invoice-logo" align="left">
             <!-- <php $date = date("d-M-Y") ?> -->
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: 15px">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: 0px">
                     <div>
-                        <font size="6" class="uppercase">Company Name</font><br>
+                        <font size="4" class="uppercase">Company Name</font><br>
                         <font size="4" class="font-dark sbold uppercase">Cash Withdraw</font><br>
                         <font size="4" class="font-dark sbold"></font><br>
                     </div>
