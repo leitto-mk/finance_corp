@@ -64,7 +64,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?=base_url('assets')?>/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url('assets')?>/toastr/css/toastr.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
-        <link rel="shortcut icon" href="favicon.ico" /> </head>
+        <!-- <link rel="shortcut icon" href="favicon.ico" /> </head> -->
     <!-- END HEAD -->
 
     <body class="page-header-fixed page-sidebar-closed-hide-logo" style="background-color: #43505c">

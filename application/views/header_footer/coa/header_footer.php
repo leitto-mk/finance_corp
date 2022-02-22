@@ -45,7 +45,7 @@ License: You must have a valid license purchased only from themeforest(the above
   <link href="<?= base_url('assets'); ?>/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
   <link href="<?= base_url('assets'); ?>/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
   <!-- END THEME LAYOUT STYLES -->
-  <link rel="shortcut icon" href="favicon.ico" />
+  <!-- <link rel="shortcut icon" href="favicon.ico" /> -->
 </head>
 <!-- END HEAD -->
 
