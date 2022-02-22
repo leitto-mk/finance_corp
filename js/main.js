@@ -16,6 +16,7 @@ import jtr from './usecase/journalTransaction.js'
  * Load Script as Interface
  */
 const modules = {
+    //* ENTRY
     receipt: () => {
         let path = window.location.pathname
         let segment = path.split('/')[2]
@@ -100,6 +101,7 @@ const modules = {
         }
     },
 
+    //* CASH ADVANCE
     cashWithdraw: () => {
         let path = window.location.pathname
         let segment = path.split('/')[2]
@@ -148,6 +150,7 @@ const modules = {
         cap.eventGetEmpDetails()
     },
 
+    //* REPORTS
     generalLedger: () => {
         gl.eventPreviewFilter()
         gl.eventRecalculate()
