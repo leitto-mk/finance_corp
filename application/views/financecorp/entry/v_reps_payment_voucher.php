@@ -151,7 +151,7 @@
                                                         <?php endif; ?>
                                                     <?php endfor; ?>
                                                     <tr>
-                                                        <td colspan="9"><h6 class="text-right bold">Grand Total :</h6></td>
+                                                        <td colspan="7"><h6 class="text-right bold">Grand Total :</h6></td>
                                                         <td><h6 style="float: right"><?= number_format($grand_total, 0,'',',') ?></h6></td>
                                                     </tr>
                                                 </tbody>
