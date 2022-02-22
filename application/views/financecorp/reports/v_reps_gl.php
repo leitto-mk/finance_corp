@@ -11,13 +11,13 @@
         .table th h5 {
             margin-top: -1px;
             margin-bottom: -1px;
-            font-size: 10px;
+            font-size: 11px;
         }
 
         .table td h6 {
             margin-top: -1px;
             margin-bottom: -1px;
-            font-size: 10px;
+            font-size: 11px;
         }
     </style>
     <div class="row">
