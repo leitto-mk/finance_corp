@@ -15,15 +15,16 @@
                         </div>
                         <!-- END MEGA MENU -->
                     </div>
+                    <!-- END MEGA MENU -->
                 </div>
-                <!-- END HEADER MENU -->
             </div>
+            <!-- END HEADER MENU -->
         </div>
         <div class="portlet light" style="margin-top: -19px">
             <form method="post" class="form-horizontal" id="form_ca_withdraw" autocomplete="off">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="portlet light" style="height: 350px">
+                        <div class="portlet light">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <span class="caption-subject bold uppercase font-dark" style="margin-left: -10px"><i class="fa fa-edit"></i> Master Transaction </span>
@@ -188,7 +189,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
+                                <div class="table-responsive" style="margin-top: -10px">
                                     <table class="table table-striped" id="table_detail_transaction">
                                         <thead>
                                             <tr class="bg-blue-ebonyclay font-white">
