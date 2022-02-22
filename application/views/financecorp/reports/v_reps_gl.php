@@ -44,20 +44,20 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <img src="" class="img-responsive" alt="" width="50px">
                                         <address>
-                                            <h4>
+                                            <h5>
                                                 <i class="fa fa-building"></i><strong>&nbsp;&nbsp;<?= ($ledger[0]['ComName'] ?? 'N/A') ?></strong>
                                                 <br> <i class="fa fa-map-marker"></i>&nbsp;&nbsp;<?= ($ledger[0]['Address'] ?? 'N/A') ?>
                                                 <br> <i class="fa fa-phone"></i>&nbsp;&nbsp;<?= ($ledger[0]['Contact'] ?? 'N/A') ?>
                                                 <br> <i class="fa fa-envelope"></i>&nbsp;&nbsp;<?= ($ledger[0]['Email'] ?? 'N/A') ?>
-                                            </h4>
+                                            </h5>
                                         </address>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right" style="margin-top: -20px;">
                                     <p>
-                                        <font size="5"><b>#General Ledger</b></font>
+                                        <font size="4"><b>#General Ledger</b></font>
                                     </p>
                                     <address>
-                                        <h4><b><i class="fa fa-calendar"></i> Period : <?= $date_start ?> - <?= $date_end ?></b></h4>                                       
+                                        <h5><b><i class="fa fa-calendar"></i> Period : <?= $date_start ?> - <?= $date_end ?></b></h5>                                       
                                     </address>
                                 </div>
                             </div>
@@ -89,11 +89,11 @@
                                         <?php for($i = 0; $i < count($ledger); $i++) : ?>
                                             <?php if($ledger[$i]['Acc_Name'] !== $cur_acc) : ?>
                                                 <tr style="background-color: #eff2f6c9">
-                                                    <td colspan="11" class="bold"><!-- <?= $ledger[$i]['AccNo'] ?> --  --><?= $ledger[$i]['Acc_Name'] ?><!--  | <?= $ledger[$i]['Acc_Type']?> --></td>
+                                                    <td colspan="11"><h6 class="font-dark bold"><!-- <?= $ledger[$i]['AccNo'] ?> --  --><?= $ledger[$i]['Acc_Name'] ?><!--  | <?= $ledger[$i]['Acc_Type']?> --></h6></td>
                                                 </tr>
                                                 <tr class="font-white sbold">
                                                     <td colspan="2"><h6 class="text-right font-dark bold">Beginning Balance</h6></td>
-                                                    <td class="sbold uppercase font-green-meadow" colspan="7" style="font-size: 1.25em"><span style="float: right;"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></span></td>
+                                                    <td colspan="7"><h6 class="sbold uppercase font-green-meadow" style="float: right;"><?= number_format($ledger[$i]['beg_balance'], 0, ',', '.') ?></h6></td>
                                                 </tr>
                                                 <?php
                                                     // $no = 0;
