@@ -1,6 +1,6 @@
 <?php $this->load->view('header_footer/header'); ?>
 <body class="page-container-bg-solid">
-    <div class="page-wrapper">
+    <div class="page-wrapper bg-white">
         <div class="page-wrapper-row">
             <div class="page-wrapper-top">
                 <!-- BEGIN HEADER MENU -->
@@ -8,7 +8,7 @@
                     <div class="container-fluid">
                         <div class="hor-menu">
                             <ul class="nav navbar-nav">
-                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase">
+                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase" style="margin-left: -30px">
                                     <h4 style="color:#ffffff">Cash Advance Withdraw</h4>
                                 </li>
                             </ul>
@@ -258,7 +258,6 @@
             </form>
         </div>
     </div>
-</div>
 <script type="text/javascript">
     window.onload = load_function;
 
