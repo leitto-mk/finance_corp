@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="portlet-body">
+                        <div class="portlet-body" style="margin-top: -15px">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-stripped table-condensed">
                                     <thead>
