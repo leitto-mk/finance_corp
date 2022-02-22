@@ -8,7 +8,7 @@
                     <div class="container-fluid">
                         <div class="hor-menu">
                             <ul class="nav navbar-nav">
-                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase">
+                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase" style="margin-left: -30px">
                                     <h4 style="color:#ffffff">Cash Advance Receipt</h4>
                                 </li>
                             </ul>
@@ -237,7 +237,6 @@
             </form>
         </div>
     </div>
-</div>
 <script type="text/javascript">
     window.onload = load_function;
 

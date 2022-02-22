@@ -279,7 +279,6 @@
             </form>
         </div>
     </div>
-</div>
 <script type="text/javascript">
     window.onload = load_function;
 
