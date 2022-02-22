@@ -27,7 +27,7 @@
                     <div class="portlet bordered light bg-white">
                         <div class="caption">
                             <span class="caption-subject uppercase font-dark">
-                                <div class="input-group input-large pull-right" style="margin-top: -5px; padding: 0px">
+                                <div class="input-group input-large pull-right" style="margin-top: -5px; margin-left: -10px">
                                     <span class="input-group-btn">
                                         <a href="#" class="btn btn-xs btn green hidden-print pull-right"  onclick="printDiv('printDiv')" style="margin-left: 5px">
                                             <i class="fa fa-plus"></i>&nbsp;Print</i>
