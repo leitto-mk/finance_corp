@@ -104,7 +104,6 @@
                                                         <th width="5%"><h5 class="text-center bold">Cry</h5></th>
                                                         <th width="10%"><h5 class="text-right bold">Debit</h5></th>
                                                         <th width="10%"><h5 class="text-right bold">Credit</h5></th>
-                                                        <th width="10%"><h5 class="text-right bold">Amount</h5></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -123,17 +122,12 @@
                                                                 <td><h6 class="text-center"><?= $report[$i]['Currency']?></h6></td>
                                                                 <td><h6 style="float: right"><?= $report[$i]['Debit']?></h6></td>
                                                                 <td><h6 style="float: right"><?= number_format($report[$i]['Credit'], 0, '.',',') ?></h6></td>
-                                                                <td><h6 style="float: right"><?= number_format($report[$i]['Amount'], 0, '.',',') ?></h6></td>
                                                             </tr>
                                                             <?php 
                                                                 $grand_total += $report[$i]['Amount'];
                                                             ?>
                                                         <?php endif; ?>
                                                     <?php endfor; ?>
-                                                    <tr>
-                                                        <td colspan="7"><h6 class="text-right bold">Grand Total :</td>
-                                                        <td><h6 style="float: right"><?= number_format($grand_total, 0,'',',') ?></h6></td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
