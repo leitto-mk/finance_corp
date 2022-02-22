@@ -20,7 +20,7 @@
             </div>
             <!-- END HEADER MENU -->
         </div>
-        <div class="portlet light" style="margin-top: -19px">
+        <div class="portlet light" style="margin-top: -25px">
             <form method="post" class="form-horizontal" id="form_ca_withdraw" autocomplete="off">
                 <div class="row">
                     <div class="col-md-12">
