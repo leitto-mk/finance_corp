@@ -143,209 +143,65 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="background-color: #578ebe6b">
-                                    <td colspan="9" class="bold uppercase">Finance Accounting Department (Code)</td>
-                                </tr>
-                                <tr class="font-dark sbold">
-                                    <td align="center">1</td>                                 
-                                    <td align="center">2000</td>
-                                    <td align="left">Eduard Salindeho</td>
-                                    <td align="left">Finance Accounting Supervisor</td>
-                                    <td align="left">Sesca Londah - 2000</td>
-                                    <td align="right"> 1,400,000</td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="V">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs green" title="W">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs yellow" title="R">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-dark sbold">
-                                    <td align="center">2</td>                                 
-                                    <td align="center">2001</td>
-                                    <td align="left">Sesca Londah</td>
-                                    <td align="left">Accountant Officer</td>
-                                    <td align="left">Sesca Londah - 2000</td>
-                                    <td align="right"> 500,000</td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="V">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs green" title="W">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs yellow" title="R">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-dark sbold">
-                                    <td align="center">3</td>                                 
-                                    <td align="center">2000</td>
-                                    <td align="left">Pranayan Salindeho</td>
-                                    <td align="left">Finance Coodinator</td>
-                                    <td align="left">Sesca Londah - 2000</td>
-                                    <td align="right"> 1,000,000</td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="V">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs green" title="W">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs yellow" title="R">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <?php
+                                    $cur_dept = null;
+                                    $cur_total = 0;
+                                    $grand_total = 0;
+                                ?>
+                                <?php for($i=0; $i < count($cur_outstanding_bal); $i++) : ?>
+                                    <?php if($cur_outstanding_bal[$i]['DeptCode'] !== $cur_dept) : ?>
+                                        <tr style="background-color: #578ebe6b">
+                                            <td colspan="9" class="bold uppercase"><?= $cur_outstanding_bal[$i]['DeptDes']?> (<?= $cur_outstanding_bal[$i]['DeptCode']?>)</td>
+                                        </tr>
+                                        <?php
+                                            $cur_dept = $cur_outstanding_bal[$i]['DeptCode'];
+                                            $grand_total = 0;
+                                        ?>
+                                    <?php endif; ?>
+
+                                    <tr class="font-dark sbold">
+                                        <td align="center"><?= $i+1 ?></td>                                 
+                                        <td align="center"><?= $cur_outstanding_bal[$i]['DeptCode'] ?></td>
+                                        <td align="left"><?= $cur_outstanding_bal[$i]['FullName'] ?></td>
+                                        <td align="center"><?= $cur_outstanding_bal[$i]['JobTitleDes'] ?></td>
+                                        <td align="left"><?= $cur_outstanding_bal[$i]['Supervisor'] ?></td>
+                                        <td align="right"><?= $cur_outstanding_bal[$i]['Balance'] ?></td>
+                                        <td align="center">
+                                            <a href="#" type="button" class="btn btn-xs blue" title="V">
+                                                <i class="fa fa-search"> </i>
+                                            </a>
+                                            <a href="#" type="button" class="btn btn-xs green" title="W">
+                                                <i class="fa fa-pencil"> </i>
+                                            </a>
+                                            <a href="#" type="button" class="btn btn-xs yellow" title="R">
+                                                <i class="fa fa-pencil"> </i>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    <?php
+                                        $cur_total += $cur_outstanding_bal[$i]['Balance'];
+                                        $grand_total += $cur_outstanding_bal[$i]['Balance']
+                                    ?>
+
+                                    <?php if($i < (count($cur_outstanding_bal)-1)) : ?>
+                                        <?php if($cur_outstanding_bal[$i+1]['DeptCode'] !== $cur_dept) : ?>
+                                            <tr class="font-dark sbold" style="border-top: solid 2px;">                          
+                                                <td align="right" colspan="5">Total :</td>
+                                                <td align="right"><?= number_format($cur_total, 2,'.',',') ?></td>
+                                                <td align="right"></td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
                                 <tr class="font-dark sbold" style="border-top: solid 2px;">                          
                                     <td align="right" colspan="5">Total :</td>
-                                    <td align="right">2,900,000</td>
+                                    <td align="right"><?= number_format($cur_total, 2,'.',',') ?></td>
                                     <td align="right"></td>
                                 </tr>
-
-
-                                <tr style="background-color: #578ebe6b">
-                                    <td colspan="9" class="bold uppercase">Operation Department (Code)</td>
-                                </tr>
-                                <tr class="font-dark sbold">
-                                    <td align="center">1</td>                                 
-                                    <td align="center">2000</td>
-                                    <td align="left">Eduard Salindeho</td>
-                                    <td align="left">Finance Accounting Supervisor</td>
-                                    <td align="left">Sesca Londah - 2000</td>
-                                    <td align="right"> 1,400,000</td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="V">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs green" title="W">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs yellow" title="R">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-dark sbold">
-                                    <td align="center">2</td>                                 
-                                    <td align="center">2001</td>
-                                    <td align="left">Sesca Londah</td>
-                                    <td align="left">Accountant Officer</td>
-                                    <td align="left">Sesca Londah - 2000</td>
-                                    <td align="right"> 500,000</td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="V">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs green" title="W">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs yellow" title="R">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-dark sbold">
-                                    <td align="center">3</td>                                 
-                                    <td align="center">2000</td>
-                                    <td align="left">Pranayan Salindeho</td>
-                                    <td align="left">Finance Coodinator</td>
-                                    <td align="left">Sesca Londah - 2000</td>
-                                    <td align="right"> 1,000,000</td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="V">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs green" title="W">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs yellow" title="R">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-dark sbold" style="border-top: solid 2px;">                          
-                                    <td align="right" colspan="5">Total :</td>
-                                    <td align="right">2,900,000</td>
-                                    <td align="right"></td>
-                                </tr>
-
-
-                                <tr style="background-color: #578ebe6b">
-                                    <td colspan="9" class="bold uppercase">Human Resource Department (Code)</td>
-                                </tr>
-                                <tr class="font-dark sbold">
-                                    <td align="center">1</td>                                 
-                                    <td align="center">2000</td>
-                                    <td align="left">Eduard Salindeho</td>
-                                    <td align="left">Finance Accounting Supervisor</td>
-                                    <td align="left">Sesca Londah - 2000</td>
-                                    <td align="right"> 1,400,000</td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="V">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs green" title="W">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs yellow" title="R">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-dark sbold">
-                                    <td align="center">2</td>                                 
-                                    <td align="center">2001</td>
-                                    <td align="left">Sesca Londah</td>
-                                    <td align="left">Accountant Officer</td>
-                                    <td align="left">Sesca Londah - 2000</td>
-                                    <td align="right"> 500,000</td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="V">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs green" title="W">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs yellow" title="R">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-dark sbold">
-                                    <td align="center">3</td>                                 
-                                    <td align="center">2000</td>
-                                    <td align="left">Pranayan Salindeho</td>
-                                    <td align="left">Finance Coodinator</td>
-                                    <td align="left">Sesca Londah - 2000</td>
-                                    <td align="right"> 1,000,000</td>
-                                    <td align="center">
-                                        <a href="#" type="button" class="btn btn-xs blue" title="V">
-                                            <i class="fa fa-search"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs green" title="W">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                        <a href="#" type="button" class="btn btn-xs yellow" title="R">
-                                            <i class="fa fa-pencil"> </i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="font-dark sbold" style="border-top: solid 2px;">                          
-                                    <td align="right" colspan="5">Total :</td>
-                                    <td align="right">2,900,000</td>
-                                    <td align="right"></td>
-                                </tr>
-
                                 <tr class="bg-blue-ebonyclay font-white bold">                          
                                     <td align="right" colspan="5"> Grand Total :</td>
-                                    <td align="right">8,700,000</td>
+                                    <td align="right"><?= number_format($grand_total, 2,'.',',') ?></td>
                                     <td align="right"></td>
                                 </tr>
                             </tbody>

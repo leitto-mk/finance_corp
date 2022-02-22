@@ -51,7 +51,7 @@ class Cash_adv extends CI_Controller
             'h3' => '',
 
             'ca_request' => null,
-            'cur_oustanding_bal' => ($error == null ? $outstanding : ''),
+            'cur_outstanding_bal' => ($error == null ? $outstanding : ''),
         ];
         
         $this->load->view('financecorp/cashadvance/v_index_ca', $data);
