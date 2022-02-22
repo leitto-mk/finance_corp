@@ -8,24 +8,16 @@
         tr:nth-child(odd){
             background-color: white;
         }*/
+        .table th h5 {
+            margin-top: -1px;
+            margin-bottom: -1px;
+            font-size: 12px;
+        }
+
         .table td h6 {
+            margin-top: -1px;
+            margin-bottom: -1px;
             font-size: 12px;
-        }
-
-        .table th h5 {
-            font-size: 12px;
-        }
-
-        .table td span {
-            font-size: 12px;
-        }
-
-        .table td h6{
-            line-height: 0.1em;
-        }
-
-        .table th h5 {
-            line-height: 0.1em;
         }
     </style>
     <div class="row">
@@ -109,18 +101,18 @@
                                                 ?>
                                             <?php endif; ?>
                                             <?php if(date('Y-m-d', strtotime($ledger[$i]['TransDate'])) >= date('Y-m-d', strtotime($date_start))) : ?>
-                                                <tr class="sbold">
-                                                    <td><h6 class="text-center bold"><?= date('d-m-y', strtotime($ledger[$i]['TransDate'])) ?></h6></td>
-                                                    <td><h6 class="text-left bold"><?= $ledger[$i]['Remarks'] ?></h6></td>
-                                                    <td><h6 class="text-left bold"><?= $ledger[$i]['DocNo'] ?></h6></td>
-                                                    <td><h6 class="text-center bold"><?= $ledger[$i]['TransType'] ?></h6></td>
+                                                <tr>
+                                                    <td><h6 class="text-center"><?= date('d-m-y', strtotime($ledger[$i]['TransDate'])) ?></h6></td>
+                                                    <td><h6 class="text-left"><?= $ledger[$i]['Remarks'] ?></h6></td>
+                                                    <td><h6 class="text-left"><?= $ledger[$i]['DocNo'] ?></h6></td>
+                                                    <td><h6 class="text-center"><?= $ledger[$i]['TransType'] ?></h6></td>
                                                     <!-- <td><h6 class="text-center bold"><?= $ledger[$i]['Department'] ?></h6></td>
                                                     <td><h6 class="text-center bold"><?= $ledger[$i]['CostCenter'] ?></h6></td> -->
-                                                    <td><h6 class="text-center bold"><?= $ledger[$i]['AccNo'] ?></h6></td>
-                                                    <td><h6 class="text-center bold"><?= $ledger[$i]['Currency'] ?></h6></td>
-                                                    <td><h6 class="bold" style="float: right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></h6></td>
-                                                    <td><h6 class="bold" style="float: right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></h6></td>
-                                                    <td><h6 class="bold" style="float: right"><?= number_format($ledger[$i]['BalanceBranch'], 0, ',', '.') ?></h6></td>
+                                                    <td><h6 class="text-center"><?= $ledger[$i]['AccNo'] ?></h6></td>
+                                                    <td><h6 class="text-center"><?= $ledger[$i]['Currency'] ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($ledger[$i]['Debit'], 0, ',', '.') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($ledger[$i]['Credit'], 0, ',', '.') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($ledger[$i]['BalanceBranch'], 0, ',', '.') ?></h6></td>
                                                 </tr>
                                             <?php endif; ?>
                                         <?php endfor; ?>
