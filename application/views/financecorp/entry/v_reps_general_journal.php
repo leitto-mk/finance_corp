@@ -118,9 +118,9 @@
                                                                 <td><h6><?= substr($report[$i]['DescDetail'], 0,105) ?></h6></td>
                                                                 <!-- <td><h6 class="text-center bold"><?= $report[$i]['Department']?></h6></td>
                                                                 <td><h6 class="text-center bold"><?= $report[$i]['CostCenter']?></h6></td> -->
-                                                                <td><h6 class="text-center bold"><?= $report[$i]['AccNo']?></h6></td>
+                                                                <td><h6 class="text-center"><?= $report[$i]['AccNo']?></h6></td>
                                                                 <td><h6><?= $report[$i]['Acc_Name']?></h6></td>
-                                                                <td><h6 class="text-center bold"><?= $report[$i]['Currency']?></h6></td>
+                                                                <td><h6 class="text-center"><?= $report[$i]['Currency']?></h6></td>
                                                                 <td><h6 style="float: right"><?= $report[$i]['Debit']?></h6></td>
                                                                 <td><h6 style="float: right"><?= number_format($report[$i]['Credit'], 0, '.',',') ?></h6></td>
                                                                 <td><h6 style="float: right"><?= number_format($report[$i]['Amount'], 0, '.',',') ?></h6></td>
