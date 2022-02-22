@@ -54,19 +54,19 @@
                                             <div>
                                                 <table class="table table-bordered" style="margin-top: -20px">
                                                     <thead>
-                                                        <tr class="bg-blue-madison font-white">   
-                                                            <th width="20%" class="text-center">ID No</th>
-                                                            <th width="70%" class="text-left uppercase" colspan="2">Register Name</th>         
+                                                        <tr class="bg-blue-dark font-white">   
+                                                            <th width="10%" class="text-center">No</th>
+                                                            <th width="90%" class="text-left uppercase" colspan="2">Register Name</th>         
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php for($i = 0;$i < count($employees); $i++) : ?>
                                                             <tr class="sbold">
                                                                 <td align="center" width="5%"><?= $i+1?></td>
-                                                                <td align="center">
+                                                                <td align="center" width="25%">
                                                                     <a href="javascript:;" name="emp_id" data-id="<?= $employees[$i]['IDNumber']?>"><?= $employees[$i]['IDNumber']?></a>
                                                                 </td>
-                                                                <td><?= $employees[$i]['FullName'] ?></td>
+                                                                <td width="70%"><?= $employees[$i]['FullName'] ?></td>
                                                             </tr>
                                                         <?php endfor; ?>
                                                     </tbody>
@@ -85,9 +85,9 @@
                                                                 </a>   
                                                             </tr>
                                                             <tr>   
-                                                                <th width="10%" class="text-left uppercase bg-blue-madison font-white">Statement Of Account
+                                                                <th width="10%" class="text-left uppercase bg-blue-dark font-white">Statement Of Account
                                                                 </th> 
-                                                                <th width="10%" class="text-right uppercase bg-blue-madison"><!-- <font size="5">500</font> -->
+                                                                <th width="10%" class="text-right uppercase bg-blue-dark"><!-- <font size="5">500</font> -->
                                                                 </th>         
                                                             </tr>
                                                         </thead>
@@ -142,12 +142,12 @@
                                                     </table>
                                                     <table class="table table-bordered" style="margin-top: -20px">
                                                         <thead> 
-                                                            <tr style="background-color: #578ebe6b">
+                                                            <tr class="bg-blue-dark font-white">
                                                                 <th class="text-center" width="3%">No</th>
                                                                 <th class="text-center" width="7%">Date</th>
                                                                 <th class="text-center" width="15%">Doc No</th>
                                                                 <th class="text-left" width="20%">Transaction Description</th>
-                                                                <th class="text-left" width="20%">Accounts</th>
+                                                                <th class="text-center" width="20%">Account No</th>
                                                                 <th class="text-right" width="10%">Debit</th>
                                                                 <th class="text-right" width="10%">Credit</th>
                                                                 <th class="text-right" width="15%">Balance</th>
