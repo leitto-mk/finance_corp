@@ -25,7 +25,7 @@
             <div class="row invoice-logo" align="left">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="portlet bordered light bg-white">
-                        <div class="caption">
+                        <div class="caption" style="padding: 0px">
                             <span class="caption-subject uppercase font-dark">
                                 <div class="input-group input-large pull-right" style="margin-top: -5px">
                                     <span class="input-group-btn">
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -15px; padding: 0px">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: -20px; padding: 0px">
                                 <div class="portlet-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-stripped table-condensed">
@@ -102,7 +102,7 @@
                                                     <?php if(date('Y-m-d', strtotime($ledger[$i]['TransDate'])) >= date('Y-m-d', strtotime($date_start))) : ?>
                                                         <tr>
                                                             <td><h6 class="text-center"><?= date('d-m-y', strtotime($ledger[$i]['TransDate'])) ?></h6></td>
-                                                            <td><h6 class="text-left"><?= $ledger[$i]['Remarks'] ?></h6></td>
+                                                            <td><h6 class="text-left"><?= substr($ledger[$i]['Remarks'], 0,105) ?></h6></td>
                                                             <td><h6 class="text-left"><?= $ledger[$i]['DocNo'] ?></h6></td>
                                                             <td><h6 class="text-center"><?= $ledger[$i]['TransType'] ?></h6></td>
                                                             <!-- <td><h6 class="text-center bold"><?= $ledger[$i]['Department'] ?></h6></td>
