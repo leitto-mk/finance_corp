@@ -115,9 +115,9 @@
                                                 <thead>
                                                     <tr class="font-dark bg-default">
                                                         <th width="3%"><h5 class="text-center bold">No</h5></th>
-                                                        <th width="34%"><h5 class="text-center bold">Description</h5></th>
-                                                        <th width="8%"><h5 class="text-center bold">Dept</h5></th>
-                                                        <th width="8%"><h5 class="text-center bold">CostC</h5></th>
+                                                        <th width="50%"><h5 class="text-center bold">Description</h5></th>
+                                                        <!-- <th width="8%"><h5 class="text-center bold">Dept</h5></th>
+                                                        <th width="8%"><h5 class="text-center bold">CostC</h5></th> -->
                                                         <th width="7%"><h5 class="text-center bold">Account</h5></th>
                                                         <th width="10%"><h5 class="text-center bold">Name</h5></th>
                                                         <th width="5%"><h5 class="text-center bold">Cry</h5></th>
@@ -133,16 +133,16 @@
                                                     <?php for($i = 1; $i < count($report); $i++) : ?>
                                                         <?php if($report[$i]['ItemNo'] > 0) : ?>
                                                             <tr>
-                                                                <td><h6 class="text-center bold"><?= $i ?></h6></td>
-                                                                <td><h6 class="bold"><?= substr($report[$i]['DescDetail'], 0,105) ?></h6></td>
-                                                                <td><h6 class="text-center bold"><?= $report[$i]['Department']?></h6></td>
-                                                                <td><h6 class="text-center bold"><?= $report[$i]['CostCenter']?></h6></td>
-                                                                <td><h6 class="text-center bold"><?= $report[$i]['AccNo']?></h6></td>
-                                                                <td><h6 class="bold"><?= $report[$i]['Acc_Name']?></h6></td>
-                                                                <td><h6 class="text-center bold"><?= $report[$i]['Currency']?></h6></td>
-                                                                <td><h6 style="float: right" class="bold"><?= $report[$i]['Rate']?></h6></td>
-                                                                <td><h6 style="float: right" class="bold"><?= number_format($report[$i]['Unit'], 0, '.',',') ?></h6></td>
-                                                                <td><h6 style="float: right" class="bold"><?= number_format($report[$i]['Amount'], 0, '.',',') ?></h6></td>
+                                                                <td><h6 class="text-center"><?= $i ?></h6></td>
+                                                                <td><h6><?= substr($report[$i]['DescDetail'], 0,105) ?></h6></td>
+                                                               <!--  <td><h6 class="text-center bold"><?= $report[$i]['Department']?></h6></td>
+                                                                <td><h6 class="text-center bold"><?= $report[$i]['CostCenter']?></h6></td> -->
+                                                                <td><h6 class="text-center"><?= $report[$i]['AccNo']?></h6></td>
+                                                                <td><h6><?= $report[$i]['Acc_Name']?></h6></td>
+                                                                <td><h6 class="text-center"><?= $report[$i]['Currency']?></h6></td>
+                                                                <td><h6 style="float: right"><?= $report[$i]['Rate']?></h6></td>
+                                                                <td><h6 style="float: right"><?= number_format($report[$i]['Unit'], 0, '.',',') ?></h6></td>
+                                                                <td><h6 style="float: right"><?= number_format($report[$i]['Amount'], 0, '.',',') ?></h6></td>
                                                             </tr>
                                                             <?php 
                                                                 $grand_total += $report[$i]['Amount'];
@@ -151,7 +151,7 @@
                                                     <?php endfor; ?>
                                                     <tr>
                                                         <td colspan="9"><h6 class="text-right bold">Grand Total :</h6></td>
-                                                        <td ><h6 style="float: right;" class="bold"><?= number_format($grand_total, 0,'',',') ?></h6></td>
+                                                        <td ><h6 style="float: right;"><?= number_format($grand_total, 0,'',',') ?></h6></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
