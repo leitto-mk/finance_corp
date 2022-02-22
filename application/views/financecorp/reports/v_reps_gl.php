@@ -25,19 +25,21 @@
             <div class="row invoice-logo" align="left">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="portlet bordered light bg-white">
-                        <div class="caption">
-                            <span class="caption-subject uppercase font-dark">
-                                <div class="input-group input-large pull-right" style="margin-top: -5px; margin-left: -10px">
-                                    <span class="input-group-btn">
-                                        <a href="#" class="btn btn-xs btn green hidden-print pull-right"  onclick="printDiv('printDiv')" style="margin-left: 5px">
-                                            <i class="fa fa-plus"></i>&nbsp;Print</i>
-                                        </a>
-                                        <a onclick="window.close();" class="btn btn-xs btn red hidden-print pull-right"><i class="fa fa-close"></i> Close</a>
-                                    </span>
+                        <div class="row">
+                            <div class="caption">
+                                <span class="caption-subject uppercase font-dark">
+                                    <div class="input-group input-large pull-right" style="margin-top: -5px;">
+                                        <span class="input-group-btn">
+                                            <a href="#" class="btn btn-xs btn green hidden-print pull-right"  onclick="printDiv('printDiv')" style="margin-left: 5px">
+                                                <i class="fa fa-plus"></i>&nbsp;Print</i>
+                                            </a>
+                                            <a onclick="window.close();" class="btn btn-xs btn red hidden-print pull-right"><i class="fa fa-close"></i> Close</a>
+                                        </span>
 
-                                </div> 
-                            </span>
-                        </div>   
+                                    </div> 
+                                </span>
+                            </div>   
+                        </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0px">
                                 <img src="" class="img-responsive" alt="" width="50px">

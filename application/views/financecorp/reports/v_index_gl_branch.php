@@ -141,13 +141,13 @@
                             <div class="table-responsive">
                                 <table id="table_gl" class="table table-bordered table-stripped table-condensed">
                                     <thead>
-                                        <tr style="background-color: #2C3E50" class="font-white">
+                                        <tr class="bg-blue-dark font-white">
                                             <th class="text-center" width="3%"> No. </th>
                                             <th class="text-center" width="7%"> Date </th>
                                             <th class="text-center" width="8%"> Doc No </th>
                                             <th class="text-center" width="3%"> Branch </th>
-                                            <th class="text-center" width="2%"> Department </th>
-                                            <th class="text-center" width="3%"> Cost Center </th>
+                                            <th class="text-center" width="2%"> Dept </th>
+                                            <th class="text-center" width="3%"> CostC </th>
                                             <th class="text-center" width="10%"> AccNo  </th>
                                             <th class="text-center" width="15%"> Remarks </th>
                                             <th class="text-right" width="8%"> Debit </th>
