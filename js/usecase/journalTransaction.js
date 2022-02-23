@@ -53,7 +53,7 @@ const jtr = {
                         if(!Array.isArray(response.result) || response.result.length == 0){
                             table.append(`
                                 <tr class="text-center" style="background-color: white">
-                                    <td colspan="12" class="bold">NO RECORD FOUND</td>
+                                    <td colspan="10" class="bold">NO RECORD FOUND</td>
                                 </tr>`
                             )
 
@@ -79,9 +79,7 @@ const jtr = {
                                     <td><h6 class="text-left">${response.result[i].DocNo}</h6></td>
                                     <td><h6 class="text-center">${response.result[i].TransType}</h6></td>
                                     <td><h6 class="text-left">${response.result[i].Remarks}</h6></td>
-                                    
                                     <td><h6 class="text-center">${response.result[i].AccNo}</h6></td>
-                                    
                                     <td><h6 class="text-center">${response.result[i].Currency}</h6></td>
                                     <td><h6 class="text-center">${response.result[i].Rate}</h6></td>
                                     <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Unit)}</h6></td>
@@ -89,9 +87,6 @@ const jtr = {
                                     <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Credit)}</h6></td>
                                 </tr>`
                             )
-                            //<td class="bold" align="center">${response.result[i].Department}</td>
-                            //<td class="bold" align="center">${response.result[i].CostCenter}</td>
-                            //<td class="bold" align="center">${response.result[i].Acc_Name}</td>
 
                             cur_docno = response.result[i].DocNo
                             subtotal_debit += +response.result[i].Debit;
