@@ -75,21 +75,23 @@ const jtr = {
 
                             table.append(`
                                 <tr class="font-dark sbold">
-                                    <td class="bold" align="center">${response.result[i].TransDate}</td>
-                                    <td class="bold" align="center">${response.result[i].DocNo}</td>
-                                    <td class="bold" align="center">${response.result[i].TransType}</td>
-                                    <td class="bold" align="left">${response.result[i].Remarks}</td>
-                                    <td class="bold" align="center">${response.result[i].Department}</td>
-                                    <td class="bold" align="center">${response.result[i].CostCenter}</td>
-                                    <td class="bold" align="center">${response.result[i].AccNo}</td>
-                                    <td class="bold" align="center">${response.result[i].Acc_Name}</td>
-                                    <td class="bold" align="center">${response.result[i].Currency}</td>
-                                    <td class="bold" align="center">${response.result[i].Rate}</td>
-                                    <td class="bold" align="center">${Intl.NumberFormat('id').format(response.result[i].Unit)}</td>
-                                    <td class="bold" align="right">${Intl.NumberFormat('id').format(response.result[i].Debit)}</td>
-                                    <td class="bold" align="right">${Intl.NumberFormat('id').format(response.result[i].Credit)}</td>
+                                    <td><h6 class="text-center">${response.result[i].TransDate}</h6></td>
+                                    <td><h6 class="text-left">${response.result[i].DocNo}</h6></td>
+                                    <td><h6 class="text-center">${response.result[i].TransType}</h6></td>
+                                    <td><h6 class="text-left">${response.result[i].Remarks}</h6></td>
+                                    
+                                    <td><h6 class="text-center">${response.result[i].AccNo}</h6></td>
+                                    
+                                    <td><h6 class="text-center">${response.result[i].Currency}</h6></td>
+                                    <td><h6 class="text-center">${response.result[i].Rate}</h6></td>
+                                    <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Unit)}</h6></td>
+                                    <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Debit)}</h6></td>
+                                    <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Credit)}</h6></td>
                                 </tr>`
                             )
+                            //<td class="bold" align="center">${response.result[i].Department}</td>
+                            //<td class="bold" align="center">${response.result[i].CostCenter}</td>
+                            //<td class="bold" align="center">${response.result[i].Acc_Name}</td>
 
                             cur_docno = response.result[i].DocNo
                             subtotal_debit += +response.result[i].Debit;
@@ -97,10 +99,10 @@ const jtr = {
                             
                             if(typeof response.result[i+1] == 'undefined' || response.result[i+1].DocNo !== cur_docno){
                                 table.append(`
-                                    <tr class="font-dark sbold">
-                                        <td colspan="11"></td>
-                                        <td align="right" style="border-top: solid 2px">${Intl.NumberFormat('id').format(subtotal_debit)}</td>
-                                        <td align="right" style="border-top: solid 2px">${Intl.NumberFormat('id').format(subtotal_credit)}</td>
+                                    <tr>
+                                        <td colspan="8"></td>
+                                        <td><h6 style="float: right">${Intl.NumberFormat('id').format(subtotal_debit)}</h6></td>
+                                        <td><h6 style="float: right">${Intl.NumberFormat('id').format(subtotal_credit)}</h6></td>
                                     </tr>`
                                 )
     
