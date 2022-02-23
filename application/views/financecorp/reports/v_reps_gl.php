@@ -44,12 +44,12 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0px">
                                 <img src="" class="img-responsive" alt="" width="50px">
                                     <address>
-                                        <h5>
+                                        <h6>
                                             <i class="fa fa-building"></i><strong>&nbsp;&nbsp;<?= ($ledger[0]['ComName'] ?? 'N/A') ?></strong>
                                             <br> <i class="fa fa-map-marker"></i>&nbsp;&nbsp;<?= ($ledger[0]['Address'] ?? 'N/A') ?>
                                             <br> <i class="fa fa-phone"></i>&nbsp;&nbsp;<?= ($ledger[0]['Contact'] ?? 'N/A') ?>
                                             <br> <i class="fa fa-envelope"></i>&nbsp;&nbsp;<?= ($ledger[0]['Email'] ?? 'N/A') ?>
-                                        </h5>
+                                        </h6>
                                     </address>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right" style="margin-top: -20px; padding: 0px">
@@ -69,17 +69,17 @@
                                             <thead>
                                                 <tr class="font-dark bg-default">
                                                     <!-- <th class="text-center"> No </th> -->
-                                                    <th width="7%"><h5 class="text-center bold">Trans Date</h5></th>
-                                                    <th width="30%"><h5 class="text-center bold">Description</h5></th>
+                                                    <th width="6%"><h5 class="text-center bold">Trans Date</h5></th>
+                                                    <th width="52%"><h5 class="text-center bold">Description</h5></th>
                                                     <th width="8%"><h5 class="text-center bold">Doc No</h5></th>
-                                                    <th width="5%"><h5 class="text-center bold">Type</h5></th>
+                                                    <th width="4%"><h5 class="text-center bold">Type</h5></th>
                                                     <!-- <th width="7%"><h5 class="text-center bold">Dept.</h5></th>
                                                     <th width="7%"><h5 class="text-center bold">Cost Center</h5></th> -->
-                                                    <th width="7%"><h5 class="text-center bold">Account</h5></th>
+                                                    <th width="4%"><h5 class="text-center bold">Account</h5></th>
                                                     <th width="3%"><h5 class="text-center bold">Cry</h5></th>
-                                                    <th width="7%"><h5 class="text-right bold">Debit</h5></th>
-                                                    <th width="7%"><h5 class="text-right bold">Credit</h5></th>
-                                                    <th width="7%"><h5 class="text-right bold">Balance</h5></th>
+                                                    <th width="8%"><h5 class="text-right bold">Debit</h5></th>
+                                                    <th width="8%"><h5 class="text-right bold">Credit</h5></th>
+                                                    <th width="8%"><h5 class="text-right bold">Balance</h5></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
