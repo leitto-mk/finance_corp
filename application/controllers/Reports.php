@@ -214,11 +214,10 @@ class Reports extends CI_Controller
         [$company, $revenue, $operational, $other_rev, $other_expense] = $this->Mdl_corp_reports->get_columnar_report($branch, $year);
 
         $data = [
-            'title' => 'Report Journal Transaction',
-            'h1' => 'Report',
-            'h2' => 'Journal',
-            'h3' => 'Transaction',
-            'h4' => '',
+            'title' => 'Income Statement Columnar',
+            'h1' => 'Income',
+            'h2' => 'Statement',
+            'h3' => 'Columnar',
 
             'company' => $company->ComName,
             'branch' => $this->db->select('BranchCode, BranchName')->get('abase_02_branch')->result(),
