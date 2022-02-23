@@ -1,33 +1,45 @@
 <?php $this->load->view('financecorp/payable/header_rep_corp'); ?>
-<style type="text/css">
-    tr:nth-child(even){
-        background-color: #eef1f5;
-    }
+<div class="portlet light" id="printDiv">
+    <style type="text/css">
+        /*tr:nth-child(even){
+            background-color: #eef1f5;
+        }
 
-    tr:nth-child(odd){
-        background-color: white;
-    }
-</style>
-<div class="portlet light">
+        tr:nth-child(odd){
+            background-color: white;
+        }*/
+
+        .table th h5 {
+            margin-top: -1px;
+            margin-bottom: -1px;
+            font-size: 11px;
+        }
+
+        .table td h6 {
+            margin-top: -1px;
+            margin-bottom: -1px;
+            font-size: 11px;
+        }
+    </style>
     <div class="row">
-        <div class="col-md-12" id="printDiv" style="size: landscape; font-family: Open Sans, sans-serif;" >
+        <div class="col-md-12" style="size: landscape; font-family: Open Sans, sans-serif;" >
             <div class="row invoice-logo" align="left">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left hidden-print">
                     <div class="portlet light form-horizontal bg-default">
                         <?php echo form_open('Report/view_get_rep_trans', 'role="form"', 'enctype="multipart/form-data"'); ?>
                             <div class="portlet-body form-horizontal hidden-print" style="margin-top: 60px">
-                                <div>
-                                    <table class="table table-bordered">
+                                <div >
+                                    <table class="table table-bordered table-stripped table-condensed" style="margin-top: -50px">
                                         <thead>
                                             <tr class="bg-blue-dark font-white">
                                                 <th width="5%"></th>
-                                                <th class="text-center" width="15%">Branch</th>
-                                                <th class="text-center" width="15%">Type</th>
-                                                <th class="text-center" width="15%">Account No. Start</th>
-                                                <th class="text-center" width="15%">Account No. End</th>
-                                                <th class="text-center" width="15%">Start Date</th>
-                                                <th class="text-center" width="20%">End Date</th>
-                                                <th class="text-center" width="5%">Action</th>        
+                                                <th width="15%"><h5 class="text-center bold">Branch</h5></th>
+                                                <th width="15%"><h5 class="text-center bold">Type</h5></th>
+                                                <th width="15%"><h5 class="text-center bold">Account No. Start</h5></th>
+                                                <th width="15%"><h5 class="text-center bold">Account No. End</h5></th>
+                                                <th width="15%"><h5 class="text-center bold">Start Date</h5></th>
+                                                <th width="20%"><h5 class="text-center bold">End Date</h5></th>
+                                                <th width="5%"><h5 class="text-center bold">Action</h5></th>        
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -120,43 +132,59 @@
                     </div>  
                 </div>
                 <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-left: -20px">
+                            <span class="input-group-btn">
+                                <a href="#" class="btn btn-xs btn green hidden-print pull-right"  onclick="printDiv('printDiv')" style="margin-left: 5px">
+                                    <i class="fa fa-plus"></i>&nbsp;Print</i>
+                                </a>
+                                <a onclick="window.close();" class="btn btn-xs btn red hidden-print pull-right"><i class="fa fa-close"></i> Close</a>
+                            </span>
+                        </div>
+                    </div>
                     <div class="portlet bordered light">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: -5px">
-                            <div>
-                                <font size="6">Company Name</font><br>
-                                <font size="4" class="font-dark sbold uppercase">Journal Report</font><br>
-                                <!-- <font size="3" class="font-dark sbold">
-                                    <i class="fa fa-calendar"></i> 
-                                    <span id="period">Periode : - </span>
-                                </font> -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: -5px">
+                                <div>
+                                    <font size="3">Company Name</font><br>
+                                    <font size="2" class="font-dark sbold uppercase">Journal Report</font><br>
+                                    <font size="2" class="font-dark sbold">
+                                        <i class="fa fa-calendar"></i> 
+                                        <span id="period">Periode : 01-Jan-22 - 01-Dec-22</span>
+                                    </font>
+                                </div>
                             </div>
                         </div>
-                        <div class="portlet-body">
-                            <div class="table-responsive">
-                                <table id="table_jtr" class="table table-bordered table-stripped table-condensed">
-                                    <thead>
-                                        <tr class="bg-blue-dark font-white">
-                                            <th class="text-center" width="7%"> Trans Date </th>
-                                            <th class="text-center" width="8%"> Doc No </th>
-                                            <th class="text-center" width="5%"> Type </th>
-                                            <th class="text-center" width="12%"> Description </th>
-                                            <th class="text-center" width="8%"> Dept </th>
-                                            <th class="text-center" width="8%"> CostC </th>
-                                            <th class="text-center" width="5%"> Account </th>
-                                            <th class="text-center" width="15%"> Acc Name </th>
-                                            <th class="text-center" width="5%"> Cry </th>
-                                            <th class="text-center" width="5%"> Rate </th>
-                                            <th class="text-center" width="5%"> Unit </th>
-                                            <th class="text-center" width="10%"> Debit </th>
-                                            <th class="text-center" width="10%"> Credit </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="font-dark sbold">
-                                            <td align="center" colspan="13">-- Select Parameters --</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="portlet-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-stripped table-condensed" id="table_jtr" >
+                                            <thead>
+                                                <tr class="bg-blue-dark font-white">
+                                                    <th width="8%"><h5 class="text-center bold"> Trans Date </h5></th>
+                                                    <th width="8%"><h5 class="text-center bold"> Doc No </h5></th>
+                                                    <th width="4%"><h5 class="text-center bold"> Type </h5></th>
+                                                    <th width="42%"><h5 class="text-center bold"> Description </h5></th>
+                                                    <!-- <th width="8%"><h5 class="text-center bold"> Dept </h5></th>
+                                                    <th width="8%"><h5 class="text-center bold"> CostC </h5></th> -->
+                                                    <th width="6%"><h5 class="text-center bold"> Account </h5></th>
+                                                    <!-- <th width="15%"><h5 class="text-center bold"> Acc Name </h5></th> -->
+                                                    <th width="4%"><h5 class="text-center bold"> Cry </h5></th>
+                                                    <th width="4%"><h5 class="text-center bold"> Rate </h5></th>
+                                                    <th width="8%"><h5 class="text-right bold"> Unit </h5></th>
+                                                    <th width="8%"><h5 class="text-right bold"> Debit </h5></th>
+                                                    <th width="8%"><h5 class="text-right bold"> Credit </h5></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="10"><h5 class="text-center font-dark bold">-- Select Parameters --</h5></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
