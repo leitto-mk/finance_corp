@@ -60,7 +60,7 @@
                                                     <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['FullName'] ?></h6></td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="10%" style="border: none;"><h6 class="bold"></h6></td>
+                                                    <td width="10%" style="border: none;"><h6 class="bold">Job Title</h6></td>
                                                     <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
                                                     <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['Position'] ?></h6></td>
                                                 </tr>
@@ -94,6 +94,11 @@
                                                     <td width="10%" style="border: none;"><h6 class="bold">Transaction Date</h6></td>
                                                     <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
                                                     <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['TransDate'] ?></h6></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="10%" style="border: none;"><h6 class="bold">Cheque / Giro</h6></td>
+                                                    <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
+                                                    <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['Giro'] ?></h6></td>
                                                 </tr>
                                             </tbody>
                                         </table>
