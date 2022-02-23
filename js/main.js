@@ -1,4 +1,3 @@
-
 import rec from './usecase/receipt.js'
 import pay from './usecase/payment.js'
 import ob from './usecase/overbook.js'
@@ -87,8 +86,8 @@ const modules = {
 
         if(page == 'view'){ /* List Page */
             gj.initDataTable()
-            ob.eventShowList()
-            ob.eventDeleteButton()
+            gj.eventShowList()
+            gj.eventDeleteButton()
         }else if(page == 'add' || page == 'edit'){ /* Form Page */
             gj.initDisableEnterKey()
             gj.initSetEnterToFocus()
