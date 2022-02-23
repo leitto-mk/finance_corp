@@ -484,6 +484,7 @@ class Mdl_corp_cash_advance extends CI_Model
                 trans.Remarks,
                 trans.AccNo,
                 trans.AccType,
+                trans.Giro,
                 trans.Debit,
                 trans.Credit,
                 trans.Balance
