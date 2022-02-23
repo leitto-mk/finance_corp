@@ -865,7 +865,7 @@ class Mdl_corp_reports extends CI_Model {
             trans.Rate,
             trans.Unit,
             trans.Debit,
-            trans.Credit,
+            trans.Credit
           FROM tbl_fa_transaction AS trans
           LEFT JOIN tbl_fa_account_no AS acc
             ON trans.AccNo = acc.Acc_No
