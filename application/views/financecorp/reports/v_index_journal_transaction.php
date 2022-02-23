@@ -23,8 +23,8 @@
                                                 <th width="5%"></th>
                                                 <th class="text-center" width="15%">Branch</th>
                                                 <th class="text-center" width="15%">Type</th>
-                                                <th class="text-center" width="15%">Doc No Start</th>
-                                                <th class="text-center" width="15%">Doc No End</th>
+                                                <th class="text-center" width="15%">Account No. Start</th>
+                                                <th class="text-center" width="15%">Account No. End</th>
                                                 <th class="text-center" width="15%">Start Date</th>
                                                 <th class="text-center" width="20%">End Date</th>
                                                 <th class="text-center" width="5%">Action</th>        
