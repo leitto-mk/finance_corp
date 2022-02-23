@@ -865,7 +865,7 @@ class Mdl_corp_reports extends CI_Model {
             trans.Rate,
             trans.Unit,
             trans.Debit,
-            trans.Credit
+            trans.Credit,
           FROM tbl_fa_transaction AS trans
           LEFT JOIN tbl_fa_account_no AS acc
             ON trans.AccNo = acc.Acc_No
@@ -877,7 +877,11 @@ class Mdl_corp_reports extends CI_Model {
       ,[$branch, $transtype, $accno_start, $accno_finish, $date_start, $date_finish]);
 
       if($this->db->error()['code'] != 0){
-         return [null, $this->db->error()['message']];
+         // $code = $this->db->error()['code'];
+         // $message = $this->db->error()['message'];
+         // log_message('error', "$code: $message");
+
+         return [null, "Database Error"];
       }
 
       return [$query->result_array(), null];
