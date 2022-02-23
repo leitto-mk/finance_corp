@@ -26,7 +26,7 @@
             <!-- <php $date = date("d-M-Y") ?> -->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: 0px">
                     <div>
-                        <font size="6" class="uppercase">Company Name</font><br>
+                        <font size="4" class="uppercase">Company Name</font><br>
                         <font size="4" class="font-dark sbold uppercase">Cash Receipt</font><br>
                         <font size="4" class="font-dark sbold"></font><br>
                     </div>
@@ -57,22 +57,22 @@
                                                 <tr>
                                                     <td width="10%" style="border: none;"><h6 class="bold">Withdrawer</h6></td>
                                                     <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                    <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['FullName'] ?></h6></td>
+                                                    <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['FullName'] ?></h6></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="10%" style="border: none;"><h6 class="bold"></h6></td>
                                                     <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                    <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['Position'] ?></h6></td>
+                                                    <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['Position'] ?></h6></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="10%" style="border: none;"><h6 class="bold">Outstanding Amount</h6></td>
                                                     <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                    <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['Outstanding'] ?></h6></td>
+                                                    <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['Outstanding'] ?></h6></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="10%" style="border: none;"><h6 class="bold">Description</h6></td>
                                                     <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                    <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['DescMaster'] ?></h6></td>
+                                                    <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['DescMaster'] ?></h6></td>
                                                 </tr>
                                             </tbody>
                                         </table>
