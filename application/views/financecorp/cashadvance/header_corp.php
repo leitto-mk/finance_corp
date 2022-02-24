@@ -105,12 +105,12 @@
                                     <span class="title uppercase bold">Personal Statment</span>
                                 </a>
                             </li>
-                            <li class="nav-head nav-item active">
+                            <!-- <li class="nav-head nav-item active">
                                 <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
                                     <i class="fa fa-edit"></i>
                                     <span class="title uppercase bold">Online Cash Request</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-head nav-item active">
                                 <a href="#" class="nav-link nav-toggle" style="background-color: #44515d">
                                     <i class="fa fa-edit"></i>
@@ -149,12 +149,12 @@
                                             <span class="title">&bull;&nbsp;&nbsp;Transaction Details</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item start">
+                                    <!-- <li class="nav-item start">
                                         <a href="<?= base_url('Cash_adv/ca_request_report') ?>" target="_blank" class="nav-link">
-                                            <!-- <i class="icon-bar-chart"></i> -->
+                                            <i class="icon-bar-chart"></i>
                                             <span class="title">&bull;&nbsp;&nbsp;Request Report</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </li>
                         </ul>
