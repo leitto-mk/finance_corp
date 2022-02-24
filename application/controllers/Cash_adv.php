@@ -401,7 +401,7 @@ class Cash_adv extends CI_Controller
         $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        $submit = $this->Mdl_corp_cash_advance->submit_treasury($master, $details, $trans, $branch, $cur_date);
+        $submit = $this->Mdl_corp_cash_advance->submit_cash_advance($master, $details, $trans, $branch, $cur_date);
 
         if($submit !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
@@ -772,7 +772,7 @@ class Cash_adv extends CI_Controller
         $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
 
         //SUBMIT CURRENT DOCNO DATA
-        $submit = $this->Mdl_corp_cash_advance->submit_treasury($master, $details, $trans, $branch, $cur_date);
+        $submit = $this->Mdl_corp_cash_advance->submit_cash_advance($master, $details, $trans, $branch, $cur_date);
 
         if($submit !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);

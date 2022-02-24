@@ -209,7 +209,7 @@ class Mdl_corp_cash_advance extends CI_Model
         );
     }
 
-    function submit_treasury($master, $details, $trans, $branch, $cur_date){
+    function submit_cash_advance($master, $details, $trans, $branch, $cur_date){
         $this->db->trans_begin();
         
         $this->db->insert_batch('tbl_fa_treasury_mas', $master);
@@ -487,12 +487,13 @@ class Mdl_corp_cash_advance extends CI_Model
                 trans.Giro,
                 trans.Debit,
                 trans.Credit,
-                trans.Balance
+                trans.Balance,
+                trans.EntryDate
              FROM tbl_fa_hr_append AS emp
              LEFT JOIN tbl_fa_transaction AS trans
                 ON emp.IDNumber = trans.IDNumber
             WHERE emp.IDNumber = ?
-            ORDER BY trans.TransDate DESC, trans.CtrlNo DESC"
+            ORDER BY trans.EntryDate ASC, trans.CtrlNo ASC"
         , $id)->result_array();
 
         return $query;
