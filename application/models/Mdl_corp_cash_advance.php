@@ -163,14 +163,15 @@ class Mdl_corp_cash_advance extends CI_Model
         return ($query ? $query->Balance : 0);
     }
 
-    function get_emp_last_balance($branch, $id){
+    function get_emp_last_balance($branch, $transdate, $id){
         $query = $this->db->select('Balance')
-                      ->limit(1)
-                      ->order_by("TransDate DESC, CtrlNo DESC")
-                      ->get_where('tbl_fa_transaction', [
-                            'Branch' => $branch,
-                            'IDNumber' => $id
-                      ])->row();
+                          ->limit(1)
+                          ->order_by("TransDate DESC, CtrlNo DESC")
+                          ->get_where('tbl_fa_transaction', [
+                                'Branch' => $branch,
+                                'TransDate <=' => $transdate,
+                                'IDNumber' => $id
+                          ])->row();
 
         return ($query ? $query->Balance : 0);
     }
@@ -207,6 +208,29 @@ class Mdl_corp_cash_advance extends CI_Model
                   USING(DocNo)
              WHERE t1.DocNo = '$docno'"
         );
+    }
+
+    function update_emp_balance($type, $docno, $transdate, $id, $amount){
+        switch ($type) {
+            case 'CW':
+                $this->db->query(
+                    "UPDATE tbl_fa_transaction 
+                     SET Balance = (Balance + ?)
+                     WHERE IDNumber = ?
+                     AND TransDate >= ?
+                     AND DocNo != ?"
+                , [$amount, $id, $transdate, $docno]);
+                break;
+            case 'CR':
+                $this->db->query(
+                    "UPDATE tbl_fa_transaction 
+                     SET Balance = (Balance - ?)
+                     WHERE IDNumber = ?
+                     AND TransDate >= ?
+                     AND DocNo != ?"
+                , [$amount, $id, $transdate, $docno]);
+                break;
+        }
     }
 
     function submit_cash_advance($master, $details, $trans, $branch, $cur_date){
@@ -487,13 +511,12 @@ class Mdl_corp_cash_advance extends CI_Model
                 trans.Giro,
                 trans.Debit,
                 trans.Credit,
-                trans.Balance,
-                trans.EntryDate
+                trans.Balance
              FROM tbl_fa_hr_append AS emp
              LEFT JOIN tbl_fa_transaction AS trans
                 ON emp.IDNumber = trans.IDNumber
             WHERE emp.IDNumber = ?
-            ORDER BY trans.EntryDate ASC, trans.CtrlNo ASC"
+            ORDER BY trans.TransDate ASC, trans.CtrlNo ASC"
         , $id)->result_array();
 
         return $query;

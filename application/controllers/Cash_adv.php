@@ -276,7 +276,10 @@ class Cash_adv extends CI_Controller
         }
 
         //LAST BALANCE (OUTSTANDING) EMPLOYEE
-        $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $_POST['emp_master_id']);
+        $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+
+        //UPDATE BALANCE ABOVE THE TRANSDATE
+        $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $this->input->post('totalamount'));
 
         //COUNTER-BALANCE
         array_push($trans, [
@@ -366,7 +369,7 @@ class Cash_adv extends CI_Controller
                 $branch_bal = ($branch_beg_bal - $_POST['amount'][$i]) + 0;
             }
 
-            //EMPLOYEE BALANCE
+            //DETAIL BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
                 'RefNo' => $_POST['refno'],
@@ -647,7 +650,10 @@ class Cash_adv extends CI_Controller
         }
 
         //LAST BALANCE (OUTSTANDING) EMPLOYEE
-        $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $_POST['emp_master_id']);
+        $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+
+        //UPDATE BALANCE ABOVE THE TRANSDATE
+        $this->Mdl_corp_cash_advance->update_emp_balance(self::CAR, $this->input->post('docno'), $cur_date, $_POST['emp_master_id'], $this->input->post('totalamount'));
 
         //COUNTER-BALANCE
         array_push($trans, [
@@ -717,7 +723,6 @@ class Cash_adv extends CI_Controller
                 'Credit' => $_POST['amount'][$i]
             ]);
 
-            // $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($_POST['emp'][$i]);
             if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
             }else{
@@ -737,7 +742,7 @@ class Cash_adv extends CI_Controller
                 $branch_bal = ($branch_beg_bal - 0) + $_POST['amount'][$i];
             }
 
-            //EMPLOYEE BALANCE
+            //DETAIL BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
                 'RefNo' => $_POST['refno'],
