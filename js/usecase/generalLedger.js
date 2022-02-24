@@ -5,17 +5,15 @@
 import helper from '../helper.js'
 import repository from '../repository/repository.js';
 
-var branch, accno_start, accno_finish, date_start, date_finish;
-
 const gl = {
     indexPage: {
         eventPreviewFilter: () => {
             $('#submit_filter').click(function(){
-                branch = $('#branch').val()
-                accno_start = +$('#accno_start').val()
-                accno_finish = +$('#accno_finish').val()
-                date_start = $('#date_start').val()
-                date_finish = $('#date_finish').val()
+                var branch = $('#branch').val()
+                var accno_start = +$('#accno_start').val()
+                var accno_finish = +$('#accno_finish').val()
+                var date_start = $('#date_start').val()
+                var date_finish = $('#date_finish').val()
     
                 if(!branch || !accno_start || !accno_finish || !date_start || !date_finish){
                     alert('Please Select All Filter!')
@@ -164,11 +162,11 @@ const gl = {
             $('#recalculate').click(function(e){
                 e.preventDefault()
     
-                branch = $('#branch').val()
-                accno_start = +$('#accno_start').val()
-                accno_finish = +$('#accno_finish').val()
-                date_start = $('#date_start').val()
-                date_finish = $('#date_finish').val()
+                var branch = $('#branch').val()
+                var accno_start = +$('#accno_start').val()
+                var accno_finish = +$('#accno_finish').val()
+                var date_start = $('#date_start').val()
+                var date_finish = $('#date_finish').val()
     
                 if(!branch || !accno_start || !accno_finish || !date_start || !date_finish){
                     alert("Please select all filter first")
