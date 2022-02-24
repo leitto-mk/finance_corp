@@ -304,7 +304,7 @@ class Entry extends CI_Controller
                 $branch_bal = ($branch_beg_bal - 0) + $_POST['amount'][$i];
             }
 
-            //EMPLOYEE BALANCE
+            //DETAIL BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
                 'RefNo' => $_POST['refno'],
@@ -661,7 +661,7 @@ class Entry extends CI_Controller
                 $branch_bal = ($branch_beg_bal - $_POST['amount'][$i]) + 0;
             }
 
-            //EMPLOYEE BALANCE
+            //DETAIL BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
                 'RefNo' => $_POST['refno'],
@@ -1019,7 +1019,7 @@ class Entry extends CI_Controller
                 $branch_bal = ($branch_beg_bal - $_POST['amount'][$i]) + 0;
             }
 
-            //EMPLOYEE BALANCE
+            //DETAIL BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
                 'RefNo' => $_POST['refno'],
@@ -1342,7 +1342,7 @@ class Entry extends CI_Controller
                 $amount = -1 * ($_POST['debit'][$i] + $_POST['credit'][$i]);
             }
 
-            //EMPLOYEE BALANCE
+            //DETAIL BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
                 'RefNo' => $_POST['refno'],
