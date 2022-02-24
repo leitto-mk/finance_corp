@@ -275,11 +275,22 @@ class Cash_adv extends CI_Controller
             $counter_balance = ($counter_beg_bal - 0) + $_POST['totalamount'];
         }
 
-        //LAST BALANCE (OUTSTANDING) EMPLOYEE
-        $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+        $balance = 0;
 
-        //UPDATE BALANCE ABOVE THE TRANSDATE
-        $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $this->input->post('totalamount'));
+        $check_docno_amount = $this->Mdl_corp_cash_advance->check_docno_amount($this->input->post('docno'));
+
+        //IF `DocNo` ALREADY EXIST AND ITS `TotalAmount` IS NO DIFFERENT,
+        //THEN DONT CALCULATE, ELSE
+        //GET THE BEGINING BALANCE
+        if($check_docno_amount == $this->input->post('totalamount')){
+            $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+            $balance = ($emp_beg_bal + $this->input->post('totalamount'));
+    
+            //UPDATE BALANCE ABOVE THE TRANSDATE
+            $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $this->input->post('totalamount'));
+        }else{
+            $balance = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+        }
 
         //COUNTER-BALANCE
         array_push($trans, [
@@ -302,7 +313,7 @@ class Cash_adv extends CI_Controller
             'Amount' => $_POST['totalamount'],
             'Debit' => 0,
             'Credit' => $_POST['totalamount'],
-            'Balance' => ($emp_beg_bal + $_POST['totalamount']),
+            'Balance' => $balance,
             'BalanceBranch' => $counter_balance,
             'Remarks' => $_POST['remark'],
             'EntryBy' => '',
@@ -390,7 +401,7 @@ class Cash_adv extends CI_Controller
                 'Amount' => $_POST['amount'][$i],
                 'Debit' => $_POST['amount'][$i],
                 'Credit' => 0,
-                'Balance' => ($emp_beg_bal + $_POST['totalamount']),
+                'Balance' => $balance,
                 'BalanceBranch' => $branch_bal,
                 'Remarks' => $_POST['remarks'][$i],
                 'EntryBy' => '',
@@ -649,11 +660,22 @@ class Cash_adv extends CI_Controller
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
         }
 
-        //LAST BALANCE (OUTSTANDING) EMPLOYEE
-        $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+        $balance = 0;
 
-        //UPDATE BALANCE ABOVE THE TRANSDATE
-        $this->Mdl_corp_cash_advance->update_emp_balance(self::CAR, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $this->input->post('totalamount'));
+        $check_docno_amount = $this->Mdl_corp_cash_advance->check_docno_amount($this->input->post('docno'));
+
+        //IF `DocNo` ALREADY EXIST AND ITS `TotalAmount` IS NO DIFFERENT,
+        //THEN DONT CALCULATE, ELSE
+        //GET THE BEGINING BALANCE
+        if($check_docno_amount == $this->input->post('totalamount')){
+            $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+            $balance = ($emp_beg_bal - $this->input->post('totalamount'));
+    
+            //UPDATE BALANCE ABOVE THE TRANSDATE
+            $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $this->input->post('totalamount'));
+        }else{
+            $balance = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+        }
 
         //COUNTER-BALANCE
         array_push($trans, [
@@ -676,7 +698,7 @@ class Cash_adv extends CI_Controller
             'Amount' => $_POST['totalamount'],
             'Debit' => 0,
             'Credit' => $_POST['totalamount'],
-            'Balance' => ($emp_beg_bal - $_POST['totalamount']),
+            'Balance' => $balance,
             'BalanceBranch' => $counter_balance,
             'Remarks' => $_POST['remark'],
             'EntryBy' => '',
@@ -763,7 +785,7 @@ class Cash_adv extends CI_Controller
                 'Amount' => $_POST['amount'][$i],
                 'Debit' => $_POST['amount'][$i],
                 'Credit' => 0,
-                'Balance' => ($emp_beg_bal - $_POST['totalamount']),
+                'Balance' => $balance,
                 'BalanceBranch' => $branch_bal,
                 'Remarks' => $_POST['remarks'][$i],
                 'EntryBy' => '',

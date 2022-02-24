@@ -163,6 +163,12 @@ class Mdl_corp_cash_advance extends CI_Model
         return ($query ? $query->Balance : 0);
     }
 
+    function check_docno_amount($docno){
+        $query = $this->db->select('TotalAmount')->get_where('tbl_fa_treasury_mas', ['DocNo' => $docno])->row()->TotalAmount;
+
+        return $query ?? 0; 
+    }
+
     function get_emp_last_balance($branch, $transdate, $id){
         $query = $this->db->select('Balance')
                           ->limit(1)
