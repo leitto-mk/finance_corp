@@ -165,7 +165,7 @@ const repository = {
         return defer
     },
 
-    submitForm: (url, datas) => {
+    submitRecord: (url, datas) => {
         var defer = $.Deferred()
 
         $.ajax({

@@ -302,7 +302,7 @@ const gj = {
                 var branch = $('[name="branch"]').val()
                 var transdate = $('[name="transdate"]').val()
     
-                repository.submitForm('ajax_submit_overbook', formData)
+                repository.submitRecord('ajax_submit_overbook', formData)
                 .then(response => {
                     helper.unblockUI()
 

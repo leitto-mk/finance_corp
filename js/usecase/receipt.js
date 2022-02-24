@@ -282,7 +282,7 @@ const rec = {
                 var branch = $('[name="branch"]').val()
                 var transdate = $('[name="transdate"]').val()
     
-                repository.submitForm('ajax_submit_receipt', formData)
+                repository.submitRecord('ajax_submit_receipt', formData)
                 .then(response => {
                     helper.unblockUI()
 

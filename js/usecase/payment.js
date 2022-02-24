@@ -282,7 +282,7 @@ const pay = {
                 var branch = $('[name="branch"]').val()
                 var transdate = $('[name="transdate"]').val()
     
-                repository.submitForm('ajax_submit_payment', formData)
+                repository.submitRecord('ajax_submit_payment', formData)
                 .then(response => {
                     helper.unblockUI()
 
