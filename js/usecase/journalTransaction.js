@@ -25,104 +25,85 @@ const jtr = {
                 return;
             }
 
-            $.ajax({
-                url: 'ajax_get_journal_transaction',
-                method: 'POST',
-                dataType: 'JSON',
-                data: {
-                    branch,
-                    trans_type,
-                    accno_start,
-                    accno_finish,
-                    date_start,
-                    date_finish,
-                },
-                beforeSend: () => {
-                    helper.blockUI({
-                        animate: true
-                    })
-                },
-                success: response => {
-                    helper.unblockUI()
-
-                    if(response.success == true){
-                        let table = $('#table_jtr tbody')
-                    
-                        table.empty()
-
-                        if(!Array.isArray(response.result) || response.result.length == 0){
-                            table.append(`
-                                <tr class="text-center" style="background-color: white">
-                                    <td colspan="10" class="bold">NO RECORD FOUND</td>
-                                </tr>`
-                            )
-
-                            return
-                        }
-
-                        $('#label_tbl_date_start').html(date_start)
-                        $('#label_tbl_date_finish').html(date_finish)
-
-                        let cur_branch = ''
-                        let cur_docno = response.result[0].DocNo
-                        let subtotal_credit = 0
-                        let subtotal_debit = 0
-
-                        for(let i = 0; i < response.result.length; i++){
-                            if(response.result[i].Branch !== cur_branch){
-                                cur_branch = response.result[i].Branch
-                            }
-
-                            table.append(`
-                                <tr class="font-dark sbold">
-                                    <td><h6 class="text-center">${response.result[i].TransDate}</h6></td>
-                                    <td><h6 class="text-left">${response.result[i].DocNo}</h6></td>
-                                    <td><h6 class="text-center">${response.result[i].TransType}</h6></td>
-                                    <td><h6 class="text-left">${response.result[i].Remarks}</h6></td>
-                                    <td><h6 class="text-center">${response.result[i].AccNo}</h6></td>
-                                    <td><h6 class="text-center">${response.result[i].Currency}</h6></td>
-                                    <td><h6 class="text-center">${response.result[i].Rate}</h6></td>
-                                    <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Unit)}</h6></td>
-                                    <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Debit)}</h6></td>
-                                    <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Credit)}</h6></td>
-                                </tr>`
-                            )
-
-                            cur_docno = response.result[i].DocNo
-                            subtotal_debit += +response.result[i].Debit;
-                            subtotal_credit += +response.result[i].Credit;
-                            
-                            if(typeof response.result[i+1] == 'undefined' || response.result[i+1].DocNo !== cur_docno){
-                                table.append(`
-                                    <tr>
-                                        <td colspan="8"></td>
-                                        <td><h6 style="float: right">${Intl.NumberFormat('id').format(subtotal_debit)}</h6></td>
-                                        <td><h6 style="float: right">${Intl.NumberFormat('id').format(subtotal_credit)}</h6></td>
-                                    </tr>`
-                                )
+            repository.getRecord('ajax_get_journal_transaction', { branch, trans_type, accno_start, accno_finish, date_start, date_finish })
+            .then(response => {
+                helper.unblockUI()
     
-                                subtotal_credit = subtotal_debit = 0
-                            }
-                        }
-                    }else{
-                        Swal.fire({
-                            'type': 'error',
-                            'title': 'ERROR',
-                            'html': `<h4 class="sbold">${response.desc}</h4>`
-                        })
+                if(response.success == true){
+                    let table = $('#table_jtr tbody')
+                
+                    table.empty()
+    
+                    if(!Array.isArray(response.result) || response.result.length == 0){
+                        table.append(`
+                            <tr class="text-center" style="background-color: white">
+                                <td colspan="10" class="bold">NO RECORD FOUND</td>
+                            </tr>`
+                        )
+    
+                        return
                     }
-                },
-                error: response => {
-                    helper.unblockUI()
-
+    
+                    $('#label_tbl_date_start').html(date_start)
+                    $('#label_tbl_date_finish').html(date_finish)
+    
+                    let cur_branch = ''
+                    let cur_docno = response.result[0].DocNo
+                    let subtotal_credit = 0
+                    let subtotal_debit = 0
+    
+                    for(let i = 0; i < response.result.length; i++){
+                        if(response.result[i].Branch !== cur_branch){
+                            cur_branch = response.result[i].Branch
+                        }
+    
+                        table.append(`
+                            <tr class="font-dark sbold">
+                                <td><h6 class="text-center">${response.result[i].TransDate}</h6></td>
+                                <td><h6 class="text-left">${response.result[i].DocNo}</h6></td>
+                                <td><h6 class="text-center">${response.result[i].TransType}</h6></td>
+                                <td><h6 class="text-left">${response.result[i].Remarks}</h6></td>
+                                <td><h6 class="text-center">${response.result[i].AccNo}</h6></td>
+                                <td><h6 class="text-center">${response.result[i].Currency}</h6></td>
+                                <td><h6 class="text-center">${response.result[i].Rate}</h6></td>
+                                <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Unit)}</h6></td>
+                                <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Debit)}</h6></td>
+                                <td><h6 style="float: right">${Intl.NumberFormat('id').format(response.result[i].Credit)}</h6></td>
+                            </tr>`
+                        )
+    
+                        cur_docno = response.result[i].DocNo
+                        subtotal_debit += +response.result[i].Debit;
+                        subtotal_credit += +response.result[i].Credit;
+                        
+                        if(typeof response.result[i+1] == 'undefined' || response.result[i+1].DocNo !== cur_docno){
+                            table.append(`
+                                <tr>
+                                    <td colspan="8"></td>
+                                    <td><h6 style="float: right">${Intl.NumberFormat('id').format(subtotal_debit)}</h6></td>
+                                    <td><h6 style="float: right">${Intl.NumberFormat('id').format(subtotal_credit)}</h6></td>
+                                </tr>`
+                            )
+    
+                            subtotal_credit = subtotal_debit = 0
+                        }
+                    }
+                }else{
                     Swal.fire({
-                            'type': 'error',
-                            'title': 'ABORTED',
-                            'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
+                        'type': 'error',
+                        'title': 'ERROR',
+                        'html': `<h4 class="sbold">${response.desc}</h4>`
                     })
                 }
-            }).done(() => {
+            })
+            .fail(err => {
                 helper.unblockUI()
+
+                Swal.fire({
+                        'type': 'error',
+                        'title': 'ABORTED',
+                        'html': `<h4 class="sbold">${err.responseJSON.desc}</h4>`
+                })
             })
         })
     },

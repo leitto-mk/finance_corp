@@ -83,6 +83,19 @@ const helper = {
             $.unblockUI();
         }
     },
+
+    //Disable default Enter Key action when
+    disableEnterKey: () => {
+        $(document).on('keyup keypress', function(e){
+            const key = e.keyCode || e.which
+
+            if(key === 13){
+                e.preventDefault()
+            }
+            
+            return;
+        })
+    }
 }
 
 export default helper

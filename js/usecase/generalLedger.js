@@ -3,72 +3,65 @@
 */
 
 import helper from '../helper.js'
+import repository from '../repository/repository.js';
 
 var branch, accno_start, accno_finish, date_start, date_finish;
 
 const gl = {
-    eventPreviewFilter: () => {
-        $('#submit_filter').click(function(){
-            branch = $('#branch').val()
-            accno_start = +$('#accno_start').val()
-            accno_finish = +$('#accno_finish').val()
-            date_start = $('#date_start').val()
-            date_finish = $('#date_finish').val()
+    indexPage: {
+        eventPreviewFilter: () => {
+            $('#submit_filter').click(function(){
+                branch = $('#branch').val()
+                accno_start = +$('#accno_start').val()
+                accno_finish = +$('#accno_finish').val()
+                date_start = $('#date_start').val()
+                date_finish = $('#date_finish').val()
+    
+                if(!branch || !accno_start || !accno_finish || !date_start || !date_finish){
+                    alert('Please Select All Filter!')
+                    return;
+                }else if(accno_start > accno_finish){
+                    alert('Account Number Start must be higher or equal!')
+                    return;
+                }else if(new Date(date_start) > new Date(date_finish)){
+                    alert('Date Start must be earlier or equal!')
+                    return;
+                }
+    
+                //Append new URL Param for Print
+                let printURL = $('#print_report').attr('href')
+                let url = new URL(printURL)
+                let params = url.searchParams
+                params.set('branch', branch)
+                params.set('accno_start', accno_start)
+                params.set('accno_finish', accno_finish)
+                params.set('date_start', date_start)
+                params.set('date_finish', date_finish)
+    
+                //Append new URL Param for ReCalculate
+                let calculateURL = $('#recalculate').attr('href')
+                let cal = new URL(calculateURL)
+                let calparam = cal.searchParams
+                calparam.set('branch', branch)
+                calparam.set('accno_start', accno_start)
+                calparam.set('accno_finish', accno_finish)
+                calparam.set('date_start', date_start)
+                calparam.set('date_finish', date_finish)
+    
+                url.search = params.toString()
+                cal.search = calparam.toString()
+                
+                $('#print_report').attr('href', url.toString())
+                $('#recalculate').attr('href', cal.toString())
 
-            if(!branch || !accno_start || !accno_finish || !date_start || !date_finish){
-                alert('Please Select All Filter!')
-                return;
-            }else if(accno_start > accno_finish){
-                alert('Account Number Start must be higher or equal!')
-                return;
-            }else if(new Date(date_start) > new Date(date_finish)){
-                alert('Date Start must be earlier or equal!')
-                return;
-            }
-
-            //Append new URL Param for Print
-            let printURL = $('#print_report').attr('href')
-            let url = new URL(printURL)
-            let params = url.searchParams
-            params.set('branch', branch)
-            params.set('accno_start', accno_start)
-            params.set('accno_finish', accno_finish)
-            params.set('date_start', date_start)
-            params.set('date_finish', date_finish)
-
-            //Append new URL Param for ReCalculate
-            let calculateURL = $('#recalculate').attr('href')
-            let cal = new URL(calculateURL)
-            let calparam = cal.searchParams
-            calparam.set('branch', branch)
-            calparam.set('accno_start', accno_start)
-            calparam.set('accno_finish', accno_finish)
-            calparam.set('date_start', date_start)
-            calparam.set('date_finish', date_finish)
-
-            url.search = params.toString()
-            cal.search = calparam.toString()
-            
-            $('#print_report').attr('href', url.toString())
-            $('#recalculate').attr('href', cal.toString())
-
-            $.ajax({
-                url: 'ajax_get_general_ledger',
-                method: 'POST',
-                dataType: 'JSON',
-                data: {
+                repository.getRecord('ajax_get_general_ledger', {
                     branch,
                     accno_start,
                     accno_finish,
                     date_start,
                     date_finish,
-                },
-                beforeSend: () => {
-                    helper.blockUI({
-                        animate: true
-                    })
-                },
-                success: response => {
+                })
+                .then(response => {
                     helper.unblockUI()
 
                     if(response.success == true){
@@ -154,61 +147,50 @@ const gl = {
                             'html': `<h4 class="sbold">${response.desc}</h4>`
                         })
                     }
-                },
-                error: response => {
+                })
+                .fail(err => {
                     helper.unblockUI()
 
                     Swal.fire({
                             'type': 'error',
                             'title': 'ABORTED',
-                            'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
+                            'html': `<h4 class="sbold">${err.responseJSON.desc}</h4>`
                     })
-                }
-            }).done(() => {
-                helper.unblockUI()
+                })
             })
-        })
-    },
-
-    eventRecalculate: () => {
-        $('#recalculate').click(function(e){
-            e.preventDefault()
-
-            branch = $('#branch').val()
-            accno_start = +$('#accno_start').val()
-            accno_finish = +$('#accno_finish').val()
-            date_start = $('#date_start').val()
-            date_finish = $('#date_finish').val()
-
-            if(!branch || !accno_start || !accno_finish || !date_start || !date_finish){
-                alert("Please select all filter first")
-                return
-            }
-            
-            if(accno_start > accno_finish){
-                alert('Account Number Start must be higher or equal!')
-                return
-            }else if(new Date(date_start) > new Date(date_finish)){
-                alert('Date Start must be earlier or equal!')
-                return
-            }
-
-            $.ajax({
-                url: 'ajax_recalculate_balance',
-                method: 'POST',
-                data: {
+        },
+    
+        eventRecalculate: () => {
+            $('#recalculate').click(function(e){
+                e.preventDefault()
+    
+                branch = $('#branch').val()
+                accno_start = +$('#accno_start').val()
+                accno_finish = +$('#accno_finish').val()
+                date_start = $('#date_start').val()
+                date_finish = $('#date_finish').val()
+    
+                if(!branch || !accno_start || !accno_finish || !date_start || !date_finish){
+                    alert("Please select all filter first")
+                    return
+                }
+                
+                if(accno_start > accno_finish){
+                    alert('Account Number Start must be higher or equal!')
+                    return
+                }else if(new Date(date_start) > new Date(date_finish)){
+                    alert('Date Start must be earlier or equal!')
+                    return
+                }
+    
+                repository.getRecord('ajax_recalculate_balance', {
                     branch,
                     accno_start,
                     accno_finish,
                     date_start,
-                    date_finish
-                },
-                beforeSend: () => {
-                    helper.blockUI({
-                        animate: true
-                    })
-                },
-                success: response => {
+                    date_finish,
+                })
+                .then(response => {
                     helper.unblockUI()
 
                     if(response.success){
@@ -224,21 +206,19 @@ const gl = {
                             'html': response.desc
                         })
                     }
-                },
-                error: response => {
+                })
+                .then(err => {
                     helper.unblockUI()
 
                     Swal.fire({
                             'type': 'error',
                             'title': 'ABORTED',
-                            'html': response.responseJSON.desc
+                            'html': `<h4 class="sbold">${err.responseJSON.desc}</h4>`
                     })
-                }
-            }).done(() => {
-                helper.unblockUI()
+                })
             })
-        })
-    },
+        },
+    }
 }
 
 export default gl

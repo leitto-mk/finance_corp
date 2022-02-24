@@ -5,21 +5,13 @@
 import helper from '../helper.js'
 
 const cap = {
-    eventGetEmpDetails: () => {
-        $(document).on('click','[name=emp_id]',function(){
-            $.ajax({
-                url: 'ajax_get_emp_details',
-                method: 'POST',
-                dataType: 'JSON',
-                data: {
-                    id: $(this).attr('data-id')
-                },
-                beforeSend: () => {
-                    helper.blockUI({
-                        animate: true
-                    })
-                },
-                success: response => {
+    indexPage: {
+        eventGetEmpDetails: () => {
+            $(document).on('click','[name=emp_id]',function(){
+                var id = $(this).attr('data-id')
+
+                repository.getRecord('ajax_get_emp_details', { id })
+                .then(response => {
                     helper.unblockUI()
 
                     if(response.success == true){
@@ -77,18 +69,18 @@ const cap = {
                             'html': `<h4 class="sbold">${response.desc}</h4>`
                         })
                     }
-                },
-                error: response => {
+                })
+                .fail(err => {
                     helper.unblockUI()
                     
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'html': `<h4 class="sbold">${response.responseJSON.desc}</h4>`
+                        'html': `<h4 class="sbold">${err.responseJSON.desc}</h4>`
                     })
-                }
+                })
             })
-        })
+        }
     }
 }
 
