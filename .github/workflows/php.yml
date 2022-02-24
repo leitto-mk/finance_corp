@@ -11,14 +11,17 @@ jobs:
 
     steps:
     - name: "Updating repository /fin"
-      run: cd ~/public_html/fin/
-           git pull origin main
+      run: |
+        cd ~/public_html/fin/
+        git pull origin main
     - name: "Updating repository /ktd"
-      run: cd ~/public_html/ktd2202.abase.id/
-           git pull origin main
+      run: |
+        cd ~/public_html/ktd2202.abase.id/
+        git pull origin main
     - name: "Updating repository /atl"
-      run: cd ~/public_html/atl2202.abase.id/
-           git pull origin main
+      run: |
+        cd ~/public_html/atl2202.abase.id/
+        git pull origin main
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
