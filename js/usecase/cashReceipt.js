@@ -161,6 +161,8 @@ const car = {
                     })
                 },
                 success: response => {
+                    helper.unblockUI()
+
                     if(response.success == true){
                         Swal.fire({
                             'type': 'success',
@@ -177,6 +179,8 @@ const car = {
                     }
                 },
                 error: response => {
+                    helper.unblockUI()
+
                     Swal.fire({
                         'type': 'error',
                         'title': 'ERROR',
@@ -415,6 +419,8 @@ const car = {
                     })
                 },
                 success: response => {
+                    helper.unblockUI()
+
                     if(response.success == true){
                         Swal.fire({
                             'type': 'success',
@@ -445,6 +451,8 @@ const car = {
                     }
                 },
                 error: response => {
+                    helper.unblockUI()
+                    
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',

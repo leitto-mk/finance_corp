@@ -161,6 +161,8 @@ const ob = {
                     })
                 },
                 success: response => {
+                    helper.unblockUI()
+
                     if(response.success == true){
                         Swal.fire({
                             'type': 'success',
@@ -177,6 +179,8 @@ const ob = {
                     }
                 },
                 error: response => {
+                    helper.unblockUI()
+
                     Swal.fire({
                         'type': 'error',
                         'title': 'ERROR',
@@ -391,6 +395,8 @@ const ob = {
                     })
                 },
                 success: response => {
+                    helper.unblockUI()
+
                     if(response.success == true){
                         Swal.fire({
                             'type': 'success',
@@ -417,6 +423,8 @@ const ob = {
                     }
                 },
                 error: response => {
+                    helper.unblockUI()
+                    
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',

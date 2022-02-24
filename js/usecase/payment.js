@@ -161,6 +161,8 @@ const pay = {
                     })
                 },
                 success: response => {
+                    helper.unblockUI()
+
                     if(response.success == true){
                         Swal.fire({
                             'type': 'success',
@@ -177,6 +179,8 @@ const pay = {
                     }
                 },
                 error: response => {
+                    helper.unblockUI()
+
                     Swal.fire({
                         'type': 'error',
                         'title': 'ERROR',
@@ -403,6 +407,8 @@ const pay = {
                     })
                 },
                 success: response => {
+                    helper.unblockUI()
+
                     if(response.success == true){
                         Swal.fire({
                             'type': 'success',
@@ -429,6 +435,8 @@ const pay = {
                     }
                 },
                 error: response => {
+                    helper.unblockUI()
+                    
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
