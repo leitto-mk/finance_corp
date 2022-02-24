@@ -60,7 +60,7 @@ const cap = {
                             $('#tbody_statement_details').append(`
                                 <tr class="sbold">
                                     <td class="text-center">${i+1}</td>
-                                    <td class="text-center">${response.result[i].DocNo}</td>
+                                    <td class="text-center">${response.result[i].TransDate}</td>
                                     <td class="text-center">${response.result[i].DocNo}</td>
                                     <td class="text-left">${response.result[i].Remarks}</td>
                                     <td class="text-center">${response.result[i].AccNo}</td>
