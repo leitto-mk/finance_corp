@@ -282,7 +282,7 @@ class Cash_adv extends CI_Controller
         //IF `DocNo` ALREADY EXIST AND ITS `TotalAmount` IS NO DIFFERENT,
         //THEN DONT CALCULATE, ELSE
         //GET THE BEGINING BALANCE
-        if($check_docno_amount == $this->input->post('totalamount')){
+        if($check_docno_amount !== $this->input->post('totalamount')){
             $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
             $balance = ($emp_beg_bal + $this->input->post('totalamount'));
     
@@ -667,7 +667,7 @@ class Cash_adv extends CI_Controller
         //IF `DocNo` ALREADY EXIST AND ITS `TotalAmount` IS NO DIFFERENT,
         //THEN DONT CALCULATE, ELSE
         //GET THE BEGINING BALANCE
-        if($check_docno_amount == $this->input->post('totalamount')){
+        if($check_docno_amount !== $this->input->post('totalamount')){
             $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
             $balance = ($emp_beg_bal - $this->input->post('totalamount'));
     
