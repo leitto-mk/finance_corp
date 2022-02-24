@@ -146,7 +146,7 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: -5px">
                                 <div>
-                                    <font size="3">Company Name</font><br>
+                                    <font size="3" class="uppercase">Company Name</font><br>
                                     <font size="2" class="font-dark sbold uppercase">Journal Report</font><br>
                                     <font size="2" class="font-dark sbold">
                                         <i class="fa fa-calendar"></i> 
