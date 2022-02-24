@@ -653,7 +653,7 @@ class Cash_adv extends CI_Controller
         $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
 
         //UPDATE BALANCE ABOVE THE TRANSDATE
-        $this->Mdl_corp_cash_advance->update_emp_balance(self::CAR, $this->input->post('docno'), $cur_date, $_POST['emp_master_id'], $this->input->post('totalamount'));
+        $this->Mdl_corp_cash_advance->update_emp_balance(self::CAR, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $this->input->post('totalamount'));
 
         //COUNTER-BALANCE
         array_push($trans, [
