@@ -12,7 +12,7 @@ import icsc from  './usecase/incomeStatementColumnar.js'
 import jtr from './usecase/journalTransaction.js'
 
 /**
- * Load Script as Interface
+ * Load Script as Modules
  */
 const modules = {
     //* ENTRY
