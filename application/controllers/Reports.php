@@ -243,6 +243,7 @@ class Reports extends CI_Controller
             'h3' => 'Transaction',
             'h4' => '',
 
+            'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
             'branch' => $this->Mdl_corp_reports->get_branch(),
             'account_no' => $this->Mdl_corp_reports->get_account_no(),
 
