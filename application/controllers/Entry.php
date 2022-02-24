@@ -23,7 +23,7 @@ class Entry extends CI_Controller
     const HTTP_NOT_ACCEPTABLE = 406;
     const HTTP_INTERNAL_ERROR = 500;
 
-    //TransType
+    //TransType for Entries
     const REC = 'RE';
     const PAY = 'PA';
     const OVB = 'OB';
