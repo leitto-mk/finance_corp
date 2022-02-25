@@ -11,9 +11,9 @@ const repository = {
         var defer = $.Deferred()
         
         datas = {
-            docno: datas.docno ?? '',
-            date_start: datas.date_start ?? helper.firstDayOfMonth(),
-            date_end: datas.date_end ?? helper.lastDayOfMonth()
+            docno: datas?.docno ?? '',
+            date_start: datas?.date_start ?? helper.firstDayOfMonth(),
+            date_end: datas?.date_end ?? helper.lastDayOfMonth()
         }
 
         $('table').DataTable({
