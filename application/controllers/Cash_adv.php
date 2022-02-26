@@ -35,18 +35,6 @@ class Cash_adv extends CI_Controller
             'validate'
         ]);
 
-        //Eloquent
-        $this->load->model('eloquent/Elq_company','company');
-        $this->load->model('eloquent/Elq_branch','branch');
-        $this->load->model('eloquent/Elq_department','dept');
-        $this->load->model('eloquent/Elq_business_unit','BU');
-        $this->load->model('eloquent/Elq_cost_center','CC');
-        $this->load->model('eloquent/Elq_coa','COA');
-        $this->load->model('eloquent/Elq_employee','emp');
-        $this->load->model('eloquent/Elq_fin_master','fin_master');
-        $this->load->model('eloquent/Elq_fin_detail','fin_detail');
-        $this->load->model('eloquent/Elq_fin_transaction','fin_transaction');
-
         //CodeIgniter model
         $this->load->model('Mdl_corp_cash_advance');
         $this->load->model('Mdl_corp_reports');
@@ -881,10 +869,10 @@ class Cash_adv extends CI_Controller
             'h3' => 'Outstanding',
             'h4' => 'Report',
 
-            'company' => $this->company->select('ComName')->get()->toArray(),
-            'branch' => $this->branch->select('BranchCode', 'BranchName')->get()->toArray(),
-            'department' => $this->dept->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get()->toArray(),
-            'costcenter' => $this->CC->select('CostCenter', 'CCDes', 'DeptCode')->get()->toArray(),
+            'company' => $this->db->select('ComName')->get()->toArray(),
+            'branch' => $this->db->select('BranchCode', 'BranchName')->get()->toArray(),
+            'department' => $this->db->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get()->toArray(),
+            'costcenter' => $this->db->select('CostCenter', 'CCDes', 'DeptCode')->get()->toArray(),
 
             'script' => 'outstandingReport'
         ];
@@ -923,11 +911,10 @@ class Cash_adv extends CI_Controller
             'h3' => 'Transaction',
             'h4' => 'Details',
 
-            'company' => $this->company->select('ComName')->get()->toArray(),
-            'branch' => $this->branch->select('BranchCode', 'BranchName')->get()->toArray(),
-            'department' => $this->dept->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get()->toArray(),
-            'businessunit' => $this->BU->select('BUCode', 'BUDes')->get()->toArray(),
-            'costcenter' => $this->CC->select('CostCenter', 'CCDes', 'DeptCode')->get()->toArray(),
+            'company' => $this->db->select('ComName')->get()->toArray(),
+            'branch' => $this->db->select('BranchCode', 'BranchName')->get()->toArray(),
+            'department' => $this->db->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get()->toArray(),
+            'costcenter' => $this->db->select('CostCenter', 'CCDes', 'DeptCode')->get()->toArray(),
 
             'script' => 'cashTransactionDetail'
         ];
