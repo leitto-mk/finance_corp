@@ -1,4 +1,5 @@
 const helper = {
+    //Get Currency List
     selectCurrency: () => {
         const API_KEY = 'efa820d81d9a4c6bb64b469e432b033e'
 
@@ -7,11 +8,13 @@ const helper = {
             .then(response => console.log(JSON.stringify(response, null, '\t')))
     },
 
+    //First Day of Month (YYYY-MM-DD)
     firstDayOfMonth: () => {
         let today = new Date()
         return new Date(today.getFullYear(), today.getMonth(), +1).toLocaleDateString('fr-CA')
     },
 
+    //Last Day of Month (YYYY-MM-DD)
     lastDayOfMonth: () => {
         let today = new Date()
         return new Date(today.getFullYear(), today.getMonth()+1, 0).toLocaleDateString('fr-CA')
@@ -98,7 +101,7 @@ const helper = {
         }
     },
 
-    //Disable default Enter Key action when
+    //Disable default Enter Key
     disableEnterKey: () => {
         $(document).on('keyup keypress', function(e){
             const key = e.keyCode || e.which
