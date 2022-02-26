@@ -148,10 +148,7 @@
                                 <div>
                                     <font size="3" class="uppercase"><?= $company ?></font><br>
                                     <font size="2" class="font-dark sbold uppercase">Journal Report</font><br>
-                                    <font size="2" class="font-dark sbold">
-                                        <i class="fa fa-calendar"></i> 
-                                        <span id="period">Periode : 01-Jan-22 - 01-Dec-22</span>
-                                    </font>
+                                    <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Date : <span id="label_date_start"></span> --- <span id="label_date_finish"></span></font>
                                 </div>
                             </div>
                         </div>
