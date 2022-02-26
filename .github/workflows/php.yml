@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Financecorp CI/CD
 
 on:
   push:
