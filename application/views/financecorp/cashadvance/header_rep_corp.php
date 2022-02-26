@@ -21,7 +21,7 @@
     <link href="<?= base_url()?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="<?= base_url(); ?>assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
     <link href="<?= base_url()?>assets/global/css/components-rounded.min.css" rel="stylesheet" id="style_components" type="text/css" />
     <link href="<?= base_url()?>assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
@@ -31,22 +31,22 @@
     <link href="<?= base_url()?>assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGINS NEW UPDATE -->
-    <link href="<?= base_url(); ?>assets/global/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/dropify-upload/css/dropify.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/dropify-upload/css/dropify.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
     <!-- BEGIN PAGE LEVEL PLUGINS NEW UPDATE-->
     <!-- BEGIN PAGE LEVEL PLUGINS NEW UPDATE -->
-    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/global/plugins/ladda/ladda-themeless.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/ladda/ladda-themeless.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
     <!-- BEGIN PAGE LEVEL PLUGINS NEW UPDATE-->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <link href="<?= base_url(); ?>assets/global/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url()?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url()?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url()?>assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
@@ -55,10 +55,10 @@
     <link href="<?= base_url()?>assets/global/plugins/clockface/css/clockface.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- END PAGE LEVEL PLUGINS NEW UPDATE -->
-    <link href="<?= base_url(); ?>assets/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/pages/css/profile-2.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/pages/css/invoice.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/pages/css/invoice-2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/pages/css/profile-2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/pages/css/invoice.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/pages/css/invoice-2.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS NEW UPDATE-->
     <link rel="shortcut icon" href="" />
 

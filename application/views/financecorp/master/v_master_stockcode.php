@@ -18,7 +18,7 @@
                         <a href="#">Persediaan</a>
                     </li>
                     <li class="active">Stock</li>
-                    <a href="<?php echo site_url('APOSMaster/form_add_stockcode')?>" title="Add New Stockcode" class="pull-right" style="margin-top: -5px">
+                    <a href="<?= base_url('APOSMaster/form_add_stockcode')?>" title="Add New Stockcode" class="pull-right" style="margin-top: -5px">
                         <button class="btn blue btn-sm btn-outline"><i class="fa fa-plus"></i> Stockcode</button>
                     </a>                   
                 </ol>
@@ -195,7 +195,7 @@ function transt_action(){
     var transt_action = '';
     transt_action += '<div class="page-actions">';
     transt_action += '<div class="btn-group">';
-    transt_action += '<a href="<?php echo site_url('APOSMaster/form_add_stockcode'); ?>" target="_blank" class="btn blue mt-ladda-btn ladda-button">';
+    transt_action += '<a href="<?= base_url('APOSMaster/form_add_stockcode'); ?>" target="_blank" class="btn blue mt-ladda-btn ladda-button">';
     transt_action += '<i class="fa fa-plus"></i>&nbsp;';
     transt_action += '<span class="hidden-sm hidden-xs">&nbsp;Add Stockcode&nbsp;</span>&nbsp;';    
     transt_action += '</a>';    
@@ -231,7 +231,7 @@ function get_list_stock_dt(){
                 processing : true,
                 serverSide : true,
                 ajax : {
-                    url     : "<?php echo site_url('APOSMaster/list_stock_dt'); ?>",
+                    url     : "<?= base_url('APOSMaster/list_stock_dt'); ?>",
                     type    : "POST"
                 },
                 columns : [

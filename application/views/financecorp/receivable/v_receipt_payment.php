@@ -45,7 +45,7 @@
                                 </button>
                             </span>
                             <span class="input-group-btn">
-                                <a href="<?php echo site_url('Acc_rec/add_receipt_payment') ?>" target="_blank" class="btn btn-md btn blue-oleo">
+                                <a href="<?= base_url('Acc_rec/add_receipt_payment') ?>" target="_blank" class="btn btn-md btn blue-oleo">
                                     <i class="fa fa-plus"></i>&nbsp;Add New</i>
                                 </a>
                             </span>

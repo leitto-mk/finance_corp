@@ -23,7 +23,6 @@
                                                 <th width="5%"></th>
                                                 <th class="text-center" width="15%">Branch</th>
                                                 <th class="text-center" width="15%">Department</th>
-                                                <th class="text-center" width="15%">Bussines Unit</th>
                                                 <th class="text-center" width="20%">Cost Center</th>
                                                 <th class="text-center" width="15%">Start Date</th>
                                                 <th class="text-center" width="15%">End Date</th>
@@ -40,9 +39,11 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
+                                                            <select id="branch" name="branch" class="form-control" required>
+                                                                <option value="all">All</option>
+                                                                <?php for($i=0; $i < count($branch); $i++) : ?>
+                                                                    <option value="<?= $branch[$i]['BranchCode'] ?>"><?= $branch[$i]['BranchName'] ?></option>
+                                                                <?php endfor; ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -50,9 +51,11 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
+                                                            <select id="department" name="department" class="form-control" required>
+                                                                <option value="all">All</option>
+                                                                <?php for($i=0; $i < count($department); $i++) : ?>
+                                                                    <option value="<?= $department[$i]['DeptCode'] ?>"><?= $department[$i]['DeptDes'] ?></option>
+                                                                <?php endfor; ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -60,19 +63,11 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
+                                                            <select id="costcenter" name="costcenter" class="form-control" required>
+                                                                <option value="all">All</option>
+                                                                <?php for($i=0; $i < count($costcenter); $i++) : ?>
+                                                                    <option value="<?= $costcenter[$i]['CostCenter'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
+                                                                <?php endfor; ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -114,7 +109,7 @@
                             <div>
                                 <font size="6">Company Name</font><br>
                                 <font size="4" class="font-dark sbold uppercase">Cash Advance Transaction</font><br>
-                                <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Date : 01-Jan-2021 - 01-Jan-2021</font>
+                                <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Date : <span id="label_date_start"></span> --- <span id="label_date_finish"></span></font>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -135,7 +130,10 @@
                                             <th class="text-center" width="10%"> Amount  </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tbody_report">
+                                        <tr>
+                                            <td colspan="11" class="bold uppercase text-center bg-info">-- Select Parameters --</td>
+                                        </tr>
                                         <tr class="font-dark sbold">
                                             <td align="center">01-Jan-2021</td>                                 
                                             <td align="center">12345</td>
@@ -148,97 +146,6 @@
                                             <td align="center">1</td>
                                             <td align="right">1,000,000</td>
                                             <td align="right">1,000,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">02-Jan-2021</td>                                 
-                                            <td align="center">12345</td>
-                                            <td align="center">Receipt</td>
-                                            <td align="center">2001</td>
-                                            <td align="left">Sesca Londah</td>
-                                            <td align="left">Transport Business</td>
-                                            <td align="left">1002 -  Material Management</td>
-                                            <td align="center">IDR</td>
-                                            <td align="center">1</td>
-                                            <td align="right">500,000</td>
-                                            <td align="right">500,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">03-Jan-2021</td>                                 
-                                            <td align="center">12346</td>
-                                            <td align="center">Withdraw</td>
-                                            <td align="center">2002</td>
-                                            <td align="left">Pranayan Salindeho</td>
-                                            <td align="left">Transport Business</td>
-                                            <td align="left">1002 -  Material Management</td>
-                                            <td align="center">IDR</td>
-                                            <td align="center">1</td>
-                                            <td align="right">2,000,000</td>
-                                            <td align="right">2,000,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">04-Jan-2021</td>                                 
-                                            <td align="center">12347</td>
-                                            <td align="center">Withdraw</td>
-                                            <td align="center">2003</td>
-                                            <td align="left">Jannice Salindeho</td>
-                                            <td align="left">Transport Business</td>
-                                            <td align="left">1002 -  Material Management</td>
-                                            <td align="center">IDR</td>
-                                            <td align="center">1</td>
-                                            <td align="right">5,000,000</td>
-                                            <td align="right">5,000,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">05-Jan-2021</td>                                 
-                                            <td align="center">12347</td>
-                                            <td align="center">Withdraw</td>
-                                            <td align="center">2000</td>
-                                            <td align="left">Eduard Salindeho</td>
-                                            <td align="left">Transport Business</td>
-                                            <td align="left">1002 -  Material Management</td>
-                                            <td align="center">IDR</td>
-                                            <td align="center">1</td>
-                                            <td align="right">1,000,000</td>
-                                            <td align="right">1,000,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">06-Jan-2021</td>                                 
-                                            <td align="center">12345</td>
-                                            <td align="center">Receipt</td>
-                                            <td align="center">2001</td>
-                                            <td align="left">Sesca Londah</td>
-                                            <td align="left">Transport Business</td>
-                                            <td align="left">1002 -  Material Management</td>
-                                            <td align="center">IDR</td>
-                                            <td align="center">1</td>
-                                            <td align="right">500,000</td>
-                                            <td align="right">500,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">07-Jan-2021</td>                                 
-                                            <td align="center">12346</td>
-                                            <td align="center">Withdraw</td>
-                                            <td align="center">2002</td>
-                                            <td align="left">Pranayan Salindeho</td>
-                                            <td align="left">Transport Business</td>
-                                            <td align="left">1002 -  Material Management</td>
-                                            <td align="center">IDR</td>
-                                            <td align="center">1</td>
-                                            <td align="right">2,000,000</td>
-                                            <td align="right">2,000,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">08-Jan-2021</td>                                 
-                                            <td align="center">12347</td>
-                                            <td align="center">Withdraw</td>
-                                            <td align="center">2003</td>
-                                            <td align="left">Jannice Salindeho</td>
-                                            <td align="left">Transport Business</td>
-                                            <td align="left">1002 -  Material Management</td>
-                                            <td align="center">IDR</td>
-                                            <td align="center">1</td>
-                                            <td align="right">5,000,000</td>
-                                            <td align="right">5,000,000</td>
                                         </tr>
                                     </tbody>
                                 </table>

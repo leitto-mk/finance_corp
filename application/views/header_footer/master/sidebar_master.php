@@ -48,7 +48,7 @@
             <h3 class="blog-sidebar-title uppercase" style="margin-left: -40px">Finance</h3>
             <li class="font-dark">
                 <!-- <a href="#master_coa" data-toggle="tab" id="get_list_coa" class="font-dark">Account Code</a> -->
-                <a href="<?php echo site_url('C_Finance') ?>" target="_blank" class="font-dark">Chart Of Account</a>
+                <a href="<?= base_url('C_Finance') ?>" target="_blank" class="font-dark">Chart Of Account</a>
             </li>
             <li class="font-dark">
                 <a href="#" data-toggle="tab" class="font-dark">Beginning Balance</a>

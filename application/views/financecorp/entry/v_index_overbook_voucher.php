@@ -45,7 +45,7 @@
                                 </button>
                             </span>
                             <span class="input-group-btn">
-                                <a href="<?php echo site_url('Entry/add_overbook_voucher') ?>" target="_blank" class="btn btn-md btn blue-oleo">
+                                <a href="<?= base_url('Entry/add_overbook_voucher') ?>" target="_blank" class="btn btn-md btn blue-oleo">
                                     <i class="fa fa-plus"></i>&nbsp;Add New</i>
                                 </a>
                             </span>

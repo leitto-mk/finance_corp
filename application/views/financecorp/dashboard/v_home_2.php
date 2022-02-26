@@ -635,7 +635,7 @@
     <div class="row">
         <div class="col-md-12">
             <marquee><h1 class="text-center" style="margin-top: -5px">Automation Based Resource System</h1></marquee>
-            <center><img src="<?php echo base_url(); ?>assets/bg4.jpeg" alt="" height="85%" width="85%"/></center>
+            <center><img src="<?= base_url() ?>assets/bg4.jpeg" alt="" height="85%" width="85%"/></center>
         </div>
     </div>
 </div>

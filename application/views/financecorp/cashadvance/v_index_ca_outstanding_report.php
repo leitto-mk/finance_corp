@@ -23,7 +23,6 @@
                                                 <th width="5%"></th>
                                                 <th class="text-center" width="15%">Branch</th>
                                                 <th class="text-center" width="15%">Department</th>
-                                                <th class="text-center" width="15%">Bussines Unit</th>
                                                 <th class="text-center" width="20%">Cost Center</th>
                                                 <th class="text-center" width="15%">Start Date</th>
                                                 <th class="text-center" width="15%">End Date</th>
@@ -40,9 +39,11 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
+                                                            <select id="branch" name="branch" class="form-control" required>
+                                                                <option value="all">All</option>
+                                                                <?php for($i=0; $i < count($branch); $i++) : ?>
+                                                                    <option value="<?= $branch[$i]['BranchCode'] ?>"><?= $branch[$i]['BranchName'] ?></option>
+                                                                <?php endfor; ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -50,9 +51,11 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
+                                                            <select id="department" name="department" class="form-control" required>
+                                                                <option value="all">All</option>
+                                                                <?php for($i=0; $i < count($department); $i++) : ?>
+                                                                    <option value="<?= $department[$i]['DeptCode'] ?>"><?= $department[$i]['DeptDes'] ?></option>
+                                                                <?php endfor; ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -60,19 +63,11 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
+                                                            <select id="costcenter" name="costcenter" class="form-control" required>
+                                                                <option value="all">All</option>
+                                                                <?php for($i=0; $i < count($costcenter); $i++) : ?>
+                                                                    <option value="<?= $costcenter[$i]['CostCenter'] ?>"><?= $costcenter[$i]['CCDes'] ?></option>
+                                                                <?php endfor; ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -112,9 +107,9 @@
                     <div class="portlet bordered light">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: -5px">
                             <div>
-                                <font size="6">Company Name</font><br>
+                                <font size="6"><?= $company[0]['ComName'] ?></font><br>
                                 <font size="4" class="font-dark sbold uppercase">Current Outstanding Balance</font><br>
-                                <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Date : 01-Jan-2021 - 01-Jan-2021</font>
+                                <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Date : <span id="label_date_start"></span> --- <span id="label_date_finish"></span></font>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -129,108 +124,9 @@
                                             <th class="text-center" width="10%"> Outstanding </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr style="background-color: #578ebe6b">
-                                            <td colspan="6" class="bold uppercase">Finance Accounting Department (Code)</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1</td>                                 
-                                            <td align="center">2000</td>
-                                            <td align="left">Eduard Salindeho</td>
-                                            <td align="left">Finance Accounting Supervisor</td>
-                                            <td align="left">Sesca Londah - 2000</td>
-                                            <td align="right"> 1,400,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2</td>                                 
-                                            <td align="center">2001</td>
-                                            <td align="left">Sesca Londah</td>
-                                            <td align="left">Accountant Officer</td>
-                                            <td align="left">Sesca Londah - 2000</td>
-                                            <td align="right"> 500,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">3</td>                                 
-                                            <td align="center">2000</td>
-                                            <td align="left">Pranayan Salindeho</td>
-                                            <td align="left">Finance Coodinator</td>
-                                            <td align="left">Sesca Londah - 2000</td>
-                                            <td align="right"> 1,000,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold" style="border-top: solid 2px;">                          
-                                            <td align="right" colspan="5">Total :</td>
-                                            <td align="right">2,900,000</td>
-                                        </tr>
-
-
-                                        <tr style="background-color: #578ebe6b">
-                                            <td colspan="6" class="bold uppercase">Operation Department (Code)</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1</td>                                 
-                                            <td align="center">2000</td>
-                                            <td align="left">Eduard Salindeho</td>
-                                            <td align="left">Finance Accounting Supervisor</td>
-                                            <td align="left">Sesca Londah - 2000</td>
-                                            <td align="right"> 1,400,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2</td>                                 
-                                            <td align="center">2001</td>
-                                            <td align="left">Sesca Londah</td>
-                                            <td align="left">Accountant Officer</td>
-                                            <td align="left">Sesca Londah - 2000</td>
-                                            <td align="right"> 500,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">3</td>                                 
-                                            <td align="center">2000</td>
-                                            <td align="left">Pranayan Salindeho</td>
-                                            <td align="left">Finance Coodinator</td>
-                                            <td align="left">Sesca Londah - 2000</td>
-                                            <td align="right"> 1,000,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold" style="border-top: solid 2px;">                          
-                                            <td align="right" colspan="5">Total :</td>
-                                            <td align="right">2,900,000</td>
-                                        </tr>
-
-
-                                        <tr style="background-color: #578ebe6b">
-                                            <td colspan="6" class="bold uppercase">Human Resource Department (Code)</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1</td>                                 
-                                            <td align="center">2000</td>
-                                            <td align="left">Eduard Salindeho</td>
-                                            <td align="left">Finance Accounting Supervisor</td>
-                                            <td align="left">Sesca Londah - 2000</td>
-                                            <td align="right"> 1,400,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2</td>                                 
-                                            <td align="center">2001</td>
-                                            <td align="left">Sesca Londah</td>
-                                            <td align="left">Accountant Officer</td>
-                                            <td align="left">Sesca Londah - 2000</td>
-                                            <td align="right"> 500,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">3</td>                                 
-                                            <td align="center">2000</td>
-                                            <td align="left">Pranayan Salindeho</td>
-                                            <td align="left">Finance Coodinator</td>
-                                            <td align="left">Sesca Londah - 2000</td>
-                                            <td align="right"> 1,000,000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold" style="border-top: solid 2px;">                          
-                                            <td align="right" colspan="5">Total :</td>
-                                            <td align="right">2,900,000</td>
-                                        </tr>
-
-                                        <tr class="bg-blue-ebonyclay font-white bold">                          
-                                            <td align="right" colspan="5"> Grand Total :</td>
-                                            <td align="right">8,700,000</td>
+                                    <tbody id="tbody_report">
+                                        <tr>
+                                            <td colspan="6" class="bold uppercase text-center bg-info">-- Select Parameters --</td>
                                         </tr>
                                     </tbody>
                                 </table>

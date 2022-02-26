@@ -28,7 +28,7 @@
             <!-- <h1>Master File</h1>
             <ol class="breadcrumb">
                 <li>
-                    <a href="<?php echo site_url('APOS'); ?>">Home</a>
+                    <a href="<?= base_url('APOS'); ?>">Home</a>
                 </li>
                 <li>
                     <a href="#">Pages</a>
@@ -434,7 +434,7 @@
                             <div class="portlet bordered light bg-grey-cararra">
                                 <div class="portlet-title">
                                     <div class="actions">
-                                        <a href="<?php echo site_url('APOSMaster/form_add_stockcode')?>" type="button" class="btn blue" title="Add New Stockcode"><i class="fa fa-plus"></i> Add New
+                                        <a href="<?= base_url('APOSMaster/form_add_stockcode')?>" type="button" class="btn blue" title="Add New Stockcode"><i class="fa fa-plus"></i> Add New
                                         </a>
                                         <button id="switch_disc_stockcode" type="button" href="#" class="btn yellow btn-sm" title="InActive Stockcode">InActive
                                             <i class="fa fa-close"></i>
@@ -600,7 +600,7 @@
                             <div class="portlet bordered light bg-grey-cararra">
                                 <div class="portlet-title">
                                     <div class="tools">
-                                        <a href="<?php echo site_url('APOSMaster/form_add_supplier')?>" title="Add New Supplier" class="pull-right" style="margin-top: -5px">
+                                        <a href="<?= base_url('APOSMaster/form_add_supplier')?>" title="Add New Supplier" class="pull-right" style="margin-top: -5px">
                                             <button class="btn blue "><i class="fa fa-plus"></i> Add New</button>
                                         </a>  
                                     </div> 
@@ -635,7 +635,7 @@
                             <div class="portlet bordered light bg-grey-cararra">
                                 <div class="portlet-title">
                                     <div class="tools">
-                                        <a href="<?php echo site_url('APOSMaster/form_add_customer')?>" title="Add New Customer" class="pull-right" style="margin-top: -5px">
+                                        <a href="<?= base_url('APOSMaster/form_add_customer')?>" title="Add New Customer" class="pull-right" style="margin-top: -5px">
                                             <button class="btn blue "><i class="fa fa-plus"></i> Add New</button>
                                         </a>  
                                     </div> 
@@ -1571,28 +1571,28 @@ function load_function(){
 
     $(document).on('click', '#detail_supplier', function(){
         var supcode = $(this).attr('sup-code');
-        var url = "<?php echo site_url('APOSMaster/v_detail_supplier'); ?>";
+        var url = "<?= base_url('APOSMaster/v_detail_supplier'); ?>";
         var targeturl = url + '/' + supcode;
         window.open(targeturl);
     });
 
     $(document).on('click', '#detail_customer', function(){
         var custcode = $(this).attr('cust-code');
-        var url = "<?php echo site_url('APOSMaster/v_detail_customer'); ?>";
+        var url = "<?= base_url('APOSMaster/v_detail_customer'); ?>";
         var targeturl = url + '/' + custcode;
         window.open(targeturl);
     });
 
     $(document).on('click', '#edit_supplier', function(){
         var supcode = $(this).attr('sup-code');
-        var url = "<?php echo site_url('APOSMaster/v_edit_supplier'); ?>";
+        var url = "<?= base_url('APOSMaster/v_edit_supplier'); ?>";
         var targeturl = url + '/' + supcode;
         window.open(targeturl);
     });
 
     $(document).on('click', '#edit_customer', function(){
         var custcode = $(this).attr('cust-code');
-        var url = "<?php echo site_url('APOSMaster/v_edit_customer'); ?>";
+        var url = "<?= base_url('APOSMaster/v_edit_customer'); ?>";
         var targeturl = url + '/' + custcode;
         window.open(targeturl);
     });
@@ -1601,7 +1601,7 @@ function load_function(){
         $('#m_detail_storage').modal('show');
         var scode = $(this).attr('storage-code');
         $.ajax({
-            url: "<?php echo site_url('Cmaster/get_detail_storage'); ?>",
+            url: "<?= base_url('Cmaster/get_detail_storage'); ?>",
             data: {
                 storagecode: scode
             },
@@ -1632,7 +1632,7 @@ function load_function(){
             $('#m_edit_storage').modal('show');
             var scode = $(this).attr('storage-code');
             $.ajax({
-                url: "<?php echo site_url('Cmaster/get_detail_storage_to_edit'); ?>",
+                url: "<?= base_url('Cmaster/get_detail_storage_to_edit'); ?>",
                 data: {
                     storagecode: scode
                 },
@@ -1748,7 +1748,7 @@ function load_function(){
         if (r == true) {
             var scode = $(this).attr('storage-code');
             $.ajax({
-                url: "<?php echo site_url("Cmaster/delete_storage_by_storageid"); ?>",
+                url: "<?= base_url("Cmaster/delete_storage_by_storageid"); ?>",
                 data: {
                     storagecode: scode
                 },
@@ -1815,7 +1815,7 @@ function load_function(){
         var r = confirm("Are you sure want to Add Storage ?");
         if (r == true) {
             $.ajax({
-                url: "<?php echo site_url('Cmaster/add_storage'); ?>",
+                url: "<?= base_url('Cmaster/add_storage'); ?>",
                 data: $(this).serialize(),
                 type: "POST",
                 dataType: "json",
@@ -1874,7 +1874,7 @@ function load_function(){
         var whmval = $(this).val();
         if (whmval.length > 0) {
             $.ajax({
-                url: "<?php echo site_url('Cmaster/get_detwarehouseman_by_whmid') ?>",
+                url: "<?= base_url('Cmaster/get_detwarehouseman_by_whmid') ?>",
                 data: {
                     id: whmval
                 },
@@ -1901,7 +1901,7 @@ function load_function(){
         var whmval = $(this).val();
         if (whmval.length > 0) {
             $.ajax({
-                url: "<?php echo site_url('Cmaster/get_detwarehouseman_by_whmid') ?>",
+                url: "<?= base_url('Cmaster/get_detwarehouseman_by_whmid') ?>",
                 data: {
                     id: whmval
                 },
@@ -1929,7 +1929,7 @@ function load_function(){
         var r = confirm("Are you sure want to Submit Edit Storage ?");
         if (r == true) {
             $.ajax({
-                url: "<?php echo site_url('Cmaster/edit_storage'); ?>",
+                url: "<?= base_url('Cmaster/edit_storage'); ?>",
                 data: $(this).serialize(),
                 type: "POST",
                 dataType: "json",
@@ -1989,7 +1989,7 @@ function load_function(){
         console.log(form)
         if (r == true) {
             $.ajax({
-                url: "<?php echo site_url('Cmaster/add_coa'); ?>",
+                url: "<?= base_url('Cmaster/add_coa'); ?>",
                 data: $(this).serialize(),
                 type: "POST",
                 dataType: "json",
@@ -2049,7 +2049,7 @@ function load_function(){
         console.log(form)
         if (r == true) {
             $.ajax({
-                url: "<?php echo site_url('Cmaster/add_cur'); ?>",
+                url: "<?= base_url('Cmaster/add_cur'); ?>",
                 data: $(this).serialize(),
                 type: "POST",
                 dataType: "json",
@@ -2111,7 +2111,7 @@ function load_function(){
             console.log(form)
             if (r == true) {
                 $.ajax({
-                    url: "<?php echo site_url('Cmaster/edit_cur'); ?>",
+                    url: "<?= base_url('Cmaster/edit_cur'); ?>",
                     data: $(this).serialize(),
                     type: "POST",
                     dataType: "json",
@@ -2163,7 +2163,7 @@ function load_function(){
             var ccode = $(this).attr('currency-code');
             console.log(ccode)
             $.ajax({
-                url: "<?php echo site_url('Cmaster/get_detail_cur_to_edit'); ?>",
+                url: "<?= base_url('Cmaster/get_detail_cur_to_edit'); ?>",
                 data: {
                     currencycode: ccode
                 },
@@ -2204,7 +2204,7 @@ function load_function(){
         if (r == true) {
             var ccode = $(this).attr('currency-code');
             $.ajax({
-                url: "<?php echo site_url("Cmaster/delete_cur_by_accgid"); ?>",
+                url: "<?= base_url("Cmaster/delete_cur_by_accgid"); ?>",
                 data: {
                     currencycode: ccode
                 },
@@ -2245,7 +2245,7 @@ function transt_action(){
     var transt_action = '';
     transt_action += '<div class="page-actions">';
     transt_action += '<div class="btn-group">';
-    transt_action += '<a href="<?php echo site_url('APOSMaster/form_add_stockcode'); ?>" target="_blank" class="btn blue mt-ladda-btn ladda-button">';
+    transt_action += '<a href="<?= base_url('APOSMaster/form_add_stockcode'); ?>" target="_blank" class="btn blue mt-ladda-btn ladda-button">';
     transt_action += '<i class="fa fa-plus"></i>&nbsp;';
     transt_action += '<span class="hidden-sm hidden-xs">&nbsp;Add Stockcode&nbsp;</span>&nbsp;';    
     transt_action += '</a>';    
@@ -2257,7 +2257,7 @@ function transt_action(){
 function get_list_branch() {
     var html = '';
     $.ajax({
-        url: "<?php echo site_url('Cmaster/get_list_branch'); ?>",
+        url: "<?= base_url('Cmaster/get_list_branch'); ?>",
         type: "GET",
         dataType: "json",
         success: function(data) {
@@ -2280,7 +2280,7 @@ function get_list_branch() {
 function get_list_person_incharge() {
     var html = '';
     $.ajax({
-        url: "<?php echo site_url('Cmaster/get_list_warehouseman'); ?>",
+        url: "<?= base_url('Cmaster/get_list_warehouseman'); ?>",
         type: "GET",
         dataType: "json",
         success: function(data) {
@@ -2332,7 +2332,7 @@ function get_list_storage_dt() {
         processing: true,
         serverSide: true,
         ajax: {
-            url: "<?php echo site_url('Cmaster/list_storage_dt'); ?>",
+            url: "<?= base_url('Cmaster/list_storage_dt'); ?>",
             type: "POST"
         },
         columns: [{
@@ -2429,7 +2429,7 @@ function get_list_stock_dt(){
                 processing : true,
                 serverSide : true,
                 ajax : {
-                    url     : "<?php echo site_url('Cmaster/list_stock_dt'); ?>",
+                    url     : "<?= base_url('Cmaster/list_stock_dt'); ?>",
                     type    : "POST"
                 },
                 columns : [
@@ -2495,7 +2495,7 @@ function get_list_stock_dt_disc(){
                 processing : true,
                 serverSide : true,
                 ajax : {
-                    url     : "<?php echo site_url('Cmaster/list_stock_dt_disc'); ?>",
+                    url     : "<?= base_url('Cmaster/list_stock_dt_disc'); ?>",
                     type    : "POST"
                 },
                 columns : [
@@ -2619,7 +2619,7 @@ function get_list_supplier_dt(){
                 processing : true,
                 serverSide : true,
                 ajax : {
-                    url     : "<?php echo site_url('APOSMaster/list_supplier_dt'); ?>",
+                    url     : "<?= base_url('APOSMaster/list_supplier_dt'); ?>",
                     type    : "POST"
                 }, 
                 columns : [
@@ -2677,7 +2677,7 @@ function get_list_customer_dt(){
                 processing : true,
                 serverSide : true,
                 ajax : {
-                    url     : "<?php echo site_url('APOSMaster/list_customer_dt'); ?>",
+                    url     : "<?= base_url('APOSMaster/list_customer_dt'); ?>",
                     type    : "POST"
                 }, 
                 columns : [
@@ -2732,7 +2732,7 @@ function get_list_uom_dt() {
         processing: true,
         serverSide: true,
         ajax: {
-            url: "<?php echo site_url('Cmaster/list_uom_dt'); ?>",
+            url: "<?= base_url('Cmaster/list_uom_dt'); ?>",
             type: "POST"
         },
         columns: [{
@@ -2804,7 +2804,7 @@ function get_list_currency_dt() {
         processing: true,
         serverSide: true,
         ajax: {
-            url: "<?php echo site_url('Cmaster/list_cur_dt'); ?>",
+            url: "<?= base_url('Cmaster/list_cur_dt'); ?>",
             type: "POST"
         },
         columns: [{
@@ -2876,7 +2876,7 @@ function get_list_coa_dt() {
         processing: true,
         serverSide: true,
         ajax: {
-            url: "<?php echo site_url('Cmaster/list_coa_dt'); ?>",
+            url: "<?= base_url('Cmaster/list_coa_dt'); ?>",
             type: "POST"
         },
         columns: [{
