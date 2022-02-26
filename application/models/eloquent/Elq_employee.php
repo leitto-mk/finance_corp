@@ -7,4 +7,5 @@ class Elq_employee extends Eloquent
 {
     protected $table = 'tbl_fa_hr_append';
     public $timestamps = false;
+    public $primaryKey = "CtrlNo";
 }

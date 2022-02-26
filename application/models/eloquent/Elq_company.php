@@ -7,4 +7,5 @@ class Elq_company extends Eloquent
 {
     protected $table = 'abase_01_com';
     public $timestamps = false;
+    public $primaryKey = "CtrlNo";
 }

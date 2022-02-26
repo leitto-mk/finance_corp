@@ -7,4 +7,5 @@ class Elq_cost_center extends Eloquent
 {
     protected $table = 'abase_04_cost_center';
     public $timestamps = false;
+    public $primaryKey = "CtrlNo";
 }

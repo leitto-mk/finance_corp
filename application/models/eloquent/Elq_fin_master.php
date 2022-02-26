@@ -7,4 +7,5 @@ class Elq_fin_master extends Eloquent
 {
     protected $table = 'tbl_fa_treasury_mas';
     public $timestamps = false;
+    public $primaryKey = "CtrlNo";
 }

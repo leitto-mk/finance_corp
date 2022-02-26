@@ -7,4 +7,5 @@ class Elq_fin_transaction extends Eloquent
 {
     protected $table = 'tbl_fa_transaction';
     public $timestamps = false;
+    public $primaryKey = "CtrlNo";
 }

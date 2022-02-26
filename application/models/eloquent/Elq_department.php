@@ -7,4 +7,5 @@ class Elq_department extends Eloquent
 {
     protected $table = 'abase_03_dept';
     public $timestamps = false;
+    public $primaryKey = "CtrlNo";
 }

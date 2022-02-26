@@ -7,4 +7,5 @@ class Elq_coa extends Eloquent
 {
     protected $table = 'tbl_account_no';
     public $timestamps = false;
+    public $primaryKey = "CtrlNo";
 }
