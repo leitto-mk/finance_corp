@@ -3,7 +3,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_cash_advance extends CI_Model
 {
-    function get_oustanding_bal(){
+    function __construct(){
+        parent::__construct();
+
+        //Eloquent
+        $this->load->model('eloquent/Elq_company','company');
+        $this->load->model('eloquent/Elq_branch','branch');
+        $this->load->model('eloquent/Elq_department','dept');
+        $this->load->model('eloquent/Elq_business_unit','BU');
+        $this->load->model('eloquent/Elq_cost_center','CC');
+        $this->load->model('eloquent/Elq_coa','COA');
+        $this->load->model('eloquent/Elq_employee','emp');
+        $this->load->model('eloquent/Elq_fin_master','fin_master');
+        $this->load->model('eloquent/Elq_fin_detail','fin_detail');
+        $this->load->model('eloquent/Elq_fin_transaction','fin_transaction');
+    }
+
+    function get_outstanding_bal(){
         $query = $this->db->query(
             "SELECT
                 dept.DeptCode,
@@ -23,7 +39,7 @@ class Mdl_corp_cash_advance extends CI_Model
         );
 
         if($this->db->error()['code'] != 0){
-            return [null, $this->db->error()['message']];
+            return [null, "Database Error"];
         }
 
         return [$query->result_array(), null];
@@ -570,5 +586,91 @@ class Mdl_corp_cash_advance extends CI_Model
         )->result_array();
 
         return $query;
+    }
+
+    function get_outstanding_report($branch, $dept, $costcenter, $date_start, $date_finish){
+        $this->db->order_by('emp.DeptDes', 'ASC')
+                 ->distinct()
+                 ->select("
+                    emp.IDNumber,
+                    emp.FullName,
+                    emp.Branch,
+                    emp.BranchDes,
+                    emp.DeptCode,
+                    emp.DeptDes,
+                    emp.CostCenter,
+                    emp.CostCenterDes,
+                    emp.JobTitleDes,
+                    emp.Supervisor,
+                    trans.TransDate,
+                    COALESCE(trans.Balance, 0) AS Outstanding")
+                 ->from('tbl_fa_hr_append AS emp')
+                 ->join('tbl_fa_transaction AS trans',
+                         "trans.IDNumber = emp.IDNumber
+                          AND trans.Balance = (SELECT Balance FROM tbl_fa_transaction WHERE IDNumber = emp.IDNumber ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+                          AND trans.TransDate BETWEEN '$date_start' AND '$date_finish'",
+                        'LEFT');
+
+        if(strtolower($branch) !== 'all'){
+            $this->db->where('emp.Branch', $branch);
+        }
+        
+        if(strtolower($dept) !== 'all'){
+            $this->db->where('emp.DeptCode', $dept);
+        }
+        
+        if(strtolower($costcenter) !== 'all'){
+            $this->db->where('emp.CostCenter', $costcenter);
+        }
+
+        $query = $this->db->get();
+        
+        if($this->db->error()['code'] != 0){
+            return [null, "Database Error"];
+        }
+
+        return [$query->result_array(), null];
+    }
+
+    function get_cash_transaction($branch, $dept, $costcenter, $date_start, $date_finish){
+        $this->db->order_by('trans.TransDate', 'ASC')
+                 ->distinct()
+                 ->select("
+                    DATE_FORMAT(trans.TransDate, '%d-%b-%Y') AS TransDate,
+                    trans.DocNo,
+                    trans.TransType,
+                    trans.IDNumber,
+                    emp.FullName,
+                    trans.Remarks,
+                    emp.DeptDes,
+                    trans.Currency,
+                    trans.Rate,
+                    trans.Unit,
+                    trans.Amount")
+                 ->from('tbl_fa_transaction AS trans')
+                 ->join("tbl_fa_hr_append AS emp","emp.IDNumber = trans.IDNumber","LEFT")
+                 ->where("trans.TransDate BETWEEN '$date_start' AND '$date_finish'")
+                 ->where('ItemNo', 0)
+                 ->where_in('TransType', ['CW', 'CR']);
+
+        if(strtolower($branch) !== 'all'){
+            $this->db->where('emp.Branch', $branch);
+        }
+        
+        if(strtolower($dept) !== 'all'){
+            $this->db->where('emp.DeptCode', $dept);
+        }
+        
+        if(strtolower($costcenter) !== 'all'){
+            $this->db->where('emp.CostCenter', $costcenter);
+        }
+
+        $query = $this->db->get();
+        
+        if($this->db->error()['code'] != 0){
+            return [null, "Database Error"];
+        }
+
+        return [$query->result_array(), null];
     }
 }

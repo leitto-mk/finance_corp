@@ -35,6 +35,19 @@ class Cash_adv extends CI_Controller
             'validate'
         ]);
 
+        //Eloquent
+        $this->load->model('eloquent/Elq_company','company');
+        $this->load->model('eloquent/Elq_branch','branch');
+        $this->load->model('eloquent/Elq_department','dept');
+        $this->load->model('eloquent/Elq_business_unit','BU');
+        $this->load->model('eloquent/Elq_cost_center','CC');
+        $this->load->model('eloquent/Elq_coa','COA');
+        $this->load->model('eloquent/Elq_employee','emp');
+        $this->load->model('eloquent/Elq_fin_master','fin_master');
+        $this->load->model('eloquent/Elq_fin_detail','fin_detail');
+        $this->load->model('eloquent/Elq_fin_transaction','fin_transaction');
+
+        //CodeIgniter model
         $this->load->model('Mdl_corp_cash_advance');
         $this->load->model('Mdl_corp_reports');
     }
@@ -42,7 +55,7 @@ class Cash_adv extends CI_Controller
     //* CASH ADVANCE DASHBOARD
     public function index(){
 
-        [$outstanding, $error] = $this->Mdl_corp_cash_advance->get_oustanding_bal();
+        [$outstanding, $error] = $this->Mdl_corp_cash_advance->get_outstanding_bal();
 
         $data = [
             'title' => 'Cash Advance',
@@ -866,10 +879,39 @@ class Cash_adv extends CI_Controller
             'h1' => 'Cash',
             'h2' => 'Advance',
             'h3' => 'Outstanding',
-            'h4' => 'Report'
+            'h4' => 'Report',
+
+            'company' => $this->company->select('ComName')->get()->toArray(),
+            'branch' => $this->branch->select('BranchCode', 'BranchName')->get()->toArray(),
+            'department' => $this->dept->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get()->toArray(),
+            'costcenter' => $this->CC->select('CostCenter', 'CCDes', 'DeptCode')->get()->toArray(),
+
+            'script' => 'outstandingReport'
         ];
         
         $this->load->view('financecorp/cashadvance/v_index_ca_outstanding_report', $data);
+    }
+
+    public function ajax_get_outsanding_report(){
+        $validation = validate($this->input->post());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $branch = $this->input->post('branch');
+        $dept = $this->input->post('dept');
+        $costcenter = $this->input->post('costcenter');
+        $date_start = $this->input->post('date_start');
+        $date_finish = $this->input->post('date_finish');
+
+        [$result, $error] = $this->Mdl_corp_cash_advance->get_outstanding_report($branch, $dept, $costcenter, $date_start, $date_finish);
+
+        if($error !== null) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
+
+        return set_success_response($result);
     }
 
     //* CASH TRANSACTION DETAILS
@@ -879,22 +921,54 @@ class Cash_adv extends CI_Controller
             'h1' => 'Cash',
             'h2' => 'Advance',
             'h3' => 'Transaction',
-            'h4' => 'Details'
+            'h4' => 'Details',
+
+            'company' => $this->company->select('ComName')->get()->toArray(),
+            'branch' => $this->branch->select('BranchCode', 'BranchName')->get()->toArray(),
+            'department' => $this->dept->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get()->toArray(),
+            'businessunit' => $this->BU->select('BUCode', 'BUDes')->get()->toArray(),
+            'costcenter' => $this->CC->select('CostCenter', 'CCDes', 'DeptCode')->get()->toArray(),
+
+            'script' => 'cashTransactionDetail'
         ];
         
         $this->load->view('financecorp/cashadvance/v_index_ca_transaction_details', $data);
     }
 
-    //* CASH REQUEST REPORT
-    public function ca_request_report(){
-        $data = [
-            'title' => 'Cash Advance Request Report',
-            'h1' => 'Cash',
-            'h2' => 'Advance',
-            'h3' => 'Request',
-            'h4' => 'Report'
-        ];
+    public function ajax_get_cash_transaction_detail(){
+        $validation = validate($this->input->post(), [
+            'date' => ['date_start', 'date_finish']
+        ]);
         
-        $this->load->view('financecorp/cashadvance/v_index_ca_request_report', $data);
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $branch = $this->input->post('branch');
+        $dept = $this->input->post('dept');
+        $costcenter = $this->input->post('costcenter');
+        $date_start = $this->input->post('date_start');
+        $date_finish = $this->input->post('date_finish');
+
+        [$result, $error] = $this->Mdl_corp_cash_advance->get_cash_transaction($branch, $dept, $costcenter, $date_start, $date_finish);
+
+        if($error !== null) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
+
+        return set_success_response($result);
     }
+
+    //* CASH REQUEST REPORT
+    // public function ca_request_report(){
+    //     $data = [
+    //         'title' => 'Cash Advance Request Report',
+    //         'h1' => 'Cash',
+    //         'h2' => 'Advance',
+    //         'h3' => 'Request',
+    //         'h4' => 'Report'
+    //     ];
+        
+    //     $this->load->view('financecorp/cashadvance/v_index_ca_request_report', $data);
+    // }
 }

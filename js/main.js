@@ -5,12 +5,13 @@ import gj from './usecase/generalJournal.js'
 import caw from './usecase/cashWithdraw.js'
 import car from './usecase/cashReceipt.js'
 import cap from './usecase/cashPersonalStatement.js'
+import our from './usecase/outstandingReport.js'
+import ctd from './usecase/cashTransactionDetail.js'
 import gl from './usecase/generalLedger.js'
 import bal from './usecase/balanceSheet.js'
 import ics from  './usecase/incomeStatement.js'
 import icsc from  './usecase/incomeStatementColumnar.js'
 import jtr from './usecase/journalTransaction.js'
-
 /**
  * Load Script as Modules
  */
@@ -141,6 +142,14 @@ const modules = {
 
     cashPersonalStatement: () => {
         cap.indexPage.eventGetEmpDetails()
+    },
+
+    outstandingReport: () => {
+        our.indexPage.eventGetOutstandingReport()
+    },
+
+    cashTransactionDetail: () => {
+        ctd.indexPage.eventGetCashTransactionDetail()
     },
 
     //* REPORTS
