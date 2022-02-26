@@ -17,6 +17,20 @@ const helper = {
         return new Date(today.getFullYear(), today.getMonth()+1, 0).toLocaleDateString('fr-CA')
     },
 
+    /*
+    * converDate parse Date from `YYYY-MM-DD` to `any` specify format
+    * for more information, read the doc here:
+    * https://momentjs.com/docs/#/parsing/string-format/
+    * 
+    * @param {String} date
+    * @param {String} format
+    * 
+    * return string
+    */
+    convertDate: (date, format) => {
+        return moment(date,'YYYY-MM-DD').format(format)
+    },
+
     //Display Page Loader
     blockUI: options => {
         options = $.extend(true, {}, options);
