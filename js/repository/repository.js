@@ -1,12 +1,19 @@
-/*
- *  REPOSITORY
- *  This is Where You fetch/store Data,
- *  Mainly interacts with the server and handle request/responses
-*/
-
 import helper from '../helper.js'
 
+/**
+ * 
+ * This is Where You fetch/store Data,
+ * Mainly interacts with the server and handle request/responses
+ * 
+*/
 const repository = {
+    /**
+     * Generate `DataTable`
+     * @type {string}       URL string
+     * @type {object}       body param inside an object
+     * 
+     * @return {promise}    Promise
+     */
     generateDataTable: (url, datas) => {
         var defer = $.Deferred()
         
@@ -118,6 +125,14 @@ const repository = {
         return defer
     },
 
+    /**
+     * `Fetch` Record from the Server. with `POST` method
+     * 
+     * @type {string}       URL string
+     * @type {object}       body param inside an object
+     * 
+     * @return {promise}    Promise
+     */
     getRecord: (url, datas) => {
         var defer = $.Deferred()
         
@@ -142,6 +157,14 @@ const repository = {
         return defer
     },
 
+    /**
+     * `Delete` Record from the server. with `POST` method
+     * 
+     * @type {string}       URL string
+     * @type {object}       body param inside an object
+     * 
+     * @return {promise}    Promise
+     */
     deleteRecord: (url, datas) => {
         var defer = $.Deferred()
 
@@ -165,6 +188,14 @@ const repository = {
         return defer
     },
 
+    /**
+     * `Submit` Record to the server. with `POST` method
+     * 
+     * @type {string}       URL string
+     * @type {object}       body param inside an object
+     * 
+     * @return {promise}    Promise
+     */
     submitRecord: (url, datas) => {
         var defer = $.Deferred()
 
