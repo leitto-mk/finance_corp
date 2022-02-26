@@ -1,5 +1,9 @@
 const helper = {
-    //Get Currency List
+    /**
+     * get currency and its current price
+     * 
+     * @return  {object}
+     */
     selectCurrency: () => {
         const API_KEY = 'efa820d81d9a4c6bb64b469e432b033e'
 
@@ -8,33 +12,45 @@ const helper = {
             .then(response => console.log(JSON.stringify(response, null, '\t')))
     },
 
-    //First Day of Month (YYYY-MM-DD)
+    /**
+     * Get First Day of current Month
+     * 
+     * @return  {string}    string
+     */
     firstDayOfMonth: () => {
         let today = new Date()
         return new Date(today.getFullYear(), today.getMonth(), +1).toLocaleDateString('fr-CA')
     },
 
-    //Last Day of Month (YYYY-MM-DD)
+    /**
+     * Get Last Day of current Month
+     * 
+     * @return  {string}    string
+     */
     lastDayOfMonth: () => {
         let today = new Date()
         return new Date(today.getFullYear(), today.getMonth()+1, 0).toLocaleDateString('fr-CA')
     },
 
-    /*
-    * converDate parse Date from `YYYY-MM-DD` to `any` specify format
-    * for more information, read the doc here:
-    * https://momentjs.com/docs/#/parsing/string-format/
-    * 
-    * @param {String} date
-    * @param {String} format
-    * 
-    * return string
+    /**
+     * converDate parse Date from `YYYY-MM-DD` to `any` specify format
+     * for more information, read the doc here:
+     * @link    https://momentjs.com/docs/#/parsing/string-format/
+     * 
+     * @type    {String}    date in `YYYY-MM-DD` format
+     * @type    {String}    `any date format` you want to specify. read the doc
+     * 
+     * @return  {String}    string
     */
     convertDate: (date, format) => {
         return moment(date,'YYYY-MM-DD').format(format)
     },
 
-    //Display Page Loader
+    /**
+     * Turn On Page Loader
+     * 
+     * @param   {object}  {animate, iconOnly, boxed, target, message,...}. You can see the the rest inside
+     */
     blockUI: options => {
         options = $.extend(true, {}, options);
         var html = '';
@@ -87,7 +103,11 @@ const helper = {
         }
     },
 
-    //Undisplay Page Loader
+     /**
+     * Turn Off Page Loader
+     * 
+     * @param   {object} options
+     */
     unblockUI: target => {
         if (target) {
             $(target).unblock({
@@ -101,7 +121,9 @@ const helper = {
         }
     },
 
-    //Disable default Enter Key
+     /**
+     * Disable Enter Key for all inputs 
+     */
     disableEnterKey: () => {
         $(document).on('keyup keypress', function(e){
             const key = e.keyCode || e.which
