@@ -13,15 +13,15 @@ jobs:
     - name: "Updating repository /fin"
       run: |
         cd /home/abasetsadmin/public_html/fin/
-        git pull https://abasemdo@github.com/financecorp.git main
+        git pull https://abasemdo@github.com/abasemdo/financecorp.git main
     - name: "Updating repository /ktd"
       run: |
         cd /home/abasetsadmin/public_html/ktd2202.abase.id/
-        git pull https://abasemdo@github.com/financecorp.git main
+        git pull https://abasemdo@github.com/abasemdo/financecorp.git main
     - name: "Updating repository /atl"
       run: |
         cd /home/abasetsadmin/public_html/atl2202.abase.id/
-        git pull https://abasemdo@github.com/financecorp.git main
+        git pull https://abasemdo@github.com/abasemdo/financecorp.git main
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
