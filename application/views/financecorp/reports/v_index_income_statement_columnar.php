@@ -56,8 +56,12 @@
                                                 <div class="col-md-12">
                                                     <select id="branch" name="branch" class="form-control" required>
                                                         <option value="">--Select Branch--</option>
-                                                        <?php foreach($branch as $br) :  ?>
-                                                            <option value="<?= $br->BranchCode?>"><?= $br->BranchName ?></option>
+                                                        <?php foreach($branches as $br) :  ?>
+                                                            <?php if($br->BranchCode == $branch) : ?>
+                                                                <option value="<?= $br->BranchCode?>" selected><?= $br->BranchName ?></option>
+                                                            <?php else : ?>
+                                                                <option value="<?= $br->BranchCode?>"><?= $br->BranchName ?></option>
+                                                            <?php endif; ?>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -69,7 +73,11 @@
                                                     <select id="year" name="year" class="form-control" required>
                                                         <option value="">--Select Year--</option>
                                                         <?php for($i = date('Y'); $i >= 2000; $i--) : ?>
-                                                            <option value="<?= $i ?>"><?= $i ?></option>
+                                                            <?php if($i == $year) : ?>
+                                                                <option value="<?= $i ?>" selected><?= $i ?></option>
+                                                            <?php else : ?>
+                                                                <option value="<?= $i ?>"><?= $i ?></option>
+                                                            <?php endif; ?>
                                                         <?php endfor; ?>
                                                     </select>
                                                 </div>
@@ -101,14 +109,9 @@
                     <div>
                         <font size="4" class="uppercase"><?= $company ?></font><br>
                         <font size="3" class="font-dark sbold uppercase">Income Statement Columnar</font><br>
-
-                        <?php
-                            $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
-                            $month = (isset($_GET['month']) ? date('F', mktime(0, 0, 0, (int)$_GET['month'], 10)) : date('F'));
-                        ?>
                         <font size="3" class="font-dark sbold">
                             <i class="fa fa-calendar"></i> 
-                                <span id="period">Periode : Jan-22 - Dec-22</span>
+                                <span id="period">Periode : Jan-<?=$year?> --- Dec-<?=$year?></span>
                         </font>
                     </div>
                 </div>

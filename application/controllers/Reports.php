@@ -220,7 +220,8 @@ class Reports extends CI_Controller
             'h3' => 'Columnar',
 
             'company' => $company->ComName,
-            'branch' => $this->db->select('BranchCode, BranchName')->get('abase_02_branch')->result(),
+            'branches' => $this->db->select('BranchCode, BranchName')->get('abase_02_branch')->result(),
+            'branch' => $branch,
             'year' => $year,
             'revenue' => $revenue,
             'operational' => $operational,
