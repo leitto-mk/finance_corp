@@ -27,9 +27,6 @@ const ctd = {
                         let table = $('#tbody_report')
                         table.empty()
 
-                        let cur_total = 0;
-                        let grand_total = 0;
-
                         for(let i = 0; i < response.result.length; i++){
                             let row = response.result[i]
 
