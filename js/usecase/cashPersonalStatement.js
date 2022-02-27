@@ -2,6 +2,7 @@
  * Core Script
 */
 
+import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
 const cap = {

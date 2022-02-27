@@ -28,7 +28,7 @@ class Cash_adv extends CI_Controller
     {
         parent::__construct();
 
-        $this->load->library('form_validation');
+        $this->load->library(['form_validation']);
 
         $this->load->helper([
             'response',
@@ -862,11 +862,6 @@ class Cash_adv extends CI_Controller
 
     //* CASH OUTSTANDING REPORT
     public function ca_outstanding_report(){
-        $company = $this->db->select('ComName')->get('abase_01_com');
-        $branch = $this->db->select('BranchCode', 'BranchName')->get('abase_01_branch');
-        $department = $this->db->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get('abase_01_dept');
-        $costcenter = $this->db->select('CostCenter', 'CCDes', 'DeptCode')->get('abase_04_cost_center');
-
         $data = [
             'title' => 'Cash Advance Outstanding Report',
             'h1' => 'Cash',
@@ -874,10 +869,10 @@ class Cash_adv extends CI_Controller
             'h3' => 'Outstanding',
             'h4' => 'Report',
 
-            'company' => $company->result_array(),
-            'branch' => $branch->result_array(),
-            'department' => $department->result_array(),
-            'costcenter' => $costcenter->result_array(),
+            'company' => $this->Mdl_corp_cash_advance->get_company(),
+            'branch' => $this->Mdl_corp_cash_advance->get_branches(),
+            'department' => $this->Mdl_corp_cash_advance->get_department(),
+            'costcenter' => $this->Mdl_corp_cash_advance->get_costcenter(),
 
             'script' => 'outstandingReport'
         ];
@@ -909,11 +904,6 @@ class Cash_adv extends CI_Controller
 
     //* CASH TRANSACTION DETAILS
     public function ca_transaction_details(){
-        $company = $this->db->select('ComName')->get('abase_01_com');
-        $branch = $this->db->select('BranchCode', 'BranchName')->get('abase_01_branch');
-        $department = $this->db->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get('abase_01_dept');
-        $costcenter = $this->db->select('CostCenter', 'CCDes', 'DeptCode')->get('abase_04_cost_center');
-
         $data = [
             'title' => 'Cash Advance Transaction Details',
             'h1' => 'Cash',
@@ -921,10 +911,10 @@ class Cash_adv extends CI_Controller
             'h3' => 'Transaction',
             'h4' => 'Details',
 
-            'company' => $company->result_array(),
-            'branch' => $branch->result_array(),
-            'department' => $department->result_array(),
-            'costcenter' => $costcenter->result_array(),
+            'company' => $this->Mdl_corp_cash_advance->get_company(),
+            'branch' => $this->Mdl_corp_cash_advance->get_branches(),
+            'department' => $this->Mdl_corp_cash_advance->get_department(),
+            'costcenter' => $this->Mdl_corp_cash_advance->get_costcenter(),
 
             'script' => 'cashTransactionDetail'
         ];

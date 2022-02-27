@@ -94,9 +94,18 @@ class Mdl_corp_cash_advance extends CI_Model
                         ->result_array();
     }
 
+    function get_company(){
+        return $this->db->select('ComName')->get('abase_01_com')->result_array();
+    }
+
     function get_branch(){
         return $this->db->select('BranchCode, BranchName')
                         ->get('abase_02_branch')->result();
+    }
+
+    function get_branches(){
+        return $this->db->select('BranchCode, BranchName')
+                        ->get('abase_02_branch')->result_array();
     }
 
     function get_employee(){

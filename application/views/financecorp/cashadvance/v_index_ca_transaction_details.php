@@ -134,19 +134,6 @@
                                         <tr>
                                             <td colspan="11" class="bold uppercase text-center bg-info">-- Select Parameters --</td>
                                         </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">01-Jan-2021</td>                                 
-                                            <td align="center">12345</td>
-                                            <td align="center">Withdraw</td>
-                                            <td align="center">2000</td>
-                                            <td align="left">Eduard Salindeho</td>
-                                            <td align="left">Transport Business</td>
-                                            <td align="left">1002 -  Material Management</td>
-                                            <td align="center">IDR</td>
-                                            <td align="center">1</td>
-                                            <td align="right">1,000,000</td>
-                                            <td align="right">1,000,000</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
