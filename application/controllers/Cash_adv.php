@@ -869,10 +869,10 @@ class Cash_adv extends CI_Controller
             'h3' => 'Outstanding',
             'h4' => 'Report',
 
-            'company' => $this->db->select('ComName')->get()->toArray(),
-            'branch' => $this->db->select('BranchCode', 'BranchName')->get()->toArray(),
-            'department' => $this->db->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get()->toArray(),
-            'costcenter' => $this->db->select('CostCenter', 'CCDes', 'DeptCode')->get()->toArray(),
+            'company' => $this->db->select('ComName')->get('abase_01_com')->result_array(),
+            'branch' => $this->db->select('BranchCode', 'BranchName')->get('abase_01_branch')->result_array(),
+            'department' => $this->db->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get('abase_01_dept')->result_array(),
+            'costcenter' => $this->db->select('CostCenter', 'CCDes', 'DeptCode')->get('abase_04_cost_center')->result_array(),
 
             'script' => 'outstandingReport'
         ];
@@ -911,10 +911,10 @@ class Cash_adv extends CI_Controller
             'h3' => 'Transaction',
             'h4' => 'Details',
 
-            'company' => $this->db->select('ComName')->get()->toArray(),
-            'branch' => $this->db->select('BranchCode', 'BranchName')->get()->toArray(),
-            'department' => $this->db->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get()->toArray(),
-            'costcenter' => $this->db->select('CostCenter', 'CCDes', 'DeptCode')->get()->toArray(),
+            'company' => $this->db->select('ComName')->get('abase_01_com')->result_array(),
+            'branch' => $this->db->select('BranchCode', 'BranchName')->get('abase_01_branch')->result_array(),
+            'department' => $this->db->select('DeptCode', 'DeptDes', 'Branch', 'BUCode')->get('abase_01_dept')->result_array(),
+            'costcenter' => $this->db->select('CostCenter', 'CCDes', 'DeptCode')->get('abase_04_cost_center')->result_array(),
 
             'script' => 'cashTransactionDetail'
         ];
