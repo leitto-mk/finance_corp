@@ -26,7 +26,7 @@ const bal = {
     
                 let addr = `${location.href}?branch=${branch}&year=${year}&month=${month}`
     
-                window.history.pushState({}, document.title, `/Report/view_balance_sheet`);
+                window.history.pushState({}, document.title, `/Reports/view_balance_sheet`);
     
                 $('#submit_filter').attr('href', addr)
             })
