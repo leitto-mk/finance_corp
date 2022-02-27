@@ -3,22 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_cash_advance extends CI_Model
 {
-    function __construct(){
-        parent::__construct();
-
-        //Eloquent
-        $this->load->model('eloquent/Elq_company','company');
-        $this->load->model('eloquent/Elq_branch','branch');
-        $this->load->model('eloquent/Elq_department','dept');
-        $this->load->model('eloquent/Elq_business_unit','BU');
-        $this->load->model('eloquent/Elq_cost_center','CC');
-        $this->load->model('eloquent/Elq_coa','COA');
-        $this->load->model('eloquent/Elq_employee','emp');
-        $this->load->model('eloquent/Elq_fin_master','fin_master');
-        $this->load->model('eloquent/Elq_fin_detail','fin_detail');
-        $this->load->model('eloquent/Elq_fin_transaction','fin_transaction');
-    }
-
     function get_outstanding_bal(){
         $query = $this->db->query(
             "SELECT
