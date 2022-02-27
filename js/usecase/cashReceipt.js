@@ -2,6 +2,7 @@
  * Core Script
 */
 
+import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
 const car = {
@@ -293,7 +294,7 @@ const car = {
                 var branch = $('[name="branch"]').val()
                 var transdate = $('[name="transdate"]').val()
     
-                repository.submitRecord('ajax_submit_overbook', formData)
+                repository.submitRecord('ajax_submit_ca_receipt', formData)
                 .then(response => {
                     helper.unblockUI()
 
