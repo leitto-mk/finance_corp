@@ -291,11 +291,7 @@ class Cash_adv extends CI_Controller
             $difference = ($this->input->post('totalamount') - $emp_beg_bal);
             
             $balance = ($emp_beg_bal + $difference);
-            
-            // UPDATE BALANCE ABOVE THE TRANSDATE (IF EXIST)
-            $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $difference);
         }
-
 
         //COUNTER-BALANCE
         array_push($trans, [
@@ -440,18 +436,20 @@ class Cash_adv extends CI_Controller
         if(strtotime($cur_date) < strtotime($last_date)){
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        }else{
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_reports->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $calculate_branch = $this->Mdl_corp_reports->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        if($calculate_branch !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
 
-        //CALCULATE
-        $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $this->input->post('totalamount'));
-
-        if($result !== 'success'){
+        //CALCULATE EMPLOYEE BALANCE ABOVE TRANSDATE
+        $calculate_emp = $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $cur_date, $this->input->post('emp_master_id'));
+        if($calculate_emp !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
 
@@ -686,9 +684,6 @@ class Cash_adv extends CI_Controller
             $difference = ($this->input->post('totalamount') - $emp_beg_bal);
             
             $balance = ($emp_beg_bal + $difference);
-            
-            // UPDATE BALANCE ABOVE THE TRANSDATE (IF EXIST)
-            $this->Mdl_corp_cash_advance->update_emp_balance(self::CAR, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $difference);
         }
 
         //COUNTER-BALANCE
@@ -839,9 +834,14 @@ class Cash_adv extends CI_Controller
          }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $result = $this->Mdl_corp_reports->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        $calculate_branch = $this->Mdl_corp_reports->recalculate_balance($branch, min($accnos), max($accnos), $start, $finish);
+        if($calculate_branch !== 'success'){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+        }
 
-        if($result !== 'success'){
+        //CALCULATE EMPLOYEE BALANCE ABOVE TRANSDATE
+        $calculate_emp = $this->Mdl_corp_cash_advance->update_emp_balance(self::CAR, $cur_date, $this->input->post('emp_master_id'));
+        if($calculate_emp !== 'success'){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
 

@@ -344,30 +344,52 @@ class Mdl_corp_cash_advance extends CI_Model
         return ($this->db->trans_status() ? 'success' : $this->db->error());
     }
 
-    function update_emp_balance($type, $docno, $transdate, $id, $amount){
-        if($type !== 'CW' || $type !== 'CR'){
-            return;
-        }
+    function update_emp_balance($type, $transdate, $id){
+        $this->db->trans_begin();
 
-        $query = $this->db->order_by("TransDate ASC, CtrlNo ASC")->get_where('tbl_fa_transaction', [
-            'TransType' => $type,
-            'ItemNo' => 0,
-        ])->result_array();
+        $query = $this->db
+                        ->select('trans.*')
+                        ->from('tbl_fa_treasury_mas AS mas')
+                        ->join('tbl_fa_transaction AS trans','mas.IDNumber = trans.IDNumber', 'LEFT')
+                        ->where([
+                            'mas.IDNumber' => $id,
+                            'trans.TransDate >=' => $transdate
+                        ])
+                        ->order_by("TransDate ASC, CtrlNo ASC")
+                        ->get()->result_array();
 
+        $emp_beg_bal = $this->db->select('Balance')
+                                ->order_by("TransDate DESC, CtrlNo DESC")
+                                ->limit(1)->get_where('tbl_fa_transaction', [
+                                    'IDNumber' => $id,
+                                    'TransDate <' => $transdate, 
+                                    'ItemNo' => 0,
+                                ])->row()->Credit ?? 0;
+
+        $cur_docno = '';
         for($i = 0; $i < count($query); $i++){
-            if($i > 0){
+            if($cur_docno !== $query[$i]['DocNo']){
                 switch ($type) {
                     case 'CW':
-                        $query[$i]['Balance'] += $query[$i-1]['Credit'];
+                        $query[$i]['Balance'] = (int) $query[$i]['Credit'] + (int) $emp_beg_bal;
                         break;
                     case 'CR':
-                        $query[$i]['Balance'] -= $query[$i]['Credit'];
+                        $query[$i]['Balance'] = (int) $query[$i]['Credit'] - (int) $emp_beg_bal;
                         break;
                 }
+
+                $cur_docno = $query[$i]['DocNo'];
+                $emp_beg_bal = $query[$i]['Balance'];
+            }else{
+                $query[$i]['Balance'] = $emp_beg_bal;
             }
         }
-
-        $this->db->update_branch('tbl_fa_transaction', $query, 'CtrlNo');
+        
+        $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
+        
+        $this->db->trans_complete();
+        
+        return ($this->db->trans_status() ? 'success' : $this->db->error());
     }
 
     function calculate_balance($branch, $accno, $cur_date, $last_date){
@@ -540,6 +562,7 @@ class Mdl_corp_cash_advance extends CI_Model
              LEFT JOIN tbl_fa_transaction AS trans
                 ON emp.IDNumber = trans.IDNumber
             WHERE emp.IDNumber = ?
+            AND trans.ItemNo = 0
             ORDER BY trans.TransDate ASC, trans.CtrlNo ASC"
         , $id)->result_array();
 
