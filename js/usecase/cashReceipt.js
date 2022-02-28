@@ -103,7 +103,7 @@ const car = {
     },
 
     formPage: {
-        initSetEnterToFocus: () => {
+        eventFocusNextInput: () => {
             $(document).on('keypress', function (e) {
                 const key = e.keyCode || e.which
                 
