@@ -8,7 +8,13 @@ import helper from '../helper.js'
 const ob = {
     indexPage: {
         initDT: () => {
-            repository.generateDataTable('ajax_get_ranged_overbook')
+            let url = {
+                target: 'ajax_get_ranged_overbook',
+                edit: 'edit_overbook',
+                report: 'view_reps_overbook_voucher'
+            }
+
+            repository.generateDataTable(url)
             .then(() => {
                 helper.unblockUI()
             })
@@ -28,8 +34,14 @@ const ob = {
                 let docno = $('#search_item').val()
                 let date_start = $('#date_from').val()
                 let date_end = $('#date_to').val()
+
+                let url = {
+                    target: 'ajax_get_ranged_overbook',
+                    edit: 'edit_overbook',
+                    report: 'view_reps_overbook_voucher'
+                }
     
-                repository.generateDataTable('ajax_get_ranged_overbook', { docno, date_start, date_end })
+                repository.generateDataTable(url, { docno, date_start, date_end })
                 .then(() => {
                     helper.unblockUI()
                 })

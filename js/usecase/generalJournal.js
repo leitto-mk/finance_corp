@@ -8,7 +8,13 @@ import helper from '../helper.js'
 const gj = {
     indexPage: {
         initDT: () => {
-            repository.generateDataTable('ajax_get_ranged_general_journal')
+            let url = {
+                target: 'ajax_get_ranged_general_journal',
+                edit: 'edit_general_journal',
+                report: 'view_reps_general_journal'
+            }
+
+            repository.generateDataTable(url)
             .then(() => {
                 helper.unblockUI()
             })
@@ -28,8 +34,14 @@ const gj = {
                 let docno = $('#search_item').val()
                 let date_start = $('#date_from').val()
                 let date_end = $('#date_to').val()
+
+                let url = {
+                    target: 'ajax_get_ranged_general_journal',
+                    edit: 'edit_general_journal',
+                    report: 'view_reps_general_journal'
+                }
     
-                repository.generateDataTable('ajax_get_ranged_general_journal', { docno, date_start, date_end })
+                repository.generateDataTable(url, { docno, date_start, date_end })
                 .then(() => {
                     helper.unblockUI()
                 })

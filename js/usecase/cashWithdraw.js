@@ -8,7 +8,13 @@ import helper from '../helper.js'
 const caw = {
     indexPage: {
         initDT: () => {
-            repository.generateDataTable('ajax_get_ranged_ca_withdraw')
+            let url = {
+                target: 'ajax_get_ranged_ca_withdraw',
+                edit: 'edit_ca_withdraw',
+                report: 'view_reps_cash_withdraw'
+            }
+
+            repository.generateDataTable(url)
             .then(() => {
                 helper.unblockUI()
             })
@@ -28,8 +34,14 @@ const caw = {
                 let docno = $('#search_item').val()
                 let date_start = $('#date_from').val()
                 let date_end = $('#date_to').val()
+
+                let url = {
+                    target: 'ajax_get_ranged_ca_withdraw',
+                    edit: 'edit_ca_withdraw',
+                    report: 'view_reps_cash_withdraw'
+                }
     
-                repository.generateDataTable('ajax_get_ranged_ca_withdraw', { docno, date_start, date_end })
+                repository.generateDataTable(url, { docno, date_start, date_end })
                 .then(() => {
                     helper.unblockUI()
                 })

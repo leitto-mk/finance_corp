@@ -8,7 +8,13 @@ import helper from '../helper.js'
 const pay = {
     indexPage: {
         initDT: () => {
-            repository.generateDataTable('ajax_get_ranged_payment')
+            let url = {
+                target: 'ajax_get_ranged_payment',
+                edit: 'edit_payment',
+                report: 'view_reps_payment_voucher'
+            }
+
+            repository.generateDataTable(url)
             .then(() => {
                 helper.unblockUI()
             })
@@ -28,8 +34,14 @@ const pay = {
                 let docno = $('#search_item').val()
                 let date_start = $('#date_from').val()
                 let date_end = $('#date_to').val()
+
+                let url = {
+                    target: 'ajax_get_ranged_payment',
+                    edit: 'edit_payment',
+                    report: 'view_reps_payment_voucher'
+                }
     
-                repository.generateDataTable('ajax_get_ranged_payment', { docno, date_start, date_end })
+                repository.generateDataTable(url, { docno, date_start, date_end })
                 .then(() => {
                     helper.unblockUI()
                 })

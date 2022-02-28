@@ -8,7 +8,13 @@ import helper from '../helper.js'
 const rec = {
     indexPage: {
         initDT: () => {
-            repository.generateDataTable('ajax_get_ranged_receipt')
+            let url = {
+                target: 'ajax_get_ranged_receipt',
+                edit: 'edit_receipt',
+                report: 'view_reps_receipt_voucher'
+            }
+
+            repository.generateDataTable(url)
             .then(() => {
                 helper.unblockUI()
             })
@@ -28,8 +34,14 @@ const rec = {
                 let docno = $('#search_item').val()
                 let date_start = $('#date_from').val()
                 let date_end = $('#date_to').val()
+
+                let url = {
+                    target: 'ajax_get_ranged_receipt',
+                    edit: 'edit_receipt',
+                    report: 'view_reps_receipt_voucher'
+                }
     
-                repository.generateDataTable('ajax_get_ranged_receipt', { docno, date_start, date_end })
+                repository.generateDataTable(url, { docno, date_start, date_end })
                 .then(() => {
                     helper.unblockUI()
                 })

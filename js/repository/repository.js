@@ -9,7 +9,7 @@ import helper from '../helper.js'
 const repository = {
     /**
      * Generate `DataTable`
-     * @type {string}       URL string
+     * @type {object}       URLs
      * @type {object}       body param inside an object
      * 
      * @return {promise}    Promise
@@ -30,7 +30,7 @@ const repository = {
             info: false,
             lengthMenu: [30, 50, 100, 300],
             ajax: {
-                url: url,
+                url: url.target,
                 method: 'POST',
                 data: datas,
                 beforeSend: () => {
@@ -99,13 +99,14 @@ const repository = {
                 },
                 {
                     data: response => {
-                        var location = window.location.origin
+                        var location = window.location.href
+                        var baseURL = location.substring(0, location.lastIndexOf('/'))
 
                         return `
-                            <a href="${location}/Entry/edit_receipt?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                            <a href="${baseUrl}/${url.edit}?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                 <i class="fa fa-edit"> </i>
                             </a>
-                            <a href="${location}/Entry/view_reps_receipt_voucher?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                            <a href="${baseUrl}/${url.report}?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                                 <i class="fa fa-print"> </i>
                             </a>
                             <a href="javascript:;" name="delete" data-docno="${response.DocNo}" data-branch="${response.Branch}" data-transdate="${response.TransDate}" type="button" class="btn btn-xs red">
