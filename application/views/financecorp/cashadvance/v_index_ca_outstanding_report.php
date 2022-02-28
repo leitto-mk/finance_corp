@@ -107,7 +107,7 @@
                     <div class="portlet bordered light">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: -5px">
                             <div>
-                                <font size="6"><?= $company ?></font><br>
+                                <font size="6"><?= $company[0]['ComName'] ?></font><br>
                                 <font size="4" class="font-dark sbold uppercase">Current Outstanding Balance</font><br>
                                 <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Date : <span id="label_date_start"></span> --- <span id="label_date_finish"></span></font>
                             </div>
