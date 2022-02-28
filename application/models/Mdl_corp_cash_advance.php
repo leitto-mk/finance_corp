@@ -369,12 +369,12 @@ class Mdl_corp_cash_advance extends CI_Model
         $cur_docno = '';
         for($i = 0; $i < count($query); $i++){
             if($cur_docno !== $query[$i]['DocNo']){
-                switch ($type) {
+                switch ($query[$i]['TransType']) {
                     case 'CW':
-                        $query[$i]['Balance'] = (int) $query[$i]['Credit'] + (int) $emp_beg_bal;
+                        $query[$i]['Balance'] = (int) $emp_beg_bal + (int) $query[$i]['Credit'];
                         break;
                     case 'CR':
-                        $query[$i]['Balance'] = (int) $query[$i]['Credit'] - (int) $emp_beg_bal;
+                        $query[$i]['Balance'] = (int) $emp_beg_bal - (int) $query[$i]['Credit'];
                         break;
                 }
 
