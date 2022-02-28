@@ -169,7 +169,7 @@ const car = {
             })
         },
     
-        eventNextRow: () => {
+        eventCreateRow: () => {
             $(document).on('keydown','[name="unit[]"]', function(e){
                 if(e.keyCode == 9){
                     let remarks = $(this).parents('tr').find('input[name="remarks[]"]').val()
