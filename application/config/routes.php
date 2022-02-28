@@ -56,4 +56,9 @@ $route['entry'] = 'Entry/view_receipt_voucher';
 $route['cashadvance'] = 'Cash_adv';
 
 $route['404_override'] = 'Financecorp/not_found';
+
+// * Direct Purchase
+$route['purchase/direct_purchase']['get'] = 'ABC/C_DirectPurchase';
+$route['purchase/direct_purchase/new'] = 'ABC/C_DirectPurchase/get_direct_purchase_form';
+
 $route['translate_uri_dashes'] = FALSE;

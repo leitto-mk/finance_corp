@@ -31,7 +31,7 @@ const ctd = {
                             let row = response.result[i]
 
                             table.append(`
-                                <tr class="font-dark sbold">
+                                <tr class="font-dark">
                                     <td align="center">${row.TransDate}</td>    
                                     <td align="center">${row.DocNo}</td>
                                     <td align="center">${row.TransType}</td>
