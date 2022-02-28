@@ -311,7 +311,7 @@ switch (ENVIRONMENT)
  * --------------------------------------------------------------------
  *
  */
-require_once FCPATH.'vendor/autoload.php';
+// require_once FCPATH.'vendor/autoload.php';
 
 
 /*
