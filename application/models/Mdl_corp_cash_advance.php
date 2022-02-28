@@ -344,13 +344,14 @@ class Mdl_corp_cash_advance extends CI_Model
         return ($this->db->trans_status() ? 'success' : $this->db->error());
     }
 
-    function update_emp_balance($type, $transdate, $id){
+    function update_emp_balance($transdate, $id){
         $this->db->trans_begin();
 
         $query = $this->db
                         ->select('trans.*')
                         ->from('tbl_fa_treasury_mas AS mas')
                         ->join('tbl_fa_transaction AS trans','mas.IDNumber = trans.IDNumber', 'LEFT')
+                        ->where("trans.TransType IN('CW','CR')")
                         ->where([
                             'mas.IDNumber' => $id,
                             'trans.TransDate >=' => $transdate
