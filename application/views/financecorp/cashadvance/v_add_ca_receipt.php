@@ -88,7 +88,7 @@
                                                         <select id="emp_master_id" name="emp_master_id" class="form-control" required>
                                                             <option value="">--Choose ID--</option>
                                                             <?php for($i = 0; $i < count($employee); $i++) : ?>        
-                                                                <option value="<?= $employee[$i]['IDNumber'] ?>" data-fullname="<?= $employee[$i]['FullName'] ?>" data-branch="<?= $employee[$i]['Branch'] ?>" data-dept="<?= $employee[$i]['DeptCode'] ?>" data-cc="<?= $employee[$i]['CostCenter'] ?>"><?= $employee[$i]['IDNumber'] ?> - <?= $employee[$i]['FullName'] ?></option>
+                                                                <option value="<?= $employee[$i]['IDNumber'] ?>" data-fullname="<?= $employee[$i]['FullName'] ?>" data-branch="<?= $employee[$i]['Branch'] ?>" data-dept="<?= $employee[$i]['DeptCode'] ?>" data-cc="<?= $employee[$i]['CostCenter'] ?>" data-balance="<?= $employee[$i]['Balance']?>"><?= $employee[$i]['IDNumber'] ?> - <?= $employee[$i]['FullName'] ?></option>
                                                             <?php endfor; ?>
                                                         </select>
                                                         <span class="input-group-btn">

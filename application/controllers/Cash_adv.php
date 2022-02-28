@@ -133,6 +133,24 @@ class Cash_adv extends CI_Controller
         return set_success_response($result);
     }
 
+    public function add_ca_withdraw(){
+        $data = [
+            'title' => 'Form Cash Advance Withdraw',
+            
+            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno(self::CAW),
+            'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
+            'branch' => $this->Mdl_corp_cash_advance->get_branch(),
+            'employee' => $this->Mdl_corp_cash_advance->get_employee(),
+            'department' => $this->Mdl_corp_cash_advance->get_department(),
+            'costcenter' => $this->Mdl_corp_cash_advance->get_costcenter(),
+            'currency' => $this->Mdl_corp_cash_advance->get_currency(),
+
+            'script' => 'cashWithdraw'
+        ];
+        
+        $this->load->view('financecorp/cashadvance/v_add_ca_withdraw', $data);
+    }
+
     public function edit_ca_withdraw(){
         $validation = validate($this->input->get());
         
@@ -217,24 +235,6 @@ class Cash_adv extends CI_Controller
         }
         
         return set_success_response($result);
-    }
-
-    public function add_ca_withdraw(){
-        $data = [
-            'title' => 'Form Cash Advance Withdraw',
-            
-            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno(self::CAW),
-            'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
-            'branch' => $this->Mdl_corp_cash_advance->get_branch(),
-            'employee' => $this->Mdl_corp_cash_advance->get_employee(),
-            'department' => $this->Mdl_corp_cash_advance->get_department(),
-            'costcenter' => $this->Mdl_corp_cash_advance->get_costcenter(),
-            'currency' => $this->Mdl_corp_cash_advance->get_currency(),
-
-            'script' => 'cashWithdraw'
-        ];
-        
-        $this->load->view('financecorp/cashadvance/v_add_ca_withdraw', $data);
     }
 
     public function ajax_submit_ca_withdraw(){
@@ -523,6 +523,24 @@ class Cash_adv extends CI_Controller
         return set_success_response($result);
     }
 
+    public function add_ca_receipt(){
+        $data = [
+            'title' => 'Form Cash Advance Receipt',
+            
+            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno(self::CAR),
+            'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
+            'branch' => $this->Mdl_corp_cash_advance->get_branch(),
+            'employee' => $this->Mdl_corp_cash_advance->get_employee(),
+            'department' => $this->Mdl_corp_cash_advance->get_department(),
+            'costcenter' => $this->Mdl_corp_cash_advance->get_costcenter(),
+            'currency' => $this->Mdl_corp_cash_advance->get_currency(),
+
+            'script' => 'cashReceipt'
+        ];
+        
+        $this->load->view('financecorp/cashadvance/v_add_ca_receipt', $data);
+    }
+
     public function edit_ca_receipt(){
         $validation = validate($this->input->get());
         
@@ -607,24 +625,6 @@ class Cash_adv extends CI_Controller
         }
         
         return set_success_response($result);
-    }
-
-    public function add_ca_receipt(){
-        $data = [
-            'title' => 'Form Cash Advance Receipt',
-            
-            'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno(self::CAR),
-            'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
-            'branch' => $this->Mdl_corp_cash_advance->get_branch(),
-            'employee' => $this->Mdl_corp_cash_advance->get_employee(),
-            'department' => $this->Mdl_corp_cash_advance->get_department(),
-            'costcenter' => $this->Mdl_corp_cash_advance->get_costcenter(),
-            'currency' => $this->Mdl_corp_cash_advance->get_currency(),
-
-            'script' => 'cashReceipt'
-        ];
-        
-        $this->load->view('financecorp/cashadvance/v_add_ca_receipt', $data);
     }
 
     public function ajax_submit_ca_receipt(){

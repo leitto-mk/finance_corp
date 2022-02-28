@@ -94,9 +94,9 @@
                                                             <option value="">--Choose ID--</option>
                                                             <?php for($i = 0; $i < count($employees); $i++) :?>
                                                                 <?php if($employees[$i]['IDNumber'] == $id) : ?>
-                                                                    <option selected value="<?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['FullName'] ?></option>
+                                                                    <option selected value="<?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-balance="<?= $employees[$i]['Balance'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['FullName'] ?></option>
                                                                 <?php else : ?>
-                                                                    <option value="<?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['FullName'] ?></option>
+                                                                    <option value="<?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-balance="<?= $employees[$i]['Balance'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['FullName'] ?></option>
                                                                 <?php endif;?>
                                                             <?php endfor; ?>
                                                         </select>
@@ -111,16 +111,15 @@
                                                 <div class="col-md-3" data-toggle="modal" data-target="#modal_branch">
                                                     <input type="text" id="branch" name="branch" class="form-control" placeholder="Branch" value="<?= $branch ?>" readonly>
                                                 </div>
-                                                <label class="col-md-2 control-label"><b>Transaction Date</b></label>
-                                                <div class="col-md-3">
-                                                    <input type="date" id="transdate" name="transdate" min="<?= date('Y-m-d') ?>" value="<?= $transdate ?>" class="form-control" required>
-                                                </div>
-
-                                            </div>
-                                            <div class="form-group">
                                                 <label class="col-md-2 control-label"><b>Outstanding</b></label>
                                                 <div class="col-md-3">
                                                     <input type="text" id="outstanding" name="outstanding" class="form-control" placeholder="0" value="<?= $outstanding ?>" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label"><b>Transaction Date</b></label>
+                                                <div class="col-md-3">
+                                                    <input type="date" id="transdate" name="transdate" min="<?= date('Y-m-d') ?>" value="<?= $transdate ?>" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">

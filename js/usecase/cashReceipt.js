@@ -235,7 +235,9 @@ const car = {
     
         eventInputUnit: () => {
             $(document).on('input','[name="unit[]"],[name="rate[]"]', function(){
-                
+                let cur_total_amount = +$('#totalamount').val()
+                let outstanding = +$('#outstanding').val()
+
                 let totalamount = 0
                 let rate = +$(this).parents('tr').find('[name="rate[]"]').val()
                 let unit = +$(this).parents('tr').find('[name="unit[]"]').val()
@@ -249,6 +251,7 @@ const car = {
     
                 $('#totalamount').val(totalamount)
                 $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
+                $('#outstanding').val((outstanding-cur_total_amount)+totalamount)
             })
         },
     

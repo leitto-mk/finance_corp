@@ -95,9 +95,9 @@
                                                             <option value="">--Choose ID--</option>
                                                             <?php for($i = 0; $i < count($employees); $i++) :?>
                                                                 <?php if($employees[$i]['IDNumber'] == $id) : ?>
-                                                                    <option selected value="<?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['FullName'] ?></option>
+                                                                    <option selected value="<?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-balance="<?= $employees[$i]['Balance'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['FullName'] ?></option>
                                                                 <?php else : ?>
-                                                                    <option value="<?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['FullName'] ?></option>
+                                                                    <option value="<?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['IDNumber'] ?>" data-fullname="<?= $employees[$i]['FullName'] ?>" data-branch="<?= $employees[$i]['Branch'] ?>" data-dept="<?= $employees[$i]['DeptCode'] ?>" data-balance="<?= $employees[$i]['Balance'] ?>" data-cc="<?= $employees[$i]['CostCenter'] ?>"><?= $employees[$i]['IDNumber'] ?> | <?= $employees[$i]['FullName'] ?></option>
                                                                 <?php endif;?>
                                                             <?php endfor; ?>
                                                         </select>

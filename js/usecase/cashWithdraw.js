@@ -235,7 +235,9 @@ const caw = {
     
         eventInputUnit: () => {
             $(document).on('input','[name="unit[]"],[name="rate[]"]', function(){
-                
+                let cur_total_amount = +$('#totalamount').val()
+                let outstanding = +$('#outstanding').val()
+
                 let totalamount = 0
                 let rate = +$(this).parents('tr').find('[name="rate[]"]').val()
                 let unit = +$(this).parents('tr').find('[name="unit[]"]').val()
@@ -246,12 +248,13 @@ const caw = {
                 $('[name="amount[]"]').each(function(){
                     totalamount += +$(this).val()
                 })
-    
-                let outstanding = +$(document).find('#outstanding').val()
-                let outstanding_left = (outstanding + totalamount)
+
+                let outstanding_left = (outstanding-cur_total_amount)+totalamount
     
                 $('#totalamount').val(totalamount)
                 $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
+                $('#outstanding').val(outstanding_left)
+                
                 $('#outstanding_left').val(outstanding_left)
                 $('#label_outstanding_left').val(`Rp. ${Intl.NumberFormat('id').format(outstanding_left)}`)
             })
