@@ -311,7 +311,7 @@ const caw = {
                 var branch = $('[name="branch"]').val()
                 var transdate = $('[name="transdate"]').val()
     
-                repository.submitRecord('ajax_submit_overbook', formData)
+                repository.submitRecord('ajax_submit_ca_withdraw', formData)
                 .then(response => {
                     helper.unblockUI()
 
