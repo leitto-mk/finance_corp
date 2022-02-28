@@ -361,11 +361,15 @@ class Mdl_corp_cash_advance extends CI_Model
 
         $emp_beg_bal = $this->db->select('Balance')
                                 ->order_by("TransDate DESC, CtrlNo DESC")
-                                ->limit(1)->get_where('tbl_fa_transaction', [
+                                ->where("trans.TransType IN('CW','CR')")
+                                ->where([
                                     'IDNumber' => $id,
                                     'TransDate <' => $transdate, 
                                     'ItemNo' => 0,
-                                ])->row()->Credit ?? 0;
+                                 ])
+                                ->limit(1)
+                                ->get('tbl_fa_transaction')
+                                ->row()->Credit ?? 0;
 
         $cur_docno = '';
         for($i = 0; $i < count($query); $i++){
