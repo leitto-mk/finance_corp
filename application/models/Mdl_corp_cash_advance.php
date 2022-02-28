@@ -361,7 +361,7 @@ class Mdl_corp_cash_advance extends CI_Model
 
         $emp_beg_bal = $this->db->select('Balance')
                                 ->order_by("TransDate DESC, CtrlNo DESC")
-                                ->where("trans.TransType IN('CW','CR')")
+                                ->where("TransType IN('CW','CR')")
                                 ->where([
                                     'IDNumber' => $id,
                                     'TransDate <' => $transdate, 
