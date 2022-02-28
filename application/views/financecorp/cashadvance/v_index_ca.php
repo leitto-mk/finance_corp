@@ -133,7 +133,7 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-stripped table-condensed">
                             <thead>
-                                <tr class="bg-blue-madison font-white">
+                                <tr class="bg-blue-dark font-white">
                                     <th class="text-center" width="15%" colspan="2"> Deparment </th>
                                     <th class="text-center" width="20%"> Full Name </th>
                                     <th class="text-center" width="20%"> Job Title </th>
