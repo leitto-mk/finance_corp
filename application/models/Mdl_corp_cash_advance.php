@@ -531,7 +531,7 @@ class Mdl_corp_cash_advance extends CI_Model
              LEFT JOIN tbl_fa_transaction AS trans
                 ON emp.IDNumber = trans.IDNumber
             WHERE emp.IDNumber = ?
-            ORDER BY trans.TransDate DESC, trans.CtrlNo DESC"
+            ORDER BY trans.TransDate ASC, trans.CtrlNo ASC"
         , $id)->result_array();
 
         return $query;
