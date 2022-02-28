@@ -136,7 +136,7 @@ const modules = {
             car.formPage.eventInputUnit()
             car.formPage.eventChangeBranch()
             car.formPage.eventChangeDepartment()
-            car.formPage.eventSubmitCAWithdraw()
+            car.formPage.eventSubmitCAReceipt()
         }
     },
 
