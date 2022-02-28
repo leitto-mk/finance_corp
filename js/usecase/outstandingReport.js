@@ -48,7 +48,7 @@ const our = {
                             }
 
                             table.append(`
-                                <tr class="font-dark sbold">
+                                <tr class="font-dark">
                                     <td align="center">${index}</td>                                 
                                     <td align="center">${row.DeptCode}</td>
                                     <td align="left">${row.FullName}</td>
