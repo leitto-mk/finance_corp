@@ -876,10 +876,42 @@ class Mdl_corp_reports extends CI_Model {
           ORDER BY trans.TransDate ASC, trans.CtrlNo ASC"
       ,[$branch, $transtype, $accno_start, $accno_finish, $date_start, $date_finish]);
 
+      $query = $this->db
+               ->order_by('trans.TransDate ASC, trans.CtrlNo ASC')
+               ->select("
+                  DATE_FORMAT(trans.TransDate, '%d-%b-%y') AS TransDate,
+                  trans.DocNo,
+                  trans.TransType,
+                  trans.Remarks,
+                  trans.Department,
+                  trans.CostCenter,
+                  trans.AccNo,
+                  acc.Acc_Name,
+                  trans.Currency,
+                  trans.Rate,
+                  trans.Unit,
+                  trans.Debit,
+                  trans.Credit
+               ")
+               ->from('tbl_fa_transaction AS trans')
+               ->join('tbl_fa_account_no AS acc', 'trans.AccNo = acc.Acc_No', 'LEFT')
+               ->where([
+                  'trans.Branch' => $branch,
+                  'trans.AccNo >=' => $accno_start,
+                  'trans.AccNo <=' => $accno_finish,
+               ]);
+
+      if(strtolower($transtype) !== 'all'){
+         $query = $query->where('trans.TransType', $transtype);
+      }
+
+      $query = $query->get();
+
+
       if($this->db->error()['code'] != 0){
-         // $code = $this->db->error()['code'];
-         // $message = $this->db->error()['message'];
-         // log_message('error', "$code: $message");
+         $code = $this->db->error()['code'];
+         $message = $this->db->error()['message'];
+         log_message('error', "$code: $message");
 
          return [null, "Database Error"];
       }

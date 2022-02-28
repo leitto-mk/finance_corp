@@ -35,8 +35,8 @@
                                                 <th width="5%"></th>
                                                 <th width="15%"><h5 class="text-center bold">Branch</h5></th>
                                                 <th width="15%"><h5 class="text-center bold">Type</h5></th>
-                                                <th width="15%"><h5 class="text-center bold">Account No. Start</h5></th>
-                                                <th width="15%"><h5 class="text-center bold">Account No. End</h5></th>
+                                                <th width="15%"><h5 class="text-center bold">Document No. Start</h5></th>
+                                                <th width="15%"><h5 class="text-center bold">Document No. End</h5></th>
                                                 <th width="15%"><h5 class="text-center bold">Start Date</h5></th>
                                                 <th width="20%"><h5 class="text-center bold">End Date</h5></th>
                                                 <th width="5%"><h5 class="text-center bold">Action</h5></th>        
@@ -65,7 +65,7 @@
                                                     <div class="form-group">
                                                         <div class="col-md-12">
                                                             <select id="transtype" name="transtype" class="form-control" required>
-                                                                <option value="">-- Select Type -- </option>
+                                                                <option value="all">All</option>
                                                                 <option value="RE">Receipt</option>
                                                                 <option value="PA">Payment</option>
                                                                 <option value="OB">Overbook</option>
