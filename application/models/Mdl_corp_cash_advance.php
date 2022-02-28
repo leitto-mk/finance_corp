@@ -95,7 +95,7 @@ class Mdl_corp_cash_advance extends CI_Model
     }
 
     function get_company(){
-        return $this->db->select('ComName')->get('abase_01_com')->result_array();
+        return $this->db->select('ComName')->get('abase_01_com')->row()->ComName ?? '';
     }
 
     function get_branch(){
@@ -231,29 +231,6 @@ class Mdl_corp_cash_advance extends CI_Model
         );
     }
 
-    function update_emp_balance($type, $docno, $transdate, $id, $amount){
-        switch ($type) {
-            case 'CW':
-                $this->db->query(
-                    "UPDATE tbl_fa_transaction 
-                     SET Balance = (Balance + ?)
-                     WHERE IDNumber = ?
-                     AND TransDate >= ?
-                     AND DocNo != ?"
-                , [$amount, $id, $transdate, $docno]);
-                break;
-            case 'CR':
-                $this->db->query(
-                    "UPDATE tbl_fa_transaction 
-                     SET Balance = (Balance - ?)
-                     WHERE IDNumber = ?
-                     AND TransDate >= ?
-                     AND DocNo != ?"
-                , [$amount, $id, $transdate, $docno]);
-                break;
-        }
-    }
-
     function submit_cash_advance($master, $details, $trans, $branch, $cur_date){
         $this->db->trans_begin();
         
@@ -365,6 +342,32 @@ class Mdl_corp_cash_advance extends CI_Model
         $this->db->trans_complete();
 
         return ($this->db->trans_status() ? 'success' : $this->db->error());
+    }
+
+    function update_emp_balance($type, $docno, $transdate, $id, $amount){
+        if($type !== 'CW' || $type !== 'CR'){
+            return;
+        }
+
+        $query = $this->db->order_by("TransDate ASC, CtrlNo ASC")->get_where('tbl_fa_transaction', [
+            'TransType' => $type,
+            'ItemNo' => 0,
+        ])->result_array();
+
+        for($i = 0; $i < count($query); $i++){
+            if($i > 0){
+                switch ($type) {
+                    case 'CW':
+                        $query[$i]['Balance'] += $query[$i-1]['Credit'];
+                        break;
+                    case 'CR':
+                        $query[$i]['Balance'] -= $query[$i]['Credit'];
+                        break;
+                }
+            }
+        }
+
+        $this->db->update_branch('tbl_fa_transaction', $query, 'CtrlNo');
     }
 
     function calculate_balance($branch, $accno, $cur_date, $last_date){

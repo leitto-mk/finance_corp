@@ -248,7 +248,7 @@ const caw = {
                 })
     
                 let outstanding = +$(document).find('#outstanding').val()
-                let outstanding_left = (outstanding - totalamount)
+                let outstanding_left = (outstanding + totalamount)
     
                 $('#totalamount').val(totalamount)
                 $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
