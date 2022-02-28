@@ -61,4 +61,7 @@ $route['404_override'] = 'Financecorp/not_found';
 $route['purchase/direct_purchase']['get'] = 'ABC/C_DirectPurchase';
 $route['purchase/direct_purchase/new'] = 'ABC/C_DirectPurchase/get_direct_purchase_form';
 
+// * Purchase
+$route['ajax/abc/purchase/direct_purchase']['get'] = 'ABC/C_DirectPurchase/get_direct_purchase';
+
 $route['translate_uri_dashes'] = FALSE;
