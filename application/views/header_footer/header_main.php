@@ -180,7 +180,7 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <a href="#" class="nav-link">
+                                        <a href="<?php echo site_url('purchase/direct_purchase') ?>" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Direct Purchase</span>
                                         </a>
                                     </li>
