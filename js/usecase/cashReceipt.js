@@ -323,7 +323,7 @@ const car = {
                         $('#new_transaction').prop('href', window.location.origin + '/Cash_adv/add_ca_receipt')
                         $('#new_transaction').css('visibility', 'visible')
                         
-                        $('#print_transaction').prop('href', window.location.origin + '/Cash_adv/view_reps_ca_receipt' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').prop('href', window.location.origin + '/Cash_adv/view_reps_cash_receipt' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
                         $('#print_transaction').css('visibility', 'visible')
                         
                         $('#btn_submit').css('visibility', 'hidden')

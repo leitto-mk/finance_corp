@@ -328,7 +328,7 @@ const caw = {
                         $('#new_transaction').prop('href', window.location.origin + '/Cash_adv/add_ca_withdraw')
                         $('#new_transaction').css('visibility', 'visible')
                         
-                        $('#print_transaction').prop('href', window.location.origin + '/Cash_adv/view_reps_ca_withdraw' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').prop('href', window.location.origin + '/Cash_adv/view_reps_cash_withdraw' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
                         $('#print_transaction').css('visibility', 'visible')
                         
                         $('#btn_submit').css('visibility', 'hidden')
