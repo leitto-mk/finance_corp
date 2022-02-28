@@ -103,10 +103,10 @@ const repository = {
                         var baseURL = location.substring(0, location.lastIndexOf('/'))
 
                         return `
-                            <a href="${baseUrl}/${url.edit}?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                            <a href="${baseURL}/${url.edit}?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                                 <i class="fa fa-edit"> </i>
                             </a>
-                            <a href="${baseUrl}/${url.report}?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                            <a href="${baseURL}/${url.report}?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                                 <i class="fa fa-print"> </i>
                             </a>
                             <a href="javascript:;" name="delete" data-docno="${response.DocNo}" data-branch="${response.Branch}" data-transdate="${response.TransDate}" type="button" class="btn btn-xs red">
