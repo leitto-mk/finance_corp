@@ -278,20 +278,23 @@ class Cash_adv extends CI_Controller
 
         $balance = 0;
 
-        $check_docno_amount = $this->Mdl_corp_cash_advance->check_docno_amount($this->input->post('docno'));
+        $is_docno_exist = $this->Mdl_corp_cash_advance->check_docno_exist($this->input->post('docno'));
+        $cur_docno_amount = $this->Mdl_corp_cash_advance->check_docno_amount($this->input->post('docno'));
 
-        //IF `DocNo` ALREADY EXIST AND ITS `TotalAmount` IS NO DIFFERENT,
-        //THEN DONT CALCULATE, ELSE
-        //GET THE BEGINING BALANCE
-        if($check_docno_amount !== $this->input->post('totalamount')){
+        if(!$is_docno_exist){
+            $balance= $this->input->post('totalamount');
+        }elseif($is_docno_exist && $cur_docno_amount !== $this->input->post('totalamount')){
             $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
-            $balance = ($emp_beg_bal + $this->input->post('totalamount'));
-    
-            //UPDATE BALANCE ABOVE THE TRANSDATE
-            $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $this->input->post('totalamount'));
-        }else{
-            $balance = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+            
+            //DIFFERENCE BETWEEN CURRENT AMOUNT AND PREVIOUS AMOUNT
+            $difference = abs($emp_beg_bal - $this->input->post('totalamount'));
+            
+            $balance = $emp_beg_bal + $difference;
+            
+            // UPDATE BALANCE ABOVE THE TRANSDATE (IF EXIST)
+            $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $difference);
         }
+
 
         //COUNTER-BALANCE
         array_push($trans, [
@@ -663,19 +666,21 @@ class Cash_adv extends CI_Controller
 
         $balance = 0;
 
-        $check_docno_amount = $this->Mdl_corp_cash_advance->check_docno_amount($this->input->post('docno'));
+        $is_docno_exist = $this->Mdl_corp_cash_advance->check_docno_exist($this->input->post('docno'));
+        $cur_docno_amount = $this->Mdl_corp_cash_advance->check_docno_amount($this->input->post('docno'));
 
-        //IF `DocNo` ALREADY EXIST AND ITS `TotalAmount` IS NO DIFFERENT,
-        //THEN DONT CALCULATE, ELSE
-        //GET THE BEGINING BALANCE
-        if($check_docno_amount !== $this->input->post('totalamount')){
+        if(!$is_docno_exist){
+            $balance= $this->input->post('totalamount');
+        }elseif($is_docno_exist && $cur_docno_amount !== $this->input->post('totalamount')){
             $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
-            $balance = ($emp_beg_bal - $this->input->post('totalamount'));
-    
-            //UPDATE BALANCE ABOVE THE TRANSDATE
-            $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $this->input->post('totalamount'));
-        }else{
-            $balance = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+            
+            //DIFFERENCE BETWEEN CURRENT AMOUNT AND PREVIOUS AMOUNT
+            $difference = abs($emp_beg_bal - $this->input->post('totalamount'));
+            
+            $balance = $emp_beg_bal + $difference;
+            
+            // UPDATE BALANCE ABOVE THE TRANSDATE (IF EXIST)
+            $this->Mdl_corp_cash_advance->update_emp_balance(self::CAW, $this->input->post('docno'), $cur_date, $this->input->post('emp_master_id'), $difference);
         }
 
         //COUNTER-BALANCE
