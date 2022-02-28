@@ -369,7 +369,7 @@ class Mdl_corp_cash_advance extends CI_Model
                                  ])
                                 ->limit(1)
                                 ->get('tbl_fa_transaction')
-                                ->row()->Credit ?? 0;
+                                ->row()->Balance ?? 0;
 
         $cur_docno = '';
         for($i = 0; $i < count($query); $i++){
