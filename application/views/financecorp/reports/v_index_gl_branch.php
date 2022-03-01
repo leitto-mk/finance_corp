@@ -131,7 +131,6 @@
                                             <i class="fa fa-plus"></i>&nbsp;Print</i>
                                         </a>
                                         <a onclick="window.close();" class="btn btn-xs btn red hidden-print pull-right"><i class="fa fa-close"></i> Close</a>
-                                        <a id="recalculate" href="<?= base_url("Entry/recalculate_balance?branch=All&accno_start=10000&accno_finish=99999&date_start=$date_start&date_finish=$date_finish") ?>" class="btn btn-xs btn blue hidden-print pull-right" style="margin-right: 8px">Re-Calculate</a>
                                     </span>
 
                                 </div> 

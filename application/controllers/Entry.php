@@ -1461,28 +1461,35 @@ class Entry extends CI_Controller
         }
 
         
-        if(isset($this->input->post('branch'))){
-            $branch = $this->input->post('branch');
-            $accno_start = $this->input->post('accno_start');
-            $accno_finish = $this->input->post('accno_finish') ?? date('Y-m-d');
-            $date_start = $this->input->post('date_start');
-            $date_finish = $this->Mdl_corp_reports->get_last_trans_date();
-            
-            [$result, $error] = $this->Mdl_corp_entry->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
+        $branch = $this->input->post('branch');
+        $accno_start = $this->input->post('accno_start');
+        $accno_finish = $this->input->post('accno_finish') ?? date('Y-m-d');
+        $date_start = $this->input->post('date_start');
+        $date_finish = $this->Mdl_corp_reports->get_last_trans_date();
+        
+        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 
-            if($error !== null){
-                return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
-            }
-            
-        }elseif($this->input->post('employee')){
-            $employee = $this->input->post('employee');
-            $date_start = $this->input->post('date_start');
-            
-            [$result, $error] = $this->Mdl_corp_entry->recalculate_balance($employee, $date_start);
+        if($error !== null){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
-            if($error !== null){
-                return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
-            }
+        return set_success_response($result);
+    }
+
+    public function ajax_recalculate_employee(){
+        $validation = validate($this->input->post());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        $employee = $this->input->post('employee');
+        $date_start = $this->input->post('date_start');
+        
+        [$result, $error] = $this->Mdl_corp_entry->recalculate_employee($employee, $date_start);
+
+        if($error !== null){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);

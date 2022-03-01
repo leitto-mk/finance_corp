@@ -7,7 +7,7 @@ import repository from '../repository/repository.js';
 
 const bal = {
     indexPage: {
-        eventRecalculateBalance: () => {
+        eventRecalculateBranch: () => {
             $('#calculate_branch').click(function(){
                 var branch = $('#param_branch #branch').val()
                 var accno_start = +$('#param_branch #accno_start').val()
@@ -28,7 +28,7 @@ const bal = {
                     return
                 }
     
-                repository.getRecord('ajax_recalculate_balance', {
+                repository.getRecord('ajax_recalculate_branch', {
                     branch,
                     accno_start,
                     accno_finish,
@@ -74,7 +74,7 @@ const bal = {
                     return
                 }
 
-                repository.getRecord('ajax_recalculate_balance', {
+                repository.getRecord('ajax_recalculate_employee', {
                     employee,
                     date_start,
                 })

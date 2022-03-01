@@ -333,7 +333,7 @@ class Mdl_corp_entry extends CI_Model
         return $query;
     }
 
-    function recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish){
+    function recalculate_branch($branch, $accno_start, $accno_finish, $date_start, $date_finish){
   
         if($branch == 'All' || $branch == ''){
            $branch_condition = "Branch IS NOT NULL";
