@@ -314,7 +314,7 @@ const gj = {
                 var branch = $('[name="branch"]').val()
                 var transdate = $('[name="transdate"]').val()
     
-                repository.submitRecord('ajax_submit_overbook', formData)
+                repository.submitRecord('ajax_submit_general_journal', formData)
                 .then(response => {
                     helper.unblockUI()
 
@@ -328,10 +328,10 @@ const gj = {
                         $('input, textarea').prop('readonly', true)
                         $('select').prop('disabled', true)
 
-                        $('#new_transaction').prop('href', window.location.origin + '/Entry/add_overbook_voucher')
+                        $('#new_transaction').prop('href', window.location.origin + '/Entry/add_general_journal')
                         $('#new_transaction').css('visibility', 'visible')
                         
-                        $('#print_transaction').prop('href', window.location.origin + '/Entry/view_reps_overbook_voucher' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').prop('href', window.location.origin + '/Entry/view_reps_general_journal' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
                         $('#print_transaction').css('visibility', 'visible')
                         
                         $('#btn_submit').css('visibility', 'hidden')
