@@ -332,4 +332,197 @@ class Mdl_corp_entry extends CI_Model
 
         return $query;
     }
+
+    function recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish){
+  
+        if($branch == 'All' || $branch == ''){
+           $branch_condition = "Branch IS NOT NULL";
+        }else{
+           $branch_condition = "Branch = '$branch'";
+        }
+  
+        $this->db->trans_begin();
+  
+        //SUBSTRACT `date_start` by one month
+        $date_start = new DateTime($date_start);
+        $date_start->modify("-1 month");
+        $date_start = $date_start->format('Y-m-d');
+  
+        $query = $this->db->query(
+              "SELECT 
+                 trans.CtrlNo,
+                 trans.DocNo,
+                 acc.Acc_Name,
+                 trans.AccType,
+                 trans.TransDate, 
+                 trans.TransType, 
+                 trans.JournalGroup,
+                 trans.Branch,
+                 trans.Department,
+                 trans.CostCenter,
+                 trans.AccNo,
+                 trans.IDNumber,
+                 trans.Remarks,
+                 trans.Debit,
+                 trans.Credit, 
+                 trans.Currency,
+                 CASE
+                       WHEN YEAR(trans.TransDate) < YEAR('$date_finish') AND trans.AccType IN('R','E') THEN
+                          0
+                       ELSE
+                          (SELECT BalanceBranch
+                             FROM tbl_fa_transaction 
+                             WHERE AccNo = acc.Acc_No 
+                             AND Branch = trans.Branch
+                             AND TransDate < '$date_start'
+                             AND CtrlNo < trans.CtrlNo
+                             ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+                 END AS beg_balance,
+                 trans.Balance,
+                 trans.BalanceBranch,
+                 trans.EntryDate,
+                 trans.EntryBy
+              FROM tbl_fa_transaction AS trans
+              LEFT JOIN tbl_fa_account_no AS acc
+                 ON trans.AccNo = acc.Acc_No
+              WHERE trans.$branch_condition
+              AND trans.AccNo BETWEEN CAST('$accno_start' AS DECIMAL) AND CAST('$accno_finish' AS DECIMAL)
+              AND acc.TransGroup NOT IN('H1','H2','H3')
+              AND trans.TransDate BETWEEN '$date_start' AND '$date_finish'
+              AND trans.PostedStatus = 1
+              ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
+        )->result_array();
+  
+        $lastBalance = 0;
+        if(!empty($query)){
+           if($query[0]['beg_balance'] !== '' || is_null($query[0]['beg_balance']) == false){
+                 $lastBalance = (int)$query[0]['beg_balance'];
+           }
+        }
+  
+        for($i = 0; $i < count($query); $i++){
+  
+           $debit = (int)$query[$i]['Debit'];
+           $credit = (int)$query[$i]['Credit'];
+  
+           /*
+           * IF CURRENT INDEX'S YEAR NOT EQUAL TO PREVIOUS INDEX'S AND ACCTYPE EITHER 'R' OR 'E',
+           * SET BEGINNING BALANCE TO 0  
+           */ 
+           if($i > 0 && date('Y', strtotime($query[$i-1]['TransDate'])) !== date('Y', strtotime($query[$i]['TransDate'])) && ($query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'E')){
+              $lastBalance = 0;
+           }
+  
+           if($debit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
+              $query[$i]['BalanceBranch'] = $debit + $lastBalance;
+           }elseif($credit > 0 && ($query[$i]['AccType'] == 'A' || $query[$i]['AccType'] == 'E' || $query[$i]['AccType'] == 'E1')){
+              $query[$i]['BalanceBranch'] = $lastBalance - $credit;
+           }elseif($credit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
+              $query[$i]['BalanceBranch'] = $credit + $lastBalance;
+           }elseif($debit > 0 && ($query[$i]['AccType'] == 'L' || $query[$i]['AccType'] == 'C' || $query[$i]['AccType'] == 'R' || $query[$i]['AccType'] == 'A1' || $query[$i]['AccType'] == 'R1' || $query[$i]['AccType'] == 'C1' || $query[$i]['AccType'] == 'C2')){
+              $query[$i]['BalanceBranch'] = $lastBalance - $debit;
+           }
+  
+           if($i+1 < count($query)){
+              /*
+              * IF NEXT INDEX ACCNO IS DIFFERENT THAN CURRENT INDEX'S,
+              * SET THE `lastBalance` TO NEXT INDEX'S BEGINNING BALANCE
+              */
+              if($query[$i]['AccNo'] !== $query[$i+1]['AccNo'] || $query[$i]['Branch'] !== $query[$i+1]['Branch']){
+                 if($query[$i]['beg_balance'] !== '' || is_null($query[$i]['beg_balance']) == false){
+                    $query[$i+1]['beg_balance'] = (is_null($query[$i+1]['beg_balance']) ? 0 : $query[$i+1]['beg_balance']);
+                 
+                    $lastBalance = (int) $query[$i+1]['beg_balance'];
+                 }else{
+                    $lastBalance = 0;
+                 }
+              }else{
+                 $lastBalance = $query[$i]['BalanceBranch'];
+              }
+           }
+  
+           //Remove Unnecessary 'Key'
+           unset($query[$i]['Acc_Name']);
+           unset($query[$i]['beg_balance']);
+        }
+  
+        $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
+        
+        if($this->db->error()['code'] != 0){
+            $code = $this->db->error()['code'];
+            $message = $this->db->error()['message'];
+            log_message('error', "$code: $message");
+
+            $this->db->trans_rollback();
+   
+            return [null, "Database Error"];
+         }
+        
+        $this->db->trans_complete();
+        
+        return ["Success", null];
+    }
+
+    function recalculate_employee($employee, $date_start){
+        $this->db->trans_begin();
+
+        $query = $this->db
+                        ->select('trans.*')
+                        ->from('tbl_fa_treasury_mas AS mas')
+                        ->join('tbl_fa_transaction AS trans','mas.IDNumber = trans.IDNumber', 'LEFT')
+                        ->where("trans.TransType IN('CW','CR')")
+                        ->where([
+                            'mas.IDNumber' => $employee,
+                            'trans.TransDate >=' => $date_start
+                        ])
+                        ->order_by("TransDate ASC, CtrlNo ASC")
+                        ->get()->result_array();
+
+        $emp_beg_bal = $this->db->select('Balance')
+                                ->order_by("TransDate DESC, CtrlNo DESC")
+                                ->where("TransType IN('CW','CR')")
+                                ->where([
+                                    'IDNumber' => $employee,
+                                    'TransDate <' => $date_start,
+                                    'ItemNo' => 0,
+                                 ])
+                                ->limit(1)
+                                ->get('tbl_fa_transaction')
+                                ->row()->Balance ?? 0;
+
+        $cur_docno = '';
+        for($i = 0; $i < count($query); $i++){
+            if($cur_docno !== $query[$i]['DocNo']){
+                switch ($query[$i]['TransType']) {
+                    case 'CW':
+                        $query[$i]['Balance'] = (int) $emp_beg_bal + (int) $query[$i]['Credit'];
+                        break;
+                    case 'CR':
+                        $query[$i]['Balance'] = (int) $emp_beg_bal - (int) $query[$i]['Credit'];
+                        break;
+                }
+
+                $cur_docno = $query[$i]['DocNo'];
+                $emp_beg_bal = $query[$i]['Balance'];
+            }else{
+                $query[$i]['Balance'] = $emp_beg_bal;
+            }
+        }
+        
+        $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
+
+        if($this->db->error()['code'] != 0){
+            $code = $this->db->error()['code'];
+            $message = $this->db->error()['message'];
+            log_message('error', "$code: $message");
+
+            $this->db->trans_rollback();
+   
+            return [null, "Database Error"];
+         }
+        
+        $this->db->trans_complete();
+        
+        return ["Success", null];
+    }
 }

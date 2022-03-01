@@ -2,6 +2,7 @@ import rec from './usecase/receipt.js'
 import pay from './usecase/payment.js'
 import ob from './usecase/overbook.js'
 import gj from './usecase/generalJournal.js'
+import gj from './usecase/recalculateBalance.js'
 import caw from './usecase/cashWithdraw.js'
 import car from './usecase/cashReceipt.js'
 import cap from './usecase/cashPersonalStatement.js'
@@ -94,6 +95,17 @@ const modules = {
             gj.formPage.eventChangeBranch()
             gj.formPage.eventChangeDepartment()
             gj.formPage.eventSubmitGeneral()
+        }
+    },
+
+    recalculateBalance: () => {
+        let path = window.location.pathname
+        let segment = path.split('/')[2]
+        let page = segment.split('_')[0]
+
+        if(page == 'view'){ /* List Page */
+            cal.indexPage.eventRecalculateBranch()
+            cal.indexPage.eventRecalculateEmployee()
         }
     },
 

@@ -1434,4 +1434,57 @@ class Entry extends CI_Controller
         
         $this->load->view('financecorp/entry/v_reps_general_journal', $data);
     }
+
+    //* RECALCULATE BALANCE
+    public function view_recalculate_balance(){
+        $data = [
+            'title' => 'Recalculate Balance',
+
+            //Branch Parameters
+            'branch' => $this->Mdl_corp_reports->get_branch(),
+            'account_no' => $this->Mdl_corp_reports->get_account_no(),
+
+            //Employee Parameter
+            'employee' => $this->Mdl_corp_entry->get_employee(),
+
+            'script' => 'recalculateBalance'
+        ];
+        
+        $this->load->view('financecorp/entry/v_index_recalculate_balance', $data);
+    }
+
+    public function ajax_recalculate_balance(){
+        $validation = validate($this->input->post());
+        
+        if(!$validation){
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+        
+        if(isset($this->input->post('branch'))){
+            $branch = $this->input->post('branch');
+            $accno_start = $this->input->post('accno_start');
+            $accno_finish = $this->input->post('accno_finish') ?? date('Y-m-d');
+            $date_start = $this->input->post('date_start');
+            $date_finish = $this->Mdl_corp_reports->get_last_trans_date();
+            
+            [$result, $error] = $this->Mdl_corp_entry->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
+
+            if($error !== null){
+                return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+            }
+            
+        }elseif($this->input->post('employee')){
+            $employee = $this->input->post('employee');
+            $date_start = $this->input->post('date_start');
+            
+            [$result, $error] = $this->Mdl_corp_entry->recalculate_balance($employee, $date_start);
+
+            if($error !== null){
+                return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+            }
+        }
+
+        return set_success_response($result);
+    }
 }

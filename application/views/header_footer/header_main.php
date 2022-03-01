@@ -108,32 +108,32 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('Entry/view_receipt_voucher') ?>" class="nav-link">
+                                        <a href="<?= base_url('Entry/view_receipt_voucher') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Receipt Voucher</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('Entry/view_payment_voucher') ?>" class="nav-link">
+                                        <a href="<?= base_url('Entry/view_payment_voucher') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Payment Voucher</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('Entry/view_overbook_voucher') ?>" class="nav-link">
+                                        <a href="<?= base_url('Entry/view_overbook_voucher') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Overbook Voucher</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('Entry/view_general_journal') ?>" class="nav-link">
+                                        <a href="<?= base_url('Entry/view_general_journal') ?>" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;General Journal</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="#" class="nav-link">
-                                            <span class="title">&bull;&nbsp;&nbsp;Re-Calculate | Repost</span>
+                                        <a href="<?= base_url('Entry/view_recalculate_balance') ?>" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Re-Calculate Balance</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
@@ -180,7 +180,7 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <a href="<?php echo site_url('purchase/direct_purchase') ?>" class="nav-link">
+                                        <a href="<?php echo base_url('purchase/direct_purchase') ?>" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Direct Purchase</span>
                                         </a>
                                     </li>
@@ -255,24 +255,24 @@
                                 </a>
                                 <ul class="sub-menu">
                                 <li class="nav-item start">
-                                        <a href="<?= site_url('Reports/view_gl_branch') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Reports/view_gl_branch') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;General Ledger</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('Reports/view_balance_sheet') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Reports/view_balance_sheet') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Balance Sheet</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('Reports/view_income_statement') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Reports/view_income_statement') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;Income Statement</span>
                                         </a>
                                     </li>
                                     <li class="nav-item start">
-                                        <a href="<?= site_url('Reports/view_income_statement_columnar') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Reports/view_income_statement_columnar') ?>" target="_blank" class="nav-link">
                                             <!-- <i class="icon-bar-chart"></i> -->
                                             <span class="title">&bull;&nbsp;&nbsp;IS Columnar</span>
                                         </a>
@@ -288,12 +288,12 @@
                                         </a>
                                     </li>
                                     <!-- <li class="nav-item start">
-                                        <a href="<?= site_url('Entry/view_trial_balance') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Entry/view_trial_balance') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Trial Balance</span>
                                         </a>
                                     </li> -->
                                     <!-- <li class="nav-item start">
-                                        <a href="<?= site_url('Entry/view_gl_stockcard') ?>" target="_blank" class="nav-link">
+                                        <a href="<?= base_url('Entry/view_gl_stockcard') ?>" target="_blank" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Stockcard</span>
                                         </a>
                                     </li> -->

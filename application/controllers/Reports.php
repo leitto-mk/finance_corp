@@ -123,7 +123,7 @@ class Reports extends CI_Controller
 
         $date_finish = $this->Mdl_corp_reports->get_last_trans_date();
 
-        $result = $this->Mdl_corp_reports->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
+        $result = $this->Mdl_corp_entry->recalculate_balance($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 
         return set_success_response($result);
     }
