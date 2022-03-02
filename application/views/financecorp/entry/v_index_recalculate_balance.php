@@ -118,8 +118,9 @@
                                         <div class="col-md-12">
                                             <select id="employee" name="employee" class="form-control" required>
                                                 <option value="">-- Choose --</option>
+                                                <option value="all">All</option>
                                                 <?php for($i = 0; $i < count($employee); $i++) : ?>
-                                                    <option value="<?= $employee[$i]['IDNumber'] ?>"><?= $employee[$i]['FullName'] ?></option>
+                                                    <option value="<?= $employee[$i]['IDNumber'] ?>"><?= $employee[$i]['IDNumber']?> | <?= $employee[$i]['FullName'] ?></option>
                                                 <?php endfor; ?>
                                             </select>
                                         </div>

@@ -468,32 +468,39 @@ class Mdl_corp_entry extends CI_Model
         $date_start = new DateTime($date_start);
         $date_start->modify("-1 month");
         $date_start = $date_start->format('Y-m-d');
-        
+
         $this->db->trans_begin();
 
         $query = $this->db
                         ->select('trans.*')
                         ->from('tbl_fa_treasury_mas AS mas')
                         ->join('tbl_fa_transaction AS trans','mas.IDNumber = trans.IDNumber', 'LEFT')
-                        ->where("trans.TransType IN('CW','CR')")
                         ->where([
                             'mas.IDNumber' => $employee,
                             'trans.TransDate >=' => $date_start
                         ])
-                        ->order_by("TransDate ASC, CtrlNo ASC")
-                        ->get()->result_array();
+                        ->where("trans.TransType IN('CW','CR')");
 
-        $emp_beg_bal = $this->db->select('Balance')
+        if(strtolower($employee) !== 'all'){
+            $query = $query->where('mas.IDNumber', $employee);
+        }
+
+        $query = $query->order_by("TransDate ASC, CtrlNo ASC")->get()->result_array();
+
+        $emp_beg_bal = $this->db->limit(1)
+                                ->select('Balance')
                                 ->order_by("TransDate DESC, CtrlNo DESC")
                                 ->where("TransType IN('CW','CR')")
                                 ->where([
-                                    'IDNumber' => $employee,
                                     'TransDate <' => $date_start,
                                     'ItemNo' => 0,
-                                 ])
-                                ->limit(1)
-                                ->get('tbl_fa_transaction')
-                                ->row()->Balance ?? 0;
+                                ]);
+
+        if(strtolower($employee) !== 'all'){
+            $emp_beg_bal = $emp_beg_bal->where('IDNumber', $employee);
+        }
+                                
+        $emp_beg_bal = $emp_beg_bal->get('tbl_fa_transaction')->row()->Balance ?? 0;
 
         $cur_docno = '';
         for($i = 0; $i < count($query); $i++){
