@@ -18,8 +18,7 @@
                                 <th class="text-center" width="18%">Branch / Site</th>
                                 <th class="text-center" width="18%">Account No Start</th>
                                 <th class="text-center" width="18%">Account No End</th>
-                                <th class="text-center" width="18%">Date Start</th>
-                                <th class="text-center" width="18%">Date End</th>        
+                                <th class="text-center" width="18%">Date Origin</th>
                                 <th class="text-center" width="5%" class="text-center">Action</th>        
                             </tr>
                         </thead>
@@ -76,14 +75,7 @@
                                 <td>
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <input type="date" name="date_finish" id='date_finish' value="<?= date('Y-m-d') ?>" class="form-control">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <a class="btn btn-sm btn-success" id="calculate_branch">
+                                            <a class="btn btn-sm btn-success text-center" id="calculate_branch">
                                                 <center>RECALCULATE</center>
                                             </a>
                                         </div>

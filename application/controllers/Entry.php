@@ -1453,7 +1453,7 @@ class Entry extends CI_Controller
         $this->load->view('financecorp/entry/v_index_recalculate_balance', $data);
     }
 
-    public function ajax_recalculate_balance(){
+    public function ajax_recalculate_branch(){
         $validation = validate($this->input->post());
         
         if(!$validation){

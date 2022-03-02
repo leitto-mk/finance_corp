@@ -464,6 +464,11 @@ class Mdl_corp_entry extends CI_Model
     }
 
     function recalculate_employee($employee, $date_start){
+        //SUBSTRACT `date_start` by one month
+        $date_start = new DateTime($date_start);
+        $date_start->modify("-1 month");
+        $date_start = $date_start->format('Y-m-d');
+        
         $this->db->trans_begin();
 
         $query = $this->db

@@ -13,9 +13,8 @@ const bal = {
                 var accno_start = +$('#param_branch #accno_start').val()
                 var accno_finish = +$('#param_branch #accno_finish').val()
                 var date_start = $('#param_branch #date_start').val()
-                var date_finish = $('#param_branch #date_finish').val()
     
-                if(!branch || !accno_start || !accno_finish || !date_start || !date_finish){
+                if(!branch || !accno_start || !accno_finish || !date_start){
                     alert("Please select all filter first")
                     return
                 }
@@ -23,17 +22,13 @@ const bal = {
                 if(accno_start > accno_finish){
                     alert('Account Number Start must be higher or equal!')
                     return
-                }else if(new Date(date_start) > new Date(date_finish)){
-                    alert('Date Start must be earlier or equal!')
-                    return
                 }
     
                 repository.getRecord('ajax_recalculate_branch', {
                     branch,
                     accno_start,
                     accno_finish,
-                    date_start,
-                    date_finish,
+                    date_start
                 })
                 .then(response => {
                     helper.unblockUI()
