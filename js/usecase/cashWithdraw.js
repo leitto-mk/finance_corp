@@ -24,7 +24,7 @@ const caw = {
                 Swal.fire({
                     'type': 'error',
                     'title': 'ABORTED',
-                    'html': `<h4 class="sbold">${err.responseJSON.desc}</h4>`
+                    'html': `<h4 class="sbold">${err.desc}</h4>`
                 })
             })
         },
@@ -51,7 +51,7 @@ const caw = {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'html': `<h4 class="sbold">${err.responseJSON.desc}</h4>`
+                        'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
                 })
             })
@@ -95,7 +95,7 @@ const caw = {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ERROR',
-                        'html': `<h4 class="sbold">${err.responseJSON.desc}</h4>`
+                        'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
                 })
             })
@@ -349,7 +349,7 @@ const caw = {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'html': `<h4 class="sbold">${err.responseJSON.desc}</h4>`
+                        'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
                 })
             })

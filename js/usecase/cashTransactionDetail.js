@@ -63,7 +63,7 @@ const ctd = {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
-                        'html': `<h4 class="sbold">${err.responseJSON.desc}</h4>`
+                        'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
                 })
             })
