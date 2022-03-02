@@ -47,7 +47,7 @@ const bal = {
                         })
                     }
                 })
-                .then(err => {
+                .fail(err => {
                     helper.unblockUI()
 
                     Swal.fire({
@@ -90,7 +90,7 @@ const bal = {
                         })
                     }
                 })
-                .then(err => {
+                .fail(err => {
                     helper.unblockUI()
     
                     Swal.fire({
