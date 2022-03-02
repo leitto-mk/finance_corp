@@ -52,9 +52,6 @@
                     <div class="page-logo" style="margin-left: -10px; margin-top: -10px">
                         <a href="#">
                             <h2 class="font-dark bold uppercase">Finance<font color="white">_</font>Accounting</h2></a>
-                        <div class="menu-toggler sidebar-toggler">
-                            <span></span>
-                        </div>
                     </div>
                     <!-- END LOGO -->
                     <!-- BEGIN RESPONSIVE MENU TOGGLER -->

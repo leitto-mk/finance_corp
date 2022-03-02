@@ -51,7 +51,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 
 $route['default_controller'] = 'Financecorp';
+$route['Finance'] = 'Financecorp';
 $route['finance'] = 'Financecorp';
+$route['Entry'] = 'Entry/view_receipt_voucher';
 $route['entry'] = 'Entry/view_receipt_voucher';
 $route['cashadvance'] = 'Cash_adv';
 
