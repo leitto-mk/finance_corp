@@ -63,5 +63,8 @@
         <script src="<?= base_url() ?>assets/pages/scripts/portfolio-1.min.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
+        <?php if(isset($script) && $script !== '') : ?>
+            <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
+        <?php endif ?>
      </body>
 </html>

@@ -150,12 +150,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    const base_url = "<?= base_url() ?>"
-    window.onload = load_function;
-
-    function load_function() {
-        document.body.style.zoom = 0.9;
-    }
-</script>
 <?php $this->load->view('header_footer/footer_main'); ?>

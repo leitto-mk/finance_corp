@@ -282,11 +282,5 @@
             </form>
         </div>
     </div>                            
-<script type="text/javascript">
-    window.onload = load_function;
 
-    function load_function() {
-        document.body.style.zoom = 0.8;
-    }
-</script>
 <?php $this->load->view('header_footer/footer'); ?>

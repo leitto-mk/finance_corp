@@ -81,6 +81,9 @@ License: You must have a valid license purchased only from themeforest(the above
   <script src="<?= base_url() ?>assets/js/finance.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+  <?php if(isset($script) && $script !== '') : ?>
+      <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
+  <?php endif ?>
 
 </body>
 

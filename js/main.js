@@ -13,6 +13,7 @@ import bal from './usecase/balanceSheet.js'
 import ics from  './usecase/incomeStatement.js'
 import icsc from  './usecase/incomeStatementColumnar.js'
 import jtr from './usecase/journalTransaction.js'
+import helper from './helper.js'
 /**
  * Load Script as Modules
  */
@@ -193,6 +194,9 @@ const modules = {
 
 //Get Sript Name
 var fn = document.querySelector('#script').getAttribute('data-load-module')
+
+//Resize Page
+helper.resizePage(0.9)
 
 //Load Script
 if(fn in modules){

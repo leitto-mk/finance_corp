@@ -50,7 +50,9 @@
         <script src="<?=base_url('assets')?>/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/toastr/js/toastr.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
-        
+        <?php if(isset($script) && $script !== '') : ?>
+            <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
+        <?php endif ?>
     </body>
 
 </html>

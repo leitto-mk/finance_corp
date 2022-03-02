@@ -134,6 +134,16 @@ const helper = {
             
             return;
         })
+    },
+
+    /**
+     * 
+     * @param {float} Size in decimal point
+     * 
+     * @return {void}
+     */
+    resizePage: size => {
+        document.body.style.zoom = size
     }
 }
 
