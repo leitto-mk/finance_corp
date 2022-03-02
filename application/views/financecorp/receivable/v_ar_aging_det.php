@@ -514,11 +514,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    window.onload = load_function;
-
-    function load_function() {
-        document.body.style.zoom = 0.9;
-    }
+    
 
     function printDiv(divName) {
         var printContents = document.getElementById(divName).innerHTML;

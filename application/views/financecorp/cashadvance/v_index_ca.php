@@ -213,10 +213,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    window.onload = load_function;
-
-    function load_function() {
-        document.body.style.zoom = 0.9;
-    }
+    
 </script>
 <?php $this->load->view('financecorp/cashadvance/footer'); ?>
