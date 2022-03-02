@@ -120,7 +120,7 @@
                                                                 <td><h6 class="text-center"><?= $report[$i]['AccNo']?></h6></td>
                                                                 <td><h6><?= $report[$i]['Acc_Name']?></h6></td>
                                                                 <td><h6 class="text-center"><?= $report[$i]['Currency']?></h6></td>
-                                                                <td><h6 style="float: right"><?= $report[$i]['Debit']?></h6></td>
+                                                                <td><h6 style="float: right"><?= number_format($report[$i]['Debit'], 0, '.',',') ?></h6></td>
                                                                 <td><h6 style="float: right"><?= number_format($report[$i]['Credit'], 0, '.',',') ?></h6></td>
                                                             </tr>
                                                             <?php 
