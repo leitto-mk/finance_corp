@@ -217,7 +217,7 @@ class Entry extends CI_Controller
         //COUNTER-BALANCE
         array_push($trans, [
             'DocNo' => $_POST['docno'],
-            'RefNo' => $_POST['refno'],
+            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
             'TransDate' => $_POST['transdate'],
             'TransType' => self::REC,
             'JournalGroup' => $_POST['journalgroup'],
@@ -244,7 +244,7 @@ class Entry extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
-            'RefNo' => $_POST['refno'],
+            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
             'IDNumber' => $_POST['paidto'],
             'SubmitBy' => '',
             'TransType' => self::REC,
@@ -305,7 +305,7 @@ class Entry extends CI_Controller
             //DETAIL BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
-                'RefNo' => $_POST['refno'],
+                'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
                 'TransDate' => $_POST['transdate'],
                 'TransType' => self::REC,
                 'JournalGroup' => $_POST['journalgroup'],
@@ -574,7 +574,7 @@ class Entry extends CI_Controller
         //COUNTER-BALANCE
         array_push($trans, [
             'DocNo' => $_POST['docno'],
-            'RefNo' => $_POST['refno'],
+            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
             'TransDate' => $_POST['transdate'],
             'TransType' => self::PAY,
             'JournalGroup' => $_POST['journalgroup'],
@@ -601,7 +601,7 @@ class Entry extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
-            'RefNo' => $_POST['refno'],
+            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
             'IDNumber' => $_POST['paidto'],
             'SubmitBy' => '',
             'TransType' => self::PAY,
@@ -662,7 +662,7 @@ class Entry extends CI_Controller
             //DETAIL BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
-                'RefNo' => $_POST['refno'],
+                'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
                 'TransDate' => $_POST['transdate'],
                 'TransType' => self::PAY,
                 'JournalGroup' => $_POST['journalgroup'],
@@ -931,7 +931,7 @@ class Entry extends CI_Controller
         //COUNTER-BALANCE
         array_push($trans, [
             'DocNo' => $_POST['docno'],
-            'RefNo' => $_POST['refno'],
+            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
             'TransDate' => $_POST['transdate'],
             'TransType' => self::OVB,
             'JournalGroup' => $_POST['journalgroup'],
@@ -958,7 +958,7 @@ class Entry extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
-            'RefNo' => $_POST['refno'],
+            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
             'IDNumber' => $_POST['paidto'],
             'SubmitBy' => '',
             'TransType' => self::OVB,
@@ -1020,7 +1020,7 @@ class Entry extends CI_Controller
             //DETAIL BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
-                'RefNo' => $_POST['refno'],
+                'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
                 'TransDate' => $_POST['transdate'],
                 'TransType' => self::OVB,
                 'JournalGroup' => $_POST['journalgroup'],
@@ -1274,7 +1274,7 @@ class Entry extends CI_Controller
 
         array_push($master, [
             'DocNo' => $_POST['docno'],
-            'RefNo' => $_POST['refno'],
+            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
             'IDNumber' => $_POST['paidto'],
             'SubmitBy' => '',
             'TransType' => self::GNJ,
@@ -1343,7 +1343,7 @@ class Entry extends CI_Controller
             //DETAIL BALANCE
             array_push($trans, [
                 'DocNo' => $_POST['docno'],
-                'RefNo' => $_POST['refno'],
+                'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
                 'TransDate' => $_POST['transdate'],
                 'TransType' => self::GNJ,
                 'JournalGroup' => '',
