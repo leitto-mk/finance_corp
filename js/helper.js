@@ -137,13 +137,18 @@ const helper = {
     },
 
     /**
+     * Resize Page. if detected resolution is 1920 and above, it will be ignored
      * 
      * @param {float} Size in decimal point
      * 
      * @return {void}
      */
     resizePage: size => {
-        document.body.style.zoom = size
+        let resolution = +window.screen.availWidth
+
+        if(resolution < 1920){
+            document.body.style.zoom = size
+        }
     }
 }
 
