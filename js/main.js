@@ -196,7 +196,7 @@ const modules = {
 var fn = document.querySelector('#script').getAttribute('data-load-module')
 
 //Resize Page
-helper.resizePage(1366, 768)
+helper.resizePage(0.9)
 
 //Load Script
 if(fn in modules){

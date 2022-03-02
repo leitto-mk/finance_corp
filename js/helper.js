@@ -138,13 +138,12 @@ const helper = {
 
     /**
      * 
-     * @param {float} width in decimal point
-     * @param {float} height in decimal point
+     * @param {float} Size in decimal point
      * 
      * @return {void}
      */
-    resizePage: (width, height) => {
-        window.resizeTo(width, height)
+    resizePage: size => {
+        document.body.style.zoom = size
     }
 }
 
