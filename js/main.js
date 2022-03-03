@@ -217,7 +217,6 @@ $(document).ready(function(){
             import('./usecase/generalLedger.js')
             .then(({default: gl}) => {
                 gl.indexPage.eventPreviewFilter()
-                gl.indexPage.eventRecalculate()  
             })
             .catch(err => {
                 console.log(`%cError:%c ${err}`, 'color: red')

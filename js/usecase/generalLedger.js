@@ -36,21 +36,9 @@ const gl = {
                 params.set('date_start', date_start)
                 params.set('date_finish', date_finish)
     
-                //Append new URL Param for ReCalculate
-                let calculateURL = $('#recalculate').attr('href')
-                let cal = new URL(calculateURL)
-                let calparam = cal.searchParams
-                calparam.set('branch', branch)
-                calparam.set('accno_start', accno_start)
-                calparam.set('accno_finish', accno_finish)
-                calparam.set('date_start', date_start)
-                calparam.set('date_finish', date_finish)
-    
                 url.search = params.toString()
-                cal.search = calparam.toString()
                 
                 $('#print_report').attr('href', url.toString())
-                $('#recalculate').attr('href', cal.toString())
 
                 repository.getRecord('ajax_get_general_ledger', {
                     branch,
