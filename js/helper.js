@@ -147,7 +147,7 @@ const helper = {
         let resolution = +window.screen.availWidth
 
         if(resolution < 1920){
-            document.body.style.zoom = size
+            document.body.style.zoom = size ?? 1
         }
     }
 }
