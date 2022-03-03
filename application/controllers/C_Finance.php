@@ -210,6 +210,15 @@ class C_Finance extends CI_Controller
     $this->load->view('financecorp/coa/component/v_coa_table', $table_data);
   }
 
+  public function delete_account()
+  {
+    $ctrlno = $this->input->post('unique');
+
+    $result = $this->finance->M_delete_account($ctrlno);
+
+    echo $result;
+  }
+
   private function get_coa_data()
   {
     $max = $this->finance->M_count_level()['maxLevel'];

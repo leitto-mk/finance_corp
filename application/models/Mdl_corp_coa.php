@@ -111,6 +111,41 @@ class Mdl_corp_coa extends CI_Model
     }
   }
 
+  public function M_delete_account($ctrlno)
+  {
+    $this->db->trans_begin();
+    
+    $result = $this->db->select('Acc_No, Acc_Name, TransGroup')
+                       ->get_where('tbl_fa_account_no', [
+                         'ID' => $ctrlno
+                       ])->row();
+
+    if(in_array($result->TransGroup, ['H1','H2','H3'])){
+      switch ($result->TransGroup) {
+        case 'H1':
+          $accno = substr($result->Acc_No, 0, 1);
+          $this->db->like('Acc_No', $accno, 'after')->delete('tbl_fa_account_no');
+          break;
+        case 'H2':
+          $accno = substr($result->Acc_No, 0, 2);
+          $this->db->like('Acc_No', $accno, 'after')->delete('tbl_fa_account_no');
+          break;
+        case 'H3':
+          $accno = substr($result->Acc_No, 0, 3);
+          $this->db->like('Acc_No', $accno, 'after')->delete('tbl_fa_account_no');
+          break;
+        default:
+          $accno = $result->Acc_No;
+          $this->db->where('Acc_No', $accno)->delete('tbl_fa_account_no');
+          break;
+      }
+    }
+    
+    $this->db->trans_complete();
+    
+    return ($this->db->trans_status() ? 'success' : $this->db->error());
+  }
+
   public function reset_coa(){
       $tables = array('tbl_fa_account_no');
       $this->db->where('Disc', 'No');

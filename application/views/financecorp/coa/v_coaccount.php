@@ -52,6 +52,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                  <button type="button" id="action-delete" class="btn red btn-outline" data-dismiss="modal">Delete</button>
                   <button type="submit" id="action-submit" data-unique="" data-type="" data-submit="" data-table-url="" class="btn blue-chambray">Save</button>
                 </div>
               </div>

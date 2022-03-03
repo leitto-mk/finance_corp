@@ -11,12 +11,12 @@ $(document).on("ready", function () {
 		$(document)
 			.find("#table-coa>tbody>tr")
 			.confirmation({
-				title: "Action",
+				title: "Create Child ?",
 				btnOkLabel: "Edit",
 				btnOkIcon: "fa fa-pencil",
+				btnOkClass: "btn btn-sm green",
 				btnCancelLabel: "New Child",
 				btnCancelIcon: "fa fa-plus",
-				btnOkClass: "btn btn-sm green",
 				btnCancelClass: "btn btn-sm blue",
 				singleton: true,
 				popout: true,
@@ -38,17 +38,6 @@ $(document).on("ready", function () {
 	}
 
 	const get_type = function (element, callback, placeholder, url) {
-		$.ajax({
-			type: "POST",
-			dataType: "JSON",
-			url: `${url}`,
-			success: function (data) {
-				callback(element, data, placeholder);
-			},
-		});
-	};
-
-	const get_group = function (element, callback, placeholder, url) {
 		$.ajax({
 			type: "POST",
 			dataType: "JSON",
@@ -106,11 +95,20 @@ $(document).on("ready", function () {
 				const element = $("#modal-finance");
 				element.find(".modal-title").text(data.title);
 				element.find(".modal-body").html(data.body);
+				
 				element.find("#action-submit").attr("data-type", type);
 				element.find("#action-submit").attr("data-submit", data.submit_url);
 				element.find("#action-submit").attr("data-table-url", data.content_url);
-				element.find("#action-submit").attr("data-unique", id);
+				element.find("#action-submit, #action-delete").attr("data-unique", id);
+
 				get_type($("#coa_type"), create_select2, " ", data.type_url);
+
+				if(type !== 'edit'){
+					$('#action-delete').hide()
+				}else{
+					$('#action-delete').show()
+				}
+
 				$("#modal-finance").modal("show");
 			},
 			error: function () {
@@ -208,4 +206,26 @@ $(document).on("ready", function () {
 		submit_coa(_formData, url);
 		// $("#modal-finance").modal("hide");
 	});
+
+	$(document).on('click','#action-delete', function(){
+		var unique = $(this).attr('data-unique')
+
+		$.ajax({
+			url: 'C_Finance/delete_account',
+			method: 'POST',
+			data: {
+				unique
+			},
+			success: response => {
+				if(response == 'success'){
+					alert('Deleted')
+
+					location.reload()
+				}else{
+					alert("SERVER PROBLEM")
+				}
+			},
+			error: () => alert('NETWORK PROBLEM')
+		})
+	})
 });
