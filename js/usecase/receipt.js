@@ -302,7 +302,7 @@ const rec = {
                         Swal.fire({
                             'type': 'success',
                             'title': 'SUCCESS',
-                            'html': 'RECEIPT HAS BEEN SUBMITTED'
+                            'html': 'DATA HAS BEEN SUBMITTED'
                         })
 
                         $('input, textarea').prop('readonly', true)
