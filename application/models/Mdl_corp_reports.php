@@ -48,6 +48,8 @@ class Mdl_corp_reports extends CI_Model {
          $finish = $datestart;
       }
 
+      $this->db->cache_on();
+
       //GET RESULT IN SELECTED DATE RANGE
       $ondate_selected_result = $this->db->query(
          "SELECT 
