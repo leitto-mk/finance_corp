@@ -124,21 +124,19 @@ class Mdl_corp_coa extends CI_Model
       switch ($result->TransGroup) {
         case 'H1':
           $accno = substr($result->Acc_No, 0, 1);
-          $this->db->like('Acc_No', $accno, 'after')->delete('tbl_fa_account_no');
           break;
         case 'H2':
           $accno = substr($result->Acc_No, 0, 2);
-          $this->db->like('Acc_No', $accno, 'after')->delete('tbl_fa_account_no');
           break;
         case 'H3':
           $accno = substr($result->Acc_No, 0, 3);
-          $this->db->like('Acc_No', $accno, 'after')->delete('tbl_fa_account_no');
           break;
-        default:
-          $accno = $result->Acc_No;
-          $this->db->where('Acc_No', $accno)->delete('tbl_fa_account_no');
-          break;
-      }
+        }
+        
+        $this->db->like('Acc_No', $accno, 'after')->delete('tbl_fa_account_no');
+    }else{    
+      $accno = $result->Acc_No;
+      $this->db->where('Acc_No', $accno)->delete('tbl_fa_account_no');
     }
     
     $this->db->trans_complete();
