@@ -733,31 +733,6 @@ class Mdl_corp_reports extends CI_Model {
 
    //* JOURNAL TRANSACTION
    function get_journal_transaction($branch, $transtype, $accno_start, $accno_finish, $date_start, $date_finish){
-      $query = $this->db->query(
-         "SELECT
-            DATE_FORMAT(trans.TransDate, '%d-%b-%y') AS TransDate,
-            trans.DocNo,
-            trans.TransType,
-            trans.Remarks,
-            trans.Department,
-            trans.CostCenter,
-            trans.AccNo,
-            acc.Acc_Name,
-            trans.Currency,
-            trans.Rate,
-            trans.Unit,
-            trans.Debit,
-            trans.Credit
-          FROM tbl_fa_transaction AS trans
-          LEFT JOIN tbl_fa_account_no AS acc
-            ON trans.AccNo = acc.Acc_No
-          WHERE trans.Branch = ?
-          AND trans.TransType = ?
-          AND trans.AccNo BETWEEN ? AND ?
-          AND trans.TransDate BETWEEN ? AND ?
-          ORDER BY trans.TransDate ASC, trans.CtrlNo ASC"
-      ,[$branch, $transtype, $accno_start, $accno_finish, $date_start, $date_finish]);
-
       $query = $this->db
                ->order_by('trans.TransDate ASC, trans.CtrlNo ASC')
                ->select("
@@ -779,8 +754,8 @@ class Mdl_corp_reports extends CI_Model {
                ->join('tbl_fa_account_no AS acc', 'trans.AccNo = acc.Acc_No', 'LEFT')
                ->where([
                   'trans.Branch' => $branch,
-                  'trans.AccNo >=' => $accno_start,
-                  'trans.AccNo <=' => $accno_finish,
+                  // 'trans.AccNo >=' => $accno_start,
+                  // 'trans.AccNo <=' => $accno_finish,
                ]);
 
       if(strtolower($transtype) !== 'all'){

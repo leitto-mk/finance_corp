@@ -11,23 +11,41 @@ const jtr = {
             $('#submit_filter').click(function(){
                 var branch = $('#branch').val()
                 var trans_type = $('#transtype').val()
-                var accno_start = +$('#accno_start').val()
-                var accno_finish = +$('#accno_finish').val()
+                // var accno_start = +$('#accno_start').val()
+                // var accno_finish = +$('#accno_finish').val()
                 var date_start = $('#date_start').val()
                 var date_finish = $('#date_finish').val()
     
-                if(!branch || !trans_type || !accno_start || !accno_finish || !date_start || !date_finish){
-                    alert('Please Select All Filter!')
-                    return;
-                }else if(accno_start > accno_finish){
-                    alert('Account Number Start must be higher or equal!')
-                    return;
-                }else if(new Date(date_start) > new Date(date_finish)){
+                // if(!branch || !trans_type || !accno_start || !accno_finish || !date_start || !date_finish){
+                //     alert('Please Select All Filter!')
+                //     return;
+                // }
+                
+                // if(accno_start > accno_finish){
+                //     alert('Account Number Start must be higher or equal!')
+                //     return;
+                // }
+
+                if(new Date(date_start) > new Date(date_finish)){
                     alert('Date Start must be earlier or equal!')
                     return;
                 }
-    
-                repository.getRecord('ajax_get_journal_transaction', { branch, trans_type, accno_start, accno_finish, date_start, date_finish })
+                
+                if(!branch || !trans_type || !date_start || !date_finish){
+                    alert('Please Select All Filter!')
+                    return;
+                }
+
+                let data = {
+                    branch,
+                    trans_type,
+                    // accno_start,
+                    // accno_finish,
+                    date_start,
+                    date_finish
+                }
+
+                repository.getRecord('ajax_get_journal_transaction', data)
                 .then(response => {
                     helper.unblockUI()
         
