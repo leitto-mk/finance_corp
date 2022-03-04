@@ -412,6 +412,11 @@
               <span></span>
               Credit
             </label>
+            <label class="mt-radio">
+              <input type="radio" id="radio-credit" name="dp_payment_type" value="credit purchase">
+              <span></span>
+              Credit Purchase
+            </label>
           </div>
         </div>
         <div id="card-payment" class="hidden">

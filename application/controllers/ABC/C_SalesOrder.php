@@ -503,7 +503,8 @@ class C_SalesOrder extends CI_Controller
   {
     $data = $this->so->M_get_storage([
       'Disc' => '0',
-      'BranchCode' => $this->session->userdata('branch')
+      // 'BranchCode' => $this->session->userdata('branch')
+      'BranchCode' => '0101'
     ])->result_array();
 
     echo json_encode($data);
@@ -514,7 +515,8 @@ class C_SalesOrder extends CI_Controller
     $data = $this->so->M_get_stockcode([
       'stockcode.Row' => 'No',
       'stockreg.Disc' => '0',
-      'stockreg.BranchCode' => $this->session->userdata('branch'),
+      // 'stockreg.BranchCode' => $this->session->userdata('branch'),
+      'stockreg.BranchCode' => '0101',
     ])->result_array();
 
     echo json_encode($data);
