@@ -18,7 +18,6 @@ License: You must have a valid license purchased only from themeforest(the above
 <html lang="en">
     <!--<![endif]-->
     <!-- BEGIN HEAD -->
-
     <head>
         <meta charset="utf-8" />
         <title>404 - FinanceCorp</title>
@@ -42,12 +41,22 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- END PAGE LEVEL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <!-- END THEME LAYOUT STYLES -->
-        <!-- <link rel="shortcut icon" href="favicon.ico" /> </head> -->
+        <!-- <link rel="shortcut icon" href="favicon.ico" /> -->
+        <style>
+            .img-bg {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0.5;
+            }
+        </style>
+    </head>
     <!-- END HEAD -->
 
-    <body class=" page-404-3">
+    <body class="page-404-3">
         <div class="page-inner">
-            <img src="<?= base_url() ?>/assets/pages/media/pages/earth.jpg" class="img-responsive" alt=""> </div>
+            <!-- <img src="<?= base_url() ?>/assets/pages/media/email/abase.png" class="img-bg" alt=""> </div> -->
         <div class="container error-404">
             <h1>404</h1>
             <h2>Page You're looking for does not exist</h2>
