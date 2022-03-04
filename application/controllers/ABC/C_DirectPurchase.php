@@ -74,7 +74,8 @@ class C_DirectPurchase extends CI_Controller
   {
     $data = $this->dp->M_get_supplier([
       'Disc' => '0',
-      'Branch' => $this->session->userdata('branch')
+      // 'Branch' => $this->session->userdata('branch')
+      'Branch' => '0101'
     ])->result_array();
 
     echo json_encode($data);
@@ -85,7 +86,8 @@ class C_DirectPurchase extends CI_Controller
     $data = $this->so->M_get_stockcode([
       // 'stockcode.Row' => 'Yes',
       'stockreg.Disc' => '0',
-      'stockreg.BranchCode' => $this->session->userdata('branch'),
+      // 'stockreg.BranchCode' => $this->session->userdata('branch'),
+      'stockreg.BranchCode' => '0101',
     ])->result_array();
 
     echo json_encode($data);
@@ -609,7 +611,8 @@ class C_DirectPurchase extends CI_Controller
     $title = 'Direct Purchase';
     $script = '';
 
-    $branch_session = $this->session->userdata('branch');
+    // $branch_session = $this->session->userdata('branch');
+    $branch_session = '0101';
 
     $master_data = $this->dp->M_get_direct_purchase_master([
       'master.CtrlNo' => $id,
@@ -637,7 +640,7 @@ class C_DirectPurchase extends CI_Controller
       ];
       $this->load->view('abc/layout/main', $data);
     } else {
-      redirect('abc/purchase/direct_purchase');
+      redirect('purchase/direct_purchase');
     }
   }
 
