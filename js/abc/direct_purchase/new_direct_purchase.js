@@ -110,7 +110,7 @@ $(document).on("ready", function (e) {
 									cache: false,
 									processData: false,
 									data: _formData,
-									url: `${site_url}/abc/purchase/direct_purchase`,
+									url: `${site_url}/purchase/direct_purchase`,
 									beforeSend: function (e) {
 										$("#form-direct-purchase")
 											.find('button[type="submit"]')
@@ -209,6 +209,10 @@ $(document).on("ready", function (e) {
 
 	$(document).on("blur", "#dp_bill_to", function (e) {
 		$("#dp_ship_to").select2("open");
+	});
+
+	$(document).on("select2:close", "#dp_bill_to", function (e) {
+		$("#dp_ship_to").focus().select();
 	});
 
 	$(document).on("select2:close", "#dp_ship_to", function (e) {

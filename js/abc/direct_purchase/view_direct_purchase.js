@@ -59,7 +59,7 @@ $(document).on("ready", function () {
 				className: "text-center",
 				render: function (data, type, row) {
 					return `
-							<a href="${site_url}/abc/purchase/direct_purchase/detail/${row.CtrlNo}" data-toggle="modal" class="btn btn-xs grey-gallery btn-outline so-detail" title="Detail Purchase Order" >
+							<a href="${site_url}/purchase/direct_purchase/detail/${row.CtrlNo}" data-toggle="modal" class="btn btn-xs grey-gallery btn-outline so-detail" title="Detail Purchase Order" >
 								<i class="fa fa-search"></i>
 							</a>
 							<a href="#" data-toggle="modal" class="btn btn-xs grey-gallery btn-outline so-print" title="Print Purchase Order" >

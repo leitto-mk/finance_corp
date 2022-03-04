@@ -75,7 +75,7 @@ class SalesOrder_Model extends CI_Model
   {
     $query = $this->db
       ->select('Currency as id, CONCAT(Currency, " - ", CurrencyName) as text')
-      ->get_where('tbl_fa_mas_currency', $where);
+      ->get_where('tbl_fa_mas_cur', $where);
 
     return $query;
   }
