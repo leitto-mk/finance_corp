@@ -443,7 +443,8 @@ class Mdl_corp_reports extends CI_Model {
                      AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
-         WHERE acc.Acc_No BETWEEN 40000 AND 49999"
+         WHERE acc.Acc_No BETWEEN 40000 AND 49999
+         ORDER BY acc.Acc_No ASC"
       )->result_array();
 
       $operational = $this->db->query(
@@ -467,7 +468,8 @@ class Mdl_corp_reports extends CI_Model {
                      AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
-         WHERE acc.Acc_No BETWEEN 50000 AND 59999"
+         WHERE acc.Acc_No BETWEEN 50000 AND 59999
+         ORDER BY acc.Acc_No ASC"
       )->result_array();
 
       $other_rev = $this->db->query(
@@ -491,7 +493,8 @@ class Mdl_corp_reports extends CI_Model {
                      AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
-         WHERE acc.Acc_No BETWEEN 60000 AND 69999"
+         WHERE acc.Acc_No BETWEEN 60000 AND 69999
+         ORDER BY acc.Acc_No ASC"
       )->result_array();
 
       $other_expense = $this->db->query(
@@ -515,7 +518,8 @@ class Mdl_corp_reports extends CI_Model {
                      AND ItemNo != 0
                      AND $branch GROUP BY AccNo) AS yTrans
             ON acc.Acc_No = yTrans.AccNo
-         WHERE acc.Acc_No BETWEEN 70000 AND 79999"
+         WHERE acc.Acc_No BETWEEN 70000 AND 79999
+         ORDER BY acc.Acc_No ASC"
       )->result_array();
 
       return [$company, $revenue, $operational, $other_rev, $other_expense];
