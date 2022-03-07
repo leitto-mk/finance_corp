@@ -1,8 +1,8 @@
-<?php 
-        
-defined('BASEPATH') OR exit('No direct script access allowed');
-        
-class Reports extends CI_Controller 
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Reports extends CI_Controller
 {
     /**
      * Common HTTP status codes and their respective description.
@@ -34,11 +34,11 @@ class Reports extends CI_Controller
     }
 
     //* GENERAL LEDGER
-    public function view_gl_branch(){
-        
+    public function view_gl_branch()
+    {
         $branch = 'All';
-        $accno_start = $this->db->select('Acc_No')->order_by('Acc_No','ASC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
-        $accno_finish = $this->db->select('Acc_No')->order_by('Acc_No','DESC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
+        $accno_start = $this->db->select('Acc_No')->order_by('Acc_No', 'ASC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
+        $accno_finish = $this->db->select('Acc_No')->order_by('Acc_No', 'DESC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
         $datestart = date('Y-01-01');
         $datefinish = date('Y-m-d');
 
@@ -57,14 +57,15 @@ class Reports extends CI_Controller
             //SCRIPT
             'script' => 'generalLedger'
         ];
-        
+
         $this->load->view('financecorp/reports/v_index_gl_branch', $data);
     }
 
-    public function ajax_get_general_ledger(){
+    public function ajax_get_general_ledger()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -79,10 +80,11 @@ class Reports extends CI_Controller
         return set_success_response($result);
     }
 
-    public function view_gl_branch_report(){
+    public function view_gl_branch_report()
+    {
         $validation = validate($this->input->get(), ['date' => ['date_start', 'date_finish']], null);
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -106,15 +108,16 @@ class Reports extends CI_Controller
         ];
 
         $this->output->cache(7200);
-        
+
         $this->load->view('financecorp/reports/v_reps_gl', $data);
     }
 
     // ------------ Re-Calculate ------------ \\
-    public function ajax_recalculate_balance(){
+    public function ajax_recalculate_balance()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -131,7 +134,8 @@ class Reports extends CI_Controller
     }
 
     //* BALANCE SHEET
-    public function view_balance_sheet(){
+    public function view_balance_sheet()
+    {
         $branch = $this->input->get('branch') ?? null;
         $year =  $this->input->get('year') ?? date('Y');
         $month = $this->input->get('month') ?? date('m');
@@ -152,12 +156,13 @@ class Reports extends CI_Controller
 
             'script' => 'balanceSheet'
         ];
-        
+
         $this->load->view('financecorp/reports/v_index_balance_sheet', $data);
     }
 
     //* TRIAL BALANCE
-    public function view_trial_balance(){
+    public function view_trial_balance()
+    {
         $data = [
             //HEADER
             'title' => 'Trial Balance',
@@ -170,13 +175,14 @@ class Reports extends CI_Controller
     }
 
     //* INCOME STATEMENT
-    public function view_income_statement(){
+    public function view_income_statement()
+    {
         $validation = validate($this->input->get(), null, null);
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
-        
+
         $branch = $this->input->get('branch') ?? null;
         $year =  $this->input->get('year') ?? date('Y');
         $month = $this->input->get('month') ?? date('m');
@@ -203,10 +209,11 @@ class Reports extends CI_Controller
     }
 
     //* INCOME STATEMENT COLUMNAR
-    public function view_income_statement_columnar(){
+    public function view_income_statement_columnar()
+    {
         $validation = validate($this->input->get(), null, null);
 
-        if(!$validation){
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -235,10 +242,11 @@ class Reports extends CI_Controller
 
         $this->load->view('financecorp/reports/v_index_income_statement_columnar', $data);
     }
- 
+
     //* JOURNAL TRANSACTION
-    public function view_journal_transaction(){
-        
+    public function view_journal_transaction()
+    {
+
         $data = [
             'title' => 'Report Journal Transaction',
             'h1' => 'Report',
@@ -256,10 +264,11 @@ class Reports extends CI_Controller
         $this->load->view('financecorp/reports/v_index_journal_transaction', $data);
     }
 
-    public function ajax_get_journal_transaction(){
+    public function ajax_get_journal_transaction()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -272,10 +281,10 @@ class Reports extends CI_Controller
 
         [$result, $error] = $this->Mdl_corp_reports->get_journal_transaction($branch, $transtype, $accno_start, $accno_finish, $date_start, $date_finish);
 
-        if($error){
+        if ($error) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
-        
+
         return set_success_response($result);
     }
 }

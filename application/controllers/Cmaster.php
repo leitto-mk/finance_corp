@@ -1,15 +1,18 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Cmaster extends CI_Controller {
+class Cmaster extends CI_Controller
+{
 
-	public function __construct(){
+	public function __construct()
+	{
 		parent::__construct();
 		$this->load->model('Mdl_corp_master', 'master');
 		$this->load->library(array('Datatables' => 'dtables', 'Zend'));
 	}
 
-	public function index(){
+	public function index()
+	{
 		$data['title'] = 'Masters';
 		$data['h2'] = 'Master & Settings';
 		$data['check_company'] = $this->master->M_check_company();
@@ -19,18 +22,19 @@ class Cmaster extends CI_Controller {
 	}
 
 	function mt_mas_stock()
-    {
-    	$data['title'] = 'Master - Stockcode';
-    	$data['h2'] = 'Master';
-        $this->load->view('financecorp/master/v_master_stockcode',$data);
-    }
+	{
+		$data['title'] = 'Master - Stockcode';
+		$data['h2'] = 'Master';
+		$this->load->view('financecorp/master/v_master_stockcode', $data);
+	}
 
 	//Master Abase Start
-		public function viewModalMasterAbase(){
-			$input = $this->input->post('input');
-			switch($input){
-				case 'abasecompany':
-					echo '<form id="form_abasecompany" enctype="multipart/form-data">
+	public function viewModalMasterAbase()
+	{
+		$input = $this->input->post('input');
+		switch ($input) {
+			case 'abasecompany':
+				echo '<form id="form_abasecompany" enctype="multipart/form-data">
 							<div class="portlet light bordered">
 			                    <div class="portlet-body">
 			                        <div class="form-horizontal">
@@ -154,9 +158,9 @@ class Cmaster extends CI_Controller {
 			                    </div>
 			                </div>
 		                </form>';
-					break;
-				case 'abasebranch':
-					echo '<form id="form_abasebranch">
+				break;
+			case 'abasebranch':
+				echo '<form id="form_abasebranch">
 							<div class="portlet light bordered">
 			                    <div class="portlet-body">
 			                        <div class="form-horizontal">
@@ -281,9 +285,9 @@ class Cmaster extends CI_Controller {
 			                    </div>
 			                </div>
 		                </form>';
-					break;
-				case 'abasedepartment':
-					echo '<form id="form_abasedepartment">
+				break;
+			case 'abasedepartment':
+				echo '<form id="form_abasedepartment">
 							<div class="portlet light bordered">
 			                    <div class="portlet-body">
 			                        <div class="form-horizontal">
@@ -325,9 +329,9 @@ class Cmaster extends CI_Controller {
 			                    </div>
 			                </div>
 		                </form>';
-					break;
-				case 'abasedepartmentbu':
-					echo '<form id="form_abasedepartmentbu">
+				break;
+			case 'abasedepartmentbu':
+				echo '<form id="form_abasedepartmentbu">
 							<div class="portlet light bordered">
 			                    <div class="portlet-body">
 			                        <div class="form-horizontal">
@@ -362,9 +366,9 @@ class Cmaster extends CI_Controller {
 			                    </div>
 			                </div>
 		                </form>';
-					break;
-				case 'abasedepartmentdiv':
-					echo '<form id="form_abasedepartmentdiv">
+				break;
+			case 'abasedepartmentdiv':
+				echo '<form id="form_abasedepartmentdiv">
 							<div class="portlet light bordered">
 			                    <div class="portlet-body">
 			                        <div class="form-horizontal">
@@ -392,9 +396,9 @@ class Cmaster extends CI_Controller {
 			                    </div>
 			                </div>
 		                </form>';
-					break;
-				case 'abasecostcenter':
-					echo '<form id="form_abasecostcenter">
+				break;
+			case 'abasecostcenter':
+				echo '<form id="form_abasecostcenter">
 							<div class="portlet light bordered">
 			                    <div class="portlet-body">
 			                        <div class="form-horizontal">
@@ -429,57 +433,59 @@ class Cmaster extends CI_Controller {
 			                    </div>
 			                </div>
 		                </form>';
-					break;
-			}
+				break;
 		}
+	}
 
-		public function getDataMasterAbase(){
-			$input = $this->input->post('input');
-			switch($input){
-				case 'abasecompany' :
-					$hasil = $this->master->getWhere('*', 'abase_01_com', 'Disc', 0);
-					echo json_encode($hasil);
-					break;
-				case 'abasebranch':
-					$hasil = $this->master->getWhere('*', 'abase_02_branch', 'Disc', 0);
-					echo json_encode($hasil);
-					break;
+	public function getDataMasterAbase()
+	{
+		$input = $this->input->post('input');
+		switch ($input) {
+			case 'abasecompany':
+				$hasil = $this->master->getWhere('*', 'abase_01_com', 'Disc', 0);
+				echo json_encode($hasil);
+				break;
+			case 'abasebranch':
+				$hasil = $this->master->getWhere('*', 'abase_02_branch', 'Disc', 0);
+				echo json_encode($hasil);
+				break;
 				// case 'abasedepartmentbu':
 				// 	$hasil = $this->master->getWhere('*', 'abase_03_dept_bu', 'Disc', 0);
 				// 	echo json_encode($hasil);
 				// 	break;
-				case 'abasedepartmentbu':
-					$hasil = $this->master->get_join_bu();
-					echo json_encode($hasil);
-					break;
+			case 'abasedepartmentbu':
+				$hasil = $this->master->get_join_bu();
+				echo json_encode($hasil);
+				break;
 				// case 'abasedepartment':
 				// 	$hasil = $this->master->getWhere('*', 'abase_03_dept', 'Disc', 0);
 				// 	echo json_encode($hasil);
 				// 	break;
-				case 'abasedepartment':
-					$hasil = $this->master->get_join_dept();
-					echo json_encode($hasil);
-					break;
-				case 'abasedepartmentdiv':
-					$hasil = $this->master->getWhere('*', 'abase_03_dept_div', 'Disc', 0);
-					echo json_encode($hasil);
-					break;
-				case 'abasecostcenter':
-					$hasil = $this->master->getWhere('*', 'abase_04_cost_center', 'Disc', 0);
-					echo json_encode($hasil);
-					break;
+			case 'abasedepartment':
+				$hasil = $this->master->get_join_dept();
+				echo json_encode($hasil);
+				break;
+			case 'abasedepartmentdiv':
+				$hasil = $this->master->getWhere('*', 'abase_03_dept_div', 'Disc', 0);
+				echo json_encode($hasil);
+				break;
+			case 'abasecostcenter':
+				$hasil = $this->master->getWhere('*', 'abase_04_cost_center', 'Disc', 0);
+				echo json_encode($hasil);
+				break;
 				// case 'abasecostcenter' :
 				// 	$hasil = $this->master->get_join_cc();
 				// 	echo json_encode($hasil);
 				// 	break;
-			}
 		}
+	}
 
-		public function viewModalMasterViewAbase(){
-			$input = $this->input->post('input');
-			switch($input){
-				case 'abasecompany' :
-					echo '
+	public function viewModalMasterViewAbase()
+	{
+		$input = $this->input->post('input');
+		switch ($input) {
+			case 'abasecompany':
+				echo '
 					<div class="row">
 						<div class="col-md-4">
 							<div class="portlet light bg-grey-cararra stories-cont">
@@ -580,9 +586,9 @@ class Cmaster extends CI_Controller {
 						</div>
 					</div>
 					';
-					break;
-				case 'abasebranch' :
-					echo '
+				break;
+			case 'abasebranch':
+				echo '
 					<div class="row">
 						<div class="col-md-4">
 							<div class="portlet light bg-grey-cararra stories-cont">
@@ -675,334 +681,339 @@ class Cmaster extends CI_Controller {
 						</div>
 					</div>
 					';
-					break;
-			}
+				break;
 		}
+	}
 
-		public function inputDatamasterAbase(){
-			$input = $this->input->post('input');
-			switch ($input){
-				case 'abasecompany':
-					$data = [
-						'ComCode' => $this->input->post('abasecompanycode'),
-						'ComName' => $this->input->post('abasecompanyname'),
-						'ComShortName' => $this->input->post('abasecompanyshortname'),
-						'ComDes' => $this->input->post('abasecompanydescription'),
-						'CompType' => $this->input->post('abasecompanytype'),
-						'Address' => $this->input->post('abasecompanyaddress'),
-						'City' => $this->input->post('abasecompanycity'),
-						'Province' => $this->input->post('abasecompanyprovince'),
-						'PostalCode' => $this->input->post('abasecompanypostalcode'),
-						'Country' => $this->input->post('abasecompanycountry'),
-						'Region' => $this->input->post('abasecompanyregion'),
-						'PhoneNo' => $this->input->post('abasecompanyphone'),
-						'ContactNo' => $this->input->post('abasecompanycontact'),
-						'ContactName' => $this->input->post('abasecompanycontactname'),
-						'NPWP' => $this->input->post('abasecompanynpwp'),
-						// 'Logo' => $this->input->post('abasecompanylogo'),
-						'Logo' =>$abasecompanylogo,
-						'Email' => $this->input->post('abasecompanyemail'),
-						'WebAddress' => $this->input->post('abasecompanywebaddress'),
-						'Remarks' => $this->input->post('abasecompanyremarks'),
-						'RegDate' => date('Y-m-d')
-					];
-					$where = ['ComCode' => $this->input->post('abasecompanycode')];
-					$hasil = $this->master->addData('abase_01_com', $data, $where);
+	public function inputDatamasterAbase()
+	{
+		$input = $this->input->post('input');
+		switch ($input) {
+			case 'abasecompany':
+				$data = [
+					'ComCode' => $this->input->post('abasecompanycode'),
+					'ComName' => $this->input->post('abasecompanyname'),
+					'ComShortName' => $this->input->post('abasecompanyshortname'),
+					'ComDes' => $this->input->post('abasecompanydescription'),
+					'CompType' => $this->input->post('abasecompanytype'),
+					'Address' => $this->input->post('abasecompanyaddress'),
+					'City' => $this->input->post('abasecompanycity'),
+					'Province' => $this->input->post('abasecompanyprovince'),
+					'PostalCode' => $this->input->post('abasecompanypostalcode'),
+					'Country' => $this->input->post('abasecompanycountry'),
+					'Region' => $this->input->post('abasecompanyregion'),
+					'PhoneNo' => $this->input->post('abasecompanyphone'),
+					'ContactNo' => $this->input->post('abasecompanycontact'),
+					'ContactName' => $this->input->post('abasecompanycontactname'),
+					'NPWP' => $this->input->post('abasecompanynpwp'),
+					// 'Logo' => $this->input->post('abasecompanylogo'),
+					'Logo' => '',
+					'Email' => $this->input->post('abasecompanyemail'),
+					'WebAddress' => $this->input->post('abasecompanywebaddress'),
+					'Remarks' => $this->input->post('abasecompanyremarks'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['ComCode' => $this->input->post('abasecompanycode')];
+				$hasil = $this->master->addData('abase_01_com', $data, $where);
 
-					$data2 = [
-						'ComCode' => $this->input->post('abasecompanycode'),
-						'BranchCode' => $this->input->post('abasecompanycode'),
-						'BranchName' => $this->input->post('abasecompanyname'),
-						'BranchDes' => $this->input->post('abasecompanydescription'),
-						'BranchType' => $this->input->post('abasecompanytype'),
-						'BranchAddress' => $this->input->post('abasecompanyaddress'),
-						'BranchCity' => $this->input->post('abasecompanycity'),
-						'Province' => $this->input->post('abasecompanyprovince'),
-						'ProvinceGrp' => $this->input->post('abasecompanyprovince'),
-						'PostalCode' => $this->input->post('abasecompanypostalcode'),
-						'Country' => $this->input->post('abasecompanycountry'),
-						'PhoneNo' => $this->input->post('abasecompanyphone'),
-						'ContactNo' => $this->input->post('abasecompanycontact'),
-						'ContactName' => $this->input->post('abasecompanycontactname'),
-						'NPWP' => $this->input->post('abasecompanynpwp'),
-						// 'Logo' => $this->input->post('abasecompanylogo'),
-						'Logo' =>$abasecompanylogo,
-						'Email' => $this->input->post('abasecompanyemail'),
-						'WebAddress' => $this->input->post('abasecompanywebaddress'),
-						'Remarks' => $this->input->post('abasecompanyremarks'),
-						'RegDate' => date('Y-m-d')
-					];
-					$hasil2 = $this->master->addData('abase_02_branch', $data2, $where);
+				$data2 = [
+					'ComCode' => $this->input->post('abasecompanycode'),
+					'BranchCode' => $this->input->post('abasecompanycode'),
+					'BranchName' => $this->input->post('abasecompanyname'),
+					'BranchDes' => $this->input->post('abasecompanydescription'),
+					'BranchType' => $this->input->post('abasecompanytype'),
+					'BranchAddress' => $this->input->post('abasecompanyaddress'),
+					'BranchCity' => $this->input->post('abasecompanycity'),
+					'Province' => $this->input->post('abasecompanyprovince'),
+					'ProvinceGrp' => $this->input->post('abasecompanyprovince'),
+					'PostalCode' => $this->input->post('abasecompanypostalcode'),
+					'Country' => $this->input->post('abasecompanycountry'),
+					'PhoneNo' => $this->input->post('abasecompanyphone'),
+					'ContactNo' => $this->input->post('abasecompanycontact'),
+					'ContactName' => $this->input->post('abasecompanycontactname'),
+					'NPWP' => $this->input->post('abasecompanynpwp'),
+					// 'Logo' => $this->input->post('abasecompanylogo'),
+					'Logo' => '',
+					'Email' => $this->input->post('abasecompanyemail'),
+					'WebAddress' => $this->input->post('abasecompanywebaddress'),
+					'Remarks' => $this->input->post('abasecompanyremarks'),
+					'RegDate' => date('Y-m-d')
+				];
+				$hasil2 = $this->master->addData('abase_02_branch', $data2, $where);
 
-					echo json_encode($hasil2);
-					break;
-				case 'abasebranch':
-					$data = [
-						'ComCode' => $this->input->post('abasebranchcompanycode'),
-						'BranchCode' => $this->input->post('abasebranchcode'),
-						'BranchName' => $this->input->post('abasebranchname'),
-						'BranchDes' => $this->input->post('abasebranchdescription'),
-						'BranchType' => $this->input->post('abasebranchtype'),
-						'BranchAddress' => $this->input->post('abasebranchaddress'),
-						'BranchCity' => $this->input->post('abasebranchcity'),
-						'Province' => $this->input->post('abasebranchprovince'),
-						'ProvinceGrp' => $this->input->post('abasebranchprovincegroup'),
-						'PostalCode' => $this->input->post('abasebranchpostalcode'),
-						'Country' => $this->input->post('abasebranchcountry'),
-						'PhoneNo' => $this->input->post('abasebranchphone'),
-						'ContactNo' => $this->input->post('abasebranchcontact'),
-						'ContactName' => $this->input->post('abasebranchcontactname'),
-						'NPWP' => $this->input->post('abasebranchnpwp'),
-						'Logo' => $this->input->post('abasebranchlogo'),
-						'Email' => $this->input->post('abasebranchemail'),
-						'WebAddress' => $this->input->post('abasebranchwebaddress'),
-						'Remarks' => $this->input->post('abasebranchremarks'),
-						'RegDate' => date('Y-m-d')
-					];
-					$where = ['BranchCode' => $this->input->post('abasebranchcode')];
-					$hasil = $this->master->addData('abase_02_branch', $data, $where);
-					echo json_encode($hasil);
-					break;
-				case 'abasedepartment':
-					$data = [
-						'Branch' => $this->input->post('abasedepartmentbranch'),
-						'BUCode' => $this->input->post('abasedepartmentbucode'),
-						'DeptCode' => $this->input->post('abasedepartmentcode'),
-						'DeptDes' => $this->input->post('abasedepartmentdescription'),
-						'Remarks' => $this->input->post('abasedepartmentremarks'),
-						'RegDate' => date('Y-m-d')
-					];
-					$where = ['DeptCode' => $this->input->post('abasedepartmentcode')];
-					$hasil = $this->master->addData('abase_03_dept', $data, $where);
-					echo json_encode($hasil);
-					break;
-				case 'abasedepartmentbu':
-					$data = [
-						'DivCode' => $this->input->post('abasedepartmentbudivisioncode'),
-						'BUCode' => $this->input->post('abasedepartmentbucode'),
-						'BUDes' => $this->input->post('abasedepartmentbudescription'),
-						'Remarks' => $this->input->post('abasedepartmentburemarks'),
-						'RegDate' => date('Y-m-d')
-					];
-					$where = ['BUCode' => $this->input->post('abasedepartmentbucode')];
-					$hasil = $this->master->addData('abase_03_dept_bu', $data, $where);
-					echo json_encode($hasil);
-					break;
-				case 'abasedepartmentdiv':
-					$data = [
-						'DivCode' => $this->input->post('abasedepartmentdivcode'),
-						'DivDes' => $this->input->post('abasedepartmentdivdescription'),
-						'Remarks' => $this->input->post('abasedepartmentdivremarks'),
-						'RegDate' => date('Y-m-d')
-					];
-					$where = ['DivCode' => $this->input->post('abasedepartmentdivcode')];
-					$hasil = $this->master->addData('abase_03_dept_div', $data, $where);
-					echo json_encode($hasil);
-					break;
-				case 'abasecostcenter':
-					$data = [
-						'DeptCode' => $this->input->post('abasecostcenterdepartment'),
-						'CostCenter' => $this->input->post('abasecostcentercode'),
-						'CCDes' => $this->input->post('abasecostcenterdescription'),
-						'Remarks' => $this->input->post('abasecostcenterremarks'),
-						'RegDate' => date('Y-m-d')
-					];
-					$where = ['CostCenter' => $this->input->post('abasecostcentercode')];
-					$hasil = $this->master->addData('abase_04_cost_center', $data, $where);
-					echo json_encode($hasil);
-					break;				
-			}
+				echo json_encode($hasil2);
+				break;
+			case 'abasebranch':
+				$data = [
+					'ComCode' => $this->input->post('abasebranchcompanycode'),
+					'BranchCode' => $this->input->post('abasebranchcode'),
+					'BranchName' => $this->input->post('abasebranchname'),
+					'BranchDes' => $this->input->post('abasebranchdescription'),
+					'BranchType' => $this->input->post('abasebranchtype'),
+					'BranchAddress' => $this->input->post('abasebranchaddress'),
+					'BranchCity' => $this->input->post('abasebranchcity'),
+					'Province' => $this->input->post('abasebranchprovince'),
+					'ProvinceGrp' => $this->input->post('abasebranchprovincegroup'),
+					'PostalCode' => $this->input->post('abasebranchpostalcode'),
+					'Country' => $this->input->post('abasebranchcountry'),
+					'PhoneNo' => $this->input->post('abasebranchphone'),
+					'ContactNo' => $this->input->post('abasebranchcontact'),
+					'ContactName' => $this->input->post('abasebranchcontactname'),
+					'NPWP' => $this->input->post('abasebranchnpwp'),
+					'Logo' => $this->input->post('abasebranchlogo'),
+					'Email' => $this->input->post('abasebranchemail'),
+					'WebAddress' => $this->input->post('abasebranchwebaddress'),
+					'Remarks' => $this->input->post('abasebranchremarks'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['BranchCode' => $this->input->post('abasebranchcode')];
+				$hasil = $this->master->addData('abase_02_branch', $data, $where);
+				echo json_encode($hasil);
+				break;
+			case 'abasedepartment':
+				$data = [
+					'Branch' => $this->input->post('abasedepartmentbranch'),
+					'BUCode' => $this->input->post('abasedepartmentbucode'),
+					'DeptCode' => $this->input->post('abasedepartmentcode'),
+					'DeptDes' => $this->input->post('abasedepartmentdescription'),
+					'Remarks' => $this->input->post('abasedepartmentremarks'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['DeptCode' => $this->input->post('abasedepartmentcode')];
+				$hasil = $this->master->addData('abase_03_dept', $data, $where);
+				echo json_encode($hasil);
+				break;
+			case 'abasedepartmentbu':
+				$data = [
+					'DivCode' => $this->input->post('abasedepartmentbudivisioncode'),
+					'BUCode' => $this->input->post('abasedepartmentbucode'),
+					'BUDes' => $this->input->post('abasedepartmentbudescription'),
+					'Remarks' => $this->input->post('abasedepartmentburemarks'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['BUCode' => $this->input->post('abasedepartmentbucode')];
+				$hasil = $this->master->addData('abase_03_dept_bu', $data, $where);
+				echo json_encode($hasil);
+				break;
+			case 'abasedepartmentdiv':
+				$data = [
+					'DivCode' => $this->input->post('abasedepartmentdivcode'),
+					'DivDes' => $this->input->post('abasedepartmentdivdescription'),
+					'Remarks' => $this->input->post('abasedepartmentdivremarks'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['DivCode' => $this->input->post('abasedepartmentdivcode')];
+				$hasil = $this->master->addData('abase_03_dept_div', $data, $where);
+				echo json_encode($hasil);
+				break;
+			case 'abasecostcenter':
+				$data = [
+					'DeptCode' => $this->input->post('abasecostcenterdepartment'),
+					'CostCenter' => $this->input->post('abasecostcentercode'),
+					'CCDes' => $this->input->post('abasecostcenterdescription'),
+					'Remarks' => $this->input->post('abasecostcenterremarks'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['CostCenter' => $this->input->post('abasecostcentercode')];
+				$hasil = $this->master->addData('abase_04_cost_center', $data, $where);
+				echo json_encode($hasil);
+				break;
 		}
+	}
 
-		public function getDataMasterAbaseByID(){
-			$input = $this->input->post('input');
-			$id = $this->input->post('CtrlNo');
-			switch($input){
-				case 'abasecompany':
-					$hasil = $this->master->getDataByID('abase_01_com', 'CtrlNo', $id);
-					echo json_encode($hasil);
-					break;
-				case 'abasebranch':
-					$hasil = $this->master->getDataByID('abase_02_branch', 'CtrlNo', $id);
-					echo json_encode($hasil);
-					break;
-				case 'abasedepartment':
-					$hasil = $this->master->getDataByID('abase_03_dept', 'CtrlNo', $id);
-					echo json_encode($hasil);
-					break;
-				case 'abasedepartmentbu':
-					$hasil = $this->master->getDataByID('abase_03_dept_bu', 'CtrlNo', $id);
-					echo json_encode($hasil);
-					break;
-				case 'abasedepartmentdiv':
-					$hasil = $this->master->getDataByID('abase_03_dept_div', 'CtrlNo', $id);
-					echo json_encode($hasil);
-					break;
-				case 'abasecostcenter':
-					$hasil = $this->master->getDataByID('abase_04_cost_center', 'CtrlNo', $id);
-					echo json_encode($hasil);
-					break;
-			}
+	public function getDataMasterAbaseByID()
+	{
+		$input = $this->input->post('input');
+		$id = $this->input->post('CtrlNo');
+		switch ($input) {
+			case 'abasecompany':
+				$hasil = $this->master->getDataByID('abase_01_com', 'CtrlNo', $id);
+				echo json_encode($hasil);
+				break;
+			case 'abasebranch':
+				$hasil = $this->master->getDataByID('abase_02_branch', 'CtrlNo', $id);
+				echo json_encode($hasil);
+				break;
+			case 'abasedepartment':
+				$hasil = $this->master->getDataByID('abase_03_dept', 'CtrlNo', $id);
+				echo json_encode($hasil);
+				break;
+			case 'abasedepartmentbu':
+				$hasil = $this->master->getDataByID('abase_03_dept_bu', 'CtrlNo', $id);
+				echo json_encode($hasil);
+				break;
+			case 'abasedepartmentdiv':
+				$hasil = $this->master->getDataByID('abase_03_dept_div', 'CtrlNo', $id);
+				echo json_encode($hasil);
+				break;
+			case 'abasecostcenter':
+				$hasil = $this->master->getDataByID('abase_04_cost_center', 'CtrlNo', $id);
+				echo json_encode($hasil);
+				break;
 		}
+	}
 
-		public function editDataMasterAbase(){
-			$input = $this->input->post('input');
-			$id = $this->input->post('id');
-			switch($input){
-				case 'abasecompany':
-					$data = [
-						'ComCode' => $this->input->post('abasecompanycode'),
-						'ComName' => $this->input->post('abasecompanyname'),
-						'ComShortName' => $this->input->post('abasecompanyshortname'),
-						'ComDes' => $this->input->post('abasecompanydescription'),
-						'CompType' => $this->input->post('abasecompanytype'),
-						'Address' => $this->input->post('abasecompanyaddress'),
-						'City' => $this->input->post('abasecompanycity'),
-						'Province' => $this->input->post('abasecompanyprovince'),
-						'PostalCode' => $this->input->post('abasecompanypostalcode'),
-						'Country' => $this->input->post('abasecompanycountry'),
-						'Region' => $this->input->post('abasecompanyregion'),
-						'PhoneNo' => $this->input->post('abasecompanyphone'),
-						'ContactNo' => $this->input->post('abasecompanycontact'),
-						'ContactName' => $this->input->post('abasecompanycontactname'),
-						'NPWP' => $this->input->post('abasecompanynpwp'),
-						'Logo' => $this->input->post('abasecompanylogo'),
-						'Email' => $this->input->post('abasecompanyemail'),
-						'WebAddress' => $this->input->post('abasecompanywebaddress'),
-						'Remarks' => $this->input->post('abasecompanyremarks')
-					];
-					$hasil = $this->master->updateData('CtrlNo', $id, 'abase_01_com', $data);
+	public function editDataMasterAbase()
+	{
+		$input = $this->input->post('input');
+		$id = $this->input->post('id');
+		switch ($input) {
+			case 'abasecompany':
+				$data = [
+					'ComCode' => $this->input->post('abasecompanycode'),
+					'ComName' => $this->input->post('abasecompanyname'),
+					'ComShortName' => $this->input->post('abasecompanyshortname'),
+					'ComDes' => $this->input->post('abasecompanydescription'),
+					'CompType' => $this->input->post('abasecompanytype'),
+					'Address' => $this->input->post('abasecompanyaddress'),
+					'City' => $this->input->post('abasecompanycity'),
+					'Province' => $this->input->post('abasecompanyprovince'),
+					'PostalCode' => $this->input->post('abasecompanypostalcode'),
+					'Country' => $this->input->post('abasecompanycountry'),
+					'Region' => $this->input->post('abasecompanyregion'),
+					'PhoneNo' => $this->input->post('abasecompanyphone'),
+					'ContactNo' => $this->input->post('abasecompanycontact'),
+					'ContactName' => $this->input->post('abasecompanycontactname'),
+					'NPWP' => $this->input->post('abasecompanynpwp'),
+					'Logo' => $this->input->post('abasecompanylogo'),
+					'Email' => $this->input->post('abasecompanyemail'),
+					'WebAddress' => $this->input->post('abasecompanywebaddress'),
+					'Remarks' => $this->input->post('abasecompanyremarks')
+				];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_01_com', $data);
 
-					$data2 = [
-						'ComCode' => $this->input->post('abasecompanycode'),
-						'BranchCode' => $this->input->post('abasecompanycode'),
-						'BranchName' => $this->input->post('abasecompanyname'),
-						'BranchDes' => $this->input->post('abasecompanydescription'),
-						'BranchType' => $this->input->post('abasecompanytype'),
-						'BranchAddress' => $this->input->post('abasecompanyaddress'),
-						'BranchCity' => $this->input->post('abasecompanycity'),
-						'Province' => $this->input->post('abasecompanyprovince'),
-						'ProvinceGrp' => $this->input->post('abasecompanyprovince'),
-						'PostalCode' => $this->input->post('abasecompanypostalcode'),
-						'Country' => $this->input->post('abasecompanycountry'),
-						'PhoneNo' => $this->input->post('abasecompanyphone'),
-						'ContactNo' => $this->input->post('abasecompanycontact'),
-						'ContactName' => $this->input->post('abasecompanycontactname'),
-						'NPWP' => $this->input->post('abasecompanynpwp'),
-						'Logo' => $this->input->post('abasecompanylogo'),
-						'Email' => $this->input->post('abasecompanyemail'),
-						'WebAddress' => $this->input->post('abasecompanywebaddress'),
-						'Remarks' => $this->input->post('abasecompanyremarks')
-					];
-					$hasil2 = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data2);
-					echo json_encode($hasil2);
-					break;
-				case 'abasebranch':
-					$data = [
-						'ComCode' => $this->input->post('abasebranchcompanycode'),
-						'BranchCode' => $this->input->post('abasebranchcode'),
-						'BranchName' => $this->input->post('abasebranchname'),
-						'BranchDes' => $this->input->post('abasebranchdescription'),
-						'BranchType' => $this->input->post('abasebranchtype'),
-						'BranchAddress' => $this->input->post('abasebranchaddress'),
-						'BranchCity' => $this->input->post('abasebranchcity'),
-						'Province' => $this->input->post('abasebranchprovince'),
-						'ProvinceGrp' => $this->input->post('abasebranchprovincegroup'),
-						'PostalCode' => $this->input->post('abasebranchpostalcode'),
-						'Country' => $this->input->post('abasebranchcountry'),
-						'PhoneNo' => $this->input->post('abasebranchphone'),
-						'ContactNo' => $this->input->post('abasebranchcontact'),
-						'ContactName' => $this->input->post('abasebranchcontactname'),
-						'NPWP' => $this->input->post('abasebranchnpwp'),
-						'Logo' => $this->input->post('abasebranchlogo'),
-						'Email' => $this->input->post('abasebranchemail'),
-						'WebAddress' => $this->input->post('abasebranchwebaddress'),
-						'Remarks' => $this->input->post('abasebranchremarks')
-					];
-					$hasil = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data);
-					echo json_encode($hasil);
-					break;
-				case 'abasedepartment':
-					$data = [
-						'Branch' => $this->input->post('abasedepartmentbranch'),
-						'BUCode' => $this->input->post('abasedepartmentbucode'),
-						'DeptCode' => $this->input->post('abasedepartmentcode'),
-						'DeptDes' => $this->input->post('abasedepartmentdescription'),
-						'Remarks' => $this->input->post('abasedepartmentremarks')
-					];
-					$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept', $data);
-					echo json_encode($hasil);
-					break;
-				case 'abasedepartmentbu':
-					$data = [
-						'DivCode' => $this->input->post('abasedepartmentbudivisioncode'),
-						'BUCode' => $this->input->post('abasedepartmentbucode'),
-						'BUDes' => $this->input->post('abasedepartmentbudescription'),
-						'Remarks' => $this->input->post('abasedepartmentburemarks')
-					];
-					$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_bu', $data);
-					echo json_encode($hasil);
-					break;
-				case 'abasedepartmentdiv':
-					$data = [
-						'DivCode' => $this->input->post('abasedepartmentdivcode'),
-						'DivDes' => $this->input->post('abasedepartmentdivdescription'),
-						'Remarks' => $this->input->post('abasedepartmentdivremarks')
-					];
-					$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_div', $data);
-					echo json_encode($hasil);
-					break;
-				case 'abasecostcenter':
-					$data = [
-						'DeptCode' => $this->input->post('abasecostcenterdepartment'),
-						'CostCenter' => $this->input->post('abasecostcentercode'),
-						'CCDes' => $this->input->post('abasecostcenterdescription'),
-						'Remarks' => $this->input->post('abasecostcenterremarks')
-					];
-					$hasil = $this->master->updateData('CtrlNo', $id, 'abase_04_cost_center', $data);
-					echo json_encode($hasil);
-					break;
-			}
+				$data2 = [
+					'ComCode' => $this->input->post('abasecompanycode'),
+					'BranchCode' => $this->input->post('abasecompanycode'),
+					'BranchName' => $this->input->post('abasecompanyname'),
+					'BranchDes' => $this->input->post('abasecompanydescription'),
+					'BranchType' => $this->input->post('abasecompanytype'),
+					'BranchAddress' => $this->input->post('abasecompanyaddress'),
+					'BranchCity' => $this->input->post('abasecompanycity'),
+					'Province' => $this->input->post('abasecompanyprovince'),
+					'ProvinceGrp' => $this->input->post('abasecompanyprovince'),
+					'PostalCode' => $this->input->post('abasecompanypostalcode'),
+					'Country' => $this->input->post('abasecompanycountry'),
+					'PhoneNo' => $this->input->post('abasecompanyphone'),
+					'ContactNo' => $this->input->post('abasecompanycontact'),
+					'ContactName' => $this->input->post('abasecompanycontactname'),
+					'NPWP' => $this->input->post('abasecompanynpwp'),
+					'Logo' => $this->input->post('abasecompanylogo'),
+					'Email' => $this->input->post('abasecompanyemail'),
+					'WebAddress' => $this->input->post('abasecompanywebaddress'),
+					'Remarks' => $this->input->post('abasecompanyremarks')
+				];
+				$hasil2 = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data2);
+				echo json_encode($hasil2);
+				break;
+			case 'abasebranch':
+				$data = [
+					'ComCode' => $this->input->post('abasebranchcompanycode'),
+					'BranchCode' => $this->input->post('abasebranchcode'),
+					'BranchName' => $this->input->post('abasebranchname'),
+					'BranchDes' => $this->input->post('abasebranchdescription'),
+					'BranchType' => $this->input->post('abasebranchtype'),
+					'BranchAddress' => $this->input->post('abasebranchaddress'),
+					'BranchCity' => $this->input->post('abasebranchcity'),
+					'Province' => $this->input->post('abasebranchprovince'),
+					'ProvinceGrp' => $this->input->post('abasebranchprovincegroup'),
+					'PostalCode' => $this->input->post('abasebranchpostalcode'),
+					'Country' => $this->input->post('abasebranchcountry'),
+					'PhoneNo' => $this->input->post('abasebranchphone'),
+					'ContactNo' => $this->input->post('abasebranchcontact'),
+					'ContactName' => $this->input->post('abasebranchcontactname'),
+					'NPWP' => $this->input->post('abasebranchnpwp'),
+					'Logo' => $this->input->post('abasebranchlogo'),
+					'Email' => $this->input->post('abasebranchemail'),
+					'WebAddress' => $this->input->post('abasebranchwebaddress'),
+					'Remarks' => $this->input->post('abasebranchremarks')
+				];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data);
+				echo json_encode($hasil);
+				break;
+			case 'abasedepartment':
+				$data = [
+					'Branch' => $this->input->post('abasedepartmentbranch'),
+					'BUCode' => $this->input->post('abasedepartmentbucode'),
+					'DeptCode' => $this->input->post('abasedepartmentcode'),
+					'DeptDes' => $this->input->post('abasedepartmentdescription'),
+					'Remarks' => $this->input->post('abasedepartmentremarks')
+				];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept', $data);
+				echo json_encode($hasil);
+				break;
+			case 'abasedepartmentbu':
+				$data = [
+					'DivCode' => $this->input->post('abasedepartmentbudivisioncode'),
+					'BUCode' => $this->input->post('abasedepartmentbucode'),
+					'BUDes' => $this->input->post('abasedepartmentbudescription'),
+					'Remarks' => $this->input->post('abasedepartmentburemarks')
+				];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_bu', $data);
+				echo json_encode($hasil);
+				break;
+			case 'abasedepartmentdiv':
+				$data = [
+					'DivCode' => $this->input->post('abasedepartmentdivcode'),
+					'DivDes' => $this->input->post('abasedepartmentdivdescription'),
+					'Remarks' => $this->input->post('abasedepartmentdivremarks')
+				];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_div', $data);
+				echo json_encode($hasil);
+				break;
+			case 'abasecostcenter':
+				$data = [
+					'DeptCode' => $this->input->post('abasecostcenterdepartment'),
+					'CostCenter' => $this->input->post('abasecostcentercode'),
+					'CCDes' => $this->input->post('abasecostcenterdescription'),
+					'Remarks' => $this->input->post('abasecostcenterremarks')
+				];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_04_cost_center', $data);
+				echo json_encode($hasil);
+				break;
 		}
+	}
 
-		public function discDataMasterAbase(){
-			$input = $this->input->post('input');
-			$id = $this->input->post('id');
-			$remarks = $this->input->post('remarks');
-			switch ($input){
-				case 'abasecompany':
-					$data = ['Disc' => 1, 'DiscDate' => date('Y-m-d')];
-					$hasil = $this->master->updateData('CtrlNo', $id, 'abase_01_com', $data);
-					break;
-				case 'abasebranch':
-			        $data = ['Disc' => '1','DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-			        $hasil = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data);
-					break;
-				case 'abasedepartment':
-			        $data = ['Disc' => '1','DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-			        $hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept', $data);
-					break;
-				case 'abasedepartmentbu':
-					$data = ['Disc' => '1','DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-			        $hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_bu', $data);
-					break;
-				case 'abasedepartmentdiv':
-					$data = ['Disc' => '1','DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-			        $hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_div', $data);
-					break;
-				case 'abasecostcenter':
-					$data = ['Disc' => 1, 'DiscDate' => date('Y-m-d')];
-					$hasil = $this->master->updateData('CtrlNo', $id, 'abase_04_cost_center', $data);
-					break;
-			}
-		}	
+	public function discDataMasterAbase()
+	{
+		$input = $this->input->post('input');
+		$id = $this->input->post('id');
+		$remarks = $this->input->post('remarks');
+		switch ($input) {
+			case 'abasecompany':
+				$data = ['Disc' => 1, 'DiscDate' => date('Y-m-d')];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_01_com', $data);
+				break;
+			case 'abasebranch':
+				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data);
+				break;
+			case 'abasedepartment':
+				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept', $data);
+				break;
+			case 'abasedepartmentbu':
+				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_bu', $data);
+				break;
+			case 'abasedepartmentdiv':
+				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_div', $data);
+				break;
+			case 'abasecostcenter':
+				$data = ['Disc' => 1, 'DiscDate' => date('Y-m-d')];
+				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_04_cost_center', $data);
+				break;
+		}
+	}
 	//Master Abase End
 
 	//Master Stock Group Start
-		public function viewModalMasterStockGroup(){
-			switch($this->input->post('input')){
-				case 'mas_stock_a_class':
-					echo '<form id="form_stockclass">
+	public function viewModalMasterStockGroup()
+	{
+		switch ($this->input->post('input')) {
+			case 'mas_stock_a_class':
+				echo '<form id="form_stockclass">
 							<div class="portlet light bordered">
 			                    <div class="portlet-body">
 			                        <div class="form-horizontal">
@@ -1023,10 +1034,10 @@ class Cmaster extends CI_Controller {
 			                        </div>     
 			                    </div>
 			                </div>
-			             </form>';  
-					break;
-				case 'mas_stock_b_cat':
-					echo '<form id="form_stockcategory">
+			             </form>';
+				break;
+			case 'mas_stock_b_cat':
+				echo '<form id="form_stockcategory">
 							<div class="portlet light bordered">
 			                    <div class="portlet-body">
 			                        <div class="form-horizontal">
@@ -1054,10 +1065,10 @@ class Cmaster extends CI_Controller {
 			                        </div>     
 			                    </div>
 			                </div>
-			              </form>';  
-					break;
-				case 'mas_stock_c_type':
-					echo '<form id="form_stocktype">
+			              </form>';
+				break;
+			case 'mas_stock_c_type':
+				echo '<form id="form_stocktype">
 							<div class="portlet light bordered">
 			                    <div class="portlet-body">
 			                        <div class="form-horizontal">
@@ -1085,10 +1096,10 @@ class Cmaster extends CI_Controller {
 			                        </div>     
 			                    </div>
 			                </div>
-			              </form>';  
-					break;
-				case 'mas_stock_d_grp':
-					echo '<form id="form_stockgrp">
+			              </form>';
+				break;
+			case 'mas_stock_d_grp':
+				echo '<form id="form_stockgrp">
 							<div class="portlet light bordered">
 			                    <div class="portlet-body">
 			                        <div class="form-horizontal">
@@ -1116,270 +1127,277 @@ class Cmaster extends CI_Controller {
 			                        </div>     
 			                    </div>
 			                </div>
-			              </form>';  
-					break;
-			}
+			              </form>';
+				break;
 		}
+	}
 
-		public function getDataMasterStockGroup(){
-			$input = $this->input->post('input');
-			switch($input){
-				case 'mas_stock_a_class' :
-					$hasil = $this->master->getWhere('*','tbl_mat_mas_stock_a_class', 'Disc', '0');
-					echo json_encode($hasil);
-					break;
-				case 'mas_stock_b_cat' :
-					$hasil = $this->master->get_join_stockclass_stockcat();
-					echo json_encode($hasil);
-					break;
-				case 'mas_stock_c_type' :
-					$hasil = $this->master->get_join_stockcat_stocktype();
-					echo json_encode($hasil);
-					break;
-				case 'mas_stock_d_grp' :
-					$hasil = $this->master->get_join_stocktype_stockgroup();
-					echo json_encode($hasil);
-					break;
-			}
-		}
-
-		public function getDataMasterStockGroupByID(){
-			$input = $this->input->post('input');
-			$id = $this->input->post('StockClassCode');
-			$idcat = $this->input->post('CatCode');
-			$idtype = $this->input->post('TypeCode');
-			$idgroup = $this->input->post('GroupCode');
-			switch ($input) {
-				case 'mas_stock_a_class':
-					$hasil = $this->master->getDataByID('tbl_mat_mas_stock_a_class', 'StockClassCode', $id);
-					echo json_encode($hasil);
-					break;
-				case 'mas_stock_b_cat':
-					$hasil = $this->master->getDataByID('tbl_mat_mas_stock_b_cat', 'CatCode', $idcat);
-					echo json_encode($hasil);
-					break;
-				case 'mas_stock_c_type':
-					$hasil = $this->master->getDataByID('tbl_mat_mas_stock_c_type', 'TypeCode', $idtype);
-					echo json_encode($hasil);
-					break;
-				case 'mas_stock_d_grp':
-					$hasil = $this->master->getDataByID('tbl_mat_mas_stock_d_grp', 'GroupCode', $idgroup);
-					echo json_encode($hasil);
-					break;
-			}
-		}
-
-		public function inputDataMasterStockGroup(){
-			$input = ($this->input->post('input'));
-			switch($input){
-				case 'mas_stock_a_class' :
-						$data = [
-							'StockClassCode' => $this->input->post('stockclasscode'),
-							'StockClassDescription' => $this->input->post('stockclassdescription'),
-							'RegBy' => $this->session->userdata('IDNumber'),
-							'RegDate' => date('Y-m-d')
-						];
-						$where = ['StockClassCode' => $this->input->post('stockclasscode')];
-						$hasil = $this->master->addData('tbl_mat_mas_stock_a_class', $data, $where);
-						echo json_encode($hasil);
-					break;
-				case 'mas_stock_b_cat' :
-						$data = [
-							'CatCode' => $this->input->post('stockcatcode'),
-							'CatDescription' => $this->input->post('stockcatdescription'),
-							'StockClassCode' => $this->input->post('stockclasscode'),
-							'RegBy' => $this->session->userdata('IDNumber'),
-							'RegDate' => date('Y-m-d')
-						];
-						$where = ['CatCode' => $this->input->post('stockcatcode')];
-						$hasil = $this->master->addData('tbl_mat_mas_stock_b_cat', $data, $where);
-						echo json_encode($hasil);
-					break;
-				case 'mas_stock_c_type' :
-						$data = [
-							'TypeCode' => $this->input->post('stocktypecode'),
-							'TypeDescription' => $this->input->post('stocktypedescription'),
-							'CatCode' => $this->input->post('stockcatcode'),
-							'RegBy' => $this->session->userdata('IDNumber'),
-							'RegDate' => date('Y-m-d')
-						];
-						$where = ['TypeCode' => $this->input->post('stocktypecode')];
-						$hasil = $this->master->addData('tbl_mat_mas_stock_c_type', $data, $where);
-						echo json_encode($hasil);
-					break;
-				case 'mas_stock_d_grp' :
-						$data = [
-							'GroupCode' => $this->input->post('stockgrpcode'),
-							'GroupDescription' => $this->input->post('stockgrpdescription'),
-							'TypeCode' => $this->input->post('stocktypecode'),
-							'RegBy' => $this->session->userdata('IDNumber'),
-							'RegDate' => date('Y-m-d')
-						];
-						$where = ['GroupCode' => $this->input->post('stockgrpcode')];
-						$hasil = $this->master->addData('tbl_mat_mas_stock_d_grp', $data, $where);
-						echo json_encode($hasil);
-					break;
-			}
-		}
-
-		public function editDataMasterStockGroup(){
-			$input = $this->input->post('input');
-			$id  = $this->input->post('id');
-			switch($input){
-				case 'mas_stock_a_class' :
-					$data = [
-						'StockClassCode' => $this->input->post('stockclasscode'),
-						'StockClassDescription' => $this->input->post('stockclassdescription')
-					];
-					$hasil = $this->master->updateData('StockClassCode', $id, 'tbl_mat_mas_stock_a_class', $data);
-					echo json_encode($hasil);
-					break;
-				case 'mas_stock_b_cat' :
-					$data = [
-						'CatCode' => $this->input->post('stockcatcode'),
-						'CatDescription' => $this->input->post('stockcatdescription'),
-						'StockClassCode' => $this->input->post('stockclasscode')
-					];
-					$hasil = $this->master->updateData('CatCode', $id, 'tbl_mat_mas_stock_b_cat', $data);
-					echo json_encode($hasil);
-					break;
-				case 'mas_stock_c_type' :
-					$data = [
-						'TypeCode' => $this->input->post('stocktypecode'),
-						'TypeDescription' => $this->input->post('stocktypedescription'),
-						'CatCode' => $this->input->post('stockcatcode')
-					];
-					$hasil = $this->master->updateData('TypeCode', $id, 'tbl_mat_mas_stock_c_type', $data);
-					echo json_encode($hasil);
-					break;
-				case 'mas_stock_d_grp' :
-					$data = [
-						'GroupCode' => $this->input->post('stockgrpcode'),
-						'GroupDescription' => $this->input->post('stockgrpdescription'),
-						'TypeCode' => $this->input->post('stocktypecode')
-					];
-					$hasil = $this->master->updateData('GroupCode', $id, 'tbl_mat_mas_stock_d_grp', $data);
-					echo json_encode($hasil);
-					break;
-			}
-		}
-
-		public function discDataMasterStockGroup(){
-			$input = $this->input->post('input');
-			$id = $this->input->post('id');
-			$remarks = $this->input->post('remarks');
-			switch ($input){
-				case 'mas_stock_a_class':
-					$data = ['Disc' => '1','DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-					$hasil = $this->master->updateData('StockClassCode', $id, 'tbl_mat_mas_stock_a_class', $data);
-					break;
-				case 'mas_stock_b_cat':
-					$data = ['Disc' => '1','DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-					$hasil = $this->master->updateData('CatCode', $id, 'tbl_mat_mas_stock_b_cat', $data);
-					break;
-				case 'mas_stock_c_type':
-					$data = ['Disc' => '1','DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-					$hasil = $this->master->updateData('TypeCode', $id, 'tbl_mat_mas_stock_c_type', $data);
-					break;
-				case 'mas_stock_d_grp':
-					$data = ['Disc' => '1','DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-					$hasil = $this->master->updateData('GroupCode', $id, 'tbl_mat_mas_stock_d_grp', $data);
-					break;
-			}
-		}
-	//Master Stock Group Start
-
-	//Master UOM Start
-    function list_uom_dt()
-    {
-        $result = $this->master->get_list_uom_dt();
-        echo $result;
-    }
-	//Master UOM End
-
-	//Master Currency Start
-    function list_cur_dt()
-    {
-        $result = $this->master->get_list_cur_dt();
-        echo $result;
-    }
-    function add_cur()
-    {
-    	$cur = $this->input->post('n_cur');
-        $currency = array(
-            'Currency' => $this->input->post('n_cur'),
-            'CurrencyName' => $this->input->post('n_curname'),
-            // 'Disc' => $this->input->post('n_disc'),
-            // 'Remarks' => $this->input->post('n_remarks'),
-            'Disc' => '0'
-
-        );
-    	$rstatus = $this->master->insert('tbl_fa_mas_currency', $currency);
-        echo json_encode(array(
-            'rstatus' => true,
-            'Currency' => $currency['Currency']
-        ));       
-    }
-    function get_detail_cur_to_edit()
-    {
-        $cur = $this->input->post('currencycode');
-        $data = $this->master->get_detail_cur($cur);
-        $yes_ = array(
-            'yes' => 'Yes',
-            'no' => 'No',
-        );
-        echo json_encode(array(
-            'cur' => $this->master->get_all_cur(),
-            'dcur' => $data,
-            'yess' => $yes_['yes'],
-            'noo' => $yes_['no'],
-        ));
-    }
-    function edit_cur()
-    {
-        $currency = $this->input->post('id_accno');
-        $dstorage = array(
-            'Currency' => $this->input->post('currency'),
-            'CurrencyName' => $this->input->post('currencyname'),
-            'Disc' => $this->input->post('ei_disc'),
-            'Remarks' => $this->input->post('remarks'),
-        );
-        $rstatus = $this->master->update_data_cur($dstorage, $currency);
-        echo json_encode(array(
-            'rstatus' => $rstatus,
-            'Currency' => $dstorage['Currency']
-        ));
-    }
-    function delete_cur_by_accgid()
-    {
-        $cur = $this->input->post('currencycode');
-        $rstatus = $this->master->delete_cur_by_curcode('tbl_fa_mas_currency', $cur);
-        if ($rstatus != false) {
-            echo json_encode(array(
-                'rstatus' => true,
-                'Currency' => $cur
-            ));
-        } else {
-            echo json_encode(array(
-                'rstatus' => false
-            ));
-        }
-    }
-	//Master Currency End
-
-	//Master Customer Type Price Start
-	public function getDataMaster(){
+	public function getDataMasterStockGroup()
+	{
 		$input = $this->input->post('input');
-		switch($input){
-			case 'mas_customer_price_type' :
-				$hasil = $this->master->getWhere('*','tbl_mat_cat_customer_price', 'Disc', '0');
+		switch ($input) {
+			case 'mas_stock_a_class':
+				$hasil = $this->master->getWhere('*', 'tbl_mat_mas_stock_a_class', 'Disc', '0');
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_b_cat':
+				$hasil = $this->master->get_join_stockclass_stockcat();
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_c_type':
+				$hasil = $this->master->get_join_stockcat_stocktype();
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_d_grp':
+				$hasil = $this->master->get_join_stocktype_stockgroup();
 				echo json_encode($hasil);
 				break;
 		}
 	}
 
-	public function viewModalMaster(){
-		switch($this->input->post('input')){
+	public function getDataMasterStockGroupByID()
+	{
+		$input = $this->input->post('input');
+		$id = $this->input->post('StockClassCode');
+		$idcat = $this->input->post('CatCode');
+		$idtype = $this->input->post('TypeCode');
+		$idgroup = $this->input->post('GroupCode');
+		switch ($input) {
+			case 'mas_stock_a_class':
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_a_class', 'StockClassCode', $id);
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_b_cat':
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_b_cat', 'CatCode', $idcat);
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_c_type':
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_c_type', 'TypeCode', $idtype);
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_d_grp':
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_d_grp', 'GroupCode', $idgroup);
+				echo json_encode($hasil);
+				break;
+		}
+	}
+
+	public function inputDataMasterStockGroup()
+	{
+		$input = ($this->input->post('input'));
+		switch ($input) {
+			case 'mas_stock_a_class':
+				$data = [
+					'StockClassCode' => $this->input->post('stockclasscode'),
+					'StockClassDescription' => $this->input->post('stockclassdescription'),
+					'RegBy' => $this->session->userdata('IDNumber'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['StockClassCode' => $this->input->post('stockclasscode')];
+				$hasil = $this->master->addData('tbl_mat_mas_stock_a_class', $data, $where);
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_b_cat':
+				$data = [
+					'CatCode' => $this->input->post('stockcatcode'),
+					'CatDescription' => $this->input->post('stockcatdescription'),
+					'StockClassCode' => $this->input->post('stockclasscode'),
+					'RegBy' => $this->session->userdata('IDNumber'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['CatCode' => $this->input->post('stockcatcode')];
+				$hasil = $this->master->addData('tbl_mat_mas_stock_b_cat', $data, $where);
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_c_type':
+				$data = [
+					'TypeCode' => $this->input->post('stocktypecode'),
+					'TypeDescription' => $this->input->post('stocktypedescription'),
+					'CatCode' => $this->input->post('stockcatcode'),
+					'RegBy' => $this->session->userdata('IDNumber'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['TypeCode' => $this->input->post('stocktypecode')];
+				$hasil = $this->master->addData('tbl_mat_mas_stock_c_type', $data, $where);
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_d_grp':
+				$data = [
+					'GroupCode' => $this->input->post('stockgrpcode'),
+					'GroupDescription' => $this->input->post('stockgrpdescription'),
+					'TypeCode' => $this->input->post('stocktypecode'),
+					'RegBy' => $this->session->userdata('IDNumber'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['GroupCode' => $this->input->post('stockgrpcode')];
+				$hasil = $this->master->addData('tbl_mat_mas_stock_d_grp', $data, $where);
+				echo json_encode($hasil);
+				break;
+		}
+	}
+
+	public function editDataMasterStockGroup()
+	{
+		$input = $this->input->post('input');
+		$id  = $this->input->post('id');
+		switch ($input) {
+			case 'mas_stock_a_class':
+				$data = [
+					'StockClassCode' => $this->input->post('stockclasscode'),
+					'StockClassDescription' => $this->input->post('stockclassdescription')
+				];
+				$hasil = $this->master->updateData('StockClassCode', $id, 'tbl_mat_mas_stock_a_class', $data);
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_b_cat':
+				$data = [
+					'CatCode' => $this->input->post('stockcatcode'),
+					'CatDescription' => $this->input->post('stockcatdescription'),
+					'StockClassCode' => $this->input->post('stockclasscode')
+				];
+				$hasil = $this->master->updateData('CatCode', $id, 'tbl_mat_mas_stock_b_cat', $data);
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_c_type':
+				$data = [
+					'TypeCode' => $this->input->post('stocktypecode'),
+					'TypeDescription' => $this->input->post('stocktypedescription'),
+					'CatCode' => $this->input->post('stockcatcode')
+				];
+				$hasil = $this->master->updateData('TypeCode', $id, 'tbl_mat_mas_stock_c_type', $data);
+				echo json_encode($hasil);
+				break;
+			case 'mas_stock_d_grp':
+				$data = [
+					'GroupCode' => $this->input->post('stockgrpcode'),
+					'GroupDescription' => $this->input->post('stockgrpdescription'),
+					'TypeCode' => $this->input->post('stocktypecode')
+				];
+				$hasil = $this->master->updateData('GroupCode', $id, 'tbl_mat_mas_stock_d_grp', $data);
+				echo json_encode($hasil);
+				break;
+		}
+	}
+
+	public function discDataMasterStockGroup()
+	{
+		$input = $this->input->post('input');
+		$id = $this->input->post('id');
+		$remarks = $this->input->post('remarks');
+		switch ($input) {
+			case 'mas_stock_a_class':
+				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+				$hasil = $this->master->updateData('StockClassCode', $id, 'tbl_mat_mas_stock_a_class', $data);
+				break;
+			case 'mas_stock_b_cat':
+				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+				$hasil = $this->master->updateData('CatCode', $id, 'tbl_mat_mas_stock_b_cat', $data);
+				break;
+			case 'mas_stock_c_type':
+				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+				$hasil = $this->master->updateData('TypeCode', $id, 'tbl_mat_mas_stock_c_type', $data);
+				break;
+			case 'mas_stock_d_grp':
+				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+				$hasil = $this->master->updateData('GroupCode', $id, 'tbl_mat_mas_stock_d_grp', $data);
+				break;
+		}
+	}
+	//Master Stock Group Start
+
+	//Master UOM Start
+	function list_uom_dt()
+	{
+		$result = $this->master->get_list_uom_dt();
+		echo $result;
+	}
+	//Master UOM End
+
+	//Master Currency Start
+	function list_cur_dt()
+	{
+		$result = $this->master->get_list_cur_dt();
+		echo $result;
+	}
+	function add_cur()
+	{
+		$cur = $this->input->post('n_cur');
+		$currency = array(
+			'Currency' => $this->input->post('n_cur'),
+			'CurrencyName' => $this->input->post('n_curname'),
+			// 'Disc' => $this->input->post('n_disc'),
+			// 'Remarks' => $this->input->post('n_remarks'),
+			'Disc' => '0'
+
+		);
+		$rstatus = $this->master->insert('tbl_fa_mas_currency', $currency);
+		echo json_encode(array(
+			'rstatus' => true,
+			'Currency' => $currency['Currency']
+		));
+	}
+	function get_detail_cur_to_edit()
+	{
+		$cur = $this->input->post('currencycode');
+		$data = $this->master->get_detail_cur($cur);
+		$yes_ = array(
+			'yes' => 'Yes',
+			'no' => 'No',
+		);
+		echo json_encode(array(
+			'cur' => $this->master->get_all_cur(),
+			'dcur' => $data,
+			'yess' => $yes_['yes'],
+			'noo' => $yes_['no'],
+		));
+	}
+	function edit_cur()
+	{
+		$currency = $this->input->post('id_accno');
+		$dstorage = array(
+			'Currency' => $this->input->post('currency'),
+			'CurrencyName' => $this->input->post('currencyname'),
+			'Disc' => $this->input->post('ei_disc'),
+			'Remarks' => $this->input->post('remarks'),
+		);
+		$rstatus = $this->master->update_data_cur($dstorage, $currency);
+		echo json_encode(array(
+			'rstatus' => $rstatus,
+			'Currency' => $dstorage['Currency']
+		));
+	}
+	function delete_cur_by_accgid()
+	{
+		$cur = $this->input->post('currencycode');
+		$rstatus = $this->master->delete_cur_by_curcode('tbl_fa_mas_currency', $cur);
+		if ($rstatus != false) {
+			echo json_encode(array(
+				'rstatus' => true,
+				'Currency' => $cur
+			));
+		} else {
+			echo json_encode(array(
+				'rstatus' => false
+			));
+		}
+	}
+	//Master Currency End
+
+	//Master Customer Type Price Start
+	public function getDataMaster()
+	{
+		$input = $this->input->post('input');
+		switch ($input) {
+			case 'mas_customer_price_type':
+				$hasil = $this->master->getWhere('*', 'tbl_mat_cat_customer_price', 'Disc', '0');
+				echo json_encode($hasil);
+				break;
+		}
+	}
+
+	public function viewModalMaster()
+	{
+		switch ($this->input->post('input')) {
 			case 'mas_customer_price_type':
 				echo '<form id="form_custtypeprice">
 						<div class="portlet light bordered">
@@ -1402,28 +1420,30 @@ class Cmaster extends CI_Controller {
 		                        </div>     
 		                    </div>
 		                </div>
-		             </form>';  
+		             </form>';
 				break;
 		}
 	}
-	public function inputDataMaster(){
+	public function inputDataMaster()
+	{
 		$input = ($this->input->post('input'));
-		switch($input){
-			case 'mas_customer_price_type' :
-					$data = [
-						'CustType' => $this->input->post('custtype'),
-						'CustTypeDesc' => $this->input->post('custtypedesc'),
-						'RegBy' => $this->session->userdata('uid'),
-						'RegDate' => date('Y-m-d')
-					];
-					$where = ['CustType' => $this->input->post('custtype')];
-					$hasil = $this->master->addData('tbl_mat_cat_customer_price', $data, $where);
-					echo json_encode($hasil);
+		switch ($input) {
+			case 'mas_customer_price_type':
+				$data = [
+					'CustType' => $this->input->post('custtype'),
+					'CustTypeDesc' => $this->input->post('custtypedesc'),
+					'RegBy' => $this->session->userdata('uid'),
+					'RegDate' => date('Y-m-d')
+				];
+				$where = ['CustType' => $this->input->post('custtype')];
+				$hasil = $this->master->addData('tbl_mat_cat_customer_price', $data, $where);
+				echo json_encode($hasil);
 				break;
 		}
 	}
 
-	public function getDataMasterByID(){
+	public function getDataMasterByID()
+	{
 		$input = $this->input->post('input');
 		$id = $this->input->post('CustType');
 		switch ($input) {
@@ -1434,11 +1454,12 @@ class Cmaster extends CI_Controller {
 		}
 	}
 
-	public function editDataMaster(){
-			$input = $this->input->post('input');
+	public function editDataMaster()
+	{
+		$input = $this->input->post('input');
 		$id  = $this->input->post('id');
-		switch($input){
-			case 'mas_customer_price_type' :
+		switch ($input) {
+			case 'mas_customer_price_type':
 				$data = [
 					'CustType' => $this->input->post('custtype'),
 					'CustTypeDesc' => $this->input->post('custtypedesc')
@@ -1448,13 +1469,14 @@ class Cmaster extends CI_Controller {
 				break;
 		}
 	}
-	public function discDataMaster(){
+	public function discDataMaster()
+	{
 		$input = $this->input->post('input');
 		$id = $this->input->post('id');
 		$remarks = $this->input->post('remarks');
-		switch ($input){
+		switch ($input) {
 			case 'mas_customer_price_type':
-				$data = ['Disc' => '1','DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
 				$hasil = $this->master->updateData('CustType', $id, 'tbl_mat_cat_customer_price', $data);
 				break;
 		}
@@ -1463,151 +1485,162 @@ class Cmaster extends CI_Controller {
 
 	//Start - Storage
 	function list_storage_dt()
-    {
-        $result = $this->master->get_list_storage_dt();
-        echo $result;
-    }
+	{
+		$result = $this->master->get_list_storage_dt();
+		echo $result;
+	}
 
-    function add_storage(){
-        $storagename = null;
-        if (!empty($this->input->post('n_storagename'))) {
-            $storagename = $this->input->post('n_storagename');
-        } else {
-            $storagename =  "-";
-        }
-        $dstorage = array(
-            'BranchCode' => $this->input->post('n_branch'),
-            'StorageCode' => $this->input->post('n_storagecode'),
-            'StorageName' => $storagename,
-            'Address' => $this->input->post('n_address'),
-            'ContactID' => $this->input->post('n_warehouseman'),
-            'PhoneNo' => $this->input->post('n_phoneno'),
-            'Fax' => $this->input->post('n_fax'),
-            'Email' => $this->input->post('n_email'),
-            'is_active' => '1',
-            'RegBy' => $this->session->userdata('uid')
-        );
-        $rstatus = $this->master->insert('tbl_mat_cat_storage', $dstorage);
-        echo json_encode(array(
-            'rstatus' => $rstatus,
-            'StorageCode' => $dstorage['StorageCode']
-        ));
-    }
+	function add_storage()
+	{
+		$storagename = null;
+		if (!empty($this->input->post('n_storagename'))) {
+			$storagename = $this->input->post('n_storagename');
+		} else {
+			$storagename =  "-";
+		}
+		$dstorage = array(
+			'BranchCode' => $this->input->post('n_branch'),
+			'StorageCode' => $this->input->post('n_storagecode'),
+			'StorageName' => $storagename,
+			'Address' => $this->input->post('n_address'),
+			'ContactID' => $this->input->post('n_warehouseman'),
+			'PhoneNo' => $this->input->post('n_phoneno'),
+			'Fax' => $this->input->post('n_fax'),
+			'Email' => $this->input->post('n_email'),
+			'is_active' => '1',
+			'RegBy' => $this->session->userdata('uid')
+		);
+		$rstatus = $this->master->insert('tbl_mat_cat_storage', $dstorage);
+		echo json_encode(array(
+			'rstatus' => $rstatus,
+			'StorageCode' => $dstorage['StorageCode']
+		));
+	}
 
-    function get_list_branch(){
-        $data = $this->master->get_list_branch();
-        echo json_encode($data);
-    }
+	function get_list_branch()
+	{
+		$data = $this->master->get_list_branch();
+		echo json_encode($data);
+	}
 
-    function get_list_warehouseman(){
-        $data = $this->master->get_list_warehouseman();
-        echo json_encode($data);
-    }
+	function get_list_warehouseman()
+	{
+		$data = $this->master->get_list_warehouseman();
+		echo json_encode($data);
+	}
 
-    function get_detwarehouseman_by_whmid(){
-        $whmid = $this->input->post('id');
-        $result = $this->master->get_detwarehouseman_by_whmid($whmid);
-        echo json_encode($result);
-    }
+	function get_detwarehouseman_by_whmid()
+	{
+		$whmid = $this->input->post('id');
+		$result = $this->master->get_detwarehouseman_by_whmid($whmid);
+		echo json_encode($result);
+	}
 
 
-    function get_detail_storage(){
-        $storagecode = $this->input->post('storagecode');
-        $data = $this->master->get_detail_storage($storagecode);
-        echo json_encode($data);
-    }
+	function get_detail_storage()
+	{
+		$storagecode = $this->input->post('storagecode');
+		$data = $this->master->get_detail_storage($storagecode);
+		echo json_encode($data);
+	}
 
-    function get_detail_storage_to_edit(){
-        $storagecode = $this->input->post('storagecode');
-        $data = $this->master->get_detail_storage($storagecode);
-        echo json_encode(array(
-            'dbranch' => $this->master->get_list_branch(),
-            'dwarehouseman' => $this->master->get_list_warehouseman(),
-            'dstatus' => $this->master->get_list_status($storagecode),
-            'dstorage' => $data
-        ));
-    }
+	function get_detail_storage_to_edit()
+	{
+		$storagecode = $this->input->post('storagecode');
+		$data = $this->master->get_detail_storage($storagecode);
+		echo json_encode(array(
+			'dbranch' => $this->master->get_list_branch(),
+			'dwarehouseman' => $this->master->get_list_warehouseman(),
+			'dstatus' => $this->master->get_list_status($storagecode),
+			'dstorage' => $data
+		));
+	}
 
-    function edit_storage(){
-        $storagename = null;
-        $storageid = $this->input->post('id_storagecode');
-        if (!empty($this->input->post('en_storagename'))) {
-            $storagename = $this->input->post('en_storagename');
-        } else {
-            $storagename =  "-";
-        }
-        $dstorage = array(
-            'BranchCode' => $this->input->post('en_branch'),
-            'StorageCode' => $this->input->post('en_storagecode'),
-            'StorageName' => $storagename,
-            'Address' => $this->input->post('en_address'),
-            'ContactID' => $this->input->post('en_warehouseman'),
-            'PhoneNo' => $this->input->post('en_phoneno'),
-            'Fax' => $this->input->post('en_fax'),
-            'Email' => $this->input->post('en_email'),
-            'is_active' => $this->input->post('en_status')
-        );
-        $rstatus = $this->master->update_data_storage($dstorage, $storageid);
-        echo json_encode(array(
-            'rstatus' => $rstatus,
-            'StorageCode' => $dstorage['StorageCode']
-        ));        
-    }
+	function edit_storage()
+	{
+		$storagename = null;
+		$storageid = $this->input->post('id_storagecode');
+		if (!empty($this->input->post('en_storagename'))) {
+			$storagename = $this->input->post('en_storagename');
+		} else {
+			$storagename =  "-";
+		}
+		$dstorage = array(
+			'BranchCode' => $this->input->post('en_branch'),
+			'StorageCode' => $this->input->post('en_storagecode'),
+			'StorageName' => $storagename,
+			'Address' => $this->input->post('en_address'),
+			'ContactID' => $this->input->post('en_warehouseman'),
+			'PhoneNo' => $this->input->post('en_phoneno'),
+			'Fax' => $this->input->post('en_fax'),
+			'Email' => $this->input->post('en_email'),
+			'is_active' => $this->input->post('en_status')
+		);
+		$rstatus = $this->master->update_data_storage($dstorage, $storageid);
+		echo json_encode(array(
+			'rstatus' => $rstatus,
+			'StorageCode' => $dstorage['StorageCode']
+		));
+	}
 
-    public function discDataStorage(){
-        $scode = $this->input->post('scode');
-        $remarks = $this->input->post('remarks');
-        $data = ['Disc' => '1', 'is_active' => '0', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-        $hasil = $this->master->updateData('StorageCode', $scode, 'tbl_mat_cat_storage', $data);
-    }
+	public function discDataStorage()
+	{
+		$scode = $this->input->post('scode');
+		$remarks = $this->input->post('remarks');
+		$data = ['Disc' => '1', 'is_active' => '0', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+		$hasil = $this->master->updateData('StorageCode', $scode, 'tbl_mat_cat_storage', $data);
+	}
 
-    function delete_storage_by_storageid(){
-        $storagecode = $this->input->post('storagecode');
-        $rstatus = $this->master->delete_storage_by_storagecode('tbl_mat_cat_storage', $storagecode);
-        if ($rstatus != false) {
-            echo json_encode(array(
-                'rstatus' => true,
-                'StorageCode' => $storagecode
-            ));
-        } else {
-            echo json_encode(array(
-                'rstatus' => false
-            ));
-        }        
-    }
+	function delete_storage_by_storageid()
+	{
+		$storagecode = $this->input->post('storagecode');
+		$rstatus = $this->master->delete_storage_by_storagecode('tbl_mat_cat_storage', $storagecode);
+		if ($rstatus != false) {
+			echo json_encode(array(
+				'rstatus' => true,
+				'StorageCode' => $storagecode
+			));
+		} else {
+			echo json_encode(array(
+				'rstatus' => false
+			));
+		}
+	}
 	//End - Storage
 
 
 	//Start - Stockcode
 	function list_stock_dt()
-    {
-        $result = $this->master->get_list_stock_dt();
-        echo $result;
-    }
+	{
+		$result = $this->master->get_list_stock_dt();
+		echo $result;
+	}
 
-     function list_stock_dt_disc()
-    {
-        $result = $this->master->get_list_stock_dt_disc();
-        echo $result;
-    }
+	function list_stock_dt_disc()
+	{
+		$result = $this->master->get_list_stock_dt_disc();
+		echo $result;
+	}
 
-    public function discDataStockcode(){
-        $stcode = $this->input->post('stcode');
-        $remarks = $this->input->post('remarks');
-        $data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock', $data);
-        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stockcode', $data);
-        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock_reg', $data);
-    }
+	public function discDataStockcode()
+	{
+		$stcode = $this->input->post('stcode');
+		$remarks = $this->input->post('remarks');
+		$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock', $data);
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stockcode', $data);
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock_reg', $data);
+	}
 
-    public function continueDataStockcode(){
-        $stcode = $this->input->post('stcode');
-        $data = ['Disc' => '0','DiscDate' => null, 'Remarks' => null];
-        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock', $data);
-        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stockcode', $data);
-        $hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock_reg', $data);
-    }
+	public function continueDataStockcode()
+	{
+		$stcode = $this->input->post('stcode');
+		$data = ['Disc' => '0', 'DiscDate' => null, 'Remarks' => null];
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock', $data);
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stockcode', $data);
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock_reg', $data);
+	}
 
 	//End - Stockcode
-  
+
 }

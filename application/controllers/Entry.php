@@ -27,7 +27,8 @@ class Entry extends CI_Controller
     const OVB = 'OB';
     const GNJ = 'GJ';
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
 
         $this->load->library('form_validation');
@@ -42,19 +43,21 @@ class Entry extends CI_Controller
     }
 
     //* RECEIPT VOUCHER
-    public function view_receipt_voucher(){
+    public function view_receipt_voucher()
+    {
         $data = [
             'title' => 'List Receipt Voucher',
             'script' => 'receipt'
         ];
-        
+
         $this->load->view('financecorp/entry/v_index_receipt_voucher', $data);
     }
 
-    public function ajax_get_ranged_receipt(){
+    public function ajax_get_ranged_receipt()
+    {
         $validation = validate($this->input->post(), null, ['docno']);
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -77,10 +80,11 @@ class Entry extends CI_Controller
         return set_success_response($result);
     }
 
-    public function add_receipt_voucher(){
+    public function add_receipt_voucher()
+    {
         $data = [
             'title' => 'Form Receipt Voucher',
-            
+
             'docno' => $this->Mdl_corp_entry->get_new_treasury_docno(self::REC),
             'accno' => $this->Mdl_corp_entry->get_mas_acc(),
             'branch' => $this->Mdl_corp_entry->get_branch(),
@@ -91,14 +95,15 @@ class Entry extends CI_Controller
 
             'script' => 'receipt'
         ];
-        
+
         $this->load->view('financecorp/entry/v_add_receipt_voucher', $data);
     }
 
-    public function edit_receipt(){
+    public function edit_receipt()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -108,7 +113,7 @@ class Entry extends CI_Controller
 
         $data = [
             'title' => 'Form Receipt Voucher',
-            
+
             //DocNo Master
             'docno' => $docno,
             'refno' => $result[0]['RefNo'],
@@ -123,7 +128,7 @@ class Entry extends CI_Controller
 
             //List
             'list' => $result,
-            
+
             //Multiple
             'accnos' => $this->Mdl_corp_entry->get_mas_acc(),
             'branches' => $this->Mdl_corp_entry->get_branch(),
@@ -133,14 +138,15 @@ class Entry extends CI_Controller
 
             'script' => 'receipt'
         ];
-        
+
         $this->load->view('financecorp/entry/v_edit_receipt_voucher', $data);
     }
 
-    public function ajax_delete_receipt(){
+    public function ajax_delete_receipt()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -149,18 +155,18 @@ class Entry extends CI_Controller
         $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_entry->get_last_trans_date();
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         $acc_no = $this->Mdl_corp_entry->get_docno_accnos($docno);
         $accnos = [];
 
-        for($i = 0; $i < count($acc_no); $i++){
+        for ($i = 0; $i < count($acc_no); $i++) {
             array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
@@ -169,19 +175,21 @@ class Entry extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
 
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function ajax_submit_receipt(){
-        $validation = validate($this->input->post(), 
+    public function ajax_submit_receipt()
+    {
+        $validation = validate(
+            $this->input->post(),
             [ //Specific Case
                 'date' => ['transdate'],
-                'number' => ['itemno','unit','rate','amount','totalamount']
-            ], 
+                'number' => ['itemno', 'unit', 'rate', 'amount', 'totalamount']
+            ],
             [ //Ignore
                 'paidto',
                 'remark',
@@ -189,8 +197,8 @@ class Entry extends CI_Controller
                 'giro'
             ]
         );
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -208,9 +216,9 @@ class Entry extends CI_Controller
         $counter_beg_bal = $this->Mdl_corp_entry->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
-        if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
+        if ($acctype == 'A' || $acctype == 'E' || $acctype == 'E1') {
             $counter_balance = ($counter_beg_bal + $_POST['totalamount']) -  0;
-        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2'){
+        } elseif ($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2') {
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
         }
 
@@ -258,9 +266,9 @@ class Entry extends CI_Controller
             'Department' => '',
             'CostCenter' => ''
         ]);
-        
+
         $cur_accno_bal = [$_POST['accno'] => $counter_balance];
-        for($i = 0; $i < count($_POST['itemno']); $i++){
+        for ($i = 0; $i < count($_POST['itemno']); $i++) {
             $itemno += 1;
 
             //DETAIL ACCTYPE
@@ -282,20 +290,20 @@ class Entry extends CI_Controller
                 'Credit' => $_POST['amount'][$i]
             ]);
 
-            if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
+            if (isset($cur_accno_bal[$_POST['accnos'][$i]])) {
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
-            }else{
+            } else {
                 $branch_beg_bal = $this->Mdl_corp_entry->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
-                
+
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
+            if ($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1') {
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) -  0;
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX'){
+            } elseif ($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX') {
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -339,43 +347,44 @@ class Entry extends CI_Controller
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_entry->submit_treasury($master, $details, $trans, $branch, $cur_date);
 
-        if($submit !== 'success'){
+        if ($submit !== 'success') {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
         }
-        
+
         $result = '';
         $accnos = [];
-        if($submit == 'success'){
+        if ($submit == 'success') {
             //PUSH ALL UNIQUE ACCOUNT NUMBERS
-            for($i = 0; $i < count($cur_accno_bal); $i++){
+            for ($i = 0; $i < count($cur_accno_bal); $i++) {
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
                 array_push($accnos, $cur_accno);
             }
         }
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
 
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function view_reps_receipt_voucher(){
+    public function view_reps_receipt_voucher()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -393,25 +402,27 @@ class Entry extends CI_Controller
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
             'report' => $report
         ];
-        
+
         $this->load->view('financecorp/entry/v_reps_receipt_voucher', $data);
     }
 
     //* PAYMENT VOUCHER
-    public function view_payment_voucher(){
+    public function view_payment_voucher()
+    {
         $data = [
             'title' => 'List Payment Voucher',
             'script' => 'payment'
         ];
-        
+
         $this->load->view('financecorp/entry/v_index_payment_voucher', $data);
     }
 
-    public function ajax_get_ranged_payment(){
-        
+    public function ajax_get_ranged_payment()
+    {
+
         $validation = validate($this->input->post(), null, ['docno']);
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -434,10 +445,11 @@ class Entry extends CI_Controller
         return set_success_response($result);
     }
 
-    public function add_payment_voucher(){
+    public function add_payment_voucher()
+    {
         $data = [
             'title' => 'Form Payment Voucher',
-            
+
             'docno' => $this->Mdl_corp_entry->get_new_treasury_docno(self::PAY),
             'accno' => $this->Mdl_corp_entry->get_mas_acc(),
             'branch' => $this->Mdl_corp_entry->get_branch(),
@@ -452,10 +464,11 @@ class Entry extends CI_Controller
         $this->load->view('financecorp/entry/v_add_payment_voucher', $data);
     }
 
-    public function edit_payment(){
+    public function edit_payment()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -465,7 +478,7 @@ class Entry extends CI_Controller
 
         $data = [
             'title' => 'Form Payment Voucher',
-            
+
             //DocNo Master
             'docno' => $docno,
             'refno' => $result[0]['RefNo'],
@@ -480,7 +493,7 @@ class Entry extends CI_Controller
 
             //List
             'list' => $result,
-            
+
             //Multiple
             'accnos' => $this->Mdl_corp_entry->get_mas_acc(),
             'branches' => $this->Mdl_corp_entry->get_branch(),
@@ -490,14 +503,15 @@ class Entry extends CI_Controller
 
             'script' => 'payment'
         ];
-        
+
         $this->load->view('financecorp/entry/v_edit_payment_voucher', $data);
     }
 
-    public function ajax_delete_payment(){ 
+    public function ajax_delete_payment()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -506,18 +520,18 @@ class Entry extends CI_Controller
         $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_entry->get_last_trans_date();
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         $acc_no = $this->Mdl_corp_entry->get_docno_accnos($docno);
         $accnos = [];
 
-        for($i = 0; $i < count($acc_no); $i++){
+        for ($i = 0; $i < count($acc_no); $i++) {
             array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
@@ -526,19 +540,21 @@ class Entry extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
 
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function ajax_submit_payment(){
-        $validation = validate($this->input->post(), 
+    public function ajax_submit_payment()
+    {
+        $validation = validate(
+            $this->input->post(),
             [ //Specific Case
                 'date' => ['transdate'],
-                'number' => ['itemno','unit','rate','amount','totalamount']
-            ], 
+                'number' => ['itemno', 'unit', 'rate', 'amount', 'totalamount']
+            ],
             [ //Ignore
                 'paidto',
                 'remark',
@@ -546,8 +562,8 @@ class Entry extends CI_Controller
                 'giro'
             ]
         );
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -565,9 +581,9 @@ class Entry extends CI_Controller
         $counter_beg_bal = $this->Mdl_corp_entry->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
-        if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
+        if ($acctype == 'A' || $acctype == 'E' || $acctype == 'E1') {
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
-        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2'){
+        } elseif ($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2') {
             $counter_balance = ($counter_beg_bal - 0) + $_POST['totalamount'];
         }
 
@@ -615,9 +631,9 @@ class Entry extends CI_Controller
             'Department' => '',
             'CostCenter' => ''
         ]);
-        
+
         $cur_accno_bal = [$_POST['accno'] => $counter_balance];
-        for($i = 0; $i < count($_POST['itemno']); $i++){
+        for ($i = 0; $i < count($_POST['itemno']); $i++) {
             $itemno += 1;
 
             //DETAIL ACCTYPE
@@ -639,20 +655,20 @@ class Entry extends CI_Controller
                 'Credit' => $_POST['amount'][$i]
             ]);
 
-            if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
+            if (isset($cur_accno_bal[$_POST['accnos'][$i]])) {
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
-            }else{
+            } else {
                 $branch_beg_bal = $this->Mdl_corp_entry->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
 
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
+            if ($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1') {
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) - 0;
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX'){
+            } elseif ($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX') {
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -696,43 +712,44 @@ class Entry extends CI_Controller
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_entry->submit_treasury($master, $details, $trans, $branch, $cur_date);
 
-        if($submit !== 'success'){
+        if ($submit !== 'success') {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
         }
-        
+
         $result = '';
         $accnos = [];
-        if($submit == 'success'){
+        if ($submit == 'success') {
             //PUSH ALL UNIQUE ACCOUNT NUMBERS
-            for($i = 0; $i < count($cur_accno_bal); $i++){
+            for ($i = 0; $i < count($cur_accno_bal); $i++) {
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
                 array_push($accnos, $cur_accno);
             }
         }
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
 
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function view_reps_payment_voucher(){
+    public function view_reps_payment_voucher()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -750,25 +767,27 @@ class Entry extends CI_Controller
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
             'report' => $report
         ];
-        
+
         $this->load->view('financecorp/entry/v_reps_payment_voucher', $data);
     }
 
     //* OVERBOOK VOUCHER
-    public function view_overbook_voucher(){
+    public function view_overbook_voucher()
+    {
         $data = [
             'title' => 'List Overbook Voucher',
             'script' => 'overbook'
         ];
-        
+
         $this->load->view('financecorp/entry/v_index_overbook_voucher', $data);
     }
 
-    public function ajax_get_ranged_overbook(){
-        
+    public function ajax_get_ranged_overbook()
+    {
+
         $validation = validate($this->input->post(), null, ['docno']);
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -791,10 +810,11 @@ class Entry extends CI_Controller
         return set_success_response($result);
     }
 
-    public function add_overbook_voucher(){
+    public function add_overbook_voucher()
+    {
         $data = [
             'title' => 'Form Overbook Voucher',
-            
+
             'docno' => $this->Mdl_corp_entry->get_new_treasury_docno(self::OVB),
             'accno' => $this->Mdl_corp_entry->get_mas_acc(),
             'branch' => $this->Mdl_corp_entry->get_branch(),
@@ -805,14 +825,15 @@ class Entry extends CI_Controller
 
             'script' => 'overbook'
         ];
-        
+
         $this->load->view('financecorp/entry/v_add_overbook_voucher', $data);
     }
 
-    public function edit_overbook(){
+    public function edit_overbook()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -822,7 +843,7 @@ class Entry extends CI_Controller
 
         $data = [
             'title' => 'Form Overbook Voucher',
-            
+
             //DocNo Master
             'docno' => $docno,
             'refno' => $result[0]['RefNo'],
@@ -837,7 +858,7 @@ class Entry extends CI_Controller
 
             //List
             'list' => $result,
-            
+
             //Multiple
             'accnos' => $this->Mdl_corp_entry->get_mas_acc(),
             'branches' => $this->Mdl_corp_entry->get_branch(),
@@ -847,14 +868,15 @@ class Entry extends CI_Controller
 
             'script' => 'overbook'
         ];
-        
+
         $this->load->view('financecorp/entry/v_edit_overbook_voucher', $data);
     }
 
-    public function ajax_delete_overbook(){
+    public function ajax_delete_overbook()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -863,18 +885,18 @@ class Entry extends CI_Controller
         $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_entry->get_last_trans_date();
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         $acc_no = $this->Mdl_corp_entry->get_docno_accnos($docno);
         $accnos = [];
 
-        for($i = 0; $i < count($acc_no); $i++){
+        for ($i = 0; $i < count($acc_no); $i++) {
             array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
@@ -883,19 +905,21 @@ class Entry extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
 
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function ajax_submit_overbook(){
-        $validation = validate($this->input->post(), 
+    public function ajax_submit_overbook()
+    {
+        $validation = validate(
+            $this->input->post(),
             [ //Specific Case
                 'date' => ['transdate'],
-                'number' => ['itemno','unit','rate','amount','totalamount']
-            ], 
+                'number' => ['itemno', 'unit', 'rate', 'amount', 'totalamount']
+            ],
             [ //Ignore
                 'paidto',
                 'remark',
@@ -903,8 +927,8 @@ class Entry extends CI_Controller
                 'giro'
             ]
         );
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -922,9 +946,9 @@ class Entry extends CI_Controller
         $counter_beg_bal = $this->Mdl_corp_entry->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
-        if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
+        if ($acctype == 'A' || $acctype == 'E' || $acctype == 'E1') {
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
-        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2'){
+        } elseif ($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2') {
             $counter_balance = ($counter_beg_bal - 0) + $_POST['totalamount'];
         }
 
@@ -972,9 +996,9 @@ class Entry extends CI_Controller
             'Department' => '',
             'CostCenter' => ''
         ]);
-        
+
         $cur_accno_bal = [$_POST['accno'] => $counter_balance];
-        for($i = 0; $i < count($_POST['itemno']); $i++){
+        for ($i = 0; $i < count($_POST['itemno']); $i++) {
             $itemno += 1;
 
             //DETAIL ACCTYPE
@@ -997,20 +1021,20 @@ class Entry extends CI_Controller
             ]);
 
             // $emp_beg_bal = $this->Mdl_corp_entry->get_emp_last_balance($_POST['emp'][$i]);
-            if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
+            if (isset($cur_accno_bal[$_POST['accnos'][$i]])) {
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
-            }else{
+            } else {
                 $branch_beg_bal = $this->Mdl_corp_entry->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
-                
+
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
+            if ($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1') {
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) - 0;
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX'){
+            } elseif ($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX') {
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -1054,43 +1078,44 @@ class Entry extends CI_Controller
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_entry->submit_treasury($master, $details, $trans, $branch, $cur_date);
 
-        if($submit !== 'success'){
+        if ($submit !== 'success') {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
         }
-        
+
         $result = '';
         $accnos = [];
-        if($submit == 'success'){
+        if ($submit == 'success') {
             //PUSH ALL UNIQUE ACCOUNT NUMBERS
-            for($i = 0; $i < count($cur_accno_bal); $i++){
+            for ($i = 0; $i < count($cur_accno_bal); $i++) {
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
                 array_push($accnos, $cur_accno);
             }
         }
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
 
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function view_reps_overbook_voucher(){
+    public function view_reps_overbook_voucher()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -1108,24 +1133,26 @@ class Entry extends CI_Controller
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
             'report' => $report
         ];
-        
+
         $this->load->view('financecorp/entry/v_reps_overbook_voucher', $data);
     }
 
     //* GENERAL JOURNAL
-    public function view_general_journal(){
+    public function view_general_journal()
+    {
         $data = [
             'title' => 'List General Journal',
             'script' => 'generalJournal'
         ];
-        
+
         $this->load->view('financecorp/entry/v_index_general_journal', $data);
     }
 
-    public function ajax_get_ranged_general_journal(){
+    public function ajax_get_ranged_general_journal()
+    {
         $validation = validate($this->input->post(), null, ['docno']);
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -1148,10 +1175,11 @@ class Entry extends CI_Controller
         return set_success_response($result);
     }
 
-    public function add_general_journal(){
+    public function add_general_journal()
+    {
         $data = [
             'title' => 'Form General Journal',
-            
+
             'docno' => $this->Mdl_corp_entry->get_new_treasury_docno(self::GNJ),
             'branch' => $this->Mdl_corp_entry->get_branch(),
             'accno' => $this->Mdl_corp_entry->get_mas_acc(),
@@ -1162,14 +1190,15 @@ class Entry extends CI_Controller
 
             'script' => 'generalJournal'
         ];
-        
+
         $this->load->view('financecorp/entry/v_add_general_journal', $data);
     }
 
-    public function edit_general_journal(){
+    public function edit_general_journal()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -1179,7 +1208,7 @@ class Entry extends CI_Controller
 
         $data = [
             'title' => 'Form General Journal',
-            
+
             //DocNo Master
             'docno' => $docno,
             'refno' => $result[0]['RefNo'],
@@ -1194,7 +1223,7 @@ class Entry extends CI_Controller
 
             //List
             'list' => $result,
-            
+
             //Multiple
             'accnos' => $this->Mdl_corp_entry->get_mas_acc(),
             'branches' => $this->Mdl_corp_entry->get_branch(),
@@ -1204,14 +1233,15 @@ class Entry extends CI_Controller
 
             'script' => 'generalJournal'
         ];
-        
+
         $this->load->view('financecorp/entry/v_edit_general_journal', $data);
     }
 
-    public function ajax_delete_general_journal(){
+    public function ajax_delete_general_journal()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -1220,18 +1250,18 @@ class Entry extends CI_Controller
         $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_entry->get_last_trans_date();
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         $acc_no = $this->Mdl_corp_entry->get_docno_accnos($docno);
         $accnos = [];
 
-        for($i = 0; $i < count($acc_no); $i++){
+        for ($i = 0; $i < count($acc_no); $i++) {
             array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
@@ -1240,19 +1270,21 @@ class Entry extends CI_Controller
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
 
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function ajax_submit_general_journal(){
-        $validation = validate($this->input->post(), 
+    public function ajax_submit_general_journal()
+    {
+        $validation = validate(
+            $this->input->post(),
             [ //Specific Case
                 'date' => ['transdate'],
-                'number' => ['itemno','debit','credit']
-            ], 
+                'number' => ['itemno', 'debit', 'credit']
+            ],
             [ //Ignore
                 'paidto',
                 'remark',
@@ -1260,8 +1292,8 @@ class Entry extends CI_Controller
                 'giro'
             ]
         );
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -1288,9 +1320,9 @@ class Entry extends CI_Controller
             'Department' => '',
             'CostCenter' => ''
         ]);
-        
+
         $cur_accno_bal = [];
-        for($i = 0; $i < count($_POST['itemno']); $i++){
+        for ($i = 0; $i < count($_POST['itemno']); $i++) {
             $itemno += 1;
 
             //DETAIL ACCTYPE
@@ -1313,20 +1345,20 @@ class Entry extends CI_Controller
             ]);
 
             // $emp_beg_bal = $this->Mdl_corp_general->get_emp_last_balance($_POST['emp'][$i]);
-            if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
+            if (isset($cur_accno_bal[$_POST['accnos'][$i]])) {
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
-            }else{
+            } else {
                 $branch_beg_bal = $this->Mdl_corp_entry->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
 
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
+            if ($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1') {
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['debit'][$i]) - $_POST['credit'][$i];
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX'){
+            } elseif ($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX') {
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -1334,9 +1366,9 @@ class Entry extends CI_Controller
             }
 
             $amount = $_POST['debit'][$i] + $_POST['credit'][$i];
-            
+
             //SET AMOUNT TO MINUS OR PLUS FOR CURRENT/RETAINING EARNINGS IF IT'S DEBIT
-            if($_POST['debit'][$i] > 0 && ($_POST['accnos'][$i] == '31201' || $_POST['accnos'][$i] == '31202')) {
+            if ($_POST['debit'][$i] > 0 && ($_POST['accnos'][$i] == '31201' || $_POST['accnos'][$i] == '31202')) {
                 $amount = -1 * ($_POST['debit'][$i] + $_POST['credit'][$i]);
             }
 
@@ -1377,43 +1409,44 @@ class Entry extends CI_Controller
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_entry->submit_treasury($master, $details, $trans, $branch, $cur_date);
 
-        if($submit !== 'success'){
+        if ($submit !== 'success') {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
         }
-        
+
         $result = '';
         $accnos = [];
-        if($submit == 'success'){
+        if ($submit == 'success') {
             //PUSH ALL UNIQUE ACCOUNT NUMBERS
-            for($i = 0; $i < count($cur_accno_bal); $i++){
+            for ($i = 0; $i < count($cur_accno_bal); $i++) {
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
                 array_push($accnos, $cur_accno);
             }
         }
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
 
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function view_reps_general_journal(){
+    public function view_reps_general_journal()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -1431,12 +1464,13 @@ class Entry extends CI_Controller
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
             'report' => $report
         ];
-        
+
         $this->load->view('financecorp/entry/v_reps_general_journal', $data);
     }
 
     //* RECALCULATE BALANCE
-    public function view_recalculate_balance(){
+    public function view_recalculate_balance()
+    {
         $data = [
             'title' => 'Recalculate Balance',
 
@@ -1449,46 +1483,48 @@ class Entry extends CI_Controller
 
             'script' => 'recalculateBalance'
         ];
-        
+
         $this->load->view('financecorp/entry/v_index_recalculate_balance', $data);
     }
 
-    public function ajax_recalculate_branch(){
+    public function ajax_recalculate_branch()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        
+
         $branch = $this->input->post('branch');
         $accno_start = $this->input->post('accno_start');
         $accno_finish = $this->input->post('accno_finish') ?? date('Y-m-d');
         $date_start = $this->input->post('date_start');
         $date_finish = $this->Mdl_corp_reports->get_last_trans_date();
-        
+
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function ajax_recalculate_employee(){
+    public function ajax_recalculate_employee()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $employee = $this->input->post('employee');
         $date_start = $this->input->post('date_start');
-        
+
         [$result, $error] = $this->Mdl_corp_entry->recalculate_employee($employee, $date_start);
 
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 

@@ -41,8 +41,8 @@ class Cash_adv extends CI_Controller
     }
 
     //* CASH ADVANCE DASHBOARD
-    public function index(){
-
+    public function index()
+    {
         [$outstanding, $error] = $this->Mdl_corp_cash_advance->get_outstanding_bal();
 
         $data = [
@@ -54,12 +54,13 @@ class Cash_adv extends CI_Controller
             'ca_request' => null,
             'cur_outstanding_bal' => ($error == null ? $outstanding : ''),
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_index_ca', $data);
     }
 
     //* PERSONAL STATEMENT
-    public function view_ca_statement(){
+    public function view_ca_statement()
+    {
         $data = [
             'title' => 'Cash Advance Statement',
             'h1' => 'Personal',
@@ -72,14 +73,15 @@ class Cash_adv extends CI_Controller
             //SCRIPT
             'script' => 'cashPersonalStatement'
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_index_ca_statement', $data);
     }
 
-    public function ajax_get_emp_details(){
+    public function ajax_get_emp_details()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
@@ -92,7 +94,8 @@ class Cash_adv extends CI_Controller
     }
 
     //* CASH ADVANCE WITHDRAW
-    public function view_ca_withdraw(){
+    public function view_ca_withdraw()
+    {
         $data = [
             'title' => 'Cash Advance Withdraw',
             'h1' => 'Cash',
@@ -102,14 +105,15 @@ class Cash_adv extends CI_Controller
 
             'script' => 'cashWithdraw'
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_index_ca_withdraw', $data);
     }
 
-    public function ajax_get_ranged_ca_withdraw(){
+    public function ajax_get_ranged_ca_withdraw()
+    {
         $validation = validate($this->input->post(), null, ['docno']);
-        
-        if(!$validation){
+
+        if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
@@ -133,10 +137,11 @@ class Cash_adv extends CI_Controller
         return set_success_response($result);
     }
 
-    public function add_ca_withdraw(){
+    public function add_ca_withdraw()
+    {
         $data = [
             'title' => 'Form Cash Advance Withdraw',
-            
+
             'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno(self::CAW),
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
@@ -147,14 +152,15 @@ class Cash_adv extends CI_Controller
 
             'script' => 'cashWithdraw'
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_add_ca_withdraw', $data);
     }
 
-    public function edit_ca_withdraw(){
+    public function edit_ca_withdraw()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
@@ -165,7 +171,7 @@ class Cash_adv extends CI_Controller
 
         $data = [
             'title' => 'Form Cash Withdraw',
-            
+
             //DocNo Master
             'docno' => $docno,
             'refno' => $result[0]['RefNo'],
@@ -182,7 +188,7 @@ class Cash_adv extends CI_Controller
 
             //List
             'list' => $result,
-            
+
             //Multiple
             'accnos' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'employees' => $this->Mdl_corp_cash_advance->get_employee(),
@@ -193,35 +199,36 @@ class Cash_adv extends CI_Controller
 
             'script' => 'cashWithdraw'
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_edit_ca_withdraw', $data);
     }
 
-    public function ajax_delete_ca_withdraw(){
+    public function ajax_delete_ca_withdraw()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
-        
+
         $docno = $this->input->post('docno');
         $branch = $this->input->post('branch');
         $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_cash_advance->get_last_trans_date();
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         $acc_no = $this->Mdl_corp_cash_advance->get_docno_accnos($docno);
         $accnos = [];
 
-        for($i = 0; $i < count($acc_no); $i++){
+        for ($i = 0; $i < count($acc_no); $i++) {
             array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
@@ -229,19 +236,21 @@ class Cash_adv extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function ajax_submit_ca_withdraw(){
-        $validation = validate($this->input->post(), 
+    public function ajax_submit_ca_withdraw()
+    {
+        $validation = validate(
+            $this->input->post(),
             [ //Specific Case
                 'date' => ['transdate'],
-                'number' => ['itemno','unit','rate','amount','totalamount']
-            ], 
+                'number' => ['itemno', 'unit', 'rate', 'amount', 'totalamount']
+            ],
             [ //Ignore
                 'paidto',
                 'remark',
@@ -249,8 +258,8 @@ class Cash_adv extends CI_Controller
                 'giro'
             ]
         );
-        
-        if(!$validation){
+
+        if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
@@ -269,9 +278,9 @@ class Cash_adv extends CI_Controller
         $counter_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
-        if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
+        if ($acctype == 'A' || $acctype == 'E' || $acctype == 'E1') {
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
-        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2'){
+        } elseif ($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2') {
             $counter_balance = ($counter_beg_bal - 0) + $_POST['totalamount'];
         }
 
@@ -281,14 +290,14 @@ class Cash_adv extends CI_Controller
         $is_docno_exist = $this->Mdl_corp_cash_advance->check_docno_exist($this->input->post('docno'));
         $cur_docno_amount = $this->Mdl_corp_cash_advance->check_docno_amount($this->input->post('docno'));
 
-        if(!$is_docno_exist){
-            $balance= $this->input->post('totalamount');
-        }elseif($is_docno_exist && $cur_docno_amount !== $this->input->post('totalamount')){
+        if (!$is_docno_exist) {
+            $balance = $this->input->post('totalamount');
+        } elseif ($is_docno_exist && $cur_docno_amount !== $this->input->post('totalamount')) {
             $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
-            
+
             //DIFFERENCE BETWEEN CURRENT AMOUNT AND PREVIOUS AMOUNT
             $difference = ($this->input->post('totalamount') - $emp_beg_bal);
-            
+
             $balance = ($emp_beg_bal + $difference);
         }
 
@@ -336,9 +345,9 @@ class Cash_adv extends CI_Controller
             'Department' => '',
             'CostCenter' => ''
         ]);
-        
+
         $cur_accno_bal = [$_POST['accno'] => $counter_balance];
-        for($i = 0; $i < count($_POST['itemno']); $i++){
+        for ($i = 0; $i < count($_POST['itemno']); $i++) {
             $itemno += 1;
 
             //DETAIL ACCTYPE
@@ -360,20 +369,20 @@ class Cash_adv extends CI_Controller
                 'Credit' => $_POST['amount'][$i]
             ]);
 
-            if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
+            if (isset($cur_accno_bal[$_POST['accnos'][$i]])) {
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
-            }else{
+            } else {
                 $branch_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
-                
+
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
+            if ($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1') {
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) - 0;
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX'){
+            } elseif ($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX') {
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -417,48 +426,49 @@ class Cash_adv extends CI_Controller
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_cash_advance->submit_cash_advance($master, $details, $trans, $branch, $cur_date);
 
-        if($submit !== 'success'){
+        if ($submit !== 'success') {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
         }
-        
+
         $result = '';
         $accnos = [];
-        if($submit == 'success'){
+        if ($submit == 'success') {
             //PUSH ALL UNIQUE ACCOUNT NUMBERS
-            for($i = 0; $i < count($cur_accno_bal); $i++){
+            for ($i = 0; $i < count($cur_accno_bal); $i++) {
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
                 array_push($accnos, $cur_accno);
             }
         }
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-        }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
         }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $calculate_branch = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
-        if($calculate_branch !== 'success'){
+        if ($calculate_branch !== 'success') {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
 
         //CALCULATE EMPLOYEE BALANCE ABOVE TRANSDATE
         $calculate_emp = $this->Mdl_corp_cash_advance->update_emp_balance($cur_date, $this->input->post('emp_master_id'));
-        if($calculate_emp !== 'success'){
+        if ($calculate_emp !== 'success') {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
 
         return set_success_response($result);
     }
 
-    public function view_reps_cash_withdraw(){
+    public function view_reps_cash_withdraw()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -476,12 +486,13 @@ class Cash_adv extends CI_Controller
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
             'report' => $report
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_reps_cash_withdraw', $data);
     }
 
     //* CASH ADVANCE RECEIPT
-    public function view_ca_receipt(){
+    public function view_ca_receipt()
+    {
         $data = [
             'title' => 'Cash Advance Receipt',
             'h1' => 'Cash',
@@ -491,14 +502,15 @@ class Cash_adv extends CI_Controller
 
             'script' => 'cashReceipt'
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_index_ca_receipt', $data);
     }
 
-    public function ajax_get_ranged_ca_receipt(){
+    public function ajax_get_ranged_ca_receipt()
+    {
         $validation = validate($this->input->post(), null, ['docno']);
-        
-        if(!$validation){
+
+        if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
@@ -522,10 +534,11 @@ class Cash_adv extends CI_Controller
         return set_success_response($result);
     }
 
-    public function add_ca_receipt(){
+    public function add_ca_receipt()
+    {
         $data = [
             'title' => 'Form Cash Advance Receipt',
-            
+
             'docno' => $this->Mdl_corp_cash_advance->get_new_treasury_docno(self::CAR),
             'accno' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'branch' => $this->Mdl_corp_cash_advance->get_branch(),
@@ -536,14 +549,15 @@ class Cash_adv extends CI_Controller
 
             'script' => 'cashReceipt'
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_add_ca_receipt', $data);
     }
 
-    public function edit_ca_receipt(){
+    public function edit_ca_receipt()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
@@ -554,7 +568,7 @@ class Cash_adv extends CI_Controller
 
         $data = [
             'title' => 'Form Receipt Voucher',
-            
+
             //DocNo Master
             'docno' => $docno,
             'refno' => $result[0]['RefNo'],
@@ -571,7 +585,7 @@ class Cash_adv extends CI_Controller
 
             //List
             'list' => $result,
-            
+
             //Multiple
             'accnos' => $this->Mdl_corp_cash_advance->get_mas_acc(),
             'employees' => $this->Mdl_corp_cash_advance->get_employee(),
@@ -582,14 +596,15 @@ class Cash_adv extends CI_Controller
 
             'script' => 'cashReceipt'
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_edit_ca_receipt', $data);
     }
 
-    public function ajax_delete_ca_receipt(){
+    public function ajax_delete_ca_receipt()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
@@ -599,18 +614,18 @@ class Cash_adv extends CI_Controller
         $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_cash_advance->get_last_trans_date();
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         $acc_no = $this->Mdl_corp_cash_advance->get_docno_accnos($docno);
         $accnos = [];
 
-        for($i = 0; $i < count($acc_no); $i++){
+        for ($i = 0; $i < count($acc_no); $i++) {
             array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
@@ -618,19 +633,21 @@ class Cash_adv extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
-        if($error !== null){
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         return set_success_response($result);
     }
 
-    public function ajax_submit_ca_receipt(){
-        $validation = validate($this->input->post(), 
+    public function ajax_submit_ca_receipt()
+    {
+        $validation = validate(
+            $this->input->post(),
             [ //Specific Case
                 'date' => ['transdate'],
-                'number' => ['itemno','unit','rate','amount','totalamount']
-            ], 
+                'number' => ['itemno', 'unit', 'rate', 'amount', 'totalamount']
+            ],
             [ //Ignore
                 'paidto',
                 'remark',
@@ -638,8 +655,8 @@ class Cash_adv extends CI_Controller
                 'giro'
             ]
         );
-        
-        if(!$validation){
+
+        if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
@@ -658,9 +675,9 @@ class Cash_adv extends CI_Controller
         $counter_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
 
         //COUNTER BALANCE
-        if($acctype == 'A' || $acctype == 'E' || $acctype == 'E1'){
+        if ($acctype == 'A' || $acctype == 'E' || $acctype == 'E1') {
             $counter_balance = ($counter_beg_bal + $_POST['totalamount']) -  0;
-        }elseif($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2'){
+        } elseif ($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2') {
             $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
         }
 
@@ -670,14 +687,14 @@ class Cash_adv extends CI_Controller
         $is_docno_exist = $this->Mdl_corp_cash_advance->check_docno_exist($this->input->post('docno'));
         $cur_docno_amount = $this->Mdl_corp_cash_advance->check_docno_amount($this->input->post('docno'));
 
-        if(!$is_docno_exist){
-            $balance= $this->input->post('totalamount');
-        }elseif($is_docno_exist && $cur_docno_amount !== $this->input->post('totalamount')){
+        if (!$is_docno_exist) {
+            $balance = $this->input->post('totalamount');
+        } elseif ($is_docno_exist && $cur_docno_amount !== $this->input->post('totalamount')) {
             $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
-            
+
             //DIFFERENCE BETWEEN CURRENT AMOUNT AND PREVIOUS AMOUNT
             $difference = ($this->input->post('totalamount') - $emp_beg_bal);
-            
+
             $balance = ($emp_beg_bal + $difference);
         }
 
@@ -725,9 +742,9 @@ class Cash_adv extends CI_Controller
             'Department' => '',
             'CostCenter' => ''
         ]);
-        
+
         $cur_accno_bal = [$_POST['accno'] => $counter_balance];
-        for($i = 0; $i < count($_POST['itemno']); $i++){
+        for ($i = 0; $i < count($_POST['itemno']); $i++) {
             $itemno += 1;
 
             //DETAIL ACCTYPE
@@ -749,19 +766,19 @@ class Cash_adv extends CI_Controller
                 'Credit' => $_POST['amount'][$i]
             ]);
 
-            if(isset($cur_accno_bal[$_POST['accnos'][$i]])){
+            if (isset($cur_accno_bal[$_POST['accnos'][$i]])) {
                 $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
-            }else{
+            } else {
                 $branch_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
                 $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
             }
 
-            if($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1'){
+            if ($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1') {
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
                 $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) -  0;
-            }elseif($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX'){
+            } elseif ($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX') {
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
@@ -805,48 +822,49 @@ class Cash_adv extends CI_Controller
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_cash_advance->submit_cash_advance($master, $details, $trans, $branch, $cur_date);
 
-        if($submit !== 'success'){
+        if ($submit !== 'success') {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $submit);
         }
-        
+
         $result = '';
         $accnos = [];
-        if($submit == 'success'){
+        if ($submit == 'success') {
             //PUSH ALL UNIQUE ACCOUNT NUMBERS
-            for($i = 0; $i < count($cur_accno_bal); $i++){
+            for ($i = 0; $i < count($cur_accno_bal); $i++) {
                 $cur_accno = array_keys($cur_accno_bal)[$i];
 
                 array_push($accnos, $cur_accno);
             }
         }
 
-        if(strtotime($cur_date) < strtotime($last_date)){
+        if (strtotime($cur_date) < strtotime($last_date)) {
             $start = $cur_date;
             $finish = $last_date;
-         }else{
+        } else {
             $start = $last_date;
             $finish = $cur_date;
-         }
+        }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         $calculate_branch = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
-        if($calculate_branch !== 'success'){
+        if ($calculate_branch !== 'success') {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
 
         //CALCULATE EMPLOYEE BALANCE ABOVE TRANSDATE
         $calculate_emp = $this->Mdl_corp_cash_advance->update_emp_balance($cur_date, $this->input->post('emp_master_id'));
-        if($calculate_emp !== 'success'){
+        if ($calculate_emp !== 'success') {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
 
         return set_success_response($result);
     }
 
-    public function view_reps_cash_receipt(){
+    public function view_reps_cash_receipt()
+    {
         $validation = validate($this->input->get());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -864,12 +882,13 @@ class Cash_adv extends CI_Controller
             'company' => $this->db->select('ComName')->get('abase_01_com')->row()->ComName,
             'report' => $report
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_reps_cash_receipt', $data);
     }
 
     //* CASH OUTSTANDING REPORT
-    public function ca_outstanding_report(){
+    public function ca_outstanding_report()
+    {
         $data = [
             'title' => 'Cash Advance Outstanding Report',
             'h1' => 'Cash',
@@ -884,14 +903,15 @@ class Cash_adv extends CI_Controller
 
             'script' => 'outstandingReport'
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_index_ca_outstanding_report', $data);
     }
 
-    public function ajax_get_outsanding_report(){
+    public function ajax_get_outsanding_report()
+    {
         $validation = validate($this->input->post());
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -903,7 +923,7 @@ class Cash_adv extends CI_Controller
 
         [$result, $error] = $this->Mdl_corp_cash_advance->get_outstanding_report($branch, $dept, $costcenter, $date_start, $date_finish);
 
-        if($error !== null) {
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
@@ -911,7 +931,8 @@ class Cash_adv extends CI_Controller
     }
 
     //* CASH TRANSACTION DETAILS
-    public function ca_transaction_details(){
+    public function ca_transaction_details()
+    {
         $data = [
             'title' => 'Cash Advance Transaction Details',
             'h1' => 'Cash',
@@ -926,16 +947,17 @@ class Cash_adv extends CI_Controller
 
             'script' => 'cashTransactionDetail'
         ];
-        
+
         $this->load->view('financecorp/cashadvance/v_index_ca_transaction_details', $data);
     }
 
-    public function ajax_get_cash_transaction_detail(){
+    public function ajax_get_cash_transaction_detail()
+    {
         $validation = validate($this->input->post(), [
             'date' => ['date_start', 'date_finish']
         ]);
-        
-        if(!$validation){
+
+        if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
@@ -947,7 +969,7 @@ class Cash_adv extends CI_Controller
 
         [$result, $error] = $this->Mdl_corp_cash_advance->get_cash_transaction($branch, $dept, $costcenter, $date_start, $date_finish);
 
-        if($error !== null) {
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
@@ -963,7 +985,7 @@ class Cash_adv extends CI_Controller
     //         'h3' => 'Request',
     //         'h4' => 'Report'
     //     ];
-        
+
     //     $this->load->view('financecorp/cashadvance/v_index_ca_request_report', $data);
     // }
 }
