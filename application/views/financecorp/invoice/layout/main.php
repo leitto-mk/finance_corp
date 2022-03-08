@@ -23,8 +23,6 @@
   <!-- Datatable -->
   <link href="<?= base_url('assets/'); ?>global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
   <link href="<?= base_url('assets/'); ?>global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
-  <link href="<?= base_url('assets/'); ?>js/rowGroup.dataTables.min.css" rel="stylesheet" type="text/css" />
-
   <!-- Picker -->
   <link href="<?= base_url('assets/') ?>global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
   <link href="<?= base_url('assets/') ?>global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
@@ -37,9 +35,6 @@
 
   <!-- Sweet Alert -->
   <link href="<?= base_url('assets/') ?>global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
-
-  <!-- Chart.js -->
-  <link href="<?= base_url('assets/') ?>Chart.js/Chart.css" rel="stylesheet" type="text/css" />
 
   <!-- Ladda -->
   <link href="<?= base_url('assets/') ?>global/plugins/ladda/ladda-themeless.min.css" rel="stylesheet" type="text/css" />
@@ -199,7 +194,6 @@
   <!-- Datatable -->
   <script src="<?= base_url('assets/'); ?>global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
   <script src="<?= base_url('assets/'); ?>global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
-  <script src="<?= base_url('assets/'); ?>js/dataTables.rowGroup.min.js" type="text/javascript"></script>
   <!-- Datatable -->
 
   <script src="<?= base_url('assets/') ?>global/plugins/moment.min.js" type="text/javascript"></script>
@@ -220,10 +214,6 @@
   <!-- Sweet Alert -->
   <script src="<?= base_url('assets/') ?>global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
   <!-- Sweet Alert -->
-
-  <!-- Chart.js -->
-  <script src="<?= base_url('assets/') ?>Chart.js/Chart.js" type="text/javascript"></script>
-  <!-- Chart.js -->
 
   <!-- Ladda -->
   <script src="<?= base_url('assets/') ?>global/plugins/ladda/spin.min.js" type="text/javascript"></script>
