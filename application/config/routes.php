@@ -55,6 +55,10 @@ $route['Finance'] = 'Financecorp';
 $route['finance'] = 'Financecorp';
 $route['Entry'] = 'Entry/view_receipt_voucher';
 $route['entry'] = 'Entry/view_receipt_voucher';
+$route['AP'] = 'AP';
+$route['ap'] = 'AP';
+$route['AR'] = 'AR';
+$route['ar'] = 'AR';
 $route['cashadvance'] = 'Cash_adv';
 
 // * Direct Purchase

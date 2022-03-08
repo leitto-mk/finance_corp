@@ -28,7 +28,7 @@ $(document).ready(function(){
                 }
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -54,7 +54,7 @@ $(document).ready(function(){
                 }
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -80,7 +80,7 @@ $(document).ready(function(){
                 }
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -106,7 +106,7 @@ $(document).ready(function(){
                 }
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -123,7 +123,34 @@ $(document).ready(function(){
                 }
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
+            })
+        },
+
+        //* AR
+        arReceiptPayment: () => {
+            import('./usecase/arReceiptPayment.js')
+            .then(({default: arp}) => {
+                let path = window.location.pathname
+                let segment = path.split('/')[2]
+                let page = segment.split('_')[0]
+
+                if(page == 'view'){ /* List Page */
+                    arp.indexPage.initDT()
+                    arp.indexPage.eventShowList()
+                    arp.indexPage.eventDeleteRecord()
+                }else if(page == 'add' || page == 'edit'){ /* Form Page */
+                    arp.formPage.eventFocusNextInput()
+                    arp.formPage.eventCreateRow()
+                    arp.formPage.eventDeleteRow()
+                    arp.formPage.eventInputUnit()
+                    arp.formPage.eventChangeBranch()
+                    arp.formPage.eventChangeDepartment()
+                    arp.formPage.eventSubmitReceipt()
+                }
+            })
+            .catch(err => {
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -151,7 +178,7 @@ $(document).ready(function(){
                 }
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -178,7 +205,7 @@ $(document).ready(function(){
                 }
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -188,7 +215,7 @@ $(document).ready(function(){
                 cap.indexPage.eventGetEmpDetails()
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
 
@@ -198,7 +225,7 @@ $(document).ready(function(){
                 our.indexPage.eventGetOutstandingReport()  
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -208,7 +235,7 @@ $(document).ready(function(){
                 ctd.indexPage.eventGetCashTransactionDetail()  
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -219,7 +246,7 @@ $(document).ready(function(){
                 gl.indexPage.eventPreviewFilter()
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -231,7 +258,7 @@ $(document).ready(function(){
                 bal.indexPage.eventSubmitFilter()
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -242,7 +269,7 @@ $(document).ready(function(){
                 ics.indexPage.eventSubmitFilter()
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -253,7 +280,7 @@ $(document).ready(function(){
                 icsc.indexPage.eventSubmitFilter()
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
     
@@ -263,7 +290,7 @@ $(document).ready(function(){
                 jtr.indexPage.eventPreviewFilter()
             })
             .catch(err => {
-                console.log(`%cError:%c ${err}`, 'color: red')
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         }
     };

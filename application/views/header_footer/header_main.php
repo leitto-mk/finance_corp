@@ -148,7 +148,7 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
-                                        <a href="#" class="nav-link">
+                                        <a href="<?= base_url('AR/view_ar_receipt_payment')?>" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;AR Receive Payment</span>
                                         </a>
                                     </li>
