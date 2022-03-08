@@ -149,6 +149,11 @@
                                 <ul class="sub-menu">
                                     <li class="nav-item start">
                                         <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;AR Receive Payment</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item start">
+                                        <a href="#" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Direct Sales</span>
                                         </a>
                                     </li>
@@ -167,6 +172,11 @@
                                             <span class="title">&bull;&nbsp;&nbsp;Aging</span>
                                         </a>
                                     </li>
+                                    <li class="nav-item start">
+                                        <a href="<?= base_url('Invoice') ?>" target="_blank" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;Invoice</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-head nav-item">
@@ -176,6 +186,11 @@
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
+                                    <li class="nav-item start">
+                                        <a href="#" class="nav-link">
+                                            <span class="title">&bull;&nbsp;&nbsp;AP Payment</span>
+                                        </a>
+                                    </li>
                                     <li class="nav-item start">
                                         <a href="<?php echo base_url('purchase/direct_purchase') ?>" class="nav-link">
                                             <span class="title">&bull;&nbsp;&nbsp;Direct Purchase</span>
