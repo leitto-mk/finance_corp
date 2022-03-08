@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="form-group">
       <label for="coa_accno" class="control-label bold">Account No</label>
-      <input type="text" name="coa_accno" id="coa_accno" class="form-control" <?= isset($coa['Acc_No']) && isset($type) ? 'readonly' : null ?> value="<?= isset($coa['Acc_No']) ? $coa['Acc_No'] : null ?>">
+      <input type="text" name="coa_accno" id="coa_accno" class="form-control" <?= isset($coa['Acc_No']) && isset($type) ? '' : null ?> value="<?= isset($coa['Acc_No']) ? $coa['Acc_No'] : null ?>">
     </div>
   </div>
 </div>
@@ -41,6 +41,7 @@
       <label for="coa_group" class="control-label bold">Account Group</label>
       <select type="text" name="coa_group" id="coa_group"  class="form-control">
             <option value="<?= isset($coa['TransGroup']) ? $coa['TransGroup'] : null ?>"><?= isset($coa['TransGroup']) ? $coa['TransGroup'] : null ?></option>
+            <option id="coa_group" value="Null">Null</option>
             <option id="coa_group" value="CA">CA - Cash Advance</option>
             <option id="coa_group" value="CB">CB - Cash Bank</option>
             <option id="coa_group" value="H1">H1 - Header Level 1</option>
