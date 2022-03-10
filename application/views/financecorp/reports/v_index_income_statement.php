@@ -146,7 +146,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bold">
-                                        <!--Revenue-->
+                                        <!-- COA 40000 -->
                                         <?php 
                                             $cur_total_rev_month = 0;
                                             $cur_total_rev_year = 0;
@@ -264,8 +264,7 @@
                                             <td colspan="7" class="font-white">_</td>
                                         </tr>
 
-                                        <!--Operational Cost-->
-                                        <!--Revenue-->
+                                        <!-- COA 50000 -->
                                         <?php 
                                             $cur_total_opr_month = 0;
                                             $cur_total_opr_year = 0;
@@ -399,9 +398,7 @@
                                             <td colspan="7" class="font-white">_</td>
                                         </tr>
 
-
-                                        <!--Other Revenue-->
-                                        <!--Revenue-->
+                                        <!-- COA 60000 -->
                                         <?php 
                                             $cur_total_other_rev_month = 0;
                                             $cur_total_other_rev_year = 0;
@@ -515,9 +512,26 @@
                                             <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_other_rev_year, 2,',','.') ?></td>
                                         </tr> -->
 
+                                        <tr>
+                                            <td colspan="7" class="font-white">_</td>
+                                        </tr>
 
-                                        <!--Other Expense-->
-                                        <!--Revenue-->
+                                        <!--Operating Profit -->
+                                        <?php
+                                            $opr_profit_month = $gross_gain_month - $grand_total_other_rev_month;
+                                            $opr_profit_year = $gross_gain_year - $grand_total_other_rev_year;
+                                        ?>
+                                        <tr class="font-yellow-gold">
+                                            <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Operating Profit</td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_month,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_year,2,',','.') ?></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="7" class="font-white">_</td>
+                                        </tr>
+
+                                        <!-- COA 70000 -->
                                         <?php 
                                             $cur_total_other_expenses_month = 0;
                                             $cur_total_other_expenses_year = 0;
@@ -644,11 +658,9 @@
                                             <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_year, 2,',','.') ?></td>
                                         </tr>
 
-
                                         <tr>
                                             <td colspan="7" class="font-white">_</td>
                                         </tr>
-
 
                                         <!--Net Profit / Loss-->
                                         <!--Formula bisa dapat Net Profit / Loss = Total Gross Profit + (Total Other Revenue - Other Expense)-->

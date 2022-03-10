@@ -159,7 +159,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!--Revenue-->
+                                        <!-- COA 40000 -->
                                         <?php 
                                             $cur_total_rev_jan = 0;
                                             $cur_total_rev_feb = 0;
@@ -406,7 +406,7 @@
                                             <td colspan="7" class="font-white">_</td>
                                         </tr>
 
-                                        <!--Operational-->
+                                        <!--COA 50000 -->
                                         <?php 
                                             $cur_total_opr_jan = 0;
                                             $cur_total_opr_feb = 0;
@@ -691,7 +691,7 @@
                                         </tr>
 
 
-                                        <!--Other Revenue-->
+                                        <!--COA 60000 -->
                                         <?php 
                                             $cur_total_other_rev_jan = 0;
                                             $cur_total_other_rev_feb = 0;
@@ -933,8 +933,48 @@
                                             <td><h6 style="float: right"><?= number_format($grand_total_other_rev_year, 2, '.', ',') ?></h6></td>
                                         </tr>
 
+                                        <tr>
+                                            <td colspan="7" class="font-white">_</td>
+                                        </tr>
 
-                                        <!--Other Expense-->
+                                        <!--Operating Profit -->
+                                        <?php
+                                            $opr_profit_jan = $gross_gain_jan - $grand_total_other_rev_jan;
+                                            $opr_profit_feb = $gross_gain_feb - $grand_total_other_rev_feb;
+                                            $opr_profit_mar = $gross_gain_mar - $grand_total_other_rev_mar;
+                                            $opr_profit_apr = $gross_gain_apr - $grand_total_other_rev_apr;
+                                            $opr_profit_may = $gross_gain_may - $grand_total_other_rev_may;
+                                            $opr_profit_jun = $gross_gain_jun - $grand_total_other_rev_jun;
+                                            $opr_profit_jul = $gross_gain_jul - $grand_total_other_rev_jul;
+                                            $opr_profit_aug = $gross_gain_aug - $grand_total_other_rev_aug;
+                                            $opr_profit_sep = $gross_gain_sep - $grand_total_other_rev_sep;
+                                            $opr_profit_oct = $gross_gain_oct - $grand_total_other_rev_oct;
+                                            $opr_profit_nov = $gross_gain_nov - $grand_total_other_rev_nov;
+                                            $opr_profit_des = $gross_gain_des - $grand_total_other_rev_des;
+                                            $opr_profit_year = $gross_gain_year - $grand_total_other_rev_year;
+                                        ?>
+                                        <tr class="font-yellow-gold">
+                                            <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Operating Profit</td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_jan,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_feb,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_mar,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_apr,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_may,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_jun,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_jul,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_aug,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_sep,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_oct,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_nov,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_des,2,',','.') ?></td>
+                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_year,2,',','.') ?></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="7" class="font-white">_</td>
+                                        </tr>
+
+                                        <!--COA 70000 -->
                                         <?php 
                                             $cur_total_other_exp_jan = 0;
                                             $cur_total_other_exp_feb = 0;
