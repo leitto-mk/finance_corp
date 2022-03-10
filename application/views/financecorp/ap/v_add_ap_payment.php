@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="portlet light" style="margin-top: -25px">
-            <form method="post" class="form-horizontal" id="form_ar_receipt_payment" autocomplete="off">
+            <form method="post" class="form-horizontal" id="form_ap_payment" autocomplete="off">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="portlet light">
