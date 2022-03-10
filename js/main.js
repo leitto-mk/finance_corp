@@ -146,7 +146,7 @@ $(document).ready(function(){
                     arp.formPage.eventInputUnit()
                     arp.formPage.eventChangeBranch()
                     arp.formPage.eventChangeDepartment()
-                    arp.formPage.eventSubmitReceipt()
+                    arp.formPage.eventSubmitARReceiptPayment()
                 }
             })
             .catch(err => {

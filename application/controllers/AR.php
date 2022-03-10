@@ -186,7 +186,7 @@ class AR extends CI_Controller {
                 'number' => ['itemno', 'unit', 'rate', 'amount', 'totalamount']
             ],
             [ //Ignore
-                'paidto',
+                'customer',
                 'remark',
                 'remarks',
                 'giro'
@@ -271,7 +271,7 @@ class AR extends CI_Controller {
 
             array_push($details, [
                 'DocNo' => $_POST['docno'],
-                'IDNumber' => '',
+                'IDNumber' => $_POST['customer'],
                 // 'FullName' => $this->db->select('FullName')->get_where('tbl_fa_hr_append', ['IDNumber' => $_POST['emp'][$i]])->row()->FullName,
                 'AccNo' => $_POST['accnos'][$i],
                 'Department' => $_POST['departments'][$i],

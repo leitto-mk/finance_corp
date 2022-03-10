@@ -5,13 +5,13 @@
 import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
-const arp = {
+const apy = {
     indexPage: {
         initDT: () => {
             let url = {
-                target: 'ajax_get_ranged_ar_receipt_payment',
-                edit: 'edit_ar_receipt_payment',
-                report: 'view_reps_ar_receipt_payment'
+                target: 'ajax_get_ranged_ap_payment',
+                edit: 'edit_ap_payment',
+                report: 'view_reps_ap_payment'
             }
 
             repository.generateDataTable(url)
@@ -36,9 +36,9 @@ const arp = {
                 let date_end = $('#date_to').val()
 
                 let url = {
-                    target: 'ajax_get_ranged_ar_receipt_payment',
-                    edit: 'edit_ar_receipt_payment',
-                    report: 'view_reps_ar_receipt_payment'
+                    target: 'ajax_get_ranged_ap_payment',
+                    edit: 'edit_ap_payment',
+                    report: 'view_reps_ap_payment'
                 }
     
                 repository.generateDataTable(url, { docno, date_start, date_end })
@@ -70,7 +70,7 @@ const arp = {
                     return
                 }
     
-                repository.deleteRecord('ajax_delete_ar_receipt_payment', { docno, branch, transdate })
+                repository.deleteRecord('ajax_delete_ap_payment', { docno, branch, transdate })
                 .then(response => {
                     helper.unblockUI()
 
@@ -288,13 +288,13 @@ const arp = {
                     })
                 }
                 
-                let formData = $('#form_ar_receipt_payment').serializeArray()
+                let formData = $('#form_ap_payment').serializeArray()
     
                 var docno = $('[name="docno"]').val()
                 var branch = $('[name="branch"]').val()
                 var transdate = $('[name="transdate"]').val()
     
-                repository.submitRecord('ajax_submit_ar_receipt_payment', formData)
+                repository.submitRecord('ajax_submit_ap_payment', formData)
                 .then(response => {
                     helper.unblockUI()
 
@@ -308,10 +308,10 @@ const arp = {
                         $('input, textarea').prop('readonly', true)
                         $('select').prop('disabled', true)
 
-                        $('#new_transaction').prop('href', window.location.origin + '/AR/add_ar_receipt_payment')
+                        $('#new_transaction').prop('href', window.location.origin + '/AP/add_ap_payment')
                         $('#new_transaction').css('visibility', 'visible')
                         
-                        $('#print_transaction').prop('href', window.location.origin + '/AR/view_reps_ar_receipt_payment' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
+                        $('#print_transaction').prop('href', window.location.origin + '/AP/view_reps_ap_payment' + `?docno=${docno}&branch=${branch}&transdate=${transdate}`)
                         $('#print_transaction').css('visibility', 'visible')
                         
                         $('#btn_submit').css('visibility', 'hidden')
@@ -337,4 +337,4 @@ const arp = {
     }
 }
 
-export default arp
+export default apy

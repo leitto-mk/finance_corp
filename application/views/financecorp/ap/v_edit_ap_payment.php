@@ -9,7 +9,7 @@
                         <div class="hor-menu">
                             <ul class="nav navbar-nav">
                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase" style="margin-left: -30px">
-                                    <h4 style="color:#ffffff">Receipt Voucher</h4>
+                                    <h4 style="color:#ffffff">AP Payment</h4>
                                 </li>
                             </ul>
                         </div>
@@ -21,7 +21,7 @@
             <!-- END HEADER MENU -->
         </div>
         <div class="portlet light" style="margin-top: -25px">
-            <form method="post" class="form-horizontal" id="form_receipt_voucher" autocomplete="off">
+            <form method="post" class="form-horizontal" id="form_ar_receipt_payment" autocomplete="off">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="portlet light">
@@ -47,6 +47,21 @@
                                 <div class="col-lg-9 col-xs-12 col-sm-12" style="background-color: #E9EDEF; margin-top: -10px">
                                     <div class="portlet-body form-horizontal">
                                         <div class="form-body" style="margin-top: 10px">
+                                            <div class="form-group">
+                                            <label class="col-md-2 control-label"><b>Supplier</b></label>
+                                                <div class="col-md-3">
+                                                    <select name="supplier" id="supplier" class="form-control" required>
+                                                        <option value="">--Choose Supplier--</option>
+                                                        <?php for($i=0; $i < count($suppliers); $i++) : ?>
+                                                            <?php if($supplier == $suppliers[$i]['SupplierCode']) : ?>
+                                                                <option value="<?= $suppliers[$i]['SupplierCode'] ?>" selected><?= $suppliers[$i]['SupplierName'] ?></option>
+                                                            <?php else: ?>
+                                                                <option value="<?= $suppliers[$i]['SupplierCode'] ?>"><?= $suppliers[$i]['SupplierName'] ?></option>
+                                                            <?php endif; ?>
+                                                        <?php endfor; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label"><b>Document No.</b></label>
                                                 <div class="col-md-3">
@@ -116,17 +131,6 @@
                                                         <option value="Bank" <?= ($journalgroup == 'Bank' ? 'selected' : '')?>>Bank</option>
                                                         <option value="General Ledger" <?= ($journalgroup == 'General Ledger' ? 'selected' : '')?>>General Ledger</option>
                                                     </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                            <label class="col-md-2 control-label"><b>Paid To</b></label>
-                                                <div class="col-md-3">
-                                                    <div class="input-group">
-                                                        <input name="paidto" id="paidto" class="form-control" value="<?= $paidto ?>"/>
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-primary" type="button" id="add_id"><i class="fa fa-plus"></i> Add</button>
-                                                        </span>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">

@@ -5,7 +5,7 @@
             <div class="bg-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
                 <div class="row">
                     <div class="col-md-8">
-                        <h4 class="text-uppercase font-dark bold" style="margin-left: 10px">Payment Voucher</h4>
+                        <h4 class="text-uppercase font-dark bold" style="margin-left: 10px">AR Receipt Payment</h4>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                                 </button>
                             </span>
                             <span class="input-group-btn">
-                                <a href="<?= base_url('Entry/add_payment_voucher') ?>" target="_blank" class="btn btn-md btn blue-oleo">
+                                <a href="<?= base_url('AR/add_ar_receipt_payment') ?>" target="_blank" class="btn btn-md btn blue-oleo">
                                     <i class="fa fa-plus"></i>&nbsp;Add New</i>
                                 </a>
                             </span>
@@ -60,13 +60,15 @@
                                     <th class="text-center" width="10%"> Trans Date </th>
                                     <th class="text-center" width="10%"> Doc No </th>
                                     <th class="text-center" width="10%"> Trans Type </th>
-                                    <th class="text-center" width="17%"> Branch </th>
-                                    <th class="text-center" width="20%"> Description </th>
+                                    <th class="text-center" width="17%"> Branch  </th>
+                                    <th class="text-center" width="20%"> Description  </th>
                                     <th class="text-center" width="10%"> Amount </th>
                                     <th class="text-center" width="10%"> Action </th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                               
+                            </tbody>
                         </table>
                     </div>
                 </div>

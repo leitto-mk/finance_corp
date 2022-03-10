@@ -8,7 +8,6 @@
         tr:nth-child(odd){
             background-color: white;
         }*/
-
         .table th h5 {
             margin-top: -1px;
             margin-bottom: -1px;
@@ -28,7 +27,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: 0px">
                     <div>
                         <font size="4" class="uppercase"><?= $company ?></font><br>
-                        <font size="4" class="font-dark sbold uppercase">Payment Voucher</font><br>
+                        <font size="4" class="font-dark sbold uppercase">Receipt Voucher</font><br>
                         <font size="4" class="font-dark sbold"></font><br>
                     </div>
                 </div>
@@ -57,24 +56,24 @@
                                             <table class="table table-stripped table-condensed">
                                                 <tbody>
                                                     <tr>
-                                                        <td width="10%" style="border: none;"><h6 class="bold">Document No</h6></td>
-                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                        <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['DocNo'] ?></h6></td>
+                                                        <td width="10%" style="border: none"><h6 class="bold">Document No</h6></td>
+                                                        <td width="1%" style="border: none"><h6 class="bold">:</h6></td>
+                                                        <td width="40%" style="border: none"><h6 class="bold"><?= $report[0]['DocNo'] ?></h6></td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="10%" style="border: none;"><h6 class="bold">Account No</h6></td>
-                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                        <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['AccNo'] ?></h6></td>
+                                                        <td width="10%" style="border: none"><h6 class="bold">Account No</h6></td>
+                                                        <td width="1%" style="border: none"><h6 class="bold">:</h6></td>
+                                                        <td width="40%" style="border: none"><h6 class="bold"><?= $report[0]['AccNo'] ?></h6></td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="10%" style="border: none;"><h6 class="bold">Journal Group</h6></td>
-                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                        <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['JournalGroup'] ?></h6></td>
+                                                        <td width="10%" style="border: none"><h6 class="bold">Journal Group</h6></td>
+                                                        <td width="1%" style="border: none"><h6 class="bold">:</h6></td>
+                                                        <td width="40%" style="border: none"><h6 class="bold"><?= $report[0]['JournalGroup'] ?></h6></td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="10%" style="border: none;"><h6 class="bold">Description</h6></td>
-                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                        <td width="40%" style="border: none;"><h6 class="bold"><?= $report[0]['DescMaster'] ?></h6></td>
+                                                        <td width="10%" style="border: none"><h6 class="bold">Description</h6></td>
+                                                        <td width="1%" style="border: none"><h6 class="bold">:</h6></td>
+                                                        <td width="40%" style="border: none"><h6 class="bold"><?= $report[0]['DescMaster'] ?></h6></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -85,24 +84,24 @@
                                             <table class="table table-stripped table-condensed">
                                                 <tbody>
                                                     <tr>
-                                                        <td width="10%" style="border: none;"><h6 class="bold">Voucher Ref. No</h6></td>
-                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                        <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['RefNo'] ?></h6></td>
+                                                        <td width="10%" style="border: none"><h6 class="bold">Voucher Ref. No</h6></td>
+                                                        <td width="1%" style="border: none"><h6 class="bold">:</h6></td>
+                                                        <td width="20%" style="border: none"><h6 class="bold"><?= $report[0]['RefNo'] ?></h6></td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="10%" style="border: none;"><h6 class="bold">Transaction Date</h6></td>
-                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                        <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['TransDate'] ?></h6></td>
+                                                        <td width="10%" style="border: none"><h6 class="bold">Transaction Date</h6></td>
+                                                        <td width="1%" style="border: none"><h6 class="bold">:</h6></td>
+                                                        <td width="20%" style="border: none"><h6 class="bold"><?= $report[0]['TransDate'] ?></h6></td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="10%" style="border: none;"><h6 class="bold">Paid To</h6></td>
-                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                        <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['IDNumber'] ?></h6></td>
+                                                        <td width="10%" style="border: none"><h6 class="bold">Paid To</h6></td>
+                                                        <td width="1%" style="border: none"><h6 class="bold">:</h6></td>
+                                                        <td width="20%" style="border: none"><h6 class="bold"><?= $report[0]['IDNumber'] ?></h6></td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="10%" style="border: none;"><h6 class="bold">Cheque / Giro</h6></td>
-                                                        <td width="1%" style="border: none;"><h6 class="bold">:</h6></td>
-                                                        <td width="20%" style="border: none;"><h6 class="bold"><?= $report[0]['Giro'] ?></h6></td>
+                                                        <td width="10%" style="border: none"><h6 class="bold">Cheque / Giro</h6></td>
+                                                        <td width="1%" style="border: none"><h6 class="bold">:</h6></td>
+                                                        <td width="20%" style="border: none"><h6 class="bold"><?= $report[0]['Giro'] ?></h6></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -136,7 +135,7 @@
                                                             <tr>
                                                                 <td><h6 class="text-center"><?= $i ?></h6></td>
                                                                 <td><h6><?= substr($report[$i]['DescDetail'], 0,105) ?></h6></td>
-                                                                <!-- <td><h6 class="text-center bold"><?= $report[$i]['Department']?></h6></td>
+                                                               <!--  <td><h6 class="text-center bold"><?= $report[$i]['Department']?></h6></td>
                                                                 <td><h6 class="text-center bold"><?= $report[$i]['CostCenter']?></h6></td> -->
                                                                 <td><h6 class="text-center"><?= $report[$i]['AccNo']?></h6></td>
                                                                 <td><h6><?= $report[$i]['Acc_Name']?></h6></td>
@@ -152,7 +151,7 @@
                                                     <?php endfor; ?>
                                                     <tr>
                                                         <td colspan="7"><h6 class="text-right bold">Grand Total :</h6></td>
-                                                        <td><h6 style="float: right"><?= number_format($grand_total, 0,'',',') ?></h6></td>
+                                                        <td><h6 style="float: right;"><?= number_format($grand_total, 0,'',',') ?></h6></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

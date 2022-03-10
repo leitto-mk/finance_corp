@@ -9,7 +9,7 @@
                         <div class="hor-menu">
                             <ul class="nav navbar-nav">
                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase" style="margin-left: -30px">
-                                    <h4 style="color:#ffffff">Receipt Voucher</h4>
+                                    <h4 style="color:#ffffff">AP Payment</h4>
                                 </li>
                             </ul>
                         </div>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="portlet light" style="margin-top: -25px">
-            <form method="post" class="form-horizontal" id="form_receipt_voucher" autocomplete="off">
+            <form method="post" class="form-horizontal" id="form_ar_receipt_payment" autocomplete="off">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="portlet light">
@@ -46,6 +46,17 @@
                                 <div class="col-lg-9 col-xs-12 col-sm-12" style="background-color: #E9EDEF; margin-top: -10px">
                                     <div class="portlet-body form-horizontal">
                                         <div class="form-body" style="margin-top: 10px">
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label"><b>Supplier</b></label>
+                                                <div class="col-md-3">
+                                                    <select name="supplier" id="supplier" class="form-control" required>
+                                                        <option value="">--Choose Supplier--</option>
+                                                        <?php for($i=0; $i < count($supplier); $i++) : ?>
+                                                            <option value="<?= $supplier[$i]['SupplierCode'] ?>"><?= $supplier[$i]['SupplierName'] ?></option>
+                                                        <?php endfor; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label"><b>Document No.</b></label>
                                                 <div class="col-md-3">
@@ -107,17 +118,6 @@
                                                 &nbsp;&nbsp;&nbsp;<span class="help-inline" id="namestd"><b></b></span>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label"><b>Paid To</b></label>
-                                                <div class="col-md-3">
-                                                    <div class="input-group">
-                                                        <input name="paidto" id="paidto" class="form-control"/>
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-primary" type="button" id="add_id"><i class="fa fa-plus"></i> Add</button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label class="col-md-2 control-label"><b>Description</b></label>
                                                 <div class="col-md-10">
                                                     <textarea id="remark" name="remark" cols="30" rows="1" class="form-control" style="resize:none;" placeholder="Add remarks to your transaction..." value="-"></textarea>
@@ -153,7 +153,7 @@
                                             <div class="row static-info">
                                                 <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                 <div class="col-md-12 value" style="margin-top: 8px">
-                                                    <b><input id="giro" name="giro" style="text-align:left; background: #E9EDEF;   border:none;" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control"></b>
+                                                    <b><input id="giro" name="giro" style="text-align:left; background: #E9EDEF;  border:none;" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control"></b>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,6 +182,7 @@
                                                 <th class="text-center" width="32%"> Description Det. </th>
                                                 <th class="text-center" width="10%"> Department </th>
                                                 <th class="text-center" width="10%"> Cost Center </th>
+                                                <!-- <th class="text-center"> Paid To </th> -->
                                                 <th class="text-center" width="10%"> Account No. </th>
                                                 <th class="text-center" width="5%"> Cry </th>
                                                 <th class="text-center" width="10%"> Rate </th>
@@ -213,7 +214,7 @@
                                                     <select name="accnos[]" class="form-control" required>
                                                         <option value="">--Choose Account No--</option>
                                                         <?php for($i=0; $i < count($accno); $i++) : ?>
-                                                            <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?></option>
+                                                            <option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?> - [<?= $accno[$i]['Acc_Type'] ?>]</option>
                                                         <?php endfor; ?>
                                                     </select>
                                                 </td>
@@ -237,6 +238,6 @@
                 </div>
             </form>
         </div>
-    </div>   
+    </div>                      
 
 <?php $this->load->view('header_footer/footer'); ?>

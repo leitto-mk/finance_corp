@@ -21,7 +21,7 @@
             <!-- END HEADER MENU -->
         </div>
         <div class="portlet light" style="margin-top: -25px">
-            <form method="post" class="form-horizontal" id="form_receipt_voucher" autocomplete="off">
+            <form method="post" class="form-horizontal" id="form_ar_receipt_payment" autocomplete="off">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="portlet light">
@@ -48,7 +48,7 @@
                                     <div class="portlet-body form-horizontal">
                                         <div class="form-body" style="margin-top: 10px">
                                             <div class="form-group">
-                                            <label class="col-md-2 control-label"><b>Paid To</b></label>
+                                            <label class="col-md-2 control-label"><b>Customer</b></label>
                                                 <div class="col-md-3">
                                                     <select name="customer" id="customer" class="form-control" required>
                                                         <option value="">--Choose Customer--</option>
