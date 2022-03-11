@@ -107,8 +107,6 @@ class Reports extends CI_Controller
             'ledger' => $this->Mdl_corp_reports->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish)
         ];
 
-        $this->output->cache(7200);
-
         $this->load->view('financecorp/reports/v_reps_gl', $data);
     }
 
