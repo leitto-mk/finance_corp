@@ -1,56 +1,54 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+date_default_timezone_set('Asia/Makassar');
+
 class Invoice extends CI_Controller
 {
-  public function __construct()
-  {
-    parent::__construct();
-    $this->load->model([
-      'Mdl_corp_invoice' => 'invoice'
-    ]);
-  }
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model([
+			'Mdl_corp_invoice' => 'invoice'
+		]);
+	}
 
-  public function index()
-  {
-    $title = 'Invoice Module';
-    $script = '<script src="' . base_url('js/invoice/dashboard/dashboard.js') . '" type="module"></script>';
+	public function index()
+	{
+		$title = 'Invoice Module';
+		$script = '<script src="' . base_url('js/invoice/dashboard/dashboard.js') . '" type="module"></script>';
 
-    $data_view = [
-      'title' => 'Dashboard'
-    ];
-    $content = $this->load->view('financecorp/invoice/content/dashboard', $data_view, true);
+		$data_view = [
+			'title' => 'Dashboard'
+		];
+		$content = $this->load->view('financecorp/invoice/content/dashboard', $data_view, true);
 
-    $data = [
-      'title' => $title,
-      'content' => $content,
-      'script' => $script,
-    ];
-    $this->load->view('financecorp/invoice/layout/main', $data);
-  }
+		$data = [
+			'title' => $title,
+			'content' => $content,
+			'script' => $script,
+		];
+		$this->load->view('financecorp/invoice/layout/main', $data);
+	}
 
-  public function view_create_invoice()
-  {
-    $title = 'Create Invoice';
-    $script = '';
+	public function create_invoice()
+	{
+		$content_data = [
+			'title' => 'Create Invoice',
+		];
 
-    $data_view = [
-      'title' => 'Create New Invoice'
-    ];
-    $content = $this->load->view('financecorp/invoice/content/create_invoice', $data_view, true);
+		$content = $this->load->view('financecorp/invoice/content/new_invoice', $content_data, TRUE);
 
-    $data = [
-      'title' => $title,
-      'content' => $content,
-      'script' => $script,
-      'no_sidebar' => true
-    ];
-    $this->load->view('financecorp/invoice/layout/main', $data);
-  }
+		$data = [
+			'form' => $content
+		];
 
-  public function get_approval()
-  {
-    $data = $this->invoice->M_get_invoice_approval();
+		$this->load->view('financecorp/invoice/layout/header_footer_form', $data);
+	}
 
-    echo json_encode($data);
-  }
+	public function get_approval()
+	{
+		$data = $this->invoice->M_get_invoice_approval();
+
+		echo json_encode($data);
+	}
 }
