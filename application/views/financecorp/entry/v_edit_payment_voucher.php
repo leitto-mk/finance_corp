@@ -62,7 +62,7 @@
                                                     <select name="accno" id="accno" class="form-control" required>
                                                         <option value="">--Choose Account No--</option>
                                                         <?php for($i=0; $i < count($accnos); $i++) : ?>
-                                                            <?php if($accnos[$i]['TransGroup'] == 'CB') : ?>
+                                                            <?php if($accnos[$i]['TransGroup'] == 'CB' || $accnos[$i]['TransGroup'] == 'CA') : ?>
                                                                 <?php
                                                                     $accn = $accnos[$i]['Acc_No'];
                                                                     $acctype = $accnos[$i]['Acc_Type']; 
