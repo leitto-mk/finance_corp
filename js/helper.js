@@ -2,6 +2,8 @@ const helper = {
     /**
      * get currency and its current price
      * 
+     * @type    {void}
+     * 
      * @return  {object}
      */
     selectCurrency: () => {
@@ -15,6 +17,8 @@ const helper = {
     /**
      * Get First Day of current Month
      * 
+     * @type    {void}
+     * 
      * @return  {string}    string
      */
     firstDayOfMonth: () => {
@@ -24,6 +28,8 @@ const helper = {
 
     /**
      * Get Last Day of current Month
+     *
+     * @type    {void}
      * 
      * @return  {string}    string
      */
@@ -49,7 +55,9 @@ const helper = {
     /**
      * Turn On Page Loader
      * 
-     * @param   {object}  {animate, iconOnly, boxed, target, message,...}. You can see the the rest inside
+     * @type    {object}  {animate, iconOnly, boxed, target, message,...}. You can see the the rest inside
+     * 
+     * @return  {void}
      */
     blockUI: options => {
         options = $.extend(true, {}, options);
@@ -106,7 +114,9 @@ const helper = {
      /**
      * Turn Off Page Loader
      * 
-     * @param   {object} options
+     * @type    {object} options
+     * 
+     * @return  {void}
      */
     unblockUI: target => {
         if (target) {
@@ -123,6 +133,9 @@ const helper = {
 
      /**
      * Disable Enter Key for all inputs 
+     * @type    {void}
+     * 
+     * @return  {void}
      */
     disableEnterKey: () => {
         $(document).on('keyup keypress', function(e){
@@ -139,9 +152,9 @@ const helper = {
     /**
      * Resize Page. if detected resolution is 1920 and above, it will be ignored
      * 
-     * @param {float} Size in decimal point
+     * @type    {float} Size in decimal point
      * 
-     * @return {void}
+     * @return  {void}
      */
     resizePage: size => {
         let resolution = +window.screen.availWidth
