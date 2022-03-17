@@ -153,6 +153,24 @@ $(document).ready(function(){
                 console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
+
+        invoice: () => {
+            import('./usecase/invoice.js')
+            .then(({default: inv}) => {
+                let path = window.location.pathname
+                let segment = path.split('/')[2]
+                let page = segment.split('_')[0]
+
+                if(page == ""){
+                    inv.dashboardPage.generateDataTable()
+                }else if(page == "create_invoice"){
+                    inv.formPage
+                }
+            })
+            .catch(err => {
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
+            })
+        },
     
         //* CASH ADVANCE
         cashWithdraw: () => {

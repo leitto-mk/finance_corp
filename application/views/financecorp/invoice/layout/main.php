@@ -185,7 +185,6 @@
   <script src="<?= base_url('assets/') ?>global/scripts/app.min.js" type="text/javascript"></script>
   <!-- END THEME GLOBAL SCRIPTS -->
   <!-- BEGIN THEME LAYOUT SCRIPTS -->
-
   <script src="<?= base_url('assets/') ?>layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>
   <script src="<?= base_url('assets/') ?>layouts/layout2/scripts/demo.min.js" type="text/javascript"></script>
   <script src="<?= base_url('assets/') ?>layoutsglobal/scripts/quick-sidebar.min.js" type="text/javascript"></script>
@@ -194,7 +193,6 @@
   <!-- Datatable -->
   <script src="<?= base_url('assets/'); ?>global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
   <script src="<?= base_url('assets/'); ?>global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
-  <!-- Datatable -->
 
   <script src="<?= base_url('assets/') ?>global/plugins/moment.min.js" type="text/javascript"></script>
 
@@ -205,47 +203,17 @@
   <script src="<?= base_url('assets/') ?>global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
   <script src="<?= base_url('assets/') ?>global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
   <script src="<?= base_url('assets/') ?>global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
-  <!-- Picker -->
-
   <!-- Select 2 -->
   <script src="<?= base_url('assets/') ?>global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
-  <!-- Select 2 -->
-
   <!-- Sweet Alert -->
   <script src="<?= base_url('assets/') ?>global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
-  <!-- Sweet Alert -->
-
   <!-- Ladda -->
   <script src="<?= base_url('assets/') ?>global/plugins/ladda/spin.min.js" type="text/javascript"></script>
   <script src="<?= base_url('assets/') ?>global/plugins/ladda/ladda.min.js" type="text/javascript"></script>
-
   <!-- END THEME LAYOUT SCRIPTS -->
-  <script type="text/javascript">
-    const site_url = "<?= site_url() ?>";
-    $(document).ready(function() {
-      $(document).on('click', '.btn-logout', function() {
-        $.ajax({
-          url: "<?php echo site_url('Login/logout'); ?>",
-          type: "POST",
-          dataType: "json",
-          success: function(res) {
-            if (res.rstatus == "success") {
-              var url = "<?php echo site_url('Login'); ?>";
-              location.replace(url);
-            } else if (res.rstatus == "failed") {
-              alert("Logout Error");
-            }
-          },
-          error: function() {
-            alert("Logout Error");
-          }
-        });
-      });
-    });
-  </script>
-  <!-- PAGE SCRIPT -->
-  <?= $script ?? null ?>
-  <!-- PAGE SCRIPT END -->
+  <?php if(isset($script) && $script !== '') : ?>
+    <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
+  <?php endif; ?>  
 </body>
 
 </html>
