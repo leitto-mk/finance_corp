@@ -1,4 +1,4 @@
-<?php $this->load->view('header_footer/header_sub_modul_sf_no_trees'); ?>
+<?php $this->load->view('financecorp/header_footer/header_sub_modul_sf_no_trees'); ?>
 <div class="portlet light" id="printDiv">
     <style type="text/css">
         /*tr:nth-child(even){
@@ -1313,4 +1313,4 @@
         document.body.innerHTML = originalContents;
     }
 </script>
-<?php $this->load->view('header_footer/footer_sub_modul_sf'); ?>
+<?php $this->load->view('financecorp/header_footer/footer_sub_modul_sf'); ?>

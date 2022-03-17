@@ -1,4 +1,4 @@
-<?php $this->load->view('financecorp/invoice/layout/header_aging'); ?>
+<?php $this->load->view('financecorp/ar/invoice/layout/header_aging'); ?>
 <style type="text/css">
     tr:nth-child(even){
         background-color: #eef1f5;
@@ -618,4 +618,4 @@
         document.body.innerHTML = originalContents;
     }
 </script>
-<?php $this->load->view('financecorp/invoice/layout/footer_aging'); ?>
+<?php $this->load->view('financecorp/ar/invoice/layout/footer_aging'); ?>

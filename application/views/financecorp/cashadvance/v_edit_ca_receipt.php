@@ -1,4 +1,4 @@
-<?php $this->load->view('header_footer/header'); ?>
+<?php $this->load->view('financecorp/header_footer/header'); ?>
 <body class="page-container-bg-solid">
     <div class="page-wrapper bg-white">
         <div class="page-wrapper-row">
@@ -271,4 +271,4 @@
         </div>
     </div>                            
 
-<?php $this->load->view('header_footer/footer'); ?>
+<?php $this->load->view('financecorp/header_footer/footer'); ?>

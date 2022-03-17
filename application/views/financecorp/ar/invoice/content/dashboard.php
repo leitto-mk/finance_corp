@@ -113,7 +113,7 @@
         <button class="btn font-white pull-right" style="background-color: #F2784B">Create Invoice</button>
       </div>
       <div class="portlet-body">
-        <?php $this->load->view('financecorp/invoice/component/table_invoice_approval'); ?>
+        <?php $this->load->view('financecorp/ar/invoice/component/table_invoice_approval'); ?>
       </div>
     </div>
   </div>
