@@ -1258,21 +1258,21 @@
 
 
                                         <!--Net Profit / Loss-->
-                                        <!--Formula bisa dapat Net Profit / Loss = Total Gross Profit + (Total Other Revenue - Other Expense)-->
+                                        <!--Formula bisa dapat Net Profit / Loss = Total Gross Profit - (Total Other Revenue - Other Expense)-->
                                         <?php
-                                            $net_gain_jan = $gross_gain_jan + $other_gain_jan;
-                                            $net_gain_feb = $gross_gain_feb + $other_gain_feb;
-                                            $net_gain_mar = $gross_gain_mar + $other_gain_mar;
-                                            $net_gain_apr = $gross_gain_apr + $other_gain_apr;
-                                            $net_gain_may = $gross_gain_may + $other_gain_may;
-                                            $net_gain_jun = $gross_gain_jun + $other_gain_jun;
-                                            $net_gain_jul = $gross_gain_jul + $other_gain_jul;
-                                            $net_gain_aug = $gross_gain_aug + $other_gain_aug;
-                                            $net_gain_sep = $gross_gain_sep + $other_gain_sep;
-                                            $net_gain_oct = $gross_gain_oct + $other_gain_oct;
-                                            $net_gain_nov = $gross_gain_nov + $other_gain_nov;
-                                            $net_gain_des = $gross_gain_des + $other_gain_des;
-                                            $net_gain_year = $gross_gain_year + $other_gain_year;
+                                            $net_gain_jan = $gross_gain_jan - $other_gain_jan;
+                                            $net_gain_feb = $gross_gain_feb - $other_gain_feb;
+                                            $net_gain_mar = $gross_gain_mar - $other_gain_mar;
+                                            $net_gain_apr = $gross_gain_apr - $other_gain_apr;
+                                            $net_gain_may = $gross_gain_may - $other_gain_may;
+                                            $net_gain_jun = $gross_gain_jun - $other_gain_jun;
+                                            $net_gain_jul = $gross_gain_jul - $other_gain_jul;
+                                            $net_gain_aug = $gross_gain_aug - $other_gain_aug;
+                                            $net_gain_sep = $gross_gain_sep - $other_gain_sep;
+                                            $net_gain_oct = $gross_gain_oct - $other_gain_oct;
+                                            $net_gain_nov = $gross_gain_nov - $other_gain_nov;
+                                            $net_gain_des = $gross_gain_des - $other_gain_des;
+                                            $net_gain_year = $gross_gain_year - $other_gain_year;
                                         ?>
                                         <tr class="font-yellow-gold">
                                             <td colspan="5" class="bold">&nbsp;&nbsp;&nbsp;&nbsp;Net Profit / Loss</td>
