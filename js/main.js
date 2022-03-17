@@ -187,7 +187,6 @@ $(document).ready(function(){
                 }else if(page == 'add' || page == 'edit'){ /* Form Page */
                     caw.formPage.eventFocusNextInput()
                     caw.formPage.eventSelectEmployee()
-                    caw.formPage.eventCreateRow()
                     caw.formPage.eventDeleteRow()
                     caw.formPage.eventInputUnit()
                     caw.formPage.eventChangeBranch()
@@ -214,7 +213,6 @@ $(document).ready(function(){
                 }else if(page == 'add' || page == 'edit'){ /* Form Page */
                     car.formPage.eventFocusNextInput()
                     car.formPage.eventSelectEmployee()
-                    car.formPage.eventCreateRow()
                     car.formPage.eventDeleteRow()
                     car.formPage.eventInputUnit()
                     car.formPage.eventChangeBranch()
