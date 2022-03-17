@@ -51,4 +51,32 @@ class Invoice extends CI_Controller
 
 		echo json_encode($data);
 	}
+
+	public function view_invoice_list(){
+
+		$title = 'Invoice Module';
+		$data_view = [
+			'title' => 'List Invoice'
+		];
+		$content = $this->load->view('financecorp/invoice/content/v_invoice_list', $data_view, true);
+
+		$data = [
+			'title' => $title,
+			'content' => $content,
+			
+		];
+		$this->load->view('financecorp/invoice/layout/main', $data);
+	}
+
+	public function view_invoice_aging(){
+        $data = [
+            'title' => 'Invoice Aging',
+            'h1' => 'Invoice',
+            'h2' => 'Aging',
+            'h3' => '',
+            'h4' => ''
+        ];
+        
+        $this->load->view('financecorp/invoice/content/v_invoice_aging', $data);
+    }
 }
