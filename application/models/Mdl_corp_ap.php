@@ -37,6 +37,7 @@ class Mdl_corp_ar extends CI_Model
 
     function get_new_treasury_docno($type){ 
         $current = $this->db
+                    ->limit(1)
                     ->order_by('DocNo', 'DESC')
                     ->select('SUBSTRING(DocNo, 6,5)+0 AS DocNo')
                     ->get_where('tbl_fa_treasury_mas', "DocNo LIKE '%$type'");
