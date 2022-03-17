@@ -151,9 +151,8 @@
                                                 <br>
                                             </div>
                                             <div class="row static-info">
-                                                <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
-                                                <div class="col-md-12 value" style="margin-top: 8px">
-                                                    <b><input id="giro" name="giro" style="text-align:left; background: #E9EDEF;   border:none;" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control"></b>
+                                                <div class="col-md-12">
+                                                    <input id="giro" name="giro" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control sbold">
                                                 </div>
                                             </div>
                                         </div>

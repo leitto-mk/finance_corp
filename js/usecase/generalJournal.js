@@ -115,8 +115,13 @@ const gj = {
                     var index = focusable.index(document.activeElement)
                     
                     var cur_input = focusable.eq(index)
+                    focusable.eq(index).parent().removeClass('has-warning')
+
+                    if(index >= focusable.length){
+                        index = 0
+                    }
     
-                    if(cur_input.attr('name') == 'credit[]'){
+                    if(cur_input.attr('name') == 'credit[]' && index !== -1){
                         let remarks = cur_input.parents('tr').find('input[name="remarks[]"]').val()
                         let departments = cur_input.parents('tr').find('select[name="departments[]"] option:selected').val()
                         let costcenters = cur_input.parents('tr').find('select[name="costcenters[]"] option:selected').val()
@@ -147,55 +152,14 @@ const gj = {
                         }
     
                         //Set Focus on the next Description field
-                        $('#tbody_detail > tr > td > input[name="remarks[]"]').focus()
-                    }else if(index >= focusable.length){
-                        index = 0
+                        $('#tbody_detail > tr > td > input[name="remarks[]"]').last().focus()
+                        $('#tbody_detail > tr > td > input[name="remarks[]"]').last().parent().addClass('has-warning')
                     }
     
                     focusable.eq(index+1).focus()
+                    focusable.eq(index+1).parent().addClass('has-warning')
                 }
             });
-        },
-    
-        eventCreateRow: () => {
-            $(document).on('keydown','[name="credit[]"]', function(e){
-                if(e.keyCode == 9){
-                    let remarks = $(this).parents('tr').find('input[name="remarks[]"]').val()
-                    let departments = $(this).parents('tr') .find('select[name="departments[]"] option:selected').val()
-                    let costcenters = $(this).parents('tr') .find('select[name="costcenters[]"] option:selected').val()
-                    // let emp  = $(this).parents('tr') .find('select[name="emp[]"]').val()
-                    let accnos = $(this).parents('tr') .find('select[name="accnos[]"]').val()
-                    let debit = $(this).parents('tr') .find('input[name="debit[]"]').val()
-                    let credit = $(this).parents('tr') .find('input[name="credit[]"]').val()
-    
-                    if(!remarks || !departments || !costcenters || !accnos || !debit || !credit){
-                        alert('PLEASE FILL ALL THE INPUT')
-                        return
-                    }
-    
-                    if(debit == 0 && credit == 0){
-                        alert('PLEASE INPUT AMOUNT FOR DEBIT OR CREDIT')
-                        return
-                    }
-    
-                    let row = $('#tbody_detail').children('tr').last()
-                    $('tbody').find('tr[data-empty-row="true"]').remove()
-        
-                    let clone = row.clone()
-                    
-                    $(clone).find('[name="itemno[]"]').val(function(i, oldval){
-                        return ++oldval
-                    })
-        
-                    $(clone).find('[name="remarks[]"]').val('')
-                    $(clone).find('[name="departments[]"]').val('')
-                    $(clone).find('[name="costcenters[]"]').val('')
-                    $(clone).find('[name="debit[]"]').val(0)
-                    $(clone).find('[name="credit[]"]').val(0)
-        
-                    $('#tbody_detail').append(clone)
-                }
-            })
         },
     
         eventDeleteRow: () => {

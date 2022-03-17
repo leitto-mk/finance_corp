@@ -19,7 +19,6 @@ $(document).ready(function(){
                     rec.indexPage.eventDeleteRecord()
                 }else if(page == 'add' || page == 'edit'){ /* Form Page */
                     rec.formPage.eventFocusNextInput()
-                    rec.formPage.eventCreateRow()
                     rec.formPage.eventDeleteRow()
                     rec.formPage.eventInputUnit()
                     rec.formPage.eventChangeBranch()
@@ -45,7 +44,6 @@ $(document).ready(function(){
                     pay.indexPage.eventDeleteRecord()
                 }else if(page == 'add' || page == 'edit'){ /* Form Page */
                     pay.formPage.eventFocusNextInput()
-                    pay.formPage.eventCreateRow()
                     pay.formPage.eventDeleteRow()
                     pay.formPage.eventInputUnit()
                     pay.formPage.eventChangeBranch()
@@ -71,7 +69,6 @@ $(document).ready(function(){
                     ob.indexPage.eventDeleteRecord()
                 }else if(page == 'add' || page == 'edit'){ /* Form Page */
                     ob.formPage.eventFocusNextInput()
-                    ob.formPage.eventCreateRow()
                     ob.formPage.eventDeleteRow()
                     ob.formPage.eventInputUnit()
                     ob.formPage.eventChangeBranch()
@@ -97,7 +94,6 @@ $(document).ready(function(){
                     gj.indexPage.eventDeleteRecord()
                 }else if(page == 'add' || page == 'edit'){ /* Form Page */
                     gj.formPage.eventFocusNextInput()
-                    gj.formPage.eventCreateRow()
                     gj.formPage.eventDeleteRow()
                     gj.formPage.eventInputAmount()
                     gj.formPage.eventChangeBranch()
@@ -141,7 +137,6 @@ $(document).ready(function(){
                     arp.indexPage.eventDeleteRecord()
                 }else if(page == 'add' || page == 'edit'){ /* Form Page */
                     arp.formPage.eventFocusNextInput()
-                    arp.formPage.eventCreateRow()
                     arp.formPage.eventDeleteRow()
                     arp.formPage.eventInputUnit()
                     arp.formPage.eventChangeBranch()
@@ -165,6 +160,31 @@ $(document).ready(function(){
                     inv.dashboardPage.generateDataTable()
                 }else if(page == "create_invoice"){
                     inv.formPage
+                }
+            })
+            .catch(err => {
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
+            })
+        },
+
+        //* AP
+        apPayment: () => {
+            import('./usecase/apPayment.js')
+            .then(({default: apy}) => {
+                let path = window.location.pathname
+                let segment = path.split('/')[2]
+                let page = segment.split('_')[0]
+
+                if(page == 'view'){ /* List Page */
+                    apy.indexPage.initDT()
+                    apy.indexPage.eventShowList()
+                    apy.indexPage.eventDeleteRecord()
+                }else if(page == 'add' || page == 'edit'){ /* Form Page */
+                    apy.formPage.eventFocusNextInput()
+                    apy.formPage.eventInputUnit()
+                    apy.formPage.eventChangeBranch()
+                    apy.formPage.eventChangeDepartment()
+                    apy.formPage.eventSubmitARReceiptPayment()
                 }
             })
             .catch(err => {
