@@ -16,15 +16,15 @@
           <span></span>
         </label>
       </th>
-      <th class="text-center" width="15%">Invoice No</th>
+      <th class="text-center" width="10%">Invoice No</th>
       <th class="text-center" width="25%">Customer</th>
-      <th class="text-center" width="10%">Invoice Date</th>
-      <th class="text-center" width="10%">Payment Due</th>
-      <th class="text-center" width="10%">Invoice Amount</th>
-      <th class="text-center" width="10%">Paid</th>
-      <th class="text-center" width="10%">Balance</th>
-      <th class="text-center" width="10%">Action</th>
-      <th class="text-center" width="25%">Customer Group</th>
+      <th class="text-center" width="7%">Invoice Date</th>
+      <th class="text-center" width="7%">Payment Due</th>
+      <th class="text-center" width="12%">Invoice Amount</th>
+      <th class="text-center" width="12%">Paid</th>
+      <th class="text-center" width="12%">Balance</th>
+      <th class="text-center" width="15%">Action</th>
+      <!-- <th class="text-center" width="25%">Customer Group</th> -->
     </tr>
   </thead>
   <tbody>
