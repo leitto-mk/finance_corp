@@ -36,13 +36,20 @@ class Mdl_corp_entry extends CI_Model
     }
 
     function get_new_treasury_docno($type){ 
-        $current = $this->db->select('DocNo')
-                          ->get_where('tbl_fa_treasury_mas', "DocNo LIKE '%$type'")
-                          ->num_rows();
+        $current = $this->db
+                    ->order_by('DocNo', 'ASC')
+                    ->select('SUBSTRING(DocNo, 6,5)+0 AS DocNo')
+                    ->get_where('tbl_fa_treasury_mas', "DocNo LIKE '%$type'");
 
-        $sequence = str_pad($current+1, 5, 0, STR_PAD_LEFT);
+        if($current->num_rows() == 0 ){
+            $sequence = str_pad(1, 5, 0, STR_PAD_LEFT);
+        }elseif($current->num_rows() > 0){
+            $current = $current->row()->DocNo;
+            $sequence = str_pad($current+1, 5, 0, STR_PAD_LEFT);
+        }
+
         $docno = date('ym') . '-' . $sequence . $type; 
-
+        
         return $docno;
     }
 
