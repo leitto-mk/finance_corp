@@ -111,12 +111,17 @@ const arp = {
                     e.preventDefault()
     
                     // Get all focusable elements
-                    var focusable = $(':focusable').not("a, button, #label_tot_amount, #totalamount, [name='itemno[]'], [name='amount[]']")
+                    var focusable = $(':focusable').not("a, button, #label_tot_amount, #totalamount, [name='itemno[]'], [name='amount[]'], [readonly]")
                     var index = focusable.index(document.activeElement)
                     
                     var cur_input = focusable.eq(index)
+                    focusable.eq(index).parent().removeClass('has-warning')
+
+                    if(index >= focusable.length){
+                        index = 0
+                    }
     
-                    if(cur_input.attr('name') == 'unit[]'){
+                    if(cur_input.attr('name') == 'unit[]' && index !== -1){
                         let remarks = cur_input.parents('tr').find('input[name="remarks[]"]').val()
                         let departments = cur_input.parents('tr').find('select[name="departments[]"] option:selected').val()
                         let costcenters = cur_input.parents('tr').find('select[name="costcenters[]"] option:selected').val()
@@ -145,54 +150,16 @@ const arp = {
     
                             $('#tbody_detail').append(row)
                         }
-    
+
                         //Set Focus on the next Description field
-                        $('#tbody_detail > tr > td > input[name="remarks[]"]').focus()
-                    }else if(index >= focusable.length){
-                        index = 0
+                        $('#tbody_detail > tr > td > input[name="remarks[]"]').last().focus()
+                        $('#tbody_detail > tr > td > input[name="remarks[]"]').last().parent().addClass('has-warning')
                     }
-    
+
                     focusable.eq(index+1).focus()
+                    focusable.eq(index+1).parent().addClass('has-warning')
                 }
             });
-        },
-    
-        eventCreateRow: () => {
-            $(document).on('keydown','[name="unit[]"]', function(e){
-                if(e.keyCode == 9){
-                    let remarks = $(this).parents('tr').find('input[name="remarks[]"]').val()
-                    let departments = $(this).parents('tr').find('select[name="departments[]"] option:selected').val()
-                    let costcenters = $(this).parents('tr').find('select[name="costcenters[]"] option:selected').val()
-                    // let emp  = $(this).parents('tr').find('select[name="emp[]"]').val()
-                    let accnos = $(this).parents('tr').find('select[name="accnos[]"]').val()
-                    let currency = $(this).parents('tr').find('select[name="currency[]"]').val()
-                    let rate = $(this).parents('tr').find('input[name="rate[]"]').val()
-                    let unit = $(this).parents('tr').find('input[name="unit[]"]').val()
-    
-                    if(!remarks || !departments || !costcenters || !accnos || !currency || !rate || !unit){
-                        alert('PLEASE FILL ALL THE INPUT')
-                        
-                        return
-                    }
-    
-                    let row = $('#tbody_detail').children('tr').last()
-                    $('tbody').find('tr[data-empty-row="true"]').remove()
-        
-                    let clone = row.clone()
-                    
-                    $(clone).find('[name="itemno[]"]').val(function(i, oldval){
-                        return ++oldval
-                    })
-        
-                    $(clone).find('[name="remarks[]"]').val('')
-                    $(clone).find('[name="departments[]"]').val('')
-                    $(clone).find('[name="costcenters[]"]').val('')
-                    $(clone).find('[name="unit[]"]').val(0)
-                    $(clone).find('[name="amount[]"]').val(0)
-        
-                    $('tbody').append(clone)
-                }
-            })
         },
     
         eventDeleteRow: () => {
