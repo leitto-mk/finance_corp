@@ -48,8 +48,6 @@ class Mdl_corp_reports extends CI_Model {
          $finish = $datestart;
       }
 
-      $this->db->cache_on();
-
       //GET RESULT IN SELECTED DATE RANGE
       $ondate_selected_result = $this->db->query(
          "SELECT 
@@ -141,7 +139,7 @@ class Mdl_corp_reports extends CI_Model {
          AND trans.TransDate BETWEEN ? AND ?
          AND trans.AccNo BETWEEN ? AND ?
          AND trans.PostedStatus = 1
-         ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
+         ORDER BY trans.TransDate DESC, trans.CtrlNo DESC, trans.DocNo ASC"
       ,[
          $start, $start, $start, $start, $start, $start, $start, $start, $start, $finish, $accno_start, $accno_finish
       ])->result_array();
@@ -224,7 +222,7 @@ class Mdl_corp_reports extends CI_Model {
             WHERE AccNo = trans.AccNo
             AND TransDate < ?
          )
-         ORDER BY trans.TransDate DESC, trans.CtrlNo DESC"
+         ORDER BY trans.TransDate DESC, trans.CtrlNo DESC, trans.DocNo ASC"
       ,[
          $start, $start, $start, $start, $start, $start, $start, $finish, $accno_start, $accno_finish, $start
       ])->result_array();
