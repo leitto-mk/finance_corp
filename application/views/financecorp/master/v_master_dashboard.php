@@ -782,50 +782,7 @@
                                                                 <td class="bold font-dark" width="20%" align="center">Type</td>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
-                                                            <!-- <?
-                                                                $acc = '1100000';
-                                                                $h1 = '';
-                                                                $h2 = '';
-                                                                $h3 = '';
-                                                            ?>
-                                                            <?php foreach ($head1 as $header1) { ?>
-                                                                if($acc_no == $header1->acc_name){
-                                                                    if()
-                                                                }else{
-                                                                    $acc = $header1->Acc_name
-                                                                }
-                                                                <tr>
-                                                                    <td colspan="4"><i class="fa fa-arrow-circle-down"></i> <?php echo $header1->Acc_No ?></td>
-                                                                    <td style="background-color: #d3d3d3"><?php echo $header1->Acc_Name ?></td>
-                                                                    <td style="background-color: #d3d3d3"><?php echo $header1->Acc_Group ?></td>
-                                                                </tr>
-                                                                <?php foreach ($head2 as $header2) { ?>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td colspan="3"><i class="fa fa-arrow-circle-down"></i> <?php echo $header2->Acc_No ?></td>
-                                                                        <td>AKTIVA LANCAR</td>
-                                                                        <td>H</td>
-                                                                    </tr>
-                                                                <?php } ?>
-                                                            <?php } ?>  -->    
-
-                                                           <!--  <?php foreach ($h1 as $header1) { ?>
-                                                                <tr>
-                                                                    <td colspan="4"><i class="fa fa-arrow-circle-down"></i> <?php echo $header1->Acc_No ?></td>
-                                                                    <td style="background-color: #d3d3d3"><?php echo $header1->Acc_Name ?></td>
-                                                                    <td style="background-color: #d3d3d3"><?php echo $header1->Acc_Group ?></td>
-                                                                </tr>
-                                                                <?php foreach ($h2 as $header2) { ?>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td colspan="3"><i class="fa fa-arrow-circle-down"></i> <?php echo $header2->Acc_No ?></td>
-                                                                        <td>AKTIVA LANCAR</td>
-                                                                        <td>H</td>
-                                                                    </tr>
-                                                                <?php } ?>
-                                                            <?php } ?>  -->
-                                                        </tbody>
+                                                        <tbody></tbody>
                                                     </table>
                                                 </div>
                                                 
