@@ -244,7 +244,7 @@ class Mdl_corp_reports extends CI_Model {
             $col_accno, SORT_ASC,
             $col_transdate, SORT_ASC,
             $col_docno, SORT_ASC,
-            $col_CtrlNo, SORT_ASC,
+            $col_ctrlno, SORT_ASC,
             $result
          );
       }
