@@ -277,14 +277,14 @@ class Mdl_corp_reports extends CI_Model {
                acc.Acc_Type,
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
                CASE
-                  WHEN trans.BalanceBranch IS NOT NULL THEN
+                  WHEN trans.BalanceBranch IS NOT NULL OR trans.BalanceBranch != '' THEN
                      trans.BalanceBranch
-                  WHEN trans.Balance IS NOT NULL AND acc.Acc_Type = 'A1'
+                  WHEN (trans.BalanceBranch IS NOT NULL OR trans.BalanceBranch != '') 
+                  AND acc.Acc_Type = 'A1' THEN
                      (trans.BalanceBranch * -1)
                   ELSE
                      0
                END AS Amount
-               IF(trans.BalanceBranch IS NOT NULL, trans.BalanceBranch, 0) AS Amount
             FROM tbl_fa_account_no AS acc
             LEFT JOIN (
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
