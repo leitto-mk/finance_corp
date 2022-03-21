@@ -36,12 +36,6 @@ class Reports extends CI_Controller
     //* GENERAL LEDGER
     public function view_gl_branch()
     {
-        $branch = 'All';
-        $accno_start = $this->db->select('Acc_No')->order_by('Acc_No', 'ASC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
-        $accno_finish = $this->db->select('Acc_No')->order_by('Acc_No', 'DESC')->limit(1)->get('tbl_fa_account_no')->row()->Acc_No;
-        $datestart = date('Y-01-01');
-        $datefinish = date('Y-m-d');
-
         $data = [
             //HEADER
             'title' => 'General Ledger',
@@ -52,7 +46,6 @@ class Reports extends CI_Controller
             //LEDGER TABLE
             'branch' => $this->Mdl_corp_reports->get_branch(),
             'account_no' => $this->Mdl_corp_reports->get_account_no(),
-            'ledger' => $this->Mdl_corp_reports->get_general_ledger($branch, $accno_start, $accno_finish, $datestart, $datefinish),
 
             //SCRIPT
             'script' => 'generalLedger'
