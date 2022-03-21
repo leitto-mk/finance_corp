@@ -299,7 +299,7 @@ class Mdl_corp_reports extends CI_Model {
                AND $branch
             ) AS trans
                ON acc.Acc_No = trans.AccNo
-            WHERE acc.Acc_Type = 'A'
+            WHERE acc.Acc_Type IN ('A', 'A1')
             GROUP BY acc.Acc_No
             ORDER BY acc.Acc_No ASC"
       )->result_array();
