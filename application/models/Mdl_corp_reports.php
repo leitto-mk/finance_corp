@@ -277,10 +277,9 @@ class Mdl_corp_reports extends CI_Model {
                acc.Acc_Type,
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
                CASE
-                  WHEN trans.BalanceBranch IS NOT NULL OR trans.BalanceBranch != '' THEN
+                  WHEN (trans.BalanceBranch IS NOT NULL OR trans.BalanceBranch != 0) AND acc.Acc_Type != 'A1' THEN
                      trans.BalanceBranch
-                  WHEN (trans.BalanceBranch IS NOT NULL OR trans.BalanceBranch != '') 
-                  AND acc.Acc_Type = 'A1' THEN
+                  WHEN (trans.BalanceBranch IS NOT NULL OR trans.BalanceBranch != 0) AND acc.Acc_Type = 'A1' THEN
                      (trans.BalanceBranch * -1)
                   ELSE
                      0
