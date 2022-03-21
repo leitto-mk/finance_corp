@@ -254,7 +254,7 @@
                                 </a>
                             </li>
                             <li class="nav-head nav-item active">
-                                <a href="#" class="nav-link nav-toggle bg-blue-ebonyclay">
+                            <a href="<?= base_url('Humanresource/view_personal_register_abc') ?>" target="_blank" class="nav-link nav-toggle bg-blue-ebonyclay">
                                     <i class="fa fa-edit font-green"></i>
                                     <span class="title uppercase">Employee</span>
                                 </a>
