@@ -17,6 +17,7 @@ class Cmaster extends CI_Controller
 		$data['check_company'] = $this->master->M_check_company();
 		$data['company'] = $this->master->M_get_company();
 		$data['storagecode'] = $this->master->get_last_storagecode();
+
 		$this->load->view('financecorp/master/v_master_dashboard', $data);
 	}
 
@@ -24,6 +25,7 @@ class Cmaster extends CI_Controller
 	{
 		$data['title'] = 'Master - Stockcode';
 		$data['h2'] = 'Master';
+		
 		$this->load->view('financecorp/master/v_master_stockcode', $data);
 	}
 
