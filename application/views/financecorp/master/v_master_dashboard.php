@@ -53,7 +53,7 @@
             <div class="page-content-col">
                 <!-- BEGIN PAGE BASE CONTENT -->
                 <div class="tab-content">
-                    //? OPERATION
+                    <!-- OPERATION -->
                     <div class="tab-pane active" id="master_abase_company">
                         <!-- <div class="row">
                             <div class="col-lg-12">
@@ -384,7 +384,7 @@
                         </div>
                     </div>
 
-                    //? SUPPLY
+                    <!-- SUPPLY -->
                     <div class="tab-pane" id="master_stockgroup">
                         <div class="row">
                             <div class="col-lg-12">
@@ -726,7 +726,7 @@
                         </div> 
                     </div>
 
-                    //? FINANCE
+                    <!-- FINANCE -->
                     <div class="tab-pane" id="master_coa">
                         <div class="row">
                             <div class="col-lg-12">
@@ -830,7 +830,7 @@
                         </div>
                     </div>
 
-                    //? SETTING
+                    <!-- SETTING -->
                     <div class="tab-pane" id="master_user_management">
                         <div class="row">
                             <div class="col-lg-12">
@@ -880,7 +880,7 @@
     <!-- END SIDEBAR CONTENT LAYOUT -->
 </div>
 
-//* MODALS
+<!-- MODALS -->
 <div id="m_add_storage" class="modal fade bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

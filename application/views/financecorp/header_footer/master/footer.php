@@ -52,7 +52,7 @@
         <!-- END THEME LAYOUT SCRIPTS -->
 
         <script src="<?=base_url('js/master/js_master_abase.js')?>" type="text/javascript"></script>
-        <script src="<?=base_url('js/master/js_master_stockgroup.js')?>" type="text/javascript"></script>
+        <!-- <script src="<?=base_url('js/master/js_master_stockgroup.js')?>" type="text/javascript"></script> -->
         <script src="<?=base_url('js/master/js_master.js')?>" type="text/javascript"></script>
         <?php if(isset($script) && $script !== '') : ?>
             <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
