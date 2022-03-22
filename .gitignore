@@ -19,7 +19,6 @@ assets/colorlib/
 assets/.DS_Store
 template/
 user_guide/
-upload/
 .editorconfig
 .htaccess
 composer
