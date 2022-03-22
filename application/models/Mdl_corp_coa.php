@@ -137,9 +137,19 @@ class Mdl_corp_coa extends CI_Model
 			$this->db->where('Acc_No', $accno)->delete('tbl_fa_account_no');
 		}
 
-		$this->db->trans_complete();
+		if($this->db->error()['code'] != 0){
+            $code = $this->db->error()['code'];
+            $message = $this->db->error()['message'];
+            log_message('error', "$code: $message");
 
-		return ($this->db->trans_status() ? 'success' : $this->db->error());
+            $this->db->trans_rollback();
+   
+            return [null, "Database Error"];
+         }
+        
+        $this->db->trans_complete();
+        
+        return [null, null];
 	}
 
 	public function reset_coa()

@@ -101,7 +101,7 @@ const mas = {
                     repository.submitRecord('C_Finance/submit_coa', data)
                     .then(response => {
                         helper.unblockUI()
-                        $('modal-finance').modal('hide')
+                        $('#modal-finance').modal('hide')
 
                         if(response.success) {
                             Swal.fire({
@@ -138,6 +138,7 @@ const mas = {
                     repository.deleteRecord('C_Finance/delete_account', {unique})
                     .then(response => {
                         helper.unblockUI()
+                        $('#modal-finance').modal('hide')
 
                         if(response.success){
                             Swal.fire({
@@ -145,6 +146,8 @@ const mas = {
                                 'title': 'SUCCESS',
                                 'html': 'Heading has been deleted successfully'
                             })
+
+                            location.reload()
                         }else{
                             Swal.fire({
                                 'type': 'error',

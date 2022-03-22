@@ -233,9 +233,13 @@ class C_Finance extends CI_Controller
     {
         $ctrlno = $this->input->post('unique');
 
-        $result = $this->finance->M_delete_account($ctrlno);
+        [$_, $error] = $this->finance->M_delete_account($ctrlno);
 
-        echo $result;
+        if($error !== null){
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
+
+        return set_success_response("Row Deleted");
     }
 
     private function get_coa_data()
