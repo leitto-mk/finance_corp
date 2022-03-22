@@ -49,7 +49,7 @@ class C_Finance extends CI_Controller
         $data = [
             'title' => 'Chart Of Account',
             'container' => $container_view,
-            'script' => 'master'
+            'script' => 'masterFinance'
         ];
 
         $this->load->view('financecorp/header_footer/coa/header_footer', $data);

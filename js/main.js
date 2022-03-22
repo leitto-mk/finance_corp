@@ -331,18 +331,24 @@ $(document).ready(function(){
         },
 
         //* MASTER
-        master: () => {
-            import('./usecase/master.js')
-            .then(({default: mas}) =>{
-                mas.finance.coa.eventOpenModalNewHeading()
-                mas.finance.coa.eventEditHeading()
-                mas.finance.coa.eventSubmitNewHeading()
-                mas.finance.coa.eventDeleteHeading()
+        masterOperation: () => {},
+
+        masterSupply: () => {},
+
+        masterFinance: () => {
+            import('./usecase/masterFinance.js')
+            .then(({default: mfin}) =>{
+                mfin.coa.eventOpenModalNewHeading()
+                mfin.coa.eventEditHeading()
+                mfin.coa.eventSubmitNewHeading()
+                mfin.coa.eventDeleteHeading()
             })
             .catch(err => {
                 console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
-        }
+        },
+
+        masterResource: () => {},
     };
     
     //Get Sript Name
