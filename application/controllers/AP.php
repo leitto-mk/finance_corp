@@ -272,7 +272,7 @@ class AP extends CI_Controller {
             array_push($details, [
                 'DocNo' => $_POST['docno'],
                 'IDNumber' => $_POST['supplier'],
-                // 'FullName' => $this->db->select('FullName')->get_where('tbl_fa_hr_append', ['IDNumber' => $_POST['emp'][$i]])->row()->FullName,
+                // 'FullName' => $this->db->select('FullName')->get_where('tbl_hr_append', ['IDNumber' => $_POST['emp'][$i]])->row()->FullName,
                 'AccNo' => $_POST['accnos'][$i],
                 'Department' => $_POST['departments'][$i],
                 'CostCenter' => $_POST['costcenters'][$i],

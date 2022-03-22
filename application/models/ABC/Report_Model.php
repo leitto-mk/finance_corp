@@ -34,7 +34,7 @@ class Report_Model extends CI_Model
     $query = $this->db
       ->select('master.sale_doc_no as DocNo, CONCAT(master.CustomerID, , " - ",customer.CustomerName) as Customer, master.sale_date as SaleDate, master.total_sale as SubTotal, master.end_balance as GrandTotal, CONCAT(hr.Supervisor, " - ", hr.SupervisorName) as Supervisor, master.sale_remark as Remarks, master.total_tax as Tax')
       ->join('tbl_mat_cat_customer customer', 'master.CustomerID = customer.CustomerCode', 'LEFT')
-      ->join('tbl_fa_hr_append hr', 'hr.CustomerRefNo = master.CustomerID', 'LEFT')
+      ->join('tbl_hr_append hr', 'hr.CustomerRefNo = master.CustomerID', 'LEFT')
       ->get_where('tbl_sale_pos master', $where);
 
     return $query;
@@ -54,7 +54,7 @@ class Report_Model extends CI_Model
   {
     $query = $this->db
       ->select('IDNumber as id, CONCAT(IDNumber, " - ", FullName) as text')
-      ->get_where('tbl_fa_hr_append', $where);
+      ->get_where('tbl_hr_append', $where);
 
     return $query;
   }
@@ -67,7 +67,7 @@ class Report_Model extends CI_Model
       ->join('tbl_sale_pos sales', 'sales.CustomerID = hr.CustomerRefNo AND sales.BranchCode = "' . $branch . '"', 'LEFT')
       ->join('tbl_sale_pos_det sales_detail', 'sales_detail.sale_doc_no = sales.sale_doc_no', 'LEFT')
       ->join('tbl_mat_production_cost pcost', 'pcost.SalesNo = sales.sale_doc_no AND sales_detail.stock_code = pcost.Stockcode', 'LEFT')
-      ->get_where('tbl_fa_hr_append hr', $where);
+      ->get_where('tbl_hr_append hr', $where);
 
     print_r($this->db->last_query());
     die;

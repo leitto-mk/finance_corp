@@ -89,7 +89,7 @@ class Mdl_corp_ar extends CI_Model
                 emp.Branch,
                 emp.CostCenter,
                 IF(trans.Balance IS NULL, 0, trans.Balance) AS Balance
-             FROM tbl_fa_hr_append AS emp
+             FROM tbl_hr_append AS emp
              LEFT JOIN (SELECT Branch, IDNumber, Balance FROM tbl_fa_transaction ORDER BY CtrlNo DESC LIMIT 1) AS trans
                 ON emp.IDNumber = trans.IDNumber AND emp.Branch = trans.Branch"
         )->result_array();

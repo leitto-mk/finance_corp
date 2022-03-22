@@ -13,7 +13,7 @@ class Mdl_corp_cash_advance extends CI_Model
                 emp.Supervisor,
                 COALESCE(trans.Balance, 0) AS Balance
              FROM abase_03_dept AS dept
-             RIGHT JOIN tbl_fa_hr_append AS emp
+             RIGHT JOIN tbl_hr_append AS emp
                 USING (DeptCode)
              LEFT JOIN (SELECT IDNumber, Balance
                             FROM tbl_fa_transaction 
@@ -125,7 +125,7 @@ class Mdl_corp_cash_advance extends CI_Model
                 emp.Branch,
                 emp.CostCenter,
                 IF(trans.Balance IS NULL, 0, trans.Balance) AS Balance
-             FROM tbl_fa_hr_append AS emp
+             FROM tbl_hr_append AS emp
              LEFT JOIN (SELECT Branch, IDNumber, Balance FROM tbl_fa_transaction ORDER BY CtrlNo DESC LIMIT 1) AS trans
                 ON emp.IDNumber = trans.IDNumber AND emp.Branch = trans.Branch"
         )->result_array();
@@ -554,7 +554,7 @@ class Mdl_corp_cash_advance extends CI_Model
         $query = $this->db->select('
             IDNumber,
             FullName
-        ')->order_by('IDNumber ASC')->get_where('tbl_fa_hr_append')->result_array();
+        ')->order_by('IDNumber ASC')->get_where('tbl_hr_append')->result_array();
 
         return $query;
     }
@@ -581,7 +581,7 @@ class Mdl_corp_cash_advance extends CI_Model
                 trans.Debit,
                 trans.Credit,
                 trans.Balance
-             FROM tbl_fa_hr_append AS emp
+             FROM tbl_hr_append AS emp
              LEFT JOIN tbl_fa_transaction AS trans
                 ON emp.IDNumber = trans.IDNumber
             WHERE emp.IDNumber = ?
@@ -624,7 +624,7 @@ class Mdl_corp_cash_advance extends CI_Model
                 ON trans.AccNo = acc.Acc_No
              LEFT JOIN tbl_fa_treasury_mas AS mas
                 USING(DocNo)
-             LEFT JOIN tbl_fa_hr_append AS emp
+             LEFT JOIN tbl_hr_append AS emp
                 ON mas.IDNumber = emp.IDNumber
              WHERE trans.Docno = '$docno'
              AND trans.Branch = '$branch'
@@ -652,7 +652,7 @@ class Mdl_corp_cash_advance extends CI_Model
                     emp.Supervisor,
                     trans.TransDate,
                     COALESCE(trans.Balance, 0) AS Outstanding")
-                 ->from('tbl_fa_hr_append AS emp')
+                 ->from('tbl_hr_append AS emp')
                  ->join('tbl_fa_transaction AS trans',
                          "trans.IDNumber = emp.IDNumber
                           AND trans.Balance = (SELECT Balance FROM tbl_fa_transaction WHERE IDNumber = emp.IDNumber ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
@@ -696,7 +696,7 @@ class Mdl_corp_cash_advance extends CI_Model
                     trans.Unit,
                     trans.Amount")
                  ->from('tbl_fa_transaction AS trans')
-                 ->join("tbl_fa_hr_append AS emp","emp.IDNumber = trans.IDNumber","LEFT")
+                 ->join("tbl_hr_append AS emp","emp.IDNumber = trans.IDNumber","LEFT")
                  ->where("trans.TransDate BETWEEN '$date_start' AND '$date_finish'")
                  ->where('ItemNo', 0)
                  ->where_in('TransType', ['CW', 'CR']);

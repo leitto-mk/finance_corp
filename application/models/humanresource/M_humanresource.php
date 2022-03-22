@@ -59,7 +59,7 @@ class M_humanresource extends CI_Model {
 
 
     // function get_data_sum_employee_by_gender(){
-    //      $data = $this->db->query("SELECT sub.GMale,sub.GFemale,sub.Total FROM (SELECT Gender,SUM(IF(tb1.Gender = 'Male',1,0)) AS GMale, SUM(IF(tb1.Gender = 'Female',1,0)) AS GFemale, COUNT(tb1.IDNumber) AS Total FROM(SELECT CtrlNo,IDNumber ,Gender FROM tbl_fa_hr_append)tb1)sub");
+    //      $data = $this->db->query("SELECT sub.GMale,sub.GFemale,sub.Total FROM (SELECT Gender,SUM(IF(tb1.Gender = 'Male',1,0)) AS GMale, SUM(IF(tb1.Gender = 'Female',1,0)) AS GFemale, COUNT(tb1.IDNumber) AS Total FROM(SELECT CtrlNo,IDNumber ,Gender FROM tbl_hr_append)tb1)sub");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -68,7 +68,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_data_sum_employee_by_gender($branch){
-         $data = $this->db->query("SELECT sub.GMale,sub.GFemale,sub.Total FROM (SELECT Gender,SUM(IF(tb1.Gender = 'Male',1,0)) AS GMale, SUM(IF(tb1.Gender = 'Female',1,0)) AS GFemale, COUNT(tb1.IDNumber) AS Total FROM(SELECT CtrlNo,IDNumber ,Gender FROM tbl_fa_hr_append WHERE Branch = '$branch' AND Status='Active')tb1)sub");
+         $data = $this->db->query("SELECT sub.GMale,sub.GFemale,sub.Total FROM (SELECT Gender,SUM(IF(tb1.Gender = 'Male',1,0)) AS GMale, SUM(IF(tb1.Gender = 'Female',1,0)) AS GFemale, COUNT(tb1.IDNumber) AS Total FROM(SELECT CtrlNo,IDNumber ,Gender FROM tbl_hr_append WHERE Branch = '$branch' AND Status='Active')tb1)sub");
         if ($data) {
             return $data->result();
         }else{
@@ -80,7 +80,7 @@ class M_humanresource extends CI_Model {
 
     //Employee Register
     // function get_data_sum_employee_by_employeetype(){
-    //      $data = $this->db->query("SELECT sub.EStaff,sub.ENonStaff,sub.EExpat,sub.Total FROM (SELECT EmployeeType,SUM(IF(tb1.EmployeeType = '10',1,0)) AS EStaff, SUM(IF(tb1.EmployeeType = '20',1,0)) AS ENonStaff,SUM(IF(tb1.EmployeeType = '30',1,0)) AS EExpat, COUNT(tb1.IDNumber) AS Total FROM(SELECT CtrlNo,IDNumber ,EmployeeType FROM tbl_fa_hr_append)tb1)sub");
+    //      $data = $this->db->query("SELECT sub.EStaff,sub.ENonStaff,sub.EExpat,sub.Total FROM (SELECT EmployeeType,SUM(IF(tb1.EmployeeType = '10',1,0)) AS EStaff, SUM(IF(tb1.EmployeeType = '20',1,0)) AS ENonStaff,SUM(IF(tb1.EmployeeType = '30',1,0)) AS EExpat, COUNT(tb1.IDNumber) AS Total FROM(SELECT CtrlNo,IDNumber ,EmployeeType FROM tbl_hr_append)tb1)sub");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -89,7 +89,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_data_sum_employee_by_employeetype($branch){
-         $data = $this->db->query("SELECT sub.EStaff,sub.ENonStaff,sub.EExpat,sub.Total FROM (SELECT EmployeeType,SUM(IF(tb1.EmployeeType = '10',1,0)) AS EStaff, SUM(IF(tb1.EmployeeType = '20',1,0)) AS ENonStaff,SUM(IF(tb1.EmployeeType = '30',1,0)) AS EExpat, COUNT(tb1.IDNumber) AS Total FROM(SELECT CtrlNo,IDNumber ,EmployeeType FROM tbl_fa_hr_append WHERE Branch = '$branch' AND Status='Active')tb1)sub");
+         $data = $this->db->query("SELECT sub.EStaff,sub.ENonStaff,sub.EExpat,sub.Total FROM (SELECT EmployeeType,SUM(IF(tb1.EmployeeType = '10',1,0)) AS EStaff, SUM(IF(tb1.EmployeeType = '20',1,0)) AS ENonStaff,SUM(IF(tb1.EmployeeType = '30',1,0)) AS EExpat, COUNT(tb1.IDNumber) AS Total FROM(SELECT CtrlNo,IDNumber ,EmployeeType FROM tbl_hr_append WHERE Branch = '$branch' AND Status='Active')tb1)sub");
         if ($data) {
             return $data->result();
         }else{
@@ -116,7 +116,7 @@ class M_humanresource extends CI_Model {
     }
 
     // function get_data_personaldata_list(){
-    //     $data = $this->db->query("SELECT * FROM tbl_fa_hr_append");
+    //     $data = $this->db->query("SELECT * FROM tbl_hr_append");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -125,7 +125,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_data_personaldata_list($branch){
-        $data = $this->db->query("SELECT * FROM tbl_fa_hr_append WHERE Branch = '$branch'");
+        $data = $this->db->query("SELECT * FROM tbl_hr_append WHERE Branch = '$branch'");
         if ($data) {
             return $data->result();
         }else{
@@ -134,7 +134,7 @@ class M_humanresource extends CI_Model {
     }
 
     function get_data_personaldata($id){
-        $data = $this->db->query("SELECT * FROM tbl_fa_hr_append WHERE IDNumber = '$id'");
+        $data = $this->db->query("SELECT * FROM tbl_hr_append WHERE IDNumber = '$id'");
         if ($data) {
             return $data->result();
         }else{
@@ -159,7 +159,7 @@ class M_humanresource extends CI_Model {
     function edit_emp_app_data_byid($idnumber_, $employeeappend)
     {
         $this->db->where('IDNumber', $idnumber_);
-        $this->db->update('tbl_fa_hr_append', $employeeappend);
+        $this->db->update('tbl_hr_append', $employeeappend);
       
     }
 
@@ -173,7 +173,7 @@ class M_humanresource extends CI_Model {
     function edit_persphoto_app_data_byid($idn, $datapersphoto)
     {
         $this->db->where('IDNumber', $idn);
-        $this->db->update('tbl_fa_hr_append', $datapersphoto);
+        $this->db->update('tbl_hr_append', $datapersphoto);
       
     }
 
@@ -187,7 +187,7 @@ class M_humanresource extends CI_Model {
     function edit_ktp_app_data_byid($id, $datafilektp)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $datafilektp);
+        $this->db->update('tbl_hr_append', $datafilektp);
       
     }
 
@@ -414,7 +414,7 @@ class M_humanresource extends CI_Model {
     public function update_marital_data_byid_append($id, $data_marital)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_marital);
+        $this->db->update('tbl_hr_append', $data_marital);
       
     }
     public function update_marital_data_byid($id, $data_marital1)
@@ -427,7 +427,7 @@ class M_humanresource extends CI_Model {
     public function update_employeetype_data_byid_append($id, $data_employeetype)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_employeetype);
+        $this->db->update('tbl_hr_append', $data_employeetype);
       
     }
     public function update_employeetype_data_byid($id, $data_employeetype1)
@@ -440,7 +440,7 @@ class M_humanresource extends CI_Model {
     public function update_employmenttype_data_byid_append($id, $data_employmenttype)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_employmenttype);
+        $this->db->update('tbl_hr_append', $data_employmenttype);
       
     }
     public function update_employmenttype_data_byid($id, $data_employmenttype1)
@@ -453,7 +453,7 @@ class M_humanresource extends CI_Model {
     public function update_jobtitle_data_byid_append($id, $data_jobtitle)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_jobtitle);
+        $this->db->update('tbl_hr_append', $data_jobtitle);
       
     }
     public function update_jobtitle_data_byid($id, $data_jobtitle1)
@@ -466,7 +466,7 @@ class M_humanresource extends CI_Model {
     public function update_positiontitle_data_byid_append($id, $data_positiontitle)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_positiontitle);
+        $this->db->update('tbl_hr_append', $data_positiontitle);
       
     }
     public function update_positiontitle_data_byid($id, $data_positiontitle1)
@@ -479,7 +479,7 @@ class M_humanresource extends CI_Model {
     public function update_workfunction_data_byid_append($id, $data_workfunction)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_workfunction);
+        $this->db->update('tbl_hr_append', $data_workfunction);
       
     }
     public function update_workfunction_data_byid($id, $data_workfunction1)
@@ -492,7 +492,7 @@ class M_humanresource extends CI_Model {
     public function update_workgroup_data_byid_append($id, $data_workgroup)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_workgroup);
+        $this->db->update('tbl_hr_append', $data_workgroup);
       
     }
     public function update_workgroup_data_byid($id, $data_workgroup1)
@@ -505,7 +505,7 @@ class M_humanresource extends CI_Model {
     public function update_onsitemarital_data_byid_append($id, $data_onsitemarital)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_onsitemarital);
+        $this->db->update('tbl_hr_append', $data_onsitemarital);
       
     }
     public function update_onsitemarital_data_byid($id, $data_onsitemarital1)
@@ -518,7 +518,7 @@ class M_humanresource extends CI_Model {
     public function update_maritalbenefit_data_byid_append($id, $data_maritalbenefit)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_maritalbenefit);
+        $this->db->update('tbl_hr_append', $data_maritalbenefit);
       
     }
     public function update_maritalbenefit_data_byid($id, $data_maritalbenefit1)
@@ -531,7 +531,7 @@ class M_humanresource extends CI_Model {
     public function update_probationdate_data_byid_append($id, $data_probationdate)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_probationdate);
+        $this->db->update('tbl_hr_append', $data_probationdate);
       
     }
     public function update_probationdate_data_byid($id, $data_probationdate1)
@@ -544,7 +544,7 @@ class M_humanresource extends CI_Model {
     public function update_hiredate_data_byid_append($id, $data_hiredate)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_hiredate);
+        $this->db->update('tbl_hr_append', $data_hiredate);
       
     }
     public function update_hiredate_data_byid($id, $data_hiredate1)
@@ -557,7 +557,7 @@ class M_humanresource extends CI_Model {
     public function update_servicedate_data_byid_append($id, $data_servicedate)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_servicedate);
+        $this->db->update('tbl_hr_append', $data_servicedate);
       
     }
     public function update_servicedate_data_byid($id, $data_servicedate1)
@@ -570,7 +570,7 @@ class M_humanresource extends CI_Model {
     public function update_pointofhire_data_byid_append($id, $data_pointofhire)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_pointofhire);
+        $this->db->update('tbl_hr_append', $data_pointofhire);
       
     }
     public function update_pointofhire_data_byid($id, $data_pointofhire1)
@@ -583,7 +583,7 @@ class M_humanresource extends CI_Model {
     public function update_pointofleave_data_byid_append($id, $data_pointofleave)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_pointofleave);
+        $this->db->update('tbl_hr_append', $data_pointofleave);
       
     }
     public function update_pointofleave_data_byid($id, $data_pointofleave1)
@@ -596,7 +596,7 @@ class M_humanresource extends CI_Model {
     public function update_pointoftravel_data_byid_append($id, $data_pointoftravel)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_pointoftravel);
+        $this->db->update('tbl_hr_append', $data_pointoftravel);
       
     }
     public function update_pointoftravel_data_byid($id, $data_pointoftravel1)
@@ -609,7 +609,7 @@ class M_humanresource extends CI_Model {
     public function update_worklocation_data_byid_append($id, $data_worklocation)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_worklocation);
+        $this->db->update('tbl_hr_append', $data_worklocation);
       
     }
     public function update_worklocation_data_byid($id, $data_worklocation1)
@@ -622,7 +622,7 @@ class M_humanresource extends CI_Model {
     public function update_supervisor_data_byid_append($id, $data_supervisor)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_supervisor);
+        $this->db->update('tbl_hr_append', $data_supervisor);
       
     }
     public function update_supervisor_data_byid($id, $data_supervisor1)
@@ -635,7 +635,7 @@ class M_humanresource extends CI_Model {
     public function update_workinsurance_data_byid_append($id, $data_workinsurance)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_workinsurance);
+        $this->db->update('tbl_hr_append', $data_workinsurance);
       
     }
     public function update_workinsurance_data_byid($id, $data_workinsurance1)
@@ -648,7 +648,7 @@ class M_humanresource extends CI_Model {
     public function update_medicalinsurance_data_byid_append($id, $data_medicalinsurance)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_medicalinsurance);
+        $this->db->update('tbl_hr_append', $data_medicalinsurance);
       
     }
     public function update_medicalinsurance_data_byid($id, $data_medicalinsurance1)
@@ -661,7 +661,7 @@ class M_humanresource extends CI_Model {
     public function update_workday_data_byid_append($id, $data_workday)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_workday);
+        $this->db->update('tbl_hr_append', $data_workday);
       
     }
     public function update_workday_data_byid($id, $data_workday1)
@@ -674,7 +674,7 @@ class M_humanresource extends CI_Model {
     public function update_leavetype_data_byid_append($id, $data_leavetype)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_leavetype);
+        $this->db->update('tbl_hr_append', $data_leavetype);
       
     }
     public function update_leavetype_data_byid($id, $data_leavetype1)
@@ -687,7 +687,7 @@ class M_humanresource extends CI_Model {
     public function update_empcompany_data_byid_append($id, $data_empcompany)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_empcompany);
+        $this->db->update('tbl_hr_append', $data_empcompany);
       
     }
     public function update_empcompany_data_byid($id, $data_empcompany1)
@@ -700,7 +700,7 @@ class M_humanresource extends CI_Model {
     public function update_bankaccount1_data_byid_append($id, $data_bankaccount1)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_bankaccount1);
+        $this->db->update('tbl_hr_append', $data_bankaccount1);
       
     }
     public function update_bankaccount1_data_byid($id, $data_bankaccount11)
@@ -713,7 +713,7 @@ class M_humanresource extends CI_Model {
     public function update_bankaccount2_data_byid_append($id, $data_bankaccount2)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_bankaccount2);
+        $this->db->update('tbl_hr_append', $data_bankaccount2);
       
     }
     public function update_bankaccount2_data_byid($id, $data_bankaccount21)
@@ -726,7 +726,7 @@ class M_humanresource extends CI_Model {
     public function update_uniformtshirt_data_byid_append($id, $data_uniformtshirt)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_uniformtshirt);
+        $this->db->update('tbl_hr_append', $data_uniformtshirt);
       
     }
     public function update_uniformtshirt_data_byid($id, $data_uniformtshirt1)
@@ -739,7 +739,7 @@ class M_humanresource extends CI_Model {
     public function update_dept_data_byid_append($id, $data_upt_app)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_upt_app);
+        $this->db->update('tbl_hr_append', $data_upt_app);
       
     }
     public function update_dept_data_byid($id, $data_upt_job)
@@ -752,7 +752,7 @@ class M_humanresource extends CI_Model {
     public function update_grade_level_data_byid_append($id, $data_upt_app_grade)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_upt_app_grade);
+        $this->db->update('tbl_hr_append', $data_upt_app_grade);
       
     }
     public function update_grade_level_data_byid($id, $data_upt_job_grade)
@@ -765,7 +765,7 @@ class M_humanresource extends CI_Model {
     public function update_level_data_byid_append($id, $data_upt_app_level)
     {
         $this->db->where('IDNumber', $id);
-        $this->db->update('tbl_fa_hr_append', $data_upt_app_level);
+        $this->db->update('tbl_hr_append', $data_upt_app_level);
       
     }
     public function update_level_data_byid($id, $data_upt_job_level)
@@ -1170,7 +1170,7 @@ class M_humanresource extends CI_Model {
 
 
     function get_data_supervisor(){
-        $data = $this->db->query("SELECT IDNumber,FirstName,LastName,PositionTitle,PositionTitleDes FROM tbl_fa_hr_append");
+        $data = $this->db->query("SELECT IDNumber,FirstName,LastName,PositionTitle,PositionTitleDes FROM tbl_hr_append");
         if ($data) {
             return $data->result();
         }else{
@@ -2021,13 +2021,13 @@ class M_humanresource extends CI_Model {
     // {
     //     $pie = $this->db->query(
     //         "SELECT DeptDes, COUNT(IDNumber) AS Total 
-    //          FROM tbl_fa_hr_append 
+    //          FROM tbl_hr_append 
     //          GROUP BY DeptCode"
     //     )->result();
 
     //     $bar = $this->db->query(
     //          "SELECT WorkFunctionDes, COUNT(IDNumber) AS Total 
-    //          FROM tbl_fa_hr_append 
+    //          FROM tbl_hr_append 
     //          GROUP BY WorkFunction"
     //     )->result();
     //     return [$pie, $bar];
@@ -2037,14 +2037,14 @@ class M_humanresource extends CI_Model {
     {
         $pie = $this->db->query(
             "SELECT DeptDes, COUNT(IDNumber) AS Total 
-             FROM tbl_fa_hr_append 
+             FROM tbl_hr_append 
              WHERE Branch = $branch 
              GROUP BY DeptCode"
         )->result();
 
         $bar = $this->db->query(
              "SELECT WorkFunctionDes, COUNT(IDNumber) AS Total 
-             FROM tbl_fa_hr_append 
+             FROM tbl_hr_append 
              WHERE Branch = $branch 
              GROUP BY WorkFunction"
         )->result();
@@ -2053,7 +2053,7 @@ class M_humanresource extends CI_Model {
 
     //Report Dashboard
     // function get_list_department_from_hr_append(){
-    //     $data = $this->db->query("SELECT DeptCode,DeptDes FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY DeptCode");
+    //     $data = $this->db->query("SELECT DeptCode,DeptDes FROM tbl_hr_append WHERE Status='Active' GROUP BY DeptCode");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -2062,7 +2062,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_list_department_from_hr_append($branch){
-        $data = $this->db->query("SELECT DeptCode,DeptDes FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY DeptCode");
+        $data = $this->db->query("SELECT DeptCode,DeptDes FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY DeptCode");
         if ($data) {
             return $data->result();
         }else{
@@ -2072,7 +2072,7 @@ class M_humanresource extends CI_Model {
 
     //Function
     // function get_function(){
-    //     $data = $this->db->query("SELECT WorkFunction,WorkFunctionDes FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY WorkFunction");
+    //     $data = $this->db->query("SELECT WorkFunction,WorkFunctionDes FROM tbl_hr_append WHERE Status='Active' GROUP BY WorkFunction");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -2081,7 +2081,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_function($branch){
-        $data = $this->db->query("SELECT WorkFunction,WorkFunctionDes FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY WorkFunction");
+        $data = $this->db->query("SELECT WorkFunction,WorkFunctionDes FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY WorkFunction");
         if ($data) {
             return $data->result();
         }else{
@@ -2090,7 +2090,7 @@ class M_humanresource extends CI_Model {
     }
 
     // function get_data_report_by_dept_function(){
-    //     $data = $this->db->query(" SELECT WorkFunction,WorkFunctionDes,DeptCode, DeptDes, COUNT(IDNumber) as ttl FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY WorkFunction,DeptCode");
+    //     $data = $this->db->query(" SELECT WorkFunction,WorkFunctionDes,DeptCode, DeptDes, COUNT(IDNumber) as ttl FROM tbl_hr_append WHERE Status='Active' GROUP BY WorkFunction,DeptCode");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -2099,7 +2099,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_data_report_by_dept_function($branch){
-        $data = $this->db->query(" SELECT WorkFunction,WorkFunctionDes,DeptCode, DeptDes, COUNT(IDNumber) as ttl FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY WorkFunction,DeptCode");
+        $data = $this->db->query(" SELECT WorkFunction,WorkFunctionDes,DeptCode, DeptDes, COUNT(IDNumber) as ttl FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY WorkFunction,DeptCode");
         if ($data) {
             return $data->result();
         }else{
@@ -2110,7 +2110,7 @@ class M_humanresource extends CI_Model {
 
     //Level
     // function get_level(){
-    //     $data = $this->db->query("SELECT IndividualLevelCode,IndividualLevel,IndividualLevelDes FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY IndividualLevel");
+    //     $data = $this->db->query("SELECT IndividualLevelCode,IndividualLevel,IndividualLevelDes FROM tbl_hr_append WHERE Status='Active' GROUP BY IndividualLevel");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -2119,7 +2119,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_level($branch){
-        $data = $this->db->query("SELECT IndividualLevelCode,IndividualLevel,IndividualLevelDes FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY IndividualLevel");
+        $data = $this->db->query("SELECT IndividualLevelCode,IndividualLevel,IndividualLevelDes FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY IndividualLevel");
         if ($data) {
             return $data->result();
         }else{
@@ -2128,7 +2128,7 @@ class M_humanresource extends CI_Model {
     }
 
     // function get_data_report_by_dept_level(){
-    //     $data = $this->db->query(" SELECT IndividualLevel,IndividualLevelDes,DeptCode, DeptDes, COUNT(IDNumber) as ttl FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY IndividualLevel,DeptCode");
+    //     $data = $this->db->query(" SELECT IndividualLevel,IndividualLevelDes,DeptCode, DeptDes, COUNT(IDNumber) as ttl FROM tbl_hr_append WHERE Status='Active' GROUP BY IndividualLevel,DeptCode");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -2137,7 +2137,7 @@ class M_humanresource extends CI_Model {
     // }    
 
     function get_data_report_by_dept_level($branch){
-        $data = $this->db->query(" SELECT IndividualLevel,IndividualLevelDes,DeptCode, DeptDes, COUNT(IDNumber) as ttl FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY IndividualLevel,DeptCode");
+        $data = $this->db->query(" SELECT IndividualLevel,IndividualLevelDes,DeptCode, DeptDes, COUNT(IDNumber) as ttl FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY IndividualLevel,DeptCode");
         if ($data) {
             return $data->result();
         }else{
@@ -2156,7 +2156,7 @@ class M_humanresource extends CI_Model {
     // }
 
     // function get_employeetype(){
-    //     $data = $this->db->query("SELECT EmployeeType,EmployeeTypeDes FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY EmployeeType");
+    //     $data = $this->db->query("SELECT EmployeeType,EmployeeTypeDes FROM tbl_hr_append WHERE Status='Active' GROUP BY EmployeeType");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -2165,7 +2165,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_employeetype($branch){
-        $data = $this->db->query("SELECT EmployeeType,EmployeeTypeDes FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY EmployeeType");
+        $data = $this->db->query("SELECT EmployeeType,EmployeeTypeDes FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY EmployeeType");
         if ($data) {
             return $data->result();
         }else{
@@ -2174,7 +2174,7 @@ class M_humanresource extends CI_Model {
     }
 
     // function get_data_report_by_dept_employeetype(){
-    //     $data = $this->db->query("SELECT DeptCode, EmployeeType, COUNT(IDNumber) AS count FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY DeptCode,EmployeeType");
+    //     $data = $this->db->query("SELECT DeptCode, EmployeeType, COUNT(IDNumber) AS count FROM tbl_hr_append WHERE Status='Active' GROUP BY DeptCode,EmployeeType");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -2183,7 +2183,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_data_report_by_dept_employeetype($branch){
-        $data = $this->db->query("SELECT DeptCode, EmployeeType, COUNT(IDNumber) AS count FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY DeptCode,EmployeeType");
+        $data = $this->db->query("SELECT DeptCode, EmployeeType, COUNT(IDNumber) AS count FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY DeptCode,EmployeeType");
         if ($data) {
             return $data->result();
         }else{
@@ -2193,7 +2193,7 @@ class M_humanresource extends CI_Model {
 
     // function get_report_emp_etype_gtotals(){
     //     $this->db->select('DeptCode,EmployeeType, COUNT(IDNumber) AS count');
-    //     $this->db->from('tbl_fa_hr_append');
+    //     $this->db->from('tbl_hr_append');
     //     $this->db->where("Status = 'Active'");
     //     $this->db->group_by('EmployeeType');
     //     $data = $this->db->get();
@@ -2206,7 +2206,7 @@ class M_humanresource extends CI_Model {
 
     function get_report_emp_etype_gtotals($branch){
         $this->db->select('DeptCode,EmployeeType, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'");
         $this->db->where("Branch = '$branch'");
         $this->db->group_by('EmployeeType');
@@ -2228,7 +2228,7 @@ class M_humanresource extends CI_Model {
     //     }
     // }
     // function get_employmenttype(){
-    //     $data = $this->db->query("SELECT EmploymentType,EmploymentTypeDes FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY EmploymentType");
+    //     $data = $this->db->query("SELECT EmploymentType,EmploymentTypeDes FROM tbl_hr_append WHERE Status='Active' GROUP BY EmploymentType");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -2237,7 +2237,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_employmenttype($branch){
-        $data = $this->db->query("SELECT EmploymentType,EmploymentTypeDes FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY EmploymentType");
+        $data = $this->db->query("SELECT EmploymentType,EmploymentTypeDes FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY EmploymentType");
         if ($data) {
             return $data->result();
         }else{
@@ -2246,7 +2246,7 @@ class M_humanresource extends CI_Model {
     }
 
     // function get_data_report_by_dept_employmenttype(){
-    //     $data = $this->db->query("SELECT DeptCode, EmploymentType, COUNT(IDNumber) AS count FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY DeptCode,EmploymentType");
+    //     $data = $this->db->query("SELECT DeptCode, EmploymentType, COUNT(IDNumber) AS count FROM tbl_hr_append WHERE Status='Active' GROUP BY DeptCode,EmploymentType");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -2255,7 +2255,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_data_report_by_dept_employmenttype($branch){
-        $data = $this->db->query("SELECT DeptCode, EmploymentType, COUNT(IDNumber) AS count FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY DeptCode,EmploymentType");
+        $data = $this->db->query("SELECT DeptCode, EmploymentType, COUNT(IDNumber) AS count FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY DeptCode,EmploymentType");
         if ($data) {
             return $data->result();
         }else{
@@ -2265,7 +2265,7 @@ class M_humanresource extends CI_Model {
 
     // function get_report_emp_employmenttype_gtotals(){
     //     $this->db->select('DeptCode,EmploymentType, COUNT(IDNumber) AS count');
-    //     $this->db->from('tbl_fa_hr_append');
+    //     $this->db->from('tbl_hr_append');
     //     $this->db->where("Status = 'Active'");
     //     $this->db->group_by('EmploymentType');
     //     $data = $this->db->get();
@@ -2278,7 +2278,7 @@ class M_humanresource extends CI_Model {
 
     function get_report_emp_employmenttype_gtotals($branch){
         $this->db->select('DeptCode,EmploymentType, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'");
         $this->db->where("Branch = '$branch'");
         $this->db->group_by('EmploymentType');
@@ -2470,7 +2470,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmployeeType,EmployeeTypeDes, COUNT(EmployeeType) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmployeeType');
         $data = $this->db->get();
@@ -2518,7 +2518,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Company');
         $data = $this->db->get();
@@ -2566,7 +2566,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch');
         $data = $this->db->get();
@@ -2614,7 +2614,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit');
         $data = $this->db->get();
@@ -2662,7 +2662,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode');
         $data = $this->db->get();
@@ -2710,7 +2710,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter');
         $data = $this->db->get();
@@ -2758,7 +2758,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('EmployeeType,EmployeeTypeDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmployeeType');
         $data = $this->db->get();
@@ -2805,7 +2805,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes, EmployeeType, EmployeeTypeDes, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter, EmployeeType');
         $data = $this->db->get();
@@ -2852,7 +2852,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('EmployeeType,EmployeeTypeDes, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmployeeType');
         $data = $this->db->get();
@@ -2903,7 +2903,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmployeeType,EmployeeTypeDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmployeeType');
         $data = $this->db->get();
@@ -2952,7 +2952,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmployeeType,EmployeeTypeDes,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -3008,7 +3008,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('EmployeeType,EmployeeTypeDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $etp);
         $this->db->group_by('EmployeeType');
         $data = $this->db->get();
@@ -3066,7 +3066,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmployeeType,EmployeeTypeDes,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $etp);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -3122,7 +3122,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $etp);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -3173,7 +3173,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmployeeClass,EmployeeClassDes, COUNT(EmployeeClass) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmployeeClass');
         $data = $this->db->get();
@@ -3222,7 +3222,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Company');
         $data = $this->db->get();
@@ -3270,7 +3270,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch');
         $data = $this->db->get();
@@ -3318,7 +3318,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit');
         $data = $this->db->get();
@@ -3366,7 +3366,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode');
         $data = $this->db->get();
@@ -3414,7 +3414,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter');
         $data = $this->db->get();
@@ -3462,7 +3462,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('EmployeeClass,EmployeeClassDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmployeeClass');
         $data = $this->db->get();
@@ -3509,7 +3509,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes, EmployeeClass, EmployeeClassDes, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter,  EmployeeClass');
         $data = $this->db->get();
@@ -3556,7 +3556,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('EmployeeClass,EmployeeClassDes, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmployeeClass');
         $data = $this->db->get();
@@ -3607,7 +3607,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmployeeClass,EmployeeClassDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmployeeClass');
         $data = $this->db->get();
@@ -3656,7 +3656,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmployeeClass,EmployeeClassDes,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -3712,7 +3712,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('EmployeeClass,EmployeeClassDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $eclass);
         $this->db->group_by('EmployeeClass');
 
@@ -3771,7 +3771,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmployeeClass,EmployeeClassDes,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $eclass);
         $data = $this->db->get();
 
@@ -3834,7 +3834,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $eclass);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -3885,7 +3885,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmploymentType,EmploymentTypeDes, COUNT(EmploymentType) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmploymentType');
         $data = $this->db->get();
@@ -3934,7 +3934,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Company');
         $data = $this->db->get();
@@ -3982,7 +3982,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch');
         $data = $this->db->get();
@@ -4030,7 +4030,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit');
         $data = $this->db->get();
@@ -4078,7 +4078,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode');
         $data = $this->db->get();
@@ -4126,7 +4126,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter');
         $data = $this->db->get();
@@ -4174,7 +4174,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('EmploymentType,EmploymentTypeDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmploymentType');
         $data = $this->db->get();
@@ -4221,7 +4221,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes, EmploymentType, EmploymentTypeDes, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter, EmploymentType');
         $data = $this->db->get();
@@ -4268,7 +4268,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('EmploymentType,EmploymentTypeDes, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmploymentType');
         $data = $this->db->get();
@@ -4319,7 +4319,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmploymentType,EmploymentTypeDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmploymentType');
         $data = $this->db->get();
@@ -4368,7 +4368,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmploymentType,EmploymentTypeDes,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -4424,7 +4424,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('EmploymentType,EmploymentTypeDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $empltp);
         $this->db->group_by('EmploymentType');
 
@@ -4483,7 +4483,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmploymentType,EmploymentTypeDes,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $empltp);
         $data = $this->db->get();
 
@@ -4546,7 +4546,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $empltp);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -4596,7 +4596,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('WorkFunction,WorkFunctionDes, COUNT(WorkFunction) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('WorkFunction');
         $data = $this->db->get();
@@ -4644,7 +4644,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,WorkFunction,WorkFunctionDes, COUNT(IDNumber) as ttl');
-        $this->db->from('tbl_fa_hr_append');  
+        $this->db->from('tbl_hr_append');  
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('WorkFunction');
         $this->db->group_by('CostCenter');
@@ -4703,7 +4703,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,WorkFunction,WorkFunctionDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $efunct);
         $this->db->group_by('WorkFunction');
         $data = $this->db->get();
@@ -4716,7 +4716,7 @@ class M_humanresource extends CI_Model {
 
     function get_report_data_by_employeefunction_det($company_, $branch_, $bucode_, $deptcode_, $costcenter_,$empfunction_all_){
         $this->db->select('IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation,BusinessUnit,BUDes,CostCenterDes,DeptCode,DeptDes,WorkFunction,WorkFunctionDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active' AND CostCenter = '$costcenter_' AND DeptCode = '$deptcode_'  AND BusinessUnit = '$bucode_' AND Branch = '$branch_' AND WorkFunction = '$empfunction_all_'");
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -4729,7 +4729,7 @@ class M_humanresource extends CI_Model {
 
     function get_report_data_by_employeefunction_det_total($company_, $branch_, $bucode_, $deptcode_, $costcenter_,$empfunction_all_){
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active' AND CostCenter = '$costcenter_' AND DeptCode = '$deptcode_'  AND BusinessUnit = '$bucode_' AND Branch = '$branch_' AND WorkFunction = '$empfunction_all_'");
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -4777,7 +4777,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,WorkFunction,WorkFunctionDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('WorkFunction');
         $data = $this->db->get();
@@ -4825,7 +4825,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation,BusinessUnit,CostCenterDes,BUDes,DeptCode,DeptDes,WorkFunction,WorkFunctionDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -4873,7 +4873,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -4922,7 +4922,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IndividualGrade,IndividualGradeDes, COUNT(IndividualGrade) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('IndividualGrade');
         $this->db->order_by('IndividualLevelCode');
@@ -4971,7 +4971,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,IndividualGrade,IndividualGradeDes, COUNT(IDNumber) as ttl');
-        $this->db->from('tbl_fa_hr_append');  
+        $this->db->from('tbl_hr_append');  
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('IndividualGrade');
         $this->db->group_by('CostCenter');
@@ -5023,7 +5023,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,IndividualGrade,IndividualGradeDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('IndividualGrade');
         $this->db->order_by('IndividualLevelCode');
@@ -5072,7 +5072,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation,BusinessUnit,CostCenterDes,BUDes,DeptCode,DeptDes,IndividualGrade,IndividualGradeDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -5120,7 +5120,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -5169,7 +5169,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IndividualLevelCode,IndividualLevelDes, COUNT(IndividualGrade) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('IndividualLevelCode');
         $this->db->order_by('IndividualLevelCode');
@@ -5218,7 +5218,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,IndividualLevelCode,IndividualLevelDes, COUNT(IDNumber) as ttl');
-        $this->db->from('tbl_fa_hr_append');  
+        $this->db->from('tbl_hr_append');  
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('IndividualLevelCode');
         $this->db->group_by('CostCenter');
@@ -5270,7 +5270,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,IndividualLevelCode,IndividualLevelDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('IndividualLevelCode');
         $this->db->order_by('IndividualLevelCode ASC');
@@ -5319,7 +5319,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation,BusinessUnit,CostCenterDes,BUDes,DeptCode,DeptDes,IndividualLevelCode,IndividualLevelDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -5367,7 +5367,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -5418,7 +5418,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,Gender, COUNT(Gender) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Gender');
         $data = $this->db->get();
@@ -5466,7 +5466,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Company');
         $data = $this->db->get();
@@ -5514,7 +5514,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch');
         $data = $this->db->get();
@@ -5562,7 +5562,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit');
         $data = $this->db->get();
@@ -5610,7 +5610,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode');
         $data = $this->db->get();
@@ -5658,7 +5658,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter');
         $data = $this->db->get();
@@ -5706,7 +5706,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Gender');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Gender');
         $data = $this->db->get();
@@ -5753,7 +5753,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes, Gender, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter, Gender');
         $data = $this->db->get();
@@ -5800,7 +5800,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Gender, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Gender');
         $data = $this->db->get();
@@ -5851,7 +5851,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,Gender');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Gender');
         $data = $this->db->get();
@@ -5900,7 +5900,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,Gender,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -5956,7 +5956,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Gender');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $gen);
         $this->db->group_by('Gender');
 
@@ -6015,7 +6015,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,Gender,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $gen);
         $data = $this->db->get();
 
@@ -6078,7 +6078,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $gen);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -6130,7 +6130,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,MaritalStatus,MaritalStatusDes, COUNT(MaritalStatus) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('MaritalStatus');
         $data = $this->db->get();
@@ -6178,7 +6178,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Company');
         $data = $this->db->get();
@@ -6226,7 +6226,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch');
         $data = $this->db->get();
@@ -6274,7 +6274,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit');
         $data = $this->db->get();
@@ -6322,7 +6322,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode');
         $data = $this->db->get();
@@ -6370,7 +6370,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter');
         $data = $this->db->get();
@@ -6418,7 +6418,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('MaritalStatus,MaritalStatusDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('MaritalStatus');
         $data = $this->db->get();
@@ -6465,7 +6465,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes, MaritalStatus,MaritalStatusDes, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter, MaritalStatus');
         $data = $this->db->get();
@@ -6512,7 +6512,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('MaritalStatus,MaritalStatusDes, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('MaritalStatus');
         $data = $this->db->get();
@@ -6563,7 +6563,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,MaritalStatus,MaritalStatusDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('MaritalStatus');
         $data = $this->db->get();
@@ -6612,7 +6612,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,MaritalStatus,MaritalStatusDes,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -6668,7 +6668,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('MaritalStatus,MaritalStatusDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $mar);
         $this->db->group_by('MaritalStatus');
 
@@ -6727,7 +6727,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,MaritalStatus,MaritalStatusDes,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $mar);
         $data = $this->db->get();
 
@@ -6790,7 +6790,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $mar);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -6843,7 +6843,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,Religion, COUNT(MaritalStatus) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Religion');
         $data = $this->db->get();
@@ -6891,7 +6891,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Company');
         $data = $this->db->get();
@@ -6939,7 +6939,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch');
         $data = $this->db->get();
@@ -6987,7 +6987,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit');
         $data = $this->db->get();
@@ -7035,7 +7035,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode');
         $data = $this->db->get();
@@ -7083,7 +7083,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter');
         $data = $this->db->get();
@@ -7131,7 +7131,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Religion');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Religion');
         $data = $this->db->get();
@@ -7178,7 +7178,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes, Religion, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Branch, BusinessUnit, DeptCode, CostCenter, Religion');
         $data = $this->db->get();
@@ -7225,7 +7225,7 @@ class M_humanresource extends CI_Model {
             $costcenter = " AND CostCenter='" . $costcenter_ . "'";
         }
         $this->db->select('Religion, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Religion');
         $data = $this->db->get();
@@ -7276,7 +7276,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,Religion');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Religion');
         $data = $this->db->get();
@@ -7325,7 +7325,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,Religion,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -7381,7 +7381,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Religion');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $rel);
         $this->db->group_by('Religion');
 
@@ -7440,7 +7440,7 @@ class M_humanresource extends CI_Model {
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,Religion,
             IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $rel);
         $data = $this->db->get();
 
@@ -7503,7 +7503,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter . $rel);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -7553,7 +7553,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Ethnic, COUNT(Ethnic) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Ethnic');
         $data = $this->db->get();
@@ -7601,7 +7601,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,Ethnic, COUNT(IDNumber) as ttl');
-        $this->db->from('tbl_fa_hr_append');  
+        $this->db->from('tbl_hr_append');  
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Ethnic');
         $this->db->group_by('CostCenter');
@@ -7653,7 +7653,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,WorkFunction,Ethnic');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Ethnic');
         $data = $this->db->get();
@@ -7701,7 +7701,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation,BusinessUnit,CostCenterDes,BUDes,DeptCode,DeptDes,Ethnic');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -7749,7 +7749,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -7799,7 +7799,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('EmpCompany,EmpCompanyDes, COUNT(EmpCompany) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmpCompany');
         $data = $this->db->get();
@@ -7847,7 +7847,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,EmpCompany,EmpCompanyDes, COUNT(IDNumber) as ttl');
-        $this->db->from('tbl_fa_hr_append');  
+        $this->db->from('tbl_hr_append');  
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmpCompany');
         $this->db->group_by('CostCenter');
@@ -7899,7 +7899,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,WorkFunction,EmpCompany,EmpCompanyDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('EmpCompany');
         $data = $this->db->get();
@@ -7947,7 +7947,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation,BusinessUnit,CostCenterDes,BUDes,DeptCode,DeptDes,EmpCompany,EmpCompanyDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -7995,7 +7995,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -8044,7 +8044,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('DeptCode,DeptDes, COUNT(DeptCode) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('DeptCode');
         $data = $this->db->get();
@@ -8092,7 +8092,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,DeptDes, COUNT(IDNumber) as ttl');
-        $this->db->from('tbl_fa_hr_append');  
+        $this->db->from('tbl_hr_append');  
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('DeptCode');
         $this->db->group_by('CostCenter');
@@ -8144,7 +8144,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,WorkFunction');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('DeptCode');
         $data = $this->db->get();
@@ -8192,7 +8192,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation,BusinessUnit,CostCenterDes,BUDes,DeptCode,DeptDes');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -8240,7 +8240,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -8289,7 +8289,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('WorkLocation, COUNT(WorkLocation) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('WorkLocation');
         $data = $this->db->get();
@@ -8337,7 +8337,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,WorkLocation, COUNT(IDNumber) as ttl');
-        $this->db->from('tbl_fa_hr_append');  
+        $this->db->from('tbl_hr_append');  
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('WorkLocation');
         $this->db->group_by('CostCenter');
@@ -8389,7 +8389,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,WorkFunction,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('WorkLocation');
         $data = $this->db->get();
@@ -8437,7 +8437,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation,BusinessUnit,CostCenterDes,BUDes,DeptCode,DeptDes,WorkLocation');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -8485,7 +8485,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -8534,7 +8534,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Supervisor,SupervisorName, COUNT(Supervisor) total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Supervisor');
         $data = $this->db->get();
@@ -8582,7 +8582,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,Supervisor,SupervisorName, COUNT(IDNumber) as ttl');
-        $this->db->from('tbl_fa_hr_append');  
+        $this->db->from('tbl_hr_append');  
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Supervisor');
         $this->db->group_by('CostCenter');
@@ -8634,7 +8634,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('Company,ComDes,Branch,BranchDes,BusinessUnit,BUDes,DeptCode,DeptDes,CostCenter,CostCenterDes,WorkFunction,Supervisor,SupervisorName');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $this->db->group_by('Supervisor');
         $data = $this->db->get();
@@ -8682,7 +8682,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,FirstName,LastName,JobTitle,JobTitleDes,Crew,CrewDes,WorkLocation,BusinessUnit,CostCenterDes,BUDes,DeptCode,DeptDes,Supervisor,SupervisorName');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -8730,7 +8730,7 @@ class M_humanresource extends CI_Model {
         }
 
         $this->db->select('IDNumber,Count(IDNumber) as total');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'" . $company . $branch . $bucode . $deptcode . $costcenter);
         $data = $this->db->get();
         if ($data->num_rows() > 0) {
@@ -8744,7 +8744,7 @@ class M_humanresource extends CI_Model {
     //Start - 01Feb2021
     // function get_emp_dept() {
     //     $this->db->select('a.DeptCode, b.DeptDes');
-    //     $this->db->from('tbl_fa_hr_append a ');
+    //     $this->db->from('tbl_hr_append a ');
     //     $this->db->join('abase_03_dept b ' , 'b.DeptCode = a.DeptCode' , 'LEFT');
     //     $this->db->group_by('a.DeptCode');
     //     $data = $this->db->get();
@@ -8753,7 +8753,7 @@ class M_humanresource extends CI_Model {
 
     function get_emp_dept($branch) {
         $this->db->select('a.DeptCode, b.DeptDes');
-        $this->db->from('tbl_fa_hr_append a ');
+        $this->db->from('tbl_hr_append a ');
         $this->db->join('abase_03_dept b ' , 'b.DeptCode = a.DeptCode' , 'LEFT');
         $this->db->where('a.Branch', $branch);
         $this->db->group_by('a.DeptCode');
@@ -8762,7 +8762,7 @@ class M_humanresource extends CI_Model {
     } 
 
     // function get_all_employee() {
-    //     $data = $this->db->query("SELECT * FROM tbl_fa_hr_append");
+    //     $data = $this->db->query("SELECT * FROM tbl_hr_append");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -8771,7 +8771,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_all_employee($branch) {
-        $data = $this->db->query("SELECT * FROM tbl_fa_hr_append WHERE Branch = '$branch'");
+        $data = $this->db->query("SELECT * FROM tbl_hr_append WHERE Branch = '$branch'");
         if ($data) {
             return $data->result();
         }else{
@@ -8782,7 +8782,7 @@ class M_humanresource extends CI_Model {
     // public function M_search_data($query)
     // {
     //     $this->db->select('a.*');
-    //     $this->db->from('tbl_fa_hr_append a');
+    //     $this->db->from('tbl_hr_append a');
     //     if ($query != '') {
     //         $this->db->like('a.IDNumber', $query);
     //         $this->db->or_like('a.FirstName', $query);
@@ -8798,7 +8798,7 @@ class M_humanresource extends CI_Model {
     public function M_search_data($branch, $query)
     {
         return $this->db->query(
-            "SELECT `a`.* FROM `tbl_fa_hr_append` `a` 
+            "SELECT `a`.* FROM `tbl_hr_append` `a` 
              WHERE `a`.`Branch` = '$branch' 
              AND 
                 (a.IDNumber LIKE '%$query%' OR 
@@ -8815,7 +8815,7 @@ class M_humanresource extends CI_Model {
 
     //Start - 26Mei2021
     function get_data_current_manpower_emptype_by_dept(){
-        $data = $this->db->query("SELECT DeptCode, IndividualLevel, EmployeeType, CostCenter, CostCenterDes, IndividualLevelCode, IndividualLevelDes, COUNT(IDNumber) AS count FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY DeptCode,IndividualLevelCode,EmployeeType");
+        $data = $this->db->query("SELECT DeptCode, IndividualLevel, EmployeeType, CostCenter, CostCenterDes, IndividualLevelCode, IndividualLevelDes, COUNT(IDNumber) AS count FROM tbl_hr_append WHERE Status='Active' GROUP BY DeptCode,IndividualLevelCode,EmployeeType");
         if ($data) {
             return $data->result();
         }else{
@@ -8827,7 +8827,7 @@ class M_humanresource extends CI_Model {
     //Start - 27Mei2021
     //Level
     function get_level_manpower(){
-        $data = $this->db->query("SELECT IndividualLevelCode,IndividualLevel,IndividualLevelDes,DeptCode,CostCenter,CostCenterDes,EmployeeType FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY DeptCode,IndividualLevelCode");
+        $data = $this->db->query("SELECT IndividualLevelCode,IndividualLevel,IndividualLevelDes,DeptCode,CostCenter,CostCenterDes,EmployeeType FROM tbl_hr_append WHERE Status='Active' GROUP BY DeptCode,IndividualLevelCode");
         if ($data) {
             return $data->result();
         }else{
@@ -8836,7 +8836,7 @@ class M_humanresource extends CI_Model {
     }
 
     function get_report_emp_etype_subtotals(){
-        $data = $this->db->query("SELECT DeptCode,IndividualLevelCode,EmployeeType, COUNT(IDNumber) AS count FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY DeptCode,EmployeeType");
+        $data = $this->db->query("SELECT DeptCode,IndividualLevelCode,EmployeeType, COUNT(IDNumber) AS count FROM tbl_hr_append WHERE Status='Active' GROUP BY DeptCode,EmployeeType");
         if ($data) {
             return $data->result();
         }else{
@@ -8849,7 +8849,7 @@ class M_humanresource extends CI_Model {
     //Start - 07Juni2021
     //Current Manpower Detail
     function get_data_manpower_detail(){
-        $data = $this->db->query("SELECT IDNumber,FirstName,LastName,DeptCode,EmployeeType,EmployeeTypeDes,JobLevelCode,JobLevelDes,JobLevel,JobTitle,JobTitleDes,PositionTitle,PositionTitleDes,CostCenter,CostCenterDes FROM tbl_fa_hr_append WHERE Status='Active' GROUP BY DeptCode,IDNumber");
+        $data = $this->db->query("SELECT IDNumber,FirstName,LastName,DeptCode,EmployeeType,EmployeeTypeDes,JobLevelCode,JobLevelDes,JobLevel,JobTitle,JobTitleDes,PositionTitle,PositionTitleDes,CostCenter,CostCenterDes FROM tbl_hr_append WHERE Status='Active' GROUP BY DeptCode,IDNumber");
         if ($data) {
             return $data->result();
         }else{
@@ -8860,7 +8860,7 @@ class M_humanresource extends CI_Model {
 
     //Start - 04Juni2021
     // function get_data_emp_con_det(){
-    //     $data = $this->db->query("SELECT a.IDNumber,a.ContractNo,a.NoOfContract,a.CommenceDate,a.CompletionDate,a.ReportTo,a.Status,b.PositionTitle,b.PositionTitleDes,b.FirstName,b.LastName,b.DeptCode,b.DeptDes FROM tbl_emp_contract a LEFT JOIN tbl_fa_hr_append b ON b.ContractNo = a.ContractNo WHERE a.Status='Active' GROUP BY b.DeptCode,a.ContractNo");
+    //     $data = $this->db->query("SELECT a.IDNumber,a.ContractNo,a.NoOfContract,a.CommenceDate,a.CompletionDate,a.ReportTo,a.Status,b.PositionTitle,b.PositionTitleDes,b.FirstName,b.LastName,b.DeptCode,b.DeptDes FROM tbl_emp_contract a LEFT JOIN tbl_hr_append b ON b.ContractNo = a.ContractNo WHERE a.Status='Active' GROUP BY b.DeptCode,a.ContractNo");
     //     if ($data) {
     //         return $data->result();
     //     }else{
@@ -8869,7 +8869,7 @@ class M_humanresource extends CI_Model {
     // }
 
     function get_data_emp_con_det(){
-        $data = $this->db->query("SELECT  a.IDNumber,a.ContractNo,a.NoOfContract,a.CommenceDate,a.CompletionDate,b.FirstName,b.LastName,b.DeptCode,b.DeptDes,COUNT(a.IDNumber) as total FROM tbl_emp_contract a LEFT JOIN tbl_fa_hr_append b ON b.ContractNo = a.ContractNo WHERE a.Status='Active' GROUP BY b.DeptCode, a.ContractNo");
+        $data = $this->db->query("SELECT  a.IDNumber,a.ContractNo,a.NoOfContract,a.CommenceDate,a.CompletionDate,b.FirstName,b.LastName,b.DeptCode,b.DeptDes,COUNT(a.IDNumber) as total FROM tbl_emp_contract a LEFT JOIN tbl_hr_append b ON b.ContractNo = a.ContractNo WHERE a.Status='Active' GROUP BY b.DeptCode, a.ContractNo");
         if ($data) {
             return $data->result();
         }else{
@@ -8924,7 +8924,7 @@ class M_humanresource extends CI_Model {
     //25October2021
     //Personal Register Modul
     function get_data_sum_employee_by_employeetype_abc($branch){
-         $data = $this->db->query("SELECT sub.EStaff,sub.ENonStaff,sub.EExpat,sub.Total FROM (SELECT EmployeeType,SUM(IF(tb1.EmployeeType = '10',1,0)) AS EStaff, SUM(IF(tb1.EmployeeType = '20',1,0)) AS ENonStaff,SUM(IF(tb1.EmployeeType = '30',1,0)) AS EExpat, COUNT(tb1.IDNumber) AS Total FROM(SELECT CtrlNo,IDNumber ,EmployeeType FROM tbl_fa_hr_append WHERE Branch = '$branch')tb1)sub");
+         $data = $this->db->query("SELECT sub.EStaff,sub.ENonStaff,sub.EExpat,sub.Total FROM (SELECT EmployeeType,SUM(IF(tb1.EmployeeType = '10',1,0)) AS EStaff, SUM(IF(tb1.EmployeeType = '20',1,0)) AS ENonStaff,SUM(IF(tb1.EmployeeType = '30',1,0)) AS EExpat, COUNT(tb1.IDNumber) AS Total FROM(SELECT CtrlNo,IDNumber ,EmployeeType FROM tbl_hr_append WHERE Branch = '$branch')tb1)sub");
         if ($data) {
             return $data->result();
         }else{
@@ -8933,7 +8933,7 @@ class M_humanresource extends CI_Model {
     }
 
     function get_list_department_from_hr_append_abc($branch){
-        $data = $this->db->query("SELECT DeptCode,DeptDes FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY DeptCode");
+        $data = $this->db->query("SELECT DeptCode,DeptDes FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY DeptCode");
         if ($data) {
             return $data->result();
         }else{
@@ -8942,7 +8942,7 @@ class M_humanresource extends CI_Model {
     }
 
     function get_function_abc($branch){
-        $data = $this->db->query("SELECT WorkFunction,WorkFunctionDes FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY WorkFunction");
+        $data = $this->db->query("SELECT WorkFunction,WorkFunctionDes FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY WorkFunction");
         if ($data) {
             return $data->result();
         }else{
@@ -8951,7 +8951,7 @@ class M_humanresource extends CI_Model {
     }
 
     function get_data_report_by_dept_function_abc($branch){
-        $data = $this->db->query(" SELECT WorkFunction,WorkFunctionDes,DeptCode, DeptDes, COUNT(IDNumber) as ttl FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY WorkFunction,DeptCode");
+        $data = $this->db->query(" SELECT WorkFunction,WorkFunctionDes,DeptCode, DeptDes, COUNT(IDNumber) as ttl FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY WorkFunction,DeptCode");
         if ($data) {
             return $data->result();
         }else{
@@ -8960,7 +8960,7 @@ class M_humanresource extends CI_Model {
     }
 
     function get_employeetype_abc($branch){
-        $data = $this->db->query("SELECT EmployeeType,EmployeeTypeDes FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY EmployeeType");
+        $data = $this->db->query("SELECT EmployeeType,EmployeeTypeDes FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY EmployeeType");
         if ($data) {
             return $data->result();
         }else{
@@ -8969,7 +8969,7 @@ class M_humanresource extends CI_Model {
     }
 
     function get_data_report_by_dept_employeetype_abc($branch){
-        $data = $this->db->query("SELECT DeptCode, EmployeeType, COUNT(IDNumber) AS count FROM tbl_fa_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY DeptCode,EmployeeType");
+        $data = $this->db->query("SELECT DeptCode, EmployeeType, COUNT(IDNumber) AS count FROM tbl_hr_append WHERE Status='Active' AND Branch = '$branch' GROUP BY DeptCode,EmployeeType");
         if ($data) {
             return $data->result();
         }else{
@@ -8979,7 +8979,7 @@ class M_humanresource extends CI_Model {
 
     function get_report_emp_etype_gtotals_abc($branch){
         $this->db->select('DeptCode,EmployeeType, COUNT(IDNumber) AS count');
-        $this->db->from('tbl_fa_hr_append');
+        $this->db->from('tbl_hr_append');
         $this->db->where("Status = 'Active'");
         $this->db->where('Branch', $branch);
         $this->db->group_by('EmployeeType');
@@ -9011,7 +9011,7 @@ class M_humanresource extends CI_Model {
     }
 
     function get_data_supervisor_abc($branch){
-        $data = $this->db->query("SELECT IDNumber,FirstName,LastName,PositionTitle,PositionTitleDes FROM tbl_fa_hr_append WHERE Branch='$branch'");
+        $data = $this->db->query("SELECT IDNumber,FirstName,LastName,PositionTitle,PositionTitleDes FROM tbl_hr_append WHERE Branch='$branch'");
         if ($data) {
             return $data->result();
         }else{
@@ -9021,7 +9021,7 @@ class M_humanresource extends CI_Model {
 
     function get_emp_dept_abc($branch) {
         $this->db->select('a.DeptCode, b.DeptDes');
-        $this->db->from('tbl_fa_hr_append a ');
+        $this->db->from('tbl_hr_append a ');
         $this->db->join('abase_03_dept b ' , 'b.DeptCode = a.DeptCode' , 'LEFT');
         $this->db->where('a.Branch', $branch);
         $this->db->group_by('a.DeptCode');
@@ -9030,7 +9030,7 @@ class M_humanresource extends CI_Model {
     } 
 
     function get_all_employee_abc($branch) {
-        $data = $this->db->query("SELECT * FROM tbl_fa_hr_append WHERE Branch = '$branch'");
+        $data = $this->db->query("SELECT * FROM tbl_hr_append WHERE Branch = '$branch'");
         if ($data) {
             return $data->result();
         }else{
@@ -9041,7 +9041,7 @@ class M_humanresource extends CI_Model {
     public function M_search_data_abc($branch, $query)
     {
         return $this->db->query(
-            "SELECT `a`.* FROM `tbl_fa_hr_append` `a` 
+            "SELECT `a`.* FROM `tbl_hr_append` `a` 
              WHERE `a`.`Branch` = '$branch' 
              AND 
                 (a.IDNumber LIKE '%$query%' OR 

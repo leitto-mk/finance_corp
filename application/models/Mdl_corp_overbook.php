@@ -21,7 +21,7 @@ class Mdl_corp_overbook extends CI_Model
 
     function get_employee(){
         return $this->db->select('IDNumber, FullName, DeptCode, CostCenter')
-                        ->get('tbl_fa_hr_append')->result();
+                        ->get('tbl_hr_append')->result();
     }
 
     public function get_mas_acc(){

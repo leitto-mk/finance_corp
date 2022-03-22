@@ -28,7 +28,7 @@ class Mdl_corp_personal extends CI_Model
             FROM tbl_fa_transaction AS trans
             INNER JOIN tbl_fa_account_no AS acc
                ON trans.AccNo = acc.Acc_No
-            INNER JOIN tbl_fa_hr_append as hr
+            INNER JOIN tbl_hr_append as hr
                ON trans.IDNumber = hr.IDNumber
             WHERE trans.PostedStatus = 1
             ORDER BY trans.IDNumber, trans.CtrlNo ASC"

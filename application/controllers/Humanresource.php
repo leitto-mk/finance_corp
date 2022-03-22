@@ -2012,7 +2012,7 @@ class Humanresource extends CI_Controller {
                     'RegBy' => $this->session->userdata('IDNumber'),
                     'RegDate' => date('Y-m-d')
                 );
-                $this->M_humanresource->insert('tbl_fa_hr_append', $employeeappend);
+                $this->M_humanresource->insert('tbl_hr_append', $employeeappend);
 
                 $datacom=array(
                     'IDNumber' =>$idnumber_,
@@ -7386,7 +7386,7 @@ class Humanresource extends CI_Controller {
                     'RegBy' => '',
                     'RegDate' => date('Y-m-d')
                 );
-                $this->M_humanresource->insert('tbl_fa_hr_append', $employeeappend);
+                $this->M_humanresource->insert('tbl_hr_append', $employeeappend);
 
                 $datacom=array(
                     'IDNumber' =>$idnumber_,
