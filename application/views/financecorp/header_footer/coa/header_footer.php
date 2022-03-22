@@ -42,6 +42,7 @@ License: You must have a valid license purchased only from themeforest(the above
   <link href="<?= base_url() ?>assets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color" />
   <link href="<?= base_url() ?>assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
   <link href="<?= base_url() ?>assets/css/finance.css" rel="stylesheet" type="text/css" />
+  <link href="<?= base_url() ?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
   <link href="<?= base_url() ?>assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
   <link href="<?= base_url() ?>assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
   <!-- END THEME LAYOUT STYLES -->
@@ -80,7 +81,11 @@ License: You must have a valid license purchased only from themeforest(the above
   <!-- END THEME LAYOUT SCRIPTS -->
   <script src="<?= base_url() ?>assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
-  <script src="<?= base_url() ?>js/master/js_coa.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/global/plugins/moment.min.js" type="text/javascript"></script>
+
+  <!-- <script src="<?= base_url() ?>js/master/js_coa.js" type="text/javascript"></script> -->
   <?php if(isset($script) && $script !== '') : ?>
       <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
   <?php endif ?>

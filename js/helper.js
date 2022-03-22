@@ -53,6 +53,25 @@ const helper = {
     },
 
     /**
+     * Select2. see reference for more info:
+     * @link    https://select2.org/
+     * 
+     * @type    {any}       Input Element
+     * @type    {array}     List of data in Array
+     * @type    {string}    String placeholder
+     * 
+     * @return  {void}
+    */
+    select2: (element, data, placeholder) => {
+        $(document).find(element).select2({
+            minimumResultsForSearch: -1,
+			data: data,
+			placeholder: placeholder ?? '',
+			width: "style",
+		})
+    },
+
+    /**
      * Turn On Page Loader
      * 
      * @type    {object}  {animate, iconOnly, boxed, target, message,...}. You can see the the rest inside
@@ -79,7 +98,7 @@ const helper = {
             }
             el.block({
                 message: html,
-                baseZ: options.zIndex ? options.zIndex : 1000,
+                baseZ: options.zIndex ? options.zIndex : 15000,
                 centerY: options.centerY !== undefined ? options.centerY : false,
                 css: {
                     top: '10%',
@@ -96,7 +115,7 @@ const helper = {
         } else { // page blocking
             $.blockUI({
                 message: html,
-                baseZ: options.zIndex ? options.zIndex : 1000,
+                baseZ: options.zIndex ? options.zIndex : 15000,
                 css: {
                     border: '0',
                     padding: '0',
