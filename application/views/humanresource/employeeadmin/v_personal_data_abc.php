@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<?php $this->load->view('header_footer/hr/header'); ?>
-=======
 <?php $this->load->view('humanresource/header_footer/header'); ?>
->>>>>>> 86faed4050dcae44fadc4b3129d1106aa9377d39
 <style>
     .zoom {
         transition: transform .2s;
@@ -725,8 +721,4 @@ function load_function(){
     });
 }
 </script>
-<<<<<<< HEAD
-<?php $this->load->view('header_footer/hr/footer'); ?>
-=======
 <?php $this->load->view('humanresource/header_footer/footer'); ?>
->>>>>>> 86faed4050dcae44fadc4b3129d1106aa9377d39

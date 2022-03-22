@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<?php $this->load->view('header_footer/hr/header_reg'); ?>
-=======
 <?php $this->load->view('humanresource/header_footer/header_reg'); ?>
->>>>>>> 86faed4050dcae44fadc4b3129d1106aa9377d39
 <style>
 @media (min-width: 992px){
     .page-content-wrapper .page-content {
@@ -2308,8 +2304,4 @@ function load_function(){
 }
 </script>
 <script src="<?php echo base_url(); ?>assets/datetime-realtime/datetime-ind-format.js" type="text/javascript"></script>
-<<<<<<< HEAD
-<?php $this->load->view('header_footer/hr/footer_reg'); ?> 
-=======
 <?php $this->load->view('humanresource/header_footer/footer_reg'); ?> 
->>>>>>> 86faed4050dcae44fadc4b3129d1106aa9377d39

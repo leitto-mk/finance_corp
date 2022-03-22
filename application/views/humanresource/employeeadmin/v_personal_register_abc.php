@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<?php $this->load->view('header_footer/hr/header_n');?>
-=======
 <?php $this->load->view('humanresource/header_footer/header_n');?>
->>>>>>> 86faed4050dcae44fadc4b3129d1106aa9377d39
 <style type="text/css">
 #col_box {
     width: 25%;
@@ -396,8 +392,4 @@ tr:nth-child(odd){
         });
     }
 </script>
-<<<<<<< HEAD
-<?php $this->load->view('header_footer/hr/footer_n');?>
-=======
 <?php $this->load->view('humanresource/header_footer/footer_n');?>
->>>>>>> 86faed4050dcae44fadc4b3129d1106aa9377d39
