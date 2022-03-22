@@ -48,10 +48,8 @@ class Mdl_corp_reports extends CI_Model {
          $finish = $datestart;
       }
 
-      $this->db->cache_on();
-
-      //GET RESULT IN SELECTED DATE RANGE
-      $ondate_selected_result = $this->db->query(
+      // GET RECORDS WITHIN TRANSDATE RANGE
+      $in_range_result = $this->db->query(
          "SELECT 
             company.ComCode,
             company.ComName,
@@ -62,6 +60,7 @@ class Mdl_corp_reports extends CI_Model {
             trans.DocNo,
             acc.Acc_Name,
             acc.Acc_Type,
+            trans.CtrlNo,
             trans.TransType, 
             trans.TransDate, 
             trans.Branch,
@@ -72,7 +71,6 @@ class Mdl_corp_reports extends CI_Model {
             trans.Debit,
             trans.Credit, 
             trans.Currency,
-            trans.Balance,
             CASE
                WHEN (SELECT YEAR(TransDate) 
                      FROM tbl_fa_transaction 
@@ -130,8 +128,7 @@ class Mdl_corp_reports extends CI_Model {
                   )
                ELSE
                   trans.BalanceBranch
-            END AS BalanceBranch,
-            trans.EntryDate
+            END AS BalanceBranch
          FROM tbl_fa_transaction AS trans
          LEFT JOIN tbl_fa_account_no AS acc
             ON trans.AccNo = acc.Acc_No
@@ -141,13 +138,13 @@ class Mdl_corp_reports extends CI_Model {
          AND trans.TransDate BETWEEN ? AND ?
          AND trans.AccNo BETWEEN ? AND ?
          AND trans.PostedStatus = 1
-         ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
+         ORDER BY trans.AccNo ASC, trans.TransDate ASC, trans.DocNo ASC, trans.CtrlNo ASC"
       ,[
          $start, $start, $start, $start, $start, $start, $start, $start, $start, $finish, $accno_start, $accno_finish
       ])->result_array();
 
-      //GET RUNNING BALANCE OF EACH EXCLUDED ACCNO IN SELECTED DATE RANGE
-      $other_accno_result = $this->db->query(
+      // GET EVERY RECORDS BELOW TRANSDATE RANGE WITH CONTAINING RUNNING BALANCE
+      $below_range_result = $this->db->query(
          "SELECT 
             company.ComCode,
             company.ComName,
@@ -157,17 +154,17 @@ class Mdl_corp_reports extends CI_Model {
             trans.AccNo,
             acc.Acc_Name,
             acc.Acc_Type,
+            trans.CtrlNo,
             trans.TransDate,
             trans.Branch,
-            trans.Remarks,
             trans.DocNo,
             trans.TransType,
             trans.Department,
             trans.CostCenter,
             trans.Currency,
+            trans.Remarks,
             trans.Debit,
             trans.Credit,
-            trans.BalanceBranch,
             CASE
                WHEN (SELECT YEAR(TransDate) 
                      FROM tbl_fa_transaction 
@@ -198,12 +195,13 @@ class Mdl_corp_reports extends CI_Model {
                   )
                ELSE
                   (SELECT BalanceBranch
-                  FROM tbl_fa_transaction 
-                  WHERE AccNo = acc.Acc_No 
-                  AND Branch = trans.Branch
-                  AND TransDate < ?
-                  ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
-            END AS beg_balance
+                     FROM tbl_fa_transaction 
+                     WHERE AccNo = acc.Acc_No 
+                     AND Branch = trans.Branch
+                     AND TransDate < ?
+                     ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+            END AS beg_balance,
+            trans.BalanceBranch
          FROM tbl_fa_transaction AS trans
          LEFT JOIN tbl_fa_account_no AS acc
             ON trans.AccNo = acc.Acc_No
@@ -224,16 +222,32 @@ class Mdl_corp_reports extends CI_Model {
             WHERE AccNo = trans.AccNo
             AND TransDate < ?
          )
-         ORDER BY trans.TransDate DESC, trans.CtrlNo DESC"
+         ORDER BY trans.AccNo ASC, trans.TransDate ASC, trans.DocNo ASC, trans.CtrlNo ASC"
       ,[
          $start, $start, $start, $start, $start, $start, $start, $finish, $accno_start, $accno_finish, $start
       ])->result_array();
 
-      $result = array_merge($ondate_selected_result, $other_accno_result);
-      
-      usort($result, function ($item, $compare){
-         return $item['AccNo'] > $compare['AccNo'] ? 1 : -1;
-      });
+
+      // MERGE IN & OUTER RESULT RANGE
+      $result = array_merge($in_range_result, $below_range_result);
+
+      // RE-SORTING THE RESULT BY `AccNo`,`TransDate`,`DocNo`
+      if(!empty($below_range_result)){
+         foreach ($result as $key => $row) {
+            $col_accno[$key] = $row['AccNo']; 
+            $col_transdate[$key] = $row['TransDate'];
+            $col_docno[$key] = $row['DocNo'];
+            $col_ctrlno[$key] = $row['CtrlNo'];
+        }
+         
+         array_multisort(
+            $col_accno, SORT_ASC,
+            $col_transdate, SORT_ASC,
+            $col_docno, SORT_ASC,
+            $col_ctrlno, SORT_ASC,
+            $result
+         );
+      }
 
       return $result;
    }
@@ -262,7 +276,14 @@ class Mdl_corp_reports extends CI_Model {
                acc.Acc_Name,
                acc.Acc_Type,
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
-               IF(trans.BalanceBranch IS NOT NULL, trans.BalanceBranch, 0) AS Amount
+               CASE
+                  WHEN (trans.BalanceBranch IS NOT NULL OR trans.BalanceBranch != 0) AND acc.Acc_Type != 'A1' THEN
+                     trans.BalanceBranch
+                  WHEN (trans.BalanceBranch IS NOT NULL OR trans.BalanceBranch != 0) AND acc.Acc_Type = 'A1' THEN
+                     (trans.BalanceBranch * -1)
+                  ELSE
+                     0
+               END AS Amount
             FROM tbl_fa_account_no AS acc
             LEFT JOIN (
                SELECT Branch, AccNo, AccType, BalanceBranch, TransDate, EntryDate 
@@ -287,7 +308,7 @@ class Mdl_corp_reports extends CI_Model {
                AND $branch
             ) AS trans
                ON acc.Acc_No = trans.AccNo
-            WHERE acc.Acc_Type = 'A'
+            WHERE acc.Acc_Type IN ('A', 'A1')
             GROUP BY acc.Acc_No
             ORDER BY acc.Acc_No ASC"
       )->result_array();

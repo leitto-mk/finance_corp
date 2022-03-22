@@ -384,7 +384,7 @@ class Mdl_corp_entry extends CI_Model
                              AND Branch = trans.Branch
                              AND TransDate < '$date_start'
                              AND CtrlNo < trans.CtrlNo
-                             ORDER BY TransDate DESC, CtrlNo DESC LIMIT 1)
+                             ORDER BY TransDate DESC, DocNo DESC, CtrlNo DESC LIMIT 1)
                  END AS beg_balance,
                  trans.Balance,
                  trans.BalanceBranch,
@@ -398,7 +398,7 @@ class Mdl_corp_entry extends CI_Model
               AND acc.TransGroup NOT IN('H1','H2','H3')
               AND trans.TransDate BETWEEN '$date_start' AND '$date_finish'
               AND trans.PostedStatus = 1
-              ORDER BY AccNo, Branch, TransDate, CtrlNo, DocNo ASC"
+              ORDER BY trans.AccNo ASC, trans.TransDate ASC, trans.DocNo ASC, trans.CtrlNo ASC"
         )->result_array();
   
         $lastBalance = 0;
@@ -493,11 +493,11 @@ class Mdl_corp_entry extends CI_Model
             $query = $query->where('mas.IDNumber', $employee);
         }
 
-        $query = $query->order_by("TransDate ASC, CtrlNo ASC")->get()->result_array();
+        $query = $query->order_by("TransDate ASC, DocNo ASC, CtrlNo ASC")->get()->result_array();
 
         $emp_beg_bal = $this->db->limit(1)
                                 ->select('Balance')
-                                ->order_by("TransDate DESC, CtrlNo DESC")
+                                ->order_by("TransDate DESC, DocNo DESC, CtrlNo DESC")
                                 ->where("TransType IN('CW','CR')")
                                 ->where([
                                     'TransDate <' => $date_start,

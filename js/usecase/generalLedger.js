@@ -107,9 +107,25 @@ const gl = {
                             subtotal_debit += +response.result[i].Debit;
                             subtotal_credit += +response.result[i].Credit;
                             
-                            if(typeof response.result[i+1].AccNo == 'undefined' || response.result[i+1].AccNo !== cur_accno || i == (response.result.length-1)){
-                                let subtotal_balance = subtotal_debit + subtotal_credit;
-    
+                            let subtotal_balance = subtotal_debit + subtotal_credit;
+                            if(i < (response.result.length-1)){
+                                if(response.result[i+1].AccNo !== cur_accno){
+                                    table.append(`
+                                        <tr class="font-dark sbold">
+                                            <td class="bold" align="right" colspan="8">Balance</td>
+                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response.result[i].BalanceBranch)}</td>
+                                        </tr>
+                                        <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
+                                            <td align="right" colspan="8">Total :</td>                                    
+                                            <td align="right">${Intl.NumberFormat('id').format(subtotal_debit)}</td>
+                                            <td align="right">${Intl.NumberFormat('id').format(subtotal_credit)}</td>
+                                            <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('id').format(subtotal_balance)}</td>
+                                        </tr>`
+                                    )
+        
+                                    subtotal_credit = subtotal_debit = subtotal_balance = 0
+                                }
+                            }else{
                                 table.append(`
                                     <tr class="font-dark sbold">
                                         <td class="bold" align="right" colspan="8">Balance</td>
@@ -122,8 +138,6 @@ const gl = {
                                         <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('id').format(subtotal_balance)}</td>
                                     </tr>`
                                 )
-    
-                                subtotal_credit = subtotal_debit = subtotal_balance = 0
                             }
                         }
                     }else{

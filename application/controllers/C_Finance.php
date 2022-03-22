@@ -17,20 +17,20 @@ class C_Finance extends CI_Controller
         'coa' => $result ?? []
         ];
 
-        $table_view = $this->load->view('financecorp/coa/component/v_coa_table', $table_data, true);
+        $table_view = $this->load->view('financecorp/master/coa/component/v_coa_table', $table_data, true);
 
         $container_data = [
         'table' => $table_view
         ];
 
-        $container_view = $this->load->view('financecorp/coa/v_coaccount', $container_data, true);
+        $container_view = $this->load->view('financecorp/master/coa/v_coaccount', $container_data, true);
 
         $data = [
         'title' => 'Chart Of Account',
         'container' => $container_view,
         ];
 
-        $this->load->view('header_footer/coa/header_footer', $data);
+        $this->load->view('financecorp/header_footer/coa/header_footer', $data);
     }
 
     public function get_form()
@@ -71,7 +71,7 @@ class C_Finance extends CI_Controller
         }
 
         $data_view['type'] = $type;
-        $body = $this->load->view('financecorp/coa/component/v_coa_form', $data_view, true);
+        $body = $this->load->view('financecorp/master/coa/component/v_coa_form', $data_view, true);
         } else {
         $title = 'Create New Head';
 
@@ -84,7 +84,7 @@ class C_Finance extends CI_Controller
 
         $data_view['coa']['Acc_Type'] = 'H';
         $data_view['type'] = 'head';
-        $body = $this->load->view('financecorp/coa/component/v_coa_form', $data_view, true);
+        $body = $this->load->view('financecorp/master/coa/component/v_coa_form', $data_view, true);
         }
 
         $data_return = [
@@ -207,7 +207,7 @@ class C_Finance extends CI_Controller
         $table_data = [
         'coa' => $result
         ];
-        $this->load->view('financecorp/coa/component/v_coa_table', $table_data);
+        $this->load->view('financecorp/master/coa/component/v_coa_table', $table_data);
     }
 
     public function delete_account()

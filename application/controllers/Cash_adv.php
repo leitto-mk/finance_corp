@@ -450,14 +450,14 @@ class Cash_adv extends CI_Controller
         }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $calculate_branch = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
-        if ($calculate_branch !== 'success') {
+        [$result, $error] = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
 
         //CALCULATE EMPLOYEE BALANCE ABOVE TRANSDATE
-        $calculate_emp = $this->Mdl_corp_cash_advance->update_emp_balance($cur_date, $this->input->post('emp_master_id'));
-        if ($calculate_emp !== 'success') {
+        [$result, $error] = $this->Mdl_corp_cash_advance->update_emp_balance($cur_date, $this->input->post('emp_master_id'));
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
 
@@ -846,14 +846,14 @@ class Cash_adv extends CI_Controller
         }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $calculate_branch = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
-        if ($calculate_branch !== 'success') {
+        $error = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
 
         //CALCULATE EMPLOYEE BALANCE ABOVE TRANSDATE
-        $calculate_emp = $this->Mdl_corp_cash_advance->update_emp_balance($cur_date, $this->input->post('emp_master_id'));
-        if ($calculate_emp !== 'success') {
+        $error = $this->Mdl_corp_cash_advance->update_emp_balance($cur_date, $this->input->post('emp_master_id'));
+        if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
 

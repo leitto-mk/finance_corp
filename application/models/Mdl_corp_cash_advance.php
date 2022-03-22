@@ -400,9 +400,19 @@ class Mdl_corp_cash_advance extends CI_Model
         
         $this->db->update_batch('tbl_fa_transaction', $query, 'CtrlNo');
         
+        if($this->db->error()['code'] != 0){
+            $code = $this->db->error()['code'];
+            $message = $this->db->error()['message'];
+            log_message('error', "$code: $message");
+
+            $this->db->trans_rollback();
+   
+            return "Database Error";
+         }
+        
         $this->db->trans_complete();
         
-        return ($this->db->trans_status() ? 'success' : $this->db->error());
+        return null;
     }
 
     function calculate_balance($branch, $accno, $cur_date, $last_date){
@@ -834,12 +844,12 @@ class Mdl_corp_cash_advance extends CI_Model
 
             $this->db->trans_rollback();
    
-            return [null, "Database Error"];
+            return "Database Error";
          }
         
         $this->db->trans_complete();
         
-        return ["Success", null];
+        return null;
     }
 
     function recalculate_employee($employee, $date_start){

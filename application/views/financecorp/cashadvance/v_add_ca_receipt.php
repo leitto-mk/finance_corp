@@ -1,4 +1,4 @@
-<?php $this->load->view('header_footer/header'); ?>
+<?php $this->load->view('financecorp/header_footer/header'); ?>
 <body class="page-container-bg-solid">
     <div class="page-wrapper">
         <div class="page-wrapper-row">
@@ -133,10 +133,8 @@
                                             <div class="row static-info">
                                                 <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                 <div class="col-md-12 value" style="margin-top: 8px">
-                                                    <b>
-                                                        <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control">
-                                                        <input type="number" class="form-control hidden" id="totalamount" name="totalamount">
-                                                    </b>
+                                                    <input style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;" type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control sbold">
+                                                    <input type="number" class="form-control hidden" id="totalamount" name="totalamount">
                                                 </div>
                                             </div>
                                         </div>
@@ -148,9 +146,8 @@
                                                 <br>
                                             </div>
                                             <div class="row static-info">
-                                                <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
-                                                <div class="col-md-12 value" style="margin-top: 8px">
-                                                    <b><input id="giro" name="giro" style="text-align:left; background: #E9EDEF;  border:none;" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control"></b>
+                                                <div class="col-md-12">
+                                                    <input id="giro" name="giro" type="text" placeholder="Input Check/Giro Here" class="input-group input-group-sm form-control sbold">
                                                 </div>
                                             </div>
                                         </div>
@@ -237,4 +234,4 @@
             </form>
         </div>
     </div>
-<?php $this->load->view('header_footer/footer'); ?>
+<?php $this->load->view('financecorp/header_footer/footer'); ?>
