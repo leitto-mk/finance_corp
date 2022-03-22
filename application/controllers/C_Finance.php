@@ -6,6 +6,12 @@ class C_Finance extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->load->helper([
+            'response',
+            'validate'
+        ]);
+
         $this->load->model('Mdl_corp_coa', 'finance');
     }
 
@@ -14,20 +20,21 @@ class C_Finance extends CI_Controller
         $result = $this->get_coa_data();
 
         $table_data = [
-        'coa' => $result ?? []
+            'coa' => $result ?? []
         ];
 
         $table_view = $this->load->view('financecorp/master/coa/component/v_coa_table', $table_data, true);
 
         $container_data = [
-        'table' => $table_view
+            'table' => $table_view
         ];
 
         $container_view = $this->load->view('financecorp/master/coa/v_coaccount', $container_data, true);
 
         $data = [
-        'title' => 'Chart Of Account',
-        'container' => $container_view,
+            'title' => 'Chart Of Account',
+            'container' => $container_view,
+            'script' => 'master'
         ];
 
         $this->load->view('financecorp/header_footer/coa/header_footer', $data);
@@ -38,64 +45,68 @@ class C_Finance extends CI_Controller
         $id = $this->input->post('id', true);
         $type = $this->input->post('type', true);
 
-        $data_return = [];
         $data_view = [];
         $body = '';
         $title = '';
 
         if ($id && $type) {
-        $data_coa =  $this->finance->M_get_coaccount([
-            'ID' => $id
-        ])->row_array();
+            $data_coa =  $this->finance->M_get_coaccount([
+                'ID' => $id
+            ])->row_array();
 
-        switch ($type) {
-            case 'child':
-            $data_view['coa']['Acc_No'] = $this->finance->M_get_last_co_number([
-                'level' => $data_coa['Level'],
-                'parent' => $data_coa['Acc_No'],
-                'id' => $id
-            ]);
-            // print_r($this->db->last_query());
-            // die;
-            $title = 'Create New Child';
-            break;
+            switch ($type) {
+                case 'child':
+                    $data_view['coa']['Acc_No'] = $this->finance->M_get_last_co_number([
+                        'level' => $data_coa['Level'],
+                        'parent' => $data_coa['Acc_No'],
+                        'id' => $id
+                    ]);
 
-            case 'edit':
-            $data_view['coa'] = $data_coa;
-            $title = $data_coa['Acc_No'] . ' - ' . $data_coa['Acc_Name'];
-            break;
+                    $title = 'Create New Child';
+                    break;
 
-            default:
-            $title = 'Modal';
-            break;
-        }
+                case 'edit':
+                    $data_view['coa'] = $data_coa;
+                    $data_view['transgroup'] = $data_coa['TransGroup'];
+                    $title = $data_coa['Acc_No'] . ' - ' . $data_coa['Acc_Name'];
+                    break;
 
-        $data_view['type'] = $type;
-        $body = $this->load->view('financecorp/master/coa/component/v_coa_form', $data_view, true);
+                default:
+                    $title = 'Modal';
+                    break;
+            }
+
+            $data_view['type'] = $type;
+
+            $body = $this->load->view('financecorp/master/coa/component/v_coa_form', $data_view, true);
         } else {
-        $title = 'Create New Head';
+            $title = 'Create New Head';
 
-        $data_view['coa']['Acc_No'] = $this->finance->M_get_last_co_number([
-            'level' => 0,
-            'parent' => 'null',
-            'id' => 'null'
+            $data_view['coa']['Acc_No'] = $this->finance->M_get_last_co_number([
+                'level' => 0,
+                'parent' => 'null',
+                'id' => 'null'
+            ]);
 
-        ]);
+            $data_view['coa']['Acc_Type'] = 'H';
+            $data_view['type'] = 'head';
+            $data_view['transgroup'] = null;
 
-        $data_view['coa']['Acc_Type'] = 'H';
-        $data_view['type'] = 'head';
-        $body = $this->load->view('financecorp/master/coa/component/v_coa_form', $data_view, true);
+            $body = $this->load->view('financecorp/master/coa/component/v_coa_form', $data_view, true);
         }
 
-        $data_return = [
-        'title' => $title,
-        'body' => $body,
-        'type_url' => base_url('C_Finance/get_type'),
-        'group_url' => base_url('C_Finance/get_group'),
-        'submit_url' => base_url('C_Finance/execute_coa'),
-        'content_url' => base_url('C_Finance/get_coa_content')
+        $result = [
+            'title' => $title,
+            'body' => $body,
+            'acc_types' => $this->finance->M_get_account_type()->result_array(),
+
+            'type_url' => base_url('C_Finance/get_type'),
+            'group_url' => base_url('C_Finance/get_group'),
+            'submit_url' => base_url('C_Finance/submit_coa'),
+            'content_url' => base_url('C_Finance/get_coa_content')
         ];
-        echo json_encode($data_return);
+
+        return set_success_response($result);
     }
 
     public function get_type()
@@ -110,7 +121,7 @@ class C_Finance extends CI_Controller
         echo json_encode($result);
     }
 
-    public function execute_coa()
+    public function submit_coa()
     {
         $id = $this->input->post('id', true);
         $type = $this->input->post('type', true);
@@ -123,90 +134,90 @@ class C_Finance extends CI_Controller
         $reg_date = date('Y-m-d');
 
         $data = [
-        'Acc_Name' => $name,
-        'Acc_type' => $coa_type,
-        // 'CashBank' => $cash_bank,
-        'TransGroup' => $group,
-        'Disc' => 'No'
-        ];
-
-        $return_result = [
-        'result' => '', // ? Success, Error,
-        'message' => '' // ? Success, Error
+            'Acc_Name' => $name,
+            'Acc_type' => $coa_type,
+            // 'CashBank' => $cash_bank,
+            'TransGroup' => $group,
+            'Disc' => 'No'
         ];
 
         switch ($type) {
-        case 'head':
-            $data['Acc_No'] = $acc_no;
-            $data['Level'] = '1';
-            $data['Parent'] = NULL;
-            $data['RegBy'] = $reg_by;
-            $data['RegDate'] = $reg_date;
+            case 'head':
+                $data['Acc_No'] = $acc_no;
+                $data['Level'] = '1';
+                $data['Parent'] = NULL;
+                $data['RegBy'] = $reg_by;
+                $data['RegDate'] = $reg_date;
 
-            $result = $this->finance->M_insert_coa($data);
-            if ($result == 'success') {
-            $return_result['result'] = 'success';
-            $return_result['message'] = 'Data Inserted';
-            } else {
-            $return_result['result'] = 'error';
-            $return_result['message'] = 'Contact Our Developer';
-            }
-            break;
+                $insert = $this->finance->M_insert_coa($data);
+                
+                if ($insert == 'success') {
+                    $result['result'] = 'success';
+                    $result['message'] = 'Data Inserted';
+                } else {
+                    $result['result'] = 'error';
+                    $result['message'] = 'Contact Our Developer';
+                }
+                break;
 
-        case 'child':
-            $data_coa = $this->finance->M_get_coaccount([
-            'ID' => $id
-            ])->row_array();
+            case 'child':
+                $data_coa = $this->finance->M_get_coaccount([
+                    'ID' => $id
+                ])->row_array();
 
-            $level = intval($data_coa['Level']) + 1;
+                $level = intval($data_coa['Level']) + 1;
 
-            if ($level > 4) {
-            $return_result['result'] = 'error';
-            $return_result['message'] = 'Level Maxed';
-            } else {
-            $data['Acc_No'] = $acc_no;
-            $data['Parent'] = $data_coa['Acc_No'];
-            $data['Level'] = $level;
-            $data['RegBy'] = $reg_by;
-            $data['RegDate'] = $reg_date;
+                if ($level > 4) {
+                    $result['result'] = 'error';
+                    $result['message'] = 'Level Maxed';
+                } else {
+                    $data['Acc_No'] = $acc_no;
+                    $data['Parent'] = $data_coa['Acc_No'];
+                    $data['Level'] = $level;
+                    $data['RegBy'] = $reg_by;
+                    $data['RegDate'] = $reg_date;
 
-            $result = $this->finance->M_insert_coa($data);
-            if ($result == 'success') {
-                $return_result['result'] = 'success';
-                $return_result['message'] = 'Data Inserted';
-            } else {
-                $return_result['result'] = 'error';
-                $return_result['message'] = 'Contact Our Developer';
-            }
-            }
-            break;
+                    $result = $this->finance->M_insert_coa($data);
 
-        case 'edit':
-            $result = $this->finance->M_update_coa($data, ['ID' => $id]);
-            if ($result == 'success') {
-            $return_result['result'] = 'success';
-            $return_result['message'] = 'Data Updated';
-            } else {
-            $return_result['result'] = 'error';
-            $return_result['message'] = $result;
-            // print_r($result);
-            }
-            break;
+                    if ($result == 'success') {
+                        $result['result'] = 'success';
+                        $result['message'] = 'Data Inserted';
+                    } else {
+                        $result['result'] = 'error';
+                        $result['message'] = 'Contact Our Developer';
+                    }
+                }
+                break;
 
-        default:
-            $return_result['result'] = 'error';
-            $return_result['message'] = 'Contact Our Developer';
-            break;
+            case 'edit':
+                $result = $this->finance->M_update_coa($data, ['ID' => $id]);
+
+                if ($result == 'success') {
+                    $result['result'] = 'success';
+                    $result['message'] = 'Data Updated';
+                } else {
+                    $result['result'] = 'error';
+                    $result['message'] = $result;
+                }
+                break;
+
+            default:
+                $result['result'] = 'error';
+                $result['message'] = 'Contact Our Developer';
+                break;
         }
-        echo json_encode($return_result);
+
+        return set_success_response($result);
     }
 
     public function get_coa_content()
     {
         $result = $this->get_coa_data();
+        
         $table_data = [
-        'coa' => $result
+            'coa' => $result
         ];
+
         $this->load->view('financecorp/master/coa/component/v_coa_table', $table_data);
     }
 
