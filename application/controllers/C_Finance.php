@@ -3,6 +3,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class C_Finance extends CI_Controller
 {
+    /**
+     * Common HTTP status codes and their respective description.
+     *
+     * @link http://www.restapitutorial.com/httpstatuscodes.html
+     */
+    const HTTP_OK = 200;
+    const HTTP_CREATED = 201;
+    const HTTP_NOT_MODIFIED = 304;
+    const HTTP_BAD_REQUEST = 400;
+    const HTTP_UNAUTHORIZED = 401;
+    const HTTP_FORBIDDEN = 403;
+    const HTTP_NOT_FOUND = 404;
+    const HTTP_NOT_ACCEPTABLE = 406;
+    const HTTP_INTERNAL_ERROR = 500;
+
     public function __construct()
     {
         parent::__construct();
@@ -149,15 +164,14 @@ class C_Finance extends CI_Controller
                 $data['RegBy'] = $reg_by;
                 $data['RegDate'] = $reg_date;
 
-                $insert = $this->finance->M_insert_coa($data);
+                $result = $this->finance->M_insert_coa($data);
                 
-                if ($insert == 'success') {
-                    $result['result'] = 'success';
-                    $result['message'] = 'Data Inserted';
-                } else {
-                    $result['result'] = 'error';
-                    $result['message'] = 'Contact Our Developer';
+                if ($result == 'success') {
+                    set_success_response("Data inserted");
+                }else{
+                    set_success_response(self::HTTP_INTERNAL_ERROR, "Database Error");
                 }
+
                 break;
 
             case 'child':
@@ -180,11 +194,9 @@ class C_Finance extends CI_Controller
                     $result = $this->finance->M_insert_coa($data);
 
                     if ($result == 'success') {
-                        $result['result'] = 'success';
-                        $result['message'] = 'Data Inserted';
-                    } else {
-                        $result['result'] = 'error';
-                        $result['message'] = 'Contact Our Developer';
+                        set_success_response("Data inserted");
+                    }else{
+                        set_success_response(self::HTTP_INTERNAL_ERROR, "Database Error");
                     }
                 }
                 break;
@@ -193,21 +205,17 @@ class C_Finance extends CI_Controller
                 $result = $this->finance->M_update_coa($data, ['ID' => $id]);
 
                 if ($result == 'success') {
-                    $result['result'] = 'success';
-                    $result['message'] = 'Data Updated';
-                } else {
-                    $result['result'] = 'error';
-                    $result['message'] = $result;
+                    set_success_response("Data inserted");
+                }else{
+                    set_success_response(self::HTTP_INTERNAL_ERROR, "Database Error");
                 }
+
                 break;
 
             default:
-                $result['result'] = 'error';
-                $result['message'] = 'Contact Our Developer';
+                set_error_response(self::HTTP_BAD_REQUEST, "Type is unrecognisable");
                 break;
         }
-
-        return set_success_response($result);
     }
 
     public function get_coa_content()

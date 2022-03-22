@@ -24,10 +24,10 @@ const callable = {
                 $("#modal-finance").find(".modal-title").text("Create New Heading")
                 $("#modal-finance").find(".modal-body").html(response.result.body)
 
-                $("#modal-finance").find("#action-submit").attr("data-type", "head")
+                $("#modal-finance").find("#action-submit, #action-delete").attr("data-unique", id)
+                $("#modal-finance").find("#action-submit").attr("data-type", type)
                 $("#modal-finance").find("#action-submit").attr("data-submit", 'C_Finance/submit_coa')
                 $("#modal-finance").find("#action-submit").attr("data-table-url", 'C_Finance/get_coa_content')
-                $("#modal-finance").find("#action-submit, #action-delete").attr("data-unique", id)
 
                 let element = $(document).find('#coa_type')
                 helper.select2(element, response.result.acc_types, null)
@@ -95,11 +95,13 @@ const mas = {
                     e.preventDefault();
             
                     const data = $('#form-finance').serializeArray();
-                    data.push({name: 'type', value: 'head'});
+                    data.push({name: 'id', value: $(this).find('#action-submit').attr('data-unique')});
+                    data.push({name: 'type', value: $(this).find('#action-submit').attr('data-type')});
             
                     repository.submitRecord('C_Finance/submit_coa', data)
                     .then(response => {
                         helper.unblockUI()
+                        $('modal-finance').modal('hide')
 
                         if(response.success) {
                             Swal.fire({
@@ -108,7 +110,7 @@ const mas = {
                                 'html': `Heading has been submited`
                             })
 
-                            $("#modal-finance").modal('hide')
+                            location.reload()
                         }else{
                             Swal.fire({
                                 'type': 'error',
