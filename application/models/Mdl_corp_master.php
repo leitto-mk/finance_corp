@@ -46,8 +46,7 @@ class Mdl_corp_master extends CI_Model {
 	}
 
 	public function getWhere($select, $table, $where, $val){
-		$this->db->select($select);
-		return $this->db->get_where($table, [$where => $val])->result_array();
+		return $this->db->select($select)->get_where($table, [$where => $val])->result_array();
 	}
 
 	public function updateData($where, $val, $table, $data){
@@ -323,9 +322,5 @@ class Mdl_corp_master extends CI_Model {
         $this->dtables->add_column('view','<button id="continue_stockcode" class="btn btn-outline btn-xs green" title="Continue" stock-code="$1"><i class="fa fa-check-square-o" title="Continue"></i></button>','Stockcode');
         return $this->dtables->generate();
     }
-
     //End - Stockcode
-
-
-
 }

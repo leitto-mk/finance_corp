@@ -24,7 +24,7 @@
                   <span class="caption-helper">List of all Chart of Account</span>
                 </div>
                 <div class="actions">
-                  <a href="#modal-finance" data-toggle="modal" class="btn blue-chambray" id="btn-new-heading" data-url="<?= base_url('C_Finance/get_form') ?>" title="Create Header For Level 1"><i class="fa fa-plus"></i> Heading</a>
+                  <a href="#modal-finance" class="btn blue-chambray" id="btn-new-heading" data-url="<?= base_url('C_Finance/get_form') ?>" title="Create Header For Level 1"><i class="fa fa-plus"></i> Heading</a>
                   <a href="<?= base_url('C_Finance/reset_coa') ?>" class="btn red" id="btn-new-heading"  title="Reset All Chart Of Account" onclick="return confirm('Are you sure to reset COA?')"><i class="fa fa-refresh"></i> Reset COA</a>
                 </div>
               </div>

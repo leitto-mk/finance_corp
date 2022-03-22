@@ -328,6 +328,20 @@ $(document).ready(function(){
             .catch(err => {
                 console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
+        },
+
+        //* MASTER
+        master: () => {
+            import('./usecase/master.js')
+            .then(({default: mas}) =>{
+                mas.finance.coa.eventOpenModalNewHeading()
+                mas.finance.coa.eventEditHeading()
+                mas.finance.coa.eventSubmitNewHeading()
+                mas.finance.coa.eventDeleteHeading()
+            })
+            .catch(err => {
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
+            })
         }
     };
     
