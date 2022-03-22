@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Cmaster extends CI_Controller
 {
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -1008,7 +1007,7 @@ class Cmaster extends CI_Controller
 	}
 	//Master Abase End
 
-	//Master Stock Group Start
+	//* STOCKGROUP
 	public function viewModalMasterStockGroup()
 	{
 		switch ($this->input->post('input')) {
@@ -1303,77 +1302,122 @@ class Cmaster extends CI_Controller
 				break;
 		}
 	}
-	//Master Stock Group Start
 
-	//Master UOM Start
-	function list_uom_dt()
+	//* STORAGE
+	function list_storage_dt()
 	{
-		$result = $this->master->get_list_uom_dt();
+		$result = $this->master->get_list_storage_dt();
 		echo $result;
 	}
-	//Master UOM End
 
-	//Master Currency Start
-	function list_cur_dt()
+	function add_storage()
 	{
-		$result = $this->master->get_list_cur_dt();
-		echo $result;
-	}
-	function add_cur()
-	{
-		$cur = $this->input->post('n_cur');
-		$currency = array(
-			'Currency' => $this->input->post('n_cur'),
-			'CurrencyName' => $this->input->post('n_curname'),
-			// 'Disc' => $this->input->post('n_disc'),
-			// 'Remarks' => $this->input->post('n_remarks'),
-			'Disc' => '0'
-
-		);
-		$rstatus = $this->master->insert('tbl_fa_mas_currency', $currency);
-		echo json_encode(array(
-			'rstatus' => true,
-			'Currency' => $currency['Currency']
-		));
-	}
-	function get_detail_cur_to_edit()
-	{
-		$cur = $this->input->post('currencycode');
-		$data = $this->master->get_detail_cur($cur);
-		$yes_ = array(
-			'yes' => 'Yes',
-			'no' => 'No',
-		);
-		echo json_encode(array(
-			'cur' => $this->master->get_all_cur(),
-			'dcur' => $data,
-			'yess' => $yes_['yes'],
-			'noo' => $yes_['no'],
-		));
-	}
-	function edit_cur()
-	{
-		$currency = $this->input->post('id_accno');
+		$storagename = null;
+		if (!empty($this->input->post('n_storagename'))) {
+			$storagename = $this->input->post('n_storagename');
+		} else {
+			$storagename =  "-";
+		}
 		$dstorage = array(
-			'Currency' => $this->input->post('currency'),
-			'CurrencyName' => $this->input->post('currencyname'),
-			'Disc' => $this->input->post('ei_disc'),
-			'Remarks' => $this->input->post('remarks'),
+			'BranchCode' => $this->input->post('n_branch'),
+			'StorageCode' => $this->input->post('n_storagecode'),
+			'StorageName' => $storagename,
+			'Address' => $this->input->post('n_address'),
+			'ContactID' => $this->input->post('n_warehouseman'),
+			'PhoneNo' => $this->input->post('n_phoneno'),
+			'Fax' => $this->input->post('n_fax'),
+			'Email' => $this->input->post('n_email'),
+			'is_active' => '1',
+			'RegBy' => $this->session->userdata('uid')
 		);
-		$rstatus = $this->master->update_data_cur($dstorage, $currency);
+		$rstatus = $this->master->insert('tbl_mat_cat_storage', $dstorage);
 		echo json_encode(array(
 			'rstatus' => $rstatus,
-			'Currency' => $dstorage['Currency']
+			'StorageCode' => $dstorage['StorageCode']
 		));
 	}
-	function delete_cur_by_accgid()
+
+	function get_list_branch()
 	{
-		$cur = $this->input->post('currencycode');
-		$rstatus = $this->master->delete_cur_by_curcode('tbl_fa_mas_currency', $cur);
+		$data = $this->master->get_list_branch();
+		echo json_encode($data);
+	}
+
+	function get_list_warehouseman()
+	{
+		$data = $this->master->get_list_warehouseman();
+		echo json_encode($data);
+	}
+
+	function get_detwarehouseman_by_whmid()
+	{
+		$whmid = $this->input->post('id');
+		$result = $this->master->get_detwarehouseman_by_whmid($whmid);
+		echo json_encode($result);
+	}
+
+	function get_detail_storage()
+	{
+		$storagecode = $this->input->post('storagecode');
+		$data = $this->master->get_detail_storage($storagecode);
+		echo json_encode($data);
+	}
+
+	function get_detail_storage_to_edit()
+	{
+		$storagecode = $this->input->post('storagecode');
+		$data = $this->master->get_detail_storage($storagecode);
+		echo json_encode(array(
+			'dbranch' => $this->master->get_list_branch(),
+			'dwarehouseman' => $this->master->get_list_warehouseman(),
+			'dstatus' => $this->master->get_list_status($storagecode),
+			'dstorage' => $data
+		));
+	}
+
+	function edit_storage()
+	{
+		$storagename = null;
+		$storageid = $this->input->post('id_storagecode');
+		if (!empty($this->input->post('en_storagename'))) {
+			$storagename = $this->input->post('en_storagename');
+		} else {
+			$storagename =  "-";
+		}
+		$dstorage = array(
+			'BranchCode' => $this->input->post('en_branch'),
+			'StorageCode' => $this->input->post('en_storagecode'),
+			'StorageName' => $storagename,
+			'Address' => $this->input->post('en_address'),
+			'ContactID' => $this->input->post('en_warehouseman'),
+			'PhoneNo' => $this->input->post('en_phoneno'),
+			'Fax' => $this->input->post('en_fax'),
+			'Email' => $this->input->post('en_email'),
+			'is_active' => $this->input->post('en_status')
+		);
+		$rstatus = $this->master->update_data_storage($dstorage, $storageid);
+		echo json_encode(array(
+			'rstatus' => $rstatus,
+			'StorageCode' => $dstorage['StorageCode']
+		));
+	}
+
+	public function discDataStorage()
+	{
+		$scode = $this->input->post('scode');
+		$remarks = $this->input->post('remarks');
+		$data = ['Disc' => '1', 'is_active' => '0', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+		$hasil = $this->master->updateData('StorageCode', $scode, 'tbl_mat_cat_storage', $data);
+	}
+
+	function delete_storage_by_storageid()
+	{
+		$storagecode = $this->input->post('storagecode');
+		$rstatus = $this->master->delete_storage_by_storagecode('tbl_mat_cat_storage', $storagecode);
 		if ($rstatus != false) {
 			echo json_encode(array(
 				'rstatus' => true,
-				'Currency' => $cur
+				'StorageCode' => $storagecode
 			));
 		} else {
 			echo json_encode(array(
@@ -1381,9 +1425,47 @@ class Cmaster extends CI_Controller
 			));
 		}
 	}
-	//Master Currency End
 
-	//Master Customer Type Price Start
+	//* STOCKCODE
+	function list_stock_dt()
+	{
+		$result = $this->master->get_list_stock_dt();
+		echo $result;
+	}
+
+	function list_stock_dt_disc()
+	{
+		$result = $this->master->get_list_stock_dt_disc();
+		echo $result;
+	}
+
+	public function discDataStockcode()
+	{
+		$stcode = $this->input->post('stcode');
+		$remarks = $this->input->post('remarks');
+		$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock', $data);
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stockcode', $data);
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock_reg', $data);
+	}
+
+	public function continueDataStockcode()
+	{
+		$stcode = $this->input->post('stcode');
+		$data = ['Disc' => '0', 'DiscDate' => null, 'Remarks' => null];
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock', $data);
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stockcode', $data);
+		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock_reg', $data);
+	}
+
+	//* UNIT OF MATERIAL
+	function list_uom_dt()
+	{
+		$result = $this->master->get_list_uom_dt();
+		echo $result;
+	}
+
+	//* CUSTOMER PRICE
 	public function getDataMaster()
 	{
 		$input = $this->input->post('input');
@@ -1481,124 +1563,72 @@ class Cmaster extends CI_Controller
 				break;
 		}
 	}
-	//Master Customer Type Price End
 
-	//Start - Storage
-	function list_storage_dt()
+	//* CURRENCY
+	function list_cur_dt()
 	{
-		$result = $this->master->get_list_storage_dt();
+		$result = $this->master->get_list_cur_dt();
 		echo $result;
 	}
 
-	function add_storage()
+	function add_cur()
 	{
-		$storagename = null;
-		if (!empty($this->input->post('n_storagename'))) {
-			$storagename = $this->input->post('n_storagename');
-		} else {
-			$storagename =  "-";
-		}
-		$dstorage = array(
-			'BranchCode' => $this->input->post('n_branch'),
-			'StorageCode' => $this->input->post('n_storagecode'),
-			'StorageName' => $storagename,
-			'Address' => $this->input->post('n_address'),
-			'ContactID' => $this->input->post('n_warehouseman'),
-			'PhoneNo' => $this->input->post('n_phoneno'),
-			'Fax' => $this->input->post('n_fax'),
-			'Email' => $this->input->post('n_email'),
-			'is_active' => '1',
-			'RegBy' => $this->session->userdata('uid')
+		$cur = $this->input->post('n_cur');
+		$currency = array(
+			'Currency' => $this->input->post('n_cur'),
+			'CurrencyName' => $this->input->post('n_curname'),
+			// 'Disc' => $this->input->post('n_disc'),
+			// 'Remarks' => $this->input->post('n_remarks'),
+			'Disc' => '0'
+
 		);
-		$rstatus = $this->master->insert('tbl_mat_cat_storage', $dstorage);
+		$rstatus = $this->master->insert('tbl_fa_mas_currency', $currency);
+		echo json_encode(array(
+			'rstatus' => true,
+			'Currency' => $currency['Currency']
+		));
+	}
+
+	function get_detail_cur_to_edit()
+	{
+		$cur = $this->input->post('currencycode');
+		$data = $this->master->get_detail_cur($cur);
+		$yes_ = array(
+			'yes' => 'Yes',
+			'no' => 'No',
+		);
+		echo json_encode(array(
+			'cur' => $this->master->get_all_cur(),
+			'dcur' => $data,
+			'yess' => $yes_['yes'],
+			'noo' => $yes_['no'],
+		));
+	}
+
+	function edit_cur()
+	{
+		$currency = $this->input->post('id_accno');
+		$dstorage = array(
+			'Currency' => $this->input->post('currency'),
+			'CurrencyName' => $this->input->post('currencyname'),
+			'Disc' => $this->input->post('ei_disc'),
+			'Remarks' => $this->input->post('remarks'),
+		);
+		$rstatus = $this->master->update_data_cur($dstorage, $currency);
 		echo json_encode(array(
 			'rstatus' => $rstatus,
-			'StorageCode' => $dstorage['StorageCode']
+			'Currency' => $dstorage['Currency']
 		));
 	}
 
-	function get_list_branch()
+	function delete_cur_by_accgid()
 	{
-		$data = $this->master->get_list_branch();
-		echo json_encode($data);
-	}
-
-	function get_list_warehouseman()
-	{
-		$data = $this->master->get_list_warehouseman();
-		echo json_encode($data);
-	}
-
-	function get_detwarehouseman_by_whmid()
-	{
-		$whmid = $this->input->post('id');
-		$result = $this->master->get_detwarehouseman_by_whmid($whmid);
-		echo json_encode($result);
-	}
-
-
-	function get_detail_storage()
-	{
-		$storagecode = $this->input->post('storagecode');
-		$data = $this->master->get_detail_storage($storagecode);
-		echo json_encode($data);
-	}
-
-	function get_detail_storage_to_edit()
-	{
-		$storagecode = $this->input->post('storagecode');
-		$data = $this->master->get_detail_storage($storagecode);
-		echo json_encode(array(
-			'dbranch' => $this->master->get_list_branch(),
-			'dwarehouseman' => $this->master->get_list_warehouseman(),
-			'dstatus' => $this->master->get_list_status($storagecode),
-			'dstorage' => $data
-		));
-	}
-
-	function edit_storage()
-	{
-		$storagename = null;
-		$storageid = $this->input->post('id_storagecode');
-		if (!empty($this->input->post('en_storagename'))) {
-			$storagename = $this->input->post('en_storagename');
-		} else {
-			$storagename =  "-";
-		}
-		$dstorage = array(
-			'BranchCode' => $this->input->post('en_branch'),
-			'StorageCode' => $this->input->post('en_storagecode'),
-			'StorageName' => $storagename,
-			'Address' => $this->input->post('en_address'),
-			'ContactID' => $this->input->post('en_warehouseman'),
-			'PhoneNo' => $this->input->post('en_phoneno'),
-			'Fax' => $this->input->post('en_fax'),
-			'Email' => $this->input->post('en_email'),
-			'is_active' => $this->input->post('en_status')
-		);
-		$rstatus = $this->master->update_data_storage($dstorage, $storageid);
-		echo json_encode(array(
-			'rstatus' => $rstatus,
-			'StorageCode' => $dstorage['StorageCode']
-		));
-	}
-
-	public function discDataStorage()
-	{
-		$scode = $this->input->post('scode');
-		$remarks = $this->input->post('remarks');
-		$data = ['Disc' => '1', 'is_active' => '0', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-		$hasil = $this->master->updateData('StorageCode', $scode, 'tbl_mat_cat_storage', $data);
-	}
-
-	function delete_storage_by_storageid()
-	{
-		$storagecode = $this->input->post('storagecode');
-		$rstatus = $this->master->delete_storage_by_storagecode('tbl_mat_cat_storage', $storagecode);
+		$cur = $this->input->post('currencycode');
+		$rstatus = $this->master->delete_cur_by_curcode('tbl_fa_mas_currency', $cur);
 		if ($rstatus != false) {
 			echo json_encode(array(
 				'rstatus' => true,
-				'StorageCode' => $storagecode
+				'Currency' => $cur
 			));
 		} else {
 			echo json_encode(array(
@@ -1606,41 +1636,4 @@ class Cmaster extends CI_Controller
 			));
 		}
 	}
-	//End - Storage
-
-
-	//Start - Stockcode
-	function list_stock_dt()
-	{
-		$result = $this->master->get_list_stock_dt();
-		echo $result;
-	}
-
-	function list_stock_dt_disc()
-	{
-		$result = $this->master->get_list_stock_dt_disc();
-		echo $result;
-	}
-
-	public function discDataStockcode()
-	{
-		$stcode = $this->input->post('stcode');
-		$remarks = $this->input->post('remarks');
-		$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock', $data);
-		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stockcode', $data);
-		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock_reg', $data);
-	}
-
-	public function continueDataStockcode()
-	{
-		$stcode = $this->input->post('stcode');
-		$data = ['Disc' => '0', 'DiscDate' => null, 'Remarks' => null];
-		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock', $data);
-		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stockcode', $data);
-		$hasil = $this->master->updateData2('Stockcode', $stcode, 'tbl_mat_stock_reg', $data);
-	}
-
-	//End - Stockcode
-
 }
