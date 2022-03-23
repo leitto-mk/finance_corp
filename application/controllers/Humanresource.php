@@ -7177,11 +7177,6 @@ class Humanresource extends CI_Controller {
             $query['Mcountry'] = $country_ = $this->input->post('country');
             $query['Mcountrydes'] = $countrydes_ = $this->input->post('i_countrydes');
             $query['Mpostcode'] = $postcode_ = $this->input->post('postcode');
-            $query['Mbloodtype'] = $bloodtype_ = $this->input->post('bloodtype');
-            $query['Mheight'] = $height_ = $this->input->post('height');
-            $query['Mweight'] = $weight_ = $this->input->post('weight');
-            $query['Midentityno'] = $identityno_ = $this->input->post('identityno');
-            $query['Midentityexpire'] = $identityexpire_ = $this->input->post('identityexpire');
             $query['Mpersonalid'] = $personalid_ = $this->input->post('personalid');
 
             if(isset($_FILES['photo']) && $_FILES['photo']['name'] != ''){
@@ -7190,13 +7185,6 @@ class Humanresource extends CI_Controller {
             $photo = $this->upload_image_reg('photo');
             }else{
                 $photo = "";
-            }
-            if(isset($_FILES['identity']) && $_FILES['identity']['name'] != ''){
-                // $this->ddoo_upload('identity');
-                // $identity = $_FILES['identity']['name'];
-                $identity = $this->upload_image_reg('identity');
-            }else{
-                $identity = "";
             }
 
             //Job Information
@@ -7222,10 +7210,6 @@ class Humanresource extends CI_Controller {
             $query['Msupervisortitledes'] = $supervisortitledes_ = $this->input->post('i_sup_title_des');
             $query['Mjobtitle'] = $jobtitle_ = $this->input->post('jobtitle');
             $query['Mjobtitledes'] = $jobtitledes_ = $this->input->post('i_jobtitle');
-            $query['Mjobpoint'] = $jobpoint_ = $this->input->post('jobpoint');
-            $query['Mjobpointdes'] = $jobpointdes_ = $this->input->post('i_jobpointdes');
-            $query['Mjobratepoint'] = $jobratepoint_ = $this->input->post('i_jobratepoint');
-            $query['Mjobamountpoint'] = $jobamountpoint_ = $this->input->post('i_jobamountpoint');
             $query['Mpointofhire'] = $pointofhire_ = $this->input->post('pointofhire');
             $query['Mhiredate'] = $hiredate_ = $this->input->post('hiredate');
             $query['Mstatus'] = $status_ = $this->input->post('status');
@@ -7234,8 +7218,6 @@ class Humanresource extends CI_Controller {
             $query['Mworkfunctiondes'] = $workfunctiondes_ = $this->input->post('i_workfunctiondes');
             $query['Mwgroup'] = $wgroup_ = $this->input->post('i_wgroup');
             $query['Mwgroupdes'] = $wgroupdes_ = $this->input->post('i_wgroupdes');
-            $query['Mcrew'] = $crew_ = $this->input->post('crew');
-            $query['Mcrewdes'] = $crewdes_ = $this->input->post('i_workgroup');
             $query['Mworkphone'] = $workphone_ = $this->input->post('workphone');
             $query['Mmobile1'] = $mobile1_ = $this->input->post('mobile1');
             $query['Mwa'] = $wa_ = $this->input->post('wa');
@@ -7265,12 +7247,6 @@ class Humanresource extends CI_Controller {
                     'Province' =>$province_,
                     'Country' =>$country_,
                     'PostCode' =>$postcode_,
-                    'BloodType' =>$bloodtype_,
-                    'Height' =>$height_,
-                    'Weight' =>$weight_,
-                    'Identity' =>$identity,
-                    'IdentityNo' =>$identityno_,
-                    'IdentityExpire' =>$identityexpire_,
                     'Photo' =>$photo,
                     'PersonalID' =>$personalid_,
                     'RegBy' => '',
@@ -7288,13 +7264,11 @@ class Humanresource extends CI_Controller {
                     'EmployeeType' =>$employeetype_,
                     'Supervisor' => $supervisor_,
                     'JobTitle' =>$jobtitle_,
-                    'JobPoint' =>$jobpoint_,
                     'PointofHire' =>$pointofhire_,
                     'HireDate' =>$hiredate_,
                     'Status' =>'Active',
                     'StatusDate' => date('Y-m-d'),
                     'WorkFunction' =>$workfunction_,
-                    'Crew' =>$crew_,
                     'WorkPhone' =>$workphone_,
                     'Mobile1' =>$mobile1_,
                     'WA' =>$wa_,
@@ -7335,12 +7309,6 @@ class Humanresource extends CI_Controller {
                     'CountryCode' =>$country_,
                     'CountryDes' =>$countrydes_,
                     'PostCode' =>$postcode_,
-                    'BloodType' =>$bloodtype_,
-                    'Height' =>$height_,
-                    'Weight' =>$weight_,
-                    'Identity' =>$identity,
-                    'IdentityNo' =>$identityno_,
-                    'IdentityExpire' =>$identityexpire_,
                     'Photo' =>$photo,
                     'PersonalID' =>$personalid_,
                     'Company' =>$company_,
@@ -7365,10 +7333,6 @@ class Humanresource extends CI_Controller {
                     'SupervisorTitleDes' => $supervisortitledes_,
                     'JobTitle' =>$jobtitle_,
                     'JobTitleDes' =>$jobtitledes_,
-                    'JobPoint' =>$jobpoint_,
-                    'JobPointDes' =>$jobpointdes_,
-                    'JobRatePoint' =>$jobratepoint_,
-                    'JobAmountPoint' =>$jobamountpoint_,
                     'PointofHire' =>$pointofhire_,
                     'HireDate' =>$hiredate_,
                     'Status' =>'Active',
@@ -7377,8 +7341,6 @@ class Humanresource extends CI_Controller {
                     'WorkFunctionDes' =>$workfunctiondes_,
                     'WorkFunctionGroup' =>$wgroup_,
                     'WorkFunctionGroupDes' =>$wgroupdes_,
-                    'Crew' =>$crew_,
-                    'CrewDes' =>$crewdes_,
                     'WorkPhone' =>$workphone_,
                     'Mobile1' =>$mobile1_,
                     'WA' =>$wa_,
@@ -7445,15 +7407,6 @@ class Humanresource extends CI_Controller {
                     'RegDate' => date('Y-m-d')
                 );
                 $this->M_humanresource->insert('tbl_emp_per_job_his_contact', $datacontact);
-
-                $datacrew=array(
-                    'IDNumber' =>$idnumber_,
-                    'Crew' =>$crew_,
-                    'CrewDes' =>$crewdes_,
-                    'RegBy' => '',
-                    'RegDate' => date('Y-m-d')
-                );
-                $this->M_humanresource->insert('tbl_emp_per_job_his_crew', $datacrew);
 
                 $dataemptype=array(
                     'IDNumber' =>$idnumber_,

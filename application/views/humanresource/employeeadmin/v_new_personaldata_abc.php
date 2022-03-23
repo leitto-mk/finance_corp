@@ -217,35 +217,6 @@
                                                             <input id="i_nationalitydes" name="i_nationalitydes" type="text" class="form-control hidden" readonly="true">
                                                         </div>                                                    
                                                     </div>
-                                                    <br>
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark sbold uppercase">Personal Condition</span>
-                                                        </div>
-                                                    </div><br>
-                                                    <div class="form-group">
-                                                        <label class="col-md-2 col-sm-2 control-label">Height</label>
-                                                        <div class="col-md-4 col-sm-4" style="margin-left: -10px">
-                                                            <input type="number" name="height" min="1"  class="form-control" placeholder="Enter number">
-                                                        </div>
-
-                                                        <label class="col-md-2 col-sm-2 control-label">Weight</label>
-                                                        <div class="col-md-4 col-sm-4" style="margin-left: -10px">
-                                                            <input type="number" name="weight" min="1" class="form-control" placeholder="Enter number">
-                                                        </div>
-                                                    </div> 
-                                                    <div class="form-group">
-                                                        <label class="col-md-2 col-sm-2 control-label">Blood Type</label>
-                                                        <div class="col-md-4 col-sm-4" style="margin-left: -10px">
-                                                            <select name="bloodtype"  class="form-control">
-                                                                  <option value="">-- Choose Blood Type --</option>
-                                                                  <option id="bloodtype" value="O">O</option>
-                                                                  <option id="bloodtype" value="A">A</option>
-                                                                  <option id="bloodtype" value="B">B</option>
-                                                                  <option id="bloodtype" value="AB">AB</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>   
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="portlet-title">
@@ -312,23 +283,7 @@
                                                             <input type="text" name="postcode" id="postcode" class="form-control" readonly="" placeholder="-- Choose SubDistrict First --">
                                                         </div>
                                                     </div>
-                                                    <br>
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark sbold uppercase">Identity Info</span>
-                                                        </div>
-                                                    </div><br>
-                                                    <div class="form-group">
-                                                        <label class="col-md-2 col-sm-2 control-label">Identity No</label>
-                                                        <div class="col-md-4 col-sm-4" style="margin-left: -10px">
-                                                            <input type="number" name="identityno" class="form-control" placeholder="Enter number"><br>
-                                                            <input type="date" name="identityexpire" class="form-control" placeholder="Indentity Expire"> 
-                                                        </div> 
-                                                        <label class="col-md-2 col-sm-2 control-label">Identity</label>
-                                                        <div class="col-md-4" style="margin-left: -10px;margin-top: 0px">
-                                                            <input  type="file" name="identity" id="identity" class="dropify" data-show-loader="false" data-height="150" data-allowed-file-extensions="jpg jpeg png">
-                                                        </div>
-                                                    </div> 
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -346,255 +301,222 @@
                                         </div> -->
                                         <div class="portlet-body form">
                                             <div class="form-horizontal">
-                                                <div class="col-md-4">
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark sbold uppercase">Job Details</span>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject font-dark sbold uppercase">Job Details</span>
+                                                            </div>
+                                                        </div><br>
+                                                        <div class="form-group">
+                                                            <label class="col-md- col-sm-4 control-label">Employee Class</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <select name="employeeclass" id="employeeclass" class="form-control">
+                                                                    <?php if ($get_employeeclass != false) { ?>
+                                                                        <option value="" selected>-- Choose Employee Class --</option>
+                                                                        <?php foreach ($get_employeeclass as $ec) { ?>
+                                                                            <option value="<?php echo $ec->EmployeeClass; ?>" empclass-des="<?php echo $ec->EmployeeClassDes; ?>"><?php echo $ec->EmployeeClass; ?> - <?php echo $ec->EmployeeClassDes; ?></option>
+                                                                        <?php }?>
+                                                                    <?php } else { ?>
+                                                                        <option value=""><font color="red">No Data Employee Class</font></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <input id="i_employeeclassdes" name="i_employeeclassdes" type="text" class="form-control hidden" readonly="true">
+                                                            </div>
                                                         </div>
-                                                    </div><br>
-                                                    <div class="form-group">
-                                                        <label class="col-md- col-sm-4 control-label">Employee Class</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <select name="employeeclass" id="employeeclass" class="form-control">
-                                                                <?php if ($get_employeeclass != false) { ?>
-                                                                    <option value="" selected>-- Choose Employee Class --</option>
-                                                                    <?php foreach ($get_employeeclass as $ec) { ?>
-                                                                        <option value="<?php echo $ec->EmployeeClass; ?>" empclass-des="<?php echo $ec->EmployeeClassDes; ?>"><?php echo $ec->EmployeeClass; ?> - <?php echo $ec->EmployeeClassDes; ?></option>
-                                                                    <?php }?>
-                                                                <?php } else { ?>
-                                                                    <option value=""><font color="red">No Data Employee Class</font></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                            <input id="i_employeeclassdes" name="i_employeeclassdes" type="text" class="form-control hidden" readonly="true">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Employee Type</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <select name="employeetype" id="employeetype" class="form-control">
+                                                                    <?php if ($get_employeetype != false) { ?>
+                                                                        <option value="" selected>-- Choose Employee Type --</option>
+                                                                        <?php foreach ($get_employeetype as $et) { ?>
+                                                                            <option value="<?php echo $et->EmployeeType; ?>" emptype-des="<?php echo $et->EmployeeTypeDes; ?>"><?php echo $et->EmployeeType; ?> - <?php echo $et->EmployeeTypeDes; ?></option>
+                                                                        <?php }?>
+                                                                    <?php } else { ?>
+                                                                        <option value=""><font color="red">No Data Employee Type</font></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <input id="i_employeetypedes" name="i_employeetypedes" type="text" class="form-control hidden" readonly="true">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Employee Type</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <select name="employeetype" id="employeetype" class="form-control">
-                                                                <?php if ($get_employeetype != false) { ?>
-                                                                    <option value="" selected>-- Choose Employee Type --</option>
-                                                                    <?php foreach ($get_employeetype as $et) { ?>
-                                                                        <option value="<?php echo $et->EmployeeType; ?>" emptype-des="<?php echo $et->EmployeeTypeDes; ?>"><?php echo $et->EmployeeType; ?> - <?php echo $et->EmployeeTypeDes; ?></option>
-                                                                    <?php }?>
-                                                                <?php } else { ?>
-                                                                    <option value=""><font color="red">No Data Employee Type</font></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                            <input id="i_employeetypedes" name="i_employeetypedes" type="text" class="form-control hidden" readonly="true">
+                                                        <br>
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject font-dark sbold uppercase">Contact Details</span>
+                                                            </div>
+                                                        </div><br>                                                    
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Mobile</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <input type="number" name="mobile1" class="form-control" placeholder="Enter number">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark sbold uppercase">Contact Details</span>
-                                                        </div>
-                                                    </div><br>                                                    
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Mobile</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <input type="number" name="mobile1" class="form-control" placeholder="Enter number">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">WA</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <input type="number" name="wa" class="form-control" placeholder="Enter number">
-                                                        </div>
-                                                    </div> 
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Workphone</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <input type="number" name="workphone" class="form-control" placeholder="Enter number">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Email Personal</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <input type="text" name="emailpersonal" class="form-control" placeholder="Enter text">
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-white sbold uppercase">-</span>
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Job Title</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <select name="jobtitle" id="jobtitle" class="form-control">
-                                                                <?php if ($get_title != false) { ?>
-                                                                    <option value="" selected>-- Choose Title --</option>
-                                                                    <?php foreach ($get_title as $jt) { ?>
-                                                                        <option value="<?php echo $jt->JobTitleCode; ?>" jobtitle-des="<?php echo $jt->JobTitle; ?>"><?php echo $jt->JobTitleCode; ?> - <?php echo $jt->JobTitle; ?></option>
-                                                                    <?php }?>
-                                                                <?php } else { ?>
-                                                                    <option value=""><font color="red">No Data JobTitle</font></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                            <input id="i_jobtitle" name="i_jobtitle" type="text" class="form-control hidden" readonly="true">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">WA</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <input type="number" name="wa" class="form-control" placeholder="Enter number">
+                                                            </div>
                                                         </div> 
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Job Point</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <select name="jobpoint" id="jobpoint" class="form-control">
-                                                                <?php if ($get_point != false) { ?>
-                                                                    <option value="" selected>-- Choose Point --</option>
-                                                                    <?php foreach ($get_point as $point) { ?>
-                                                                        <option value="<?php echo $point->PointCode; ?>" point-des="<?php echo $point->PointDescription; ?>" rate-point="<?php echo $point->RatePoint; ?>" amount-point="<?php echo $point->AmountPoint; ?>"><?php echo $point->PointCode; ?> - <?php echo $point->PointDescription; ?> - <?php echo $point->RatePoint; ?></option>
-                                                                    <?php }?>
-                                                                <?php } else { ?>
-                                                                    <option value=""><font color="red">No Data Point</font></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                            <input id="i_jobpointdes" name="i_jobpointdes" type="text" class="form-control hidden" readonly="true">
-                                                            <input id="i_jobratepoint" name="i_jobratepoint" type="text" class="form-control hidden" readonly="true">
-                                                            <input id="i_jobamountpoint" name="i_jobamountpoint" type="text" class="form-control hidden" readonly="true">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Workphone</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <input type="number" name="workphone" class="form-control" placeholder="Enter number">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Email Personal</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <input type="text" name="emailpersonal" class="form-control" placeholder="Enter text">
+                                                            </div>
 
                                                         </div>
                                                     </div>
-                                                    <br>
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark sbold uppercase">Organization</span>
+                                                    <div class="col-md-6">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject font-white sbold uppercase">-</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Company <span><font color="red">*</font></span></label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <?php if ($get_company != false) { ?>
-                                                                <?php foreach ($get_company as $comp) { ?>
-                                                                    <input type="text" value="<?php echo $comp->ComCode; ?> - <?php echo $comp->ComDes; ?>" class="form-control " readonly="true">
-                                                                    <input id="company" name="company" type="text" value="<?php echo $comp->ComCode; ?>" class="form-control hidden" readonly="true">
-                                                                    <input id="i_company_des" name="i_company_des" value="<?php echo $comp->ComDes; ?>" type="text" class="form-control hidden" readonly="true">
-                                                                <?php }?>
-                                                            <?php } else { ?>
-                                                                <option value=""><font color="red">No Data Company</font></option>
-                                                            <?php } ?>
+                                                        <br>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Job Title</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <select name="jobtitle" id="jobtitle" class="form-control">
+                                                                    <?php if ($get_title != false) { ?>
+                                                                        <option value="" selected>-- Choose Title --</option>
+                                                                        <?php foreach ($get_title as $jt) { ?>
+                                                                            <option value="<?php echo $jt->JobTitleCode; ?>" jobtitle-des="<?php echo $jt->JobTitle; ?>"><?php echo $jt->JobTitleCode; ?> - <?php echo $jt->JobTitle; ?></option>
+                                                                        <?php }?>
+                                                                    <?php } else { ?>
+                                                                        <option value=""><font color="red">No Data JobTitle</font></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <input id="i_jobtitle" name="i_jobtitle" type="text" class="form-control hidden" readonly="true">
+                                                            </div> 
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Site / Branch <span><font color="red">*</font></span></label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <select id="branch" name="branch" class="form-control" required>
-                                                                <?php if ($get_branch != false) { ?>
-                                                                    <option value="" selected>-- Choose Branch --</option>
-                                                                    <?php foreach ($get_branch as $branch) { ?>
-                                                                        <option value="<?php echo $branch->BranchCode; ?>" branch-des="<?php echo $branch->BranchDes?>"><?php echo $branch->BranchCode; ?> | <?php echo $branch->BranchDes; ?></option>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Work Function</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <select name="workfunction" id="workfunction" class="form-control">
+                                                                    <?php if ($get_workfunction != false) { ?>
+                                                                        <option value="" selected>-- Choose Function --</option>
+                                                                        <?php foreach ($get_workfunction as $wf) { ?>
+                                                                            <option value="<?php echo $wf->WorkFunction; ?>" workfunction-des="<?php echo $wf->WorkFunctionDes; ?>" wgroup-code="<?php echo $wf->WorkGroup; ?>" wgroup-des="<?php echo $wf->WorkGroupDes; ?>"><?php echo $wf->WorkFunction; ?> - <?php echo $wf->WorkFunctionDes; ?></option>
+                                                                        <?php }?>
+                                                                    <?php } else { ?>
+                                                                        <option value=""><font color="red">No Data Function</font></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <input id="i_workfunctiondes" name="i_workfunctiondes" type="text" class="form-control hidden" readonly="true">
+                                                                <input id="i_wgroup" name="i_wgroup" type="text" class="form-control hidden" readonly="true">
+                                                                <input id="i_wgroupdes" name="i_wgroupdes" type="text" class="form-control hidden" readonly="true">
+                                                            </div>
+                                                        </div>
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject font-dark sbold uppercase">Organization</span>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Company <span><font color="red">*</font></span></label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <?php if ($get_company != false) { ?>
+                                                                    <?php foreach ($get_company as $comp) { ?>
+                                                                        <input type="text" value="<?php echo $comp->ComCode; ?> - <?php echo $comp->ComDes; ?>" class="form-control " readonly="true">
+                                                                        <input id="company" name="company" type="text" value="<?php echo $comp->ComCode; ?>" class="form-control hidden" readonly="true">
+                                                                        <input id="i_company_des" name="i_company_des" value="<?php echo $comp->ComDes; ?>" type="text" class="form-control hidden" readonly="true">
                                                                     <?php }?>
                                                                 <?php } else { ?>
-                                                                    <option value=""><font color="red">No Data Branch</font></option>
+                                                                    <option value=""><font color="red">No Data Company</font></option>
                                                                 <?php } ?>
-                                                            </select>
-                                                            <input id="i_branchdes" name="i_branchdes" type="text" class="form-control hidden" readonly="true">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Department</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <select id="deptcode" name="deptcode" class="form-control">
-                                                                <option value="" selected>-- Choose Branch First --</option>
-                                                            </select>
-                                                            <input id="i_deptdes" name="i_deptdes" type="text" class="form-control hidden" readonly="true">
-                                                            <input id="i_bucode" name="i_bucode" type="text" class="form-control hidden" readonly="true">
-                                                            <input id="i_budes" name="i_budes" type="text" class="form-control hidden" readonly="true">
-                                                            <input id="i_divcode" name="i_divcode" type="text" class="form-control hidden" readonly="true">
-                                                            <input id="i_divdes" name="i_divdes" type="text" class="form-control hidden" readonly="true">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Site / Branch <span><font color="red">*</font></span></label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <select id="branch" name="branch" class="form-control" required>
+                                                                    <?php if ($get_branch != false) { ?>
+                                                                        <option value="" selected>-- Choose Branch --</option>
+                                                                        <?php foreach ($get_branch as $branch) { ?>
+                                                                            <option value="<?php echo $branch->BranchCode; ?>" branch-des="<?php echo $branch->BranchDes?>"><?php echo $branch->BranchCode; ?> | <?php echo $branch->BranchDes; ?></option>
+                                                                        <?php }?>
+                                                                    <?php } else { ?>
+                                                                        <option value=""><font color="red">No Data Branch</font></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <input id="i_branchdes" name="i_branchdes" type="text" class="form-control hidden" readonly="true">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Cost Center / Section</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <select id="costcenter" name="costcenter" class="form-control">
-                                                                <option value="" selected>-- Choose Department First --</option>
-                                                            </select>
-                                                            <input id="i_costdes" name="i_costdes" type="text" class="form-control hidden" readonly="true">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Department</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <select id="deptcode" name="deptcode" class="form-control">
+                                                                    <option value="" selected>-- Choose Branch First --</option>
+                                                                </select>
+                                                                <input id="i_deptdes" name="i_deptdes" type="text" class="form-control hidden" readonly="true">
+                                                                <input id="i_bucode" name="i_bucode" type="text" class="form-control hidden" readonly="true">
+                                                                <input id="i_budes" name="i_budes" type="text" class="form-control hidden" readonly="true">
+                                                                <input id="i_divcode" name="i_divcode" type="text" class="form-control hidden" readonly="true">
+                                                                <input id="i_divdes" name="i_divdes" type="text" class="form-control hidden" readonly="true">
+                                                            </div>
                                                         </div>
-                                                    </div>   
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Supervisor </label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <select name="supervisor" id="supervisor" class="form-control">
-                                                                <?php if ($get_supervisor != false) { ?>
-                                                                    <option value="" selected>-- Choose Supervisor --</option>
-                                                                    <?php foreach ($get_supervisor as $sup) { ?>
-                                                                        <option value="<?php echo $sup->IDNumber; ?>" sup-des="<?php echo $sup->FirstName; ?> <?php echo $sup->LastName; ?>" suptitle-code="<?php echo $sup->PositionTitle; ?>" suptitle-des="<?php echo $sup->PositionTitleDes; ?>"><?php echo $sup->IDNumber; ?> - <?php echo $sup->FirstName; ?> <?php echo $sup->LastName; ?></option>
-                                                                    <?php }?>
-                                                                <?php } else { ?>
-                                                                    <option value=""><font color="red">No Data Supervisor</font></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                            <textarea name="i_sup_des" class="form-control hidden" rows="3" style="resize: none;" readonly></textarea>
-                                                            <input name="i_sup_title_code" class="form-control hidden" rows="3" style="resize: none;" readonly>
-                                                            <input name="i_sup_title_des" class="form-control hidden" rows="3" style="resize: none;" readonly>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Cost Center / Section</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <select id="costcenter" name="costcenter" class="form-control">
+                                                                    <option value="" selected>-- Choose Department First --</option>
+                                                                </select>
+                                                                <input id="i_costdes" name="i_costdes" type="text" class="form-control hidden" readonly="true">
+                                                            </div>
+                                                        </div>   
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Supervisor </label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <select name="supervisor" id="supervisor" class="form-control">
+                                                                    <?php if ($get_supervisor != false) { ?>
+                                                                        <option value="" selected>-- Choose Supervisor --</option>
+                                                                        <?php foreach ($get_supervisor as $sup) { ?>
+                                                                            <option value="<?php echo $sup->IDNumber; ?>" sup-des="<?php echo $sup->FirstName; ?> <?php echo $sup->LastName; ?>" suptitle-code="<?php echo $sup->PositionTitle; ?>" suptitle-des="<?php echo $sup->PositionTitleDes; ?>"><?php echo $sup->IDNumber; ?> - <?php echo $sup->FirstName; ?> <?php echo $sup->LastName; ?></option>
+                                                                        <?php }?>
+                                                                    <?php } else { ?>
+                                                                        <option value=""><font color="red">No Data Supervisor</font></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <textarea name="i_sup_des" class="form-control hidden" rows="3" style="resize: none;" readonly></textarea>
+                                                                <input name="i_sup_title_code" class="form-control hidden" rows="3" style="resize: none;" readonly>
+                                                                <input name="i_sup_title_des" class="form-control hidden" rows="3" style="resize: none;" readonly>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <br>
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark sbold uppercase"></span>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <br>
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject font-dark sbold uppercase"></span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Work Function</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <select name="workfunction" id="workfunction" class="form-control">
-                                                                <?php if ($get_workfunction != false) { ?>
-                                                                    <option value="" selected>-- Choose Function --</option>
-                                                                    <?php foreach ($get_workfunction as $wf) { ?>
-                                                                        <option value="<?php echo $wf->WorkFunction; ?>" workfunction-des="<?php echo $wf->WorkFunctionDes; ?>" wgroup-code="<?php echo $wf->WorkGroup; ?>" wgroup-des="<?php echo $wf->WorkGroupDes; ?>"><?php echo $wf->WorkFunction; ?> - <?php echo $wf->WorkFunctionDes; ?></option>
-                                                                    <?php }?>
-                                                                <?php } else { ?>
-                                                                    <option value=""><font color="red">No Data Function</font></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                            <input id="i_workfunctiondes" name="i_workfunctiondes" type="text" class="form-control hidden" readonly="true">
-                                                            <input id="i_wgroup" name="i_wgroup" type="text" class="form-control hidden" readonly="true">
-                                                            <input id="i_wgroupdes" name="i_wgroupdes" type="text" class="form-control hidden" readonly="true">
+                                                        <br>
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject font-dark sbold uppercase">Hire Info</span>
+                                                            </div>
+                                                        </div><br>                                                 
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Hire Date</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <input type="date" name="hiredate" class="form-control" placeholder="Enter text">
+                                                            </div> 
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Workgroup / Crew</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <select name="crew" id="crew" class="form-control">
-                                                                <?php if ($get_workgroup != false) { ?>
-                                                                    <option value="" selected>-- Choose Workgroup --</option>
-                                                                    <?php foreach ($get_workgroup as $wg) { ?>
-                                                                        <option value="<?php echo $wg->Crew; ?>" workgroup_des="<?php echo $wg->CrewName; ?>"><?php echo $wg->Crew; ?> - <?php echo $wg->CrewName; ?></option>
-                                                                    <?php }?>
-                                                                <?php } else { ?>
-                                                                    <option value=""><font color="red">No Data Workgroup</font></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                            <input id="i_workgroup" name="i_workgroup" type="text" class="form-control hidden" readonly="true">
-                                                        </div> 
-                                                    </div>
-                                                    <br>
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark sbold uppercase">Hire Info</span>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Point of Hire</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <input type="text" name="pointofhire" class="form-control" placeholder="Enter text">
+                                                            </div> 
                                                         </div>
-                                                    </div><br>                                                 
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Hire Date</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <input type="date" name="hiredate" class="form-control" placeholder="Enter text">
-                                                        </div> 
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-md-4 col-sm-4 control-label">Point of Hire</label>
-                                                        <div class="col-md-8 col-sm-8">
-                                                            <input type="text" name="pointofhire" class="form-control" placeholder="Enter text">
-                                                        </div> 
                                                     </div>
                                                 </div>
                                             </div>
