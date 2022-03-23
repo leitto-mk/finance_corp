@@ -329,6 +329,15 @@ tr:nth-child(odd){
                                                     <table class="table" id="detail_table">
                                                         <tbody>
                                                             <tr>
+                                                                <td width="38%" class="text-right"> Hire Date </td>
+                                                                <td width="1%" class="bold"> : </td>
+                                                                <?php if ($pers->HireDate == '0000-00-00' || $pers->HireDate == ''){ ?>
+                                                                    <td class="sbold"></td>  
+                                                                <?php }else{ ?>
+                                                                    <td class="sbold"><?php echo date('d-M-Y', strtotime($pers->HireDate)); ?></td>
+                                                                <?php } ?>
+                                                            </tr> 
+                                                            <tr>
                                                                 <td width="38%" class="text-right"> Employee Class </td>
                                                                 <td width="1%" class="bold"> : </td>
                                                                 <td class="sbold" id="stock_detail_6"><?php echo $pers->EmployeeClassDes ?></td>
@@ -337,16 +346,7 @@ tr:nth-child(odd){
                                                                 <td width="38%" class="text-right"> Employee Type </td>
                                                                 <td width="1%" class="bold"> : </td>
                                                                 <td class="sbold" id="stock_detail_6"><?php echo $pers->EmployeeTypeDes ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td width="38%" class="text-right"> Hire Date </td>
-                                                                <td width="1%" class="bold"> : </td>
-                                                                <?php if ($pers->HireDate == '0000-00-00' || $pers->HireDate == ''){ ?>
-                                                                    <td class="sbold"></td>  
-                                                                <?php }else{ ?>
-                                                                    <td class="sbold"><?php echo date('d-M-Y', strtotime($pers->HireDate)); ?></td>
-                                                                <?php } ?>
-                                                            </tr>                                 
+                                                            </tr>                                
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -355,6 +355,11 @@ tr:nth-child(odd){
                                                 <div class="table-responsive">
                                                     <table class="table">
                                                         <tbody>
+                                                            <tr>
+                                                                <td width="38%" class="text-right"> Point of Hire </td>
+                                                                <td width="1%" class="bold"> : </td>
+                                                                <td class="sbold"><?php echo $pers->PointofHire ?></td>
+                                                            </tr>  
                                                             <tr>
                                                                 <td width="38%" class="text-right" style="border-top: none;"> Job Title </td>
                                                                 <td width="1%" class="bold" style="border-top: none;"> : </td>
@@ -365,11 +370,6 @@ tr:nth-child(odd){
                                                                 <td width="1%" class="bold"> : </td>
                                                                 <td class="sbold"><?php echo $pers->WorkFunctionDes ?></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td width="38%" class="text-right"> Point of Hire </td>
-                                                                <td width="1%" class="bold"> : </td>
-                                                                <td class="sbold"><?php echo $pers->PointofHire ?></td>
-                                                            </tr>  
                                                         </tbody>
                                                     </table>
                                                 </div>

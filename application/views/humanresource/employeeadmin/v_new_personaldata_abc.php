@@ -309,6 +309,12 @@
                                                             </div>
                                                         </div><br>
                                                         <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Hire Date</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <input type="date" name="hiredate" class="form-control" placeholder="Enter text">
+                                                            </div> 
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label class="col-md- col-sm-4 control-label">Employee Class</label>
                                                             <div class="col-md-8 col-sm-8">
                                                                 <select name="employeeclass" id="employeeclass" class="form-control">
@@ -379,6 +385,12 @@
                                                             </div>
                                                         </div>
                                                         <br>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Point of Hire</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <input type="text" name="pointofhire" class="form-control" placeholder="Enter text">
+                                                            </div> 
+                                                        </div>
                                                         <div class="form-group">
                                                             <label class="col-md-4 col-sm-4 control-label">Job Title</label>
                                                             <div class="col-md-8 col-sm-8">
@@ -488,34 +500,6 @@
                                                                 <input name="i_sup_title_code" class="form-control hidden" rows="3" style="resize: none;" readonly>
                                                                 <input name="i_sup_title_des" class="form-control hidden" rows="3" style="resize: none;" readonly>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <br>
-                                                        <div class="portlet-title">
-                                                            <div class="caption">
-                                                                <span class="caption-subject font-dark sbold uppercase"></span>
-                                                            </div>
-                                                        </div>
-                                                        <br>
-                                                        <div class="portlet-title">
-                                                            <div class="caption">
-                                                                <span class="caption-subject font-dark sbold uppercase">Hire Info</span>
-                                                            </div>
-                                                        </div><br>                                                 
-                                                        <div class="form-group">
-                                                            <label class="col-md-4 col-sm-4 control-label">Hire Date</label>
-                                                            <div class="col-md-8 col-sm-8">
-                                                                <input type="date" name="hiredate" class="form-control" placeholder="Enter text">
-                                                            </div> 
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-md-4 col-sm-4 control-label">Point of Hire</label>
-                                                            <div class="col-md-8 col-sm-8">
-                                                                <input type="text" name="pointofhire" class="form-control" placeholder="Enter text">
-                                                            </div> 
                                                         </div>
                                                     </div>
                                                 </div>
