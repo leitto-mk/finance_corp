@@ -62,27 +62,6 @@
                                 </div>
                             </div>
                         </div> -->
-                        <?php if($check_company == false) :?>
-                        <div class="portlet bordered light bg-grey-cararra">
-                            <div class="portlet-title">
-                                <div class="tools">
-                                    <button type="button" class="btn blue btnModal" id="button_add_master_abase_company"><i class="fa fa-plus"></i> Company</button>
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                <table class="table dt-responsive" id="" width="100%">
-                                    <thead>
-                                        <tr class="bg-blue-chambray bg-font-blue-chambray">
-                                            <td class="text-center">There's no Data ! Please Insert</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <?php else : ?>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="profile-sidebar">
@@ -219,7 +198,6 @@
                                 </div>
                             </div>
                         </div>
-                        <?php endif;?>  
                     </div>
                     <div class="tab-pane" id="master_abase_branch">
                         <div class="row">
@@ -401,7 +379,7 @@
                                             <span class="caption-subject bold uppercase font-dark"><i class="fa fa-clone"></i> Group</span>
                                         </div>
                                         <div class="actions">
-                                            <button type="button" class="btn blue btnModal" id="button_master_file_add_stockgroup_grp" title="Add New"><i class="fa fa-plus"></i> Add New</button>
+                                            <button type="button" class="btn blue btnModal" id="btn_add_stockgroup_grp" title="Add New"><i class="fa fa-plus"></i> Add New</button>
                                         </div>
                                     </div>
                                     <div class="portlet-body">
@@ -429,7 +407,7 @@
                                             <span class="caption-subject bold uppercase font-dark"><i class="fa fa-clone"></i> Sub Category</span>
                                         </div>
                                         <div class="actions">
-                                            <button type="button" class="btn blue btnModal" id="button_master_file_add_stockgroup_type"  title="Add New"><i class="fa fa-plus"></i> Add New</button>
+                                            <button type="button" class="btn blue btnModal" id="btn_add_stockgroup_type"  title="Add New"><i class="fa fa-plus"></i> Add New</button>
                                         </div>
                                     </div>
                                     <div class="portlet-body">
@@ -459,7 +437,7 @@
                                             <span class="caption-subject bold uppercase font-dark"><i class="fa fa-clone"></i> Category</span>
                                         </div>
                                         <div class="actions">
-                                            <button type="button" class="btn blue btnModal" id="button_master_file_add_stockgroup_cat"  title="Add New"><i class="fa fa-plus"></i> Add New</button>
+                                            <button type="button" class="btn blue btnModal" id="btn_add_stockgroup_cat"  title="Add New"><i class="fa fa-plus"></i> Add New</button>
                                         </div>
                                     </div>
                                     <div class="portlet-body">
@@ -487,7 +465,7 @@
                                             <span class="caption-subject bold uppercase font-dark"><i class="fa fa-clone"></i> Stock Class</span>
                                         </div>
                                         <div class="actions">
-                                            <button type="button" class="btn blue btnModal" id="button_master_file_add_stockgroup_class"  title="Add New"><i class="fa fa-plus"></i> Add New</button>
+                                            <button type="button" class="btn blue btnModal" id="btn_add_stockgroup_class"  title="Add New"><i class="fa fa-plus"></i> Add New</button>
                                         </div>
                                     </div>
                                     <div class="portlet-body">
@@ -726,7 +704,7 @@
                         </div> 
                     </div>
 
-                    <!-- FINANCE -->
+                    <!-- FINANCE -->    
                     <div class="tab-pane" id="master_coa">
                         <div class="row">
                             <div class="col-lg-12">

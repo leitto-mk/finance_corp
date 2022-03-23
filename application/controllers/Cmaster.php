@@ -12,11 +12,14 @@ class Cmaster extends CI_Controller
 
 	public function index()
 	{
-		$data['title'] = 'Masters';
-		$data['h2'] = 'Master & Settings';
-		$data['check_company'] = $this->master->M_check_company();
-		$data['company'] = $this->master->M_get_company();
-		$data['storagecode'] = $this->master->get_last_storagecode();
+		$data = [
+			'title' => 'Masters',
+			'h2' => 'Master & Settings',
+			'company' => $this->master->M_get_company(),
+			'storagecode' => $this->master->get_last_storagecode(),
+
+			'script' => 'master'
+		];
 
 		$this->load->view('financecorp/master/v_master_dashboard', $data);
 	}
@@ -25,7 +28,7 @@ class Cmaster extends CI_Controller
 	{
 		$data['title'] = 'Master - Stockcode';
 		$data['h2'] = 'Master';
-		
+
 		$this->load->view('financecorp/master/v_master_stockcode', $data);
 	}
 

@@ -13,11 +13,11 @@ $(document).ready(function(){
                 let segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
-                if(page == 'view'){ /* List Page */
+                if(page.toLowerCase() == 'view'){ /* List Page */
                     rec.indexPage.initDT()
                     rec.indexPage.eventShowList()
                     rec.indexPage.eventDeleteRecord()
-                }else if(page == 'add' || page == 'edit'){ /* Form Page */
+                }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
                     rec.formPage.eventFocusNextInput()
                     rec.formPage.eventDeleteRow()
                     rec.formPage.eventInputUnit()
@@ -38,11 +38,11 @@ $(document).ready(function(){
                 let segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
-                if(page == 'view'){ /* List Page */
+                if(page.toLowerCase() == 'view'){ /* List Page */
                     pay.indexPage.initDT()
                     pay.indexPage.eventShowList()
                     pay.indexPage.eventDeleteRecord()
-                }else if(page == 'add' || page == 'edit'){ /* Form Page */
+                }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
                     pay.formPage.eventFocusNextInput()
                     pay.formPage.eventDeleteRow()
                     pay.formPage.eventInputUnit()
@@ -63,11 +63,11 @@ $(document).ready(function(){
                 let segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
-                if(page == 'view'){ /* List Page */
+                if(page.toLowerCase() == 'view'){ /* List Page */
                     ob.indexPage.initDT()
                     ob.indexPage.eventShowList()
                     ob.indexPage.eventDeleteRecord()
-                }else if(page == 'add' || page == 'edit'){ /* Form Page */
+                }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
                     ob.formPage.eventFocusNextInput()
                     ob.formPage.eventDeleteRow()
                     ob.formPage.eventInputUnit()
@@ -88,11 +88,11 @@ $(document).ready(function(){
                 let segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
-                if(page == 'view'){ /* List Page */
+                if(page.toLowerCase() == 'view'){ /* List Page */
                     gj.indexPage.initDT()
                     gj.indexPage.eventShowList()
                     gj.indexPage.eventDeleteRecord()
-                }else if(page == 'add' || page == 'edit'){ /* Form Page */
+                }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
                     gj.formPage.eventFocusNextInput()
                     gj.formPage.eventDeleteRow()
                     gj.formPage.eventInputAmount()
@@ -113,7 +113,7 @@ $(document).ready(function(){
                 let segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
-                if(page == 'view'){ /* List Page */
+                if(page.toLowerCase() == 'view'){ /* List Page */
                     cal.indexPage.eventRecalculateBranch()
                     cal.indexPage.eventRecalculateEmployee()
                 }
@@ -131,11 +131,11 @@ $(document).ready(function(){
                 let segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
-                if(page == 'view'){ /* List Page */
+                if(page.toLowerCase() == 'view'){ /* List Page */
                     arp.indexPage.initDT()
                     arp.indexPage.eventShowList()
                     arp.indexPage.eventDeleteRecord()
-                }else if(page == 'add' || page == 'edit'){ /* Form Page */
+                }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
                     arp.formPage.eventFocusNextInput()
                     arp.formPage.eventDeleteRow()
                     arp.formPage.eventInputUnit()
@@ -156,9 +156,9 @@ $(document).ready(function(){
                 let segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
-                if(page == ""){
+                if(page.toLowerCase() == ""){
                     inv.dashboardPage.generateDataTable()
-                }else if(page == "create_invoice"){
+                }else if(page.toLowerCase() == "create_invoice"){
                     inv.formPage
                 }
             })
@@ -175,11 +175,11 @@ $(document).ready(function(){
                 let segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
-                if(page == 'view'){ /* List Page */
+                if(page.toLowerCase() == 'view'){ /* List Page */
                     apy.indexPage.initDT()
                     apy.indexPage.eventShowList()
                     apy.indexPage.eventDeleteRecord()
-                }else if(page == 'add' || page == 'edit'){ /* Form Page */
+                }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
                     apy.formPage.eventFocusNextInput()
                     apy.formPage.eventInputUnit()
                     apy.formPage.eventChangeBranch()
@@ -200,11 +200,11 @@ $(document).ready(function(){
                 let segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
-                if(page == 'view'){ /* List Page */
+                if(page.toLowerCase() == 'view'){ /* List Page */
                     caw.indexPage.initDT()
                     caw.indexPage.eventShowList()
                     caw.indexPage.eventDeleteRecord()
-                }else if(page == 'add' || page == 'edit'){ /* Form Page */
+                }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
                     caw.formPage.eventFocusNextInput()
                     caw.formPage.eventSelectEmployee()
                     caw.formPage.eventDeleteRow()
@@ -226,11 +226,11 @@ $(document).ready(function(){
                 let segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
-                if(page == 'view'){ /* List Page */
+                if(page.toLowerCase() == 'view'){ /* List Page */
                     car.indexPage.initDT()
                     car.indexPage.eventShowList()
                     car.indexPage.eventDeleteRecord()
-                }else if(page == 'add' || page == 'edit'){ /* Form Page */
+                }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
                     car.formPage.eventFocusNextInput()
                     car.formPage.eventSelectEmployee()
                     car.formPage.eventDeleteRow()
@@ -331,24 +331,39 @@ $(document).ready(function(){
         },
 
         //* MASTER
-        masterOperation: () => {},
+        master: () => {
+            var path = window.location.pathname
+            var segment = path.split('/')[1]
 
-        masterSupply: () => {},
-
-        masterFinance: () => {
-            import('./usecase/masterFinance.js')
-            .then(({default: mfin}) =>{
-                mfin.coa.eventOpenModalNewHeading()
-                mfin.coa.eventEditHeading()
-                mfin.coa.eventSubmitNewHeading()
-                mfin.coa.eventDeleteHeading()
+            //? SUPPLY
+            import('./usecase/masterSupply.js')
+            .then(({default: msup}) => {
+                if(segment.toLowerCase() == 'cmaster'){
+                    msup.stockgorup.initTables()
+                    msup.stockgorup.eventAddNewItem()
+                    msup.stockgorup.eventEditItem()
+                    msup.stockgorup.eventDeleteItem()
+                }
             })
             .catch(err => {
                 console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
-        },
 
-        masterResource: () => {},
+            //? FINANCE
+            import('./usecase/masterFinance.js')
+            .then(({default: mfin}) => {
+                if(segment.toLowerCase() == 'c_finance'){
+                    mfin.coa.eventOpenModalNewHeading()
+                    mfin.coa.eventEditHeading()
+                    mfin.coa.eventSubmitNewHeading()
+                    mfin.coa.eventDeleteHeading()
+                }
+            })
+            .catch(err => {
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
+            })
+        }
+
     };
     
     //Get Sript Name

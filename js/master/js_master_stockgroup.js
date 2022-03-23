@@ -166,9 +166,8 @@ $(document).ready(function(){
 		})
 	//Data Table End
 	$(document).on('click', 'button.btnModal', function(){
-		$('#master_crud>div.modal-dialog').attr('class','modal-dialog modal-md');
 		switch($(this).attr('id')){
-			case 'button_master_file_add_stockgroup_class':
+			case 'btn_add_stockgroup_class':
 				$('#master_crud').modal('show');
 				$('#btnAdd').attr('input','mas_stock_a_class').show();
 				$('#btnEdit').hide();
@@ -185,7 +184,7 @@ $(document).ready(function(){
 					}
 				})
 				break;
-			case 'button_master_file_add_stockgroup_cat':
+			case 'btn_add_stockgroup_cat':
 				$('#master_crud').modal('show');
 				$('#btnAdd').attr('input','mas_stock_b_cat').show();
 				$('#btnEdit').hide();
@@ -217,7 +216,7 @@ $(document).ready(function(){
 					}
 				})
 				break;
-			case 'button_master_file_add_stockgroup_type':
+			case 'btn_add_stockgroup_type':
 				$('#master_crud').modal('show');
 				$('#btnAdd').attr('input','mas_stock_c_type').show();
 				$('#btnEdit').hide();
@@ -248,7 +247,7 @@ $(document).ready(function(){
 					}
 				})
 				break;
-			case 'button_master_file_add_stockgroup_grp':
+			case 'btn_add_stockgroup_grp':
 				$('#master_crud').modal('show');
 				$('#btnAdd').attr('input','mas_stock_d_grp').show();
 				$('#btnEdit').hide();
@@ -406,7 +405,6 @@ $(document).ready(function(){
 		if(!id){
 			id = $(this).data('id')
 		}
-		$('#master_crud>div.modal-dialog').attr('class','modal-dialog modal-md');
 		switch($(this).attr('input')){
 			case 'mas_stock_a_class':
 				$('#master_crud').modal('show');
