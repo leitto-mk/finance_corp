@@ -544,7 +544,7 @@ function load_function(){
     // $('#employeetype').select2();
     // $('#employmenttype').select2();
   
-    // $('#jobtitle').select2();
+    //$('#jobtitle').select2();
     // $('#joblevel').select2();
     // $('#jobgrade').select2();
 
