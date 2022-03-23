@@ -103,36 +103,6 @@ tr:nth-child(odd){
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="portlet light bg-blue-ebonyclay">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <span class="caption-subject font-blue-chambray bold uppercase"><i class="fa fa-file font-white"></i> <font color="white">Identity Info</font></span>
-                                        </div>
-                                    </div>
-                                    <table class="table font-dark" style="margin-bottom: 0px;">
-                                        <tbody>
-                                            <tr>
-                                                <td width="28%" style="border-top: none;"> Number </td>
-                                                <td class="bold" style="border-top: none;"> : </td>
-                                                <td class="img-rounded zoom sbold"  style="border-top: none;"><?php echo $pers->IdentityNo ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="28%"> Expire </td>
-                                                <td class="bold" width="1%"> : </td>
-                                                <?php if ($pers->IdentityExpire == '0000-00-00' || $pers->IdentityExpire == ''){ ?>
-                                                    <td class="sbold"></td>  
-                                                <?php }else{ ?>
-                                                <td class="sbold" ><?php echo date('d-M-Y', strtotime($pers->IdentityExpire)); ?></td>
-                                                <?php } ?>
-                                            </tr>
-                                            <tr>
-                                                <td width="28%"> Scan </td>
-                                                <td class="bold" width="1%"> : </td>
-                                                <td class="sbold" ><a href="#" data-target="#modal-dataktp" data-toggle="modal" class="btn btn-sm green btn-block">Priview</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                             <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
                                 <div class="portlet light">
@@ -162,7 +132,7 @@ tr:nth-child(odd){
                                     </div>
                                     <div class="portlet-body">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="table-responsive">
                                                     <table class="table" id="detail_table">
                                                         <tbody>
@@ -205,7 +175,7 @@ tr:nth-child(odd){
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="table-responsive">
                                                     <table class="table">
                                                         <tbody>
@@ -243,33 +213,10 @@ tr:nth-child(odd){
                                                                 <td width="1%" class="bold"> : </td>
                                                                 <td class="sbold"><?php echo $pers->Ethnic ?></td>
                                                             </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <tbody>
                                                             <tr>
                                                                 <td width="38%" class="text-right" style="border-top: none;"> Nationality </td>
                                                                 <td width="1%" class="bold" style="border-top: none;"> : </td>
                                                                 <td class="sbold" style="border-top: none;"><?php echo $pers->Nationality ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td width="38%" class="text-right"> Blood Type </td>
-                                                                <td width="1%" class="bold"> : </td>
-                                                                <td class="sbold"><?php echo $pers->BloodType ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td width="38%" class="text-right"> Height </td>
-                                                                <td width="1%" class="bold"> : </td>
-                                                                <td class="sbold"><?php echo $pers->Height ?> Cm</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td width="38%" class="text-right"> Weight </td>
-                                                                <td width="1%" class="bold"> : </td>
-                                                                <td class="sbold"><?php echo $pers->Weight ?> Kg</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -348,36 +295,6 @@ tr:nth-child(odd){
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="portlet light bg-blue-ebonyclay">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <span class="caption-subject font-blue-chambray bold uppercase"><i class="fa fa-file font-white"></i> <font color="white">Identity Info</font></span>
-                                        </div>
-                                    </div>
-                                    <table class="table font-dark" style="margin-bottom: 0px;">
-                                        <tbody>
-                                            <tr>
-                                                <td width="28%" style="border-top: none;"> Number </td>
-                                                <td class="bold" style="border-top: none;"> : </td>
-                                                <td class="img-rounded zoom sbold"  style="border-top: none;"><?php echo $pers->IdentityNo ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="28%"> Expire </td>
-                                                <td class="bold" width="1%"> : </td>
-                                                <?php if ($pers->IdentityExpire == '0000-00-00' || $pers->IdentityExpire == ''){ ?>
-                                                    <td class="sbold"></td>  
-                                                <?php }else{ ?>
-                                                <td class="sbold" ><?php echo date('d-M-Y', strtotime($pers->IdentityExpire)); ?></td>
-                                                <?php } ?>
-                                            </tr>
-                                            <tr>
-                                                <td width="28%"> Scan </td>
-                                                <td class="bold" width="1%"> : </td>
-                                                <td class="sbold" ><a href="#" data-target="#modal-dataktp" data-toggle="modal" class="btn btn-sm green btn-block">Priview</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                             <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
                                 <div class="portlet light">
@@ -407,7 +324,7 @@ tr:nth-child(odd){
                                     </div>
                                     <div class="portlet-body">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="table-responsive">
                                                     <table class="table" id="detail_table">
                                                         <tbody>
@@ -420,12 +337,21 @@ tr:nth-child(odd){
                                                                 <td width="38%" class="text-right"> Employee Type </td>
                                                                 <td width="1%" class="bold"> : </td>
                                                                 <td class="sbold" id="stock_detail_6"><?php echo $pers->EmployeeTypeDes ?></td>
-                                                            </tr>                               
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="38%" class="text-right"> Hire Date </td>
+                                                                <td width="1%" class="bold"> : </td>
+                                                                <?php if ($pers->HireDate == '0000-00-00' || $pers->HireDate == ''){ ?>
+                                                                    <td class="sbold"></td>  
+                                                                <?php }else{ ?>
+                                                                    <td class="sbold"><?php echo date('d-M-Y', strtotime($pers->HireDate)); ?></td>
+                                                                <?php } ?>
+                                                            </tr>                                 
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="table-responsive">
                                                     <table class="table">
                                                         <tbody>
@@ -435,77 +361,15 @@ tr:nth-child(odd){
                                                                 <td class="sbold" style="border-top: none;"><?php echo $pers->JobTitleDes ?></td>
                                                             </tr>
                                                             <tr>
-                                                                <td width="38%" class="text-right"> Job Point </td>
-                                                                <td width="1%" class="bold"> : </td>
-                                                                <td class="sbold"><?php echo $pers->JobPointDes ?></td>
-                                                            </tr> 
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <tbody> 
-                                                            <tr>
                                                                 <td width="38%" class="text-right"> Work Function </td>
                                                                 <td width="1%" class="bold"> : </td>
                                                                 <td class="sbold"><?php echo $pers->WorkFunctionDes ?></td>
                                                             </tr>
                                                             <tr>
-                                                                <td width="38%" class="text-right"> Workgroup </td>
-                                                                <td width="1%" class="bold"> : </td>
-                                                                <td class="sbold"><?php echo $pers->CrewDes ?></td>
-                                                            </tr> 
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="portlet light">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <span class="caption-subject font-blue-chambray bold uppercase"><i class="fa fa-building"></i> Hire Info</span>
-                                        </div>
-                                       <!--  <div class="actions">
-                                            <a href="#" class="btn yellow btn-outline btn-sm edit-stock">
-                                                <i class="fa fa-pencil"></i> Edit
-                                            </a>
-                                            <a id="i_label" href="#" class="btn blue btn-outline btn-sm">
-                                                <i class="fa fa-barcode"></i> Label
-                                            </a>
-                                        </div> -->
-                                    </div>
-                                    <div class="portlet-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr style="background-color: #e1e5ec">
-                                                                <td width="38%" class="text-right"> Hire Date </td>
-                                                                <td width="1%" class="bold"> : </td>
-                                                                <?php if ($pers->HireDate == '0000-00-00' || $pers->HireDate == ''){ ?>
-                                                                    <td class="sbold"></td>  
-                                                                <?php }else{ ?>
-                                                                    <td class="sbold"><?php echo date('d-M-Y', strtotime($pers->HireDate)); ?></td>
-                                                                <?php } ?>
-                                                            </tr>                                        
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr style="background-color: #e1e5ec">
                                                                 <td width="38%" class="text-right"> Point of Hire </td>
                                                                 <td width="1%" class="bold"> : </td>
                                                                 <td class="sbold"><?php echo $pers->PointofHire ?></td>
-                                                            </tr>                                      
+                                                            </tr>  
                                                         </tbody>
                                                     </table>
                                                 </div>
