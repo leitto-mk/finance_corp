@@ -291,26 +291,41 @@
 				</div>
 				<div class="portlet-body">
 					<div class="form-group">
-						<label for="so_payment_sub_total" class="control-label">Sub Total</label>
-						<input type="text" name="so_payment_sub_total" id="so_payment_sub_total" class="form-control text-right" readonly value="">
+						<label for="so_payment_sub_total" class="control-label">Subtotal</label>
+						<div class="input-group">
+							<input type="text" name="so_payment_sub_total" id="so_payment_sub_total" class="form-control text-right" readonly value="">
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="so_payment_discount" class="control-label">Discount</label>
+						<div class="input-group">
+							<input type="number" name="so_payment_discount" id="so_payment_discount" class="form-control text-right" step="0.01" min="0" value="0">
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
+						</div>
+						<span class="help-block hidden"></span>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">Net - Subtotal</label>
+						<input type="text" name="" id="" class="form-control text-right" readonly value="">
 					</div>
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="so_payment_discount" class="control-label">Discount</label>
+								<label for="so_payment_discount" class="control-label">VAT</label>
 								<div class="input-group">
-									<input type="number" name="so_payment_discount" id="so_payment_discount" class="form-control text-right" step="0.01" min="0" value="">
-									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
+									<input type="number" name="so_payment_discount" id="so_payment_discount" class="form-control text-right" step="0.01" min="0" value="0">
+									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="so_payment_tax" class="control-label">Tax</label>
+								<label for="" class="control-label">Less PPh 23</label>
 								<div class="input-group">
-									<input type="number" name="so_payment_tax" id="so_payment_tax" class="form-control text-right" step="0.01" min="0" value="">
-									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
+									<input type="number" name="" id="" class="form-control text-right" step="0.01" min="0" value="0">
+									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -318,17 +333,22 @@
 					</div>
 					<div class="form-group">
 						<label for="so_payment_freight_cost" class="control-label">Freight</label>
-						<input type="number" name="so_payment_freight_cost" id="so_payment_freight_cost" class="form-control text-right" min="0" value="">
-						<span class="help-block hidden"></span>
+						<div class="input-group">
+							<input type="number" name="so_payment_freight_cost" id="so_payment_freight_cost" class="form-control text-right" step="0.01" min="0" value="0">
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
+						</div>
 					</div>
 					<div class="form-group">
-						<label for="so_payment_grand_total" class="control-label">Grand Total</label>
+						<label for="so_payment_grand_total" class="control-label">Total Amount</label>
 						<input type="text" name="so_payment_grand_total" id="so_payment_grand_total" class="form-control text-right" readonly min="0" value="">
+					</div>
+					<div class="form-group">
+						<label for="so_payment_grand_total" class="control-label">Paid Today</label>
+						<input type="text" name="" id="" class="form-control text-right" readonly min="0" value="">
 					</div>
 				</div>
 				<div class="portlet-footer text-right">
 					<hr>
-					<button type="reset" class="btn btn-outline grey-gallery">Reset</button>
 					<button type="submit" class="btn blue-chambray">Submit</button>
 				</div>
 			</div>
