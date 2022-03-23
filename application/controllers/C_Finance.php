@@ -77,12 +77,14 @@ class C_Finance extends CI_Controller
                         'id' => $id
                     ]);
                     $data_view['transgroup'] = $data_coa['TransGroup'];
+                    $data_view['type'] = 'child';
                     $title = 'Create New Child';
                     break;
 
                 case 'edit':
                     $data_view['coa'] = $data_coa;
                     $data_view['transgroup'] = $data_coa['TransGroup'];
+                    $data_view['type'] = 'edit';
                     $title = $data_coa['Acc_No'] . ' - ' . $data_coa['Acc_Name'];
                     break;
 
