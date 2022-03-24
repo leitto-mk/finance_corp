@@ -64,7 +64,7 @@ $(document).on("ready", function (e) {
 				data: "Amount",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{

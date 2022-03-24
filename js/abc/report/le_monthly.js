@@ -30,7 +30,7 @@ const dt_le = $("#table-sales").DataTable({
 			data: "401",
 			className: "text-right",
 			render: function (data, type, row) {
-				return new Intl.NumberFormat("id-ID").format(data);
+				return new Intl.NumberFormat('en').format(data);
 			},
 		},
 		{
@@ -38,7 +38,7 @@ const dt_le = $("#table-sales").DataTable({
 			data: "100",
 			className: "text-right",
 			render: function (data, type, row) {
-				return new Intl.NumberFormat("id-ID").format(data);
+				return new Intl.NumberFormat('en').format(data);
 			},
 		},
 		{
@@ -46,7 +46,7 @@ const dt_le = $("#table-sales").DataTable({
 			data: "601",
 			className: "text-right",
 			render: function (data, type, row) {
-				return new Intl.NumberFormat("id-ID").format(data);
+				return new Intl.NumberFormat('en').format(data);
 			},
 		},
 		{
@@ -54,7 +54,7 @@ const dt_le = $("#table-sales").DataTable({
 			data: "Point",
 			className: "text-right",
 			render: function (data, type, row) {
-				return new Intl.NumberFormat("id-ID").format(data);
+				return new Intl.NumberFormat('en').format(data);
 			},
 		},
 		{
@@ -114,22 +114,22 @@ const dt_le = $("#table-sales").DataTable({
 			return $("<tr/>")
 				.append(`<td colspan='5' class='text-right'>Total</td>`)
 				.append(
-					`<td class='text-right'>${new Intl.NumberFormat("id-ID").format(
+					`<td class='text-right'>${new Intl.NumberFormat('en').format(
 						totalNetSales
 					)}</td>`
 				)
 				.append(
-					`<td class='text-right'>${new Intl.NumberFormat("id-ID").format(
+					`<td class='text-right'>${new Intl.NumberFormat('en').format(
 						totalRetailSales
 					)}</td>`
 				)
 				.append(
-					`<td class='text-right'>${new Intl.NumberFormat("id-ID").format(
+					`<td class='text-right'>${new Intl.NumberFormat('en').format(
 						totalTithe
 					)}</td>`
 				)
 				.append(
-					`<td class='text-right'>${new Intl.NumberFormat("id-ID").format(
+					`<td class='text-right'>${new Intl.NumberFormat('en').format(
 						totalPoint
 					)}</td>`
 				)

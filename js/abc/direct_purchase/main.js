@@ -195,10 +195,10 @@ function calculate_sub_total() {
 		total * _payment_tax +
 		_payment_freight_cost;
 
-	$("#dp_payment_sub_total").val(new Intl.NumberFormat("id-ID").format(total));
+	$("#dp_payment_sub_total").val(new Intl.NumberFormat('en').format(total));
 
 	$("#dp_payment_grand_total").val(
-		new Intl.NumberFormat("id-ID").format(grand_total)
+		new Intl.NumberFormat('en').format(grand_total)
 	);
 }
 

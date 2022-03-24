@@ -80,15 +80,15 @@ $(document).on("ready", function (e) {
 		changes = grand_total - _total_payment;
 
 		$("#ds_payment_sub_total").val(
-			new Intl.NumberFormat("id-ID").format(total)
+			new Intl.NumberFormat('en').format(total)
 		);
 
 		$("#ds_payment_grand_total").val(
-			new Intl.NumberFormat("id-ID").format(grand_total)
+			new Intl.NumberFormat('en').format(grand_total)
 		);
 
 		$("#ds_payment_changes").val(
-			new Intl.NumberFormat("id-ID").format(changes)
+			new Intl.NumberFormat('en').format(changes)
 		);
 	}
 

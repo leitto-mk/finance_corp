@@ -193,7 +193,7 @@ const arp = {
                 })
     
                 $('#totalamount').val(totalamount)
-                $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
+                $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('en').format(totalamount)}`)
             })
         },
     
@@ -213,7 +213,7 @@ const arp = {
                 })
     
                 $('#totalamount').val(totalamount)
-                $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
+                $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('en').format(totalamount)}`)
             })
         },
     

@@ -41,7 +41,7 @@ const inv = {
                         data: "Amount",
                         className: "text-right",
                         render: function (data, type, row) {
-                            return new Intl.NumberFormat("en-US", {
+                            return new Intl.NumberFormat('en', {
                                 style: "currency",
                                 currency: "USD",
                             }).format(data);
@@ -52,7 +52,7 @@ const inv = {
                         data: "Paid",
                         className: "text-right",
                         render: function (data, type, row) {
-                            return new Intl.NumberFormat("en-US", {
+                            return new Intl.NumberFormat('en', {
                                 style: "currency",
                                 currency: "USD",
                             }).format(data);
@@ -63,7 +63,7 @@ const inv = {
                         data: "Balance",
                         className: "text-right",
                         render: function (data, type, row) {
-                            return new Intl.NumberFormat("en-US", {
+                            return new Intl.NumberFormat('en', {
                                 style: "currency",
                                 currency: "USD",
                             }).format(data);

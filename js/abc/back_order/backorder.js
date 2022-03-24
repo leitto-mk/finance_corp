@@ -154,7 +154,7 @@ $(document).on("ready", function (e) {
 				className: "text-right",
 				render: function (data, type, row) {
 					const render_data = data ?? 0;
-					return new Intl.NumberFormat("id-ID").format(render_data);
+					return new Intl.NumberFormat('en').format(render_data);
 				},
 			},
 			{

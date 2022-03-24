@@ -14,7 +14,7 @@ $(document).on("ready", function () {
 				data: "100",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -22,7 +22,7 @@ $(document).on("ready", function () {
 				data: "201",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -30,7 +30,7 @@ $(document).on("ready", function () {
 				data: "202",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -38,7 +38,7 @@ $(document).on("ready", function () {
 				data: "203",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -46,14 +46,14 @@ $(document).on("ready", function () {
 				data: "204",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
 				targets: 8,
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(
+					return new Intl.NumberFormat('en').format(
 						parseFloat(row["201"]) +
 							parseFloat(row["202"]) +
 							parseFloat(row["203"]) +
@@ -66,7 +66,7 @@ $(document).on("ready", function () {
 				data: "301",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -74,14 +74,14 @@ $(document).on("ready", function () {
 				data: "302",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
 				targets: 11,
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(
+					return new Intl.NumberFormat('en').format(
 						parseFloat(row["301"]) + parseFloat(row["302"])
 					);
 				},
@@ -91,7 +91,7 @@ $(document).on("ready", function () {
 				data: "401",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -99,7 +99,7 @@ $(document).on("ready", function () {
 				data: "501",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -107,7 +107,7 @@ $(document).on("ready", function () {
 				data: "502",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -115,7 +115,7 @@ $(document).on("ready", function () {
 				data: "503",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -123,14 +123,14 @@ $(document).on("ready", function () {
 				data: "504",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
 				targets: 17,
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(
+					return new Intl.NumberFormat('en').format(
 						parseFloat(row["501"]) +
 							parseFloat(row["502"]) +
 							parseFloat(row["503"]) +
@@ -143,7 +143,7 @@ $(document).on("ready", function () {
 				data: "601",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{ targets: 19, defaultContent: ``, className: "text-right" },

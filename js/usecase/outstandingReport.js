@@ -54,7 +54,7 @@ const our = {
                                     <td align="left">${row.FullName}</td>
                                     <td align="left">${row.JobTitleDes}</td>
                                     <td align="left">${row.Supervisor}</td>
-                                    <td align="right">${Intl.NumberFormat('id').format(row.Outstanding)}</td>
+                                    <td align="right">${Intl.NumberFormat('en').format(row.Outstanding)}</td>
                                 </tr>
                             `)
                                 
@@ -66,7 +66,7 @@ const our = {
                                 table.append(`
                                     <tr class="font-dark sbold" style="border-top: solid 2px;">                          
                                         <td align="right" colspan="5">Total :</td>
-                                        <td align="right">${Intl.NumberFormat('id').format(cur_total)}</td>
+                                        <td align="right">${Intl.NumberFormat('en').format(cur_total)}</td>
                                     </tr>
                                 `)
                             }
@@ -75,11 +75,11 @@ const our = {
                         table.append(`
                             <tr class="font-dark sbold" style="border-top: solid 2px;">                          
                                 <td align="right" colspan="5">Total :</td>
-                                <td align="right">${Intl.NumberFormat('id').format(cur_total)}</td>
+                                <td align="right">${Intl.NumberFormat('en').format(cur_total)}</td>
                             </tr>
                             <tr class="bg-blue-ebonyclay font-white bold">                          
                                 <td align="right" colspan="5"> Grand Total :</td>
-                                <td align="right">${Intl.NumberFormat('id').format(grand_total)}</td>
+                                <td align="right">${Intl.NumberFormat('en').format(grand_total)}</td>
                             </tr>
                         `)
 

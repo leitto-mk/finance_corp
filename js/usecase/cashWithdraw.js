@@ -205,7 +205,7 @@ const caw = {
                 })
     
                 $('#totalamount').val(totalamount)
-                $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
+                $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('en').format(totalamount)}`)
             })
         },
     
@@ -229,11 +229,11 @@ const caw = {
                 let outstanding_left = (outstanding-cur_total_amount)+totalamount
     
                 $('#totalamount').val(totalamount)
-                $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('id').format(totalamount)}`)
+                $('#label_tot_amount').val(`Rp. ${Intl.NumberFormat('en').format(totalamount)}`)
                 $('#outstanding').val(outstanding_left)
                 
                 $('#outstanding_left').val(outstanding_left)
-                $('#label_outstanding_left').val(`Rp. ${Intl.NumberFormat('id').format(outstanding_left)}`)
+                $('#label_outstanding_left').val(`Rp. ${Intl.NumberFormat('en').format(outstanding_left)}`)
             })
         },
     

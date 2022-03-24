@@ -95,10 +95,10 @@ const gl = {
                                     <td class="bold" align="center">${response.result[i].CostCenter || ''}</td>
                                     <td class="bold" align="center">${response.result[i].AccNo}</td>
                                     <td class="bold" align="left">${response.result[i].Remarks}</td>
-                                    <td class="bold" align="right">${Intl.NumberFormat('id').format(response.result[i].Debit)}</td>
-                                    <td class="bold" align="right">${Intl.NumberFormat('id').format(response.result[i].Credit)}</td>
+                                    <td class="bold" align="right">${Intl.NumberFormat('en').format(response.result[i].Debit)}</td>
+                                    <td class="bold" align="right">${Intl.NumberFormat('en').format(response.result[i].Credit)}</td>
                                     <td class="bold" align="right">
-                                        ${Intl.NumberFormat('id').format(response.result[i].BalanceBranch)}
+                                        ${Intl.NumberFormat('en').format(response.result[i].BalanceBranch)}
                                     </td>
                                 </tr>`
                             )
@@ -113,13 +113,13 @@ const gl = {
                                     table.append(`
                                         <tr class="font-dark sbold">
                                             <td class="bold" align="right" colspan="8">Balance</td>
-                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response.result[i].BalanceBranch)}</td>
+                                            <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('en').format(response.result[i].BalanceBranch)}</td>
                                         </tr>
                                         <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
                                             <td align="right" colspan="8">Total :</td>                                    
-                                            <td align="right">${Intl.NumberFormat('id').format(subtotal_debit)}</td>
-                                            <td align="right">${Intl.NumberFormat('id').format(subtotal_credit)}</td>
-                                            <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('id').format(subtotal_balance)}</td>
+                                            <td align="right">${Intl.NumberFormat('en').format(subtotal_debit)}</td>
+                                            <td align="right">${Intl.NumberFormat('en').format(subtotal_credit)}</td>
+                                            <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('en').format(subtotal_balance)}</td>
                                         </tr>`
                                     )
         
@@ -129,13 +129,13 @@ const gl = {
                                 table.append(`
                                     <tr class="font-dark sbold">
                                         <td class="bold" align="right" colspan="8">Balance</td>
-                                        <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('id').format(response.result[i].BalanceBranch)}</td>
+                                        <td class="sbold uppercase font-green-meadow" align="right" colspan="3" style="font-size: 1.25em">${Intl.NumberFormat('en').format(response.result[i].BalanceBranch)}</td>
                                     </tr>
                                     <tr style="border-top: solid 4px;" class="font-dark sbold bg bg-grey-salsa">
                                         <td align="right" colspan="8">Total :</td>                                    
-                                        <td align="right">${Intl.NumberFormat('id').format(subtotal_debit)}</td>
-                                        <td align="right">${Intl.NumberFormat('id').format(subtotal_credit)}</td>
-                                        <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('id').format(subtotal_balance)}</td>
+                                        <td align="right">${Intl.NumberFormat('en').format(subtotal_debit)}</td>
+                                        <td align="right">${Intl.NumberFormat('en').format(subtotal_credit)}</td>
+                                        <td align="right" class="font-white sbold bg bg-blue-ebonyclay">${Intl.NumberFormat('en').format(subtotal_balance)}</td>
                                     </tr>`
                                 )
                             }

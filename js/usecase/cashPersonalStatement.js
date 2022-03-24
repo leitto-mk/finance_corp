@@ -42,12 +42,12 @@ const cap = {
                         for(let i = 0; i < response.result.length; i++){
                             let debit = 0
                             let credit = 0
-                            let balance = Intl.NumberFormat('id').format(response.result[i].Balance)
+                            let balance = Intl.NumberFormat('en').format(response.result[i].Balance)
 
                             if (response.result[i].TransType == 'CW') {
-                                debit = Intl.NumberFormat('id').format(response.result[i].Credit)
+                                debit = Intl.NumberFormat('en').format(response.result[i].Credit)
                             }else if (response.result[i].TransType == 'CR'){
-                                credit = Intl.NumberFormat('id').format(response.result[i].Credit)
+                                credit = Intl.NumberFormat('en').format(response.result[i].Credit)
                             }
 
                             $('#tbody_statement_details').append(`

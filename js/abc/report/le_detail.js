@@ -53,7 +53,7 @@ $(document).on("ready", function (e) {
 				data: "401",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -61,7 +61,7 @@ $(document).on("ready", function (e) {
 				data: "100",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -69,7 +69,7 @@ $(document).on("ready", function (e) {
 				data: "601",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -77,7 +77,7 @@ $(document).on("ready", function (e) {
 				data: "Point",
 				className: "text-right",
 				render: function (data, type, row) {
-					return new Intl.NumberFormat("id-ID").format(data);
+					return new Intl.NumberFormat('en').format(data);
 				},
 			},
 			{
@@ -137,22 +137,22 @@ $(document).on("ready", function (e) {
 				return $("<tr/>")
 					.append(`<td colspan='5' class='text-right'>Total</td>`)
 					.append(
-						`<td class='text-right'>${new Intl.NumberFormat("id-ID").format(
+						`<td class='text-right'>${new Intl.NumberFormat('en').format(
 							totalNetSales
 						)}</td>`
 					)
 					.append(
-						`<td class='text-right'>${new Intl.NumberFormat("id-ID").format(
+						`<td class='text-right'>${new Intl.NumberFormat('en').format(
 							totalRetailSales
 						)}</td>`
 					)
 					.append(
-						`<td class='text-right'>${new Intl.NumberFormat("id-ID").format(
+						`<td class='text-right'>${new Intl.NumberFormat('en').format(
 							totalTithe
 						)}</td>`
 					)
 					.append(
-						`<td class='text-right'>${new Intl.NumberFormat("id-ID").format(
+						`<td class='text-right'>${new Intl.NumberFormat('en').format(
 							totalPoint
 						)}</td>`
 					)
