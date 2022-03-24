@@ -132,7 +132,7 @@
                         </div>   
                         <div class="portlet-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-stripped table-condensed">
+                                <table class="table table-stripped table-condensed">
                                     <thead>
                                         <tr class="font-dark bg-white">
                                             <th width="2%"></th>
@@ -218,8 +218,8 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h3?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
                                                     </tr>
                                                 <?php elseif($revenue[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
@@ -228,16 +228,16 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h3?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
                                                     </tr>
                                                     <!--Total Header 2-->
                                                     <!-- <tr class="font-yellow"> -->
                                                     <tr>
                                                         <td></td>
                                                         <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h2?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
                                                     </tr>
                                                 <?php endif; ?>
                                             <?php elseif($i < count($revenue) && $i != 0) : ?>
@@ -247,16 +247,16 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h3?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
                                                 </tr>
                                                 <!--Total Header 2-->
                                                 <!-- <tr class="font-yellow"> -->
                                                 <tr>
                                                     <td></td>
                                                     <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h2?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                         <?php endfor; ?>                                   
@@ -264,8 +264,8 @@
                                         <!-- <tr class="font-yellow-gold"> -->
                                         <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h1 ?></td>
-                                            <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_rev_month, 2,',','.') ?></td>
-                                            <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_rev_year, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_rev_month, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_rev_year, 2,',','.') ?></td>
                                         </tr>
 
                                         <tr>
@@ -344,8 +344,8 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h3?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
                                                     </tr>
                                                 <?php elseif($operational[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
@@ -354,16 +354,16 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h3?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
                                                     </tr>
                                                     <!--Total Header 2-->
                                                     <!-- <tr class="font-yellow"> -->
                                                     <tr>
                                                         <td></td>
                                                         <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h2?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
                                                     </tr>
                                                 <?php endif; ?>
                                             <?php elseif($i < count($operational) && $i != 0) : ?>
@@ -373,16 +373,16 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h3?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
                                                 </tr>
                                                 <!--Total Header 2-->
                                                 <!-- <tr class="font-yellow"> -->
                                                 <tr>
                                                     <td></td>
                                                     <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h2?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                         <?php endfor; ?>                                   
@@ -390,8 +390,8 @@
                                         <!-- <tr class="font-yellow-gold"> -->
                                         <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h1 ?></td>
-                                            <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_opr_month, 2,',','.') ?></td>
-                                            <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_opr_year, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_opr_month, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_opr_year, 2,',','.') ?></td>
                                         </tr>
 
                                         <tr>
@@ -407,8 +407,8 @@
                                         <!-- <tr class="font-yellow-gold"> -->
                                         <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Gross Profit / Loss</td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_month,2,',','.') ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_year,2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 1px; border-bottom: solid 1px; border-left: solid 0.1px; border-color: black;"><?= number_format($gross_gain_month,2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 1px; border-bottom: solid 1px; border-right: solid 1px; border-color: black;"><?= number_format($gross_gain_year,2,',','.') ?></td>
                                         </tr>
 
                                         <tr>
@@ -487,8 +487,8 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h3?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
                                                     </tr>
                                                 <?php elseif($other_revenue[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
@@ -497,16 +497,16 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h3?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
                                                     </tr>
                                                     <!--Total Header 2-->
                                                     <!-- <tr class="font-yellow"> -->
                                                     <tr>
                                                         <td></td>
                                                         <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h2?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
                                                     </tr>
                                                 <?php endif; ?>
                                             <?php elseif($i < count($other_revenue) && $i != 0) : ?>
@@ -516,24 +516,24 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h3?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
                                                 </tr>
                                                 <!--Total Header 2-->
                                                 <!-- <tr class="font-yellow"> -->
                                                 <tr>
                                                     <td></td>
                                                     <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h2?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                         <?php endfor; ?>                                   
                                         <!--Total Header 1-->
                                         <!-- <tr class="font-yellow-gold">
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h1 ?></td>
-                                            <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_other_rev_month, 2,',','.') ?></td>
-                                            <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_other_rev_year, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_other_rev_month, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_other_rev_year, 2,',','.') ?></td>
                                         </tr> -->
 
                                         <tr>
@@ -548,8 +548,8 @@
                                         <!-- <tr class="font-yellow-gold"> -->
                                         <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Operating Profit</td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_month,2,',','.') ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_year,2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 1px; border-bottom: solid 1px; border-left: solid 0.1px; border-color: black;"><?= number_format($opr_profit_month,2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 1px; border-bottom: solid 1px; border-right: solid 1px; border-color: black;"><?= number_format($opr_profit_year,2,',','.') ?></td>
                                         </tr>
 
                                         <tr>
@@ -628,8 +628,8 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h3?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
                                                     </tr>
                                                 <?php elseif($other_expenses[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
@@ -638,16 +638,16 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h3?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
                                                     </tr>
                                                     <!--Total Header 2-->
                                                     <!-- <tr class="font-yellow"> -->
                                                     <tr>
                                                         <td></td>
                                                         <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h2?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
-                                                        <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
                                                     </tr>
                                                 <?php endif; ?>
                                             <?php elseif($i < count($other_expenses) && $i != 0) : ?>
@@ -657,24 +657,24 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h3?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
                                                 </tr>
                                                 <!--Total Header 2-->
                                                 <!-- <tr class="font-yellow"> -->
                                                 <tr>
                                                     <td></td>
                                                     <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h2?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
-                                                    <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
                                         <?php endfor; ?>                                   
                                         <!--Total Header 1-->
                                         <!-- <tr class="font-yellow-gold">
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h1 ?></td>
-                                            <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_other_expenses_month, 2,',','.') ?></td>
-                                            <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_other_expenses_year, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_other_expenses_month, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_other_expenses_year, 2,',','.') ?></td>
                                         </tr> -->
                                         
                                         <?php
@@ -688,8 +688,8 @@
                                         <!-- <tr class="font-yellow-gold"> -->
                                         <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h1 ?> & <?= $cur_header_other_expenses_h1 ?></td>
-                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_month, 2,',','.') ?></td>
-                                            <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_year, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($other_gain_month, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($other_gain_year, 2,',','.') ?></td>
                                         </tr>
 
                                         <tr>
@@ -705,8 +705,8 @@
                                         <!-- <tr class="font-yellow-gold"> -->
                                         <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Net Profit / Loss</td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($net_gain_month,2,',','.') ?></td>
-                                            <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($net_gain_year,2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 1px; border-bottom: solid 1px; border-left: solid 0.1px; border-color: black;"><?= number_format($net_gain_month,2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 1px; border-bottom: solid 1px; border-right: solid 1px; border-color: black;"><?= number_format($net_gain_year,2,',','.') ?></td>
                                         </tr>
                                                                   
                                     </tbody>
