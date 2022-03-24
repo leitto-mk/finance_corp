@@ -69,6 +69,11 @@ License: You must have a valid license purchased only from themeforest(the above
   <script src="<?= base_url() ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/global/plugins/moment.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/global/plugins/moment.min.js" type="text/javascript"></script>
   <!-- END CORE PLUGINS -->
   <!-- BEGIN THEME GLOBAL SCRIPTS -->
   <script src="<?= base_url() ?>assets/global/scripts/app.min.js" type="text/javascript"></script>
@@ -79,11 +84,9 @@ License: You must have a valid license purchased only from themeforest(the above
   <script src="<?= base_url() ?>assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
   <!-- END THEME LAYOUT SCRIPTS -->
-  <script src="<?= base_url() ?>assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
-  <script src="<?= base_url() ?>assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
-  <script src="<?= base_url() ?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
-  <script src="<?= base_url() ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-  <script src="<?= base_url() ?>assets/global/plugins/moment.min.js" type="text/javascript"></script>
+  <!-- BEGIN PAGE LAYOUT SCRIPTS -->
+  <script src="<?= base_url() ?>assets/pages/scripts/form-input-mask.min.js" type="text/javascript"></script>
+  <!-- END PAGE LAYOUT SCRIPTS -->
 
   <!-- <script src="<?= base_url() ?>js/master/js_coa.js" type="text/javascript"></script> -->
   <?php if(isset($script) && $script !== '') : ?>

@@ -255,9 +255,9 @@
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </td>
-                                                    <td><input type="number" name="rate[]" value="<?= $list[$i]['Rate'] ?>" class="form-control" min="1" value="1" required></td>
-                                                    <td><input type="number" name="unit[]" value="<?= $list[$i]['Unit'] ?>" class="form-control" required></td>
-                                                    <td><input type="" name="amount[]" value="<?= $list[$i]['Amount'] ?>" class="form-control" readonly></td>
+                                                    <td><input type="number" name="rate[]" value="<?= $list[$i]['Rate'] ?>" class="form-control text-rightt" min="1" value="1" required></td>
+                                                    <td><input type="text" name="unit[]" value="<?= $list[$i]['Unit'] ?>" class="form-control text-right" required></td>
+                                                    <td><input type="text" name="amount[]" value="<?= $list[$i]['Amount'] ?>" class="form-control text-right" readonly></td>
                                                 </tr>
                                             <?php endfor; ?>
                                         </tbody>

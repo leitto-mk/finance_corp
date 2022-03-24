@@ -103,6 +103,13 @@ const car = {
     },
 
     formPage: {
+        initInputMask: () => {
+            let unit = $(document).find('input[name="unit[]"]')
+            let amount = $(document).find('input[name="amount[]"]')
+            helper.setInputMask(unit, "currency")
+            helper.setInputMask(amount, "currency")
+        },
+        
         eventFocusNextInput: () => {
             $(document).on('keypress', function (e) {
                 const key = e.keyCode || e.which
@@ -154,6 +161,8 @@ const car = {
                         //Set Focus on the next Description field
                         $('#tbody_detail > tr > td > input[name="remarks[]"]').last().focus()
                         $('#tbody_detail > tr > td > input[name="remarks[]"]').last().parent().addClass('has-warning')
+
+                        initInputMask()
                     }
     
                     focusable.eq(index+1).focus()
@@ -192,7 +201,7 @@ const car = {
     
                 var totalamount = 0;
                 $('[name="amount[]"]').each(function(){
-                    totalamount += +$(this).val()
+                    totalamount += parseFloat($(this).val().replaceAll(',',''))
                 })
     
                 $('#totalamount').val(totalamount)
@@ -207,13 +216,14 @@ const car = {
 
                 let totalamount = 0
                 let rate = +$(this).parents('tr').find('[name="rate[]"]').val()
-                let unit = +$(this).parents('tr').find('[name="unit[]"]').val()
+                let unit = $(this).parents('tr').find('[name="unit[]"]').val()
+                unit = parseFloat(unit.replaceAll(',',''))
                 let total = rate * unit
     
                 $(this).parents('tr').find('[name="amount[]"]').val(total)
     
                 $('[name="amount[]"]').each(function(){
-                    totalamount += +$(this).val()
+                    totalamount += parseFloat($(this).val().replaceAll(',',''))
                 })
     
                 $('#totalamount').val(totalamount)

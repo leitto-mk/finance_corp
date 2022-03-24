@@ -53,6 +53,23 @@ const helper = {
     },
 
     /**
+     * InputMask. see reference for more info:
+     * @link    https://github.com/RobinHerbots/Inputmask
+     * 
+     * @type    {any}       Input Element
+     * @type    {string}    Masking Format in string
+     * 
+     * @return  {void}
+    */
+    setInputMask: (elem, format) => {
+        elem.inputmask(format, {
+            radixPoint: '.',
+            clearMaskOnLostFocus: false,
+            greedy: false
+        })
+    },
+
+    /**
      * Select2. see reference for more info:
      * @link    https://select2.org/
      * 

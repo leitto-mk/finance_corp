@@ -42,8 +42,11 @@
             <script src="<?php echo base_url(); ?>assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
             <script src="<?php echo base_url(); ?>assets/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
             <script src="<?php echo base_url(); ?>assets/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-            <script src="<?php echo base_url(); ?>assets/chart_budget/Chart.min.js" type="text/javascript"></script>    
             <script src="<?php echo base_url(); ?>assets/global/plugins/horizontal-timeline/horizontal-timeline.js" type="text/javascript"></script>
+            <script src="<?php echo base_url(); ?>assets/chart_budget/Chart.min.js" type="text/javascript"></script>    
+            <!-- BEGIN PAGE LAYOUT SCRIPTS -->
+            <script src="<?= base_url() ?>assets/pages/scripts/form-input-mask.min.js" type="text/javascript"></script>
+            <!-- END PAGE LAYOUT SCRIPTS -->
             <script type="text/javascript" src="<?php echo base_url(); ?>js/hr/main.js"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
      </body>

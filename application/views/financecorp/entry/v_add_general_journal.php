@@ -179,15 +179,15 @@
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </td>
-                                                <td><input type="number" name="debit[]" class="form-control text-right" min="0" value="0" required></td>
-                                                <td><input type="number" name="credit[]" class="form-control text-right" min="0" value="0" required></td>
+                                                <td><input type="text" name="debit[]" class="form-control text-right" min="0" value="0" required></td>
+                                                <td><input type="text" name="credit[]" class="form-control text-right" min="0" value="0" required></td>
                                             </tr>
                                         </tbody>
                                         <tbody>
                                             <tr>
                                                 <td class="text-right sbold uppercase" colspan="6" style="padding-top: 15px">Total</td>
-                                                <td><input type="number" id="total_debit" name="total_debit" class="form-control" value="0" readonly></td>
-                                                <td><input type="number" id="total_credit" name="total_credit" class="form-control" value="0" readonly></td>
+                                                <td><input type="text" id="total_debit" name="total_debit" class="form-control text-right" value="0" readonly></td>
+                                                <td><input type="text" id="total_credit" name="total_credit" class="form-control text-right" value="0" readonly></td>
                                             </tr>
                                         </tbody>
                                     </table>

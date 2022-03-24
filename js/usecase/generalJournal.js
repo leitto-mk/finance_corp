@@ -103,6 +103,18 @@ const gj = {
     },
 
     formPage: {
+        initInputMask: () => {
+            let debit = $(document).find('input[name="debit[]"]')
+            let credit = $(document).find('input[name="credit[]"]')
+            let total_debit = $(document).find('#total_debit')
+            let total_credit = $(document).find('#total_credit')
+            
+            helper.setInputMask(debit, "currency")
+            helper.setInputMask(credit, "currency")
+            helper.setInputMask(total_debit, "currency")
+            helper.setInputMask(total_credit, "currency")
+        },
+        
         eventFocusNextInput: () => {
             $(document).on('keypress', function (e) {
                 const key = e.keyCode || e.which
@@ -154,6 +166,8 @@ const gj = {
                         //Set Focus on the next Description field
                         $('#tbody_detail > tr > td > input[name="remarks[]"]').last().focus()
                         $('#tbody_detail > tr > td > input[name="remarks[]"]').last().parent().addClass('has-warning')
+
+                        gj.formPage.initInputMask()
                     }
     
                     focusable.eq(index+1).focus()
@@ -190,18 +204,18 @@ const gj = {
         },
     
         eventInputAmount: () => {
-            $(document).on('focusout','[name="debit[]"],[name="credit[]"]', function(){
+            $(document).on('input','[name="debit[]"],[name="credit[]"]', function(){
                 
                 var total_debit = 0
                 $('[name="debit[]"]').each(function(i, n){
-                    total_debit += +$(this).val()
+                    total_debit += parseFloat($(this).val().replaceAll(',',''))
                 })
                 
                     $('#total_debit').val(total_debit)
     
                 var total_credit = 0
                 $('[name="credit[]"]').each(function(i, n){
-                    total_credit += +$(this).val()
+                    total_credit += parseFloat($(this).val().replaceAll(',',''))
                 })
                 
                 $('#total_debit').val(total_debit)
@@ -259,8 +273,8 @@ const gj = {
                 }
     
                 let count_row = $('#tbody_detail').children('tr').length
-                let total_debit = +$('#total_debit').val()
-                let total_credit = +$('#total_credit').val()
+                let total_debit = parseFloat($('#total_debit').val().replaceAll(',',''))
+                let total_credit = parseFloat($('#total_credit').val().replaceAll(',',''))
     
                 if(count_row == 1){
                     alert('DETAIL ROW MUST BE TWO OR MORE')
@@ -273,6 +287,13 @@ const gj = {
                 }
                 
                 let formData = $('#form_general_journal').serializeArray()
+
+                //Deformat Numbers
+                formData.find(input => {
+                    if(input.name == 'debit[]' || input.name == 'credit[]'){
+                        input.value = parseFloat(input.value.replaceAll(',',''))
+                    }
+                })
     
                 var docno = $('[name="docno"]').val()
                 var branch = $('[name="branch"]').val()

@@ -50,7 +50,9 @@
         <script src="<?=base_url('assets')?>/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/toastr/js/toastr.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
-
+        <!-- BEGIN PAGE LAYOUT SCRIPTS -->
+        <script src="<?= base_url() ?>assets/pages/scripts/form-input-mask.min.js" type="text/javascript"></script>
+        <!-- END PAGE LAYOUT SCRIPTS -->
         <!-- <script src="<?=base_url('js/master/js_master_abase.js')?>" type="text/javascript"></script> -->
         <!-- <script src="<?=base_url('js/master/js_master_stockgroup.js')?>" type="text/javascript"></script> -->
         <!-- <script src="<?=base_url('js/master/js_master.js')?>" type="text/javascript"></script> -->

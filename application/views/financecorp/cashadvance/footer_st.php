@@ -28,23 +28,23 @@
         <script src="<?= base_url() ?>assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
-        <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <!-- <script src="<?= base_url() ?>assets/pages/scripts/profile.min.js" type="text/javascript"></script> -->
-        <script src="<?= base_url() ?>assets/pages/scripts/ui-extended-modals.min.js" type="text/javascript"></script>
-        <script src="<?= base_url() ?>assets/pages/scripts/form-validation.min.js" type="text/javascript"></script>        
-        <script src="<?= base_url() ?>assets/pages/scripts/ui-buttons.min.js" type="text/javascript"></script>
-        <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="<?= base_url() ?>assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <script src="<?= base_url() ?>assets/layouts/layout3/scripts/layout.min.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/layouts/layout3/scripts/demo.min.js" type="text/javascript"></script>
-        <script src="<?= base_url() ?>assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
-        <script src="<?= base_url() ?>assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
-        <script src="<?= base_url() ?>assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="<?= base_url() ?>assets/pages/scripts/ui-extended-modals.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/pages/scripts/form-validation.min.js" type="text/javascript"></script>        
+        <script src="<?= base_url() ?>assets/pages/scripts/ui-buttons.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/pages/scripts/form-input-mask.min.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
         <?php if(isset($script) && $script !== '') : ?>
             <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
         <?php endif; ?>

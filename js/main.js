@@ -18,6 +18,7 @@ $(document).ready(function(){
                     rec.indexPage.eventShowList()
                     rec.indexPage.eventDeleteRecord()
                 }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
+                    rec.formPage.initInputMask()
                     rec.formPage.eventFocusNextInput()
                     rec.formPage.eventDeleteRow()
                     rec.formPage.eventInputUnit()
@@ -43,6 +44,7 @@ $(document).ready(function(){
                     pay.indexPage.eventShowList()
                     pay.indexPage.eventDeleteRecord()
                 }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
+                    pay.formPage.initInputMask()
                     pay.formPage.eventFocusNextInput()
                     pay.formPage.eventDeleteRow()
                     pay.formPage.eventInputUnit()
@@ -68,6 +70,7 @@ $(document).ready(function(){
                     ob.indexPage.eventShowList()
                     ob.indexPage.eventDeleteRecord()
                 }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
+                    ob.formPage.initInputMask()
                     ob.formPage.eventFocusNextInput()
                     ob.formPage.eventDeleteRow()
                     ob.formPage.eventInputUnit()
@@ -93,6 +96,7 @@ $(document).ready(function(){
                     gj.indexPage.eventShowList()
                     gj.indexPage.eventDeleteRecord()
                 }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
+                    gj.formPage.initInputMask()
                     gj.formPage.eventFocusNextInput()
                     gj.formPage.eventDeleteRow()
                     gj.formPage.eventInputAmount()
@@ -136,6 +140,7 @@ $(document).ready(function(){
                     arp.indexPage.eventShowList()
                     arp.indexPage.eventDeleteRecord()
                 }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
+                    arp.formPage.initInputMask()
                     arp.formPage.eventFocusNextInput()
                     arp.formPage.eventDeleteRow()
                     arp.formPage.eventInputUnit()
@@ -180,6 +185,7 @@ $(document).ready(function(){
                     apy.indexPage.eventShowList()
                     apy.indexPage.eventDeleteRecord()
                 }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
+                    apy.formPage.initInputMask()
                     apy.formPage.eventFocusNextInput()
                     apy.formPage.eventInputUnit()
                     apy.formPage.eventChangeBranch()
@@ -205,6 +211,7 @@ $(document).ready(function(){
                     caw.indexPage.eventShowList()
                     caw.indexPage.eventDeleteRecord()
                 }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
+                    caw.formPage.initInputMask()
                     caw.formPage.eventFocusNextInput()
                     caw.formPage.eventSelectEmployee()
                     caw.formPage.eventDeleteRow()
@@ -231,6 +238,7 @@ $(document).ready(function(){
                     car.indexPage.eventShowList()
                     car.indexPage.eventDeleteRecord()
                 }else if(page.toLowerCase() == 'add' || page.toLowerCase() == 'edit'){ /* Form Page */
+                    car.formPage.initInputMask()
                     car.formPage.eventFocusNextInput()
                     car.formPage.eventSelectEmployee()
                     car.formPage.eventDeleteRow()

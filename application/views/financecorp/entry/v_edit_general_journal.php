@@ -216,8 +216,8 @@
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </td>
-                                                    <td><input type="number" name="debit[]" value="<?= $list[$i]['Debit'] ?>" class="form-control" value="0" required></td>
-                                                    <td><input type="number" name="credit[]" value="<?= $list[$i]['Credit'] ?>" class="form-control" required></td>
+                                                    <td><input type="text" name="debit[]" value="<?= $list[$i]['Debit'] ?>" class="form-control" value="0" required></td>
+                                                    <td><input type="text" name="credit[]" value="<?= $list[$i]['Credit'] ?>" class="form-control" required></td>
                                                 </tr>
                                                 <?php
                                                     $debit_total += $list[$i]['Debit'];
@@ -228,8 +228,8 @@
                                         <tbody>
                                             <tr>
                                                 <td class="text-right sbold uppercase" colspan="6" style="padding-top: 15px">Total</td>
-                                                <td><input type="number" id="total_debit" name="total_debit" class="form-control" value="<?= $debit_total?>" readonly></td>
-                                                <td><input type="number" id="total_credit" name="total_credit" class="form-control" value="<?= $credit_total?>" readonly></td>
+                                                <td><input type="text" id="total_debit" name="total_debit" class="form-control text-right" value="<?= $debit_total?>" readonly></td>
+                                                <td><input type="text" id="total_credit" name="total_credit" class="form-control text-right" value="<?= $credit_total?>" readonly></td>
                                             </tr>
                                         </tbody>
                                     </table>
