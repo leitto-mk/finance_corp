@@ -343,8 +343,47 @@
 						<input type="text" name="so_payment_grand_total" id="so_payment_grand_total" class="form-control text-right" readonly min="0" value="">
 					</div>
 					<div class="form-group">
-						<label for="so_payment_grand_total" class="control-label">Paid Today</label>
-						<input type="text" name="" id="" class="form-control text-right" readonly min="0" value="">
+			          <label for="dp_payment_type" class="control-label">Payment Method</label>
+			          <div class="mt-radio-inline">
+			            <label class="mt-radio">
+			              <input type="radio" id="radio-cash" name="dp_payment_type" value="cash" checked>
+			              <span></span>
+			              Cash
+			            </label>
+			            <label class="mt-radio">
+			              <input type="radio" id="radio-debit" name="dp_payment_type" value="debit">
+			              <span></span>
+			              Debit
+			            </label>
+			            <label class="mt-radio">
+			              <input type="radio" id="radio-credit" name="dp_payment_type" value="credit">
+			              <span></span>
+			              Credit
+			            </label>
+			            <label class="mt-radio">
+			              <input type="radio" id="radio-credit" name="dp_payment_type" value="credit purchase">
+			              <span></span>
+			              Credit Purchase
+			            </label>
+			          </div>
+			        </div>
+			        <div id="card-payment" class="">
+			          <div class="form-group">
+			            <label for="dp_payment_card_number" class="control-label">Card Number</label>
+			            <input type="text" name="dp_payment_card_number" id="dp_payment_card_number" class="form-control">
+			          </div>
+			          <div class="form-group">
+			            <label for="dp_payment_bank" class="control-label">Bank</label>
+			            <select name="dp_payment_bank" id="dp_payment_bank" class="form-control">
+			              <option value=""></option>
+			            </select>
+			          </div>
+			        </div>
+			        <div class="form-group">
+						<label for="so_payment_sub_total" class="control-label">Payment</label>
+						<div class="input-group">
+							<input type="text" name="" id="" class="form-control text-right" readonly value="">
+						</div>
 					</div>
 				</div>
 				<div class="portlet-footer text-right">
