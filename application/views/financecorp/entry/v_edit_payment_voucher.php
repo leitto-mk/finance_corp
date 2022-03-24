@@ -149,7 +149,7 @@
                                                 <!-- <div class="col-md-2 name" style="font-size:20px;"> Rp. </div> -->
                                                 <div class="col-md-12 value" style="margin-top: 8px">
                                                     <b>
-                                                        <input type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control" value="Rp. <?= number_format($total, 0, ',', '.')?>" style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;">
+                                                        <input type="text" id="label_tot_amount" readonly="true" class="input-group input-group-sm form-control" value="Rp. <?= number_format($total, 2, '.', ',')?>" style="text-align:right; background: #E9EDEF; font-size: 25px; border:none;">
                                                         <input type="number" class="form-control hidden" id="totalamount" name="totalamount" value="<?= $total ?>">
                                                     </b>
                                                 </div>

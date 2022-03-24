@@ -93,7 +93,7 @@ const repository = {
                     data: 'TotalAmount',
                     createdCell: response => response.setAttribute('align', 'right'),
                     render: row => {
-                        return `<div class="font-dark sbold">${row}</div>`
+                        return `<div class="font-dark sbold">${Intl.NumberFormat('en').format(row)}</div>`
                     },
                     orderable: false,
                 },
