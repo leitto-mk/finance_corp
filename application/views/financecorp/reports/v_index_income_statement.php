@@ -175,7 +175,8 @@
                                                 </tr>
                                             <?php elseif($revenue[$i]['TransGroup'] == 'H2') : ?>
                                                 <!--Header 2-->
-                                                <tr class="font-yellow">
+                                                <!-- <tr class="font-yellow"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td colspan="4"><?= $revenue[$i]['Acc_Name'] ?> - <?= $revenue[$i]['Acc_No']?></td>
                                                     <td align="right"></td>
@@ -183,7 +184,8 @@
                                                 </tr>
                                             <?php elseif($revenue[$i]['TransGroup'] == 'H3') : ?>
                                                 <!--Header 3-->
-                                                <tr class="font-blue-madison">
+                                                <!-- <tr class="font-blue-madison"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3"><?= $revenue[$i]['Acc_Name'] ?> - <?= $revenue[$i]['Acc_No']?></td>
@@ -211,7 +213,8 @@
                                             <?php if($i < (count($revenue)-1)) : ?>
                                                 <?php if($revenue[$i+1]['TransGroup'] == 'H3' && $revenue[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
-                                                    <tr class="font-blue-madison">
+                                                    <!-- <tr class="font-blue-madison"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h3?></td>
@@ -220,7 +223,8 @@
                                                     </tr>
                                                 <?php elseif($revenue[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
-                                                    <tr class="font-blue-madison">
+                                                    <!-- <tr class="font-blue-madison"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h3?></td>
@@ -228,7 +232,8 @@
                                                         <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
                                                     </tr>
                                                     <!--Total Header 2-->
-                                                    <tr class="font-yellow">
+                                                    <!-- <tr class="font-yellow"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h2?></td>
                                                         <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
@@ -237,7 +242,8 @@
                                                 <?php endif; ?>
                                             <?php elseif($i < count($revenue) && $i != 0) : ?>
                                                 <!--Total Header 3-->
-                                                <tr class="font-blue-madison">
+                                                <!-- <tr class="font-blue-madison"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h3?></td>
@@ -245,7 +251,8 @@
                                                     <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_year, 2, ',','.') ?></td>
                                                 </tr>
                                                 <!--Total Header 2-->
-                                                <tr class="font-yellow">
+                                                <!-- <tr class="font-yellow"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h2?></td>
                                                     <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_rev_month, 2, ',','.') ?></td>
@@ -254,7 +261,8 @@
                                             <?php endif; ?>
                                         <?php endfor; ?>                                   
                                         <!--Total Header 1-->
-                                        <tr class="font-yellow-gold">
+                                        <!-- <tr class="font-yellow-gold"> -->
+                                        <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_rev_h1 ?></td>
                                             <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_rev_month, 2,',','.') ?></td>
                                             <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_rev_year, 2,',','.') ?></td>
@@ -293,7 +301,8 @@
                                                 </tr>
                                             <?php elseif($operational[$i]['TransGroup'] == 'H2') : ?>
                                                 <!--Header 2-->
-                                                <tr class="font-yellow">
+                                                <!-- <tr class="font-yellow"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td colspan="4"><?= $operational[$i]['Acc_Name'] ?> - <?= $operational[$i]['Acc_No']?></td>
                                                     <td align="right"></td>
@@ -301,7 +310,8 @@
                                                 </tr>
                                             <?php elseif($operational[$i]['TransGroup'] == 'H3') : ?>
                                                 <!--Header 3-->
-                                                <tr class="font-blue-madison">
+                                                <!-- <tr class="font-blue-madison"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3"><?= $operational[$i]['Acc_Name'] ?> - <?= $operational[$i]['Acc_No']?></td>
@@ -329,7 +339,8 @@
                                             <?php if($i < (count($operational)-1)) : ?>
                                                 <?php if($operational[$i+1]['TransGroup'] == 'H3' && $operational[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
-                                                    <tr class="font-blue-madison">
+                                                    <!-- <tr class="font-blue-madison"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h3?></td>
@@ -338,7 +349,8 @@
                                                     </tr>
                                                 <?php elseif($operational[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
-                                                    <tr class="font-blue-madison">
+                                                    <!-- <tr class="font-blue-madison"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h3?></td>
@@ -346,7 +358,8 @@
                                                         <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
                                                     </tr>
                                                     <!--Total Header 2-->
-                                                    <tr class="font-yellow">
+                                                    <!-- <tr class="font-yellow"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h2?></td>
                                                         <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
@@ -355,7 +368,8 @@
                                                 <?php endif; ?>
                                             <?php elseif($i < count($operational) && $i != 0) : ?>
                                                 <!--Total Header 3-->
-                                                <tr class="font-blue-madison">
+                                                <!-- <tr class="font-blue-madison"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h3?></td>
@@ -363,7 +377,8 @@
                                                     <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_year, 2, ',','.') ?></td>
                                                 </tr>
                                                 <!--Total Header 2-->
-                                                <tr class="font-yellow">
+                                                <!-- <tr class="font-yellow"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h2?></td>
                                                     <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_opr_month, 2, ',','.') ?></td>
@@ -372,7 +387,8 @@
                                             <?php endif; ?>
                                         <?php endfor; ?>                                   
                                         <!--Total Header 1-->
-                                        <tr class="font-yellow-gold">
+                                        <!-- <tr class="font-yellow-gold"> -->
+                                        <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_opr_h1 ?></td>
                                             <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_opr_month, 2,',','.') ?></td>
                                             <td align="right" style="border-top: solid 2px"><?= number_format($grand_total_opr_year, 2,',','.') ?></td>
@@ -388,7 +404,8 @@
                                             $gross_gain_month = $grand_total_rev_month - $grand_total_opr_month;
                                             $gross_gain_year = $grand_total_rev_year - $grand_total_opr_year;
                                         ?>
-                                        <tr class="font-yellow-gold">
+                                        <!-- <tr class="font-yellow-gold"> -->
+                                        <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Gross Profit / Loss</td>
                                             <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_month,2,',','.') ?></td>
                                             <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($gross_gain_year,2,',','.') ?></td>
@@ -427,7 +444,8 @@
                                                 </tr>
                                             <?php elseif($other_revenue[$i]['TransGroup'] == 'H2') : ?>
                                                 <!--Header 2-->
-                                                <tr class="font-yellow">
+                                                <!-- <tr class="font-yellow"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td colspan="4"><?= $other_revenue[$i]['Acc_Name'] ?> - <?= $other_revenue[$i]['Acc_No']?></td>
                                                     <td align="right"></td>
@@ -435,7 +453,8 @@
                                                 </tr>
                                             <?php elseif($other_revenue[$i]['TransGroup'] == 'H3') : ?>
                                                 <!--Header 3-->
-                                                <tr class="font-blue-madison">
+                                                <!-- <tr class="font-blue-madison"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3"><?= $other_revenue[$i]['Acc_Name'] ?> - <?= $other_revenue[$i]['Acc_No']?></td>
@@ -463,7 +482,8 @@
                                             <?php if($i < (count($other_revenue)-1)) : ?>
                                                 <?php if($other_revenue[$i+1]['TransGroup'] == 'H3' && $other_revenue[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
-                                                    <tr class="font-blue-madison">
+                                                    <!-- <tr class="font-blue-madison"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h3?></td>
@@ -472,7 +492,8 @@
                                                     </tr>
                                                 <?php elseif($other_revenue[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
-                                                    <tr class="font-blue-madison">
+                                                    <!-- <tr class="font-blue-madison"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h3?></td>
@@ -480,7 +501,8 @@
                                                         <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
                                                     </tr>
                                                     <!--Total Header 2-->
-                                                    <tr class="font-yellow">
+                                                    <!-- <tr class="font-yellow"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h2?></td>
                                                         <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
@@ -489,7 +511,8 @@
                                                 <?php endif; ?>
                                             <?php elseif($i < count($other_revenue) && $i != 0) : ?>
                                                 <!--Total Header 3-->
-                                                <tr class="font-blue-madison">
+                                                <!-- <tr class="font-blue-madison"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h3?></td>
@@ -497,7 +520,8 @@
                                                     <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_year, 2, ',','.') ?></td>
                                                 </tr>
                                                 <!--Total Header 2-->
-                                                <tr class="font-yellow">
+                                                <!-- <tr class="font-yellow"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h2?></td>
                                                     <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_rev_month, 2, ',','.') ?></td>
@@ -521,7 +545,8 @@
                                             $opr_profit_month = $gross_gain_month - $grand_total_other_rev_month;
                                             $opr_profit_year = $gross_gain_year - $grand_total_other_rev_year;
                                         ?>
-                                        <tr class="font-yellow-gold">
+                                        <!-- <tr class="font-yellow-gold"> -->
+                                        <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Operating Profit</td>
                                             <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_month,2,',','.') ?></td>
                                             <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($opr_profit_year,2,',','.') ?></td>
@@ -560,7 +585,8 @@
                                                 </tr>
                                             <?php elseif($other_expenses[$i]['TransGroup'] == 'H2') : ?>
                                                 <!--Header 2-->
-                                                <tr class="font-yellow">
+                                                <!-- <tr class="font-yellow"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td colspan="4"><?= $other_expenses[$i]['Acc_Name'] ?> - <?= $other_expenses[$i]['Acc_No']?></td>
                                                     <td align="right"></td>
@@ -568,7 +594,8 @@
                                                 </tr>
                                             <?php elseif($other_expenses[$i]['TransGroup'] == 'H3') : ?>
                                                 <!--Header 3-->
-                                                <tr class="font-blue-madison">
+                                                <!-- <tr class="font-blue-madison"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3"><?= $other_expenses[$i]['Acc_Name'] ?> - <?= $other_expenses[$i]['Acc_No']?></td>
@@ -596,7 +623,8 @@
                                             <?php if($i < (count($other_expenses)-1)) : ?>
                                                 <?php if($other_expenses[$i+1]['TransGroup'] == 'H3' && $other_expenses[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
-                                                    <tr class="font-blue-madison">
+                                                    <!-- <tr class="font-blue-madison"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h3?></td>
@@ -605,7 +633,8 @@
                                                     </tr>
                                                 <?php elseif($other_expenses[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
                                                     <!--Total Header 3-->
-                                                    <tr class="font-blue-madison">
+                                                    <!-- <tr class="font-blue-madison"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h3?></td>
@@ -613,7 +642,8 @@
                                                         <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
                                                     </tr>
                                                     <!--Total Header 2-->
-                                                    <tr class="font-yellow">
+                                                    <!-- <tr class="font-yellow"> -->
+                                                    <tr>
                                                         <td></td>
                                                         <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h2?></td>
                                                         <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
@@ -622,7 +652,8 @@
                                                 <?php endif; ?>
                                             <?php elseif($i < count($other_expenses) && $i != 0) : ?>
                                                 <!--Total Header 3-->
-                                                <tr class="font-blue-madison">
+                                                <!-- <tr class="font-blue-madison"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td></td>
                                                     <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h3?></td>
@@ -630,7 +661,8 @@
                                                     <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
                                                 </tr>
                                                 <!--Total Header 2-->
-                                                <tr class="font-yellow">
+                                                <!-- <tr class="font-yellow"> -->
+                                                <tr>
                                                     <td></td>
                                                     <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h2?></td>
                                                     <td align="right" style="border-top: solid 2px"><?= number_format($cur_total_other_expenses_month, 2, ',','.') ?></td>
@@ -649,10 +681,12 @@
                                             $other_gain_month = $grand_total_other_rev_month - $grand_total_other_expenses_month;
                                             $other_gain_year = $grand_total_other_rev_year - $grand_total_other_expenses_year;
                                         ?>
-                                        <tr class="font-yellow">
+                                        <!-- <tr class="font-yellow"> -->
+                                        <tr>
                                             <td colspan="7" class="font-white">_</td>
                                         </tr>
-                                        <tr class="font-yellow-gold">
+                                        <!-- <tr class="font-yellow-gold"> -->
+                                        <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h1 ?> & <?= $cur_header_other_expenses_h1 ?></td>
                                             <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_month, 2,',','.') ?></td>
                                             <td align="right" style="border-top: solid 2px"><?= number_format($other_gain_year, 2,',','.') ?></td>
@@ -668,7 +702,8 @@
                                             $net_gain_month = $gross_gain_month - $other_gain_month;
                                             $net_gain_year = $gross_gain_year - $other_gain_year;
                                         ?>
-                                        <tr class="font-yellow-gold">
+                                        <!-- <tr class="font-yellow-gold"> -->
+                                        <tr>
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Net Profit / Loss</td>
                                             <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($net_gain_month,2,',','.') ?></td>
                                             <td align="right" style="border: solid 2px; border-color: black;"><?= number_format($net_gain_year,2,',','.') ?></td>
