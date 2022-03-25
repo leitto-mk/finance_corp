@@ -7627,7 +7627,6 @@ class Humanresource extends CI_Controller {
                 'JobPoint' =>$jobpoint_,
                 'WorkPhone' =>$workphone_,
                 'Mobile1' =>$mobile1_,
-                'Mobile2' =>$mobile2_,
                 'Phone' =>$phone_,
                 'WA' =>$wa_,
                 'EmailCompany' =>$emailcompany_,
