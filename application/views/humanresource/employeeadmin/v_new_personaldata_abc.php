@@ -217,6 +217,23 @@
                                                             <input id="i_nationalitydes" name="i_nationalitydes" type="text" class="form-control hidden" readonly="true">
                                                         </div>                                                    
                                                     </div>
+                                                    <br>
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <span class="caption-subject font-dark sbold uppercase">Identity Info</span>
+                                                        </div>
+                                                    </div><br>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 col-sm-2 control-label">Id No / NIK</label>
+                                                        <div class="col-md-4 col-sm-4" style="margin-left: -10px">
+                                                            <input type="number" name="identityno" class="form-control" placeholder="Enter number"><br>
+                                                            <input type="date" name="identityexpire" class="form-control" placeholder="Indentity Expire"> 
+                                                        </div> 
+                                                        <label class="col-md-2 col-sm-2 control-label">Identity Photo</label>
+                                                        <div class="col-md-4" style="margin-left: -10px;margin-top: 0px">
+                                                            <input  type="file" name="identity" id="identity" class="dropify" data-show-loader="false" data-height="150" data-allowed-file-extensions="jpg jpeg png">
+                                                        </div>
+                                                    </div> 
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="portlet-title">
@@ -283,23 +300,6 @@
                                                             <input type="text" name="postcode" id="postcode" class="form-control" readonly="" placeholder="-- Choose SubDistrict First --">
                                                         </div>
                                                     </div>
-                                                    <br>
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject font-dark sbold uppercase">Identity Info</span>
-                                                        </div>
-                                                    </div><br>
-                                                    <div class="form-group">
-                                                        <label class="col-md-2 col-sm-2 control-label">Id No / NIK</label>
-                                                        <div class="col-md-4 col-sm-4" style="margin-left: -10px">
-                                                            <input type="number" name="identityno" class="form-control" placeholder="Enter number"><br>
-                                                            <input type="date" name="identityexpire" class="form-control" placeholder="Indentity Expire"> 
-                                                        </div> 
-                                                        <label class="col-md-2 col-sm-2 control-label">Identity Photo</label>
-                                                        <div class="col-md-4" style="margin-left: -10px;margin-top: 0px">
-                                                            <input  type="file" name="identity" id="identity" class="dropify" data-show-loader="false" data-height="150" data-allowed-file-extensions="jpg jpeg png">
-                                                        </div>
-                                                    </div> 
                                                 </div>
                                             </div>
                                         </div>
