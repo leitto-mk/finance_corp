@@ -28,7 +28,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: 0px">
                     <div>
                         <font size="4" class="uppercase"><?= $company ?></font><br>
-                        <font size="4" class="font-dark sbold uppercase">General Journal</font><br>
+                        <font size="4" class="font-dark sbold uppercase">General Journal Voucher</font><br>
                         <font size="4" class="font-dark sbold"></font><br>
                     </div>
                 </div>

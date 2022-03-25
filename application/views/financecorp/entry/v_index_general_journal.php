@@ -5,7 +5,7 @@
             <div class="bg-white text-uppercase margin-bottom-20 " style="border-top: solid 4px; background-color: white">
                 <div class="row">
                     <div class="col-md-8">
-                        <h4 class="text-uppercase font-dark bold" style="margin-left: 10px">General Journal</h4>
+                        <h4 class="text-uppercase font-dark bold" style="margin-left: 10px">General Journal Voucher</h4>
                     </div>
                 </div>
             </div>

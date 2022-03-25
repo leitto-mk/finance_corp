@@ -9,7 +9,7 @@
                         <div class="hor-menu">
                             <ul class="nav navbar-nav">
                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active uppercase" style="margin-left: -30px">
-                                    <h4 style="color:#ffffff">General Journal</h4>
+                                    <h4 style="color:#ffffff">General Journal Voucher</h4>
                                 </li>
                             </ul>
                         </div>
