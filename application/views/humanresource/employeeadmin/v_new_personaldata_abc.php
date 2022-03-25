@@ -283,7 +283,23 @@
                                                             <input type="text" name="postcode" id="postcode" class="form-control" readonly="" placeholder="-- Choose SubDistrict First --">
                                                         </div>
                                                     </div>
-                                                    
+                                                    <br>
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <span class="caption-subject font-dark sbold uppercase">Identity Info</span>
+                                                        </div>
+                                                    </div><br>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 col-sm-2 control-label">Id No / NIK</label>
+                                                        <div class="col-md-4 col-sm-4" style="margin-left: -10px">
+                                                            <input type="number" name="identityno" class="form-control" placeholder="Enter number"><br>
+                                                            <input type="date" name="identityexpire" class="form-control" placeholder="Indentity Expire"> 
+                                                        </div> 
+                                                        <label class="col-md-2 col-sm-2 control-label">Identity Photo</label>
+                                                        <div class="col-md-4" style="margin-left: -10px;margin-top: 0px">
+                                                            <input  type="file" name="identity" id="identity" class="dropify" data-show-loader="false" data-height="150" data-allowed-file-extensions="jpg jpeg png">
+                                                        </div>
+                                                    </div> 
                                                 </div>
                                             </div>
                                         </div>
@@ -309,9 +325,31 @@
                                                             </div>
                                                         </div><br>
                                                         <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Job Title</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <select name="jobtitle" id="jobtitle" class="form-control">
+                                                                    <?php if ($get_title != false) { ?>
+                                                                        <option value="" selected>-- Choose Title --</option>
+                                                                        <?php foreach ($get_title as $jt) { ?>
+                                                                            <option value="<?php echo $jt->JobTitleCode; ?>" jobtitle-des="<?php echo $jt->JobTitle; ?>"><?php echo $jt->JobTitleCode; ?> - <?php echo $jt->JobTitle; ?></option>
+                                                                        <?php }?>
+                                                                    <?php } else { ?>
+                                                                        <option value=""><font color="red">No Data JobTitle</font></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <input id="i_jobtitle" name="i_jobtitle" type="text" class="form-control hidden" readonly="true">
+                                                            </div> 
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label class="col-md-4 col-sm-4 control-label">Hire Date</label>
                                                             <div class="col-md-8 col-sm-8">
                                                                 <input type="date" name="hiredate" class="form-control" placeholder="Enter text">
+                                                            </div> 
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Point of Hire</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <input type="text" name="pointofhire" class="form-control" placeholder="Enter text">
                                                             </div> 
                                                         </div>
                                                         <div class="form-group">
@@ -328,22 +366,6 @@
                                                                     <?php } ?>
                                                                 </select>
                                                                 <input id="i_employeeclassdes" name="i_employeeclassdes" type="text" class="form-control hidden" readonly="true">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-md-4 col-sm-4 control-label">Employee Type</label>
-                                                            <div class="col-md-8 col-sm-8">
-                                                                <select name="employeetype" id="employeetype" class="form-control">
-                                                                    <?php if ($get_employeetype != false) { ?>
-                                                                        <option value="" selected>-- Choose Employee Type --</option>
-                                                                        <?php foreach ($get_employeetype as $et) { ?>
-                                                                            <option value="<?php echo $et->EmployeeType; ?>" emptype-des="<?php echo $et->EmployeeTypeDes; ?>"><?php echo $et->EmployeeType; ?> - <?php echo $et->EmployeeTypeDes; ?></option>
-                                                                        <?php }?>
-                                                                    <?php } else { ?>
-                                                                        <option value=""><font color="red">No Data Employee Type</font></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                                <input id="i_employeetypedes" name="i_employeetypedes" type="text" class="form-control hidden" readonly="true">
                                                             </div>
                                                         </div>
                                                         <br>
@@ -386,27 +408,33 @@
                                                         </div>
                                                         <br>
                                                         <div class="form-group">
-                                                            <label class="col-md-4 col-sm-4 control-label">Point of Hire</label>
+                                                            <label class="col-md-4 col-sm-4 control-label">PTKP</label>
                                                             <div class="col-md-8 col-sm-8">
-                                                                <input type="text" name="pointofhire" class="form-control" placeholder="Enter text">
+                                                                <input type="text" name="ptkp" class="form-control" placeholder="Enter text">
                                                             </div> 
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="col-md-4 col-sm-4 control-label">Job Title</label>
+                                                            <label class="col-md-4 col-sm-4 control-label">NPWP</label>
                                                             <div class="col-md-8 col-sm-8">
-                                                                <select name="jobtitle" id="jobtitle" class="form-control">
-                                                                    <?php if ($get_title != false) { ?>
-                                                                        <option value="" selected>-- Choose Title --</option>
-                                                                        <?php foreach ($get_title as $jt) { ?>
-                                                                            <option value="<?php echo $jt->JobTitleCode; ?>" jobtitle-des="<?php echo $jt->JobTitle; ?>"><?php echo $jt->JobTitleCode; ?> - <?php echo $jt->JobTitle; ?></option>
-                                                                        <?php }?>
-                                                                    <?php } else { ?>
-                                                                        <option value=""><font color="red">No Data JobTitle</font></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                                <input id="i_jobtitle" name="i_jobtitle" type="text" class="form-control hidden" readonly="true">
+                                                                <input type="text" name="npwp" class="form-control" placeholder="Enter text">
                                                             </div> 
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 col-sm-4 control-label">Employee Type</label>
+                                                            <div class="col-md-8 col-sm-8">
+                                                                <select name="employeetype" id="employeetype" class="form-control">
+                                                                    <?php if ($get_employeetype != false) { ?>
+                                                                        <option value="" selected>-- Choose Employee Type --</option>
+                                                                        <?php foreach ($get_employeetype as $et) { ?>
+                                                                            <option value="<?php echo $et->EmployeeType; ?>" emptype-des="<?php echo $et->EmployeeTypeDes; ?>"><?php echo $et->EmployeeType; ?> - <?php echo $et->EmployeeTypeDes; ?></option>
+                                                                        <?php }?>
+                                                                    <?php } else { ?>
+                                                                        <option value=""><font color="red">No Data Employee Type</font></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <input id="i_employeetypedes" name="i_employeetypedes" type="text" class="form-control hidden" readonly="true">
+                                                            </div>
+                                                        </div>                                                        
                                                         <div class="form-group">
                                                             <label class="col-md-4 col-sm-4 control-label">Work Function</label>
                                                             <div class="col-md-8 col-sm-8">
@@ -425,6 +453,7 @@
                                                                 <input id="i_wgroupdes" name="i_wgroupdes" type="text" class="form-control hidden" readonly="true">
                                                             </div>
                                                         </div>
+                                                        <br>
                                                         <div class="portlet-title">
                                                             <div class="caption">
                                                                 <span class="caption-subject font-dark sbold uppercase">Organization</span>
