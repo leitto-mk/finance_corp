@@ -7177,6 +7177,8 @@ class Humanresource extends CI_Controller {
             $query['Mcountry'] = $country_ = $this->input->post('country');
             $query['Mcountrydes'] = $countrydes_ = $this->input->post('i_countrydes');
             $query['Mpostcode'] = $postcode_ = $this->input->post('postcode');
+            $query['Midentityno'] = $identityno_ = $this->input->post('identityno');
+            $query['Midentityexpire'] = $identityexpire_ = $this->input->post('identityexpire');
             $query['Mpersonalid'] = $personalid_ = $this->input->post('personalid');
 
             if(isset($_FILES['photo']) && $_FILES['photo']['name'] != ''){
@@ -7185,6 +7187,13 @@ class Humanresource extends CI_Controller {
             $photo = $this->upload_image_reg('photo');
             }else{
                 $photo = "";
+            }
+            if(isset($_FILES['identity']) && $_FILES['identity']['name'] != ''){
+                // $this->ddoo_upload('identity');
+                // $identity = $_FILES['identity']['name'];
+                $identity = $this->upload_image_reg('identity');
+            }else{
+                $identity = "";
             }
 
             //Job Information
@@ -7222,6 +7231,8 @@ class Humanresource extends CI_Controller {
             $query['Mmobile1'] = $mobile1_ = $this->input->post('mobile1');
             $query['Mwa'] = $wa_ = $this->input->post('wa');
             $query['Memailpersonal'] = $emailpersonal_ = $this->input->post('emailpersonal');
+            $query['Mptkp'] = $ptkp_ = $this->input->post('ptkp');
+            $query['Mnpwp'] = $npwp_ = $this->input->post('npwp');
             $datas['cek'] = $this->M_humanresource->cek_idnumber($idnumber_);
             if ($datas['cek'] != true) {
                 $personaldata = array(
@@ -7247,6 +7258,9 @@ class Humanresource extends CI_Controller {
                     'Province' =>$province_,
                     'Country' =>$country_,
                     'PostCode' =>$postcode_,
+                    'Identity' =>$identity,
+                    'IdentityNo' =>$identityno_,
+                    'IdentityExpire' =>$identityexpire_,
                     'Photo' =>$photo,
                     'PersonalID' =>$personalid_,
                     'RegBy' => '',
@@ -7273,6 +7287,8 @@ class Humanresource extends CI_Controller {
                     'Mobile1' =>$mobile1_,
                     'WA' =>$wa_,
                     'EmailPersonal' =>$emailpersonal_,
+                    'PTKP' =>$ptkp_,
+                    'NPWP' =>$npwp_,
                     'RegBy' => '',
                     'RegDate' => date('Y-m-d')
                 );
@@ -7309,6 +7325,9 @@ class Humanresource extends CI_Controller {
                     'CountryCode' =>$country_,
                     'CountryDes' =>$countrydes_,
                     'PostCode' =>$postcode_,
+                    'Identity' =>$identity,
+                    'IdentityNo' =>$identityno_,
+                    'IdentityExpire' =>$identityexpire_,
                     'Photo' =>$photo,
                     'PersonalID' =>$personalid_,
                     'Company' =>$company_,
@@ -7345,6 +7364,8 @@ class Humanresource extends CI_Controller {
                     'Mobile1' =>$mobile1_,
                     'WA' =>$wa_,
                     'EmailPersonal' =>$emailpersonal_,
+                    'PTKP' =>$ptkp_,
+                    'NPWP' =>$npwp_,
                     'RegBy' => '',
                     'RegDate' => date('Y-m-d')
                 );
@@ -7512,11 +7533,6 @@ class Humanresource extends CI_Controller {
             $query['Mcountry'] = $country_ = $this->input->post('country');
             $query['Mcountrydes'] = $countrydes_ = $this->input->post('i_countrydes');
             $query['Mpostcode'] = $postcode_ = $this->input->post('postcode');
-            $query['Mbloodtype'] = $bloodtype_ = $this->input->post('bloodtype');
-            $query['Mheight'] = $height_ = $this->input->post('height');
-            $query['Mweight'] = $weight_ = $this->input->post('weight');
-            $query['Midentityno'] = $identityno_ = $this->input->post('identityno');
-            $query['Midentityexpire'] = $identityexpire_ = $this->input->post('identityexpire');
             $query['Mpersonalid'] = $personalid_ = $this->input->post('personalid');
 
             $personaldata = array(
@@ -7539,9 +7555,6 @@ class Humanresource extends CI_Controller {
                 'Province' =>$province_,
                 'Country' =>$country_,
                 'PostCode' =>$postcode_,
-                'BloodType' =>$bloodtype_,
-                'Height' =>$height_,
-                'Weight' =>$weight_,
                 'PersonalID' =>$personalid_
             );
             $this->M_humanresource->edit_emp_data_byid($idnumber_, $personaldata);
@@ -7572,9 +7585,6 @@ class Humanresource extends CI_Controller {
                 'CountryCode' =>$country_,
                 'CountryDes' =>$countrydes_,
                 'PostCode' =>$postcode_,
-                'BloodType' =>$bloodtype_,
-                'Height' =>$height_,
-                'Weight' =>$weight_,
                 'PersonalID' =>$personalid_
             );
             $this->M_humanresource->edit_emp_app_data_byid($idnumber_, $employeeappend);
@@ -7608,6 +7618,9 @@ class Humanresource extends CI_Controller {
             $query['Mwa'] = $wa_ = $this->input->post('wa');
             $query['Mworkphone'] = $workphone_ = $this->input->post('workphone');
             $query['Memailpersonal'] = $emailpersonal_ = $this->input->post('emailpersonal');
+
+            $query['Mptkp'] = $ptkp_ = $this->input->post('ptkp');
+            $query['Mnpwp'] = $npwp_ = $this->input->post('npwp');
           
             $jobinformation = array(
                 'EmployeeClass' =>$employeeclass_,            
@@ -7619,6 +7632,8 @@ class Humanresource extends CI_Controller {
                 'WA' =>$wa_,
                 'EmailCompany' =>$emailcompany_,
                 'EmailPersonal' =>$emailpersonal_,
+                'PTKP' =>$ptkp_,
+                'NPWP' =>$npwp_,
             );
             $this->M_humanresource->edit_emp_job_data_byid($idnumber_, $jobinformation);
 
@@ -7633,6 +7648,8 @@ class Humanresource extends CI_Controller {
                 'WA' =>$wa_,
                 'WorkPhone' =>$workphone_,
                 'EmailPersonal' =>$emailpersonal_,
+                'PTKP' =>$ptkp_,
+                'NPWP' =>$npwp_,
             );
             $this->M_humanresource->edit_emp_app_data_byid($idnumber_, $employeeappend);
           

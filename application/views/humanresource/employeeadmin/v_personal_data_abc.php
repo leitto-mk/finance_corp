@@ -329,6 +329,11 @@ tr:nth-child(odd){
                                                     <table class="table" id="detail_table">
                                                         <tbody>
                                                             <tr>
+                                                                <td width="38%" class="text-right" style="border-top: none;"> Job Title </td>
+                                                                <td width="1%" class="bold" style="border-top: none;"> : </td>
+                                                                <td class="sbold" style="border-top: none;"><?php echo $pers->JobTitleDes ?></td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td width="38%" class="text-right"> Hire Date </td>
                                                                 <td width="1%" class="bold"> : </td>
                                                                 <?php if ($pers->HireDate == '0000-00-00' || $pers->HireDate == ''){ ?>
@@ -336,17 +341,17 @@ tr:nth-child(odd){
                                                                 <?php }else{ ?>
                                                                     <td class="sbold"><?php echo date('d-M-Y', strtotime($pers->HireDate)); ?></td>
                                                                 <?php } ?>
-                                                            </tr> 
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="38%" class="text-right"> Point of Hire </td>
+                                                                <td width="1%" class="bold"> : </td>
+                                                                <td class="sbold"><?php echo $pers->PointofHire ?></td>
+                                                            </tr>   
                                                             <tr>
                                                                 <td width="38%" class="text-right"> Employee Class </td>
                                                                 <td width="1%" class="bold"> : </td>
                                                                 <td class="sbold" id="stock_detail_6"><?php echo $pers->EmployeeClassDes ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td width="38%" class="text-right"> Employee Type </td>
-                                                                <td width="1%" class="bold"> : </td>
-                                                                <td class="sbold" id="stock_detail_6"><?php echo $pers->EmployeeTypeDes ?></td>
-                                                            </tr>                                
+                                                            </tr>                             
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -356,15 +361,20 @@ tr:nth-child(odd){
                                                     <table class="table">
                                                         <tbody>
                                                             <tr>
-                                                                <td width="38%" class="text-right"> Point of Hire </td>
+                                                                <td width="38%" class="text-right"> PTKP </td>
                                                                 <td width="1%" class="bold"> : </td>
-                                                                <td class="sbold"><?php echo $pers->PointofHire ?></td>
-                                                            </tr>  
-                                                            <tr>
-                                                                <td width="38%" class="text-right" style="border-top: none;"> Job Title </td>
-                                                                <td width="1%" class="bold" style="border-top: none;"> : </td>
-                                                                <td class="sbold" style="border-top: none;"><?php echo $pers->JobTitleDes ?></td>
+                                                                <td class="sbold" id="stock_detail_6"><?php echo $pers->PTKP ?></td>
                                                             </tr>
+                                                            <tr>
+                                                                <td width="38%" class="text-right"> NPWP </td>
+                                                                <td width="1%" class="bold"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"><?php echo $pers->NPWP ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="38%" class="text-right"> Employee Type </td>
+                                                                <td width="1%" class="bold"> : </td>
+                                                                <td class="sbold" id="stock_detail_6"><?php echo $pers->EmployeeTypeDes ?></td>
+                                                            </tr>   
                                                             <tr>
                                                                 <td width="38%" class="text-right"> Work Function </td>
                                                                 <td width="1%" class="bold"> : </td>

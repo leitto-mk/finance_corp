@@ -153,6 +153,36 @@ tr:nth-child(odd){
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="portlet light bg-blue-ebonyclay">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-blue-chambray bold uppercase"><i class="fa fa-file font-white"></i> <font color="white">Identity Info</font></span>
+                                        </div>
+                                    </div>
+                                    <table class="table font-dark" style="margin-bottom: 0px;">
+                                        <tbody>
+                                            <tr>
+                                                <td width="28%" style="border-top: none;"> NIK </td>
+                                                <td class="bold" style="border-top: none;"> : </td>
+                                                <td class="img-rounded zoom sbold" style="border-top: none;"><?php echo $pers->IdentityNo ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="28%"> Expire </td>
+                                                <td class="bold" width="1%"> : </td>
+                                                <?php if ($pers->IdentityExpire == '0000-00-00' || $pers->IdentityExpire == ''){ ?>
+                                                    <td class="sbold"></td>  
+                                                <?php }else{ ?>
+                                                <td class="sbold" ><?php echo date('d-M-Y', strtotime($pers->IdentityExpire)); ?></td>
+                                                <?php } ?>
+                                            </tr>
+                                            <tr>
+                                                <td width="28%"> Scan </td>
+                                                <td class="bold" width="1%"> : </td>
+                                                <td class="sbold"><a href="#" class="btn btn-sm blue btn-block modal_edit_ktp">Edit</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
                                 <div class="portlet light">
@@ -482,6 +512,36 @@ tr:nth-child(odd){
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="portlet light bg-blue-ebonyclay">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="caption-subject font-blue-chambray bold uppercase"><i class="fa fa-file font-white"></i> <font color="white">Identity Info</font></span>
+                                        </div>
+                                    </div>
+                                    <table class="table font-dark" style="margin-bottom: 0px;">
+                                        <tbody>
+                                            <tr>
+                                                <td width="28%" style="border-top: none;"> NIK </td>
+                                                <td class="bold" style="border-top: none;"> : </td>
+                                                <td class="img-rounded zoom sbold" style="border-top: none;"><?php echo $pers->IdentityNo ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="28%"> Expire </td>
+                                                <td class="bold" width="1%"> : </td>
+                                                <?php if ($pers->IdentityExpire == '0000-00-00' || $pers->IdentityExpire == ''){ ?>
+                                                    <td class="sbold"></td>  
+                                                <?php }else{ ?>
+                                                <td class="sbold" ><?php echo date('d-M-Y', strtotime($pers->IdentityExpire)); ?></td>
+                                                <?php } ?>
+                                            </tr>
+                                            <tr>
+                                                <td width="28%"> Scan </td>
+                                                <td class="bold" width="1%"> : </td>
+                                                <td class="sbold"><a href="#" class="btn btn-sm blue btn-block modal_edit_ktp">Edit</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
                                 <div class="portlet light">
@@ -493,7 +553,7 @@ tr:nth-child(odd){
                                             <label class="col-md-2 col-sm-2 control-label bold" style="margin-left: -18px">Action</label>
                                             <label class="col-md-1 col-sm-1 control-label bold" style="margin-left: 15px">:</label>
                                             <div class="col-md-8 col-sm-8 pulse" style="margin-left: 16px">
-                                                <input type="submit" name="submitdataeditjob" value="Edit" onclick="return confirm('Are you sure?')" class="btn btn-transparent green btn-block btn-sm">                                       
+                                                <input type="submit" name="submitdataeditjob" value="Edit" onclick="return confirm('Are you sure?')" class="btn btn-transparent blue btn-block btn-sm">                                       
                                             </div>
                                         </div>
                                        <!--  <div class="actions">
@@ -516,6 +576,37 @@ tr:nth-child(odd){
                                                                 <td width="1%" class="bold" style="border-top: none;"> : </td>
                                                                 <td class="sbold" style="border-top: none;"><input type="text" name="i_idnumber" class="form-control" value="<?php echo $pers->IDNumber ?>" readonly></td>
                                                             </tr>
+                                                            <tr>
+                                                                <td width="38%" class="text-right" style="border-top: none;"> Job Title </td>
+                                                                <td width="1%" class="bold" style="border-top: none;"> : </td>
+                                                                <td class="sbold" style="border-top: none;">
+                                                                    <div class="input-group">
+                                                                        <input value="<?php echo $pers->JobTitleDes ?>" class="form-control" readonly>
+                                                                        <span class="input-group-btn">
+                                                                            <button href="#" type="button" class="btn blue btn-outline pull-right update_jobtitle" title="Update Job Title">
+                                                                            <i class="fa fa-pencil"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </div>
+                                                                    <input name="jobtitle" value="<?php echo $pers->JobTitle ?>" class="form-control hidden">
+                                                                    <input name="i_jobtitle" value="<?php echo $pers->JobTitleDes ?>" class="form-control hidden">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="38%" class="text-right"> Point of Hire </td>
+                                                                <td width="1%" class="bold"> : </td>
+                                                                <td class="sbold">
+                                                                    <div class="input-group">
+                                                                        <input value="<?php echo $pers->PointofHire ?>" class="form-control" readonly>
+                                                                        <span class="input-group-btn">
+                                                                            <button href="#" type="button" class="btn blue btn-outline pull-right update_pointofhire" title="Update Point of Hire">
+                                                                            <i class="fa fa-pencil"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </div>
+                                                                    <input name="pointofhire" value="<?php echo $pers->PointofHire ?>" class="form-control hidden">
+                                                                </td>
+                                                            </tr>  
                                                             <tr>
                                                                 <td width="38%" class="text-right"> Hire Date </td>
                                                                 <td width="1%" class="bold"> : </td>
@@ -547,7 +638,25 @@ tr:nth-child(odd){
                                                                     </select>
                                                                     <input id="i_employeeclassdes" name="i_employeeclassdes" type="text" class="form-control hidden" value="<?php echo $pers->EmployeeClassDes ?>" readonly="true">
                                                                 </td>
-                                                            </tr>
+                                                            </tr>                  
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="38%" class="text-right" style="border-top: none;"> PTKP </td>
+                                                                <td width="1%" class="bold" style="border-top: none;"> : </td>
+                                                                <td class="sbold" style="border-top: none;"><input type="text" name="ptkp" class="form-control" value="<?php echo $pers->PTKP ?>"></td>
+                                                            </tr>   
+                                                            <tr>
+                                                                <td width="38%" class="text-right" style="border-top: none;"> NPWP </td>
+                                                                <td width="1%" class="bold" style="border-top: none;"> : </td>
+                                                                <td class="sbold" style="border-top: none;"><input type="text" name="npwp" class="form-control" value="<?php echo $pers->NPWP ?>"></td>
+                                                            </tr>   
                                                             <tr>
                                                                 <td width="38%" class="text-right"> Employee Type </td>
                                                                 <td width="1%" class="bold"> : </td>
@@ -563,46 +672,7 @@ tr:nth-child(odd){
                                                                     <input name="employeetype" value="<?php echo $pers->EmployeeType ?>" class="form-control hidden">
                                                                     <input name="i_employeetypedes" value="<?php echo $pers->EmployeeTypeDes ?>" class="form-control hidden">
                                                                 </td>
-                                                            </tr>                      
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td width="38%" class="text-right"> Point of Hire </td>
-                                                                <td width="1%" class="bold"> : </td>
-                                                                <td class="sbold">
-                                                                    <div class="input-group">
-                                                                        <input value="<?php echo $pers->PointofHire ?>" class="form-control" readonly>
-                                                                        <span class="input-group-btn">
-                                                                            <button href="#" type="button" class="btn blue btn-outline pull-right update_pointofhire" title="Update Point of Hire">
-                                                                            <i class="fa fa-pencil"></i>
-                                                                            </button>
-                                                                        </span>
-                                                                    </div>
-                                                                    <input name="pointofhire" value="<?php echo $pers->PointofHire ?>" class="form-control hidden">
-                                                                </td>
-                                                            </tr>  
-                                                            <tr>
-                                                                <td width="38%" class="text-right" style="border-top: none;"> Job Title </td>
-                                                                <td width="1%" class="bold" style="border-top: none;"> : </td>
-                                                                <td class="sbold" style="border-top: none;">
-                                                                    <div class="input-group">
-                                                                        <input value="<?php echo $pers->JobTitleDes ?>" class="form-control" readonly>
-                                                                        <span class="input-group-btn">
-                                                                            <button href="#" type="button" class="btn blue btn-outline pull-right update_jobtitle" title="Update Job Title">
-                                                                            <i class="fa fa-pencil"></i>
-                                                                            </button>
-                                                                        </span>
-                                                                    </div>
-                                                                    <input name="jobtitle" value="<?php echo $pers->JobTitle ?>" class="form-control hidden">
-                                                                    <input name="i_jobtitle" value="<?php echo $pers->JobTitleDes ?>" class="form-control hidden">
-                                                                </td>
-                                                            </tr>
+                                                            </tr>    
                                                             <tr>
                                                                 <td width="38%" class="text-right"> Work Function </td>
                                                                 <td width="1%" class="bold"> : </td>
