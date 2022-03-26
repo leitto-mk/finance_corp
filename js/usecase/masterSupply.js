@@ -27,7 +27,7 @@ const callable = {
         })
     },
     
-    validateModalForm: form => {
+    validateModalInputs: form => {
         let forms = $(`#${form} .form-required`).serializeArray()
 
         //Validate each inputs
@@ -238,7 +238,7 @@ const msup = {
                 switch($(this).attr('input')){
                     case 'mas_stock_d_grp':
                         var data_stockgrp = $('#form_stockgrp').serialize();
-                        validate = validation('form_stockgrp')
+                        validate = callable.validateModalInputs('form_stockgrp')
                         if(validate == true){
                             $.ajax({
                                 type: "POST",
@@ -276,7 +276,7 @@ const msup = {
                         break;
                     case 'mas_stock_c_type':
                         var data_stocktype = $('#form_stocktype').serialize();
-                        validate = validation('form_stocktype')
+                        validate = callable.validateModalInputs('form_stocktype')
                         if(validate == true){
                             $.ajax({
                                 type: "POST",
@@ -314,7 +314,7 @@ const msup = {
                         break;
                     case 'mas_stock_b_cat':
                         var data_stockcategory = $('#form_stockcategory').serialize();
-                        validate = validation('form_stockcategory')
+                        validate = callable.validateModalInputs('form_stockcategory')
                         if(validate == true){
                             $.ajax({
                                 type: "POST",
@@ -352,7 +352,7 @@ const msup = {
                         break;
                     case 'mas_stock_a_class':
                         var data_stockclass = $('#form_stockclass').serialize();
-                        validate = validation('form_stockclass')
+                        validate = callable.validateModalInputs('form_stockclass')
                         if(validate == true){
                             $.ajax({
                                 type: "POST",
