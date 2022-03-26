@@ -356,10 +356,10 @@ class Mdl_corp_reports extends CI_Model {
                acc.Acc_Type,
                IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
                CASE
-                  -- IF acc.Acc_No refers to `31201` (Current Earning - CX) OR `31202` (Retaining Earning - C1) --
+                  -- IF acc.Acc_Type refers to `CX` (Current Earning) OR `Retaining Earning` (Retaining Earning) --
                   -- THEN GET TOTAL FROM tbl_fa_retaining_earning --
                   -- ELSE, GET LAST `trans.BalanceBranch` --
-                  WHEN acc.Acc_No = '31201' THEN
+                  WHEN acc.Acc_Type = 'CX' THEN
                      (SELECT
                         COALESCE(
                            (SELECT IFNULL(RetainingSum, 0) AS RetainingEarning
@@ -371,7 +371,7 @@ class Mdl_corp_reports extends CI_Model {
                            ORDER BY Month DESC, CtrlNo DESC LIMIT 1)
                         ,0)
                      )
-                  WHEN acc.Acc_No = '31202' THEN
+                  WHEN acc.Acc_Type = 'C1' THEN
                      (SELECT
                         COALESCE(
                            (SELECT IFNULL(RetainingSum, 0) AS LastYearEarning
@@ -422,6 +422,9 @@ class Mdl_corp_reports extends CI_Model {
             GROUP BY acc.Acc_No
             ORDER BY acc.Acc_No ASC"
       )->result_array();
+
+      print('<pre>'.print_r($this->db->last_query(), true).'</pre>');
+      die();
 
       return [$company, $asset, $liabilities, $capital];
    }
