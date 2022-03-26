@@ -354,7 +354,7 @@
                                                                 </tr>
                                                             <?php endif ;?>
                                                             <tr>
-                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total asd <?= $cur_header_capital_h2 ?> </td>
+                                                                <td style="padding:5px;border-top:none;" class="sbold" width="75%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_capital_h2 ?> </td>
                                                                 <td style="padding:5px;border-top:none;border-top: 1px solid #2F353B;" class="text-right" width="25%"><?= ($cur_total_capital == 0 ? '-' : number_format($cur_total_capital, 2, ',','.')) ?></td>
                                                             </tr>
                                                     <?php endif; ?>
