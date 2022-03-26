@@ -343,6 +343,20 @@ $(document).ready(function(){
             var path = window.location.pathname
             var segment = path.split('/')[1]
 
+            //? OPERATION
+            import('./usecase/masterOperation.js')
+            .then(({default: mopr}) => {
+                if(segment.toLowerCase() == 'cmaster'){
+                    mopr.stockgorup.initTables()
+                    mopr.stockgorup.eventAddNewItem()
+                    mopr.stockgorup.eventEditItem()
+                    mopr.stockgorup.eventDeleteItem()
+                }
+            })
+            .catch(err => {
+                console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
+            })
+
             //? SUPPLY
             import('./usecase/masterSupply.js')
             .then(({default: msup}) => {
@@ -371,7 +385,6 @@ $(document).ready(function(){
                 console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         }
-
     };
     
     //Get Sript Name
