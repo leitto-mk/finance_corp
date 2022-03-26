@@ -138,85 +138,182 @@ const mopr = {
 
         eventAddNewItem: () => {
             //OPEN MODAL
-            $(document).on('click', '.view-abase', function(){
-                var id = $(this).parent().parent().attr('id');
-                $('#master_crud>div.modal-dialog').attr('class','modal-dialog modal-lg');
-                switch($(this).attr('input')){
-                    case 'abasecompany':
+            $(document).on('click', '.btnModal', function(){
+                $('#master_crud>div.modal-dialog').attr('class','modal-dialog modal-md');
+                switch($(this).attr('id')){
+                    case 'button_add_master_abase_company':
                         $('#master_crud').modal('show');
-                        $('#btnAdd').hide();
+                        $('#btnAdd').attr('input','abasecompany').show();
                         $('#btnEdit').hide();
                         $.ajax({
                             type: "POST",
                             data: {input: 'abasecompany'},
-                            url: 'Cmaster/viewModalMasterViewAbase',
+                            url: 'Cmaster/viewModalMasterAbase',
                             success: function(data){
                                 $('#master_crud').find('div.modal-body').html(data);
-                                $('#master_crud').find('h4.modal-title').html(`<i class="fa fa-search"></i> Company`);
-                                $('#master_crud').find('.abasecompanyviewaction').attr('id', id);
+                                $('#master_crud').find('h4.modal-title').html(`<i class="fa fa-plus"></i> Company`);
+                                $('#master_crud').on('shown.bs.modal', function(){
+                                    $('#abasecompanycode').focus()
+                                })
+                            }
+                        })
+                        break;
+                    case 'button_add_master_abase_branch':
+                        $('#master_crud').modal('show');
+                        $('#btnAdd').attr('input','abasebranch').show();
+                        $('#btnEdit').hide();
+                        $.ajax({
+                            type: "POST",
+                            data: {input: 'abasebranch'},
+                            url: 'Cmaster/viewModalMasterAbase',
+                            success: function(data){
+                                $('#master_crud').find('div.modal-body').html(data);
+                                $('#master_crud').find('h4.modal-title').html(`<i class="fa fa-plus"></i> Branch`);
                                 $.ajax({
                                     type: "POST",
-                                    data: {
-                                        input: 'abasecompany',
-                                        CtrlNo: id
-                                    },
-                                    url: 'Cmaster/getDataMasterAbaseByID',
+                                    data: {input: 'abasecompany'},
+                                    url: 'Cmaster/getDataMasterAbase',
                                     dataType: 'JSON',
                                     success: function(hasil){
-                                        $('#abasecompanyshortname').text(hasil.ComShortName)
-                                        $('#abasecompanydescription').text(hasil.ComDes)
-                                        $('#abasecompanyaddress').text(`${hasil.Address}, ${hasil.City}, ${hasil.Province}, ${hasil.Country}, ${hasil.PostalCode}`)
-                                        $('#abasecompanycode').text(hasil.ComCode)
-                                        $('#abasecompanyname').text(hasil.ComName)
-                                        $('#abasecompanytype').html(`<span class="badge badge-roundless bg-blue bg-font-blue">${hasil.CompType}</span>`)
-                                        $('#abasecompanynpwp').text(hasil.NPWP)
-                                        $('#abasecompanyphone').text(hasil.PhoneNo)
-                                        $('#abasecompanycontact').text(hasil.ContactNo);
-                                        $('#abasecompanycontactname').text(hasil.ContactName);
-                                        $('#abasecompanyemail').text(hasil.Email);
-                                        $('#abasecompanywebaddress').text(hasil.WebAddress);
-                                        $('#abasebranchlogo').attr("src","http://localhost/assets/"+hasil.Logo)
+                                        var html='<option></option>';
+                                        for(var i=0;i<hasil.length;i++){
+                                            html += `<option value="${hasil[i].ComCode}">${hasil[i].ComCode} - ${hasil[i].ComShortName}</option>`
+                                        }
+                                        $('#abasebranchcompanycode').html(html);
+                                        $('#abasebranchcompanycode').select2({
+                                            placeholder: "Choose Company",
+                                            dropdownParent: $('#master_crud'),
+                                            width: 'auto'
+                                        });
                                     }
                                 })
                             }
                         })
                         break;
-                    case 'abasebranch' :
+                    case 'button_add_master_abase_department':
                         $('#master_crud').modal('show');
-                        $('#btnAdd').hide();
+                        $('#btnAdd').attr('input','abasedepartment').show();
                         $('#btnEdit').hide();
                         $.ajax({
                             type: "POST",
-                            data: {input: 'abasebranch'},
-                            url: 'Cmaster/viewModalMasterViewAbase',
+                            data: {input: 'abasedepartment'},
+                            url: 'Cmaster/viewModalMasterAbase',
                             success: function(data){
                                 $('#master_crud').find('div.modal-body').html(data);
-                                $('#master_crud').find('h4.modal-title').html(`<i class="fa fa-search"></i> Branch`);
-                                $('#master_crud').find('.abasebranchviewaction').attr('id', id);
+                                $('#master_crud').find('h4.modal-title').html(`<i class="fa fa-plus"></i> Department`);
                                 $.ajax({
                                     type: "POST",
-                                    data: {
-                                        input: 'abasebranch',
-                                        CtrlNo: id
-                                    },
-                                    url: 'Cmaster/getDataMasterAbaseByID',
+                                    data: {input: 'abasebranch'},
+                                    url: 'Cmaster/getDataMasterAbase',
                                     dataType: 'JSON',
                                     success: function(hasil){
-                                        $('#abasebranchname').text(hasil.BranchName)
-                                        $('#abasebranchdescription').text(hasil.BranchDes)
-                                        $('#abasebranchaddress').text(`${hasil.BranchAddress}, ${hasil.BranchCity}, ${hasil.Province}, ${hasil.Country}, ${hasil.PostalCode}`)
-                                        $('#abasebranchcode').text(hasil.BranchCode)
-                                        $('#abasebranchtype').html(`<span class="badge badge-roundless bg-blue bg-font-blue">${hasil.BranchType}</span>`)
-                                        $('#abasebranchphone').text(hasil.PhoneNo)
-                                        $('#abasebranchcontact').text(hasil.ContactNo)
-                                        $('#abasebranchcontactname').text(hasil.ContactName)
-                                        $('#abasebranchemail').text(hasil.Email)
-                                        $('#abasebranchwebaddress').text(hasil.WebAddress)
+                                        var html='<option></option>';
+                                        for(var i=0;i<hasil.length;i++){
+                                            html += `<option value="${hasil[i].BranchCode}">${hasil[i].BranchName}</option>`
+                                        }
+                                        $('#abasedepartmentbranch').html(html);
+                                        $('#abasedepartmentbranch').select2({
+                                            dropdownParent: $('#master_crud'),
+                                            width: 'auto'
+                                        });
+                                    }
+                                })
+                                $.ajax({
+                                    type: "POST",
+                                    data: {input: 'abasedepartmentbu'},
+                                    url: 'Cmaster/getDataMasterAbase',
+                                    dataType: 'JSON',
+                                    success: function(hasil){
+                                        var html='<option></option>';
+                                        for(var i=0;i<hasil.length;i++){
+                                            html += `<option value="${hasil[i].BUCode}">${hasil[i].BUCode} - ${hasil[i].BUDes}</option>`
+                                        }
+                                        $('#abasedepartmentbucode').html(html);
+                                        $('#abasedepartmentbucode').select2({
+                                            dropdownParent: $('#master_crud'),
+                                            width: 'auto'
+                                        });
                                     }
                                 })
                             }
                         })
-                         break;
+                        break;
+                    case 'button_add_master_abase_department_bu':
+                        $('#master_crud').modal('show');
+                        $('#btnAdd').attr('input','abasedepartmentbu').show();
+                        $('#btnEdit').hide();
+                        $.ajax({
+                            type: "POST",
+                            data: {input: 'abasedepartmentbu'},
+                            url: 'Cmaster/viewModalMasterAbase',
+                            success: function(data){
+                                $('#master_crud').find('div.modal-body').html(data);
+                                $('#master_crud').find('h4.modal-title').html(`<i class="fa fa-plus"></i> Business Unit`);
+                                $.ajax({
+                                    type: "POST",
+                                    data: {input: 'abasedepartmentdiv'},
+                                    url: 'Cmaster/getDataMasterAbase',
+                                    dataType: 'JSON',
+                                    success: function(hasil){
+                                        var html='<option></option>';
+                                        for(var i=0;i<hasil.length;i++){
+                                            html += `<option value="${hasil[i].DivCode}">${hasil[i].DivCode} - ${hasil[i].DivDes}</option>`
+                                        }
+                                        $('#abasedepartmentbudivisioncode').html(html);
+                                        $('#abasedepartmentbudivisioncode').select2({
+                                            dropdownParent: $('#master_crud'),
+                                            width: 'auto'
+                                        });
+                                    }
+                                })
+                            }
+                        })
+                        break;
+                    case 'button_add_master_abase_department_div':
+                        $('#master_crud').modal('show');
+                        $('#btnAdd').attr('input','abasedepartmentdiv').show();
+                        $('#btnEdit').hide();
+                        $.ajax({
+                            type: "POST",
+                            data: {input: 'abasedepartmentdiv'},
+                            url: 'Cmaster/viewModalMasterAbase',
+                            success: function(data){
+                                $('#master_crud').find('div.modal-body').html(data);
+                                $('#master_crud').find('h4.modal-title').html(`<i class="fa fa-plus"></i>  Division`);
+                            }
+                        })
+                        break;
+                    case 'button_add_master_abase_cost_center':
+                        $('#master_crud').modal('show');
+                        $('#btnAdd').attr('input','abasecostcenter').show();
+                        $('#btnEdit').hide();
+                        $.ajax({
+                            type: "POST",
+                            data: {input: 'abasecostcenter'},
+                            url: 'Cmaster/viewModalMasterAbase',
+                            success: function(data){
+                                $('#master_crud').find('div.modal-body').html(data);
+                                $('#master_crud').find('h4.modal-title').html(`<i class="fa fa-plus"></i> Cost Center`);
+                                $.ajax({
+                                    type: "POST",
+                                    data: {input: 'abasedepartment'},
+                                    url: 'Cmaster/getDataMasterAbase',
+                                    dataType: 'JSON',
+                                    success: function(hasil){
+                                        var html='<option></option>';
+                                        for(var i=0;i<hasil.length;i++){
+                                            html += `<option value="${hasil[i].DeptCode}">${hasil[i].DeptCode} - ${hasil[i].DeptDes}</option>`
+                                        }
+                                        $('#abasecostcenterdepartment').html(html);
+                                        $('#abasecostcenterdepartment').select2({
+                                            dropdownParent: $('#master_crud'),
+                                            width: 'auto'
+                                        });
+                                    }
+                                })
+                            }
+                        })
+                        break;
                 }
             })
 
@@ -396,7 +493,90 @@ const mopr = {
         },
 
         eventEditItem: () => {
-            //OPEN MODAL
+            // OPEN MODAL COMPANY PROFILE
+            $(document).on('click', '.view-abase', function(){
+                var id = $(this).parent().parent().attr('id');
+                $('#master_crud>div.modal-dialog').attr('class','modal-dialog modal-lg');
+                switch($(this).attr('input')){
+                    case 'abasecompany':
+                        $('#master_crud').modal('show');
+                        $('#btnAdd').hide();
+                        $('#btnEdit').hide();
+                        $.ajax({
+                            type: "POST",
+                            data: {input: 'abasecompany'},
+                            url: 'Cmaster/viewModalMasterViewAbase',
+                            success: function(data){
+                                $('#master_crud').find('div.modal-body').html(data);
+                                $('#master_crud').find('h4.modal-title').html(`<i class="fa fa-search"></i> Company`);
+                                $('#master_crud').find('.abasecompanyviewaction').attr('id', id);
+                                $.ajax({
+                                    type: "POST",
+                                    data: {
+                                        input: 'abasecompany',
+                                        CtrlNo: id
+                                    },
+                                    url: 'Cmaster/getDataMasterAbaseByID',
+                                    dataType: 'JSON',
+                                    success: function(hasil){
+                                        $('#abasecompanyshortname').text(hasil.ComShortName)
+                                        $('#abasecompanydescription').text(hasil.ComDes)
+                                        $('#abasecompanyaddress').text(`${hasil.Address}, ${hasil.City}, ${hasil.Province}, ${hasil.Country}, ${hasil.PostalCode}`)
+                                        $('#abasecompanycode').text(hasil.ComCode)
+                                        $('#abasecompanyname').text(hasil.ComName)
+                                        $('#abasecompanytype').html(`<span class="badge badge-roundless bg-blue bg-font-blue">${hasil.CompType}</span>`)
+                                        $('#abasecompanynpwp').text(hasil.NPWP)
+                                        $('#abasecompanyphone').text(hasil.PhoneNo)
+                                        $('#abasecompanycontact').text(hasil.ContactNo);
+                                        $('#abasecompanycontactname').text(hasil.ContactName);
+                                        $('#abasecompanyemail').text(hasil.Email);
+                                        $('#abasecompanywebaddress').text(hasil.WebAddress);
+                                        $('#abasebranchlogo').attr("src","http://localhost/assets/"+hasil.Logo)
+                                    }
+                                })
+                            }
+                        })
+                        break;
+                    case 'abasebranch' :
+                        $('#master_crud').modal('show');
+                        $('#btnAdd').hide();
+                        $('#btnEdit').hide();
+                        $.ajax({
+                            type: "POST",
+                            data: {input: 'abasebranch'},
+                            url: 'Cmaster/viewModalMasterViewAbase',
+                            success: function(data){
+                                $('#master_crud').find('div.modal-body').html(data);
+                                $('#master_crud').find('h4.modal-title').html(`<i class="fa fa-search"></i> Branch`);
+                                $('#master_crud').find('.abasebranchviewaction').attr('id', id);
+                                $.ajax({
+                                    type: "POST",
+                                    data: {
+                                        input: 'abasebranch',
+                                        CtrlNo: id
+                                    },
+                                    url: 'Cmaster/getDataMasterAbaseByID',
+                                    dataType: 'JSON',
+                                    success: function(hasil){
+                                        $('#abasebranchname').text(hasil.BranchName)
+                                        $('#abasebranchdescription').text(hasil.BranchDes)
+                                        $('#abasebranchaddress').text(`${hasil.BranchAddress}, ${hasil.BranchCity}, ${hasil.Province}, ${hasil.Country}, ${hasil.PostalCode}`)
+                                        $('#abasebranchcode').text(hasil.BranchCode)
+                                        $('#abasebranchtype').html(`<span class="badge badge-roundless bg-blue bg-font-blue">${hasil.BranchType}</span>`)
+                                        $('#abasebranchphone').text(hasil.PhoneNo)
+                                        $('#abasebranchcontact').text(hasil.ContactNo)
+                                        $('#abasebranchcontactname').text(hasil.ContactName)
+                                        $('#abasebranchemail').text(hasil.Email)
+                                        $('#abasebranchwebaddress').text(hasil.WebAddress)
+                                    }
+                                })
+                            }
+                        })
+                         break;
+                }
+            })
+
+            //OPEN MODAL ITEM
             $(document).on('click', '.edit-abase', function(e){
                 e.preventDefault();
                 var id = $(this).parents('tr').attr('id');
