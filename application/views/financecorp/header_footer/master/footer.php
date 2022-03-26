@@ -36,7 +36,6 @@
         <script src="<?=base_url('assets')?>/pages/scripts/table-datatables-responsive.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/pages/scripts/components-select2.min.js" type="text/javascript"></script>
-        <script src="<?=base_url('assets')?>/js/dataTables.rowGroup.min.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/global/plugins/moment.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
