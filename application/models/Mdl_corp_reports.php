@@ -423,9 +423,6 @@ class Mdl_corp_reports extends CI_Model {
             ORDER BY acc.Acc_No ASC"
       )->result_array();
 
-      print('<pre>'.print_r($this->db->last_query(), true).'</pre>');
-      die();
-
       return [$company, $asset, $liabilities, $capital];
    }
 
