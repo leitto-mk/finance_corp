@@ -1368,7 +1368,7 @@ class Entry extends CI_Controller
             $amount = $_POST['debit'][$i] + $_POST['credit'][$i];
 
             //SET AMOUNT TO MINUS OR PLUS FOR CURRENT/RETAINING EARNINGS IF IT'S DEBIT
-            if ($_POST['debit'][$i] > 0 && ($_POST['accnos'][$i] == '31201' || $_POST['accnos'][$i] == '31202')) {
+            if ($_POST['debit'][$i] > 0 && ($acctypes == 'CX' || $acctypes == 'C1')) {
                 $amount = -1 * ($_POST['debit'][$i] + $_POST['credit'][$i]);
             }
 
