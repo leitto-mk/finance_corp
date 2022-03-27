@@ -266,6 +266,13 @@ const arp = {
                 }
                 
                 let formData = $('#form_ar_receipt_payment').serializeArray()
+
+                //Deformat Numbers
+                formData.find(input => {
+                    if(input.name == 'unit[]' || input.name == 'amount[]'){
+                        input.value = parseFloat(input.value.replaceAll(',',''))
+                    }
+                })
     
                 var docno = $('[name="docno"]').val()
                 var branch = $('[name="branch"]').val()
