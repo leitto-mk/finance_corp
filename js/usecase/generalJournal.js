@@ -208,14 +208,14 @@ const gj = {
                 
                 var total_debit = 0
                 $('[name="debit[]"]').each(function(i, n){
-                    total_debit += parseFloat($(this).val().replaceAll(',',''))
+                    total_debit += ($(this).val() !== '' ? parseFloat($(this).val().replaceAll(',','')) : 0)
                 })
                 
                     $('#total_debit').val(total_debit)
     
                 var total_credit = 0
                 $('[name="credit[]"]').each(function(i, n){
-                    total_credit += parseFloat($(this).val().replaceAll(',',''))
+                    total_credit += ($(this).val() !== '' ? parseFloat($(this).val().replaceAll(',','')) : 0)
                 })
                 
                 $('#total_debit').val(total_debit)

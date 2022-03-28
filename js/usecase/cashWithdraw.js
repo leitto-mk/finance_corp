@@ -217,7 +217,7 @@ const caw = {
                 let totalamount = 0
                 let rate = +$(this).parents('tr').find('[name="rate[]"]').val()
                 let unit = $(this).parents('tr').find('[name="unit[]"]').val()
-                unit = parseFloat(unit.replaceAll(',',''))
+                unit = (unit !== '' ? parseFloat(unit.replaceAll(',','')) : 0)
                 let total = rate * unit
     
                 $(this).parents('tr').find('[name="amount[]"]').val(total)
