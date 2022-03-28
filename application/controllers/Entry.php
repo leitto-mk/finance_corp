@@ -40,6 +40,7 @@ class Entry extends CI_Controller
 
         $this->load->model('Mdl_corp_entry');
         $this->load->model('Mdl_corp_reports');
+        $this->load->model('Mdl_corp_common');
     }
 
     //* RECEIPT VOUCHER
@@ -174,7 +175,12 @@ class Entry extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        if ($error !== null) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
+        //CALCULATE RETAINING EARNING
+        $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_date);
         if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -372,7 +378,12 @@ class Entry extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        if ($error !== null) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
+        //CALCULATE RETAINING EARNING
+        $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_date);
         if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -539,7 +550,12 @@ class Entry extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        if ($error !== null) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
+        //CALCULATE RETAINING EARNING
+        $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_date);
         if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -737,7 +753,12 @@ class Entry extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        if ($error !== null) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
+        //CALCULATE RETAINING EARNING
+        $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_date);
         if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -904,7 +925,12 @@ class Entry extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        if ($error !== null) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
+        //CALCULATE RETAINING EARNING
+        $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_date);
         if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -1103,7 +1129,12 @@ class Entry extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        if ($error !== null) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
+        //CALCULATE RETAINING EARNING
+        $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_date);
         if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -1269,7 +1300,12 @@ class Entry extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        if ($error !== null) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
+        //CALCULATE RETAINING EARNING
+        $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_date);
         if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -1434,7 +1470,12 @@ class Entry extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        if ($error !== null) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
+        //CALCULATE RETAINING EARNING
+        $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_date);
         if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
