@@ -1215,27 +1215,269 @@
                                             <td><h6 style="float: right"><?= number_format($grand_total_other_exp_des, 2, '.', ',') ?></h6></td>
                                             <td><h6 style="float: right"><?= number_format($grand_total_other_exp_year, 2, '.', ',') ?></h6></td>
                                         </tr>
+
+                                        <!--COA 80000 -->
+                                        <?php 
+                                            $cur_total_other_operational_jan = 0;
+                                            $cur_total_other_operational_feb = 0;
+                                            $cur_total_other_operational_mar = 0;
+                                            $cur_total_other_operational_apr = 0;
+                                            $cur_total_other_operational_may = 0;
+                                            $cur_total_other_operational_jun = 0;
+                                            $cur_total_other_operational_jul = 0;
+                                            $cur_total_other_operational_aug = 0;
+                                            $cur_total_other_operational_sep = 0;
+                                            $cur_total_other_operational_oct = 0;
+                                            $cur_total_other_operational_nov = 0;
+                                            $cur_total_other_operational_des = 0;
+                                            $cur_total_other_operational_year = 0;
+                                            $grand_total_other_operational_jan = 0;
+                                            $grand_total_other_operational_feb = 0;
+                                            $grand_total_other_operational_mar = 0;
+                                            $grand_total_other_operational_apr = 0;
+                                            $grand_total_other_operational_may = 0;
+                                            $grand_total_other_operational_jun = 0;
+                                            $grand_total_other_operational_jul = 0;
+                                            $grand_total_other_operational_aug = 0;
+                                            $grand_total_other_operational_sep = 0;
+                                            $grand_total_other_operational_oct = 0;
+                                            $grand_total_other_operational_nov = 0;
+                                            $grand_total_other_operational_des = 0;
+                                            $grand_total_other_operational_year = 0;
+                                            $cur_header_other_operational_h1 = '';
+                                            $cur_header_other_operational_h2 = '';
+                                            $cur_header_other_operational_h3 = '';
+                                        ?>
+                                        <?php for($i = 0; $i < count($other_operational); $i++) : ?>
+                                            <?php 
+                                                $cur_header_other_operational_h1 = ($other_operational[$i]['TransGroup'] == 'H1' ? $other_operational[$i]['Acc_Name'] : $cur_header_other_operational_h1);
+                                                $cur_header_other_operational_h2 = ($other_operational[$i]['TransGroup'] == 'H2' ? $other_operational[$i]['Acc_Name'] : $cur_header_other_operational_h2);
+                                                $cur_header_other_operational_h3 = ($other_operational[$i]['TransGroup'] == 'H3' ? $other_operational[$i]['Acc_Name'] : $cur_header_other_operational_h3);
+                                                if($i != 0){
+                                                    if($other_operational[$i-1]['TransGroup'] !== $other_operational[$i]['TransGroup']) {
+                                                        $cur_total_other_operational_jan = 0;
+                                                        $cur_total_other_operational_feb = 0;
+                                                        $cur_total_other_operational_mar = 0;
+                                                        $cur_total_other_operational_apr = 0;
+                                                        $cur_total_other_operational_may = 0;
+                                                        $cur_total_other_operational_jun = 0;
+                                                        $cur_total_other_operational_jul = 0;
+                                                        $cur_total_other_operational_aug = 0;
+                                                        $cur_total_other_operational_sep = 0;
+                                                        $cur_total_other_operational_oct = 0;
+                                                        $cur_total_other_operational_nov = 0;
+                                                        $cur_total_other_operational_des = 0;
+                                                        $cur_total_other_operational_year = 0;
+                                                    }
+                                                }
+                                            ?>
+                                            <?php if($other_operational[$i]['TransGroup'] == 'H1') : ?>
+                                                <!--Header 1-->
+                                                <tr>
+                                                    <td class="uppercase bold" colspan="18" style="background-color: #5c9bd194;"><?= $other_operational[$i]['Acc_Name'] ?> - <?= $other_operational[$i]['Acc_No']?></td>
+                                                </tr>
+                                            <?php elseif($other_operational[$i]['TransGroup'] == 'H2') : ?>
+                                                <!--Header 2-->
+                                                <tr class="font-yellow bold">
+                                                    <td></td>
+                                                    <td colspan="17"><?= $other_operational[$i]['Acc_Name'] ?> - <?= $other_operational[$i]['Acc_No']?></td>
+                                                </tr>
+                                            <?php elseif($other_operational[$i]['TransGroup'] == 'H3') : ?>
+                                                <!--Header 3-->
+                                                <tr class="font-blue-madison bold">
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td colspan="16"><?= $other_operational[$i]['Acc_Name'] ?> - <?= $other_operational[$i]['Acc_No']?></td>
+                                                </tr>
+                                            <?php else : ?>
+                                                <!--Data-->
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td align="center" class="bold"><?= $other_operational[$i]['Acc_No']?></td>
+                                                    <td class="bold"><?= $other_operational[$i]['Acc_Name'] ?></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Jan'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Feb'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Mar'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Apr'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['May'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Jun'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Jul'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Aug'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Sep'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Oct'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Nov'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Des'], 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($other_operational[$i]['Yearly'], 2, '.', ',') ?></h6></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                            <?php
+                                                $cur_total_other_operational_jan += (int) $other_operational[$i]['Jan'];
+                                                $cur_total_other_operational_feb += (int) $other_operational[$i]['Feb'];
+                                                $cur_total_other_operational_mar += (int) $other_operational[$i]['Mar'];
+                                                $cur_total_other_operational_apr += (int) $other_operational[$i]['Apr'];
+                                                $cur_total_other_operational_may += (int) $other_operational[$i]['May'];
+                                                $cur_total_other_operational_jun += (int) $other_operational[$i]['Jun'];
+                                                $cur_total_other_operational_jul += (int) $other_operational[$i]['Jul'];
+                                                $cur_total_other_operational_aug += (int) $other_operational[$i]['Aug'];
+                                                $cur_total_other_operational_sep += (int) $other_operational[$i]['Sep'];
+                                                $cur_total_other_operational_oct += (int) $other_operational[$i]['Oct'];
+                                                $cur_total_other_operational_nov += (int) $other_operational[$i]['Nov'];
+                                                $cur_total_other_operational_des += (int) $other_operational[$i]['Des'];
+                                                $cur_total_other_operational_year += (int) $other_operational[$i]['Yearly'];
+                                                $grand_total_other_operational_jan += (int) $other_operational[$i]['Jan'];
+                                                $grand_total_other_operational_feb += (int) $other_operational[$i]['Feb'];
+                                                $grand_total_other_operational_mar += (int) $other_operational[$i]['Mar'];
+                                                $grand_total_other_operational_apr += (int) $other_operational[$i]['Apr'];
+                                                $grand_total_other_operational_may += (int) $other_operational[$i]['May'];
+                                                $grand_total_other_operational_jun += (int) $other_operational[$i]['Jun'];
+                                                $grand_total_other_operational_jul += (int) $other_operational[$i]['Jul'];
+                                                $grand_total_other_operational_aug += (int) $other_operational[$i]['Aug'];
+                                                $grand_total_other_operational_sep += (int) $other_operational[$i]['Sep'];
+                                                $grand_total_other_operational_oct += (int) $other_operational[$i]['Oct'];
+                                                $grand_total_other_operational_nov += (int) $other_operational[$i]['Nov'];
+                                                $grand_total_other_operational_des += (int) $other_operational[$i]['Des'];
+                                                $grand_total_other_operational_year += (int) $other_operational[$i]['Yearly'];
+                                            ?>
+                                            <?php if($i < (count($other_operational)-1)) : ?>
+                                                <?php if($other_operational[$i+1]['TransGroup'] == 'H3' && $other_operational[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
+                                                    <!--Total Header 3-->
+                                                    <tr class="font-blue-madison">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td colspan="3" class="bold">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h3?></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jan , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_feb , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_mar , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_apr , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_may , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jun , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jul , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_aug , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_sep , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_oct , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_nov , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_des , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_year, 2, '.', ',') ?></h6></td>
+                                                    </tr>
+                                                <?php elseif($other_operational[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
+                                                    <!--Total Header 3-->
+                                                    <tr class="font-blue-madison">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td colspan="3" class="bold">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h3?></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jan , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_feb , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_mar , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_apr , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_may , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jun , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jul , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_aug , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_sep , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_oct , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_nov , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_des , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_year, 2, '.', ',') ?></h6></td>
+                                                    </tr>
+                                                    <!--Total Header 2-->
+                                                    <tr class="font-yellow">
+                                                        <td></td>
+                                                        <td colspan="4" class="bold">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h2?></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jan , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_feb , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_mar , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_apr , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_may , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jun , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jul , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_aug , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_sep , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_oct , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_nov , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_des , 2, '.', ',') ?></h6></td>
+                                                        <td><h6 style="float: right"><?= number_format($cur_total_other_operational_year, 2, '.', ',') ?></h6></td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            <?php elseif($i < count($other_operational) && $i != 0) : ?>
+                                                <!--Total Header 3-->
+                                                <tr class="font-blue-madison">
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td colspan="3" class="bold">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h3?></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jan , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_feb , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_mar , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_apr , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_may , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jun , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_jul , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_aug , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_sep , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_oct , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_nov , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_des , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($cur_total_other_operational_year, 2, '.', ',') ?></h6></td>
+                                                </tr>
+                                                <!--Total Header 2-->
+                                                <tr class="font-yellow">
+                                                    <td></td>
+                                                    <td colspan="4" class="bold">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h2?></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_jan , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_feb , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_mar , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_apr , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_may , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_jun , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_jul , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_aug , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_sep , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_oct , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_nov , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_des , 2, '.', ',') ?></h6></td>
+                                                    <td><h6 style="float: right"><?= number_format($grand_total_other_operational_year, 2, '.', ',') ?></h6></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                        <!--Grand Total Other Expense -->
+                                        <tr class="font-yellow-gold">
+                                            <td colspan="5" class="bold">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h1 ?></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_jan, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_feb, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_mar, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_apr, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_may, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_jun, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_jul, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_aug, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_sep, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_oct, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_nov, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_des, 2, '.', ',') ?></h6></td>
+                                            <td><h6 style="float: right"><?= number_format($grand_total_other_operational_year, 2, '.', ',') ?></h6></td>
+                                        </tr>
                                         
                                         <?php
-                                            $other_gain_jan = $grand_total_other_rev_jan - $grand_total_other_exp_jan;
-                                            $other_gain_feb = $grand_total_other_rev_feb - $grand_total_other_exp_feb;
-                                            $other_gain_mar = $grand_total_other_rev_mar - $grand_total_other_exp_mar;
-                                            $other_gain_apr = $grand_total_other_rev_apr - $grand_total_other_exp_apr;
-                                            $other_gain_may = $grand_total_other_rev_may - $grand_total_other_exp_may;
-                                            $other_gain_jun = $grand_total_other_rev_jun - $grand_total_other_exp_jun;
-                                            $other_gain_jul = $grand_total_other_rev_jul - $grand_total_other_exp_jul;
-                                            $other_gain_aug = $grand_total_other_rev_aug - $grand_total_other_exp_aug;
-                                            $other_gain_sep = $grand_total_other_rev_sep - $grand_total_other_exp_sep;
-                                            $other_gain_oct = $grand_total_other_rev_oct - $grand_total_other_exp_oct;
-                                            $other_gain_nov = $grand_total_other_rev_nov - $grand_total_other_exp_nov;
-                                            $other_gain_des = $grand_total_other_rev_des - $grand_total_other_exp_des;
-                                            $other_gain_year = $grand_total_other_rev_year - $grand_total_other_exp_year;
+                                            $other_gain_jan = $grand_total_other_operational_jan - $grand_total_other_operational_jan;
+                                            $other_gain_feb = $grand_total_other_operational_feb - $grand_total_other_operational_feb;
+                                            $other_gain_mar = $grand_total_other_operational_mar - $grand_total_other_operational_mar;
+                                            $other_gain_apr = $grand_total_other_operational_apr - $grand_total_other_operational_apr;
+                                            $other_gain_may = $grand_total_other_operational_may - $grand_total_other_operational_may;
+                                            $other_gain_jun = $grand_total_other_operational_jun - $grand_total_other_operational_jun;
+                                            $other_gain_jul = $grand_total_other_operational_jul - $grand_total_other_operational_jul;
+                                            $other_gain_aug = $grand_total_other_operational_aug - $grand_total_other_operational_aug;
+                                            $other_gain_sep = $grand_total_other_operational_sep - $grand_total_other_operational_sep;
+                                            $other_gain_oct = $grand_total_other_operational_oct - $grand_total_other_operational_oct;
+                                            $other_gain_nov = $grand_total_other_operational_nov - $grand_total_other_operational_nov;
+                                            $other_gain_des = $grand_total_other_operational_des - $grand_total_other_operational_des;
+                                            $other_gain_year = $grand_total_other_operational_year - $grand_total_other_operational_year;
                                         ?>
                                         <tr class="font-yellow">
                                             <td colspan="7" class="font-white">_</td>
                                         </tr>
                                         <tr class="font-yellow-gold">
-                                            <td colspan="5" class="bold">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h1 ?> & <?= $cur_header_other_exp_h1 ?></td>
+                                            <td colspan="5" class="bold">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_exp_h1 ?> & <?= $cur_header_other_operational_h1 ?></td>
                                             <td><h6 style="float: right"><?= number_format($other_gain_jan, 2, '.',',') ?></h6></td>
                                             <td><h6 style="float: right"><?= number_format($other_gain_feb, 2, '.',',') ?></h6></td>
                                             <td><h6 style="float: right"><?= number_format($other_gain_mar, 2, '.',',') ?></h6></td>

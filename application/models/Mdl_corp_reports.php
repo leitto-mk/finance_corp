@@ -543,7 +543,32 @@ class Mdl_corp_reports extends CI_Model {
          ORDER BY acc.Acc_No ASC"
       )->result_array();
 
-      return [$company, $revenue, $operational, $other_rev, $other_expense];
+      $other_operational = $this->db->query(
+         "SELECT
+               acc.Acc_No,
+               acc.Acc_Name,
+               acc.Acc_Type,
+               IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
+               IF(mTrans.Balance IS NOT NULL, mTrans.Balance, 0) AS Monthly,
+               IF(yTrans.Balance IS NOT NULL, yTrans.Balance, 0) AS Yearly
+         FROM tbl_fa_account_no AS acc
+         LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
+                     FROM tbl_fa_transaction
+                     WHERE TransDate BETWEEN CAST('$year-$month-01' AS DATETIME) AND LAST_DAY('$year-$month-01')
+                     AND ItemNo != 0
+                     AND $branch GROUP BY AccNo) AS mTrans
+            ON acc.Acc_No = mTrans.AccNo
+         LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
+                     FROM tbl_fa_transaction
+                     WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND LAST_DAY('$date')
+                     AND ItemNo != 0
+                     AND $branch GROUP BY AccNo) AS yTrans
+            ON acc.Acc_No = yTrans.AccNo
+         WHERE acc.Acc_No BETWEEN 80000 AND 89999
+         ORDER BY acc.Acc_No ASC"
+      )->result_array();
+
+      return [$company, $revenue, $operational, $other_rev, $other_expense, $other_operational];
    }
 
    function get_columnar_report($branch, $year){
@@ -753,7 +778,37 @@ class Mdl_corp_reports extends CI_Model {
          WHERE acc.Acc_No BETWEEN 70000 AND 79999"
       )->result_array();
 
-      return [$company, $revenue, $operational, $other_rev, $other_expense];
+      $other_operational = $this->db->query(
+         "SELECT
+               acc.Acc_No,
+               acc.Acc_Name,
+               acc.Acc_Type,
+               IF(jan.Balance IS NOT NULL, jan.Balance, 0) AS Jan,
+               IF(feb.Balance IS NOT NULL, feb.Balance, 0) AS Feb,
+               IF(mar.Balance IS NOT NULL, mar.Balance, 0) AS Mar,
+               IF(apr.Balance IS NOT NULL, apr.Balance, 0) AS Apr,
+               IF(may.Balance IS NOT NULL, may.Balance, 0) AS May,
+               IF(jun.Balance IS NOT NULL, jun.Balance, 0) AS Jun,
+               IF(jul.Balance IS NOT NULL, jul.Balance, 0) AS Jul,
+               IF(aug.Balance IS NOT NULL, aug.Balance, 0) AS Aug,
+               IF(sep.Balance IS NOT NULL, sep.Balance, 0) AS Sep,
+               IF(oct.Balance IS NOT NULL, oct.Balance, 0) AS Oct,
+               IF(nov.Balance IS NOT NULL, nov.Balance, 0) AS Nov,
+               IF(des.Balance IS NOT NULL, des.Balance, 0) AS Des,
+               IF(acc.TransGroup = '', NULL, acc.TransGroup) AS TransGroup,
+               IF(yTrans.Balance IS NOT NULL, yTrans.Balance, 0) AS Yearly
+         FROM tbl_fa_account_no AS acc
+         $query
+         LEFT JOIN (SELECT Branch, AccNo, AccType, SUM(Amount) AS Balance, TransDate, EntryDate 
+                     FROM tbl_fa_transaction
+                     WHERE TransDate BETWEEN CAST('$year-01-01' AS DATETIME) AND LAST_DAY('$year-12-01')
+                     AND ItemNo != 0
+                     AND $branch GROUP BY AccNo) AS yTrans
+            ON acc.Acc_No = yTrans.AccNo
+         WHERE acc.Acc_No BETWEEN 80000 AND 89999"
+      )->result_array();
+
+      return [$company, $revenue, $operational, $other_rev, $other_expense, $other_operational];
    }
 
    //* JOURNAL TRANSACTION

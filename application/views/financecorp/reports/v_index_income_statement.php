@@ -669,17 +669,138 @@
                                                     <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_expenses_year, 2, ',','.') ?></td>
                                                 </tr>
                                             <?php endif; ?>
-                                        <?php endfor; ?>                                   
+                                        <?php endfor; ?>
                                         <!--Total Header 1-->
                                         <!-- <tr class="font-yellow-gold">
                                             <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h1 ?></td>
                                             <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_other_expenses_month, 2,',','.') ?></td>
                                             <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_other_expenses_year, 2,',','.') ?></td>
                                         </tr> -->
+
+                                        <!-- COA 80000 -->
+                                        <?php 
+                                            $cur_total_other_operational_month = 0;
+                                            $cur_total_other_operational_year = 0;
+                                            $grand_total_other_operational_month = 0;
+                                            $grand_total_other_operational_year = 0;
+                                            $cur_header_other_operational_h1 = '';
+                                            $cur_header_other_operational_h2 = '';
+                                            $cur_header_other_operational_h3 = '';
+                                        ?>
+                                        <?php for($i = 0; $i < count($other_operational); $i++) : ?>
+                                            <?php 
+                                                $cur_header_other_operational_h1 = ($other_operational[$i]['TransGroup'] == 'H1' ? $other_operational[$i]['Acc_Name'] : $cur_header_other_operational_h1);
+                                                $cur_header_other_operational_h2 = ($other_operational[$i]['TransGroup'] == 'H2' ? $other_operational[$i]['Acc_Name'] : $cur_header_other_operational_h2);
+                                                $cur_header_other_operational_h3 = ($other_operational[$i]['TransGroup'] == 'H3' ? $other_operational[$i]['Acc_Name'] : $cur_header_other_operational_h3);
+                                                if($i != 0){
+                                                    if($other_operational[$i-1]['TransGroup'] !== $other_operational[$i]['TransGroup']) {
+                                                        $cur_total_other_operational_month = 0;
+                                                        $cur_total_other_operational_year = 0;
+                                                    }
+                                                }
+                                            ?>
+                                            <?php if($other_operational[$i]['TransGroup'] == 'H1') : ?>
+                                                <!--Header 1-->
+                                                <tr>
+                                                    <td class="uppercase bold" colspan="7" style="background-color: #5c9bd194;"><?= $other_operational[$i]['Acc_Name'] ?> - <?= $other_operational[$i]['Acc_No']?></td>
+                                                </tr>
+                                            <?php elseif($other_operational[$i]['TransGroup'] == 'H2') : ?>
+                                                <!--Header 2-->
+                                                <!-- <tr class="font-yellow"> -->
+                                                <tr>
+                                                    <td></td>
+                                                    <td colspan="4"><?= $other_operational[$i]['Acc_Name'] ?> - <?= $other_operational[$i]['Acc_No']?></td>
+                                                    <td align="right"></td>
+                                                    <td align="right"></td>
+                                                </tr>
+                                            <?php elseif($other_operational[$i]['TransGroup'] == 'H3') : ?>
+                                                <!--Header 3-->
+                                                <!-- <tr class="font-blue-madison"> -->
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td colspan="3"><?= $other_operational[$i]['Acc_Name'] ?> - <?= $other_operational[$i]['Acc_No']?></td>
+                                                    <td align="right"></td>
+                                                    <td align="right"></td>
+                                                </tr>
+                                            <?php else : ?>
+                                                <!--Data-->
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td align="center"><?= $other_operational[$i]['Acc_No']?></td>
+                                                    <td><?= $other_operational[$i]['Acc_Name'] ?></td>
+                                                    <td align="right"><?= number_format($other_operational[$i]['Monthly'],2,',','.') ?></td>
+                                                    <td align="right"><?= number_format($other_operational[$i]['Yearly'],2,',','.') ?></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                            <?php
+                                                $cur_total_other_operational_month += $other_operational[$i]['Monthly'];
+                                                $cur_total_other_operational_year += $other_operational[$i]['Yearly'];
+                                                $grand_total_other_operational_month += $other_operational[$i]['Monthly'];
+                                                $grand_total_other_operational_year += $other_operational[$i]['Yearly'];
+                                            ?>
+                                            <?php if($i < (count($other_operational)-1)) : ?>
+                                                <?php if($other_operational[$i+1]['TransGroup'] == 'H3' && $other_operational[$i]['TransGroup'] !== 'H2' && $i > 2) : ?>
+                                                    <!--Total Header 3-->
+                                                    <!-- <tr class="font-blue-madison"> -->
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h3?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_operational_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_operational_year, 2, ',','.') ?></td>
+                                                    </tr>
+                                                <?php elseif($other_operational[$i+1]['TransGroup'] == 'H2' && $i > 2) : ?>
+                                                    <!--Total Header 3-->
+                                                    <!-- <tr class="font-blue-madison"> -->
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h3?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_operational_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_operational_year, 2, ',','.') ?></td>
+                                                    </tr>
+                                                    <!--Total Header 2-->
+                                                    <!-- <tr class="font-yellow"> -->
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h2?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_operational_month, 2, ',','.') ?></td>
+                                                        <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_operational_year, 2, ',','.') ?></td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            <?php elseif($i < count($other_operational) && $i != 0) : ?>
+                                                <!--Total Header 3-->
+                                                <!-- <tr class="font-blue-madison"> -->
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h3?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_operational_month, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_operational_year, 2, ',','.') ?></td>
+                                                </tr>
+                                                <!--Total Header 2-->
+                                                <!-- <tr class="font-yellow"> -->
+                                                <tr>
+                                                    <td></td>
+                                                    <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h2?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_operational_month, 2, ',','.') ?></td>
+                                                    <td align="right" style="border-top: solid 0.1px"><?= number_format($cur_total_other_operational_year, 2, ',','.') ?></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                        <!--Total Header 1-->
+                                        <!-- <tr class="font-yellow-gold">
+                                            <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_operational_h1 ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_other_operational_month, 2,',','.') ?></td>
+                                            <td align="right" style="border-top: solid 0.1px"><?= number_format($grand_total_other_operational_year, 2,',','.') ?></td>
+                                        </tr> -->
                                         
                                         <?php
-                                            $other_gain_month = $grand_total_other_rev_month - $grand_total_other_expenses_month;
-                                            $other_gain_year = $grand_total_other_rev_year - $grand_total_other_expenses_year;
+                                            $other_gain_month = $grand_total_other_expenses_month - $grand_total_other_operational_month;
+                                            $other_gain_year = $grand_total_other_expenses_year - $grand_total_other_operational_year;
                                         ?>
                                         <!-- <tr class="font-yellow"> -->
                                         <tr>
@@ -687,7 +808,7 @@
                                         </tr>
                                         <!-- <tr class="font-yellow-gold"> -->
                                         <tr>
-                                            <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_rev_h1 ?> & <?= $cur_header_other_expenses_h1 ?></td>
+                                            <td colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;Total <?= $cur_header_other_expenses_h1 ?> & <?= $cur_header_other_operational_h1 ?></td>
                                             <td align="right" style="border-top: solid 0.1px"><?= number_format($other_gain_month, 2,',','.') ?></td>
                                             <td align="right" style="border-top: solid 0.1px"><?= number_format($other_gain_year, 2,',','.') ?></td>
                                         </tr>

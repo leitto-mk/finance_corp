@@ -178,7 +178,7 @@ class Reports extends CI_Controller
         $year =  $this->input->get('year') ?? date('Y');
         $month = $this->input->get('month') ?? date('m');
 
-        list($company, $revenue, $operational, $other_rev, $other_expense) = $this->Mdl_corp_reports->get_income_report($branch, $year, $month);
+        list($company, $revenue, $operational, $other_rev, $other_expense, $other_operational) = $this->Mdl_corp_reports->get_income_report($branch, $year, $month);
 
         $data = [
             'title' => 'Income Statement',
@@ -192,6 +192,7 @@ class Reports extends CI_Controller
             'operational' => $operational,
             'other_revenue' => $other_rev,
             'other_expenses' => $other_expense,
+            'other_operational' => $other_operational,
 
             'script' => 'incomeStatement'
         ];
@@ -211,7 +212,7 @@ class Reports extends CI_Controller
         $branch = $this->input->get('branch') ?? null;
         $year =  $this->input->get('year') ?? date('Y');
 
-        [$company, $revenue, $operational, $other_rev, $other_expense] = $this->Mdl_corp_reports->get_columnar_report($branch, $year);
+        [$company, $revenue, $operational, $other_rev, $other_expense, $other_operational] = $this->Mdl_corp_reports->get_columnar_report($branch, $year);
 
         $data = [
             'title' => 'Income Statement Columnar',
@@ -227,6 +228,7 @@ class Reports extends CI_Controller
             'operational' => $operational,
             'other_revenue' => $other_rev,
             'other_expenses' => $other_expense,
+            'other_operational' => $other_operational,
 
             'script' => 'incomeStatementColumnar'
         ];
