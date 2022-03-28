@@ -1536,17 +1536,27 @@ class Entry extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-
         $branch = $this->input->post('branch');
         $accno_start = $this->input->post('accno_start');
-        $accno_finish = $this->input->post('accno_finish') ?? date('Y-m-d');
-        $date_start = $this->input->post('date_start');
+        $accno_finish = $this->input->post('accno_finish');
+        $date_start = $this->input->post('date_start') ?? date('Y-m-d');
         $date_finish = $this->Mdl_corp_reports->get_last_trans_date();
 
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, $accno_start, $accno_finish, $date_start, $date_finish);
-
         if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
+
+        //CALCULATE RETAINING EARNING EACH MONTH FROM DATE START
+        $cur_month = strtotime($date_start);
+        $end_month = strtotime($date_finish);
+        while($cur_month <= $end_month){
+            $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, date("Y-m-d", $cur_month));
+            if($error !== null){
+                return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+            }
+
+            $cur_month = strtotime("+1 month", $cur_month);
         }
 
         return set_success_response($result);
@@ -1564,9 +1574,22 @@ class Entry extends CI_Controller
         $date_start = $this->input->post('date_start');
 
         [$result, $error] = $this->Mdl_corp_entry->recalculate_employee($employee, $date_start);
-
         if ($error !== null) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
+
+        //CALCULATE RETAINING EARNING EACH MONTH FROM DATE START
+        $cur_month = $date_start;
+        $date_finish = date('Y-m-d');
+        $branch = $this->db->select('Branch')->get_where('tbl_hr_append', ['IDNumber' => $employee])->row()->Branch;
+
+        while(strtotime($cur_month) <= strtotime($date_finish)){
+            $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_month);
+            if($error !== null){
+                return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+            }
+
+            $cur_month = strtotime("+1 month",$cur_month);
         }
 
         return set_success_response($result);
