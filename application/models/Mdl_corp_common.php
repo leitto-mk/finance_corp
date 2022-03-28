@@ -4,6 +4,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Mdl_corp_common extends CI_Model
 {
     public function calculate_retaining_earnings($branch, $date){
+        $this->db->trans_begin();
+
         $this->db->query(
             "DELETE FROM `tbl_fa_retaining_earning`
              WHERE Branch = ''
@@ -115,9 +117,9 @@ class Mdl_corp_common extends CI_Model
             log_message('error', "$code: $message");
 
             $this->db->trans_rollback();
-   
+
             return "Database Error";
-         }
+        }
         
         $this->db->trans_complete();
         
