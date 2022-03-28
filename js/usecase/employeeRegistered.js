@@ -158,7 +158,7 @@ const regd = {
                     }
                 });
             })
-            .catch(() => {
+            .fail(() => {
                 alert("SERVER PROBLEM")
             })
     }
