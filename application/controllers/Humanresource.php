@@ -7092,6 +7092,7 @@ class Humanresource extends CI_Controller {
         $query['emptype'] = $this->M_humanresource->get_employeetype_abc($branch);
         $query['report_emptype'] = $this->M_humanresource->get_data_report_by_dept_employeetype_abc($branch);
         $query['grandtotalemptype'] = $this->M_humanresource->get_report_emp_etype_gtotals_abc($branch);
+        $query['script'] = 'employee';
         $this->load->view('humanresource/employeeadmin/v_personal_register_abc', $query);
     }
 
