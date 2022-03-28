@@ -21,7 +21,7 @@
             <!-- END HEADER MENU -->
         </div>
         <div class="portlet light" style="margin-top: -25px">
-            <form method="post" class="form-horizontal" id="form_overbook" autocomplete="off">
+            <form method="post" class="form-horizontal" id="form_overbook_voucher" autocomplete="off">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="portlet light">
