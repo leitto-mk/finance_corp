@@ -159,13 +159,17 @@ $(document).ready(function(){
             .then(({default: inv}) => {
                 let path = window.location.pathname
                 let segment = path.split('/')[2]
-                let page = segment.split('_')[0]
 
-                if(page.toLowerCase() == ""){
+                if(segment.toLowerCase() == ""){
                     inv.dashboardPage.generateDataTable()
-                }else if(page.toLowerCase() == "create_invoice"){
-                    inv.formPage
-                }
+                }else if(segment.toLowerCase() == "create_invoice"){
+                    inv.formPage.initInputMask()
+                    inv.formPage.eventGetTermsOfDay()
+                    inv.formPage.eventAddRow()
+                    inv.formPage.eventChagePaymentMethod()
+                    inv.formPage.eventDeleteRow()
+                    inv.formPage.submitInvoice()
+                } 
             })
             .catch(err => {
                 console.log(`%cError:%c ${err}`, 'color: red', 'color: white')

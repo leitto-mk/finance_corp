@@ -1,5 +1,5 @@
 <h1 class="page-title"><?= $title ?></h1>
-<form id="form-sales-order">
+<form method="POST" id="form_new_invoice">
 	<div class="row">
 		<div class="col-lg-4">
 			<div class="portlet light">
@@ -10,24 +10,29 @@
 				</div>
 				<div class="portlet-body">
 					<div class="form-group">
-						<label for="so_no" class="control-label">Invoice No.</label>
-						<input type="text" name="so_no" id="so_no" class="form-control" readonly>
+						<label for="no" class="control-label">Invoice No.</label>
+						<input type="text" name="invoice_no" id="invoice_no" class="form-control" readonly value="<?= $invoice_no ?>">
 					</div>
 					<div class="form-group">
-						<label for="so_customer" class="control-label">Customer</label>
-						<select name="so_customer" id="so_customer" class="form-control" data-value="">
-							<option value=""></option>
+						<label for="customer" class="control-label">Customer</label>
+						<select name="customer" id="customer" class="form-control" data-value="">
+							<option value="">-- Select Customer --</option>
+							<?php if (!empty($customer)) : ?>
+								<?php for ($i = 0; $i < count($customers); $i++) : ?>
+									<option value="<?= $customer[$i]['CustomerCode'] ?>"><?= $customer[$i]['CustomerName'] ?></option>
+								<?php endfor; ?>
+							<?php endif; ?>
 						</select>
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="form-group">
-						<label for="so_no_ref" class="control-label">Quote Ref No</label>
-						<input type="text" name="so_no_ref" id="so_no_ref" class="form-control" value="">
+						<label for="reference_no" class="control-label">Quote Ref No</label>
+						<input type="text" name="reference_no" id="reference_no" class="form-control" value="">
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="form-group">
-						<label for="so_remarks" class="control-label">Remarks</label>
-						<textarea type="text" name="so_remarks" id="so_remarks" class="form-control"></textarea>
+						<label for="remark" class="control-label">Remarks</label>
+						<textarea type="text" name="remark" id="remark" class="form-control"></textarea>
 						<span class="help-block hidden"></span>
 					</div>
 				</div>
@@ -44,50 +49,55 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="so_bill_to" class="control-label">Bill To</label>
-								<input type="text" name="so_bill_to" id="so_bill_to" class="form-control" value="">
+								<label for="bill_to" class="control-label">Bill To</label>
+								<input type="text" name="bill_to" id="bill_to" class="form-control" value="">
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="so_ship_to" class="control-label">Ship To</label>
-								<input type="text" name="so_ship_to" id="so_ship_to" class="form-control" value="">
+								<label for="ship_to" class="control-label">Ship To</label>
+								<input type="text" name="ship_to" id="ship_to" class="form-control" value="">
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="so_storage" class="control-label">Storage</label>
-						<select name="so_storage" id="so_storage" class="form-control">
-							<option value=""></option>
+						<label for="storage" class="control-label">Storage</label>
+						<select name="storage" id="storage" class="form-control">
+							<option value="">-- Select Storage --</option>
+							<?php if (!empty($storage)) : ?>
+								<?php for ($i = 0; $i < count($storages); $i++) : ?>
+									<option value="<?= $storage[$i]['StorageCode'] ?>"><?= $storage[$i]['StorageName'] ?></option>
+								<?php endfor; ?>
+							<?php endif; ?>
 						</select>
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="row">
 						<div class="col-lg-6 col-md-6">
 							<div class="form-group">
-								<label for="so_freight" class="control-label">Freight</label>
-								<input type="text" name="so_freight" id="so_freight" class="form-control" value="">
+								<label for="freight" class="control-label">Freight</label>
+								<input type="text" name="freight" id="freight" class="form-control" value="">
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6">
 							<div class="form-group" class="control-label" style="margin-bottom: 0px;">
-								<label for="so_shipment">Shipment Via</label>
+								<label for="shipment">Shipment Via</label>
 								<div class="mt-checkbox-inline">
 									<label class="mt-checkbox">
-										<input type="checkbox" name="so_shipment" id="so_shipment" value="Air">
+										<input type="checkbox" name="ship_via_air" id="ship_via_air">
 										Air
 										<span></span>
 									</label>
 									<label class="mt-checkbox">
-										<input type="checkbox" name="so_shipment" id="so_shipment" value="Sea">
+										<input type="checkbox" name="ship_via_sea" id="ship_via_sea">
 										Sea
 										<span></span>
 									</label>
 									<label class="mt-checkbox">
-										<input type="checkbox" name="so_shipment" id="so_shipment" value="Land">
+										<input type="checkbox" name="ship_via_land" id="ship_via_land">
 										Land
 										<span></span>
 									</label>
@@ -97,8 +107,8 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="so_freight_remarks" class="control-label">Freight Info</label>
-						<textarea type="text" name="so_freight_remarks" id="so_freight_remarks" class="form-control"></textarea>
+						<label for="freight_remarks" class="control-label">Freight Info</label>
+						<textarea type="text" name="freight_remarks" id="freight_remarks" class="form-control"></textarea>
 						<span class="help-block hidden"></span>
 					</div>
 				</div>
@@ -113,22 +123,22 @@
 				</div>
 				<div class="portlet-body">
 					<div class="form-group">
-						<label for="so_raised_by" class="control-label">Raised By</label>
-						<input type="text" name="so_raised_by" id="so_raised_by" class="form-control" readonly value="">
+						<label for="raised_by" class="control-label">Raised By</label>
+						<input type="text" name="raised_by" id="raised_by" class="form-control" readonly value="<?= $raised_by ?>">
 					</div>
 					<div class="form-group">
-						<label for="so_raised_date" class="control-label">Raised Date</label>
-						<input type="date" name="so_raised_date" id="so_raised_date" class="form-control" value="">
+						<label for="raised_date" class="control-label">Raised Date</label>
+						<input type="date" name="raised_date" id="raised_date" class="form-control" value="">
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="form-group">
-						<label for="so_term_days" class="control-label">Term Day(s)</label>
-						<input type="text" name="so_term_days" id="so_term_days" class="form-control" value="">
+						<label for="term_days" class="control-label">Term Day(s)</label>
+						<input type="text" name="term_days" id="term_days" class="form-control" value="">
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="form-group" style="margin-bottom: 37px">
-						<label for="so_due_date" class="control-label">Due Date</label>
-						<input type="date" name="so_due_date" id="so_due_date" class="form-control" min="<?= date('Y-m-d') ?>">
+						<label for="due_date" class="control-label">Due Date</label>
+						<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>">
 						<span class="help-block hidden"></span>
 					</div>
 				</div>
@@ -158,122 +168,70 @@
 									<th width="13%" class="text-center">Total</th>
 								</tr>
 							</thead>
-							<tbody id="tbody-form-so">
-								<?php if (isset($detail)) : ?>
-									<?php foreach ($detail as $row => $value) : ?>
-										<tr class="t-row">
-											<td class="text-center">
-												<a href="#" class="btn blue-chambray">
-													<input type="hidden" name="so_id[<?= $row ?>]" value="<?= $value['ID'] ?>">
-													<?= $row + 1 ?>
-												</a>
-											</td>
-											<td>
-												<div class="form-group">
-													<select name="so_stockcode[<?= $row ?>]" id="so_stockcode[<?= $row ?>]" class="form-control so-stockcode" data-value="<?= $value['StockID'] ?>">
-														<option value=""></option>
-													</select>
-													<span class="help-block hidden"></span>
-												</div>
-											</td>
-											<td>
-												<div class="form-group">
-													<input type="text" name="so_uom[<?= $row ?>]" id="so_uom[<?= $row ?>]" class="form-control so-uom" readonly value="<?= $value['UOM'] ?>">
-													<span class="help-block hidden"></span>
-												</div>
-											</td>
-											<td>
-												<div class="form-group">
-													<select name="so_currency[<?= $row ?>]" id="so_currency[<?= $row ?>]" class="form-control so-currency" data-value="<?= $value['Currency'] ?>">
-														<option value=""></option>
-													</select>
-													<span class="help-block hidden"></span>
-												</div>
-											</td>
-											<td>
-												<div class="form-group">
-													<input type="number" name="so_qty[<?= $row ?>]" id="so_qty[<?= $row ?>]" class="form-control text-right so-qty" min="0" value="<?= $value['Qty'] ?>">
-													<span class="help-block hidden"></span>
-												</div>
-											</td>
-											<td>
-												<div class="form-group">
-													<input type="number" name="so_price[<?= $row ?>]" id="so_price[<?= $row ?>]" class="form-control text-right so-price" min="0" value="<?= $value['Price'] ?>">
-													<span class="help-block hidden"></span>
-												</div>
-											</td>
-											<td>
-												<div class="form-group">
-													<input type="number" name="so_discount[<?= $row ?>]" id="so_discount[<?= $row ?>]" class="form-control text-right so-discount" min="0" value="<?= $value['Discount'] ?>">
-													<span class="help-block hidden"></span>
-												</div>
-											</td>
-											<td>
-												<div class="form-group">
-													<input type="number" name="so_total[<?= $row ?>]" id="so_total[<?= $row ?>]" class="form-control text-right so-total" min="0" readonly value="<?= $value['TotalAmount'] ?>">
-													<span class="help-block hidden"></span>
-												</div>
-											</td>
-										</tr>
-									<?php endforeach; ?>
-								<?php else : ?>
-									<tr class="t-row">
-										<td class="text-center">
-											<a href="#" class="btn blue-chambray">
-												1
-											</a>
-										</td>
-										<td>
-											<div class="form-group">
-												<select name="so_stockcode[0]" id="so_stockcode[0]" class="form-control so-stockcode">
-													<option value=""></option>
-												</select>
-												<span class="help-block hidden"></span>
-											</div>
-										</td>
-										<td>
-											<div class="form-group">
-												<input type="text" name="so_uom[0]" id="so_uom[0]" class="form-control so-uom" readonly>
-												<span class="help-block hidden"></span>
-											</div>
-										</td>
-										<td>
-											<div class="form-group">
-												<select name="so_currency[0]" id="so_currency[0]" class="form-control so-currency">
-													<option value=""></option>
-												</select>
-												<span class="help-block hidden"></span>
-											</div>
-										</td>
-										<td>
-											<div class="form-group">
-												<input type="number" name="so_qty[0]" id="so_qty[0]" class="form-control text-right so-qty" min="0" value="0">
-												<span class="help-block hidden"></span>
-											</div>
-										</td>
-										<td>
-											<div class="form-group">
-												<input type="number" name="so_price[0]" id="so_price[0]" class="form-control text-right so-price" min="0" value="0">
-												<span class="help-block hidden"></span>
-											</div>
-										</td>
-										<td>
-											<div class="form-group">
-												<input type="number" name="so_discount[0]" id="so_discount[0]" class="form-control text-right so-discount" min="0" value="0">
-												<span class="help-block hidden"></span>
-											</div>
-										</td>
-										<td>
-											<div class="form-group">
-												<input type="number" name="so_total[0]" id="so_total[0]" class="form-control text-right so-total" min="0" readonly value="0">
-												<span class="help-block hidden"></span>
-											</div>
-										</td>
-									</tr>
-								<?php endif; ?>
+							<tbody id="tbody_invoice">
+								<tr>
+									<td class="text-center">
+										<a href="#" name="item_no" class="btn blue-chambray">
+											1
+										</a>
+									</td>
+									<td>
+										<div class="form-group">
+											<select name="stockcode[]" id="stockcode[]" class="form-control so-stockcode">
+												<option value="">-- Select Stockcode --</option>
+												<?php if (!empty($stockcode)) : ?>
+													<?php for ($i = 0; $i < count($stockcodes); $i++) : ?>
+														<option value="<?= $stockcode[$i]['Stockcode'] ?>"><?= $stockcode[$i]['StockDescription'] ?></option>
+													<?php endfor; ?>
+												<?php endif; ?>
+											</select>
+											<span class="help-block hidden"></span>
+										</div>
+									</td>
+									<td>
+										<div class="form-group">
+											<input type="text" name="uom[]" id="uom[]" class="form-control so-uom" readonly>
+											<span class="help-block hidden"></span>
+										</div>
+									</td>
+									<td>
+										<div class="form-group">
+											<select name="currency[]" id="currency[]" class="form-control so-currency">
+												<?php foreach ($currency as $cur) : ?>
+													<option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?></option>
+												<?php endforeach; ?>
+											</select>
+											<span class="help-block hidden"></span>
+										</div>
+									</td>
+									<td>
+										<div class="form-group">
+											<input type="text" name="qty[]" id="qty[]" class="form-control text-right so-qty" min="0" value="0">
+											<span class="help-block hidden"></span>
+										</div>
+									</td>
+									<td>
+										<div class="form-group">
+											<input type="text" name="price[]" id="price[]" class="form-control text-right so-price" min="0" value="0">
+											<span class="help-block hidden"></span>
+										</div>
+									</td>
+									<td>
+										<div class="form-group">
+											<input type="text" name="discount[]" id="discount[]" class="form-control text-right so-discount" min="0" value="0">
+											<span class="help-block hidden"></span>
+										</div>
+									</td>
+									<td>
+										<div class="form-group">
+											<input type="text" name="total[]" id="total[]" class="form-control text-right so-total" min="0" readonly value="0">
+											<span class="help-block hidden"></span>
+										</div>
+									</td>
+								</tr>
 							</tbody>
 						</table>
-						<a href="#" class="btn blue-chambray pull-right" id="action-add-row">Add Item</a>
+						<a href="javascript:;" id="add_row" class="btn blue-chambray pull-right">Add Item</a>
 					</div>
 				</div>
 			</div>
@@ -291,30 +249,30 @@
 				</div>
 				<div class="portlet-body">
 					<div class="form-group">
-						<label for="so_payment_sub_total" class="control-label">Subtotal</label>
+						<label for="payment_sub_total" class="control-label">Subtotal</label>
 						<div class="input-group">
-							<input type="text" name="so_payment_sub_total" id="so_payment_sub_total" class="form-control text-right" readonly value="">
+							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="">
 							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="so_payment_discount" class="control-label">Discount</label>
+						<label for="payment_discount" class="control-label">Discount</label>
 						<div class="input-group">
-							<input type="number" name="so_payment_discount" id="so_payment_discount" class="form-control text-right" step="0.01" min="0" value="0">
+							<input type="text" name="payment_discount" id="payment_discount" class="form-control text-right">
 							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 						</div>
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="form-group">
 						<label for="" class="control-label">Net - Subtotal</label>
-						<input type="text" name="" id="" class="form-control text-right" readonly value="">
+						<input type="text" name="payment_net_subtotal" id="payment_net_subtotal" class="form-control text-right" readonly value="">
 					</div>
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="so_payment_discount" class="control-label">VAT</label>
+								<label for="payment_vat" class="control-label">VAT</label>
 								<div class="input-group">
-									<input type="number" name="so_payment_discount" id="so_payment_discount" class="form-control text-right" step="0.01" min="0" value="0">
+									<input type="text" name="payment_vat" id="payment_vat" class="form-control text-right">
 									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 								</div>
 								<span class="help-block hidden"></span>
@@ -322,9 +280,9 @@
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="" class="control-label">Less PPh 23</label>
+								<label for="payment_pph" class="control-label">Less PPh 23</label>
 								<div class="input-group">
-									<input type="number" name="" id="" class="form-control text-right" step="0.01" min="0" value="0">
+									<input type="text" name="payment_pph" id="payment_pph" class="form-control text-right">
 									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 								</div>
 								<span class="help-block hidden"></span>
@@ -332,62 +290,61 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="so_payment_freight_cost" class="control-label">Freight</label>
+						<label for="payment_freight" class="control-label">Freight</label>
 						<div class="input-group">
-							<input type="number" name="so_payment_freight_cost" id="so_payment_freight_cost" class="form-control text-right" step="0.01" min="0" value="0">
+							<input type="text" name="payment_freight" id="payment_freight" class="form-control text-right">
 							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="so_payment_grand_total" class="control-label">Total Amount</label>
-						<input type="text" name="so_payment_grand_total" id="so_payment_grand_total" class="form-control text-right" readonly min="0" value="">
+						<label for="payment_grand_total" class="control-label">Total Amount</label>
+						<input type="text" name="payment_grand_total" id="payment_grand_total" class="form-control text-right" readonly min="0" value="">
 					</div>
 					<div class="form-group">
-			          <label for="dp_payment_type" class="control-label">Payment Method</label>
-			          <div class="mt-radio-inline">
-			            <label class="mt-radio">
-			              <input type="radio" id="radio-cash" name="dp_payment_type" value="cash" checked>
-			              <span></span>
-			              Cash
-			            </label>
-			            <label class="mt-radio">
-			              <input type="radio" id="radio-debit" name="dp_payment_type" value="debit">
-			              <span></span>
-			              Debit
-			            </label>
-			            <label class="mt-radio">
-			              <input type="radio" id="radio-credit" name="dp_payment_type" value="credit">
-			              <span></span>
-			              Credit
-			            </label>
-			            <label class="mt-radio">
-			              <input type="radio" id="radio-credit" name="dp_payment_type" value="credit purchase">
-			              <span></span>
-			              Credit Purchase
-			            </label>
-			          </div>
-			        </div>
-			        <div id="card-payment" class="">
-			          <div class="form-group">
-			            <label for="dp_payment_card_number" class="control-label">Card Number</label>
-			            <input type="text" name="dp_payment_card_number" id="dp_payment_card_number" class="form-control">
-			          </div>
-			          <div class="form-group">
-			            <label for="dp_payment_bank" class="control-label">Bank</label>
-			            <select name="dp_payment_bank" id="dp_payment_bank" class="form-control">
-			              <option value=""></option>
-			            </select>
-			          </div>
-			        </div>
-			        <div class="form-group">
-						<label for="so_payment_sub_total" class="control-label">Payment</label>
+						<label for="dp_payment_type" class="control-label">Payment Method</label>
+						<div class="mt-radio-inline">
+							<label class="mt-radio">
+								<input type="radio" id="radio-cash" name="dp_payment_type" value="cash" checked>
+								<span></span>
+								Cash
+							</label>
+							<label class="mt-radio">
+								<input type="radio" id="radio-debit" name="dp_payment_type" value="debit">
+								<span></span>
+								Debit
+							</label>
+							<label class="mt-radio">
+								<input type="radio" id="radio-credit" name="dp_payment_type" value="credit">
+								<span></span>
+								Credit
+							</label>
+							<label class="mt-radio">
+								<input type="radio" id="radio-credit" name="dp_payment_type" value="credit_purchase">
+								<span></span>
+								Credit Purchase
+							</label>
+						</div>
+					</div>
+					<div id="card-payment" class="">
+						<div class="form-group">
+							<label for="dp_payment_card_text" class="control-label">Card Number</label>
+							<input type="text" name="dp_payment_card_text" id="dp_payment_card_text" class="form-control" disabled>
+						</div>
+						<div class="form-group">
+							<label for="dp_payment_bank" class="control-label">Bank</label>
+							<select name="dp_payment_bank" id="dp_payment_bank" class="form-control" disabled>
+								<option value="">-- Select Bank --</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="payment_sub_total" class="control-label">Payment</label>
 						<div class="input-group">
-							<input type="text" name="" id="" class="form-control text-right" readonly value="">
+							<input type="text" name="payment_total" id="payment_total" class="form-control text-right" readonly value="">
 						</div>
 					</div>
 				</div>
 				<div class="portlet-footer text-right">
-					<hr>
 					<button type="submit" class="btn blue-chambray">Submit</button>
 				</div>
 			</div>

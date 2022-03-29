@@ -3,6 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_common extends CI_Model
 {
+    function get_currency(){
+        return $this->db->get('tbl_fa_mas_cur')->result();
+    }
+    
     public function calculate_retaining_earnings($branch, $date){
         $this->db->trans_begin();
 

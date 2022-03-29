@@ -8,6 +8,7 @@ class Invoice extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Mdl_corp_invoice');
+		$this->load->model('Mdl_corp_common');
 	}
 
 	public function index()
@@ -33,6 +34,16 @@ class Invoice extends CI_Controller
 	{
 		$content_data = [
 			'title' => 'Create Invoice',
+
+			//Master
+			'invoice_no' => $this->Mdl_corp_invoice->generate_invoice(),
+			'customer' => $this->Mdl_corp_invoice->get_customer(),
+			'storage' => $this->Mdl_corp_invoice->get_storage(),
+			'raised_by' => 'ADMIN',
+
+			//List
+			'stockcode' => $this->Mdl_corp_invoice->get_stockcode(),
+			'currency' => $this->Mdl_corp_common->get_currency(),
 		];
 
 		$content = $this->load->view('financecorp/ar/invoice/content/new_invoice', $content_data, TRUE);
@@ -43,6 +54,11 @@ class Invoice extends CI_Controller
 		];
 
 		$this->load->view('financecorp/ar/invoice/layout/header_footer_form', $data);
+	}
+
+	public function submit_invoice(){
+		var_dump('<pre>'.print_r($this->input->post(), true).'</pre>');
+		die();
 	}
 
 	public function get_approval()

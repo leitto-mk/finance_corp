@@ -69,6 +69,6 @@
         <!-- END PAGE LEVEL SCRIPTS -->
         <?php if(isset($script) && $script !== '') : ?>
             <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
-        <?php endif; ?>  
+        <?php endif; ?>
      </body>
 </html>

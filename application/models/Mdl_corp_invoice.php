@@ -2,6 +2,43 @@
 
 class Mdl_corp_invoice extends CI_Model
 {
+	function generate_invoice(){ 
+        $current = $this->db
+                    ->limit(1)
+                    ->order_by('InvoiceNo', 'DESC')
+                    ->select('SUBSTRING(InvoiceNo, 6,5)+0 AS InvoiceNo')
+                    ->get('tbl_fa_invoice_mas');
+
+        if($current->num_rows() == 0 ){
+            $sequence = str_pad(1, 5, 0, STR_PAD_LEFT);
+        }elseif($current->num_rows() > 0){
+            $current = $current->row()->InvoiceNo;
+            $sequence = str_pad($current+1, 5, 0, STR_PAD_LEFT);
+        }
+
+        $invoice_no = date('ym') . '-' . $sequence . 'INV'; 
+        
+        return $invoice_no;
+    }
+
+	public function get_customer(){
+		$query = $this->db->select('CustomerCode, CustomerName')->get('tbl_mat_cat_customer')->result_array();
+
+		return $query;
+	}
+
+	public function get_storage(){
+		$query = $this->db->select('StorageCode, StorageName')->get('tbl_mat_cat_storage')->result_array();
+
+		return $query;
+	}
+
+	public function get_stockcode(){
+		$query = $this->db->select('Stockcode, StockDescription')->get('tbl_mat_stockcode')->result_array();
+
+		return $query;
+	}
+
 	public function get_approval()
 	{
 		$data = [
