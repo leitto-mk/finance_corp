@@ -265,7 +265,7 @@ const car = {
         },
     
         eventSubmitCAReceipt: () => {
-            $(document).on('click','#btn_submit', function(e){
+            $('form').submit(function(e){
                 e.preventDefault()
             
                 //Remove Row with empty Description

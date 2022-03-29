@@ -250,7 +250,7 @@ const rec = {
         },
     
         eventSubmitReceipt: () => {
-            $('#btn_submit').on('click',function(e){
+            $('form').submit(function(e){
                 e.preventDefault()
                 
                 //Remove Row with empty Description
