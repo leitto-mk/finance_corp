@@ -165,6 +165,7 @@ $(document).ready(function(){
                 }else if(segment.toLowerCase() == "create_invoice"){
                     inv.formPage.initInputMask()
                     inv.formPage.eventGetTermsOfDay()
+                    inv.formPage.eventInputAmount()
                     inv.formPage.eventAddRow()
                     inv.formPage.eventChagePaymentMethod()
                     inv.formPage.eventDeleteRow()

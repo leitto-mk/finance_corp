@@ -39,7 +39,7 @@ class Invoice extends CI_Controller
 			'invoice_no' => $this->Mdl_corp_invoice->generate_invoice(),
 			'customer' => $this->Mdl_corp_invoice->get_customer(),
 			'storage' => $this->Mdl_corp_invoice->get_storage(),
-			'raised_by' => 'ADMIN',
+			'raised_by' => 'ABASE-ADMIN',
 
 			//List
 			'stockcode' => $this->Mdl_corp_invoice->get_stockcode(),

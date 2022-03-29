@@ -206,7 +206,7 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="text" name="qty[]" id="qty[]" class="form-control text-right so-qty" min="0" value="0">
+											<input type="number" name="qty[]" id="qty[]" class="form-control text-right so-qty" min="1" value="1">
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
@@ -218,7 +218,7 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="text" name="discount[]" id="discount[]" class="form-control text-right so-discount" min="0" value="0">
+											<input type="number" name="discount[]" id="discount[]" class="form-control text-right so-discount" min="0" value="0">
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
@@ -258,7 +258,7 @@
 					<div class="form-group">
 						<label for="payment_discount" class="control-label">Discount</label>
 						<div class="input-group">
-							<input type="text" name="payment_discount" id="payment_discount" class="form-control text-right">
+							<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="0">
 							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 						</div>
 						<span class="help-block hidden"></span>
@@ -272,7 +272,7 @@
 							<div class="form-group">
 								<label for="payment_vat" class="control-label">VAT</label>
 								<div class="input-group">
-									<input type="text" name="payment_vat" id="payment_vat" class="form-control text-right">
+									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0">
 									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 								</div>
 								<span class="help-block hidden"></span>
@@ -282,7 +282,7 @@
 							<div class="form-group">
 								<label for="payment_pph" class="control-label">Less PPh 23</label>
 								<div class="input-group">
-									<input type="text" name="payment_pph" id="payment_pph" class="form-control text-right">
+									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="0">
 									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 								</div>
 								<span class="help-block hidden"></span>
@@ -297,8 +297,8 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="payment_grand_total" class="control-label">Total Amount</label>
-						<input type="text" name="payment_grand_total" id="payment_grand_total" class="form-control text-right" readonly min="0" value="">
+						<label for="payment_total_amount" class="control-label">Total Amount</label>
+						<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly>
 					</div>
 					<div class="form-group">
 						<label for="dp_payment_type" class="control-label">Payment Method</label>
@@ -338,7 +338,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="payment_sub_total" class="control-label">Payment</label>
+						<label for="payment_total" class="control-label">Payment</label>
 						<div class="input-group">
 							<input type="text" name="payment_total" id="payment_total" class="form-control text-right" readonly value="">
 						</div>

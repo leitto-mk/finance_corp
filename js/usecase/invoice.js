@@ -98,28 +98,18 @@ const inv = {
     formPage: {
         initInputMask: () => {
             //Order List
-            let unit = $(document).find('input[name="qty[]"]')
-            let amount = $(document).find('input[name="price[]"]')
-            let disc = $(document).find('input[name="discount[]"]')
+            let price = $(document).find('input[name="price[]"]')
             let total = $(document).find('input[name="total[]"]')
-            helper.setInputMask(unit, "currency")
-            helper.setInputMask(amount, "currency")
-            helper.setInputMask(disc, "currency")
+            helper.setInputMask(price, "currency")
             helper.setInputMask(total, "currency")
             
             //Payment
             let pay_subtotal = $(document).find('#payment_sub_total')
-            let pay_disc = $(document).find('#payment_discount')
             let pay_net_subtotal = $(document).find('#payment_net_subtotal')
-            let pay_vat = $(document).find('#payment_vat')
-            let pay_pph = $(document).find('#payment_pph')
             let pay_freight = $(document).find('#payment_freight')
             let pay_total_amount = $(document).find('#payment_total_amount')
             helper.setInputMask(pay_subtotal, "currency")
-            helper.setInputMask(pay_disc, "currency")
             helper.setInputMask(pay_net_subtotal, "currency")
-            helper.setInputMask(pay_vat, "currency")
-            helper.setInputMask(pay_pph, "currency")
             helper.setInputMask(pay_freight, "currency")
             helper.setInputMask(pay_total_amount, "currency")
         },
@@ -135,6 +125,70 @@ const inv = {
                 let duration = moment.duration(end.diff(start)).asDays();
 
                 duration > 0 ? $('#term_days').val(`${duration} Days`) : $('#term_days').val('')
+            })
+        },
+
+        eventInputAmount: () => {
+            //Calculate Order List
+            $(document).on('input', '[name="qty[]"], [name="price[]"], [name="discount[]"]', function(){
+                //Order List
+                let subtotal = 0
+                let qty = +$(this).parents('tr').find('[name="qty[]"]').val()
+                let price = $(this).parents('tr').find('[name="price[]"]').val()
+                price = parseFloat(price.replaceAll(',',''))
+                let discount = +$(this).parents('tr').find('[name="discount[]"]').val() / 100
+                let total = qty * price
+                let total_discounted = total - (total * discount)
+    
+                $(this).parents('tr').find('[name="total[]"]').val(total_discounted)
+    
+                $('[name="total[]"]').each(function(){
+                    subtotal += parseFloat($(this).val().replaceAll(',',''))
+                })
+
+                $('#payment_sub_total').val(subtotal)
+
+                //Payment Details
+                let payment_sub_total = parseFloat($('#payment_sub_total').val().replaceAll(',',''))
+                let payment_discount = parseFloat($('#payment_discount').val().replaceAll(',','')) / 100
+                let net_subtotal = payment_sub_total - (payment_sub_total * payment_discount)
+
+                $('#payment_net_subtotal').val(net_subtotal)
+
+                let payment_vat = +$('#payment_vat').val() / 100 
+                let payment_pph = +$('#payment_pph').val() / 100 
+                let payment_freight = $('#payment_freight').val()
+                payment_freight = payment_freight !== '' ? parseFloat($('#payment_freight').val().replaceAll(',','')) : 0
+                let total_amount = 0
+
+                payment_vat = (net_subtotal * payment_vat)
+                payment_pph = (net_subtotal * payment_pph)
+                
+                total_amount = (net_subtotal + payment_vat - payment_pph + payment_freight)
+
+                $('#payment_total_amount').val(total_amount)
+            })
+
+            //Calculate total Payment Details
+            $(document).on('input', '#payment_discount, #payment_vat, #payment_pph, #payment_freight', function(){
+                let payment_sub_total = parseFloat($('#payment_sub_total').val().replaceAll(',',''))
+                let payment_discount = +$('#payment_discount').val() / 100
+                let net_subtotal = payment_sub_total - (payment_sub_total * payment_discount)
+
+                $('#payment_net_subtotal').val(net_subtotal)
+
+                let payment_vat = +$('#payment_vat').val() / 100 
+                let payment_pph = +$('#payment_pph').val() / 100 
+                let payment_freight = $('#payment_freight').val()
+                payment_freight = payment_freight !== '' ? parseFloat($('#payment_freight').val().replaceAll(',','')) : 0
+                let total_amount = 0
+
+                payment_vat = (net_subtotal * payment_vat)
+                payment_pph = (net_subtotal * payment_pph)
+                
+                total_amount = (net_subtotal + payment_vat - payment_pph + payment_freight)
+
+                $('#payment_total_amount').val(total_amount)
             })
         },
         
@@ -156,13 +210,9 @@ const inv = {
                 $('#tbody_invoice').append(row)
 
                 //Re-Initiated Input Mask
-                let unit = $(document).find('input[name="qty[]"]')
-                let amount = $(document).find('input[name="price[]"]')
-                let disc = $(document).find('input[name="discount[]"]')
+                let price = $(document).find('input[name="price[]"]')
                 let total = $(document).find('input[name="total[]"]')
-                helper.setInputMask(unit, "currency")
-                helper.setInputMask(amount, "currency")
-                helper.setInputMask(disc, "currency")
+                helper.setInputMask(price, "currency")
                 helper.setInputMask(total, "currency")
             })
         },
