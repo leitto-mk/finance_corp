@@ -818,10 +818,10 @@
                                         </tr>
 
                                         <!--Net Profit / Loss-->
-                                        <!--Formula bisa dapat Net Profit / Loss = Total Gross Profit - (Total Other Revenue - Other Expense)-->
+                                        <!-- ((4000+7000) - (5000+6000+8000)) -->
                                         <?php
-                                            $net_gain_month = $gross_gain_month - $other_gain_month;
-                                            $net_gain_year = $gross_gain_year - $other_gain_year;
+                                            $net_gain_month = ($grand_total_rev_month + $grand_total_other_expenses_month) - ($grand_total_opr_month + $grand_total_other_rev_month + $grand_total_other_operational_month);
+                                            $net_gain_year = ($grand_total_rev_year + $grand_total_other_expenses_year) - ($grand_total_opr_year + $grand_total_other_rev_year + $grand_total_other_expenses_year);
                                         ?>
                                         <!-- <tr class="font-yellow-gold"> -->
                                         <tr>
