@@ -97,7 +97,7 @@ const inv = {
 
     formPage: {
         initSelectSearch: () => {
-            $('#customer').select2()
+            $('#customer').select2({width: 'auto'})
             $('#tbody_invoice select[name="stockcode[]"]').select2({width: 'auto'})
         },
 
@@ -141,6 +141,14 @@ const inv = {
                 $(this).parents('tr').find('input[name="uom[]"]').val(uom).trigger('input')
                 $(this).parents('tr').find('input[name="qty[]"]').val(uom_qty).trigger('input')
                 $(this).parents('tr').find('input[name="qty[]"]').attr('min', uom_qty)
+            })
+        },
+
+        eventChangeCurrency: () => {
+            $('#tbody_invoice').on('change', 'select[name="currency[]"]', function(){
+                let currency = $(this).val()
+
+                $(this).parents('tr').find('.input-group .input-group-addon').text(currency)
             })
         },
 

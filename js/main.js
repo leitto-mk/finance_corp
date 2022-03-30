@@ -167,6 +167,7 @@ $(document).ready(function(){
                     inv.formPage.initInputMask()
                     inv.formPage.eventGetTermsOfDay()
                     inv.formPage.eventSelectStockcode()
+                    inv.formPage.eventChangeCurrency()
                     inv.formPage.eventInputAmount()
                     inv.formPage.eventAddRow()
                     inv.formPage.eventChagePaymentMethod()

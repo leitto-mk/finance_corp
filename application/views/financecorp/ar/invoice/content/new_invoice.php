@@ -211,9 +211,9 @@
 										</div>
 									</td>
 									<td>
-										<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">IDR</span>
 											<input type="text" name="price[]" class="form-control text-right so-price" min="0" value="0">
-											<span class="help-block hidden"></span>
 										</div>
 									</td>
 									<td>
@@ -223,9 +223,9 @@
 										</div>
 									</td>
 									<td>
-										<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 											<input type="text" name="total[]" class="form-control text-right so-total" min="0" readonly value="0">
-											<span class="help-block hidden"></span>
 										</div>
 									</td>
 								</tr>
@@ -251,21 +251,24 @@
 					<div class="form-group">
 						<label for="payment_sub_total" class="control-label">Subtotal</label>
 						<div class="input-group">
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="payment_discount" class="control-label">Discount</label>
 						<div class="input-group">
 							<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="0" step="0.01">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
 						</div>
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="form-group">
 						<label for="" class="control-label">Net - Subtotal</label>
-						<input type="text" name="payment_net_subtotal" id="payment_net_subtotal" class="form-control text-right" readonly value="0">
+						<div class="input-group">
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
+							<input type="text" name="payment_net_subtotal" id="payment_net_subtotal" class="form-control text-right" readonly value="0">
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-6">
@@ -273,7 +276,7 @@
 								<label for="payment_vat" class="control-label">VAT</label>
 								<div class="input-group">
 									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01">
-									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
+									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -283,7 +286,7 @@
 								<label for="payment_pph" class="control-label">Less PPh 23</label>
 								<div class="input-group">
 									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="0" step="0.01">
-									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
+									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -292,13 +295,16 @@
 					<div class="form-group">
 						<label for="payment_freight" class="control-label">Freight</label>
 						<div class="input-group">
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 							<input type="text" name="payment_freight" id="payment_freight" class="form-control text-right">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="payment_total_amount" class="control-label">Total Amount</label>
-						<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly>
+						<div class="input-group">
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
+							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly>
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="dp_payment_type" class="control-label">Payment Method</label>
