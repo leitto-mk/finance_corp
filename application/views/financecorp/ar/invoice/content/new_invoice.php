@@ -218,7 +218,7 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="number" name="discount[]" id="discount[]" class="form-control text-right so-discount" min="0" value="0">
+											<input type="number" name="discount[]" id="discount[]" class="form-control text-right so-discount" min="0" value="0" step="0.01">
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
@@ -258,7 +258,7 @@
 					<div class="form-group">
 						<label for="payment_discount" class="control-label">Discount</label>
 						<div class="input-group">
-							<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="0">
+							<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="0" step="0.01">
 							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 						</div>
 						<span class="help-block hidden"></span>
@@ -272,7 +272,7 @@
 							<div class="form-group">
 								<label for="payment_vat" class="control-label">VAT</label>
 								<div class="input-group">
-									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0">
+									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01">
 									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 								</div>
 								<span class="help-block hidden"></span>
@@ -282,7 +282,7 @@
 							<div class="form-group">
 								<label for="payment_pph" class="control-label">Less PPh 23</label>
 								<div class="input-group">
-									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="0">
+									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="0" step="0.01">
 									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray"><i class="fa fa-edit"></i></span>
 								</div>
 								<span class="help-block hidden"></span>
