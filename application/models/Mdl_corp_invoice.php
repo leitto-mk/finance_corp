@@ -34,7 +34,7 @@ class Mdl_corp_invoice extends CI_Model
 	}
 
 	public function get_stockcode(){
-		$query = $this->db->select('Stockcode, StockDescription')->get('tbl_mat_stockcode')->result_array();
+		$query = $this->db->select('Stockcode, StockDescription, UOM, UOMQty')->get('tbl_mat_stockcode')->result_array();
 
 		return $query;
 	}

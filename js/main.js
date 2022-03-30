@@ -163,14 +163,16 @@ $(document).ready(function(){
                 if(segment.toLowerCase() == ""){
                     inv.dashboardPage.generateDataTable()
                 }else if(segment.toLowerCase() == "create_invoice"){
+                    inv.formPage.initSelectSearch()
                     inv.formPage.initInputMask()
                     inv.formPage.eventGetTermsOfDay()
+                    inv.formPage.eventSelectStockcode()
                     inv.formPage.eventInputAmount()
                     inv.formPage.eventAddRow()
                     inv.formPage.eventChagePaymentMethod()
                     inv.formPage.eventDeleteRow()
-                    inv.formPage.submitInvoice()
-                } 
+                    inv.formPage.eventSubmitInvoice()
+                }
             })
             .catch(err => {
                 console.log(`%cError:%c ${err}`, 'color: red', 'color: white')

@@ -18,7 +18,7 @@
 						<select name="customer" id="customer" class="form-control" data-value="">
 							<option value="">-- Select Customer --</option>
 							<?php if (!empty($customer)) : ?>
-								<?php for ($i = 0; $i < count($customers); $i++) : ?>
+								<?php for ($i = 0; $i < count($customer); $i++) : ?>
 									<option value="<?= $customer[$i]['CustomerCode'] ?>"><?= $customer[$i]['CustomerName'] ?></option>
 								<?php endfor; ?>
 							<?php endif; ?>
@@ -67,7 +67,7 @@
 						<select name="storage" id="storage" class="form-control">
 							<option value="">-- Select Storage --</option>
 							<?php if (!empty($storage)) : ?>
-								<?php for ($i = 0; $i < count($storages); $i++) : ?>
+								<?php for ($i = 0; $i < count($storage); $i++) : ?>
 									<option value="<?= $storage[$i]['StorageCode'] ?>"><?= $storage[$i]['StorageName'] ?></option>
 								<?php endfor; ?>
 							<?php endif; ?>
@@ -177,11 +177,11 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<select name="stockcode[]" id="stockcode[]" class="form-control so-stockcode">
+											<select name="stockcode[]" class="form-control so-stockcode">
 												<option value="">-- Select Stockcode --</option>
 												<?php if (!empty($stockcode)) : ?>
-													<?php for ($i = 0; $i < count($stockcodes); $i++) : ?>
-														<option value="<?= $stockcode[$i]['Stockcode'] ?>"><?= $stockcode[$i]['StockDescription'] ?></option>
+													<?php for ($i = 0; $i < count($stockcode); $i++) : ?>
+														<option value="<?= $stockcode[$i]['Stockcode'] ?>" data-uom="<?= $stockcode[$i]['UOM'] ?>" data-uom-qty="<?= $stockcode[$i]['UOMQty']?>"><?= $stockcode[$i]['StockDescription'] ?></option>
 													<?php endfor; ?>
 												<?php endif; ?>
 											</select>
@@ -190,13 +190,13 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="text" name="uom[]" id="uom[]" class="form-control so-uom" readonly>
+											<input type="text" name="uom[]" class="form-control so-uom" readonly>
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
 									<td>
 										<div class="form-group">
-											<select name="currency[]" id="currency[]" class="form-control so-currency">
+											<select name="currency[]" class="form-control so-currency">
 												<?php foreach ($currency as $cur) : ?>
 													<option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?></option>
 												<?php endforeach; ?>
@@ -206,25 +206,25 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="number" name="qty[]" id="qty[]" class="form-control text-right so-qty" min="1" value="1">
+											<input type="number" name="qty[]" class="form-control text-right so-qty" min="1" value="1">
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="text" name="price[]" id="price[]" class="form-control text-right so-price" min="0" value="0">
+											<input type="text" name="price[]" class="form-control text-right so-price" min="0" value="0">
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="number" name="discount[]" id="discount[]" class="form-control text-right so-discount" min="0" value="0" step="0.01">
+											<input type="number" name="discount[]" class="form-control text-right so-discount" min="0" value="0" step="0.01">
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="text" name="total[]" id="total[]" class="form-control text-right so-total" min="0" readonly value="0">
+											<input type="text" name="total[]" class="form-control text-right so-total" min="0" readonly value="0">
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
@@ -265,7 +265,7 @@
 					</div>
 					<div class="form-group">
 						<label for="" class="control-label">Net - Subtotal</label>
-						<input type="text" name="payment_net_subtotal" id="payment_net_subtotal" class="form-control text-right" readonly value="">
+						<input type="text" name="payment_net_subtotal" id="payment_net_subtotal" class="form-control text-right" readonly value="0">
 					</div>
 					<div class="row">
 						<div class="col-lg-6">
