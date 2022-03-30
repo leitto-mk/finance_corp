@@ -98,7 +98,7 @@ const inv = {
     formPage: {
         initSelectSearch: () => {
             $('#customer').select2()
-            $('#tbody_invoice select[name="stockcode[]"]').select2()
+            $('#tbody_invoice select[name="stockcode[]"]').select2({width: 'auto'})
         },
 
         initInputMask: () => {
@@ -198,7 +198,11 @@ const inv = {
                 //Set Default Value
                 let item_no = +row.find('td:first-child a').text()
                 row.find('td:first-child a').text(item_no + 1)
-                row.find('[name="stockcode[]"]').val('')
+                
+                //? Re-instiated `select2`
+                row.find("span.select2 ").remove();
+                row.find('[name="stockcode[]"]').select2({width: 'auto'})
+
                 row.find('[name="uom[]"]').val('')
                 row.find('[name="currency[]"]').val('')
                 row.find('[name="qty[]"]').val(1)
@@ -255,6 +259,14 @@ const inv = {
                 e.preventDefault()
 
                 let formData = $(this).serializeArray()
+
+                //Deformat Numbers
+                formData.find(input => {
+                    let input_with_mask = ['price[]', 'total[]', 'payment_sub_total', 'payment_net_subtotal', 'payment_total_amount']
+                    if(input_with_mask.includes(input.name)){
+                        input.value = parseFloat(input.value.replaceAll(',',''))
+                    }
+                })
 
                 repository.submitRecord('submit_invoice', formData)
                 .then(result => {
