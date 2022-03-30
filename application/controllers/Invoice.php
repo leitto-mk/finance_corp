@@ -50,6 +50,10 @@ class Invoice extends CI_Controller
 			//List
 			'stockcode' => $this->Mdl_corp_invoice->get_stockcode(),
 			'currency' => $this->Mdl_corp_common->get_currency(),
+
+			//Payment Detail
+			'branch' => $this->Mdl_corp_common->get_branch(),
+			'accno' => $this->Mdl_corp_common->get_mas_acc()
 		];
 
 		$content = $this->load->view('financecorp/ar/invoice/content/new_invoice', $content_data, TRUE);

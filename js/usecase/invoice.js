@@ -99,6 +99,7 @@ const inv = {
         initSelectSearch: () => {
             $('#customer').select2({width: 'auto'})
             $('#tbody_invoice select[name="stockcode[]"]').select2({width: 'auto'})
+            $('#accno').select2({width: 'auto'})
         },
 
         initInputMask: () => {

@@ -3,6 +3,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_common extends CI_Model
 {
+    function get_branch(){
+        return $this->db->select('BranchCode, BranchName')
+                        ->get('abase_02_branch')->result_array();
+    }
+
+    function get_mas_acc(){
+        $query = $this->db
+                ->order_by('Acc_No', 'ASC')
+                ->select('Acc_No, Acc_Name, Acc_Type, TransGroup')
+                ->where_not_in('TransGroup', ['H1','H2','H3'])
+                ->get('tbl_fa_account_no')->result_array();
+
+        return $query;
+    }
+
     function get_currency(){
         return $this->db->get('tbl_fa_mas_cur')->result();
     }

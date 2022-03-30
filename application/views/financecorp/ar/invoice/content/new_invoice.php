@@ -15,7 +15,7 @@
 					</div>
 					<div class="form-group">
 						<label for="customer" class="control-label">Customer</label>
-						<select name="customer" id="customer" class="form-control" data-value="">
+						<select name="customer" id="customer" class="form-control" data-value="" required>
 							<option value="">-- Select Customer --</option>
 							<?php if (!empty($customer)) : ?>
 								<?php for ($i = 0; $i < count($customer); $i++) : ?>
@@ -50,21 +50,21 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="bill_to" class="control-label">Bill To</label>
-								<input type="text" name="bill_to" id="bill_to" class="form-control" value="">
+								<input type="text" name="bill_to" id="bill_to" class="form-control" value="" required>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="ship_to" class="control-label">Ship To</label>
-								<input type="text" name="ship_to" id="ship_to" class="form-control" value="">
+								<input type="text" name="ship_to" id="ship_to" class="form-control" value="" required>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="storage" class="control-label">Storage</label>
-						<select name="storage" id="storage" class="form-control">
+						<select name="storage" id="storage" class="form-control" required>
 							<option value="">-- Select Storage --</option>
 							<?php if (!empty($storage)) : ?>
 								<?php for ($i = 0; $i < count($storage); $i++) : ?>
@@ -78,7 +78,7 @@
 						<div class="col-lg-6 col-md-6">
 							<div class="form-group">
 								<label for="freight" class="control-label">Freight</label>
-								<input type="text" name="freight" id="freight" class="form-control" value="">
+								<input type="text" name="freight" id="freight" class="form-control" value="" required>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
@@ -128,7 +128,7 @@
 					</div>
 					<div class="form-group">
 						<label for="raised_date" class="control-label">Raised Date</label>
-						<input type="date" name="raised_date" id="raised_date" class="form-control" value="">
+						<input type="date" name="raised_date" id="raised_date" class="form-control" value="" required>
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="form-group">
@@ -138,7 +138,7 @@
 					</div>
 					<div class="form-group" style="margin-bottom: 37px">
 						<label for="due_date" class="control-label">Due Date</label>
-						<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>">
+						<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>" required>
 						<span class="help-block hidden"></span>
 					</div>
 				</div>
@@ -177,7 +177,7 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<select name="stockcode[]" class="form-control so-stockcode">
+											<select name="stockcode[]" class="form-control so-stockcode" required>
 												<option value="">-- Select Stockcode --</option>
 												<?php if (!empty($stockcode)) : ?>
 													<?php for ($i = 0; $i < count($stockcode); $i++) : ?>
@@ -190,13 +190,13 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="text" name="uom[]" class="form-control so-uom" readonly>
+											<input type="text" name="uom[]" class="form-control so-uom" readonly required>
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
 									<td>
 										<div class="form-group">
-											<select name="currency[]" class="form-control so-currency">
+											<select name="currency[]" class="form-control so-currency" required>
 												<?php foreach ($currency as $cur) : ?>
 													<option value="<?= $cur->Currency ?>" <?= ($cur->Currency == 'IDR' ? 'selected' : '') ?>><?= $cur->Currency ?></option>
 												<?php endforeach; ?>
@@ -206,14 +206,14 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="number" name="qty[]" class="form-control text-right so-qty" min="1" value="1">
+											<input type="number" name="qty[]" class="form-control text-right so-qty" min="1" value="1" required>
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
 									<td>
 										<div class="input-group">
 											<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">IDR</span>
-											<input type="text" name="price[]" class="form-control text-right so-price" min="0" value="0">
+											<input type="text" name="price[]" class="form-control text-right so-price" min="0" value="0" required>
 										</div>
 									</td>
 									<td>
@@ -225,7 +225,7 @@
 									<td>
 										<div class="input-group">
 											<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
-											<input type="text" name="total[]" class="form-control text-right so-total" min="0" readonly value="0">
+											<input type="text" name="total[]" class="form-control text-right so-total" min="0" readonly value="0" required>
 										</div>
 									</td>
 								</tr>
@@ -248,11 +248,35 @@
 					</div>
 				</div>
 				<div class="portlet-body">
+					<div class="row">
+						<div class="col-lg-5">
+							<div class="form-group">
+								<label for="branch" class="control-label">Branch</label>
+								<select name="branch" id="branch" class="form-control" required>
+									<option value="">-- Select Branch --</option>
+									<?php for($i=0; $i<count($branch); $i++) : ?>) : ?>
+										<option value="<?= $branch[$i]['BranchCode'] ?>"><?= $branch[$i]['BranchName'] ?></option>
+									<?php endfor; ?>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="form-group">
+								<label for="accno" class="control-label">Account No.</label>
+								<select name="accno" id="accno" class="form-control" required>
+									<option value="">-- Select Account No. --</option>
+									<?php for($i=0; $i<count($accno); $i++) : ?>) : ?>
+										<option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?></option>
+									<?php endfor; ?>
+								</select>
+							</div>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for="payment_sub_total" class="control-label">Subtotal</label>
 						<div class="input-group">
 							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
-							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="">
+							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="" required>
 						</div>
 					</div>
 					<div class="form-group">
@@ -267,7 +291,7 @@
 						<label for="" class="control-label">Net - Subtotal</label>
 						<div class="input-group">
 							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
-							<input type="text" name="payment_net_subtotal" id="payment_net_subtotal" class="form-control text-right" readonly value="0">
+							<input type="text" name="payment_net_subtotal" id="payment_net_subtotal" class="form-control text-right" readonly value="0" required>
 						</div>
 					</div>
 					<div class="row">
@@ -303,7 +327,7 @@
 						<label for="payment_total_amount" class="control-label">Total Amount</label>
 						<div class="input-group">
 							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
-							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly>
+							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly required>
 						</div>
 					</div>
 					<div class="form-group">
