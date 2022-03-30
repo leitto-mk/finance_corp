@@ -334,6 +334,19 @@
 							<label for="dp_payment_bank" class="control-label">Bank</label>
 							<select name="dp_payment_bank" id="dp_payment_bank" class="form-control" disabled>
 								<option value="">-- Select Bank --</option>
+								<option value="artha_graha">Artha Graha</option>
+								<option value="bri">BRI</option>
+								<option value="mandiri">Mandiri</option>
+								<option value="bni">BNI</option>
+								<option value="bca">BCA</option>
+								<option value="btn">BTN</option>
+								<option value="cimb">CIMB Niaga</option>
+								<option value="danamon">Danamon</option>
+								<option value="hsbc">HSBC</option>
+								<option value="maybank">Maybank</option>
+								<option value="mega">Mega</option>
+								<option value="permata">Permata</option>
+								<option value="uob">UOB</option>
 							</select>
 						</div>
 					</div>
