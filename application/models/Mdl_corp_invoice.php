@@ -71,7 +71,7 @@ class Mdl_corp_invoice extends CI_Model
 					DATE_FORMAT(mas.DueDate, "%Y-%m-%d") AS DueDate, 
 					mas.TotalAmount, 
 					mas.Payment, 
-					0 AS Balance
+					mas.Balance
 				')
 				->from('tbl_fa_invoice_mas AS mas')
 				->join('tbl_mat_cat_customer AS cus', 'cus.CustomerCode = mas.CustomerCode', 'LEFT')

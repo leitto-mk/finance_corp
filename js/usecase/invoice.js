@@ -92,10 +92,11 @@ const inv = {
                             </a>`
                         },
                     }
-                ]
+                ],
+                initComplete: () => {
+                    helper.unblockUI()
+                }
             })
-
-            helper.unblockUI()
         }
     },
 
