@@ -237,7 +237,7 @@ class C_Finance extends CI_Controller
 
         [$_, $error] = $this->finance->M_delete_account($ctrlno);
 
-        if($error !== null){
+        if(!is_null($error)){
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 

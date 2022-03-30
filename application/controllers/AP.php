@@ -170,13 +170,13 @@ class AP extends CI_Controller {
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_ap->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
-        if ($error !== null) {
+        if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         //CALCULATE RETAINING EARNING
         $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_date);
-        if ($error !== null) {
+        if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
@@ -373,13 +373,13 @@ class AP extends CI_Controller {
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_ap->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
-        if ($error !== null) {
+        if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         //CALCULATE RETAINING EARNING
         $error = $this->Mdl_corp_common->calculate_retaining_earnings($branch, $cur_date);
-        if ($error !== null) {
+        if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
