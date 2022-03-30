@@ -21,13 +21,11 @@
                                         <thead>
                                             <tr class="bg-blue-dark font-white">
                                                 <th width="5%"></th>
-                                                <th class="text-center" width="15%">Branch</th>
-                                                <th class="text-center" width="15%">Department</th>
-                                                <th class="text-center" width="15%">Bussines Unit</th>
-                                                <th class="text-center" width="20%">Cost Center</th>
-                                                <th class="text-center" width="15%">Start Date</th>
-                                                <th class="text-center" width="15%">End Date</th>
-                                                <th class="text-center" width="5%">Action</th>        
+                                                <th class="text-center" width="25%">Branch</th>
+                                                <th class="text-center" width="25%">Customer</th>
+                                                <th class="text-center" width="20%">Start Date</th>
+                                                <th class="text-center" width="20%">End Date</th>
+                                                <th class="text-center" width="10%">Action</th>        
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -35,26 +33,6 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <label class="col-md-12 control-label bold">Parameters</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
-                                                            </select>
-                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td>
