@@ -7,6 +7,12 @@ class Invoice extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this->load->helper([
+            'response',
+            'validate'
+        ]);
+
 		$this->load->model('Mdl_corp_invoice');
 		$this->load->model('Mdl_corp_common');
 	}
@@ -57,8 +63,7 @@ class Invoice extends CI_Controller
 	}
 
 	public function submit_invoice(){
-		var_dump('<pre>'.print_r($this->input->post(), true).'</pre>');
-		die();
+		return set_success_response($this->input->post());
 	}
 
 	public function get_approval()

@@ -258,6 +258,17 @@ const inv = {
                 let formData = $(this).serializeArray()
 
                 repository.submitRecord('submit_invoice', formData)
+                .then(result => {
+                    helper.unblockUI()
+                    
+                    Swal.fire({
+                        'type': 'success',
+                        'title': 'SUCCESS',
+                        'html': 'DATA HAS BEEN SUBMITTED'
+                    })
+
+                    console.log(result)
+                })
                 .fail(err => {
                     helper.unblockUI()
             
