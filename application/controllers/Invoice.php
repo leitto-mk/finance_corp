@@ -51,6 +51,24 @@ class Invoice extends CI_Controller
 		$this->load->view('financecorp/ar/invoice/layout/main', $data);
 	}
 
+	public function get(){
+		$input = $this->input;
+		$limit = $input->get('length');
+		$offset = $input->get('start');
+
+		[$result, $error] = $this->Mdl_corp_invoice->get_invoices($limit, $offset);
+		if(!is_null($error)){
+			return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+		}
+
+		$dt = [
+            'draw' => $input->get('draw'),
+            'data' => $result
+        ];
+
+		return set_success_response($dt);
+	}
+
 	public function new()
 	{
 		$content_data = [
@@ -174,7 +192,7 @@ class Invoice extends CI_Controller
 		}
 
 		$error = $this->Mdl_corp_invoice->submit_invoice($mas, $det);
-		if($error !== null){
+		if(!is_null($error)){
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
 		}
 

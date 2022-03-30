@@ -16,9 +16,16 @@ const inv = {
                 lengthMenu: [30, 50, 100, 300],
                 pagingType: "bootstrap_extended",
                 ajax: {
-                    type: "GET",
-                    url: `Invoice/get_approval`,
-                    dataSrc: ""
+                    url: 'Invoice/get',
+                    method: 'GET',
+                    beforeSend: () => {
+                        helper.blockUI({
+                            animate: true
+                        })
+                    },
+                    dataSrc: response => {
+                        return response.result.data
+                    }
                 },
                 columnDefs: [
                     {
@@ -26,72 +33,69 @@ const inv = {
                         className: "text-center",
                         orderable: false,
                         data: "ID",
-                        render: function (data, type, row) {
+                        render: (data, type, row) => {
                             return `
-                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                <input type="checkbox" class="checkboxes" value="${data}" data-type="${row.Type}" />
-                                <span></span>
-                        </label>
-                        `;
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                    <input type="checkbox" class="checkboxes" value="${data}" data-type="${row.Type}" />
+                                    <span></span>
+                            </label>`
                         },
                     },
-                    { targets: 1, data: "DocNo" },
-                    { targets: 2, data: "Customer" },
+                    { targets: 1, data: "InvoiceNo" },
+                    { targets: 2, data: "CustomerName" },
                     { targets: 3, data: "InvoiceDate", className: "text-center" },
-                    { targets: 4, data: "PaymentDue", className: "text-center" },
+                    { targets: 4, data: "DueDate", className: "text-center" },
                     {
                         targets: 5,
-                        data: "Amount",
+                        data: "TotalAmount",
                         className: "text-right",
-                        render: function (data, type, row) {
+                        render: (data, type, row) => {
                             return new Intl.NumberFormat('en', {
                                 style: "currency",
-                                currency: "USD",
-                            }).format(data);
+                                currency: "IDR",
+                            }).format(data)
                         },
                     },
                     {
                         targets: 6,
-                        data: "Paid",
+                        data: "Payment",
                         className: "text-right",
-                        render: function (data, type, row) {
+                        render: (data, type, row) => {
                             return new Intl.NumberFormat('en', {
                                 style: "currency",
-                                currency: "USD",
-                            }).format(data);
+                                currency: "IDR",
+                            }).format(data)
                         },
                     },
                     {
                         targets: 7,
                         data: "Balance",
                         className: "text-right",
-                        render: function (data, type, row) {
+                        render: (data, type, row) => {
                             return new Intl.NumberFormat('en', {
                                 style: "currency",
-                                currency: "USD",
-                            }).format(data);
+                                currency: "IDR",
+                            }).format(data)
                         },
                     },
                     {
                         targets: 8,
                         orderable: false,
                         className: "text-center",
-                        render: function (data, type, row) {
+                        render: () => {
                             return `
-                            <a href="#" class="btn btn-xs grey-gallery btn-outline" title="Detail">
-                                <i class="fa fa-search"></i>
-                            </a>
                             <a href="#" class="btn btn-xs grey-gallery btn-outline" title="Edit">
                                 <i class="fa fa-pencil"></i>
                             </a>
                             <a href="#" class="btn btn-xs grey-gallery btn-outline" title="Delete">
                                 <i class="fa fa-close"></i>
-                            </a>`;
+                            </a>`
                         },
-                    },
-                    { targets: 9, data: "CustomerGroup", visible: false },
+                    }
                 ]
-            });
+            })
+
+            helper.unblockUI()
         }
     },
 
@@ -128,7 +132,7 @@ const inv = {
                 let start = moment(raised_date,'YYYY-MM-DD')
                 let end = moment(due_date,'YYYY-MM-DD')
 
-                let duration = moment.duration(end.diff(start)).asDays();
+                let duration = moment.duration(end.diff(start)).asDays()
 
                 duration > 0 ? $('#term_days').val(`${duration} Days`) : $('#term_days').val('')
             })
@@ -209,7 +213,7 @@ const inv = {
                 row.find('td:first-child a').text(item_no + 1)
                 
                 //? Re-instiated `select2`
-                row.find("span.select2 ").remove();
+                row.find("span.select2 ").remove()
                 row.find('[name="stockcode[]"]').select2({width: 'auto'})
 
                 row.find('[name="uom[]"]').val('')
