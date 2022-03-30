@@ -107,8 +107,8 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="freight_remarks" class="control-label">Freight Info</label>
-						<textarea type="text" name="freight_remarks" id="freight_remarks" class="form-control"></textarea>
+						<label for="freight_info" class="control-label">Freight Info</label>
+						<textarea type="text" name="freight_info" id="freight_info" class="form-control"></textarea>
 						<span class="help-block hidden"></span>
 					</div>
 				</div>

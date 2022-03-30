@@ -277,8 +277,8 @@ const inv = {
                     }
                 })
 
-                repository.submitRecord('submit_invoice', formData)
-                .then(result => {
+                repository.submitRecord('submit', formData)
+                .then(() => {
                     helper.unblockUI()
                     
                     Swal.fire({
@@ -286,8 +286,6 @@ const inv = {
                         'title': 'SUCCESS',
                         'html': 'DATA HAS BEEN SUBMITTED'
                     })
-
-                    console.log(result)
                 })
                 .fail(err => {
                     helper.unblockUI()

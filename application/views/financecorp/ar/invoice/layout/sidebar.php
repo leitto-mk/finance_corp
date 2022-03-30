@@ -10,7 +10,7 @@
   </a>
 </li>
 <li class="nav-item">
-  <a href="<?= site_url('Invoice/create_invoice') ?>" class="nav-link nav-toggle" target="_blank">
+  <a href="<?= site_url('Invoice/new') ?>" class="nav-link nav-toggle" target="_blank">
     <i class="icon-plus"></i>
     <span class="title">Create New Invoice</span>
   </a>

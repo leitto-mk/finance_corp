@@ -39,6 +39,27 @@ class Mdl_corp_invoice extends CI_Model
 		return $query;
 	}
 
+	public function submit_invoice($mas, $det){
+		$this->db->trans_begin();
+        
+        $this->db->insert('tbl_fa_invoice_mas', $mas);
+        $this->db->insert_batch('tbl_fa_invoice_det', $det);
+
+		if($this->db->error()['code'] != 0){
+            $code = $this->db->error()['code'];
+            $message = $this->db->error()['message'];
+            log_message('error', "$code: $message");
+
+            $this->db->trans_rollback();
+   
+            return "Database Error";
+         }
+        
+        $this->db->trans_complete();
+		
+		return null;
+	}
+
 	public function get_approval()
 	{
 		$data = [

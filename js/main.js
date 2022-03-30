@@ -158,11 +158,11 @@ $(document).ready(function(){
             import('./usecase/invoice.js')
             .then(({default: inv}) => {
                 let path = window.location.pathname
-                let segment = path.split('/')[2]
+                let segment = path.split('/')[2] ?? ''
 
                 if(segment.toLowerCase() == ""){
                     inv.dashboardPage.generateDataTable()
-                }else if(segment.toLowerCase() == "create_invoice"){
+                }else if(segment.toLowerCase() == "new"){
                     inv.formPage.initSelectSearch()
                     inv.formPage.initInputMask()
                     inv.formPage.eventGetTermsOfDay()
