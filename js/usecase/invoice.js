@@ -204,7 +204,7 @@ const inv = {
                 row.find('[name="stockcode[]"]').select2({width: 'auto'})
 
                 row.find('[name="uom[]"]').val('')
-                row.find('[name="currency[]"]').val('')
+                row.find('[name="currency[]"]').val('IDR')
                 row.find('[name="qty[]"]').val(1)
                 row.find('[name="price[]"]').val(0)
                 row.find('[name="discount[]"]').val(0)
