@@ -34,6 +34,7 @@ class AR extends CI_Controller {
 
         $this->load->model('Mdl_corp_ar');
         $this->load->model('Mdl_corp_common');
+        $this->load->model('Mdl_corp_entry');
     }
 
     //* AR Receipt Payment
@@ -169,7 +170,7 @@ class AR extends CI_Controller {
         $this->Mdl_corp_ar->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        [$result, $error] = $this->Mdl_corp_ar->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -372,7 +373,7 @@ class AR extends CI_Controller {
         }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        [$result, $error] = $this->Mdl_corp_ar->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }

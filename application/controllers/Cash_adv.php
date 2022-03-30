@@ -39,6 +39,7 @@ class Cash_adv extends CI_Controller
         $this->load->model('Mdl_corp_cash_advance');
         $this->load->model('Mdl_corp_reports');
         $this->load->model('Mdl_corp_common');
+        $this->load->model('Mdl_corp_entry');
     }
 
     //* CASH ADVANCE DASHBOARD
@@ -236,7 +237,7 @@ class Cash_adv extends CI_Controller
         $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        [$result, $error] = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -457,7 +458,7 @@ class Cash_adv extends CI_Controller
         }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        [$result, $error] = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
@@ -645,7 +646,7 @@ class Cash_adv extends CI_Controller
         $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        [$result, $error] = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -865,7 +866,7 @@ class Cash_adv extends CI_Controller
         }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        $error = $this->Mdl_corp_cash_advance->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
+        $error = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $result);
         }
