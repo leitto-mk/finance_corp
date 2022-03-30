@@ -70,25 +70,6 @@ const helper = {
     },
 
     /**
-     * Select2. see reference for more info:
-     * @link    https://select2.org/
-     * 
-     * @type    {any}       Input Element
-     * @type    {array}     List of data in Array
-     * @type    {string}    String placeholder
-     * 
-     * @return  {void}
-    */
-    select2: (element, data, placeholder) => {
-        $(document).find(element).select2({
-            minimumResultsForSearch: -1,
-			data: data,
-			placeholder: placeholder ?? '',
-			width: "style",
-		})
-    },
-
-    /**
      * Turn On Page Loader
      * 
      * @type    {object}  {animate, iconOnly, boxed, target, message,...}. You can see the the rest inside
