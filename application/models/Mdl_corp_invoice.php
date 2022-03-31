@@ -102,9 +102,9 @@ class Mdl_corp_invoice extends CI_Model
 	public function delete_invoice($invoice){
 		$this->db->trans_begin();
 
-		$this->db->delet('tbl_fa_invoice_mas', ['InvoiceNo' => $invoice]);
-		$this->db->delet('tbl_fa_invoice_det', ['InvoiceNo' => $invoice]);
-		$this->db->delet('tbl_fa_transaction', ['DocNo' => $invoice]);
+		$this->db->delete('tbl_fa_invoice_mas', ['InvoiceNo' => $invoice]);
+		$this->db->delete('tbl_fa_invoice_det', ['InvoiceNo' => $invoice]);
+		$this->db->delete('tbl_fa_transaction', ['DocNo' => $invoice]);
 
 		if($this->db->error()['code'] != 0){
             $code = $this->db->error()['code'];
