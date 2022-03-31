@@ -30,6 +30,7 @@ class Invoice extends CI_Controller
 
 		$this->load->model('Mdl_corp_invoice');
 		$this->load->model('Mdl_corp_common');
+		$this->load->model('Mdl_corp_entry');
 	}
 
 	public function index()
@@ -76,12 +77,12 @@ class Invoice extends CI_Controller
 
 			//Master
 			'invoice_no' => $this->Mdl_corp_invoice->generate_invoice(),
-			'customer' => $this->Mdl_corp_invoice->get_customer(),
-			'storage' => $this->Mdl_corp_invoice->get_storage(),
+			'customer' => $this->Mdl_corp_common->get_customer(),
+			'storage' => $this->Mdl_corp_common->get_storage(),
 			'raised_by' => 'ABASE-ADMIN',
 
 			//List
-			'stockcode' => $this->Mdl_corp_invoice->get_stockcode(),
+			'stockcode' => $this->Mdl_corp_common->get_stockcode(),
 			'currency' => $this->Mdl_corp_common->get_currency(),
 
 			//Payment Detail
@@ -123,10 +124,11 @@ class Invoice extends CI_Controller
 		$mas = $det = $trans = [];
 		$acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $input->post('accno')])->row()->Acc_Type;
 
+		//INVOICE MASTER
 		$mas = [
 			'InvoiceNo' => $input->post('invoice_no'),
 			'CustomerCode' => $input->post('customer'),
-			'QuoteRefNo' => ($input->post('reference_no') == '' ? $input->post('stockcode') : $input->post('reference_no')),
+			'QuoteRefNo' => ($input->post('reference_no') == '' ? $input->post('reference_no') : $input->post('reference_no')),
 			'Remark' => $input->post('remark'),
 			'BillTo' => $input->post('bill_to'),
 			'ShipTo' => $input->post('ship_to'),
@@ -155,6 +157,7 @@ class Invoice extends CI_Controller
 			'Payment' => $input->post('payment_total')
 		];
 
+		//INVOICE DETAIL
 		for($i = 0; $i < count($input->post('stockcode')); $i++){
 			array_push($det, [
 				'InvoiceNo' => $input->post('invoice_no'),
@@ -166,44 +169,74 @@ class Invoice extends CI_Controller
 				'Discount' => $input->post('discount')[$i],
 				'Total' => $input->post('total')[$i]
 			]);
-
-			// array_push($trans, [
-            //     'DocNo' => $input->post('stockcode'),
-            //     'RefNo' => ($input->post('reference_no') == '' ? $input->post('stockcode') : $input->post('reference_no')),
-            //     'TransDate' => $input->post('raised_date'),
-            //     'TransType' => 'INV',
-            //     'JournalGroup' => '',
-            //     'Branch' => $input->post('branch'),
-            //     'ItemNo' => $i+1,
-            //     'AccNo' => $input->post('accno'),
-            //     'AccType' => $acctype,
-            //     'Currency' => $input->post('currency')[$i],
-            //     'Rate' => 1,
-            //     'Unit' => $input->post('price')[$i],
-            //     'Amount' => $input->post('total')[$i],
-            //     'Debit' => 0,
-            //     'Credit' => 0,
-            //     'Balance' => 0,
-            //     'BalanceBranch' => 0,
-            //     'Remarks' => '',
-            //     'EntryBy' => '',
-            //     'EntryDate' => date('Y-m-d h:m:s')
-            // ]);
 		}
 
-		$error = $this->Mdl_corp_invoice->submit_invoice($mas, $det);
+		//TRANSACTION (GENERAL LEDGER)
+		$branch_beg_bal = $this->Mdl_corp_common->get_branch_last_balance($input->post('branch'), $input->post('accno'), $input->post('raised_date'));
+
+		if ($acctype == 'A' || $acctype == 'E' || $acctype == 'E1') {
+			/**
+			 * (BEGINNING BALANCE + DEBIT) - CREDIT
+			 */
+			$branch_bal = ($branch_beg_bal + $input->post('payment_total_amount')) - 0;
+		} elseif ($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2' || $acctype == 'CX') {
+			/**
+			 * (BEGINNING BALANCE - DEBIT) + CREDIT
+			 */
+			$branch_bal = ($branch_beg_bal - $input->post('payment_total_amount')) + 0;
+		}
+
+		$trans = [
+			'DocNo' => $input->post('invoice_no'),
+			'RefNo' => ($input->post('reference_no') == '' ? $input->post('reference_no') : $input->post('reference_no')),
+			'TransDate' => $input->post('raised_date'),
+			'TransType' => 'INV',
+			'Branch' => $input->post('branch'),
+			'ItemNo' => 0,
+			'AccNo' => $input->post('accno'),
+			'AccType' => $acctype,
+			'Currency' => 'IDR',
+			'Rate' => 1,
+			'Unit' => $input->post('payment_total_amount'),
+			'Amount' => $input->post('payment_total_amount'),
+			'Debit' => $input->post('payment_total_amount'),
+			'Credit' => 0,
+			'Balance' => 0,
+			'BalanceBranch' => $branch_bal,
+			'Remarks' => $input->post('remark'),
+			'EntryBy' => $input->post('raised_by'),
+			'EntryDate' => date('Y-m-d h:m:s')
+		];
+
+		//SUBMIT INVOICE MASTER, INVOICE DETAIL, TRANSACTION LEDGER
+		$error = $this->Mdl_corp_invoice->submit_invoice($mas, $det, $trans);
 		if(!is_null($error)){
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
 		}
+		
+		$invoice_date = $input->post('raised_date');
+		$last_transaction = $this->Mdl_corp_common->get_last_trans_date();
+		if (strtotime($invoice_date) < strtotime($last_transaction)) {
+            $start = $invoice_date;
+            $finish = $last_transaction;
+        } else {
+            $start = $last_transaction;
+            $finish = $invoice_date;
+        }
 
-		return set_success_response("success");
-	}
+        //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
+        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($input->post('branch'), min($input->post('accno')), max($input->post('accno')), $start, $finish);
+        if (!is_null($error)) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
-	public function get_approval()
-	{
-		$data = $this->Mdl_corp_invoice->get_approval();
+        //CALCULATE RETAINING EARNING
+        $error = $this->Mdl_corp_common->calculate_retaining_earnings($input->post('branch'), $invoice_date);
+        if (!is_null($error)) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
 
-		echo json_encode($data);
+        return set_success_response($result);
 	}
 
 	public function view_invoice_list(){

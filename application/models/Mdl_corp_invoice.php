@@ -2,7 +2,7 @@
 
 class Mdl_corp_invoice extends CI_Model
 {
-	function generate_invoice(){ 
+	public function generate_invoice(){ 
         $current = $this->db
                     ->limit(1)
                     ->order_by('InvoiceNo', 'DESC')
@@ -20,45 +20,6 @@ class Mdl_corp_invoice extends CI_Model
         
         return $invoice_no;
     }
-
-	public function get_customer(){
-		$query = $this->db->select('CustomerCode, CustomerName')->get('tbl_mat_cat_customer')->result_array();
-
-		return $query;
-	}
-
-	public function get_storage(){
-		$query = $this->db->select('StorageCode, StorageName')->get('tbl_mat_cat_storage')->result_array();
-
-		return $query;
-	}
-
-	public function get_stockcode(){
-		$query = $this->db->select('Stockcode, StockDescription, UOM, UOMQty')->get('tbl_mat_stockcode')->result_array();
-
-		return $query;
-	}
-
-	public function submit_invoice($mas, $det){
-		$this->db->trans_begin();
-        
-        $this->db->insert('tbl_fa_invoice_mas', $mas);
-        $this->db->insert_batch('tbl_fa_invoice_det', $det);
-
-		if($this->db->error()['code'] != 0){
-            $code = $this->db->error()['code'];
-            $message = $this->db->error()['message'];
-            log_message('error', "$code: $message");
-
-            $this->db->trans_rollback();
-   
-            return "Database Error";
-         }
-        
-        $this->db->trans_complete();
-		
-		return null;
-	}
 
 	public function get_invoices($limit, $offset)
 	{
@@ -92,5 +53,27 @@ class Mdl_corp_invoice extends CI_Model
         $this->db->trans_complete();
 		
 		return [$result, null];
+	}
+
+	public function submit_invoice($mas, $det, $trans){
+		$this->db->trans_begin();
+        
+        $this->db->insert('tbl_fa_invoice_mas', $mas);
+        $this->db->insert_batch('tbl_fa_invoice_det', $det);
+        $this->db->insert('tbl_fa_transaction', $trans);
+
+		if($this->db->error()['code'] != 0){
+            $code = $this->db->error()['code'];
+            $message = $this->db->error()['message'];
+            log_message('error', "$code: $message");
+
+            $this->db->trans_rollback();
+   
+            return "Database Error";
+         }
+        
+        $this->db->trans_complete();
+		
+		return null;
 	}
 }

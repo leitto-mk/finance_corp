@@ -330,6 +330,7 @@
 							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly required>
 						</div>
 					</div>
+					<hr style="margin-top: 40px;">
 					<div class="form-group">
 						<label for="dp_payment_type" class="control-label">Payment Method</label>
 						<div class="mt-radio-inline">
@@ -355,35 +356,35 @@
 							</label>
 						</div>
 					</div>
-					<div id="card-payment" class="">
-						<div class="form-group">
-							<label for="dp_payment_card_text" class="control-label">Card Number</label>
-							<input type="text" name="dp_payment_card_text" id="dp_payment_card_text" class="form-control" disabled>
-						</div>
-						<div class="form-group">
-							<label for="dp_payment_bank" class="control-label">Bank</label>
-							<select name="dp_payment_bank" id="dp_payment_bank" class="form-control" disabled>
-								<option value="">-- Select Bank --</option>
-								<option value="artha_graha">Artha Graha</option>
-								<option value="bri">BRI</option>
-								<option value="mandiri">Mandiri</option>
-								<option value="bni">BNI</option>
-								<option value="bca">BCA</option>
-								<option value="btn">BTN</option>
-								<option value="cimb">CIMB Niaga</option>
-								<option value="danamon">Danamon</option>
-								<option value="hsbc">HSBC</option>
-								<option value="maybank">Maybank</option>
-								<option value="mega">Mega</option>
-								<option value="permata">Permata</option>
-								<option value="uob">UOB</option>
-							</select>
-						</div>
+					<div class="form-group">
+						<label for="dp_payment_card_text" class="control-label">Card Number</label>
+						<input type="text" name="dp_payment_card_text" id="dp_payment_card_text" class="form-control" disabled>
 					</div>
+					<div class="form-group">
+						<label for="dp_payment_bank" class="control-label">Bank</label>
+						<select name="dp_payment_bank" id="dp_payment_bank" class="form-control" disabled>
+							<option value="">-- Select Bank --</option>
+							<option value="artha_graha">Artha Graha</option>
+							<option value="bri">BRI</option>
+							<option value="mandiri">Mandiri</option>
+							<option value="bni">BNI</option>
+							<option value="bca">BCA</option>
+							<option value="btn">BTN</option>
+							<option value="cimb">CIMB Niaga</option>
+							<option value="danamon">Danamon</option>
+							<option value="hsbc">HSBC</option>
+							<option value="maybank">Maybank</option>
+							<option value="mega">Mega</option>
+							<option value="permata">Permata</option>
+							<option value="uob">UOB</option>
+						</select>
+					</div>
+					<br>
 					<div class="form-group">
 						<label for="payment_total" class="control-label">Payment</label>
 						<div class="input-group">
-							<input type="text" name="payment_total" id="payment_total" class="form-control text-right" readonly value="">
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
+							<input type="text" name="payment_total" id="payment_total" class="form-control text-right">
 						</div>
 					</div>
 				</div>

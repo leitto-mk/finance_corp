@@ -276,7 +276,15 @@ const inv = {
 
                 //Deformat Numbers
                 formData.find(input => {
-                    let input_with_mask = ['price[]', 'total[]', 'payment_sub_total', 'payment_net_subtotal', 'payment_total_amount']
+                    let input_with_mask = [
+                        'price[]', 
+                        'total[]', 
+                        'payment_sub_total', 
+                        'payment_net_subtotal', 
+                        'payment_total_amount',
+                        'payment_total'
+                    ]
+
                     if(input_with_mask.includes(input.name)){
                         input.value = parseFloat(input.value.replaceAll(',',''))
                     }
