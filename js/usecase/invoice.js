@@ -287,6 +287,7 @@ const inv = {
             $('form').submit(function(e){
                 e.preventDefault()
 
+                let url = window.location.hostname + '/invoice/submit'
                 let formData = $(this).serializeArray()
 
                 //Deformat Numbers
@@ -305,7 +306,7 @@ const inv = {
                     }
                 })
 
-                repository.submitRecord('submit', formData)
+                repository.submitRecord(url, formData)
                 .then(() => {
                     helper.unblockUI()
                     

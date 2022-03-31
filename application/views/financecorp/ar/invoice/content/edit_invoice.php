@@ -273,7 +273,7 @@
 								<select name="branch" id="branch" class="form-control" required>
 									<option value="">-- Select Branch --</option>
 									<?php for($i=0; $i<count($branches); $i++) : ?>) : ?>
-										<?php if($data[0]['BranchCode'] == $branches[$i]['BranchCode']) : ?>
+										<?php if($data[0]['Branch'] == $branches[$i]['BranchCode']) : ?>
 											<option selected value="<?= $branches[$i]['BranchCode'] ?>"><?= $branches[$i]['BranchName'] ?></option>
 										<?php else : ?>
 											<option value="<?= $branches[$i]['BranchCode'] ?>"><?= $branches[$i]['BranchName'] ?></option>
