@@ -241,6 +241,12 @@ class Invoice extends CI_Controller
 			'EntryDate' => date('Y-m-d h:m:s')
 		];
 
+		//DELETE OLD DATA IF EXIST
+		$error = $this->Mdl_corp_invoice->delete_invoice($input->post('invoice_no'));
+		if(!is_null($error)){
+			return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+		}
+
 		//SUBMIT INVOICE MASTER, INVOICE DETAIL, TRANSACTION LEDGER
 		$error = $this->Mdl_corp_invoice->submit_invoice($mas, $det, $trans);
 		if(!is_null($error)){
