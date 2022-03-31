@@ -22,13 +22,13 @@
   </a>
 </li>
 <li class="nav-item">
-  <a href="<?php echo site_url('Invoice/view_invoice_list') ?>" class="nav-link nav-toggle">
+  <a href="<?php echo site_url('Invoice/list') ?>" class="nav-link nav-toggle">
     <i class="icon-list"></i>
     <span class="title">Invoice List</span>
   </a>
 </li>
 <li class="nav-item">
-  <a href="<?php echo site_url('Invoice/view_invoice_aging') ?>" target="_blank" class="nav-link nav-toggle">
+  <a href="<?php echo site_url('Invoice/aging') ?>" target="_blank" class="nav-link nav-toggle">
     <i class="icon-notebook"></i>
     <span class="title">Invoice Aging</span>
   </a>

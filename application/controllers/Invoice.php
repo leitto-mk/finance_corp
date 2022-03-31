@@ -184,7 +184,8 @@ class Invoice extends CI_Controller
 			'PaymentType' => $input->post('dp_payment_type'),
 			'CardNo' => $input->post('dp_payment_card_text'),
 			'BankCode' => $input->post('dp_payment_bank'),
-			'Payment' => $input->post('payment_total')
+			'Payment' => $input->post('payment_total'),
+			'PaymentStatus' => ($input->post('payment_total') === $input->post('payment_total_amount') ? 1 : 0)
 		];
 
 		//INVOICE DETAIL
@@ -269,7 +270,7 @@ class Invoice extends CI_Controller
         return set_success_response($result);
 	}
 
-	public function view_invoice_list(){
+	public function list(){
 
 		$title = 'Invoice Module';
 		$data_view = [
@@ -285,7 +286,7 @@ class Invoice extends CI_Controller
 		$this->load->view('financecorp/ar/invoice/layout/main', $data);
 	}
 
-	public function view_invoice_aging(){
+	public function aging(){
         $data = [
             'title' => 'Invoice Aging',
             'h1' => 'Invoice',
