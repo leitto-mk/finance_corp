@@ -34,6 +34,31 @@ class Invoice extends CI_Controller
 		$this->load->model('Mdl_corp_cash_advance');
 	}
 
+	protected function calculate_payment($formData){
+		$subtotal = 0;
+
+		for($i = 0; $i < count($formData['stockcode']); $i++){
+			$qty = $formData['qty'][$i];
+			$price = $formData['price'][$i];
+			$discount = $formData['discount'][$i] / 100;
+			$total = $qty * $price;
+			$total = $total - ($total * $discount);
+
+			$formData['total'][$i] = $total;
+
+			$subtotal += $total;
+		}
+
+		$formData['payment_sub_total'] = $subtotal;
+		$payment_discount = $formData['payment_discount'];
+		$formData['payment_net_subtotal'] = $subtotal - ($subtotal * $payment_discount);
+		$net_subtotal = $formData['payment_net_subtotal'];
+		$vat = $net_subtotal * ($formData['payment_vat'] / 100);
+		$pph = $net_subtotal * ($formData['payment_pph'] / 100);
+		$freight = $formData['payment_freight'];
+		$formData['payment_total_amount'] = ($net_subtotal + $vat - $pph + $freight);
+	}
+
 	public function index()
 	{
 		$title = 'Invoice Module';
@@ -132,8 +157,10 @@ class Invoice extends CI_Controller
 	}
 
 	public function submit(){
+		$input = $this->input;
+
 		$validation = validate(
-            $this->input->post(),
+            $input->post(),
             [ //Specific Case
                 'date' => ['raised_date', 'due_date'],
                 'number' => ['qty', 'price', 'total', 'payment_sub_total', 'payment_net_subtotal', 'payment_total_amount']
@@ -151,7 +178,10 @@ class Invoice extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-		$input = $this->input;
+		//Re-Calculate Row Total & Payment Detail
+		$formData = $input->post();
+		$this->calculate_payment($formData);
+
 		$mas = $det = $trans = [];
 		$acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $input->post('accno')])->row()->Acc_Type;
 
