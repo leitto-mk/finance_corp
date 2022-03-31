@@ -53,22 +53,20 @@
                     </span>
                 </div>
                 <div class="portlet-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-stripped table-condensed">
-                            <thead>
-                                <tr style="background-color: #2C3E50" class="font-white">
-                                    <th class="text-center" width="10%"> Trans Date </th>
-                                    <th class="text-center" width="10%"> Doc No </th>
-                                    <th class="text-center" width="10%"> Trans Type </th>
-                                    <th class="text-center" width="17%"> Branch </th>
-                                    <th class="text-center" width="20%"> Description </th>
-                                    <th class="text-center" width="10%"> Amount </th>
-                                    <th class="text-center" width="10%"> Action </th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
+                    <table class="table table-bordered table-stripped table-condensed">
+                        <thead>
+                            <tr style="background-color: #2C3E50" class="font-white">
+                                <th class="text-center" width="10%"> Trans Date </th>
+                                <th class="text-center" width="10%"> Doc No </th>
+                                <th class="text-center" width="10%"> Trans Type </th>
+                                <th class="text-center" width="17%"> Branch </th>
+                                <th class="text-center" width="20%"> Description </th>
+                                <th class="text-center" width="10%"> Amount </th>
+                                <th class="text-center" width="10%"> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
