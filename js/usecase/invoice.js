@@ -9,16 +9,16 @@ const callable = {
     calculatePayment: () => {
         //ORDER LIST
         let subtotal = 0
-        
+
         $('#tbody_invoice tr').each(function(){
-            let qty = +$(this).children('input[name="qty[]"]').val()
-            let price = $(this).children('input[name="price[]"]').val()
+            let qty = +$(this).find('input[name="qty[]"]').val()
+            let price = $(this).find('input[name="price[]"]').val()
             price = parseFloat(price.replaceAll(',',''))
-            let discount = +$(this).children('input[name="discount[]"]').val() / 100
+            let discount = +$(this).find('input[name="discount[]"]').val() / 100
             let total = qty * price
             let total_discounted = total - (total * discount)
 
-            $(this).children('input[name="total[]"]').val(total_discounted)
+            $(this).find('input[name="total[]"]').val(total_discounted)
         })
         
         //PAYMENT DETAIL
