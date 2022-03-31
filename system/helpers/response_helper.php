@@ -7,15 +7,14 @@ if(!function_exists('set_success_response')){
         $CI =& get_instance();
 
         if($body == 0 || $body == null || $body == '' || empty($body) == TRUE){
-            $desc = null;
-            $body = null;
+            $body = NULL;
         }
     
         $CI->output->set_status_header(200);
         $CI->output->set_content_type('application/json','utf-8');
         $CI->output->set_output(json_encode([
             'success' => TRUE,
-            'desc' => $desc,
+            'desc' => NULL,
             'result' => $body
         ]));
     }
