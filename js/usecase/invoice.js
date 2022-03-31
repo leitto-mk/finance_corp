@@ -225,7 +225,7 @@ const inv = {
 
                 //? Get UOM from Stockcode attribute
                 let uom = row.find('select[name="stockcode[]"] option:selected').attr('data-uom')
-                let uom_qty = row.find('select[name="stockcode[]"] option:selected').attr('data-uom')
+                let uom_qty = row.find('select[name="stockcode[]"] option:selected').attr('data-uom-qty')
                 row.find('[name="uom[]"]').val(uom)
                 row.find('[name="currency[]"]').val('IDR')
                 row.find('[name="qty[]"]').val(uom_qty)
