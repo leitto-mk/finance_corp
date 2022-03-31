@@ -7,10 +7,8 @@ if(!function_exists('set_success_response')){
         $CI =& get_instance();
 
         if($body == 0 || $body == null || $body == '' || empty($body) == TRUE){
-            $desc = "No Data Found";
-            $body = null;
-        }else{
             $desc = null;
+            $body = null;
         }
     
         $CI->output->set_status_header(200);
