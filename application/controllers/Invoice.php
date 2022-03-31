@@ -186,7 +186,8 @@ class Invoice extends CI_Controller
 			'CardNo' => $input->post('dp_payment_card_text'),
 			'BankCode' => $input->post('dp_payment_bank'),
 			'Payment' => $input->post('payment_total'),
-			'PaymentStatus' => ($input->post('payment_total') === $input->post('payment_total_amount') ? 1 : 0)
+			'PaymentStatus' => ($input->post('payment_total') === $input->post('payment_total_amount') ? 1 : 0),
+			'Balance' => ($input->post('payment_total_amount') - $input->post('payment_total'))
 		];
 
 		//INVOICE DETAIL
