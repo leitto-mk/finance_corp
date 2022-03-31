@@ -258,7 +258,7 @@ class Mdl_corp_cash_advance extends CI_Model
                         ->select('trans.*')
                         ->from('tbl_fa_treasury_mas AS mas')
                         ->join('tbl_fa_transaction AS trans','mas.IDNumber = trans.IDNumber', 'LEFT')
-                        ->where("trans.TransType IN('CW','CR')")
+                        ->where("trans.TransType IN('CW','CR','INV')")
                         ->where([
                             'mas.IDNumber' => $id,
                             'trans.TransDate >=' => $transdate
@@ -268,7 +268,7 @@ class Mdl_corp_cash_advance extends CI_Model
 
         $emp_beg_bal = $this->db->select('Balance')
                                 ->order_by("TransDate DESC, CtrlNo DESC")
-                                ->where("TransType IN('CW','CR')")
+                                ->where("TransType IN('CW','CR','INV')")
                                 ->where([
                                     'IDNumber' => $id,
                                     'TransDate <' => $transdate, 
@@ -287,6 +287,9 @@ class Mdl_corp_cash_advance extends CI_Model
                         break;
                     case 'CR':
                         $query[$i]['Balance'] = (int) $emp_beg_bal - (int) $query[$i]['Credit'];
+                        break;
+                    case 'INV':
+                        $query[$i]['Balance'] = (int) $emp_beg_bal - (int) $query[$i]['Debit'];
                         break;
                 }
 

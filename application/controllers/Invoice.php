@@ -31,6 +31,7 @@ class Invoice extends CI_Controller
 		$this->load->model('Mdl_corp_invoice');
 		$this->load->model('Mdl_corp_common');
 		$this->load->model('Mdl_corp_entry');
+		$this->load->model('Mdl_corp_cash_advance');
 	}
 
 	public function index()
@@ -158,7 +159,7 @@ class Invoice extends CI_Controller
 		$mas = [
 			'InvoiceNo' => $input->post('invoice_no'),
 			'CustomerCode' => $input->post('customer'),
-			'QuoteRefNo' => ($input->post('reference_no') == '' ? $input->post('reference_no') : $input->post('reference_no')),
+			'QuoteRefNo' => ($input->post('reference_no') == '' ? $input->post('invoice_no') : $input->post('reference_no')),
 			'Remark' => $input->post('remark'),
 			'BillTo' => $input->post('bill_to'),
 			'ShipTo' => $input->post('ship_to'),
@@ -219,13 +220,14 @@ class Invoice extends CI_Controller
 
 		$trans = [
 			'DocNo' => $input->post('invoice_no'),
-			'RefNo' => ($input->post('reference_no') == '' ? $input->post('reference_no') : $input->post('reference_no')),
+			'RefNo' => ($input->post('reference_no') == '' ? $input->post('invoice_no') : $input->post('reference_no')),
 			'TransDate' => $input->post('raised_date'),
 			'TransType' => 'INV',
 			'Branch' => $input->post('branch'),
 			'ItemNo' => 0,
 			'AccNo' => $input->post('accno'),
 			'AccType' => $acctype,
+			'IDNumber' => $input->post('customer'),
 			'Currency' => 'IDR',
 			'Rate' => 1,
 			'Unit' => $input->post('payment_total_amount'),
@@ -257,6 +259,12 @@ class Invoice extends CI_Controller
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($input->post('branch'), min($input->post('accno')), max($input->post('accno')), $start, $finish);
+        if (!is_null($error)) {
+            return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+        }
+
+		//CALCULATE EMPLOYEE BALANCE ABOVE TRANSDATE
+        $error = $this->Mdl_corp_cash_advance->update_emp_balance($invoice_date, $input->post('customer'));
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
