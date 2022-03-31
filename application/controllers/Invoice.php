@@ -258,7 +258,7 @@ class Invoice extends CI_Controller
         }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($input->post('branch'), min($input->post('accno')), max($input->post('accno')), $start, $finish);
+        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($input->post('branch'), $input->post('accno'), $input->post('accno'), $start, $finish);
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
