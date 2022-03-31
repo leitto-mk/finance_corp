@@ -223,9 +223,12 @@ const inv = {
                 row.find("span.select2 ").remove()
                 row.find('[name="stockcode[]"]').select2({width: 'auto'})
 
-                row.find('[name="uom[]"]').val('')
+                //? Get UOM from Stockcode attribute
+                let uom = row.find('select[name="stockcode[]"] option:selected').attr('data-uom')
+                let uom_qty = row.find('select[name="stockcode[]"] option:selected').attr('data-uom')
+                row.find('[name="uom[]"]').val(uom)
                 row.find('[name="currency[]"]').val('IDR')
-                row.find('[name="qty[]"]').val(1)
+                row.find('[name="qty[]"]').val(uom_qty)
                 row.find('[name="price[]"]').val(0)
                 row.find('[name="discount[]"]').val(0)
                 row.find('[name="total[]"]').val(0)
