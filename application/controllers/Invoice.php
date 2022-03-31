@@ -95,6 +95,41 @@ class Invoice extends CI_Controller
 		$this->load->view('financecorp/ar/invoice/layout/header_footer_form', $data);
 	}
 
+	public function edit($invoice){
+		[$result, $error] = $this->Mdl_corp_invoice->get_invoice($invoice);
+		if(!is_null($error)){
+			return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+		}
+
+		$component_data = [
+			'title' => 'Create Invoice',
+
+			//Master
+			'customers' => $this->Mdl_corp_common->get_customer(),
+			'storages' => $this->Mdl_corp_common->get_storage(),
+
+			//List
+			'stockcodes' => $this->Mdl_corp_common->get_stockcode(),
+			'currencies' => $this->Mdl_corp_common->get_currency(),
+
+			//Payment Detail
+			'branches' => $this->Mdl_corp_common->get_branch(),
+			'accnos' => $this->Mdl_corp_common->get_mas_acc(),
+
+			//Invoice Data
+			'data' => $result,
+		];
+
+		$component = $this->load->view('financecorp/ar/invoice/content/edit_invoice', $component_data, TRUE);
+
+		$data = [
+			'form' => $component,
+			'script' => 'invoice'
+		];
+
+		$this->load->view('financecorp/ar/invoice/layout/header_footer_form', $data);
+	}
+
 	public function submit(){
 		$validation = validate(
             $this->input->post(),

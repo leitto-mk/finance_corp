@@ -21,6 +21,28 @@ class Mdl_corp_invoice extends CI_Model
         return $invoice_no;
     }
 
+	public function get_invoice($invoice){
+		$query = $this->db
+				->select('mas.*, det.*')
+				->from('tbl_fa_invoice_mas AS mas')
+				->join('tbl_fa_invoice_det AS det', 'InvoiceNo', 'LEFT')
+				->where('mas.InvoiceNo', $invoice)
+				->get()
+				->result_array();
+
+		if($this->db->error()['code'] != 0){
+			$code = $this->db->error()['code'];
+			$message = $this->db->error()['message'];
+			log_message('error', "$code: $message");
+
+			return [null, "Database Error"];
+		}
+		
+		$this->db->trans_complete();
+		
+		return [$query, null];
+	}
+
 	public function get_invoices($limit, $offset)
 	{
 		$this->db->trans_begin();

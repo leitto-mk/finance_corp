@@ -159,10 +159,11 @@ $(document).ready(function(){
             .then(({default: inv}) => {
                 let path = window.location.pathname
                 let segment = path.split('/')[2] ?? ''
+                segment = segment.toLowerCase()
 
-                if(segment.toLowerCase() == ""){
+                if(segment == ""){
                     inv.dashboardPage.generateDataTable()
-                }else if(segment.toLowerCase() == "new"){
+                }else if(segment == "new" || segment == "edit"){
                     inv.formPage.initSelectSearch()
                     inv.formPage.initInputMask()
                     inv.formPage.eventGetTermsOfDay()

@@ -109,8 +109,8 @@
         <div class="caption">
           <span class="caption-subject bold uppercase">List Invoice Approval</span>
         </div>
-        <button class="btn font-white pull-right" style="margin-left: 10px; background-color: #F2784B">Create Service Invoice</button>
-        <button class="btn font-white pull-right" style="background-color: #F2784B">Create Invoice</button>
+        <!-- <button class="btn font-white pull-right" style="margin-left: 10px; background-color: #F2784B">Create Service Invoice</button> -->
+        <!-- <button class="btn font-white pull-right" style="background-color: #F2784B">Create Invoice</button> -->
       </div>
       <div class="portlet-body">
         <?php $this->load->view('financecorp/ar/invoice/component/table_invoice_approval'); ?>

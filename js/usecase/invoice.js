@@ -24,6 +24,12 @@ const inv = {
                         })
                     },
                     dataSrc: response => {
+                        helper.unblockUI()
+
+                        for (let i = 0; i < response.result.length; i++){
+                            response.result[i].ItemNo = i+1
+                        }
+
                         return response.result
                     },
                     error: () => {
@@ -35,14 +41,7 @@ const inv = {
                         targets: 0,
                         className: "text-center",
                         orderable: false,
-                        data: "ID",
-                        render: (data, type, row) => {
-                            return `
-                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                    <input type="checkbox" class="checkboxes" value="${data}" data-type="${row.Type}" />
-                                    <span></span>
-                            </label>`
-                        },
+                        data: "ItemNo",
                     },
                     { targets: 1, data: "InvoiceNo" },
                     { targets: 2, data: "CustomerName" },
@@ -85,20 +84,17 @@ const inv = {
                         targets: 8,
                         orderable: false,
                         className: "text-center",
-                        render: () => {
-                            return `
-                            <a href="#" class="btn btn-xs grey-gallery btn-outline" title="Edit">
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                            <a href="#" class="btn btn-xs grey-gallery btn-outline" title="Delete">
-                                <i class="fa fa-close"></i>
-                            </a>`
+                        render: (data, type, row) => {
+                            let base_url = window.location.origin + window.location.pathname
+                            return `<a href="${base_url}/edit/${row.InvoiceNo}" class="btn btn-xs grey-gallery btn-outline" title="Edit">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-xs grey-gallery btn-outline" title="Delete">
+                                        <i class="fa fa-close"></i>
+                                    </a>`
                         },
                     }
-                ],
-                initComplete: () => {
-                    helper.unblockUI()
-                }
+                ]
             })
         }
     },
