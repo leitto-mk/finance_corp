@@ -5,6 +5,49 @@
 import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
+const callable = {
+    calculatePayment: () => {
+        //ORDER LIST
+        $('#tbody_invoice tr').each(function(){
+            let subtotal = 0
+            let qty = +$(this).children('input[name="qty[]"]').val()
+            let price = $(this).children('input[name="price[]"]').val()
+            price = parseFloat(price.replaceAll(',',''))
+            let discount = +$(this).children('input[name="discount[]"]').val() / 100
+            let total = qty * price
+            let total_discounted = total - (total * discount)
+
+            $(this).children('input[name="total[]"]').val(total_discounted)
+        })
+        
+        //PAYMENT DETAIL
+        $('[name="total[]"]').each(function(){
+            subtotal += parseFloat($(this).val().replaceAll(',',''))
+        })
+
+        $('#payment_sub_total').val(subtotal)
+        let payment_sub_total = $('#payment_sub_total').val()
+        payment_sub_total = payment_sub_total !== '' ? parseFloat($('#payment_sub_total').val().replaceAll(',','')) : 0
+        let payment_discount = parseFloat($('#payment_discount').val().replaceAll(',','')) / 100
+        let net_subtotal = payment_sub_total - (payment_sub_total * payment_discount)
+
+        $('#payment_net_subtotal').val(net_subtotal)
+
+        let payment_vat = +$('#payment_vat').val() / 100 
+        let payment_pph = +$('#payment_pph').val() / 100 
+        let payment_freight = $('#payment_freight').val()
+        payment_freight = payment_freight !== '' ? parseFloat($('#payment_freight').val().replaceAll(',','')) : 0
+        let total_amount = 0
+
+        payment_vat = (net_subtotal * payment_vat)
+        payment_pph = (net_subtotal * payment_pph)
+        
+        total_amount = (net_subtotal + payment_vat - payment_pph + payment_freight)
+
+        $('#payment_total_amount').val(total_amount)
+    }
+}
+
 const inv = {
     dashboardPage: {
         generateDataTable: () => {
@@ -145,9 +188,11 @@ const inv = {
                 let uom = $('option:selected', this).attr('data-uom')
                 let uom_qty = $('option:selected', this).attr('data-uom-qty')
 
-                $(this).parents('tr').find('input[name="uom[]"]').val(uom).trigger('input')
-                $(this).parents('tr').find('input[name="qty[]"]').val(uom_qty).trigger('input')
+                $(this).parents('tr').find('input[name="uom[]"]').val(uom)
+                $(this).parents('tr').find('input[name="qty[]"]').val(uom_qty)
                 $(this).parents('tr').find('input[name="qty[]"]').attr('min', uom_qty)
+
+                callable.calculatePayment()
             })
         },
 
@@ -161,48 +206,7 @@ const inv = {
 
         eventInputAmount: () => {
             $(document).on('input', '[name="qty[]"], [name="price[]"], [name="discount[]"], #payment_discount, #payment_vat, #payment_pph, #payment_freight', function(){
-                let order_list = ['qty[]','price[]','discount[]']
-                let current_changes = $(this).attr('name')
-
-                // Order List
-                if(order_list.includes(current_changes)){
-                    let subtotal = 0
-                    let qty = +$(this).parents('tr').find('[name="qty[]"]').val()
-                    let price = $(this).parents('tr').find('[name="price[]"]').val()
-                    price = parseFloat(price.replaceAll(',',''))
-                    let discount = +$(this).parents('tr').find('[name="discount[]"]').val() / 100
-                    let total = qty * price
-                    let total_discounted = total - (total * discount)
-        
-                    $(this).parents('tr').find('[name="total[]"]').val(total_discounted)
-        
-                    $('[name="total[]"]').each(function(){
-                        subtotal += parseFloat($(this).val().replaceAll(',',''))
-                    })
-    
-                    $('#payment_sub_total').val(subtotal)
-                }
-
-                //Payment Details
-                let payment_sub_total = $('#payment_sub_total').val()
-                payment_sub_total = payment_sub_total !== '' ? parseFloat($('#payment_sub_total').val().replaceAll(',','')) : 0
-                let payment_discount = parseFloat($('#payment_discount').val().replaceAll(',','')) / 100
-                let net_subtotal = payment_sub_total - (payment_sub_total * payment_discount)
-
-                $('#payment_net_subtotal').val(net_subtotal)
-
-                let payment_vat = +$('#payment_vat').val() / 100 
-                let payment_pph = +$('#payment_pph').val() / 100 
-                let payment_freight = $('#payment_freight').val()
-                payment_freight = payment_freight !== '' ? parseFloat($('#payment_freight').val().replaceAll(',','')) : 0
-                let total_amount = 0
-
-                payment_vat = (net_subtotal * payment_vat)
-                payment_pph = (net_subtotal * payment_pph)
-                
-                total_amount = (net_subtotal + payment_vat - payment_pph + payment_freight)
-
-                $('#payment_total_amount').val(total_amount)
+                callable.calculatePayment()
             })
         },
         
@@ -266,6 +270,8 @@ const inv = {
     
                     ++index
                 })
+
+                callable.calculatePayment()
             })
         },
 
