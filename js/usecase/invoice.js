@@ -86,7 +86,7 @@ const inv = {
                         className: "text-center",
                         render: (data, type, row) => {
                             let base_url = window.location.origin + window.location.pathname
-                            return `<a href="${base_url}/edit/${row.InvoiceNo}" class="btn btn-xs grey-gallery btn-outline" title="Edit">
+                            return `<a href="${base_url}/edit/${row.InvoiceNo}" target="_blank" class="btn btn-xs grey-gallery btn-outline" title="Edit">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                     <a href="javascript:;" class="btn btn-xs grey-gallery btn-outline" title="Delete">

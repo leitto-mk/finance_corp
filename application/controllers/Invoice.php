@@ -102,7 +102,7 @@ class Invoice extends CI_Controller
 		}
 
 		$component_data = [
-			'title' => 'Create Invoice',
+			'title' => "INVOICE $invoice",
 
 			//Master
 			'customers' => $this->Mdl_corp_common->get_customer(),
