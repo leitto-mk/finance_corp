@@ -287,7 +287,7 @@ const inv = {
             $('form').submit(function(e){
                 e.preventDefault()
 
-                let url = window.location.hostname + '/invoice/submit'
+                let url = window.location.origin + '/invoice/submit'
                 let formData = $(this).serializeArray()
 
                 //Deformat Numbers

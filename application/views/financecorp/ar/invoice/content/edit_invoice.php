@@ -289,7 +289,7 @@
 									<option value="">-- Select Account No. --</option>
 									<?php for($i=0; $i<count($accnos); $i++) : ?>) : ?>
 										<?php if($data[0]['AccNo'] == $accnos[$i]['Acc_No']) : ?>
-											<option value="<?= $accnos[$i]['Acc_No'] ?>"><?= $accnos[$i]['Acc_No'] ?> | <?= $accnos[$i]['Acc_Name'] ?></option>
+											<option selected value="<?= $accnos[$i]['Acc_No'] ?>"><?= $accnos[$i]['Acc_No'] ?> | <?= $accnos[$i]['Acc_Name'] ?></option>
 										<?php else : ?>
 											<option value="<?= $accnos[$i]['Acc_No'] ?>"><?= $accnos[$i]['Acc_No'] ?> | <?= $accnos[$i]['Acc_Name'] ?></option>
 										<?php endif; ?>
