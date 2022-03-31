@@ -121,9 +121,6 @@ class Invoice extends CI_Controller
 			'data' => $result,
 		];
 
-		var_dump('<pre>'.print_r([$component_data['accnos'], $component_data['data']], true).'</pre>');
-		die();
-
 		$component = $this->load->view('financecorp/ar/invoice/content/edit_invoice', $component_data, TRUE);
 
 		$data = [
