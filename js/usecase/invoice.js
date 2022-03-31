@@ -8,8 +8,9 @@ import helper from '../helper.js'
 const callable = {
     calculatePayment: () => {
         //ORDER LIST
+        let subtotal = 0
+        
         $('#tbody_invoice tr').each(function(){
-            let subtotal = 0
             let qty = +$(this).children('input[name="qty[]"]').val()
             let price = $(this).children('input[name="price[]"]').val()
             price = parseFloat(price.replaceAll(',',''))
