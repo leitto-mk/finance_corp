@@ -172,6 +172,7 @@ $(document).ready(function(){
                     inv.formPage.eventAddRow()
                     inv.formPage.eventChagePaymentMethod()
                     inv.formPage.eventDeleteRow()
+                    inv.formPage.eventInputDownPayment()
                     inv.formPage.eventSubmitInvoice()
                 }
             })

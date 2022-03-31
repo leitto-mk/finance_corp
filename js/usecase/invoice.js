@@ -24,7 +24,10 @@ const inv = {
                         })
                     },
                     dataSrc: response => {
-                        return response.result.data
+                        return response.result
+                    },
+                    error: () => {
+                        helper.unblockUI()
                     }
                 },
                 columnDefs: [
@@ -106,7 +109,7 @@ const inv = {
             $('#tbody_invoice select[name="stockcode[]"]').select2({width: 'auto'})
             $('#accno').select2({width: 'auto'})
         },
-
+        
         initInputMask: () => {
             //Order List
             let price = $(document).find('input[name="price[]"]')
@@ -119,10 +122,12 @@ const inv = {
             let pay_net_subtotal = $(document).find('#payment_net_subtotal')
             let pay_freight = $(document).find('#payment_freight')
             let pay_total_amount = $(document).find('#payment_total_amount')
+            let dp_total = $(document).find('#payment_total')
             helper.setInputMask(pay_subtotal, "currency")
             helper.setInputMask(pay_net_subtotal, "currency")
             helper.setInputMask(pay_freight, "currency")
             helper.setInputMask(pay_total_amount, "currency")
+            helper.setInputMask(dp_total, "currency")
         },
 
         eventGetTermsOfDay: () => {
@@ -265,6 +270,20 @@ const inv = {
     
                     ++index
                 })
+            })
+        },
+
+        eventInputDownPayment: () => {
+            $('#payment_total').on('input', function(){
+                let total_amount = $('#payment_total_amount').val()
+                total_amount = total_amount !== '' ? parseFloat(total_amount.replaceAll(',','')) : 0
+                let dp_amount = $(this).val()
+                dp_amount = dp_amount !== '' ? parseFloat(dp_amount.replaceAll(',','')) : 0
+
+                if(dp_amount > total_amount){
+                    alert('Payment Exceeding Invoice Amount')
+                    $(this).val('')
+                }
             })
         },
 

@@ -62,12 +62,7 @@ class Invoice extends CI_Controller
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
 		}
 
-		$dt = [
-            'draw' => $input->get('draw'),
-            'data' => $result
-        ];
-
-		return set_success_response($dt);
+		return set_success_response($result);
 	}
 
 	public function new()
