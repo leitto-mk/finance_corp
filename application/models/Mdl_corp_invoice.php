@@ -60,11 +60,11 @@ class Mdl_corp_invoice extends CI_Model
 		->join('tbl_mat_cat_customer AS cus', 'cus.CustomerCode = mas.CustomerCode', 'LEFT')
 		->limit($limit, $offset);
 		
-		if($customer !== null){
+		if($customer){
 			$this->db->where('mas.CustomerCode', $customer);
 		}
 
-		if($start !== null && $finish !== null){
+		if($start && $finish){
 			$this->db->where([
 				'mas.RaisedDate >=' => $start,
 				'mas.RaisedDate <=' => $finish,
