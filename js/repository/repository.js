@@ -29,6 +29,7 @@ const repository = {
             searching: false,
             info: false,
             lengthMenu: [30, 50, 100, 300],
+            pagingType: "bootstrap_extended",
             ajax: {
                 url: url.target,
                 method: 'POST',
