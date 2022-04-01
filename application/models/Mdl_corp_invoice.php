@@ -189,8 +189,8 @@ class Mdl_corp_invoice extends CI_Model
 			cus.CustomerCode,
 			mas.InvoiceNo,
 			mas.TermsOfDays,
-			mas.RaisedDate,
-			mas.DueDate,
+			DATE_FORMAT(mas.RaisedDate, '%d-%m-%Y') AS RaisedDate,
+			DATE_FORMAT(mas.DueDate, '%d-%m-%Y') AS DueDate,
 			mas.TotalAmount,
 			mas.Payment,
 			mas.Balance
@@ -205,8 +205,8 @@ class Mdl_corp_invoice extends CI_Model
 			cus.CustomerCode,
 			mas.InvoiceNo,
 			mas.TermsOfDays,
-			mas.RaisedDate,
-			mas.DueDate,
+			DATE_FORMAT(mas.RaisedDate, '%d-%m-%Y') AS RaisedDate,
+			DATE_FORMAT(mas.DueDate, '%d-%m-%Y') AS DueDate,
 			mas.TotalAmount,
 			mas.Payment,
 			mas.Balance
@@ -221,8 +221,8 @@ class Mdl_corp_invoice extends CI_Model
 			cus.CustomerCode,
 			mas.InvoiceNo,
 			mas.TermsOfDays,
-			mas.RaisedDate,
-			mas.DueDate,
+			DATE_FORMAT(mas.RaisedDate, '%d-%m-%Y') AS RaisedDate,
+			DATE_FORMAT(mas.DueDate, '%d-%m-%Y') AS DueDate,
 			mas.TotalAmount,
 			mas.Payment,
 			mas.Balance
@@ -237,8 +237,8 @@ class Mdl_corp_invoice extends CI_Model
 			cus.CustomerCode,
 			mas.InvoiceNo,
 			mas.TermsOfDays,
-			mas.RaisedDate,
-			mas.DueDate,
+			DATE_FORMAT(mas.RaisedDate, '%d-%m-%Y') AS RaisedDate,
+			DATE_FORMAT(mas.DueDate, '%d-%m-%Y') AS DueDate,
 			mas.TotalAmount,
 			mas.Payment,
 			mas.Balance
