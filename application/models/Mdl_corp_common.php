@@ -50,6 +50,35 @@ class Mdl_corp_common extends CI_Model
 		return $query;
 	}
 
+    function get_employee(){
+        $query = $this->db->query(
+            "SELECT
+                emp.IDNumber,
+                emp.FullName,
+                emp.DeptCode,
+                emp.Branch,
+                emp.CostCenter,
+                IF(trans.Balance IS NULL, 0, trans.Balance) AS Balance
+             FROM tbl_hr_append AS emp
+             LEFT JOIN (SELECT Branch, IDNumber, Balance FROM tbl_fa_transaction ORDER BY CtrlNo DESC LIMIT 1) AS trans
+                ON emp.IDNumber = trans.IDNumber AND emp.Branch = trans.Branch"
+        )->result_array();
+        
+        return $query;
+    }
+
+    function get_department(){
+        $query = $this->db->select('DeptCode, DeptDes, Branch')->get('abase_03_dept')->result_array();
+
+        return $query;
+    }
+
+    function get_costcenter(){
+        $query = $this->db->select('CostCenter, CCDes, DeptCode')->get('abase_04_cost_center')->result_array();
+
+        return $query;
+    }
+
 	public function get_storage(){
 		$query = $this->db->select('StorageCode, StorageName')->get('tbl_mat_cat_storage')->result_array();
 
