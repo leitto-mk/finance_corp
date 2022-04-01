@@ -53,7 +53,7 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-define('ENVIRONMENT', 'production');
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
 /*
  *---------------------------------------------------------------
@@ -66,21 +66,22 @@ define('ENVIRONMENT', 'production');
 switch (ENVIRONMENT)
 {
 	case 'development':
-		// error_reporting(-1);
-		error_reporting(E_ALL);
+		error_reporting(-1);
 		ini_set('display_errors', 1);
-		break;
+	break;
 
 	case 'testing':
-		break;
 	case 'production':
-		// Report all errors except E_NOTICE
-		// This is the default value set in php.ini
-		error_reporting(E_ALL ^ E_NOTICE);
-
-		// Don't display errors (they can still be logged)
 		ini_set('display_errors', 0);
-		break;
+		if (version_compare(PHP_VERSION, '5.3', '>='))
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+		}
+		else
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
+		}
+	break;
 
 	default:
 		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
@@ -303,6 +304,15 @@ switch (ENVIRONMENT)
 	}
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
+
+/*
+ * --------------------------------------------------------------------
+ * LOAD THE COMPOSER PACKAGE
+ * --------------------------------------------------------------------
+ *
+ */
+// require_once FCPATH.'vendor/autoload.php';
+
 
 /*
  * --------------------------------------------------------------------

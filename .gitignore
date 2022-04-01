@@ -1,5 +1,6 @@
 application/cache/
-application/config/database.php
+application/config/
+/application/config/database.php
 application/core/
 application/hooks/
 application/language/
@@ -7,6 +8,7 @@ application/logs/
 application/third_party/
 application/.htaccess
 application/index.html
+application/views/errors/
 assets/apps/
 assets/global/
 assets/layouts/
@@ -20,5 +22,7 @@ user_guide/
 .editorconfig
 .htaccess
 composer
+index.php
 /.vscode
+.vscode/settings.json
 .gitignore
