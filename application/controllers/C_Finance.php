@@ -94,8 +94,6 @@ class C_Finance extends CI_Controller
             }
 
             $data_view['type'] = $type;
-
-            $body = $this->load->view('financecorp/master/coa/component/v_coa_form', $data_view, true);
         } else {
             $title = 'Create New Head';
 
@@ -109,8 +107,9 @@ class C_Finance extends CI_Controller
             $data_view['type'] = 'head';
             $data_view['transgroup'] = null;
 
-            $body = $this->load->view('financecorp/master/coa/component/v_coa_form', $data_view, true);
         }
+        
+        $body = $this->load->view('financecorp/master/coa/component/v_coa_form', $data_view, true);
 
         $result = [
             'title' => $title,
