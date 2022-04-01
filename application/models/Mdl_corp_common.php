@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_common extends CI_Model
 {
-    function get_company(){
+    public function get_company(){
         return $this->db->select('ComName')->get('abase_01_com')->row()->ComName ?? '';
     }
     
@@ -50,7 +50,7 @@ class Mdl_corp_common extends CI_Model
 		return $query;
 	}
 
-    function get_employee(){
+    public function get_employee(){
         $query = $this->db->query(
             "SELECT
                 emp.IDNumber,
@@ -67,13 +67,13 @@ class Mdl_corp_common extends CI_Model
         return $query;
     }
 
-    function get_department(){
+    public function get_department(){
         $query = $this->db->select('DeptCode, DeptDes, Branch')->get('abase_03_dept')->result_array();
 
         return $query;
     }
 
-    function get_costcenter(){
+    public function get_costcenter(){
         $query = $this->db->select('CostCenter, CCDes, DeptCode')->get('abase_04_cost_center')->result_array();
 
         return $query;
