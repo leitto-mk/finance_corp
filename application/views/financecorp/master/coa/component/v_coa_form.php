@@ -18,7 +18,20 @@
 	<div class="col-md-12">
 		<div class="form-group">
 			<label for="coa_type" class="control-label bold">Account Type</label>
-			<input type="text" name="coa_type" id="coa_type" class="form-control" value="<?= isset($coa['Acc_Type']) ? $coa['Acc_Type'] : null ?>" required>
+			<select type="text" name="coa_type" id="coa_type" class="form-control" required>
+				<option value="">-- Select Account Type --</option>
+				<?php for($i=0; $i < count($acc_types); $i++) : ?>
+					<?php if(isset($coa['Acc_Type'])) : ?>
+						<?php if($acc_types[$i]['id'] == $coa['Acc_Type']) : ?>
+							<option value="<?= $acc_types[$i]['id'] ?>" selected><?= $acc_types[$i]['text'] ?></option>
+						<?php else : ?>
+							<option value="<?= $acc_types[$i]['id'] ?>"><?= $acc_types[$i]['text'] ?></option>
+						<?php endif; ?>
+					<?php else : ?>
+						<option value="<?= $acc_types[$i]['id'] ?>"><?= $acc_types[$i]['text'] ?></option>
+					<?php endif; ?>
+				<?php endfor; ?>
+			</select>
 		</div>
 	</div>
 </div>

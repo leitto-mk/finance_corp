@@ -5,7 +5,11 @@ class Mdl_corp_coa extends CI_Model
 {
 	public function M_get_coaccount($where)
 	{
-		return $this->db->order_by('Acc_No','ASC')->get_where('tbl_fa_account_no', $where);
+		if($where){
+			return $this->db->order_by('Acc_No','ASC')->get_where('tbl_fa_account_no', $where);
+		}else{
+			return $this->db->order_by('Acc_No','ASC')->get_where('tbl_fa_account_no');
+		}
 	}
 
 	public function M_count_level()

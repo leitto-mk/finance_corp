@@ -21,21 +21,17 @@ const callable = {
             helper.unblockUI()
 
             if(response.success){
-                $("#modal-finance").find(".modal-title").text("Create New Heading")
+                $("#modal-finance").find(".modal-title").text(response.result.title)
                 $("#modal-finance").find(".modal-body").html(response.result.body)
 
+                let base_url = window.location.origin
                 $("#modal-finance").find("#action-submit, #action-delete").attr("data-unique", id)
                 $("#modal-finance").find("#action-submit").attr("data-type", type)
-                $("#modal-finance").find("#action-submit").attr("data-submit", 'C_Finance/submit_coa')
-                $("#modal-finance").find("#action-submit").attr("data-table-url", 'C_Finance/get_coa_content')
+                $("#modal-finance").find("#action-submit").attr("data-submit", `${base_url}/C_Finance/submit_coa`)
+                $("#modal-finance").find("#action-submit").attr("data-table-url", `${base_url}/C_Finance/get_coa_content`)
 
                 let element = $(document).find('#coa_type')
-                element.select2({
-                    minimumResultsForSearch: -1,
-                    data: data,
-                    placeholder: placeholder ?? '',
-                    width: "style",
-                })
+                element.select2()
             }else{
                 Swal.fire({
                     'type': 'error',

@@ -28,6 +28,7 @@ class C_Finance extends CI_Controller
         ]);
 
         $this->load->model('Mdl_corp_coa', 'finance');
+        $this->load->model('Mdl_corp_common', 'common');
     }
 
     public function index()
@@ -59,10 +60,12 @@ class C_Finance extends CI_Controller
     {
         $id = $this->input->post('id', true);
         $type = $this->input->post('type', true);
-
-        $data_view = [];
-        $body = '';
+        
         $title = '';
+        $body = '';
+        $data_view = [
+            'acc_types' => $this->finance->M_get_account_type()->result_array(),
+        ];
 
         if ($id && $type) {
             $data_coa =  $this->finance->M_get_coaccount([
@@ -114,7 +117,6 @@ class C_Finance extends CI_Controller
         $result = [
             'title' => $title,
             'body' => $body,
-            'acc_types' => $this->finance->M_get_account_type()->result_array(),
 
             'type_url' => base_url('C_Finance/get_type'),
             'group_url' => base_url('C_Finance/get_group'),
