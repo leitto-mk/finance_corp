@@ -25,7 +25,7 @@ if(!function_exists('set_error_response')){
     {
         $CI =& get_instance();
     
-        $CI->output->set_status_header($code);
+        $CI->output->set_status_header((int) $code);
         $CI->output->set_content_type('application/json','utf-8');
         $CI->output->set_output(json_encode([
             'success' => FALSE,
