@@ -140,13 +140,13 @@
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="form-group">
-						<label for="term_days" class="control-label">Term Day(s)</label>
-						<input type="text" name="term_days" id="term_days" class="form-control" value="<?= $data[0]['TermsOfDays'] ?>">
+						<label for="due_date" class="control-label">Due Date</label>
+						<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>" value="<?= $data[0]['DueDate'] ?>" required>
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="form-group" style="margin-bottom: 37px">
-						<label for="due_date" class="control-label">Due Date</label>
-						<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>" value="<?= $data[0]['DueDate'] ?>" required>
+						<label for="term_days" class="control-label">Term Day(s)</label>
+						<input type="text" name="term_days" id="term_days" class="form-control" value="<?= $data[0]['TermsOfDays'] ?>" readonly>
 						<span class="help-block hidden"></span>
 					</div>
 				</div>

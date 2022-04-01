@@ -44,6 +44,7 @@
     <link href="<?= base_url() ?>assets/global/plugins/ladda/ladda-themeless.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url() ?>assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url() ?>assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
     <!-- BEGIN PAGE LEVEL PLUGINS NEW UPDATE-->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="<?= base_url() ?>assets/global/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" />

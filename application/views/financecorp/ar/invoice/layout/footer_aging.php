@@ -51,17 +51,20 @@
         <script src="<?= base_url() ?>assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/global/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="<?= base_url() ?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/pages/scripts/form-input-mask.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/pages/scripts/portfolio-1.min.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/pages/scripts/table-bootstrap.min.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/pages/scripts/table-datatables-fixedheader.min.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/pages/scripts/ui-blockui.min.js" type="text/javascript"></script>
-        <script src="<?= base_url() ?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-        <script src="<?= base_url() ?>assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
         <script src="<?= base_url() ?>assets/pages/scripts/ui-blockui.min.js" type="text/javascript"></script>
-        <script src="<?= base_url() ?>assets/pages/scripts/portfolio-1.min.js" type="text/javascript"></script>
-        <script src="<?= base_url() ?>assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
         <?php if(isset($script) && $script !== '') : ?>
             <script id="script" type="module" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>

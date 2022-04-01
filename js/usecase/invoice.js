@@ -6,6 +6,105 @@ import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
 const callable = {
+    generateDataTable: (table, formData) => {
+        let base_url = window.location.origin + '/invoice/get'
+
+        $(table).DataTable({
+            destroy: true,
+            serverSide: true,
+            searching: false,
+            info: false,
+            lengthMenu: [30, 50, 100, 300],
+            pagingType: "bootstrap_extended",
+            ajax: {
+                url: base_url,
+                method: 'GET',
+                data: formData ?? null,
+                beforeSend: () => {
+                    helper.blockUI({
+                        animate: true
+                    })
+                },
+                dataSrc: response => {
+                    helper.unblockUI()
+
+                    if(response.result && response.result.length > 0){
+                        for (let i = 0; i < response.result.length; i++){
+                            response.result[i].ItemNo = i+1
+                        }
+
+                        return response.result
+                    }
+
+                    return response
+                },
+                error: () => {
+                    helper.unblockUI()
+                }
+            },
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: "text-center",
+                    orderable: false,
+                    data: "ItemNo",
+                },
+                { targets: 1, data: "InvoiceNo" },
+                { targets: 2, data: "CustomerName" },
+                { targets: 3, data: "InvoiceDate", className: "text-center" },
+                { targets: 4, data: "DueDate", className: "text-center" },
+                {
+                    targets: 5,
+                    data: "TotalAmount",
+                    className: "text-right",
+                    render: (data, type, row) => {
+                        return new Intl.NumberFormat('en', {
+                            style: "currency",
+                            currency: "IDR",
+                        }).format(data)
+                    },
+                },
+                {
+                    targets: 6,
+                    data: "Payment",
+                    className: "text-right",
+                    render: (data, type, row) => {
+                        return new Intl.NumberFormat('en', {
+                            style: "currency",
+                            currency: "IDR",
+                        }).format(data)
+                    },
+                },
+                {
+                    targets: 7,
+                    data: "Balance",
+                    className: "text-right",
+                    render: (data, type, row) => {
+                        return new Intl.NumberFormat('en', {
+                            style: "currency",
+                            currency: "IDR",
+                        }).format(data)
+                    },
+                },
+                {
+                    targets: 8,
+                    orderable: false,
+                    className: "text-center",
+                    render: (data, type, row) => {
+                        let base_url = window.location.origin + '/invoice'
+
+                        return `<a name="edit" href="${base_url}/edit/${row.InvoiceNo}" target="_blank" class="btn btn-xs grey-gallery btn-outline" title="Edit">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a name="delete" href="${base_url}/delete/${row.InvoiceNo}" class="btn btn-xs grey-gallery btn-outline" title="Delete">
+                                    <i class="fa fa-close"></i>
+                                </a>`
+                    },
+                }
+            ]
+        })
+    },
+
     calculatePayment: () => {
         //ORDER LIST
         let subtotal = 0
@@ -46,101 +145,146 @@ const callable = {
         total_amount = (net_subtotal + payment_vat - payment_pph + payment_freight)
 
         $('#payment_total_amount').val(total_amount)
+    },
+
+    deleteRecord: url => {
+        let confirm = window.confirm("Are You sure to delete this record ?")
+
+        if(confirm){
+            repository.deleteRecord(url)
+            .then(response => {
+                helper.unblockUI()
+
+                if(response.success == true){
+                    Swal.fire({
+                        'type': 'success',
+                        'title': response.result
+                    })
+                }else{
+                    Swal.fire({
+                        'type': 'error',
+                        'title': 'ERROR',
+                        'html': `<h4 class="sbold">${response.desc}</h4>`
+                    })
+                }
+            })
+            .fail(err => {
+                helper.unblockUI()
+
+                Swal.fire({
+                    'type': 'error',
+                    'title': 'ERROR',
+                    'html': `<h4 class="sbold">${err.desc}</h4>`
+                })
+            })
+        }
+    },
+
+    drawTableAging: (response, q) => {
+        let table = $(`#table_${q} tbody`)
+
+        const currency = Intl.NumberFormat('en', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })
+
+        if(response.result[q] && response.result[q].length > 0){
+            table.empty()
+    
+            let total_amount = 0
+            let payment = 0
+            let balance = 0
+            for(let i = 0; i < response.result[q].length; i++){
+                if(i == 0){
+                    table.append(`
+                        <tr style="background-color: #578ebe6b">
+                            <td colspan="9" class="bold">${response.result[q][i].CustomerName} - ${response.result[q][i].CustomerCode}</td>
+                        </tr>
+                    `)
+                }else{
+                    if(response.result[q][i].CustomerCode !== response.result[q][i-1].Customercode){
+                        table.append(`
+                            <tr style="background-color: #578ebe6b">
+                                <td colspan="9" class="bold">${response.result[q][i].CustomerName}-${response.result[q][i].CustomerCode}</td>
+                            </tr>
+                        `)
+                    }
+                }
+                
+                table.append(`
+                    <tr class="font-dark sbold">
+                        <td align="center">${i+1}</td>
+                        <td align="left">${response.result[q][i].InvoiceNo}</td>
+                        <td align="center">${response.result[q][i].TermsOfDays}</td>
+                        <td align="center">${response.result[q][i].RaisedDate}</td>
+                        <td align="center">${response.result[q][i].DueDate}</td>
+                        <td align="right">${currency.format(response.result[q][i].TotalAmount)}</td>
+                        <td align="right">${currency.format(response.result[q][i].Payment)}</td>
+                        <td align="right">${currency.format(response.result[q][i].Balance)}</td>
+                    </tr>
+                `)
+    
+                total_amount += +response.result[q][i].TotalAmount
+                payment += +response.result[q][i].Payment
+                balance += +response.result[q][i].Balance
+    
+                if(i < (response.result[q].length - 1)){
+                    if(response.result[q][i].CustomerCode !== response.result[q][i+1].CustomerCode){
+                        table.append(`
+                            <tr style="border-top: solid 2px;" class="font-dark sbold">
+                                <td align="right" colspan="5">Total Amount :</td>
+                                <td align="right">${currency.format(total_amount)}</td>
+                                <td align="right">${currency.format(payment)}</td>
+                                <td align="right">${currency.format(balance)}</td>
+                            </tr>
+                        `)
+                    }
+    
+                    total_amount = 0
+                    payment = 0
+                    balance = 0
+                } else {
+                    table.append(`
+                        <tr style="border-top: solid 2px;" class="font-dark sbold">
+                            <td align="right" colspan="5">Total Amount :</td>
+                            <td align="right">${currency.format(total_amount)}</td>
+                            <td align="right">${currency.format(payment)}</td>
+                            <td align="right">${currency.format(balance)}</td>
+                        </tr>
+                    `)
+    
+                    total_amount = 0
+                    payment = 0
+                    balance = 0
+                }
+            }
+        }else{
+            table.empty()
+            table.append(`
+                <td>
+                    <td colspan="8" class="sbold text-center">No Data</td>
+                </td>
+            `)
+        }
     }
 }
 
 const inv = {
     dashboardPage: {
-        generateDataTable: () => {
-            $("#table-approval").DataTable({
-                destroy: true,
-                serverSide: true,
-                searching: false,
-                info: false,
-                lengthMenu: [30, 50, 100, 300],
-                pagingType: "bootstrap_extended",
-                ajax: {
-                    url: 'Invoice/get',
-                    method: 'GET',
-                    beforeSend: () => {
-                        helper.blockUI({
-                            animate: true
-                        })
-                    },
-                    dataSrc: response => {
-                        helper.unblockUI()
+        initGenerateDataTable: () => {
+            callable.generateDataTable('#table-approval')
+        },
 
-                        for (let i = 0; i < response.result.length; i++){
-                            response.result[i].ItemNo = i+1
-                        }
+        eventDeleteInvoice: () => {
+            $('#table-approval').on('click', 'a[name="delete"]', function(e){
+                e.preventDefault()
 
-                        return response.result
-                    },
-                    error: () => {
-                        helper.unblockUI()
-                    }
-                },
-                columnDefs: [
-                    {
-                        targets: 0,
-                        className: "text-center",
-                        orderable: false,
-                        data: "ItemNo",
-                    },
-                    { targets: 1, data: "InvoiceNo" },
-                    { targets: 2, data: "CustomerName" },
-                    { targets: 3, data: "InvoiceDate", className: "text-center" },
-                    { targets: 4, data: "DueDate", className: "text-center" },
-                    {
-                        targets: 5,
-                        data: "TotalAmount",
-                        className: "text-right",
-                        render: (data, type, row) => {
-                            return new Intl.NumberFormat('en', {
-                                style: "currency",
-                                currency: "IDR",
-                            }).format(data)
-                        },
-                    },
-                    {
-                        targets: 6,
-                        data: "Payment",
-                        className: "text-right",
-                        render: (data, type, row) => {
-                            return new Intl.NumberFormat('en', {
-                                style: "currency",
-                                currency: "IDR",
-                            }).format(data)
-                        },
-                    },
-                    {
-                        targets: 7,
-                        data: "Balance",
-                        className: "text-right",
-                        render: (data, type, row) => {
-                            return new Intl.NumberFormat('en', {
-                                style: "currency",
-                                currency: "IDR",
-                            }).format(data)
-                        },
-                    },
-                    {
-                        targets: 8,
-                        orderable: false,
-                        className: "text-center",
-                        render: (data, type, row) => {
-                            let base_url = window.location.origin + window.location.pathname
-                            return `<a href="${base_url}/edit/${row.InvoiceNo}" target="_blank" class="btn btn-xs grey-gallery btn-outline" title="Edit">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-xs grey-gallery btn-outline" title="Delete">
-                                        <i class="fa fa-close"></i>
-                                    </a>`
-                        },
-                    }
-                ]
+                let url = $(this).attr('href')
+
+                callable.deleteRecord(url)
+                callable.generateDataTable('#table-approval')
             })
-        }
+        },
     },
 
     formPage: {
@@ -332,6 +476,147 @@ const inv = {
                     Swal.fire({
                         'type': 'error',
                         'title': 'ABORTED',
+                        'html': `<h4 class="sbold">${err.desc}</h4>`
+                    })
+                })
+            })
+        }
+    },
+
+    listPage: {
+        initGenerateDataTable: () => {
+            callable.generateDataTable('#list_invoice')
+        },
+
+        initSelectSearch: () => {
+            $('#customer').select2({width: 'auto'})
+        },
+
+        eventDeleteInvoice: () => {
+            $('#list_invoice').on('click', 'a[name="delete"]', function(e){
+                e.preventDefault()
+
+                let url = $(this).attr('href')
+
+                callable.deleteRecord(url)
+
+                let formData = {
+                    'customer': $('#customer option:selected').val(),
+                    'date_start': $('#date_start').val(),
+                    'date_finish': $('#date_finish').val()
+                }
+
+                callable.generateDataTable('#list_invoice', formData)
+            })
+        },
+
+        eventPreviewFilter: () => {
+            $('#submit_filter').click(function(){
+                let formData = {
+                    'customer': $('#customer option:selected').val(),
+                    'date_start': $('#date_start').val(),
+                    'date_finish': $('#date_finish').val()
+                }
+
+                callable.generateDataTable('#list_invoice', formData)
+            })
+        }
+    },
+
+    agingPage: {
+        initSelectSearch: () => {
+            $('#customer').select2({width: 'auto'})
+        },
+
+        eventPreviewFilter: () => {
+            $('#submit_filter').click(function(){
+                var currency = Intl.NumberFormat('en', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                })
+
+                var formData = {
+                    'customer': $('#customer option:selected').val(),
+                    'branch': $('#branch option:selected').val(),
+                    'ageby': $('#aging option:selected').val(),
+                    'date_start': $('#date_start').val()
+                }
+
+                var url = window.location.origin + '/invoice/get_aging'
+
+                repository.getRecord(url, formData)
+                .then(response => {
+                    helper.unblockUI()
+    
+                    if(!response.success == true){
+                        Swal.fire({
+                            'type': 'error',
+                            'title': 'ERROR',
+                            'html': `<h4 class="sbold">${response.desc}</h4>`
+                        })   
+                    }
+
+                    /**
+                     ** TABLE SUMMARY STARTS HERE
+                     */
+                    if(response.result.summary.length > 0){
+                        let table = $('#table_summary tbody')
+                        let totalOutstanding = 0
+                        let totalQ1 = 0
+                        let totalQ2 = 0
+                        let totalQ3 = 0
+                        let totalQ4 = 0
+                        table.empty()
+                        
+                        for(let i = 0; i < response.result.summary.length; i++){
+                            table.append(`
+                                <tr class="font-dark sbold">
+                                    <td align="center">${i+1}</td>
+                                    <td align="center">${response.result.summary[i].CustomerName}</td>   
+                                    <td align="right">${currency.format(response.result.summary[i].Outstanding)}</td>
+                                    <td align="right">${currency.format(response.result.summary[i].BalanceQ1)}</td>
+                                    <td align="right">${currency.format(response.result.summary[i].BalanceQ2)}</td>
+                                    <td align="right">${currency.format(response.result.summary[i].BalanceQ3)}</td>
+                                    <td align="right">${currency.format(response.result.summary[i].BalanceQ4)}</td>
+                                </tr>
+                            `)
+    
+                            totalOutstanding += +response.result.summary[i].Outstanding
+                            totalQ1 += +response.result.summary[i].BalanceQ1
+                            totalQ2 += +response.result.summary[i].BalanceQ2
+                            totalQ3 += +response.result.summary[i].BalanceQ3
+                            totalQ4 += +response.result.summary[i].BalanceQ4
+    
+                            if(i == (response.result.summary.length - 1)){
+                                table.append(`
+                                    <tr style="border-top: solid 2px;" class="font-dark sbold">
+                                        <td align="center"></td>
+                                        <td align="right">Total Amount :</td>                                    
+                                        <td align="right">${currency.format(totalOutstanding)}</td>
+                                        <td align="right">${currency.format(totalQ1)}</td>
+                                        <td align="right">${currency.format(totalQ2)}</td>
+                                        <td align="right">${currency.format(totalQ3)}</td>
+                                        <td align="right">${currency.format(totalQ4)}</td>
+                                    </tr>
+                                `)
+                            }
+                        }
+                    }
+
+                     /**
+                     ** TABLE Q1-Q4 STARTS HERE
+                     */
+                    callable.drawTableAging(response, 'q1')
+                    callable.drawTableAging(response, 'q2')
+                    callable.drawTableAging(response, 'q3')
+                    callable.drawTableAging(response, 'q4')
+                })
+                .fail(err => {
+                    helper.unblockUI()
+    
+                    Swal.fire({
+                        'type': 'error',
+                        'title': 'ERROR',
                         'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
                 })

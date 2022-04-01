@@ -3,6 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_common extends CI_Model
 {
+    function get_company(){
+        return $this->db->select('ComName')->get('abase_01_com')->row()->ComName ?? '';
+    }
+    
     public function get_branch(){
         return $this->db->select('BranchCode, BranchName')
                         ->get('abase_02_branch')->result_array();

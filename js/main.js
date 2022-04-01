@@ -162,7 +162,8 @@ $(document).ready(function(){
                 segment = segment.toLowerCase()
 
                 if(segment == ""){
-                    inv.dashboardPage.generateDataTable()
+                    inv.dashboardPage.initGenerateDataTable()
+                    inv.dashboardPage.eventDeleteInvoice()
                 }else if(segment == "new" || segment == "edit"){
                     inv.formPage.initSelectSearch()
                     inv.formPage.initInputMask()
@@ -175,6 +176,14 @@ $(document).ready(function(){
                     inv.formPage.eventDeleteRow()
                     inv.formPage.eventInputDownPayment()
                     inv.formPage.eventSubmitInvoice()
+                }else if(segment == "list"){
+                    inv.listPage.initGenerateDataTable()
+                    inv.listPage.initSelectSearch()
+                    inv.listPage.eventDeleteInvoice()
+                    inv.listPage.eventPreviewFilter()
+                }else if(segment == "aging"){
+                    inv.agingPage.initSelectSearch()
+                    inv.agingPage.eventPreviewFilter()
                 }
             })
             .catch(err => {

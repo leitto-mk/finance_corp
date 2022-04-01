@@ -38,25 +38,25 @@ class Invoice extends CI_Controller
 		$subtotal = 0;
 
 		for($i = 0; $i < count($formData['stockcode']); $i++){
-			$qty = $formData['qty'][$i];
-			$price = $formData['price'][$i];
-			$discount = $formData['discount'][$i] / 100;
+			$qty = (float) $formData['qty'][$i];
+			$price = (float) $formData['price'][$i];
+			$discount = (float) $formData['discount'][$i] / 100;
 			$total = $qty * $price;
 			$total = $total - ($total * $discount);
 
-			$formData['total'][$i] = $total;
+			$formData['total'][$i] = (float) $total;
 
 			$subtotal += $total;
 		}
 
-		$formData['payment_sub_total'] = $subtotal;
-		$payment_discount = $formData['payment_discount'];
-		$formData['payment_net_subtotal'] = $subtotal - ($subtotal * $payment_discount);
-		$net_subtotal = $formData['payment_net_subtotal'];
+		$formData['payment_sub_total'] = (float) $subtotal;
+		$payment_discount = (float) $formData['payment_discount'];
+		$formData['payment_net_subtotal'] = (float) $subtotal - ($subtotal * $payment_discount);
+		$net_subtotal = (float) $formData['payment_net_subtotal'];
 		$vat = $net_subtotal * ($formData['payment_vat'] / 100);
 		$pph = $net_subtotal * ($formData['payment_pph'] / 100);
-		$freight = $formData['payment_freight'];
-		$formData['payment_total_amount'] = ($net_subtotal + $vat - $pph + $freight);
+		$freight = (float) $formData['payment_freight'];
+		$formData['payment_total_amount'] = (float) ($net_subtotal + $vat - $pph + $freight);
 	}
 
 	public function index()
@@ -80,10 +80,14 @@ class Invoice extends CI_Controller
 
 	public function get(){
 		$input = $this->input;
+
+		$customer = $input->get('customer') ?? null;
+		$start = $input->get('date_start') ?? null;
+		$finish = $input->get('date_finish') ?? null;
 		$limit = $input->get('length');
 		$offset = $input->get('start');
 
-		[$result, $error] = $this->Mdl_corp_invoice->get_invoices($limit, $offset);
+		[$result, $error] = $this->Mdl_corp_invoice->get_invoices($customer, $start, $finish, $limit, $offset);
 		if(!is_null($error)){
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
 		}
@@ -120,7 +124,7 @@ class Invoice extends CI_Controller
 
 		$this->load->view('financecorp/ar/invoice/layout/header_footer_form', $data);
 	}
-
+	
 	public function edit($invoice){
 		[$result, $error] = $this->Mdl_corp_invoice->get_invoice($invoice);
 		if(!is_null($error)){
@@ -315,18 +319,35 @@ class Invoice extends CI_Controller
         return set_success_response($result);
 	}
 
+	public function delete($invoice){
+		$validation = validate($this->input->get(),null,null);
+		
+		if(!$validation) {
+			return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+		}
+
+		$error = $this->Mdl_corp_invoice->delete_invoice($invoice);
+		if(!is_null($error)){
+			return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+		}
+
+		return set_success_response("$invoice has been deleted");
+	}
+
 	public function list(){
 
-		$title = 'Invoice Module';
 		$data_view = [
-			'title' => 'List Invoice'
+			'title' => 'List Invoice',
+
+			'customer' => $this->Mdl_corp_common->get_customer()
 		];
+
 		$content = $this->load->view('financecorp/ar/invoice/content/v_invoice_list', $data_view, true);
 
 		$data = [
-			'title' => $title,
+			'title' => 'Invoice List',
 			'content' => $content,
-			
+			'script' => 'invoice'
 		];
 		$this->load->view('financecorp/ar/invoice/layout/main', $data);
 	}
@@ -337,9 +358,54 @@ class Invoice extends CI_Controller
             'h1' => 'Invoice',
             'h2' => 'Aging',
             'h3' => '',
-            'h4' => ''
+            'h4' => '',
+			
+			'company' => $this->Mdl_corp_cash_advance->get_company(),
+			'branch' => $this->Mdl_corp_common->get_branch(),
+			'customer' => $this->Mdl_corp_common->get_customer(),
+
+			'script' => 'invoice'
         ];
         
         $this->load->view('financecorp/ar/invoice/content/v_invoice_aging', $data);
     }
+
+	public function get_aging(){
+		$validation = validate($this->input->post(),[
+			[ //Specific Case
+				'date' => ['date_start'],
+				'number' => [],
+			],
+			[ //Ignore
+				'branch',
+				'customer'
+			]
+		]);
+
+		if (!$validation) {
+            return set_error_response(self::HTTP_BAD_REQUEST, $validation);
+        }
+
+		$input = $this->input;
+
+		$branch = $input->post('branch');
+		$customer = $input->post('customer');
+		$ageby = $input->post('ageby') == 'raised_date' ? 'RaisedDate' : 'DueDate';
+		$start = $input->post('date_start');
+
+		[$summary, $q1, $q2, $q3, $q4, $error] = $this->Mdl_corp_invoice->get_invoice_aging($branch, $customer, $ageby, $start);
+		if(!is_null($error)){
+			return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
+		}
+
+		$result = [
+			'summary' => $summary,
+			'q1' => $q1,
+			'q1' => $q2,
+			'q1' => $q3,
+			'q1' => $q4
+		];
+
+		return set_success_response($result);
+	}
 }

@@ -23,8 +23,8 @@
                                                 <th width="5%"></th>
                                                 <th class="text-center" width="25%">Branch</th>
                                                 <th class="text-center" width="25%">Customer</th>
+                                                <th class="text-center" width="25%">Age By</th>
                                                 <th class="text-center" width="20%">Start Date</th>
-                                                <th class="text-center" width="20%">End Date</th>
                                                 <th class="text-center" width="10%">Action</th>        
                                             </tr>
                                         </thead>
@@ -38,9 +38,11 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
+                                                            <select name="branch" id="branch" class="form-control" required>
+                                                                <option value="">-- Select Branch --</option>
+                                                                <?php for($i=0; $i<count($branch); $i++) : ?>) : ?>
+                                                                    <option value="<?= $branch[$i]['BranchCode'] ?>"><?= $branch[$i]['BranchName'] ?></option>
+                                                                <?php endfor; ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -48,9 +50,13 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <select id="school" name="school" class="form-control" required>
-                                                                <option value="All">All</option>
-                                                               
+                                                            <select name="customer" id="customer" class="form-control" data-value="" required>
+                                                                <option value="">-- Select Customer --</option>
+                                                                <?php if (!empty($customer)) : ?>
+                                                                    <?php for ($i = 0; $i < count($customer); $i++) : ?>
+                                                                        <option value="<?= $customer[$i]['CustomerCode'] ?>"><?= $customer[$i]['CustomerName'] ?></option>
+                                                                    <?php endfor; ?>
+                                                                <?php endif; ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -58,14 +64,17 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <input type="date" name="date_start" id='date_start' value="<?= date('Y-01-01') ?>" class="form-control">
+                                                            <select name="aging" id="aging" class="form-control" data-value="" required>
+                                                                <option value="raised_date" selected>Raised Date</option>
+                                                                <option value="due_date">Due Date</option>
+                                                            </option>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <input type="date" name="date_finish" id='date_finish' value="<?= date('Y-m-d') ?>" class="form-control">
+                                                            <input type="date" name="date_start" id='date_start' value="<?= date('Y-m-d') ?>" class="form-control">
                                                         </div>
                                                     </div>
                                                 </td>
@@ -88,499 +97,149 @@
                 </div>
                 <div class="col-md-12">
                     <div class="portlet bordered light">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 invoice-logo-space text-center" style="margin-top: -5px">
-                            <div>
-                                <font size="6">Company Name</font><br>
-                                <font size="4" class="font-dark sbold uppercase">Invoice Aging</font><br>
-                                <font size="3" class="font-dark sbold"><i class="fa fa-calendar"></i> Date : 01-Jan-2021 - 01-Jan-2021</font>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                                <div>
+                                    <h2 size="sbold text-center"><?= $company ?></h2>
+                                    <div size="4" class="font-dark sbold uppercase">Invoice Aging</d><br>
+                                </div>
                             </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-stripped table-condensed">
-                                    <thead>
-                                        <tr class="bg-blue-dark font-white">
-                                            <th class="text-center" width="3%"> No </th>
-                                            <th class="text-center" width="10%"> Customer </th>
-                                            <th class="text-center" width="14%"> Outstanding </th>
-                                            <th class="text-center" width="13%"> Current </th>
-                                            <th class="text-center" width="15%"> 1-30 </th>
-                                            <th class="text-center" width="15%"> 31-60 </th>
-                                            <th class="text-center" width="15%"> 61-90 </th>
-                                            <th class="text-center" width="15%"> 91 and Over </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1</td>
-                                            <td align="center">Customer A</td>                                    
-                                            <td align="right">1,100.000</td>
-                                            <td align="right">500,000</td>
-                                            <td align="right">500,000</td>
-                                            <td align="right">100,000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2</td>
-                                            <td align="center">Customer B</td>                                    
-                                            <td align="right">130,000</td>
-                                            <td align="right">40,000</td>
-                                            <td align="right">40,000</td>
-                                            <td align="right">50,000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">3</td>
-                                            <td align="center">Customer C</td>                                    
-                                            <td align="right">1,750,000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right">1.750.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">4</td>
-                                            <td align="center">Customer D</td>                                    
-                                            <td align="right">100,000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right">100.000</td>
-                                            <td align="right"></td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">5</td>
-                                            <td align="center">Customer E</td>                                    
-                                            <td align="right">300.000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right">200.000</td>
-                                            <td align="right">100.000</td>
-                                            <td align="right"></td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">6</td>
-                                            <td align="center">Customer F</td>                                    
-                                            <td align="right">1,950,000</td>
-                                            <td align="right"></td>
-                                            <td align="right"></td>
-                                            <td align="right">200.000</td>
-                                            <td align="right"></td>
-                                            <td align="right">1.750.000</td>
-                                        </tr>
-                                        <tr style="border-top: solid 2px;" class="font-dark sbold">
-                                            <td align="center"></td>
-                                            <td align="right">Total Amount :</td>                                    
-                                            <td align="right">5,330.000</td>
-                                            <td align="right">540.000</td>
-                                            <td align="right">540.000</td>
-                                            <td align="right">550.000</td>
-                                            <td align="right">200.000</td>
-                                            <td align="right">3.500.000</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="portlet-body">
+                                <div class="table-responsive">
+                                    <table id="table_summary" class="table table-bordered table-stripped table-condensed">
+                                        <thead>
+                                            <tr class="bg-blue-dark font-white">
+                                                <th class="text-center" width="3%"> No </th>
+                                                <th class="text-center" width="10%"> Customer </th>
+                                                <th class="text-center" width="14%"> Outstanding </th>
+                                                <th class="text-center" width="15%"> 0-30 </th>
+                                                <th class="text-center" width="15%"> 31-60 </th>
+                                                <th class="text-center" width="15%"> 61-90 </th>
+                                                <th class="text-center" width="15%"> 91 and Over </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           <tr>
+                                               <td colspan="7" class="sbold text-center">-- Select Parameter --</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div> 
-                <div class="col-md-12">
                     <div class="portlet bordered light">
-                        <div class="caption">
-                            <span class="caption-subject bold uppercase font-dark">Aged Due - Current</span>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-stripped table-condensed">
-                                    <thead>
-                                        <tr class="bg-blue-dark font-white">
-                                            <th class="text-center" width="5%"> No </th>
-                                            <th class="text-center" width="10%"> Invoice No </th>
-                                            <th class="text-center" width="5%"> Terms </th>
-                                            <th class="text-center" width="8%"> Invoice Date  </th>
-                                            <th class="text-center" width="8%"> Due Date </th>
-                                            <th class="text-center" width="6%"> Currency </th>
-                                            <th class="text-center" width="10%"> Amount </th>
-                                            <th class="text-center" width="10%"> Receipt </th>
-                                            <th class="text-center" width="10%"> Oustanding </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="background-color: #578ebe6b">
-                                            <td colspan="9" class="bold">Customer A - Code</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1</td>                                 
-                                            <td align="left">INV2107-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">01-Jul-21</td>
-                                            <td align="center">31-Jul-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">200.000</td>
-                                            <td align="right">30.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2</td>                                 
-                                            <td align="left">INV2108-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">1,000.000</td>
-                                            <td align="right">500.000</td>
-                                            <td align="right">500.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">3</td>                                 
-                                            <td align="left">INV2109-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">150.000</td>
-                                            <td align="right">80.000</td>
-                                        </tr>
-                                        <tr style="border-top: solid 2px;" class="font-dark sbold">
-                                                                          
-                                            <td align="right" colspan="6">Total Amount :</td>
-                                            <td align="right">1,460.000</td>
-                                            <td align="right">850.000</td>
-                                            <td align="right">610.000</td>
-                                          
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="row">
+                            <div class="caption">
+                                <span class="caption-subject bold uppercase font-dark">Aged Due 0 - 30 Days</span>
                             </div>
-                        </div>
-
-
-                        <div class="caption">
-                            <span class="caption-subject bold uppercase font-dark">Aged Due 1 - 30 Days</span>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-stripped table-condensed">
-                                    <thead>
-                                        <tr class="bg-blue-dark font-white">
-                                            <th class="text-center" width="5%"> No </th>
-                                            <th class="text-center" width="10%"> Invoice No </th>
-                                            <th class="text-center" width="5%"> Terms </th>
-                                            <th class="text-center" width="8%"> Invoice Date  </th>
-                                            <th class="text-center" width="8%"> Due Date </th>
-                                            <th class="text-center" width="6%"> Currency </th>
-                                            <th class="text-center" width="10%"> Amount </th>
-                                            <th class="text-center" width="10%"> Receipt </th>
-                                            <th class="text-center" width="10%"> Oustanding </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="background-color: #578ebe6b">
-                                            <td colspan="9" class="bold">Customer A - Code</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1</td>                                 
-                                            <td align="left">INV2107-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">01-Jul-21</td>
-                                            <td align="center">31-Jul-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">200.000</td>
-                                            <td align="right">30.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2</td>                                 
-                                            <td align="left">INV2108-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">1,000.000</td>
-                                            <td align="right">500.000</td>
-                                            <td align="right">500.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">3</td>                                 
-                                            <td align="left">INV2109-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">150.000</td>
-                                            <td align="right">80.000</td>
-                                        </tr>
-                                        <tr style="border-top: solid 2px;" class="font-dark sbold">
-                                                                          
-                                            <td align="right" colspan="6">Total Amount :</td>
-                                            <td align="right">1,460.000</td>
-                                            <td align="right">850.000</td>
-                                            <td align="right">610.000</td>
-                                           
-                                        </tr>   
-
-                                        <tr style="background-color: #578ebe6b">
-                                            <td colspan="9" class="bold">Customer A - Code</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1</td>                                 
-                                            <td align="left">INV2107-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">01-Jul-21</td>
-                                            <td align="center">31-Jul-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">200.000</td>
-                                            <td align="right">30.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2</td>                                 
-                                            <td align="left">INV2108-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">1,000.000</td>
-                                            <td align="right">500.000</td>
-                                            <td align="right">500.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">3</td>                                 
-                                            <td align="left">INV2109-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">150.000</td>
-                                            <td align="right">80.000</td>
-                                        </tr>
-                                        <tr style="border-top: solid 2px;" class="font-dark sbold">
-                                                                          
-                                            <td align="right" colspan="6">Total Amount :</td>
-                                            <td align="right">1,460.000</td>
-                                            <td align="right">850.000</td>
-                                            <td align="right">610.000</td>
-                                            
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="portlet-body">
+                                <div class="table-responsive">
+                                    <table id="table_q1" class="table table-bordered table-stripped table-condensed">
+                                        <thead>
+                                            <tr class="bg-blue-dark font-white">
+                                                <th class="text-center" width="5%"> No </th>
+                                                <th class="text-center" width="10%"> Invoice No </th>
+                                                <th class="text-center" width="5%"> Terms </th>
+                                                <th class="text-center" width="8%"> Invoice Date  </th>
+                                                <th class="text-center" width="8%"> Due Date </th>
+                                                <th class="text-center" width="10%"> Amount </th>
+                                                <th class="text-center" width="10%"> Receipt </th>
+                                                <th class="text-center" width="10%"> Oustanding </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <td>
+                                                <td colspan="8" class="sbold text-center">-- Select Parameter --</td>
+                                            </td>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="caption">
-                            <span class="caption-subject bold uppercase font-dark">Aged Due 31 - 60 Days</span>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-stripped table-condensed">
-                                    <thead>
-                                       <tr class="bg-blue-dark font-white">
-                                            <th class="text-center" width="5%"> No </th>
-                                            <th class="text-center" width="10%"> Invoice No </th>
-                                            <th class="text-center" width="5%"> Terms </th>
-                                            <th class="text-center" width="8%"> Invoice Date  </th>
-                                            <th class="text-center" width="8%"> Due Date </th>
-                                            <th class="text-center" width="6%"> Currency </th>
-                                            <th class="text-center" width="10%"> Amount </th>
-                                            <th class="text-center" width="10%"> Receipt </th>
-                                            <th class="text-center" width="10%"> Oustanding </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="background-color: #578ebe6b">
-                                            <td colspan="9" class="bold">Customer A - Code</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1</td>                                 
-                                            <td align="left">INV2107-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">01-Jul-21</td>
-                                            <td align="center">31-Jul-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">200.000</td>
-                                            <td align="right">30.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2</td>                                 
-                                            <td align="left">INV2108-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">1,000.000</td>
-                                            <td align="right">500.000</td>
-                                            <td align="right">500.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">3</td>                                 
-                                            <td align="left">INV2109-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">150.000</td>
-                                            <td align="right">80.000</td>
-                                        </tr>
-                                        <tr style="border-top: solid 2px;" class="font-dark sbold">
-                                                                          
-                                            <td align="right" colspan="6">Total Amount :</td>
-                                            <td align="right">1,460.000</td>
-                                            <td align="right">850.000</td>
-                                            <td align="right">610.000</td>
-                                           
-                                        </tr>   
-                                    </tbody>
-                                </table>
+    
+                            <div class="caption">
+                                <span class="caption-subject bold uppercase font-dark">Aged Due 31 - 60 Days</span>
                             </div>
-                        </div>
-
-                        <div class="caption">
-                            <span class="caption-subject bold uppercase font-dark">Aged Due 61 - 90 Days</span>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-stripped table-condensed">
-                                    <thead>
-                                        <tr class="bg-blue-dark font-white">
-                                            <th class="text-center" width="5%"> No </th>
-                                            <th class="text-center" width="10%"> Invoice No </th>
-                                            <th class="text-center" width="5%"> Terms </th>
-                                            <th class="text-center" width="8%"> Invoice Date  </th>
-                                            <th class="text-center" width="8%"> Due Date </th>
-                                            <th class="text-center" width="6%"> Currency </th>
-                                            <th class="text-center" width="10%"> Amount </th>
-                                            <th class="text-center" width="10%"> Receipt </th>
-                                            <th class="text-center" width="10%"> Oustanding </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="background-color: #578ebe6b">
-                                            <td colspan="9" class="bold">Customer A - Code</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1</td>                                 
-                                            <td align="left">INV2107-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">01-Jul-21</td>
-                                            <td align="center">31-Jul-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">200.000</td>
-                                            <td align="right">30.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2</td>                                 
-                                            <td align="left">INV2108-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">1,000.000</td>
-                                            <td align="right">500.000</td>
-                                            <td align="right">500.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">3</td>                                 
-                                            <td align="left">INV2109-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">150.000</td>
-                                            <td align="right">80.000</td>
-                                        </tr>
-                                        <tr style="border-top: solid 2px;" class="font-dark sbold">
-                                                                          
-                                            <td align="right" colspan="6">Total Amount :</td>
-                                            <td align="right">1,460.000</td>
-                                            <td align="right">850.000</td>
-                                            <td align="right">610.000</td>
-                                           
-                                        </tr>   
-                                    </tbody>
-                                </table>
+                            <div class="portlet-body">
+                                <div class="table-responsive">
+                                    <table id="table_q2" class="table table-bordered table-stripped table-condensed">
+                                        <thead>
+                                           <tr class="bg-blue-dark font-white">
+                                                <th class="text-center" width="5%"> No </th>
+                                                <th class="text-center" width="10%"> Invoice No </th>
+                                                <th class="text-center" width="5%"> Terms </th>
+                                                <th class="text-center" width="8%"> Invoice Date  </th>
+                                                <th class="text-center" width="8%"> Due Date </th>
+                                                <th class="text-center" width="10%"> Amount </th>
+                                                <th class="text-center" width="10%"> Receipt </th>
+                                                <th class="text-center" width="10%"> Oustanding </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <td>
+                                                <td colspan="8" class="sbold text-center">-- Select Parameter --</td>
+                                            </td>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="caption">
-                            <span class="caption-subject bold uppercase font-dark">Aged Due 90 Days - Over</span>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-stripped table-condensed">
-                                    <thead>
-                                        <tr class="bg-blue-dark font-white">
-                                            <th class="text-center" width="5%"> No </th>
-                                            <th class="text-center" width="10%"> Invoice No </th>
-                                            <th class="text-center" width="5%"> Terms </th>
-                                            <th class="text-center" width="8%"> Invoice Date  </th>
-                                            <th class="text-center" width="8%"> Due Date </th>
-                                            <th class="text-center" width="6%"> Currency </th>
-                                            <th class="text-center" width="10%"> Amount </th>
-                                            <th class="text-center" width="10%"> Receipt </th>
-                                            <th class="text-center" width="10%"> Oustanding </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="background-color: #578ebe6b">
-                                            <td colspan="9" class="bold">Customer A - Code</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">1</td>                                 
-                                            <td align="left">INV2107-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">01-Jul-21</td>
-                                            <td align="center">31-Jul-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">200.000</td>
-                                            <td align="right">30.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">2</td>                                 
-                                            <td align="left">INV2108-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">1,000.000</td>
-                                            <td align="right">500.000</td>
-                                            <td align="right">500.000</td>
-                                        </tr>
-                                        <tr class="font-dark sbold">
-                                            <td align="center">3</td>                                 
-                                            <td align="left">INV2109-001</td>
-                                            <td align="center">30</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">05-Aug-21</td>
-                                            <td align="center">IDR</td>
-                                            <td align="right">230.000</td>
-                                            <td align="right">150.000</td>
-                                            <td align="right">80.000</td>
-                                        </tr>
-                                        <tr style="border-top: solid 2px;" class="font-dark sbold">
-                                                                          
-                                            <td align="right" colspan="6">Total Amount :</td>
-                                            <td align="right">1,460.000</td>
-                                            <td align="right">850.000</td>
-                                            <td align="right">610.000</td>
-                                          
-                                        </tr>   
-                                    </tbody>
-                                </table>
+    
+                            <div class="caption">
+                                <span class="caption-subject bold uppercase font-dark">Aged Due 61 - 90 Days</span>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="table-responsive">
+                                    <table id="table_q3" class="table table-bordered table-stripped table-condensed">
+                                        <thead>
+                                            <tr class="bg-blue-dark font-white">
+                                                <th class="text-center" width="5%"> No </th>
+                                                <th class="text-center" width="10%"> Invoice No </th>
+                                                <th class="text-center" width="5%"> Terms </th>
+                                                <th class="text-center" width="8%"> Invoice Date  </th>
+                                                <th class="text-center" width="8%"> Due Date </th>
+                                                <th class="text-center" width="10%"> Amount </th>
+                                                <th class="text-center" width="10%"> Receipt </th>
+                                                <th class="text-center" width="10%"> Oustanding </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <td>
+                                                <td colspan="8" class="sbold text-center">-- Select Parameter --</td>
+                                            </td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+    
+                            <div class="caption">
+                                <span class="caption-subject bold uppercase font-dark">Aged Due 90 Days - Over</span>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="table-responsive">
+                                    <table id="table_q4" class="table table-bordered table-stripped table-condensed">
+                                        <thead>
+                                            <tr class="bg-blue-dark font-white">
+                                                <th class="text-center" width="5%"> No </th>
+                                                <th class="text-center" width="10%"> Invoice No </th>
+                                                <th class="text-center" width="5%"> Terms </th>
+                                                <th class="text-center" width="8%"> Invoice Date  </th>
+                                                <th class="text-center" width="8%"> Due Date </th>
+                                                <th class="text-center" width="10%"> Amount </th>
+                                                <th class="text-center" width="10%"> Receipt </th>
+                                                <th class="text-center" width="10%"> Oustanding </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <td>
+                                                <td colspan="8" class="sbold text-center">-- Select Parameter --</td>
+                                            </td>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>

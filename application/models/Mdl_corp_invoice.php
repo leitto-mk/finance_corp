@@ -43,24 +43,35 @@ class Mdl_corp_invoice extends CI_Model
 		return [$query, null];
 	}
 
-	public function get_invoices($limit, $offset)
+	public function get_invoices($customer, $start, $finish, $limit, $offset)
 	{
 		$this->db->trans_begin();
 
-		$result = $this->db->select('
-					mas.InvoiceNo, 
-					cus.CustomerName, 
-					DATE_FORMAT(mas.InvoiceDate, "%Y-%m-%d") AS InvoiceDate, 
-					DATE_FORMAT(mas.DueDate, "%Y-%m-%d") AS DueDate, 
-					mas.TotalAmount, 
-					mas.Payment, 
-					mas.Balance
-				')
-				->from('tbl_fa_invoice_mas AS mas')
-				->join('tbl_mat_cat_customer AS cus', 'cus.CustomerCode = mas.CustomerCode', 'LEFT')
-				->limit($limit, $offset)
-				->get()
-				->result_array();
+		$this->db->select('
+			mas.InvoiceNo, 
+			cus.CustomerName, 
+			DATE_FORMAT(mas.InvoiceDate, "%Y-%m-%d") AS InvoiceDate, 
+			DATE_FORMAT(mas.DueDate, "%Y-%m-%d") AS DueDate, 
+			mas.TotalAmount, 
+			mas.Payment, 
+			mas.Balance
+		')
+		->from('tbl_fa_invoice_mas AS mas')
+		->join('tbl_mat_cat_customer AS cus', 'cus.CustomerCode = mas.CustomerCode', 'LEFT')
+		->limit($limit, $offset);
+		
+		if($customer !== null){
+			$this->db->where('mas.CustomerCode', $customer);
+		}
+
+		if($start !== null && $finish !== null){
+			$this->db->where([
+				'mas.RaisedDate >=' => $start,
+				'mas.RaisedDate <=' => $finish,
+			]);
+		}
+
+		$result = $this->db->get()->result_array();
 
 		if($this->db->error()['code'] != 0){
             $code = $this->db->error()['code'];
@@ -119,5 +130,136 @@ class Mdl_corp_invoice extends CI_Model
         $this->db->trans_complete();
 
 		return null;
+	}
+
+	public function get_invoice_aging($branch, $customer, $ageby, $start){
+		$this->db->trans_begin();
+
+		/**
+		 **  SUMMARY
+		 */ 
+		$this->db->select("
+			mas.Branch, 
+			mas.InvoiceNo, 
+			cus.CustomerName, 
+			(
+				IFNULL(q1.Balance, 0) +
+				IFNULL(q2.Balance, 0) +
+				IFNULL(q3.Balance, 0) +
+				IFNULL(q4.Balance, 0)
+			) AS Outstanding,
+			IFNULL(q1.Balance, 0) AS BalanceQ1,
+			IFNULL(q2.Balance, 0) AS BalanceQ2,
+			IFNULL(q3.Balance, 0) AS BalanceQ3,
+			IFNULL(q4.Balance, 0) AS BalanceQ4		
+		")
+		->from('tbl_fa_invoice_mas AS mas')
+		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')
+		->join("(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
+				 WHERE $ageby BETWEEN '$start' AND DATE_ADD('$start', INTERVAL 30 DAY)) AS q1", "CustomerCode", 'LEFT')
+		->join("(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
+				 WHERE $ageby BETWEEN DATE_ADD('$start', INTERVAL 31 DAY) AND DATE_ADD('$start', INTERVAL 60 DAY)) AS q2", "CustomerCode", 'LEFT')
+		->join("(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
+				 WHERE $ageby BETWEEN DATE_ADD('$start', INTERVAL 61 DAY) AND DATE_ADD('$start', INTERVAL 90 DAY)) AS q3", "CustomerCode", 'LEFT')
+		->join("(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
+				 WHERE $ageby >= DATE_ADD('$start', INTERVAL 91 DAY)) AS q4", "CustomerCode", 'LEFT');
+
+		if($branch !== ''){
+			$this->db->where('mas.Branch', $branch);
+		}
+
+		if($customer !== ''){
+			$this->db->where('mas.CustomerCode', $customer);
+		}
+
+		$summary = $this->db->get()->result_array();
+
+		/**
+		 **  Q1-Q4 Details
+		 */
+		if($branch !== ''){
+			$this->db->where('mas.Branch', $branch);
+		}
+		if($customer !== ''){
+			$this->db->where('mas.CustomerCode', $customer);
+		}
+
+		$q1 = $this->db->select("
+			cus.CustomerName,
+			cus.CustomerCode,
+			mas.InvoiceNo,
+			mas.TermsOfDays,
+			mas.RaisedDate,
+			mas.DueDate,
+			mas.TotalAmount,
+			mas.Payment,
+			mas.Balance
+		")
+		->from('tbl_fa_invoice_mas AS mas')
+		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
+			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
+			 WHERE $ageby BETWEEN '$start' AND DATE_ADD('$start', INTERVAL 30 DAY)) AS q1", "CustomerCode", 'LEFT')->get()->result_array();
+
+		$q2 = $this->db->select("
+			cus.CustomerName,
+			cus.CustomerCode,
+			mas.InvoiceNo,
+			mas.TermsOfDays,
+			mas.RaisedDate,
+			mas.DueDate,
+			mas.TotalAmount,
+			mas.Payment,
+			mas.Balance
+		")
+		->from('tbl_fa_invoice_mas AS mas')
+		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
+			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
+			 WHERE $ageby BETWEEN DATE_ADD('$start', INTERVAL 31 DAY) AND DATE_ADD('$start', INTERVAL 60 DAY)) AS q2", "CustomerCode", 'LEFT')->get()->result_array();
+
+		$q3 = $this->db->select("
+			cus.CustomerName,
+			cus.CustomerCode,
+			mas.InvoiceNo,
+			mas.TermsOfDays,
+			mas.RaisedDate,
+			mas.DueDate,
+			mas.TotalAmount,
+			mas.Payment,
+			mas.Balance
+		")
+		->from('tbl_fa_invoice_mas AS mas')
+		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
+			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
+			 WHERE $ageby BETWEEN DATE_ADD('$start', INTERVAL 61 DAY) AND DATE_ADD('$start', INTERVAL 90 DAY)) AS q3", "CustomerCode", 'LEFT')->get()->result_array();
+
+		$q4 = $this->db->select("
+			cus.CustomerName,
+			cus.CustomerCode,
+			mas.InvoiceNo,
+			mas.TermsOfDays,
+			mas.RaisedDate,
+			mas.DueDate,
+			mas.TotalAmount,
+			mas.Payment,
+			mas.Balance
+		")
+		->from('tbl_fa_invoice_mas AS mas')
+		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
+			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
+			 WHERE $ageby >= DATE_ADD('$start', INTERVAL 91 DAY)) AS q4", "CustomerCode", 'LEFT')->get()->result_array();
+	
+		if($this->db->error()['code'] != 0){
+			$code = $this->db->error()['code'];
+			$message = $this->db->error()['message'];
+			log_message('error', "$code: $message");
+		
+			$this->db->trans_rollback();
+		
+			return [null, "Database Error"];
+		}
+		
+		$this->db->trans_complete();
+
+		return [$summary, $q1, $q2, $q3, $q4, null];
 	}
 }
