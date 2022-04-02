@@ -124,7 +124,7 @@
 				<div class="portlet-body">
 					<div class="form-group">
 						<label for="raised_by" class="control-label">Raised By</label>
-						<input type="text" name="raised_by" id="raised_by" class="form-control" readonly value="<?= $raised_by ?>">
+						<input type="text" name="raised_by" id="raised_by" class="form-control" readonly value="<?= date('Y-m-d') ?>">
 					</div>
 					<div class="form-group">
 						<label for="raised_date" class="control-label">Raised Date</label>

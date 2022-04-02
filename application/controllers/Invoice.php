@@ -59,8 +59,7 @@ class Invoice extends CI_Controller
 		$formData['payment_total_amount'] = (float) ($net_subtotal + $vat - $pph + $freight);
 	}
 
-	public function index()
-	{
+	public function index(){
 		$title = 'Invoice Module';
 
 		$data_view = [
@@ -89,15 +88,14 @@ class Invoice extends CI_Controller
 
 		try {
 			$result = $this->Mdl_corp_invoice->get_invoices($customer, $start, $finish, $limit, $offset);
-			
-			return set_success_response($result);
 		} catch (Exception $e) {
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
 		}
+
+		return set_success_response($result);
 	}
 
-	public function new()
-	{
+	public function new(){
 		try{
 			$content_data = [
 				'title' => 'Create Invoice',
@@ -117,9 +115,7 @@ class Invoice extends CI_Controller
 				'accno' => $this->Mdl_corp_common->get_mas_acc()
 			];
 		}catch(Exception $e){
-			log_message('error', $e->getMessage());
-
-			$this->load->view('erros/html/error_500', ['url' => current_url()]);
+			return $this->load->view('errors/html/error_general', ['url' => base_url('Invoice')]);
 		}
 
 		$content = $this->load->view('financecorp/ar/invoice/content/new_invoice', $content_data, TRUE);
@@ -133,30 +129,30 @@ class Invoice extends CI_Controller
 	}
 	
 	public function edit($invoice){
-		try{
-			$component_data = [
-				'title' => "INVOICE $invoice",
-	
-				//Master
-				'customers' => $this->Mdl_corp_common->get_customer(),
-				'storages' => $this->Mdl_corp_common->get_storage(),
-	
-				//List
-				'stockcodes' => $this->Mdl_corp_common->get_stockcode(),
-				'currencies' => $this->Mdl_corp_common->get_currency(),
-	
-				//Payment Detail
-				'branches' => $this->Mdl_corp_common->get_branch(),
-				'accnos' => $this->Mdl_corp_common->get_mas_acc(),
-	
-				//Invoice Data
-				'data' => $this->Mdl_corp_invoice->get_invoice($invoice),
-			];
+		try {
+			$invoice_data = $this->Mdl_corp_invoice->get_invoice($invoice);
 		}catch(Exception $e){
-			log_message('error', $e->getMessage());
-
-			$this->load->view('erros/html/error_500', ['url' => current_url()]);
+			return $this->load->view('errors/html/error_general', ['url' => base_url('Invoice')]);
 		}
+
+		$component_data = [
+			'title' => "INVOICE $invoice",
+
+			//Master
+			'customers' => $this->Mdl_corp_common->get_customer(),
+			'storages' => $this->Mdl_corp_common->get_storage(),
+
+			//List
+			'stockcodes' => $this->Mdl_corp_common->get_stockcode(),
+			'currencies' => $this->Mdl_corp_common->get_currency(),
+
+			//Payment Detail
+			'branches' => $this->Mdl_corp_common->get_branch(),
+			'accnos' => $this->Mdl_corp_common->get_mas_acc(),
+
+			//Invoice Data
+			'data' => $invoice_data,
+		];
 
 		$component = $this->load->view('financecorp/ar/invoice/content/edit_invoice', $component_data, TRUE);
 
@@ -229,7 +225,7 @@ class Invoice extends CI_Controller
 			'BankCode' => $input->post('dp_payment_bank'),
 			'Payment' => $input->post('payment_total'),
 			'PaymentStatus' => ($input->post('payment_total') === $input->post('payment_total_amount') ? 1 : 0),
-			'Balance' => ($input->post('payment_total_amount') - $input->post('payment_total'))
+			'Balance' => ((int)$input->post('payment_total_amount') - (int) $input->post('payment_total'))
 		];
 
 		//INVOICE DETAIL
@@ -346,17 +342,11 @@ class Invoice extends CI_Controller
 
 	public function list(){
 
-		try {
-			$data_view = [
-				'title' => 'List Invoice',
-	
-				'customer' => $this->Mdl_corp_common->get_customer()
-			];
-		}catch(Exception $e){
-			log_message('error', $e->getMessage());
+		$data_view = [
+			'title' => 'List Invoice',
 
-			$this->load->view('erros/html/error_500', ['url' => current_url()]);
-		}
+			'customer' => $this->Mdl_corp_common->get_customer()
+		];
 
 		$content = $this->load->view('financecorp/ar/invoice/content/v_invoice_list', $data_view, true);
 
@@ -370,25 +360,19 @@ class Invoice extends CI_Controller
 	}
 
 	public function aging(){
-		try{
-			$data = [
-				'title' => 'Invoice Aging',
-				'h1' => 'Invoice',
-				'h2' => 'Aging',
-				'h3' => '',
-				'h4' => '',
-				
-				'company' => $this->Mdl_corp_cash_advance->get_company(),
-				'branch' => $this->Mdl_corp_common->get_branch(),
-				'customer' => $this->Mdl_corp_common->get_customer(),
-	
-				'script' => 'invoice'
-			];
-		}catch(Exception $e){
-			log_message('error', $e->getMessage());
+		$data = [
+			'title' => 'Invoice Aging',
+			'h1' => 'Invoice',
+			'h2' => 'Aging',
+			'h3' => '',
+			'h4' => '',
+			
+			'company' => $this->Mdl_corp_cash_advance->get_company(),
+			'branch' => $this->Mdl_corp_common->get_branch(),
+			'customer' => $this->Mdl_corp_common->get_customer(),
 
-			$this->load->view('erros/html/error_500', ['url' => current_url()]);
-		}
+			'script' => 'invoice'
+		];
         
         $this->load->view('financecorp/ar/invoice/content/v_invoice_aging', $data);
     }
