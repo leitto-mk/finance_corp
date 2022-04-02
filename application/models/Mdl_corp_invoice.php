@@ -2,12 +2,26 @@
 
 class Mdl_corp_invoice extends CI_Model
 {
+	public function __construct(){
+		parent::__construct();
+
+		try{
+			$this->load->database();
+		}catch(Exception $e){
+			throw new Exception($e->getMessage());
+		}
+	}
+	
 	public function generate_invoice(){ 
-        $current = $this->db
-                    ->limit(1)
-                    ->order_by('InvoiceNo', 'DESC')
-                    ->select('SUBSTRING(InvoiceNo, 6,5)+0 AS InvoiceNo')
-                    ->get('tbl_fa_invoice_mas');
+		try{
+			$current = $this->db
+			->limit(1)
+			->order_by('InvoiceNo', 'DESC')
+			->select('SUBSTRING(InvoiceNo, 6,5)+0 AS InvoiceNo')
+			->get('tbl_fa_invoice_mas');
+		}catch(Exception $e){
+			throw new Exception($e->getMessage());
+		}
 
         if($current->num_rows() == 0 ){
             $sequence = str_pad(1, 5, 0, STR_PAD_LEFT);
@@ -30,23 +44,19 @@ class Mdl_corp_invoice extends CI_Model
 				->get()
 				->result_array();
 
-		if($this->db->error()['code'] != 0){
+		if($this->db->error()['code'] !== 0){
 			$code = $this->db->error()['code'];
 			$message = $this->db->error()['message'];
 			log_message('error', "$code: $message");
 
-			return [null, "Database Error"];
+			throw new Exception("Database Error");
 		}
 		
-		$this->db->trans_complete();
-		
-		return [$query, null];
+		return $query;
 	}
 
 	public function get_invoices($customer, $start, $finish, $limit, $offset)
 	{
-		$this->db->trans_begin();
-
 		$this->db->select('
 			mas.InvoiceNo, 
 			cus.CustomerName, 
@@ -73,19 +83,15 @@ class Mdl_corp_invoice extends CI_Model
 
 		$result = $this->db->get()->result_array();
 
-		if($this->db->error()['code'] != 0){
-            $code = $this->db->error()['code'];
-            $message = $this->db->error()['message'];
-            log_message('error', "$code: $message");
-
-            $this->db->trans_rollback();
+		if($this->db->error()['code'] !== 0){
+			$code = $this->db->error()['code'];
+			$message = $this->db->error()['message'];
+			log_message('error', "$code: $message");
    
-            return [null, "Database Error"];
-         }
-        
-        $this->db->trans_complete();
+			throw new Exception("Database Error");
+		}
 		
-		return [$result, null];
+		return $result;
 	}
 
 	public function submit_invoice($mas, $det, $trans){
@@ -95,19 +101,17 @@ class Mdl_corp_invoice extends CI_Model
         $this->db->insert_batch('tbl_fa_invoice_det', $det);
         $this->db->insert('tbl_fa_transaction', $trans);
 
-		if($this->db->error()['code'] != 0){
+		if($this->db->trans_status() == false){
             $code = $this->db->error()['code'];
             $message = $this->db->error()['message'];
             log_message('error', "$code: $message");
 
             $this->db->trans_rollback();
    
-            return "Database Error";
-         }
+            throw new Exception("Database Error");
+        }
         
         $this->db->trans_complete();
-		
-		return null;
 	}
 
 	public function delete_invoice($invoice){
@@ -117,15 +121,15 @@ class Mdl_corp_invoice extends CI_Model
 		$this->db->delete('tbl_fa_invoice_det', ['InvoiceNo' => $invoice]);
 		$this->db->delete('tbl_fa_transaction', ['DocNo' => $invoice]);
 
-		if($this->db->error()['code'] != 0){
+		if($this->db->trans_status() == false){
             $code = $this->db->error()['code'];
             $message = $this->db->error()['message'];
             log_message('error', "$code: $message");
 
             $this->db->trans_rollback();
    
-            return "Database Error";
-         }
+            throw new Exception("Database Error");
+        }
         
         $this->db->trans_complete();
 
@@ -133,6 +137,7 @@ class Mdl_corp_invoice extends CI_Model
 	}
 
 	public function get_invoice_aging($branch, $customer, $ageby, $start){
+		
 		$this->db->trans_begin();
 
 		/**
@@ -248,18 +253,18 @@ class Mdl_corp_invoice extends CI_Model
 			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
 			 WHERE $ageby >= DATE_ADD('$start', INTERVAL 91 DAY)) AS q4", "CustomerCode", 'LEFT')->get()->result_array();
 	
-		if($this->db->error()['code'] != 0){
+		if($this->db->trans_status() == false){
 			$code = $this->db->error()['code'];
 			$message = $this->db->error()['message'];
 			log_message('error', "$code: $message");
-		
+
 			$this->db->trans_rollback();
-		
-			return [null, "Database Error"];
+
+			throw new Exception("Database Error");
 		}
 		
 		$this->db->trans_complete();
 
-		return [$summary, $q1, $q2, $q3, $q4, null];
+		return [$summary, $q1, $q2, $q3, $q4];
 	}
 }

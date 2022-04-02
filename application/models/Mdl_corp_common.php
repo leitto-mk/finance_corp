@@ -3,6 +3,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mdl_corp_common extends CI_Model
 {
+    public function __construct(){
+		parent::__construct();
+
+		try{
+			$this->load->database();
+		}catch(Exception $e){
+			throw new Exception($e->getMessage());
+		}
+	}
+    
     public function get_company(){
         return $this->db->select('ComName')->get('abase_01_com')->row()->ComName ?? '';
     }
