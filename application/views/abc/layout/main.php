@@ -63,7 +63,7 @@
       <!-- BEGIN LOGO -->
       <div class="page-logo bg-white" style="padding-left:0px;">
         <a href="#">
-          <img src="<?= base_url('assets/layouts/layout/img/IPHLogo.jpg') ?>" alt="logo" class="logo-default" style="margin: 10px; width:175px;" />
+          <img src="<?= base_url('assets/metronic/layouts/layout/img/IPHLogo.jpg') ?>" alt="logo" class="logo-default" style="margin: 10px; width:175px;" />
         </a>
         <div class="menu-toggler sidebar-toggler hide">
           <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->

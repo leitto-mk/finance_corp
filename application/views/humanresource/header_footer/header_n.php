@@ -15,19 +15,19 @@
     <meta content="" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" /> -->
-    <link href="<?php echo base_url(); ?>assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="<?php echo base_url(); ?>assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
-    <link href="<?php echo base_url(); ?>assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
-    <link href="<?php echo base_url(); ?>assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="<?php echo base_url(); ?>assets/metronic/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS NEW UPDATE-->
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -40,7 +40,7 @@
                     <!-- BEGIN LOGO -->
                     <!-- <div class="page-logo">
                         <a href="#">
-                            <img src="<?= base_url('assets/layouts/layout/img/abase.png')?>" alt="logo" class="logo-default" style="width: 120px; margin-top: 3px"/> </a>
+                            <img src="<?= base_url('assets/metronic/layouts/layout/img/abase.png')?>" alt="logo" class="logo-default" style="width: 120px; margin-top: 3px"/> </a>
                         <div class="menu-toggler sidebar-toggler">
                             <span></span>
                         </div>
@@ -63,7 +63,7 @@
                         <ul class="nav navbar-nav pull-right">                     
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <img alt="" class="img-circle" src="<?php echo base_url(); ?>assets/layouts/layout2/img/avatar3_small.jpg" />
+                                    <img alt="" class="img-circle" src="<?php echo base_url(); ?>assets/metronic/layouts/layout2/img/avatar3_small.jpg" />
                                     <span class="username username-hide-on-mobile font-dark bold"> <?php echo $this->session->userdata('uname'); ?> </span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>

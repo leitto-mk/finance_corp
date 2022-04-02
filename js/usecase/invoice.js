@@ -19,6 +19,7 @@ const callable = {
             ajax: {
                 url: base_url,
                 method: 'GET',
+                dataType: 'JSON',
                 data: formData ?? null,
                 beforeSend: () => {
                     helper.blockUI({
@@ -314,6 +315,16 @@ const inv = {
             helper.setInputMask(dp_total, "currency")
         },
 
+        eventChangeRaisedDate: () => {
+            $('#raised_date').change(function(){
+                let raised = $(this).val()
+                $('#due_date').attr({
+                    min: raised,
+                    value: raised
+                })
+            })
+        },
+
         eventGetTermsOfDay: () => {
             $(document).on('change','#raised_date, #due_date', function(){
                 let raised_date = $('#raised_date').val()
@@ -324,7 +335,7 @@ const inv = {
 
                 let duration = moment.duration(end.diff(start)).asDays()
 
-                duration > 0 ? $('#term_days').val(`${duration} Days`) : $('#term_days').val('')
+                duration > 0 ? $('#term_days').val(`${duration} Days`) : $('#term_days').val('0 Day')
             })
         },
 
@@ -452,6 +463,7 @@ const inv = {
                         'payment_sub_total', 
                         'payment_net_subtotal', 
                         'payment_total_amount',
+                        'payment_freight',
                         'payment_total'
                     ]
 

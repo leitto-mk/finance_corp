@@ -6,7 +6,7 @@
             <div class="row invoice-logo" align="left">
             <!-- <php $date = date("d-M-Y") ?> -->
                 <!-- <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 invoice-logo-space hidden-print">
-                    <img src="<?= base_url() ?>assets/assets/pages/img/logos/logotwc.png" width="20%" class="img-responsive" alt="" /><br>
+                    <img src="<?= base_url() ?>assets/assets/metronic/pages/img/logos/logotwc.png" width="20%" class="img-responsive" alt="" /><br>
                     <div>
                         <font size="6">Company Name</font><br>
                         <font>Jl. Company Address</font><br>

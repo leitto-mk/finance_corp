@@ -14,41 +14,41 @@
     <!-- <meta content="Preview page of Metronic Admin Theme #2 for statistics, charts, recent events and reports" name="description" /> -->
     <meta content="" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="<?php echo base_url(); ?>assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <link href="<?php echo base_url(); ?>assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />       
-    <link href="<?php echo base_url(); ?>assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />       
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css"/>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="<?php echo base_url(); ?>assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->        
-    <link href="<?php echo base_url(); ?>assets/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/pages/css/profile-2.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/pages/css/invoice.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/pages/css/invoice-2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/pages/css/profile-2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/pages/css/invoice.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/pages/css/invoice-2.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
     <!-- END THEME LAYOUT STYLES -->
-    <link href="<?php echo base_url(); ?>assets/global/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/pages/css/invoice.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/pages/css/invoice.min.css" rel="stylesheet" type="text/css" />
 
-    <link href="<?php echo base_url(); ?>assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="favicon.ico" />
-    <link href="<?php echo base_url(); ?>assets/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/plugins/cubeportfolio/css/cubeportfolio.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/pages/css/portfolio.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/cubeportfolio/css/cubeportfolio.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/pages/css/portfolio.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url(); ?>assets/dropify-upload/css/dropify.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/pages/css/blog.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/pages/css/blog.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/metronic/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" />
 </head>
 <!-- END HEAD -->
 
@@ -123,7 +123,7 @@
                     <ul class="nav navbar-nav pull-right">
                         <li class="dropdown dropdown-user">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <img alt="" class="img-circle" src="<?php echo base_url(); ?>assets/layouts/layout2/img/avatar3_small.jpg" />
+                                <img alt="" class="img-circle" src="<?php echo base_url(); ?>assets/metronic/layouts/layout2/img/avatar3_small.jpg" />
                                 <span class="username username-hide-on-mobile"> <?php echo $this->session->userdata('uname'); ?> </span>
                                 <i class="fa fa-angle-down"></i>
                             </a>

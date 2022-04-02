@@ -167,6 +167,7 @@ $(document).ready(function(){
                 }else if(segment == "new" || segment == "edit"){
                     inv.formPage.initSelectSearch()
                     inv.formPage.initInputMask()
+                    inv.formPage.eventChangeRaisedDate()
                     inv.formPage.eventGetTermsOfDay()
                     inv.formPage.eventSelectStockcode()
                     inv.formPage.eventChangeCurrency()

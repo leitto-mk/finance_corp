@@ -22,7 +22,7 @@
         <div class="row invoice-head">
           <div class="col-md-7 col-xs-6">
             <div class="invoice-logo">
-              <img src="<?= base_url('assets/assets/layouts/layout/img/IPHLogo.jpg') ?>" class="img-responsive" alt="" />
+              <img src="<?= base_url('assets/assets/metronic/layouts/layout/img/IPHLogo.jpg') ?>" class="img-responsive" alt="" />
               <!-- <h1 class="uppercase">Invoice</h1> -->
             </div>
           </div>

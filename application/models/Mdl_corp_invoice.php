@@ -2,25 +2,15 @@
 
 class Mdl_corp_invoice extends CI_Model
 {
-	public function __construct(){
-		parent::__construct();
-
-		try{
-			$this->load->database();
-		}catch(Exception $e){
-			throw new Exception($e->getMessage());
-		}
-	}
-	
 	public function generate_invoice(){ 
-		try{
-			$current = $this->db
-			->limit(1)
-			->order_by('InvoiceNo', 'DESC')
-			->select('SUBSTRING(InvoiceNo, 6,5)+0 AS InvoiceNo')
-			->get('tbl_fa_invoice_mas');
-		}catch(Exception $e){
-			throw new Exception($e->getMessage());
+		$this->db->select('SUBSTRING(InvoiceNo, 6,5)+0 AS InvoiceNo')
+		->order_by('InvoiceNo', 'DESC')
+		->limit(1);
+		
+		$current = $this->db->get('tbl_fa_invoice_mas');
+		
+		if($this->db->error()['code'] !== 0){
+			throw new Exception("Database Error");
 		}
 
         if($current->num_rows() == 0 ){
@@ -36,23 +26,21 @@ class Mdl_corp_invoice extends CI_Model
     }
 
 	public function get_invoice($invoice){
-		$query = $this->db
-				->select('mas.*, det.*')
-				->from('tbl_fa_invoice_mas AS mas')
-				->join('tbl_fa_invoice_det AS det', 'InvoiceNo', 'LEFT')
-				->where('mas.InvoiceNo', $invoice)
-				->get()
-				->result_array();
+		$this->db->select('
+			mas.*, 
+			det.*
+		')
+		->from('tbl_fa_invoice_mas AS mas')
+		->join('tbl_fa_invoice_det AS det', 'InvoiceNo', 'LEFT')
+		->where('mas.InvoiceNo', $invoice);
+		
+		$query = $this->db->get();
 
 		if($this->db->error()['code'] !== 0){
-			$code = $this->db->error()['code'];
-			$message = $this->db->error()['message'];
-			log_message('error', "$code: $message");
-
 			throw new Exception("Database Error");
 		}
-		
-		return $query;
+
+		return $query->result_array();
 	}
 
 	public function get_invoices($customer, $start, $finish, $limit, $offset)
@@ -81,17 +69,13 @@ class Mdl_corp_invoice extends CI_Model
 			]);
 		}
 
-		$result = $this->db->get()->result_array();
-
+		$result = $this->db->get();
+		
 		if($this->db->error()['code'] !== 0){
-			$code = $this->db->error()['code'];
-			$message = $this->db->error()['message'];
-			log_message('error', "$code: $message");
-   
 			throw new Exception("Database Error");
 		}
 		
-		return $result;
+		return $result->result_array();
 	}
 
 	public function submit_invoice($mas, $det, $trans){
@@ -102,10 +86,6 @@ class Mdl_corp_invoice extends CI_Model
         $this->db->insert('tbl_fa_transaction', $trans);
 
 		if($this->db->trans_status() == false){
-            $code = $this->db->error()['code'];
-            $message = $this->db->error()['message'];
-            log_message('error', "$code: $message");
-
             $this->db->trans_rollback();
    
             throw new Exception("Database Error");
@@ -122,18 +102,12 @@ class Mdl_corp_invoice extends CI_Model
 		$this->db->delete('tbl_fa_transaction', ['DocNo' => $invoice]);
 
 		if($this->db->trans_status() == false){
-            $code = $this->db->error()['code'];
-            $message = $this->db->error()['message'];
-            log_message('error', "$code: $message");
-
             $this->db->trans_rollback();
    
             throw new Exception("Database Error");
         }
         
         $this->db->trans_complete();
-
-		return null;
 	}
 
 	public function get_invoice_aging($branch, $customer, $ageby, $start){
@@ -177,7 +151,10 @@ class Mdl_corp_invoice extends CI_Model
 			$this->db->where('mas.CustomerCode', $customer);
 		}
 
-		$summary = $this->db->get()->result_array();
+		$summary = $this->db->get();
+		if($this->db->error()['code'] !== 0){
+			throw new Exception("Database Error");
+		}
 
 		/**
 		 **  Q1-Q4 Details
@@ -203,7 +180,11 @@ class Mdl_corp_invoice extends CI_Model
 		->from('tbl_fa_invoice_mas AS mas')
 		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
 			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
-			 WHERE $ageby BETWEEN '$start' AND DATE_ADD('$start', INTERVAL 30 DAY)) AS q1", "CustomerCode", 'LEFT')->get()->result_array();
+			 WHERE $ageby BETWEEN '$start' AND DATE_ADD('$start', INTERVAL 30 DAY)) AS q1", "CustomerCode", 'LEFT')->get();
+		
+		if($this->db->error()['code'] !== 0){
+			throw new Exception("Database Error");
+		}
 
 		$q2 = $this->db->select("
 			cus.CustomerName,
@@ -219,7 +200,11 @@ class Mdl_corp_invoice extends CI_Model
 		->from('tbl_fa_invoice_mas AS mas')
 		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
 			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
-			 WHERE $ageby BETWEEN DATE_ADD('$start', INTERVAL 31 DAY) AND DATE_ADD('$start', INTERVAL 60 DAY)) AS q2", "CustomerCode", 'LEFT')->get()->result_array();
+			 WHERE $ageby BETWEEN DATE_ADD('$start', INTERVAL 31 DAY) AND DATE_ADD('$start', INTERVAL 60 DAY)) AS q2", "CustomerCode", 'LEFT')->get();
+		
+		if($this->db->error()['code'] !== 0){
+			throw new Exception("Database Error");
+		}
 
 		$q3 = $this->db->select("
 			cus.CustomerName,
@@ -235,7 +220,11 @@ class Mdl_corp_invoice extends CI_Model
 		->from('tbl_fa_invoice_mas AS mas')
 		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
 			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
-			 WHERE $ageby BETWEEN DATE_ADD('$start', INTERVAL 61 DAY) AND DATE_ADD('$start', INTERVAL 90 DAY)) AS q3", "CustomerCode", 'LEFT')->get()->result_array();
+			 WHERE $ageby BETWEEN DATE_ADD('$start', INTERVAL 61 DAY) AND DATE_ADD('$start', INTERVAL 90 DAY)) AS q3", "CustomerCode", 'LEFT')->get();
+		
+		if($this->db->error()['code'] !== 0){
+			throw new Exception("Database Error");
+		}
 
 		$q4 = $this->db->select("
 			cus.CustomerName,
@@ -251,19 +240,17 @@ class Mdl_corp_invoice extends CI_Model
 		->from('tbl_fa_invoice_mas AS mas')
 		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
 			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
-			 WHERE $ageby >= DATE_ADD('$start', INTERVAL 91 DAY)) AS q4", "CustomerCode", 'LEFT')->get()->result_array();
-	
-		if($this->db->trans_status() == false){
-			$code = $this->db->error()['code'];
-			$message = $this->db->error()['message'];
-			log_message('error', "$code: $message");
-
-			$this->db->trans_rollback();
-
+			 WHERE $ageby >= DATE_ADD('$start', INTERVAL 91 DAY)) AS q4", "CustomerCode", 'LEFT')->get();
+		
+		if($this->db->error()['code'] !== 0){
 			throw new Exception("Database Error");
 		}
-		
-		$this->db->trans_complete();
+
+		$summary = $summary->result_array();
+		$q1 = $q1->result_array();
+		$q2 = $q2->result_array();
+		$q3 = $q3->result_array();
+		$q4 = $q4->result_array();
 
 		return [$summary, $q1, $q2, $q3, $q4];
 	}
