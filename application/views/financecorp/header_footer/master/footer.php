@@ -36,7 +36,7 @@
         <script src="<?=base_url('assets')?>/pages/scripts/table-datatables-responsive.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/pages/scripts/components-select2.min.js" type="text/javascript"></script>
-        <script src="<?= base_url() ?>assets/global/plugins/moment.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/metronic/global/plugins/moment.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
         <script src="<?=base_url('assets')?>/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
@@ -50,7 +50,7 @@
         <script src="<?=base_url('assets')?>/toastr/js/toastr.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         <!-- BEGIN PAGE LAYOUT SCRIPTS -->
-        <script src="<?= base_url() ?>assets/pages/scripts/form-input-mask.min.js" type="text/javascript"></script>
+        <script src="<?= base_url() ?>assets/metronic/pages/scripts/form-input-mask.min.js" type="text/javascript"></script>
         <!-- END PAGE LAYOUT SCRIPTS -->
         <!-- <script src="<?=base_url('js/master/js_master_abase.js')?>" type="text/javascript"></script> -->
         <!-- <script src="<?=base_url('js/master/js_master_stockgroup.js')?>" type="text/javascript"></script> -->
