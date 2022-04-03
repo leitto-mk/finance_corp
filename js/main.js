@@ -155,39 +155,47 @@ $(document).ready(function(){
         },
 
         invoice: () => {
-            import('./usecase/invoice.js')
-            .then(({default: inv}) => {
-                let path = window.location.pathname
-                let segment = path.split('/')[2] ?? ''
-                segment = segment.toLowerCase()
+            let path = window.location.pathname
+            let segment = path.split('/')[2] ?? ''
+            segment = segment.toLowerCase()
 
-                if(segment == ""){
-                    inv.dashboardPage.initGenerateDataTable()
-                    inv.dashboardPage.eventDeleteInvoice()
-                }else if(segment == "new" || segment == "edit"){
-                    inv.formPage.initSelectSearch()
-                    inv.formPage.initInputMask()
-                    inv.formPage.eventChangeRaisedDate()
-                    inv.formPage.eventGetTermsOfDay()
-                    inv.formPage.eventSelectStockcode()
-                    inv.formPage.eventChangeCurrency()
-                    inv.formPage.eventInputAmount()
-                    inv.formPage.eventAddRow()
-                    inv.formPage.eventChagePaymentMethod()
-                    inv.formPage.eventDeleteRow()
-                    inv.formPage.eventInputDownPayment()
-                    inv.formPage.eventSubmitInvoice()
-                }else if(segment == "list"){
-                    inv.listPage.initGenerateDataTable()
-                    inv.listPage.initSelectSearch()
-                    inv.listPage.eventDeleteInvoice()
-                    inv.listPage.eventPreviewFilter()
-                }else if(segment == "aging"){
-                    inv.agingPage.initSelectSearch()
-                    inv.agingPage.eventPreviewFilter()
-                }
-            })
-            .catch(err => {
+            var req;
+            switch (segment) {
+                case 'new':
+                    req = import('./usecase/invoiceForm.js')
+                    .then(inv => {
+                        inv.FormPage()
+                    })
+                    break;
+                case 'edit':
+                    req = import('./usecase/invoiceForm.js')
+                    .then(inv => {
+                        inv.FormPage()
+                    })
+                    break;
+                case 'list':
+                    req = import('./usecase/invoiceList.js')
+                    .then(inv => {
+                        inv.ListPage()
+                    })
+                    break;
+                case 'aging':
+                    req = import('./usecase/invoiceAging.js')
+                    .then(inv => {
+                        inv.AgingPage()
+                    })
+                    break;
+            
+                default:
+                    req = import('./usecase/invoiceDashboard.js')
+                    .then(inv => {
+                        inv.DashboardPage()
+                    })
+                    
+                    break;
+            }
+
+            req.catch(err => {
                 console.log(`%cError:%c ${err}`, 'color: red', 'color: white')
             })
         },
