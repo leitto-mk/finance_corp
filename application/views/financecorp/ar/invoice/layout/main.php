@@ -167,6 +167,7 @@
   <script src="<?= base_url() ?>assets/metronic/global/plugins/js.cookie.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/metronic/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/moment.min.js" type="text/javascript"></script>
   <!-- END CORE PLUGINS -->
@@ -175,6 +176,13 @@
   <script src="<?= base_url() ?>assets/metronic/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/metronic/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/metronic/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/metronic/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/metronic/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/metronic/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/metronic/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+  <script src="<?= base_url() ?>assets/metronic/global/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
@@ -183,7 +191,6 @@
   <script src="<?= base_url() ?>assets/metronic/global/plugins/ladda/ladda.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
-  <script src="<?= base_url() ?>assets/metronic/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>assets/metronic/global/scripts/app.min.js" type="text/javascript"></script>
   <!-- END THEME GLOBAL SCRIPTS -->
   <!-- BEGIN THEME LAYOUT SCRIPTS -->
