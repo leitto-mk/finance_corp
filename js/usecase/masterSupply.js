@@ -141,7 +141,7 @@ const msup = {
                                             html += `<option value="${hasil[i].TypeCode}">${hasil[i].TypeCode} - ${hasil[i].TypeDescription}</option>`
                                         }
                                         $('#stocktypecode').html(html);
-                                        $('#stocktypecode').select2({
+                                        helper.setSelect2($('#stocktypecode'), {
                                             dropdownParent: $('#master_crud'),
                                             width: 'auto'
                                         });
@@ -172,7 +172,7 @@ const msup = {
                                             html += `<option value="${hasil[i].CatCode}">${hasil[i].CatCode} - ${hasil[i].CatDescription}</option>`
                                         }
                                         $('#stockcatcode').html(html);
-                                        $('#stockcatcode').select2({
+                                        helper.setSelect2($('#stockcatcode'), {
                                             dropdownParent: $('#master_crud'),
                                             width: 'auto'
                                         });
@@ -203,7 +203,7 @@ const msup = {
                                             html += `<option value="${hasil[i].StockClassCode}">${hasil[i].StockClassCode} - ${hasil[i].StockClassDescription}</option>`
                                         }
                                         $('#stockclasscode').html(html);
-                                        $('#stockclasscode').select2({
+                                        helper.setSelect2($('#stockclasscode'), {
                                             placeholder: "Choose Class",
                                             dropdownParent: $('#master_crud'),
                                             width: 'auto'
@@ -432,7 +432,7 @@ const msup = {
                                                     html += `<option value="${value[i].TypeCode}">${value[i].TypeCode} - ${value[i].TypeDescription}</option>`
                                                 }
                                                 $('#stocktypecode').html(html);
-                                                $('#stocktypecode').select2({
+                                                helper.setSelect2($('#stocktypecode'), {
                                                     dropdownParent: $('#master_crud'),
                                                     width: 'auto'
                                                 });
@@ -479,7 +479,7 @@ const msup = {
                                                     html += `<option value="${value[i].CatCode}">${value[i].CatCode} - ${value[i].CatDescription}</option>`
                                                 }
                                                 $('#stockcatcode').html(html);
-                                                $('#stockcatcode').select2({
+                                                helper.setSelect2($('#stockcatcode'), {
                                                     dropdownParent: $('#master_crud'),
                                                     width: 'auto'
                                                 });
@@ -526,7 +526,7 @@ const msup = {
                                                     html += `<option value="${value[i].StockClassCode}">${value[i].StockClassCode} - ${value[i].StockClassDescription}</option>`
                                                 }
                                                 $('#stockclasscode').html(html);
-                                                $('#stockclasscode').select2({
+                                                helper.setSelect2($('#stockclasscode'), {
                                                     dropdownParent: $('#master_crud'),
                                                     width: 'auto'
                                                 });

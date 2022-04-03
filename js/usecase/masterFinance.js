@@ -31,7 +31,7 @@ const callable = {
                 $("#modal-finance").find("#action-submit").attr("data-table-url", `${base_url}/C_Finance/get_coa_content`)
 
                 let element = $(document).find('#coa_type')
-                element.select2()
+                helper.setSelect2(element, {width: 'auto'})
             }else{
                 Swal.fire({
                     'type': 'error',

@@ -34,7 +34,7 @@ class Invoice extends CI_Controller
 		$this->load->model('Mdl_corp_cash_advance');
 	}
 
-	protected function calculate_payment($formData){
+	protected function _calculate_payment($formData){
 		$subtotal = 0;
 
 		for($i = 0; $i < count($formData['stockcode']); $i++){
@@ -62,11 +62,17 @@ class Invoice extends CI_Controller
 	public function index(){
 		$title = 'Invoice Module';
 
-		$data_view = [
-			'title' => 'Dashboard'
+		$component_data = [
+			'title' => 'Dashboard',
+
+			//Cards
+			'waiting' => $this->db->select()->get_where('tbl_fa_invoice_mas', ['ApprovedStatus' => 0])->num_rows(),
+			'approved' => $this->db->select()->get_where('tbl_fa_invoice_mas', ['ApprovedStatus' => 1])->num_rows(),
+			'paid' => $this->db->select()->get_where('tbl_fa_invoice_mas', ['PaymentStatus' => 1])->num_rows(),
+			'unpaid' => $this->db->select()->get_where('tbl_fa_invoice_mas', ['PaymentStatus' => 0])->num_rows(),
 		];
 
-		$content = $this->load->view('financecorp/ar/invoice/content/dashboard', $data_view, true);
+		$content = $this->load->view('financecorp/ar/invoice/content/dashboard', $component_data, true);
 
 		$data = [
 			'title' => $title,
@@ -188,7 +194,7 @@ class Invoice extends CI_Controller
 
 		//Re-Calculate Row Total & Payment Detail
 		$formData = $input->post();
-		$this->calculate_payment($formData);
+		$this->_calculate_payment($formData);
 
 		$mas = $det = $trans = [];
 		$acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $input->post('accno')])->row()->Acc_Type;
@@ -225,7 +231,7 @@ class Invoice extends CI_Controller
 			'BankCode' => $input->post('dp_payment_bank'),
 			'Payment' => $input->post('payment_total'),
 			'PaymentStatus' => ($input->post('payment_total') === $input->post('payment_total_amount') ? 1 : 0),
-			'Balance' => ((int)$input->post('payment_total_amount') - (int) $input->post('payment_total'))
+			'Balance' => ((float)$input->post('payment_total_amount') - (float) $input->post('payment_total'))
 		];
 
 		//INVOICE DETAIL

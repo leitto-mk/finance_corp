@@ -180,7 +180,7 @@ const mopr = {
                                             html += `<option value="${hasil[i].ComCode}">${hasil[i].ComCode} - ${hasil[i].ComShortName}</option>`
                                         }
                                         $('#abasebranchcompanycode').html(html);
-                                        $('#abasebranchcompanycode').select2({
+                                        helper.setSelect2($('#abasebranchcompanycode'), {
                                             placeholder: "Choose Company",
                                             dropdownParent: $('#master_crud'),
                                             width: 'auto'
@@ -212,7 +212,7 @@ const mopr = {
                                             html += `<option value="${hasil[i].BranchCode}">${hasil[i].BranchName}</option>`
                                         }
                                         $('#abasedepartmentbranch').html(html);
-                                        $('#abasedepartmentbranch').select2({
+                                        helper.setSelect2($('#abasedepartmentbranch'), {
                                             dropdownParent: $('#master_crud'),
                                             width: 'auto'
                                         });
@@ -229,7 +229,7 @@ const mopr = {
                                             html += `<option value="${hasil[i].BUCode}">${hasil[i].BUCode} - ${hasil[i].BUDes}</option>`
                                         }
                                         $('#abasedepartmentbucode').html(html);
-                                        $('#abasedepartmentbucode').select2({
+                                        helper.setSelect2($('#abasedepartmentbucode'), {
                                             dropdownParent: $('#master_crud'),
                                             width: 'auto'
                                         });
@@ -260,7 +260,7 @@ const mopr = {
                                             html += `<option value="${hasil[i].DivCode}">${hasil[i].DivCode} - ${hasil[i].DivDes}</option>`
                                         }
                                         $('#abasedepartmentbudivisioncode').html(html);
-                                        $('#abasedepartmentbudivisioncode').select2({
+                                        helper.setSelect2($('#abasedepartmentbudivisioncode'), {
                                             dropdownParent: $('#master_crud'),
                                             width: 'auto'
                                         });
@@ -305,7 +305,7 @@ const mopr = {
                                             html += `<option value="${hasil[i].DeptCode}">${hasil[i].DeptCode} - ${hasil[i].DeptDes}</option>`
                                         }
                                         $('#abasecostcenterdepartment').html(html);
-                                        $('#abasecostcenterdepartment').select2({
+                                        helper.setSelect2($('#abasecostcenterdepartment'), {
                                             dropdownParent: $('#master_crud'),
                                             width: 'auto'
                                         });
@@ -659,7 +659,7 @@ const mopr = {
                                                     html += `<option value="${value[i].ComCode}">${value[i].ComCode} - ${value[i].ComShortName}</option>`
                                                 }
                                                 $('#abasebranchcompanycode').html(html);
-                                                $('#abasebranchcompanycode').select2({
+                                                helper.setSelect2($('#abasebranchcompanycode'), {
                                                     dropdownParent: $('#master_crud'),
                                                     width: 'auto'
                                                 });
@@ -721,7 +721,7 @@ const mopr = {
                                                     html += `<option value="${value[i].BranchCode}">${value[i].BranchName}</option>`
                                                 }
                                                 $('#abasedepartmentbranch').html(html);
-                                                $('#abasedepartmentbranch').select2({
+                                                helper.setSelect2($('#abasedepartmentbranch'), {
                                                     dropdownParent: $('#master_crud'),
                                                     width: 'auto'
                                                 });
@@ -741,7 +741,7 @@ const mopr = {
                                                     html += `<option value="${value[i].BUCode}">${value[i].BUCode} - ${value[i].BUDes}</option>`
                                                 }
                                                 $('#abasedepartmentbucode').html(html);
-                                                $('#abasedepartmentbucode').select2({
+                                                helper.setSelect2($('#abasedepartmentbucode'), {
                                                     dropdownParent: $('#master_crud'),
                                                     width: 'auto'
                                                 });
@@ -787,7 +787,7 @@ const mopr = {
                                                     html += `<option value="${value[i].DivCode}">${value[i].DivCode} - ${value[i].DivDes}</option>`
                                                 }
                                                 $('#abasedepartmentbudivisioncode').html(html);
-                                                $('#abasedepartmentbudivisioncode').select2({
+                                                helper.setSelect2($('#abasedepartmentbudivisioncode'), {
                                                     dropdownParent: $('#master_crud'),
                                                     width: 'auto'
                                                 });
@@ -863,7 +863,7 @@ const mopr = {
                                                     html += `<option value="${value[i].DeptCode}">${value[i].DeptCode} - ${value[i].DeptDes}</option>`
                                                 }
                                                 $('#abasecostcenterdepartment').html(html);
-                                                $('#abasecostcenterdepartment').select2({
+                                                helper.setSelect2($('#abasecostcenterdepartment'), {
                                                     dropdownParent: $('#master_crud'),
                                                     width: 'auto'
                                                 });
