@@ -47,6 +47,40 @@ const _callable = {
         total_amount = (net_subtotal + payment_vat - payment_pph + payment_freight)
 
         $('#payment_total_amount').val(total_amount)
+    },
+
+    CreateNewList: () => {
+        let row = $('#tbody_invoice tr:last-child').clone()
+
+        //Set Default Value
+        let item_no = +row.find('td:first-child a').text()
+        row.find('td:first-child a').text(item_no + 1)
+        
+        //? Re-instiated `select2`
+        row.find("span.select2 ").remove()
+        helper.setSelect2(row.find('[name="stockcode[]"]'), {width: 'auto'})
+
+        //? Get UOM from Stockcode attribute
+        let uom = row.find('select[name="stockcode[]"] option:selected').attr('data-uom')
+        let uom_qty = row.find('select[name="stockcode[]"] option:selected').attr('data-uom-qty')
+        row.find('[name="uom[]"]').val(uom)
+        row.find('[name="currency[]"]').val('IDR')
+        row.find('[name="qty[]"]').val(uom_qty)
+        row.find('[name="price[]"]').val(0)
+        row.find('[name="discount[]"]').val(0)
+        row.find('[name="total[]"]').val(0)
+        
+        $('#tbody_invoice').append(row)
+
+        //Set Focus on the next Description field
+        $('#tbody_detail > tr > td > input[name="stockcode[]"]').last().focus()
+        $('#tbody_detail > tr > td > input[name="stockcode[]"]').last().parent().addClass('has-warning')
+
+        //Re-Initiated Input Mask
+        let price = $(document).find('input[name="price[]"]')
+        let total = $(document).find('input[name="total[]"]')
+        helper.setInputMask(price, "currency")
+        helper.setInputMask(total, "currency")
     }
 }
 
@@ -75,6 +109,34 @@ export const FormPage = () => {
         helper.setInputMask(pay_freight, "currency")
         helper.setInputMask(pay_total_amount, "currency")
         helper.setInputMask(dp_total, "currency")
+    })();
+
+    (function EventNextInput(){
+        $(document).on('keypress', function (e) {
+            const key = e.keyCode || e.which
+            
+            if (key === 13) {
+                e.preventDefault()
+
+                // Get all focusable elements
+                var focusable = $(':focusable').not("a, button, [name='total[]'], [readonly]")
+                var index = focusable.index(document.activeElement)
+                
+                var cur_input = focusable.eq(index)
+                focusable.eq(index).parent().removeClass('has-warning')
+
+                if(index >= focusable.length){
+                    index = 0
+                }
+
+                if(cur_input.attr('name') == 'discount[]' && index !== -1){
+                    _callable.CreateNewList()
+                }
+
+                focusable.eq(index+1).focus()
+                focusable.eq(index+1).parent().addClass('has-warning')
+            }
+        });
     })();
 
     (function EventChangeRaisedDate(){
@@ -130,33 +192,7 @@ export const FormPage = () => {
     
     (function EventAddRow(){
         $('#add_row').click(function(){
-            let row = $('#tbody_invoice tr:last-child').clone()
-
-            //Set Default Value
-            let item_no = +row.find('td:first-child a').text()
-            row.find('td:first-child a').text(item_no + 1)
-            
-            //? Re-instiated `select2`
-            row.find("span.select2 ").remove()
-            helper.setSelect2(row.find('[name="stockcode[]"]'), {width: 'auto'})
-
-            //? Get UOM from Stockcode attribute
-            let uom = row.find('select[name="stockcode[]"] option:selected').attr('data-uom')
-            let uom_qty = row.find('select[name="stockcode[]"] option:selected').attr('data-uom-qty')
-            row.find('[name="uom[]"]').val(uom)
-            row.find('[name="currency[]"]').val('IDR')
-            row.find('[name="qty[]"]').val(uom_qty)
-            row.find('[name="price[]"]').val(0)
-            row.find('[name="discount[]"]').val(0)
-            row.find('[name="total[]"]').val(0)
-            
-            $('#tbody_invoice').append(row)
-
-            //Re-Initiated Input Mask
-            let price = $(document).find('input[name="price[]"]')
-            let total = $(document).find('input[name="total[]"]')
-            helper.setInputMask(price, "currency")
-            helper.setInputMask(total, "currency")
+            _callable.CreateNewList()
         })
     })();
 
