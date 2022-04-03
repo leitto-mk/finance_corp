@@ -53,6 +53,20 @@ const helper = {
     },
 
     /**
+     * `Select2` gives you a customizable select box with support for searching, tagging, remote data sets, 
+     * infinite scrolling, and many other highly used options. for more information, read the doc here:
+     * @link    https://select2.org/getting-started/basic-usage
+     * 
+     * @type    {object}    Selected Element
+     * @type    {object}    `Select2` abailable option(s). read the doc
+     * 
+     * @return  {String}    string
+    */
+    setSelect2: (el, options) => {
+        el.select2(options)
+    },
+
+    /**
      * InputMask. see reference for more info:
      * @link    https://github.com/RobinHerbots/Inputmask
      * 

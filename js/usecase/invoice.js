@@ -290,9 +290,9 @@ const inv = {
 
     formPage: {
         initSelectSearch: () => {
-            $('#customer').select2({width: 'auto'})
-            $('#tbody_invoice select[name="stockcode[]"]').select2({width: 'auto'})
-            $('#accno').select2({width: 'auto'})
+            helper.setSelect2($('#customer'), {width: 'auto'})
+            helper.setSelect2($('#tbody_invoice select[name="stockcode[]"]'), {width: 'auto'})
+            helper.setSelect2($('#accno'), {width: 'auto'})
         },
         
         initInputMask: () => {
@@ -376,7 +376,7 @@ const inv = {
                 
                 //? Re-instiated `select2`
                 row.find("span.select2 ").remove()
-                row.find('[name="stockcode[]"]').select2({width: 'auto'})
+                helper.setSelect2(row.find('[name="stockcode[]"]'), {width: 'auto'})
 
                 //? Get UOM from Stockcode attribute
                 let uom = row.find('select[name="stockcode[]"] option:selected').attr('data-uom')
@@ -501,7 +501,7 @@ const inv = {
         },
 
         initSelectSearch: () => {
-            $('#customer').select2({width: 'auto'})
+            helper.setSelect2($('#customer'), {width: 'auto'})
         },
 
         eventDeleteInvoice: () => {
@@ -537,7 +537,7 @@ const inv = {
 
     agingPage: {
         initSelectSearch: () => {
-            $('#customer').select2({width: 'auto'})
+            helper.setSelect2($('#customer'), {width: 'auto'})
         },
 
         eventPreviewFilter: () => {
