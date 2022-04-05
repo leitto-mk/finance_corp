@@ -26,7 +26,7 @@
 						<span class="help-block hidden"></span>
 					</div>
 					<div class="form-group">
-						<label for="reference_no" class="control-label">Quote Ref No</label>
+						<label for="reference_no" class="control-label">Quote / Order No</label>
 						<input type="text" name="reference_no" id="reference_no" class="form-control" value="">
 						<span class="help-block hidden"></span>
 					</div>
@@ -122,24 +122,78 @@
 					</div>
 				</div>
 				<div class="portlet-body">
-					<div class="form-group">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="branch" class="control-label">Branch</label>
+								<select name="branch" id="branch" class="form-control" required>
+									<option value="">-- Select Branch --</option>
+									<?php for($i=0; $i<count($branch); $i++) : ?>) : ?>
+										<option value="<?= $branch[$i]['BranchCode'] ?>"><?= $branch[$i]['BranchName'] ?></option>
+									<?php endfor; ?>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="accno" class="control-label">Account No.</label>
+								<select name="accno" id="accno" class="form-control" required>
+									<option value="">-- Select Account No. --</option>
+									<?php for($i=0; $i<count($accno); $i++) : ?>) : ?>
+										<option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?></option>
+									<?php endfor; ?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="form-group">
 						<label for="raised_by" class="control-label">Raised By</label>
 						<input type="text" name="raised_by" id="raised_by" class="form-control" readonly value="<?= date('Y-m-d') ?>">
-					</div>
+					</div> -->
 					<div class="form-group">
-						<label for="raised_date" class="control-label">Raised Date</label>
-						<input type="date" name="raised_date" id="raised_date" class="form-control" value="" required>
+						<label for="bill_to" class="control-label">Reference Doc No</label>
+						<input type="text" name="" id="" class="form-control" value="" required>
 						<span class="help-block hidden"></span>
 					</div>
-					<div class="form-group">
-						<label for="due_date" class="control-label">Due Date</label>
-						<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>" required>
-						<span class="help-block hidden"></span>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="raised_date" class="control-label">Raised Date</label>
+								<input type="date" name="raised_date" id="raised_date" class="form-control" value="<?= date('Y-m-d') ?>" required>
+								<span class="help-block hidden"></span>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="due_date" class="control-label">Due Date</label>
+								<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>" required>
+								<span class="help-block hidden"></span>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group" style="margin-bottom: 37px">
+								<label for="term_days" class="control-label">Term Day(s)</label>
+								<input type="text" name="term_days" id="term_days" class="form-control" value="">
+								<span class="help-block hidden"></span>
+							</div>
+						</div>
+
 					</div>
-					<div class="form-group" style="margin-bottom: 37px">
-						<label for="term_days" class="control-label">Term Day(s)</label>
-						<input type="text" name="term_days" id="term_days" class="form-control" value="" readonly>
-						<span class="help-block hidden"></span>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="bill_to" class="control-label">Contract No</label>
+								<input type="text" name="" id="" class="form-control" value="" required>
+								<span class="help-block hidden"></span>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="ship_to" class="control-label">Sales Resp</label>
+								<input type="text" name="" id="" class="form-control" value="" required>
+								<span class="help-block hidden"></span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -248,7 +302,7 @@
 					</div>
 				</div>
 				<div class="portlet-body">
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-lg-5">
 							<div class="form-group">
 								<label for="branch" class="control-label">Branch</label>
@@ -271,19 +325,19 @@
 								</select>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="form-group">
 						<label for="payment_sub_total" class="control-label">Subtotal</label>
 						<div class="input-group">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="" required>
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="payment_discount" class="control-label">Discount</label>
 						<div class="input-group">
 							<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="0" step="0.01">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
 						</div>
 						<span class="help-block hidden"></span>
 					</div>
@@ -300,17 +354,17 @@
 								<label for="payment_vat" class="control-label">VAT</label>
 								<div class="input-group">
 									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01">
-									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
+									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="payment_pph" class="control-label">Less PPh 23</label>
+								<label for="payment_pph" class="control-label">PPh 23</label>
 								<div class="input-group">
 									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="0" step="0.01">
-									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
+									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -319,15 +373,15 @@
 					<div class="form-group">
 						<label for="payment_freight" class="control-label">Freight</label>
 						<div class="input-group">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 							<input type="text" name="payment_freight" id="payment_freight" class="form-control text-right">
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="payment_total_amount" class="control-label">Total Amount</label>
 						<div class="input-group">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly required>
+							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
 						</div>
 					</div>
 					<hr style="margin-top: 40px;">
