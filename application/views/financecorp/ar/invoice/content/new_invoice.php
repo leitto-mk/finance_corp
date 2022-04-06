@@ -122,29 +122,14 @@
 					</div>
 				</div>
 				<div class="portlet-body">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="branch" class="control-label">Branch</label>
-								<select name="branch" id="branch" class="form-control" required>
-									<option value="">-- Select Branch --</option>
-									<?php for($i=0; $i<count($branch); $i++) : ?>) : ?>
-										<option value="<?= $branch[$i]['BranchCode'] ?>"><?= $branch[$i]['BranchName'] ?></option>
-									<?php endfor; ?>
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="accno" class="control-label">Account No.</label>
-								<select name="accno" id="accno" class="form-control" required>
-									<option value="">-- Select Account No. --</option>
-									<?php for($i=0; $i<count($accno); $i++) : ?>) : ?>
-										<option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?></option>
-									<?php endfor; ?>
-								</select>
-							</div>
-						</div>
+					<div class="form-group">
+						<label for="branch" class="control-label">Branch</label>
+						<select name="branch" id="branch" class="form-control" required>
+							<option value="">-- Select Branch --</option>
+							<?php for($i=0; $i<count($branch); $i++) : ?>) : ?>
+								<option value="<?= $branch[$i]['BranchCode'] ?>"><?= $branch[$i]['BranchName'] ?></option>
+							<?php endfor; ?>
+						</select>
 					</div>
 					<!-- <div class="form-group">
 						<label for="raised_by" class="control-label">Raised By</label>
@@ -298,30 +283,6 @@
 					</div>
 				</div>
 				<div class="portlet-body">
-					<!-- <div class="row">
-						<div class="col-lg-5">
-							<div class="form-group">
-								<label for="branch" class="control-label">Branch</label>
-								<select name="branch" id="branch" class="form-control" required>
-									<option value="">-- Select Branch --</option>
-									<?php for($i=0; $i<count($branch); $i++) : ?>) : ?>
-										<option value="<?= $branch[$i]['BranchCode'] ?>"><?= $branch[$i]['BranchName'] ?></option>
-									<?php endfor; ?>
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-7">
-							<div class="form-group">
-								<label for="accno" class="control-label">Account No.</label>
-								<select name="accno" id="accno" class="form-control" required>
-									<option value="">-- Select Account No. --</option>
-									<?php for($i=0; $i<count($accno); $i++) : ?>) : ?>
-										<option value="<?= $accno[$i]['Acc_No'] ?>"><?= $accno[$i]['Acc_No'] ?> | <?= $accno[$i]['Acc_Name'] ?></option>
-									<?php endfor; ?>
-								</select>
-							</div>
-						</div>
-					</div> -->
 					<div class="form-group">
 						<label for="payment_sub_total" class="control-label">Subtotal</label>
 						<div class="input-group">
