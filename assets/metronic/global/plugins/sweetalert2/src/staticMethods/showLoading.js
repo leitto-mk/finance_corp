@@ -3,30 +3,44 @@ import Swal from '../sweetalert2.js'
 import { swalClasses } from '../utils/classes.js'
 
 /**
- * Show spinner instead of Confirm button and disable Cancel button
+ * Shows loader (spinner), this is useful with AJAX requests.
+ * By default the loader be shown instead of the "Confirm" button.
  */
-const showLoading = () => {
+const showLoading = (buttonToReplace) => {
   let popup = dom.getPopup()
   if (!popup) {
-    Swal.fire('')
+    new Swal() // eslint-disable-line no-new
   }
   popup = dom.getPopup()
-  const actions = dom.getActions()
-  const confirmButton = dom.getConfirmButton()
-  const cancelButton = dom.getCancelButton()
+  const loader = dom.getLoader()
 
-  dom.show(actions)
-  dom.show(confirmButton)
-  dom.addClass([popup, actions], swalClasses.loading)
-  confirmButton.disabled = true
-  cancelButton.disabled = true
+  if (dom.isToast()) {
+    dom.hide(dom.getIcon())
+  } else {
+    replaceButton(popup, buttonToReplace)
+  }
+  dom.show(loader)
 
   popup.setAttribute('data-loading', true)
   popup.setAttribute('aria-busy', true)
   popup.focus()
 }
 
-export {
-  showLoading,
-  showLoading as enableLoading
+const replaceButton = (popup, buttonToReplace) => {
+  const actions = dom.getActions()
+  const loader = dom.getLoader()
+
+  if (!buttonToReplace && dom.isVisible(dom.getConfirmButton())) {
+    buttonToReplace = dom.getConfirmButton()
+  }
+
+  dom.show(actions)
+  if (buttonToReplace) {
+    dom.hide(buttonToReplace)
+    loader.setAttribute('data-button-to-replace', buttonToReplace.className)
+  }
+  loader.parentNode.insertBefore(loader, buttonToReplace)
+  dom.addClass([popup, actions], swalClasses.loading)
 }
+
+export { showLoading, showLoading as enableLoading }

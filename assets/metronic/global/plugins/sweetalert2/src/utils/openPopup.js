@@ -2,60 +2,72 @@ import * as dom from './dom/index.js'
 import { swalClasses } from './classes.js'
 import { fixScrollbar } from './scrollbarFix.js'
 import { iOSfix } from './iosFix.js'
-import { IEfix } from './ieFix.js'
 import { setAriaHidden } from './aria.js'
 import globalState from '../globalState.js'
 
-function swalOpenAnimationFinished (popup, container) {
-  popup.removeEventListener(dom.animationEndEvent, swalOpenAnimationFinished)
-  container.style.overflowY = 'auto'
-}
+export const SHOW_CLASS_TIMEOUT = 10
 
 /**
  * Open popup, add necessary classes and styles, fix scrollbar
  *
- * @param {Array} params
+ * @param params
  */
 export const openPopup = (params) => {
   const container = dom.getContainer()
   const popup = dom.getPopup()
 
-  if (typeof params.onBeforeOpen === 'function') {
-    params.onBeforeOpen(popup)
+  if (typeof params.willOpen === 'function') {
+    params.willOpen(popup)
   }
 
+  const bodyStyles = window.getComputedStyle(document.body)
+  const initialBodyOverflow = bodyStyles.overflowY
   addClasses(container, popup, params)
 
   // scrolling is 'hidden' until animation is done, after that 'auto'
-  setScrollingVisibility(container, popup)
+  setTimeout(() => {
+    setScrollingVisibility(container, popup)
+  }, SHOW_CLASS_TIMEOUT)
 
   if (dom.isModal()) {
-    fixScrollContainer(container, params.scrollbarPadding)
+    fixScrollContainer(container, params.scrollbarPadding, initialBodyOverflow)
+    setAriaHidden()
   }
 
   if (!dom.isToast() && !globalState.previousActiveElement) {
     globalState.previousActiveElement = document.activeElement
   }
-  if (typeof params.onOpen === 'function') {
-    setTimeout(() => params.onOpen(popup))
+
+  if (typeof params.didOpen === 'function') {
+    setTimeout(() => params.didOpen(popup))
   }
+
+  dom.removeClass(container, swalClasses['no-transition'])
+}
+
+const swalOpenAnimationFinished = (event) => {
+  const popup = dom.getPopup()
+  if (event.target !== popup) {
+    return
+  }
+  const container = dom.getContainer()
+  popup.removeEventListener(dom.animationEndEvent, swalOpenAnimationFinished)
+  container.style.overflowY = 'auto'
 }
 
 const setScrollingVisibility = (container, popup) => {
   if (dom.animationEndEvent && dom.hasCssAnimation(popup)) {
     container.style.overflowY = 'hidden'
-    popup.addEventListener(dom.animationEndEvent, swalOpenAnimationFinished.bind(null, popup, container))
+    popup.addEventListener(dom.animationEndEvent, swalOpenAnimationFinished)
   } else {
     container.style.overflowY = 'auto'
   }
 }
 
-const fixScrollContainer = (container, scrollbarPadding) => {
+const fixScrollContainer = (container, scrollbarPadding, initialBodyOverflow) => {
   iOSfix()
-  IEfix()
-  setAriaHidden()
 
-  if (scrollbarPadding) {
+  if (scrollbarPadding && initialBodyOverflow !== 'hidden') {
     fixScrollbar()
   }
 
@@ -66,13 +78,18 @@ const fixScrollContainer = (container, scrollbarPadding) => {
 }
 
 const addClasses = (container, popup, params) => {
-  if (params.animation) {
-    dom.addClass(popup, swalClasses.show)
-    dom.addClass(container, swalClasses.fade)
-  }
-  dom.show(popup)
+  dom.addClass(container, params.showClass.backdrop)
+  // this workaround with opacity is needed for https://github.com/sweetalert2/sweetalert2/issues/2059
+  popup.style.setProperty('opacity', '0', 'important')
+  dom.show(popup, 'grid')
+  setTimeout(() => {
+    // Animate popup right after showing it
+    dom.addClass(popup, params.showClass.popup)
+    // and remove the opacity workaround
+    popup.style.removeProperty('opacity')
+  }, SHOW_CLASS_TIMEOUT) // 10ms in order to fix #2062
 
-  dom.addClass([document.documentElement, document.body, container], swalClasses.shown)
+  dom.addClass([document.documentElement, document.body], swalClasses.shown)
   if (params.heightAuto && params.backdrop && !params.toast) {
     dom.addClass([document.documentElement, document.body], swalClasses['height-auto'])
   }

@@ -1,18 +1,18 @@
 import { swalClasses } from '../../classes.js'
-import { warn, error, isPromise } from '../../utils.js'
+import { error, isPromise, warn } from '../../utils.js'
 import * as dom from '../../dom/index.js'
 import privateProps from '../../../privateProps.js'
 
 const inputTypes = ['input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea']
 
 export const renderInput = (instance, params) => {
-  const content = dom.getContent()
+  const popup = dom.getPopup()
   const innerParams = privateProps.innerParams.get(instance)
   const rerender = !innerParams || params.input !== innerParams.input
 
   inputTypes.forEach((inputType) => {
     const inputClass = swalClasses[inputType]
-    const inputContainer = dom.getChildByClass(content, inputClass)
+    const inputContainer = dom.getDirectChildByClass(popup, inputClass)
 
     // set attributes
     setAttributes(inputType, params.inputAttributes)
@@ -36,7 +36,9 @@ export const renderInput = (instance, params) => {
 
 const showInput = (params) => {
   if (!renderInputType[params.input]) {
-    return error(`Unexpected type of input! Expected "text", "email", "password", "number", "tel", "select", "radio", "checkbox", "textarea", "file" or "url", got "${params.input}"`)
+    return error(
+      `Unexpected type of input! Expected "text", "email", "password", "number", "tel", "select", "radio", "checkbox", "textarea", "file" or "url", got "${params.input}"`
+    )
   }
 
   const inputContainer = getInputContainer(params.input)
@@ -59,7 +61,7 @@ const removeAttributes = (input) => {
 }
 
 const setAttributes = (inputType, inputAttributes) => {
-  const input = dom.getInput(dom.getContent(), inputType)
+  const input = dom.getInput(dom.getPopup(), inputType)
   if (!input) {
     return
   }
@@ -67,21 +69,12 @@ const setAttributes = (inputType, inputAttributes) => {
   removeAttributes(input)
 
   for (const attr in inputAttributes) {
-    // Do not set a placeholder for <input type="range">
-    // it'll crash Edge, #1298
-    if (inputType === 'range' && attr === 'placeholder') {
-      continue
-    }
-
     input.setAttribute(attr, inputAttributes[attr])
   }
 }
 
 const setCustomClass = (params) => {
   const inputContainer = getInputContainer(params.input)
-  if (params.inputClass) {
-    dom.addClass(inputContainer, params.inputClass)
-  }
   if (params.customClass) {
     dom.addClass(inputContainer, params.customClass.input)
   }
@@ -93,30 +86,48 @@ const setInputPlaceholder = (input, params) => {
   }
 }
 
+const setInputLabel = (input, prependTo, params) => {
+  if (params.inputLabel) {
+    input.id = swalClasses.input
+    const label = document.createElement('label')
+    const labelClass = swalClasses['input-label']
+    label.setAttribute('for', input.id)
+    label.className = labelClass
+    dom.addClass(label, params.customClass.inputLabel)
+    label.innerText = params.inputLabel
+    prependTo.insertAdjacentElement('beforebegin', label)
+  }
+}
+
 const getInputContainer = (inputType) => {
   const inputClass = swalClasses[inputType] ? swalClasses[inputType] : swalClasses.input
-  return dom.getChildByClass(dom.getContent(), inputClass)
+  return dom.getDirectChildByClass(dom.getPopup(), inputClass)
 }
 
 const renderInputType = {}
 
 renderInputType.text =
-renderInputType.email =
-renderInputType.password =
-renderInputType.number =
-renderInputType.tel =
-renderInputType.url = (input, params) => {
-  if (typeof params.inputValue === 'string' || typeof params.inputValue === 'number') {
-    input.value = params.inputValue
-  } else if (!isPromise(params.inputValue)) {
-    warn(`Unexpected type of inputValue! Expected "string", "number" or "Promise", got "${typeof params.inputValue}"`)
-  }
-  setInputPlaceholder(input, params)
-  input.type = params.input
-  return input
-}
+  renderInputType.email =
+  renderInputType.password =
+  renderInputType.number =
+  renderInputType.tel =
+  renderInputType.url =
+    (input, params) => {
+      if (typeof params.inputValue === 'string' || typeof params.inputValue === 'number') {
+        input.value = params.inputValue
+      } else if (!isPromise(params.inputValue)) {
+        warn(
+          `Unexpected type of inputValue! Expected "string", "number" or "Promise", got "${typeof params.inputValue}"`
+        )
+      }
+      setInputLabel(input, input, params)
+      setInputPlaceholder(input, params)
+      input.type = params.input
+      return input
+    }
 
 renderInputType.file = (input, params) => {
+  setInputLabel(input, input, params)
   setInputPlaceholder(input, params)
   return input
 }
@@ -127,56 +138,67 @@ renderInputType.range = (range, params) => {
   rangeInput.value = params.inputValue
   rangeInput.type = params.input
   rangeOutput.value = params.inputValue
+  setInputLabel(rangeInput, range, params)
   return range
 }
 
 renderInputType.select = (select, params) => {
-  select.innerHTML = ''
+  select.textContent = ''
   if (params.inputPlaceholder) {
     const placeholder = document.createElement('option')
-    placeholder.innerHTML = params.inputPlaceholder
+    dom.setInnerHtml(placeholder, params.inputPlaceholder)
     placeholder.value = ''
     placeholder.disabled = true
     placeholder.selected = true
     select.appendChild(placeholder)
   }
+  setInputLabel(select, select, params)
   return select
 }
 
 renderInputType.radio = (radio) => {
-  radio.innerHTML = ''
+  radio.textContent = ''
   return radio
 }
 
 renderInputType.checkbox = (checkboxContainer, params) => {
-  const checkbox = dom.getInput(dom.getContent(), 'checkbox')
-  checkbox.value = 1
+  /** @type {HTMLInputElement} */
+  const checkbox = dom.getInput(dom.getPopup(), 'checkbox')
+  checkbox.value = '1'
   checkbox.id = swalClasses.checkbox
   checkbox.checked = Boolean(params.inputValue)
   const label = checkboxContainer.querySelector('span')
-  label.innerHTML = params.inputPlaceholder
+  dom.setInnerHtml(label, params.inputPlaceholder)
   return checkboxContainer
 }
 
 renderInputType.textarea = (textarea, params) => {
   textarea.value = params.inputValue
   setInputPlaceholder(textarea, params)
+  setInputLabel(textarea, textarea, params)
 
-  if ('MutationObserver' in window) { // #1699
-    const initialPopupWidth = parseInt(window.getComputedStyle(dom.getPopup()).width)
-    const popupPadding = parseInt(window.getComputedStyle(dom.getPopup()).paddingLeft) + parseInt(window.getComputedStyle(dom.getPopup()).paddingRight)
-    const outputsize = () => {
-      const contentWidth = textarea.offsetWidth + popupPadding
-      if (contentWidth > initialPopupWidth) {
-        dom.getPopup().style.width = contentWidth + 'px'
-      } else {
-        dom.getPopup().style.width = null
+  const getMargin = (el) =>
+    parseInt(window.getComputedStyle(el).marginLeft) + parseInt(window.getComputedStyle(el).marginRight)
+
+  // https://github.com/sweetalert2/sweetalert2/issues/2291
+  setTimeout(() => {
+    // https://github.com/sweetalert2/sweetalert2/issues/1699
+    if ('MutationObserver' in window) {
+      const initialPopupWidth = parseInt(window.getComputedStyle(dom.getPopup()).width)
+      const textareaResizeHandler = () => {
+        const textareaWidth = textarea.offsetWidth + getMargin(textarea)
+        if (textareaWidth > initialPopupWidth) {
+          dom.getPopup().style.width = `${textareaWidth}px`
+        } else {
+          dom.getPopup().style.width = null
+        }
       }
+      new MutationObserver(textareaResizeHandler).observe(textarea, {
+        attributes: true,
+        attributeFilter: ['style'],
+      })
     }
-    new MutationObserver(outputsize).observe(textarea, {
-      attributes: true, attributeFilter: ['style']
-    })
-  }
+  })
 
   return textarea
 }

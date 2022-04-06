@@ -1,8 +1,13 @@
 import { swalClasses } from '../classes.js'
-import { uniqueArray, toArray } from '../utils.js'
-import { isVisible } from './domUtils.js'
+import { toArray, uniqueArray } from '../utils.js'
+import { hasClass, isVisible } from './domUtils.js'
 
-export const getContainer = () => document.body.querySelector('.' + swalClasses.container)
+/**
+ * Gets the popup container which contains the backdrop and the popup itself.
+ *
+ * @returns {HTMLElement | null}
+ */
+export const getContainer = () => document.body.querySelector(`.${swalClasses.container}`)
 
 export const elementBySelector = (selectorString) => {
   const container = getContainer()
@@ -10,24 +15,16 @@ export const elementBySelector = (selectorString) => {
 }
 
 const elementByClass = (className) => {
-  return elementBySelector('.' + className)
+  return elementBySelector(`.${className}`)
 }
 
 export const getPopup = () => elementByClass(swalClasses.popup)
 
-export const getIcons = () => {
-  const popup = getPopup()
-  return toArray(popup.querySelectorAll('.' + swalClasses.icon))
-}
-
-export const getIcon = () => {
-  const visibleIcon = getIcons().filter(icon => isVisible(icon))
-  return visibleIcon.length ? visibleIcon[0] : null
-}
+export const getIcon = () => elementByClass(swalClasses.icon)
 
 export const getTitle = () => elementByClass(swalClasses.title)
 
-export const getContent = () => elementByClass(swalClasses.content)
+export const getHtmlContainer = () => elementByClass(swalClasses['html-container'])
 
 export const getImage = () => elementByClass(swalClasses.image)
 
@@ -35,15 +32,21 @@ export const getProgressSteps = () => elementByClass(swalClasses['progress-steps
 
 export const getValidationMessage = () => elementByClass(swalClasses['validation-message'])
 
-export const getConfirmButton = () => elementBySelector('.' + swalClasses.actions + ' .' + swalClasses.confirm)
+export const getConfirmButton = () => elementBySelector(`.${swalClasses.actions} .${swalClasses.confirm}`)
 
-export const getCancelButton = () => elementBySelector('.' + swalClasses.actions + ' .' + swalClasses.cancel)
+export const getDenyButton = () => elementBySelector(`.${swalClasses.actions} .${swalClasses.deny}`)
+
+export const getInputLabel = () => elementByClass(swalClasses['input-label'])
+
+export const getLoader = () => elementBySelector(`.${swalClasses.loader}`)
+
+export const getCancelButton = () => elementBySelector(`.${swalClasses.actions} .${swalClasses.cancel}`)
 
 export const getActions = () => elementByClass(swalClasses.actions)
 
-export const getHeader = () => elementByClass(swalClasses.header)
-
 export const getFooter = () => elementByClass(swalClasses.footer)
+
+export const getTimerProgressBar = () => elementByClass(swalClasses['timer-progress-bar'])
 
 export const getCloseButton = () => elementByClass(swalClasses.close)
 
@@ -69,31 +72,35 @@ export const getFocusableElements = () => {
   const focusableElementsWithTabindex = toArray(
     getPopup().querySelectorAll('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])')
   )
-  // sort according to tabindex
+    // sort according to tabindex
     .sort((a, b) => {
-      a = parseInt(a.getAttribute('tabindex'))
-      b = parseInt(b.getAttribute('tabindex'))
-      if (a > b) {
+      const tabindexA = parseInt(a.getAttribute('tabindex'))
+      const tabindexB = parseInt(b.getAttribute('tabindex'))
+      if (tabindexA > tabindexB) {
         return 1
-      } else if (a < b) {
+      } else if (tabindexA < tabindexB) {
         return -1
       }
       return 0
     })
 
-  const otherFocusableElements = toArray(
-    getPopup().querySelectorAll(focusable)
-  ).filter(el => el.getAttribute('tabindex') !== '-1')
+  const otherFocusableElements = toArray(getPopup().querySelectorAll(focusable)).filter(
+    (el) => el.getAttribute('tabindex') !== '-1'
+  )
 
-  return uniqueArray(focusableElementsWithTabindex.concat(otherFocusableElements)).filter(el => isVisible(el))
+  return uniqueArray(focusableElementsWithTabindex.concat(otherFocusableElements)).filter((el) => isVisible(el))
 }
 
 export const isModal = () => {
-  return !isToast() && !document.body.classList.contains(swalClasses['no-backdrop'])
+  return (
+    hasClass(document.body, swalClasses.shown) &&
+    !hasClass(document.body, swalClasses['toast-shown']) &&
+    !hasClass(document.body, swalClasses['no-backdrop'])
+  )
 }
 
 export const isToast = () => {
-  return document.body.classList.contains(swalClasses['toast-shown'])
+  return getPopup() && hasClass(getPopup(), swalClasses.toast)
 }
 
 export const isLoading = () => {

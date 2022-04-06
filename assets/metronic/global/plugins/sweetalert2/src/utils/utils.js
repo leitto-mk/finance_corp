@@ -15,28 +15,29 @@ export const uniqueArray = (arr) => {
 }
 
 /**
- * Returns the array ob object values (Object.values isn't supported in IE11)
- * @param obj
+ * Capitalize the first letter of a string
+ * @param {string} str
+ * @returns {string}
  */
-export const objectValues = (obj) => Object.keys(obj).map(key => obj[key])
+export const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1)
 
 /**
- * Convert NodeList to Array
- * @param nodeList
+ * @param {NodeList | HTMLCollection | NamedNodeMap} nodeList
+ * @returns {array}
  */
 export const toArray = (nodeList) => Array.prototype.slice.call(nodeList)
 
 /**
- * Standardise console warnings
- * @param message
+ * Standardize console warnings
+ * @param {string | array} message
  */
 export const warn = (message) => {
-  console.warn(`${consolePrefix} ${message}`)
+  console.warn(`${consolePrefix} ${typeof message === 'object' ? message.join(' ') : message}`)
 }
 
 /**
- * Standardise console errors
- * @param message
+ * Standardize console errors
+ * @param {string} message
  */
 export const error = (message) => {
   console.error(`${consolePrefix} ${message}`)
@@ -51,7 +52,7 @@ const previousWarnOnceMessages = []
 
 /**
  * Show a console warning, but only if it hasn't already been shown
- * @param message
+ * @param {string} message
  */
 export const warnOnce = (message) => {
   if (!previousWarnOnceMessages.includes(message)) {
@@ -63,8 +64,10 @@ export const warnOnce = (message) => {
 /**
  * Show a one-time console warning about deprecated params/methods
  */
-export const warnAboutDepreation = (deprecatedParam, useInstead) => {
-  warnOnce(`"${deprecatedParam}" is deprecated and will be removed in the next major release. Please use "${useInstead}" instead.`)
+export const warnAboutDeprecation = (deprecatedParam, useInstead) => {
+  warnOnce(
+    `"${deprecatedParam}" is deprecated and will be removed in the next major release. Please use "${useInstead}" instead.`
+  )
 }
 
 /**
@@ -72,6 +75,10 @@ export const warnAboutDepreation = (deprecatedParam, useInstead) => {
  * Otherwise, just pass the value through
  * @param arg
  */
-export const callIfFunction = (arg) => typeof arg === 'function' ? arg() : arg
+export const callIfFunction = (arg) => (typeof arg === 'function' ? arg() : arg)
+
+export const hasToPromiseFn = (arg) => arg && typeof arg.toPromise === 'function'
+
+export const asPromise = (arg) => (hasToPromiseFn(arg) ? arg.toPromise() : Promise.resolve(arg))
 
 export const isPromise = (arg) => arg && Promise.resolve(arg) === arg
