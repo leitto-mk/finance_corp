@@ -59,6 +59,81 @@ class Invoice extends CI_Controller
 		$formData['payment_total_amount'] = (float) ($net_subtotal + $vat - $pph + $freight);
 	}
 
+	protected function _set_ledger_data($data, $payment_type, $cur_accno, $cur_accno_bal){
+		$cur_accno = str_replace("'", '', $cur_accno);
+		$cur_accno = str_replace("\\", '', $cur_accno);
+		$debit = 0;
+		$credit = 0;
+		$branch_beg_bal = 0;
+		$branch_bal = 0;
+
+		switch ($payment_type) {
+			case 'payment_sub_total':
+				$credit = (float) $data->post('payment_sub_total');
+				break;
+			case 'payment_discount':
+				$debit = (float) $data->post('payment_discount');
+				break;
+			case 'payment_vat':
+				$credit = (float) $data->post('payment_vat');
+				break;
+			case 'payment_pph':
+				$debit = (float) $data->post('payment_pph');
+				break;
+			case 'payment_freight':
+				$credit = (float) $data->post('payment_freight');
+				break;
+			case 'payment_total_amount':
+				$debit = (float) $data->post('payment_total_amount');
+				break;
+		}
+		
+		$cur_acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $cur_accno])->row()->Acc_Type;
+			
+		if (isset($cur_accno_bal[$cur_accno])) {
+			$branch_beg_bal = $cur_accno_bal[$cur_accno];
+		} else {
+			$branch_beg_bal = (float) $this->Mdl_corp_entry->get_branch_last_balance($data->post('branch'), $cur_accno, $data->post('raised_date'));
+
+			$cur_accno_bal[$cur_accno] = $branch_beg_bal;
+		}
+
+		if ($cur_acctype == 'A' || $cur_acctype == 'E' || $cur_acctype == 'E1') {
+			/**
+			 * (BEGINNING BALANCE + DEBIT) - CREDIT
+			 */
+			$branch_bal = ($branch_beg_bal + $debit) - $credit;
+		} elseif ($cur_acctype == 'L' || $cur_acctype == 'C' || $cur_acctype == 'R' || $cur_acctype == 'A1' || $cur_acctype == 'R1' || $cur_acctype == 'C1' || $cur_acctype == 'C2' || $cur_acctype == 'CX') {
+			/**
+			 * (BEGINNING BALANCE - DEBIT) + CREDIT
+			 */
+			$branch_bal = ($branch_beg_bal - $debit) + $credit;
+		}
+		
+		return [
+			'DocNo' => $data->post('invoice_no'),
+			'RefNo' => ($data->post('reference_no') == '' ? $data->post('invoice_no') : $data->post('reference_no')),
+			'TransDate' => $data->post('raised_date'),
+			'TransType' => 'INV',
+			'Branch' => $data->post('branch'),
+			'ItemNo' => 0,
+			'AccNo' => $cur_accno,
+			'AccType' => $cur_acctype,
+			'IDNumber' => $data->post('customer'),
+			'Currency' => 'IDR',
+			'Rate' => 1,
+			'Unit' => $data->post('payment_total_amount'),
+			'Amount' => $data->post('payment_total_amount'),
+			'Debit' => $debit,
+			'Credit' => $credit,
+			'Balance' => 0,
+			'BalanceBranch' => $branch_bal,
+			'Remarks' => $data->post('remark'),
+			'EntryBy' => '',
+			'EntryDate' => date('Y-m-d h:m:s')
+		];
+	}
+
 	public function index(){
 		$title = 'Invoice Module';
 
@@ -81,24 +156,6 @@ class Invoice extends CI_Controller
 		];
 
 		$this->load->view('financecorp/ar/invoice/layout/main', $data);
-	}
-
-	public function get(){
-		$input = $this->input;
-
-		$customer = $input->get('customer') ?? null;
-		$start = $input->get('date_start') ?? null;
-		$finish = $input->get('date_finish') ?? null;
-		$limit = $input->get('length');
-		$offset = $input->get('start');
-
-		try {
-			$result = $this->Mdl_corp_invoice->get_invoices($customer, $start, $finish, $limit, $offset);
-		} catch (Exception $e) {
-			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
-		}
-
-		return set_success_response($result);
 	}
 
 	public function new(){
@@ -170,6 +227,71 @@ class Invoice extends CI_Controller
 		$this->load->view('financecorp/ar/invoice/layout/header_footer_form', $data);
 	}
 
+	public function list(){
+
+		$data_view = [
+			'title' => 'List Invoice',
+
+			'customer' => $this->Mdl_corp_common->get_customer()
+		];
+
+		$content = $this->load->view('financecorp/ar/invoice/content/v_invoice_list', $data_view, true);
+
+		$data = [
+			'title' => 'Invoice List',
+			'content' => $content,
+			'script' => 'invoice'
+		];
+
+		$this->load->view('financecorp/ar/invoice/layout/main', $data);
+	}
+
+	public function aging(){
+		$data = [
+			'title' => 'Invoice Aging',
+			'h1' => 'Invoice',
+			'h2' => 'Aging',
+			'h3' => '',
+			'h4' => '',
+			
+			'company' => $this->Mdl_corp_cash_advance->get_company(),
+			'branch' => $this->Mdl_corp_common->get_branch(),
+			'customer' => $this->Mdl_corp_common->get_customer(),
+
+			'script' => 'invoice'
+		];
+        
+        $this->load->view('financecorp/ar/invoice/content/v_invoice_aging', $data);
+    }
+
+	public function get(){
+		$input = $this->input;
+
+		$customer = $input->get('customer') ?? null;
+		$start = $input->get('date_start') ?? null;
+		$finish = $input->get('date_finish') ?? null;
+		$limit = $input->get('length');
+		$offset = $input->get('start');
+
+		try {
+			$result = $this->Mdl_corp_invoice->get_invoices($customer, $start, $finish, $limit, $offset);
+		} catch (Exception $e) {
+			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
+		}
+
+		return set_success_response($result);
+	}
+
+	public function get_accno(){
+		try{
+			$result = $this->Mdl_corp_common->get_mas_acc();
+		}catch(Exception $e){
+			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
+		}
+
+		return set_success_response($result);
+	}
+
 	public function submit(){
 		$input = $this->input;
 
@@ -182,6 +304,7 @@ class Invoice extends CI_Controller
             [ //Ignore
                 'remark',
                 'freight_info',
+				'sales_resp',
 				'dp_payment_card_text',
 				'dp_payment_total',
 				'payment_total'
@@ -197,14 +320,16 @@ class Invoice extends CI_Controller
 		$this->_calculate_payment($formData);
 
 		$mas = $det = $trans = [];
-		$acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $input->post('accno')])->row()->Acc_Type;
-
+		
 		//INVOICE MASTER
 		$mas = [
+			//Detail
 			'InvoiceNo' => $input->post('invoice_no'),
 			'CustomerCode' => $input->post('customer'),
 			'QuoteRefNo' => ($input->post('reference_no') == '' ? $input->post('invoice_no') : $input->post('reference_no')),
 			'Remark' => $input->post('remark'),
+
+			//Bill & Shipping
 			'BillTo' => $input->post('bill_to'),
 			'ShipTo' => $input->post('ship_to'),
 			'Storage' => $input->post('storage'),
@@ -213,12 +338,18 @@ class Invoice extends CI_Controller
 			'Ship_Via_Air' => $input->post('ship_via_air') == 'on' ? 1 : 0,
 			'Ship_Via_Sea' => $input->post('ship_via_sea') == 'on' ? 1 : 0,
 			'Ship_Via_Land' => $input->post('ship_via_land') == 'on' ? 1 : 0,
-			'RaisedBy' => $input->post('raised_by'),
-			'RaisedDate' => $input->post('raised_date'),
-			'TermsOfDays' => $input->post('term_days'),
-			'DueDate' => $input->post('due_date'),
+
+			//Branch
 			'Branch' => $input->post('branch'),
 			'AccNo' => $input->post('accno'),
+			'RaisedBy' => 'ADMIN',
+			'RaisedDate' => $input->post('raised_date'),
+			'DueDate' => $input->post('due_date'),
+			'TermsOfDays' => $input->post('term_days'),
+			'ContractNo' => $input->post('contract_no'),
+			'SalesResp' => $input->post('sales_resp'),
+
+			//Payment Details
 			'SubTotal' => $input->post('payment_sub_total'),
 			'TotalDiscount' => $input->post('payment_discount'),
 			'NetSubTotal' => $input->post('payment_net_subtotal'),
@@ -248,43 +379,32 @@ class Invoice extends CI_Controller
 			]);
 		}
 
-		//TRANSACTION (GENERAL LEDGER)
-		$branch_beg_bal = $this->Mdl_corp_common->get_branch_last_balance($input->post('branch'), $input->post('accno'), $input->post('raised_date'));
+		//TRANSACTION (LEDGER)
+		$cur_accno_bal = [];
 
-		if ($acctype == 'A' || $acctype == 'E' || $acctype == 'E1') {
-			/**
-			 * (BEGINNING BALANCE + DEBIT) - CREDIT
-			 */
-			$branch_bal = ($branch_beg_bal + $input->post('payment_total_amount')) - 0;
-		} elseif ($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2' || $acctype == 'CX') {
-			/**
-			 * (BEGINNING BALANCE - DEBIT) + CREDIT
-			 */
-			$branch_bal = ($branch_beg_bal - $input->post('payment_total_amount')) + 0;
-		}
-
-		$trans = [
-			'DocNo' => $input->post('invoice_no'),
-			'RefNo' => ($input->post('reference_no') == '' ? $input->post('invoice_no') : $input->post('reference_no')),
-			'TransDate' => $input->post('raised_date'),
-			'TransType' => 'INV',
-			'Branch' => $input->post('branch'),
-			'ItemNo' => 0,
-			'AccNo' => $input->post('accno'),
-			'AccType' => $acctype,
-			'IDNumber' => $input->post('customer'),
-			'Currency' => 'IDR',
-			'Rate' => 1,
-			'Unit' => $input->post('payment_total_amount'),
-			'Amount' => $input->post('payment_total_amount'),
-			'Debit' => $input->post('payment_total_amount'),
-			'Credit' => 0,
-			'Balance' => 0,
-			'BalanceBranch' => $branch_bal,
-			'Remarks' => $input->post('remark'),
-			'EntryBy' => $input->post('raised_by'),
-			'EntryDate' => date('Y-m-d h:m:s')
-		];
+		$payment_sub_total = $this->_set_ledger_data($input, 'payment_sub_total', $input->post('payment_sub_total_accno'), $cur_accno_bal);
+		array_push($trans, $payment_sub_total);
+		$cur_accno_bal[$payment_sub_total['AccNo']] = $payment_sub_total['BalanceBranch'];
+		
+		$payment_discount = $this->_set_ledger_data($input, 'payment_discount', $input->post('payment_discount_accno'), $cur_accno_bal);
+		array_push($trans, $payment_discount);
+		$cur_accno_bal[$payment_discount['AccNo']] = $payment_discount['BalanceBranch'];
+		
+		$payment_vat = $this->_set_ledger_data($input, 'payment_vat', $input->post('payment_vat_accno'), $cur_accno_bal);
+		array_push($trans, $payment_vat);
+		$cur_accno_bal[$payment_vat['AccNo']] = $payment_vat['BalanceBranch'];
+		
+		$payment_pph = $this->_set_ledger_data($input, 'payment_pph', $input->post('payment_pph_accno'), $cur_accno_bal);
+		array_push($trans, $payment_pph);
+		$cur_accno_bal[$payment_pph['AccNo']] = $payment_pph['BalanceBranch'];
+		
+		$payment_freight = $this->_set_ledger_data($input, 'payment_freight', $input->post('payment_freight_accno'), $cur_accno_bal);
+		array_push($trans, $payment_freight);
+		$cur_accno_bal[$payment_freight['AccNo']] = $payment_freight['BalanceBranch'];
+		
+		$payment_total_amount = $this->_set_ledger_data($input, 'payment_total_amount', $input->post('payment_total_amount_accno'), $cur_accno_bal);
+		array_push($trans, $payment_total_amount);
+		$cur_accno_bal[$payment_total_amount['AccNo']] = $payment_total_amount['BalanceBranch'];
 
 		//DELETE OLD DATA IF EXIST
 		$error = $this->Mdl_corp_invoice->delete_invoice($input->post('invoice_no'));
@@ -345,43 +465,6 @@ class Invoice extends CI_Controller
 
 		return set_success_response("$invoice has been deleted");
 	}
-
-	public function list(){
-
-		$data_view = [
-			'title' => 'List Invoice',
-
-			'customer' => $this->Mdl_corp_common->get_customer()
-		];
-
-		$content = $this->load->view('financecorp/ar/invoice/content/v_invoice_list', $data_view, true);
-
-		$data = [
-			'title' => 'Invoice List',
-			'content' => $content,
-			'script' => 'invoice'
-		];
-
-		$this->load->view('financecorp/ar/invoice/layout/main', $data);
-	}
-
-	public function aging(){
-		$data = [
-			'title' => 'Invoice Aging',
-			'h1' => 'Invoice',
-			'h2' => 'Aging',
-			'h3' => '',
-			'h4' => '',
-			
-			'company' => $this->Mdl_corp_cash_advance->get_company(),
-			'branch' => $this->Mdl_corp_common->get_branch(),
-			'customer' => $this->Mdl_corp_common->get_customer(),
-
-			'script' => 'invoice'
-		];
-        
-        $this->load->view('financecorp/ar/invoice/content/v_invoice_aging', $data);
-    }
 
 	public function get_aging(){
 		$validation = validate($this->input->post(),[

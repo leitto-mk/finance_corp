@@ -83,7 +83,7 @@ class Mdl_corp_invoice extends CI_Model
         
         $this->db->insert('tbl_fa_invoice_mas', $mas);
         $this->db->insert_batch('tbl_fa_invoice_det', $det);
-        $this->db->insert('tbl_fa_transaction', $trans);
+        $this->db->insert_batch('tbl_fa_transaction', $trans);
 
 		if($this->db->trans_status() == false){
             $this->db->trans_rollback();
