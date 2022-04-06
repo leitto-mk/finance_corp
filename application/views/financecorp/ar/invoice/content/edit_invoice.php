@@ -130,24 +130,74 @@
 					</div>
 				</div>
 				<div class="portlet-body">
-					<div class="form-group">
+					<div class="row">
+						<div class="col-lg-5">
+							<div class="form-group">
+								<label for="branch" class="control-label">Branch</label>
+								<select name="branch" id="branch" class="form-control" required>
+									<option value="">-- Select Branch --</option>
+									<?php for($i=0; $i<count($branches); $i++) : ?>) : ?>
+										<?php if($data[0]['Branch'] == $branches[$i]['BranchCode']) : ?>
+											<option selected value="<?= $branches[$i]['BranchCode'] ?>"><?= $branches[$i]['BranchName'] ?></option>
+										<?php else : ?>
+											<option value="<?= $branches[$i]['BranchCode'] ?>"><?= $branches[$i]['BranchName'] ?></option>
+										<?php endif; ?>
+									<?php endfor; ?>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="form-group">
+								<label for="accno" class="control-label">Account No.</label>
+								<select name="accno" id="accno" class="form-control" required>
+									<option value="">-- Select Account No. --</option>
+									<?php for($i=0; $i<count($accnos); $i++) : ?>) : ?>
+										<?php if($data[0]['AccNo'] == $accnos[$i]['Acc_No']) : ?>
+											<option selected value="<?= $accnos[$i]['Acc_No'] ?>"><?= $accnos[$i]['Acc_No'] ?> | <?= $accnos[$i]['Acc_Name'] ?></option>
+										<?php else : ?>
+											<option value="<?= $accnos[$i]['Acc_No'] ?>"><?= $accnos[$i]['Acc_No'] ?> | <?= $accnos[$i]['Acc_Name'] ?></option>
+										<?php endif; ?>
+									<?php endfor; ?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="row">
 						<label for="raised_by" class="control-label">Raised By</label>
 						<input type="text" name="raised_by" id="raised_by" class="form-control" readonly value="<?= $data[0]['RaisedBy'] ?>">
-					</div>
+					</div> -->
 					<div class="form-group">
+						<label for="ref_docno" class="control-label">Reference Doc No</label>
+						<input type="text" name="ref_docno" id="ref_docno" class="form-control" value="<?= $ref_docno ?>" required>
+					</div>
+					<div class="row">
 						<label for="raised_date" class="control-label">Raised Date</label>
 						<input type="date" name="raised_date" id="raised_date" class="form-control" value="<?= $data[0]['RaisedDate'] ?>" required>
 						<span class="help-block hidden"></span>
 					</div>
-					<div class="form-group">
+					<div class="row">
 						<label for="due_date" class="control-label">Due Date</label>
 						<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>" value="<?= $data[0]['DueDate'] ?>" required>
 						<span class="help-block hidden"></span>
 					</div>
-					<div class="form-group" style="margin-bottom: 37px">
+					<div class="row">
 						<label for="term_days" class="control-label">Term Day(s)</label>
 						<input type="text" name="term_days" id="term_days" class="form-control" value="<?= $data[0]['TermsOfDays'] ?>" readonly>
 						<span class="help-block hidden"></span>
+					</div>
+					<div class="row" style="margin-bottom: 37px">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="contact_no" class="control-label">Contract No</label>
+								<input type="text" name="contact_no" id="contact_no" class="form-control" value="<?= $contract_no ?>" required>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="sales_resp" class="control-label">Sales Resp</label>
+								<input type="text" name="sales_resp" id="sales_resp" class="form-control" value="<?= $sales_resp ?>">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -266,50 +316,20 @@
 					</div>
 				</div>
 				<div class="portlet-body">
-					<div class="row">
-						<div class="col-lg-5">
-							<div class="form-group">
-								<label for="branch" class="control-label">Branch</label>
-								<select name="branch" id="branch" class="form-control" required>
-									<option value="">-- Select Branch --</option>
-									<?php for($i=0; $i<count($branches); $i++) : ?>) : ?>
-										<?php if($data[0]['Branch'] == $branches[$i]['BranchCode']) : ?>
-											<option selected value="<?= $branches[$i]['BranchCode'] ?>"><?= $branches[$i]['BranchName'] ?></option>
-										<?php else : ?>
-											<option value="<?= $branches[$i]['BranchCode'] ?>"><?= $branches[$i]['BranchName'] ?></option>
-										<?php endif; ?>
-									<?php endfor; ?>
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-7">
-							<div class="form-group">
-								<label for="accno" class="control-label">Account No.</label>
-								<select name="accno" id="accno" class="form-control" required>
-									<option value="">-- Select Account No. --</option>
-									<?php for($i=0; $i<count($accnos); $i++) : ?>) : ?>
-										<?php if($data[0]['AccNo'] == $accnos[$i]['Acc_No']) : ?>
-											<option selected value="<?= $accnos[$i]['Acc_No'] ?>"><?= $accnos[$i]['Acc_No'] ?> | <?= $accnos[$i]['Acc_Name'] ?></option>
-										<?php else : ?>
-											<option value="<?= $accnos[$i]['Acc_No'] ?>"><?= $accnos[$i]['Acc_No'] ?> | <?= $accnos[$i]['Acc_Name'] ?></option>
-										<?php endif; ?>
-									<?php endfor; ?>
-								</select>
-							</div>
-						</div>
-					</div>
 					<div class="form-group">
 						<label for="payment_sub_total" class="control-label">Subtotal</label>
 						<div class="input-group">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="<?= $data[0]['SubTotal'] ?>" required>
+							<a name="select_acno" id="payment_sub_total_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<input type="text" id="payment_sub_total_accno" name="payment_sub_total_accno" value="<?= $payment_sub_total_accno ?>" hidden>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="payment_discount" class="control-label">Discount</label>
 						<div class="input-group">
 							<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="<?= $data[0]['TotalDiscount'] ?>" step="0.01">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
+							<a name="select_acno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="<?= $payment_discount_accno ?>" hidden>
 						</div>
 						<span class="help-block hidden"></span>
 					</div>
@@ -326,7 +346,8 @@
 								<label for="payment_vat" class="control-label">VAT</label>
 								<div class="input-group">
 									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="<?= $data[0]['VAT'] ?>" step="0.01">
-									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
+									<a name="select_acno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="<?= $payment_vat_accno ?>" hidden>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -336,7 +357,8 @@
 								<label for="payment_pph" class="control-label">Less PPh 23</label>
 								<div class="input-group">
 									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="<?= $data[0]['PPH'] ?>" step="0.01">
-									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">%</span>
+									<a name="select_acno" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+									<input type="text" id="payment_pph_accno" name="payment_pph_accno" value="<?= $payment_pph_accno ?>" hidden>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -345,15 +367,17 @@
 					<div class="form-group">
 						<label for="payment_freight" class="control-label">Freight</label>
 						<div class="input-group">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 							<input type="text" name="payment_freight" id="payment_freight" class="form-control text-right" value="<?= $data[0]['FreightCost'] ?>">
+							<a name="select_acno" id="payment_freight_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<input type="text" id="payment_freight_accno" name="payment_freight_accno" value="<?= $payment_freight_accno ?>" hidden>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="payment_total_amount" class="control-label">Total Amount</label>
 						<div class="input-group">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" value="<?= $data[0]['TotalAmount'] ?>" readonly required>
+							<a name="select_acno" id="payment_total_amount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<input type="text" id="payment_total_amount_accno" name="payment_total_amount_accno" value="<?= $payment_total_amount_accno ?>" hidden>
 						</div>
 					</div>
 					<hr style="margin-top: 40px;">

@@ -151,9 +151,8 @@
 						<input type="text" name="raised_by" id="raised_by" class="form-control" readonly value="<?= date('Y-m-d') ?>">
 					</div> -->
 					<div class="form-group">
-						<label for="bill_to" class="control-label">Reference Doc No</label>
-						<input type="text" name="" id="" class="form-control" value="" required>
-						<span class="help-block hidden"></span>
+						<label for="ref_docno" class="control-label">Reference Doc No</label>
+						<input type="text" name="ref_docno" id="ref_docno" class="form-control" value="" required>
 					</div>
 					<div class="row">
 						<div class="col-lg-4">
@@ -171,27 +170,24 @@
 							</div>
 						</div>
 						<div class="col-lg-4">
-							<div class="form-group" style="margin-bottom: 37px">
+							<div class="form-group">
 								<label for="term_days" class="control-label">Term Day(s)</label>
 								<input type="text" name="term_days" id="term_days" class="form-control" value="">
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
-
 					</div>
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="bill_to" class="control-label">Contract No</label>
-								<input type="text" name="" id="" class="form-control" value="" required>
-								<span class="help-block hidden"></span>
+								<label for="contact_no" class="control-label">Contract No</label>
+								<input type="text" name="contact_no" id="contact_no" class="form-control" value="" required>
 							</div>
 						</div>
 						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="ship_to" class="control-label">Sales Resp</label>
-								<input type="text" name="" id="" class="form-control" value="" required>
-								<span class="help-block hidden"></span>
+							<div class="form-group" style="margin-bottom: 37px">
+								<label for="sales_resp" class="control-label">Sales Resp</label>
+								<input type="text" name="sales_resp" id="sales_resp" class="form-control" value="">
 							</div>
 						</div>
 					</div>
@@ -330,14 +326,16 @@
 						<label for="payment_sub_total" class="control-label">Subtotal</label>
 						<div class="input-group">
 							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="" required>
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
+							<a name="select_accno" id="payment_sub_total_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<input type="text" id="payment_sub_total_accno" name="payment_sub_total_accno" value="" hidden>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="payment_discount" class="control-label">Discount</label>
 						<div class="input-group">
 							<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="0" step="0.01">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
+							<a name="select_accno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="" hidden>
 						</div>
 						<span class="help-block hidden"></span>
 					</div>
@@ -354,7 +352,8 @@
 								<label for="payment_vat" class="control-label">VAT</label>
 								<div class="input-group">
 									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01">
-									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
+									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -364,7 +363,8 @@
 								<label for="payment_pph" class="control-label">PPh 23</label>
 								<div class="input-group">
 									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="0" step="0.01">
-									<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
+									<a name="select_accno" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+									<input type="text" id="payment_pph_accno" name="payment_pph_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -374,14 +374,16 @@
 						<label for="payment_freight" class="control-label">Freight</label>
 						<div class="input-group">
 							<input type="text" name="payment_freight" id="payment_freight" class="form-control text-right">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
+							<a name="select_accno" id="payment_freight_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<input type="text" id="payment_freight_accno" name="payment_freight_accno" value="" hidden>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="payment_total_amount" class="control-label">Total Amount</label>
 						<div class="input-group">
 							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly required>
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</span>
+							<a name="select_accno" id="payment_total_amount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<input type="text" id="payment_total_amount_accno" name="payment_total_amount_accno" value="" hidden>
 						</div>
 					</div>
 					<hr style="margin-top: 40px;">
