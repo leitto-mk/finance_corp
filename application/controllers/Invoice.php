@@ -204,14 +204,11 @@ class Invoice extends CI_Controller
 			//Master
 			'customers' => $this->Mdl_corp_common->get_customer(),
 			'storages' => $this->Mdl_corp_common->get_storage(),
+			'branches' => $this->Mdl_corp_common->get_branch(),
 
 			//List
 			'stockcodes' => $this->Mdl_corp_common->get_stockcode(),
 			'currencies' => $this->Mdl_corp_common->get_currency(),
-
-			//Payment Detail
-			'branches' => $this->Mdl_corp_common->get_branch(),
-			'accnos' => $this->Mdl_corp_common->get_mas_acc(),
 
 			//Invoice Data
 			'data' => $invoice_data,
@@ -341,7 +338,6 @@ class Invoice extends CI_Controller
 
 			//Branch
 			'Branch' => $input->post('branch'),
-			'AccNo' => $input->post('accno'),
 			'RaisedBy' => 'ADMIN',
 			'RaisedDate' => $input->post('raised_date'),
 			'DueDate' => $input->post('due_date'),
@@ -351,12 +347,18 @@ class Invoice extends CI_Controller
 
 			//Payment Details
 			'SubTotal' => $input->post('payment_sub_total'),
+			'SubTotalAcc' => $input->post('payment_sub_total_accno'),
 			'TotalDiscount' => $input->post('payment_discount'),
+			'TotalDiscountAcc' => $input->post('payment_discount_accno'),
 			'NetSubTotal' => $input->post('payment_net_subtotal'),
-			'VAT' => $input->post('payment_vat'),
+			'VATAcc' => $input->post('payment_vat'),
+			'VAT' => $input->post('payment_vat_accno'),
 			'PPH' => $input->post('payment_pph'),
+			'PPHAcc' => $input->post('payment_pph_accno'),
 			'FreightCost' => $input->post('payment_freight'),
+			'FreightCostAcc' => $input->post('payment_freight_accno'),
 			'TotalAmount' => $input->post('payment_total_amount'),
+			'TotalAmountAcc' => $input->post('payment_total_amount_accno'),
 			'PaymentType' => $input->post('dp_payment_type'),
 			'CardNo' => $input->post('dp_payment_card_text'),
 			'BankCode' => $input->post('dp_payment_bank'),
