@@ -168,7 +168,7 @@
 					</div> -->
 					<div class="form-group">
 						<label for="ref_docno" class="control-label">Reference Doc No</label>
-						<input type="text" name="ref_docno" id="ref_docno" class="form-control" value="<?= $ref_docno ?>" required>
+						<input type="text" name="ref_docno" id="ref_docno" class="form-control" value="<?= $ref_docno ?>">
 					</div>
 					<div class="row">
 						<label for="raised_date" class="control-label">Raised Date</label>

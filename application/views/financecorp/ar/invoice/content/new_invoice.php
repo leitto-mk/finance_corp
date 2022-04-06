@@ -152,7 +152,7 @@
 					</div> -->
 					<div class="form-group">
 						<label for="ref_docno" class="control-label">Reference Doc No</label>
-						<input type="text" name="ref_docno" id="ref_docno" class="form-control" value="" required>
+						<input type="text" name="ref_docno" id="ref_docno" class="form-control" value="">
 					</div>
 					<div class="row">
 						<div class="col-lg-4">
