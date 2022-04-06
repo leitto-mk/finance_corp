@@ -73,8 +73,8 @@ const _callable = {
         $('#tbody_invoice').append(row)
 
         //Set Focus on the next Description field
-        $('#tbody_detail > tr > td > input[name="stockcode[]"]').last().focus()
-        $('#tbody_detail > tr > td > input[name="stockcode[]"]').last().parent().addClass('has-warning')
+        $('#tbody_invoice > tr > td > input[name="stockcode[]"]').last().focus()
+        $('#tbody_invoice > tr > td > input[name="stockcode[]"]').last().parent().addClass('has-warning')
 
         //Re-Initiated Input Mask
         let price = $(document).find('input[name="price[]"]')
