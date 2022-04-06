@@ -196,6 +196,51 @@ export const FormPage = () => {
         })
     })();
 
+    (function EventAddSelectAccNo(){
+        $('a[name="select_accno"]').click(function(){
+            var selector = $(this).parent('.input-group')
+            var options = {}
+
+            //Get existing AccNo Value from hidden input
+            var curLabel = $(this).attr('id').replace('_label','')
+            var existedVal = $(`#${curLabel}`).val() ?? ''
+
+            let url = window.location.origin + '/Invoice/get_accno'
+            repository.getRecord(url, null)
+            .then(response => {
+                helper.unblockUI()
+                let val = response.result
+
+                for(let i=0; i < response.result.length; i++){
+                    options[`'${val[i]['Acc_No']}'`] = `${val[i]['Acc_No']} - ${val[i]['Acc_Name']}`
+                }
+
+                Swal.fire({
+                    icon: 'question',
+                    title: "Select Account Number",
+                    input: 'select',
+                    target: 'body',
+                    inputOptions: options,
+                    inputValue: existedVal,
+                    inputPlaceholder: '-- Choose Acc No. --',
+                    showCancelButton: true,
+                    inputValidator: (value) => {
+                        selector.find('input:hidden').attr('value',value)
+                    }
+                })
+            })
+            .fail(err => {
+                helper.unblockUI()
+        
+                Swal.fire({
+                    'type': 'error',
+                    'title': 'ABORTED',
+                    'html': `<h4 class="sbold">${err.desc}</h4>`
+                })
+            })
+        })
+    })();
+
     (function EventChagePaymentMethod(){
         $('[name="dp_payment_type"]').change(function(){
             if($(this).val() == 'cash'){
