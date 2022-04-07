@@ -6,12 +6,12 @@ $(document).ready(function(){
      */
     const modules = {
         //* ENTRY
-        receipt: () => {
+        receipt: baseUrl => {
             import('./usecase/receipt.js')
             .then(({default: rec}) => {
                 let path = window.location.pathname
-                let port = window.location.port
-                let segment = port ? path.split('/')[2] : path.split('/')[3]
+                let segment = path.split(baseUrl)[1]
+                segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -33,12 +33,12 @@ $(document).ready(function(){
             })
         },
     
-        payment: () => {
+        payment: baseUrl => {
             import('./usecase/payment.js')
             .then(({default: pay}) => {
                 let path = window.location.pathname
-                let port = window.location.port
-                let segment = port ? path.split('/')[2] : path.split('/')[3]
+                let segment = path.split(baseUrl)[1]
+                segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -60,12 +60,12 @@ $(document).ready(function(){
             })
         },
     
-        overbook: () => {
+        overbook: baseUrl => {
             import('./usecase/overbook.js')
             .then(({default: ob}) => {
                 let path = window.location.pathname
-                let port = window.location.port
-                let segment = port ? path.split('/')[2] : path.split('/')[3]
+                let segment = path.split(baseUrl)[1]
+                segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -87,12 +87,12 @@ $(document).ready(function(){
             })
         },
     
-        generalJournal: () => {
+        generalJournal: baseUrl => {
             import('./usecase/generalJournal.js')
             .then(({default: gj}) => {
                 let path = window.location.pathname
-                let port = window.location.port
-                let segment = port ? path.split('/')[2] : path.split('/')[3]
+                let segment = path.split(baseUrl)[1]
+                segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -114,12 +114,12 @@ $(document).ready(function(){
             })
         },
     
-        recalculateBalance: () => {
+        recalculateBalance: baseUrl => {
             import('./usecase/recalculateBalance.js')
             .then(({default: cal}) => {
                 let path = window.location.pathname
-                let port = window.location.port
-                let segment = port ? path.split('/')[2] : path.split('/')[3]
+                let segment = path.split(baseUrl)[1]
+                segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -133,12 +133,12 @@ $(document).ready(function(){
         },
 
         //* AR
-        arReceiptPayment: () => {
+        arReceiptPayment: baseUrl => {
             import('./usecase/arReceiptPayment.js')
             .then(({default: arp}) => {
                 let path = window.location.pathname
-                let port = window.location.port
-                let segment = port ? path.split('/')[2] : path.split('/')[3]
+                let segment = path.split(baseUrl)[1]
+                segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -160,13 +160,10 @@ $(document).ready(function(){
             })
         },
 
-        invoice: () => {
+        invoice: baseUrl => {
             let path = window.location.pathname
-            let port = window.location.port
-            let segment
-
-            segment = port ? path.split('/')[2] : path.split('/')[3]
-            segment = segment ?? ''
+            let segment = path.split(baseUrl)[1]
+            segment = segment.split('/')[2]
             segment = segment.toLowerCase()
 
             var req;
@@ -211,12 +208,12 @@ $(document).ready(function(){
         },
 
         //* AP
-        apPayment: () => {
+        apPayment: baseUrl => {
             import('./usecase/apPayment.js')
             .then(({default: apy}) => {
                 let path = window.location.pathname
-                let port = window.location.port
-                let segment = port ? path.split('/')[2] : path.split('/')[3]
+                let segment = path.split(baseUrl)[1]
+                segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -238,12 +235,12 @@ $(document).ready(function(){
         },
     
         //* CASH ADVANCE
-        cashWithdraw: () => {
+        cashWithdraw: baseUrl => {
             import('./usecase/cashWithdraw.js')
             .then(({default: caw}) => {
                 let path = window.location.pathname
-                let port = window.location.port
-                let segment = port ? path.split('/')[2] : path.split('/')[3]
+                let segment = path.split(baseUrl)[1]
+                segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -266,12 +263,12 @@ $(document).ready(function(){
             })
         },
     
-        cashReceipt: () => {
+        cashReceipt: baseUrl => {
             import('./usecase/cashReceipt.js')
             .then(({default: car}) => {
                 let path = window.location.pathname
-                let port = window.location.port
-                let segment = port ? path.split('/')[2] : path.split('/')[3]
+                let segment = path.split(baseUrl)[1]
+                segment = path.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -294,7 +291,7 @@ $(document).ready(function(){
             })
         },
     
-        cashPersonalStatement: () => {
+        cashPersonalStatement: baseUrl => {
             import('./usecase/cashPersonalStatement.js')
             .then(({default: cap}) => {
                 cap.indexPage.eventGetEmpDetails()
@@ -304,7 +301,7 @@ $(document).ready(function(){
             })
         },
 
-        outstandingReport: () => {
+        outstandingReport: baseUrl => {
             import('./usecase/outstandingReport.js')
             .then(({default: our}) => {
                 our.indexPage.eventGetOutstandingReport()  
@@ -314,7 +311,7 @@ $(document).ready(function(){
             })
         },
     
-        cashTransactionDetail: () => {
+        cashTransactionDetail: baseUrl => {
             import('./usecase/cashTransactionDetail.js')
             .then(({default: ctd}) => {
                 ctd.indexPage.eventGetCashTransactionDetail()  
@@ -325,7 +322,7 @@ $(document).ready(function(){
         },
 
         //* EMPLOYEE
-        employeeRegistered: () => {
+        employeeRegistered: baseUrl => {
             import('./usecase/employeeRegistered.js')
             .then(({default: regd}) => {
                 regd.generateChart()
@@ -335,16 +332,16 @@ $(document).ready(function(){
             })
         },
 
-        newRegister: () => {},
+        newRegister: baseUrl => {},
 
-        employeeGender: () => {},
+        employeeGender: baseUrl => {},
 
-        employeeType: () => {},
+        employeeType: baseUrl => {},
 
-        employeeSupervisor: () => {},
+        employeeSupervisor: baseUrl => {},
     
         //* REPORTS
-        generalLedger: () => {
+        generalLedger: baseUrl => {
             import('./usecase/generalLedger.js')
             .then(({default: gl}) => {
                 gl.indexPage.eventPreviewFilter()
@@ -354,7 +351,7 @@ $(document).ready(function(){
             })
         },
     
-        balanceSheet: () => {
+        balanceSheet: baseUrl => {
             import('./usecase/balanceSheet.js')
             .then(({default: bal}) => {
                 bal.indexPage.initGetURLParamAsFilter()
@@ -366,7 +363,7 @@ $(document).ready(function(){
             })
         },
     
-        incomeStatement: () => {
+        incomeStatement: baseUrl => {
             import('./usecase/incomeStatement.js')
             .then(({default: ics}) => {
                 ics.indexPage.eventChangeOption()
@@ -377,7 +374,7 @@ $(document).ready(function(){
             })
         },
     
-        incomeStatementColumnar: () => {
+        incomeStatementColumnar: baseUrl => {
             import('./usecase/incomeStatementColumnar.js')
             .then(({default: icsc}) => {
                 icsc.indexPage.eventChangeOption()
@@ -388,7 +385,7 @@ $(document).ready(function(){
             })
         },
     
-        journalTransaction: () => {
+        journalTransaction: baseUrl => {
             import('./usecase/journalTransaction.js')
             .then(({default: jtr}) => {
                 jtr.indexPage.eventPreviewFilter()
@@ -399,10 +396,9 @@ $(document).ready(function(){
         },
 
         //* MASTER
-        master: () => {
+        master: baseUrl => {
             var path = window.location.pathname
-            let port = window.location.port
-            var segment = port ? path.split('/')[1] : path.split('/')[2]
+            var segment = path.split(baseUrl)[1]
 
             //? OPERATION
             import('./usecase/masterOperation.js')
@@ -450,10 +446,13 @@ $(document).ready(function(){
     
     //Get Sript Name
     const fn = document.querySelector('#script').getAttribute('data-load-module')
+
+    //Get Base URL
+    const BASE_URL = document.querySelector('#script').getAttribute('data-base-url')
     
     //Load Script
     if(fn in modules){
-        modules[fn]()
+        modules[fn](BASE_URL)
     }else{
         console.log(`%cERROR: %cUnrecognised module of %c\`${fn}\``,'color: red','color: white','color: yellow')
     }
