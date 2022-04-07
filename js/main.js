@@ -394,10 +394,10 @@ $(document).ready(function(){
             import('./usecase/masterOperation.js')
             .then(({default: mopr}) => {
                 if(segment.toLowerCase() == 'cmaster'){
-                    mopr.stockgorup.initTables()
-                    mopr.stockgorup.eventAddNewItem()
-                    mopr.stockgorup.eventEditItem()
-                    mopr.stockgorup.eventDeleteItem()
+                    mopr.initTables()
+                    mopr.eventAddNewItem()
+                    mopr.eventEditItem()
+                    mopr.eventDeleteItem()
                 }
             })
             .catch(err => {
@@ -408,10 +408,10 @@ $(document).ready(function(){
             import('./usecase/masterSupply.js')
             .then(({default: msup}) => {
                 if(segment.toLowerCase() == 'cmaster'){
-                    msup.stockgorup.initTables()
-                    msup.stockgorup.eventAddNewItem()
-                    msup.stockgorup.eventEditItem()
-                    msup.stockgorup.eventDeleteItem()
+                    msup.initTables()
+                    msup.eventAddNewItem()
+                    msup.eventEditItem()
+                    msup.eventDeleteItem()
                 }
             })
             .catch(err => {
