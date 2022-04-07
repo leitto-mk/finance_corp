@@ -177,8 +177,8 @@
 					<div class="row" style="margin-bottom: 37px">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="contact_no" class="control-label">Contract No</label>
-								<input type="text" name="contact_no" id="contact_no" class="form-control" value="<?= $data[0]['ContractNo'] ?>" required>
+								<label for="contract_no" class="control-label">Contract No</label>
+								<input type="text" name="contract_no" id="contract_no" class="form-control" value="<?= $data[0]['ContractNo'] ?>" required>
 							</div>
 						</div>
 						<div class="col-lg-6">
