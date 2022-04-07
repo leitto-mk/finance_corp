@@ -162,7 +162,7 @@
 						<div class="col-lg-4">
 							<div class="form-group">
 								<label for="due_date" class="control-label">Due Date</label>
-								<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>" value="<?= $data[0]['DueDate'] ?>" required>
+								<input type="date" name="due_date" id="due_date" class="form-control" min="<?= $data[0]['RaisedDate'] ?>" value="<?= $data[0]['DueDate'] ?>" required>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
