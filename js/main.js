@@ -9,9 +9,9 @@ $(document).ready(function(){
         receipt: baseUrl => {
             import('./usecase/receipt.js')
             .then(({default: rec}) => {
-                let path = window.location.pathname
+                let path = window.location.href
                 let segment = path.split(baseUrl)[1]
-                segment = path.split('/')[2]
+                segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -36,9 +36,9 @@ $(document).ready(function(){
         payment: baseUrl => {
             import('./usecase/payment.js')
             .then(({default: pay}) => {
-                let path = window.location.pathname
+                let path = window.location.href
                 let segment = path.split(baseUrl)[1]
-                segment = path.split('/')[2]
+                segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -63,9 +63,9 @@ $(document).ready(function(){
         overbook: baseUrl => {
             import('./usecase/overbook.js')
             .then(({default: ob}) => {
-                let path = window.location.pathname
+                let path = window.location.href
                 let segment = path.split(baseUrl)[1]
-                segment = path.split('/')[2]
+                segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -90,9 +90,9 @@ $(document).ready(function(){
         generalJournal: baseUrl => {
             import('./usecase/generalJournal.js')
             .then(({default: gj}) => {
-                let path = window.location.pathname
+                let path = window.location.href
                 let segment = path.split(baseUrl)[1]
-                segment = path.split('/')[2]
+                segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -117,9 +117,9 @@ $(document).ready(function(){
         recalculateBalance: baseUrl => {
             import('./usecase/recalculateBalance.js')
             .then(({default: cal}) => {
-                let path = window.location.pathname
+                let path = window.location.href
                 let segment = path.split(baseUrl)[1]
-                segment = path.split('/')[2]
+                segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -136,9 +136,9 @@ $(document).ready(function(){
         arReceiptPayment: baseUrl => {
             import('./usecase/arReceiptPayment.js')
             .then(({default: arp}) => {
-                let path = window.location.pathname
+                let path = window.location.href
                 let segment = path.split(baseUrl)[1]
-                segment = path.split('/')[2]
+                segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -161,9 +161,9 @@ $(document).ready(function(){
         },
 
         invoice: baseUrl => {
-            let path = window.location.pathname
+            let path = window.location.href
             let segment = path.split(baseUrl)[1]
-            segment = segment.split('/')[2]
+            segment = segment.split('/')[1]
             segment = segment.toLowerCase()
 
             var req;
@@ -211,9 +211,9 @@ $(document).ready(function(){
         apPayment: baseUrl => {
             import('./usecase/apPayment.js')
             .then(({default: apy}) => {
-                let path = window.location.pathname
+                let path = window.location.href
                 let segment = path.split(baseUrl)[1]
-                segment = path.split('/')[2]
+                segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -238,9 +238,9 @@ $(document).ready(function(){
         cashWithdraw: baseUrl => {
             import('./usecase/cashWithdraw.js')
             .then(({default: caw}) => {
-                let path = window.location.pathname
+                let path = window.location.href
                 let segment = path.split(baseUrl)[1]
-                segment = path.split('/')[2]
+                segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -266,9 +266,9 @@ $(document).ready(function(){
         cashReceipt: baseUrl => {
             import('./usecase/cashReceipt.js')
             .then(({default: car}) => {
-                let path = window.location.pathname
+                let path = window.location.href
                 let segment = path.split(baseUrl)[1]
-                segment = path.split('/')[2]
+                segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -397,7 +397,7 @@ $(document).ready(function(){
 
         //* MASTER
         master: baseUrl => {
-            var path = window.location.pathname
+            var path = window.location.href
             var segment = path.split(baseUrl)[1]
 
             //? OPERATION
@@ -448,11 +448,11 @@ $(document).ready(function(){
     const fn = document.querySelector('#script').getAttribute('data-load-module')
 
     //Get Base URL
-    const BASE_URL = document.querySelector('#script').getAttribute('data-base-url')
+    const baseURL = document.querySelector('#script').getAttribute('data-base-url')
     
     //Load Script
     if(fn in modules){
-        modules[fn](BASE_URL)
+        modules[fn](baseURL)
     }else{
         console.log(`%cERROR: %cUnrecognised module of %c\`${fn}\``,'color: red','color: white','color: yellow')
     }
