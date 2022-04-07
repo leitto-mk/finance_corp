@@ -15,12 +15,12 @@
     <span class="title">Create New Invoice</span>
   </a>
 </li>
-<li class="nav-item">
+<!-- <li class="nav-item">
   <a href="#" class="nav-link nav-toggle">
     <i class="icon-plus"></i>
     <span class="title">Create Service Invoice</span>
   </a>
-</li>
+</li> -->
 <li class="nav-item">
   <a href="<?php echo site_url('Invoice/list') ?>" class="nav-link nav-toggle">
     <i class="icon-list"></i>
