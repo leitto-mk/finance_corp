@@ -246,7 +246,9 @@ export const FormPage = () => {
 
     (function EventChagePaymentMethod(){
         $('[name="dp_payment_type"]').change(function(){
-            if($(this).val() == 'cash' || $(this).val() == 'credit_sales'){
+            let available = ['cash', 'credit_sales']
+
+            if(available.includes($(this).val())){
                 $('#dp_payment_card_text').prop('disabled', true).val('')
                 $('#dp_payment_bank').prop('disabled', true).val('')
             }else{
