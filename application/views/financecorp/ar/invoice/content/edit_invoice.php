@@ -313,14 +313,27 @@
 							<input type="text" id="payment_sub_total_accno" name="payment_sub_total_accno" value="<?= $data[0]['SubTotalAcc'] ?>" hidden required>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="payment_discount" class="control-label">Discount</label>
-						<div class="input-group">
-							<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="<?= $data[0]['TotalDiscount'] ?>" step="0.01">
-							<a name="select_accno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
-							<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="<?= $data[0]['TotalDiscountAcc'] ?>" hidden required>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="payment_discount" class="control-label">Discount</label>
+								<div class="input-group">
+									<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="<?= $data[0]['TotalDiscount'] ?>" step="0.01">
+									<a name="select_accno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+									<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="<?= $data[0]['TotalDiscountAcc'] ?>" hidden required>
+								</div>
+								<span class="help-block hidden"></span>
+							</div>
 						</div>
-						<span class="help-block hidden"></span>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="payment_discount" class="control-label">Amount Discount</label>
+								<div class="input-group">
+									<input type="number" name="" id="" class="form-control text-right" readonly>
+								</div>
+								<span class="help-block hidden"></span>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="control-label">Net - Subtotal</label>
@@ -343,11 +356,31 @@
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
+								<label for="payment_discount" class="control-label">Amount VAT</label>
+								<div class="input-group">
+									<input type="number" name="" id="" class="form-control text-right" readonly>
+								</div>
+								<span class="help-block hidden"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
 								<label for="payment_pph" class="control-label">Less PPh 23</label>
 								<div class="input-group">
 									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="<?= $data[0]['PPH'] ?>" step="0.01">
 									<a name="select_accno" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
 									<input type="text" id="payment_pph_accno" name="payment_pph_accno" value="<?= $data[0]['PPHAcc'] ?>" hidden required>
+								</div>
+								<span class="help-block hidden"></span>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="payment_discount" class="control-label">Amount PPh</label>
+								<div class="input-group">
+									<input type="number" name="" id="" class="form-control text-right" readonly>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
