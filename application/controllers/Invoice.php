@@ -338,6 +338,7 @@ class Invoice extends CI_Controller
 
 			//Branch
 			'Branch' => $input->post('branch'),
+			'RefDocNo' => $input->post('ref_docno'),
 			'RaisedBy' => 'ADMIN',
 			'RaisedDate' => $input->post('raised_date'),
 			'DueDate' => $input->post('due_date'),
