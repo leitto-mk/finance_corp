@@ -72,13 +72,19 @@ class Invoice extends CI_Controller
 				$credit = (float) $data->post('payment_sub_total');
 				break;
 			case 'payment_discount':
-				$debit = (float) $data->post('payment_discount');
+				$debit = (float) ($data->post('payment_discount') / 100);
+				$debit = (float) ($data->post('payment_sub_total') * $debit);
+				$debit = (float) ($data->post('payment_sub_total') - $debit);
 				break;
 			case 'payment_vat':
-				$credit = (float) $data->post('payment_vat');
+				$credit = (float) $data->post('payment_vat') / 100;
+				$credit = (float) ($data->post('payment_net_subtotal') * $credit);
+				$credit = (float) ($data->post('payment_net_subtotal') - $credit);
 				break;
 			case 'payment_pph':
-				$debit = (float) $data->post('payment_pph');
+				$debit = (float) $data->post('payment_pph') / 100;
+				$debit = (float) ($data->post('payment_net_subtotal') * $debit);
+				$debit = (float) ($data->post('payment_net_subtotal') - $debit);
 				break;
 			case 'payment_freight':
 				$credit = (float) $data->post('payment_freight');
