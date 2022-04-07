@@ -150,7 +150,7 @@
 						<div class="col-lg-4">
 							<div class="form-group">
 								<label for="term_days" class="control-label">Term Day(s)</label>
-								<input type="text" name="term_days" id="term_days" class="form-control" value="">
+								<input type="number" name="term_days" id="term_days" class="form-control" min="0" value="0">
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
@@ -194,7 +194,8 @@
 							<thead>
 								<tr>
 									<th width="3%" class="text-center">Item</th>
-									<th width="25%" class="text-center">Stockcode</th>
+									<th width="15%" class="text-center">Stockcode</th>
+									<th width="25%" class="text-center">Remark</th>
 									<th width="5%" class="text-center">UOM</th>
 									<th width="5%" class="text-center">Currency</th>
 									<th width="6%" class="text-center">Qty</th>
@@ -220,6 +221,12 @@
 													<?php endfor; ?>
 												<?php endif; ?>
 											</select>
+											<span class="help-block hidden"></span>
+										</div>
+									</td>
+									<td>
+										<div class="form-group">
+											<input type="text" name="order_remark[]" class="form-control so-remark" required>
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
@@ -323,15 +330,15 @@
 							<div class="form-group">
 								<label for="payment_vat" class="control-label">VAT | Inclusive</label>
 								<div class="input-group">
-									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01">
+									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01" readonly>
 									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
-									<a name="" id="" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">
+									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="" hidden>
+									<a class="input-group-addon bg-blue-chambray bg-font-blue-chambray">
 		                        		<label class="mt-checkbox" style="margin-left: 15px">
-		                            		<input type="checkbox" value="no">
+		                            		<input id="payment_vat_inclusive" name="payment_vat_inclusive" type="checkbox">
 		                            		<span></span>
 		                        		</label>
 									</a>
-									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>

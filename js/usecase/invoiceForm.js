@@ -153,16 +153,13 @@ export const FormPage = () => {
     })();
 
     (function EventGetTermsOfDay(){
-        $(document).on('change','#raised_date, #due_date', function(){
+        $('#raised_date, #term_days').change(function(){
             let raised_date = $('#raised_date').val()
-            let due_date = $('#due_date').val()
+            let term_day = +$('#term_days').val()
 
-            let start = moment(raised_date,'YYYY-MM-DD')
-            let end = moment(due_date,'YYYY-MM-DD')
+            let due_date = moment(raised_date,'YYYY-MM-DD').add(term_day, 'days')
 
-            let duration = moment.duration(end.diff(start)).asDays()
-
-            duration > 0 ? $('#term_days').val(`${duration} Days`) : $('#term_days').val('0 Day')
+            $('#due_date').val(due_date.format('YYYY-MM-DD'))
         })
     })();
 
@@ -200,16 +197,22 @@ export const FormPage = () => {
     })();
 
     (function EventAddSelectAccNo(){
-        $('a[name="select_accno"]').click(function(){
+        $('a[name="select_accno"]').click(async function(){
             var selector = $(this).parent('.input-group')
             var options = {}
 
             //Get existing AccNo Value from hidden input
-            var curLabel = $(this).attr('id').replace('_label','')
-            var existedVal = $(`#${curLabel}`).val() ?? ''
+            var curAccno = $(this).attr('id').replace('_label','')
+            var existedVal = $(`#${curAccno}`).val() ?? ''
+
+            //If Current Accno is for VAT and Inclusive is not checked,
+            //then do nothing
+            if(curAccno == 'payment_vat_accno' && $('#payment_vat_inclusive').is(':checked') == false){
+                return
+            }
 
             let url = window.location.origin + '/Invoice/get_accno'
-            repository.getRecord(url, null)
+            await repository.getRecord(url, null)
             .then(response => {
                 helper.unblockUI()
                 let val = response.result
@@ -241,6 +244,19 @@ export const FormPage = () => {
                     'html': `<h4 class="sbold">${err.desc}</h4>`
                 })
             })
+        })
+    })();
+
+    (function EventChangeVATInclusive(){
+        $('#payment_vat_inclusive').change(function(){
+            if($(this).is(':checked')){
+                $('#payment_vat').prop('readonly', false)
+            }else{
+                $('#payment_vat').prop({
+                    'readonly': true,
+                    'value': 0
+                })
+            }
         })
     })();
 

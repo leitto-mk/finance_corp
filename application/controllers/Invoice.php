@@ -358,6 +358,7 @@ class Invoice extends CI_Controller
 			'TotalDiscount' => $input->post('payment_discount'),
 			'TotalDiscountAcc' => $input->post('payment_discount_accno'),
 			'NetSubTotal' => $input->post('payment_net_subtotal'),
+			'VATInclusive' => $input->post('payment_vat_inclusive') == 'on' ? 1 : 0,
 			'VATAcc' => $input->post('payment_vat'),
 			'VAT' => $input->post('payment_vat_accno'),
 			'PPH' => $input->post('payment_pph'),
@@ -379,6 +380,7 @@ class Invoice extends CI_Controller
 			array_push($det, [
 				'InvoiceNo' => $input->post('invoice_no'),
 				'StockCode' => $input->post('stockcode')[$i],
+				'OrderRemark' => $input->post('order_remark')[$i],
 				'UOM' => $input->post('uom')[$i],
 				'Currency' => $input->post('currency')[$i],
 				'Qty' => $input->post('qty')[$i],
