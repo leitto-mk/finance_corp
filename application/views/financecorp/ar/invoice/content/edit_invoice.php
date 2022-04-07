@@ -391,7 +391,7 @@
 							<label class="mt-radio">
 								<input type="radio" id="radio-credit" name="dp_payment_type" value="credit_purchase" <?= $data[0]['PaymentType'] == 'credit_purchase' ? 'checked' : '' ?>>
 								<span></span>
-								Credit Purchase
+								Credit Sales
 							</label>
 						</div>
 					</div>

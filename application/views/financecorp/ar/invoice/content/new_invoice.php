@@ -369,7 +369,7 @@
 							<label class="mt-radio">
 								<input type="radio" id="radio-credit" name="dp_payment_type" value="credit_purchase">
 								<span></span>
-								Credit Purchase
+								Credit Sales
 							</label>
 						</div>
 					</div>
