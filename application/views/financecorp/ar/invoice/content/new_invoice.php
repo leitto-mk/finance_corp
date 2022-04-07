@@ -149,15 +149,15 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label for="due_date" class="control-label">Due Date</label>
-								<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>" required>
+								<label for="term_days" class="control-label">Term Day(s)</label>
+								<input type="text" name="term_days" id="term_days" class="form-control" value="">
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label for="term_days" class="control-label">Term Day(s)</label>
-								<input type="text" name="term_days" id="term_days" class="form-control" value="">
+								<label for="due_date" class="control-label">Due Date</label>
+								<input type="date" name="due_date" id="due_date" class="form-control" min="<?= date('Y-m-d') ?>" required readonly>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
@@ -314,23 +314,29 @@
 					<div class="form-group">
 						<label for="" class="control-label">Net - Subtotal</label>
 						<div class="input-group">
-							<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
+							<span class="input-group-addon bg-default bg-default">Rp.</span>
 							<input type="text" name="payment_net_subtotal" id="payment_net_subtotal" class="form-control text-right" readonly value="0" required>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-lg-7">
 							<div class="form-group">
 								<label for="payment_vat" class="control-label">VAT</label>
 								<div class="input-group">
 									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01">
 									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+									<a name="" id="" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">
+		                        		<label class="mt-checkbox" style="margin-left: 15px">
+		                            		<input type="checkbox" value="no">
+		                            		<span></span>
+		                        		</label>
+									</a>
 									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-lg-5">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount VAT</label>
 								<input type="text" name="amount_vat" id="amount_vat" class="form-control text-right" readonly>
@@ -339,7 +345,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-lg-7">
 							<div class="form-group">
 								<label for="payment_pph" class="control-label">PPh 23</label>
 								<div class="input-group">
@@ -350,7 +356,7 @@
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-lg-5">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount PPh</label>
 								<input type="text" name="amount_pph" id="amount_pph" class="form-control text-right" readonly>
