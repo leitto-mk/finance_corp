@@ -149,7 +149,7 @@
 					</div> -->
 					<div class="form-group">
 						<label for="ref_docno" class="control-label">Reference Doc No</label>
-						<input type="text" name="ref_docno" id="ref_docno" class="form-control" value="<?= $ref_docno ?>">
+						<input type="text" name="ref_docno" id="ref_docno" class="form-control" value="<?= $data[0]['RefDocNo'] ?>">
 					</div>
 					<div class="row">
 						<div class="col-lg-4">
@@ -178,13 +178,13 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="contact_no" class="control-label">Contract No</label>
-								<input type="text" name="contact_no" id="contact_no" class="form-control" value="<?= $contract_no ?>" required>
+								<input type="text" name="contact_no" id="contact_no" class="form-control" value="<?= $data[0]['ContractNo'] ?>" required>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="sales_resp" class="control-label">Sales Resp</label>
-								<input type="text" name="sales_resp" id="sales_resp" class="form-control" value="<?= $sales_resp ?>">
+								<input type="text" name="sales_resp" id="sales_resp" class="form-control" value="<?= $data[0]['SalesResp'] ?>">
 							</div>
 						</div>
 					</div>
