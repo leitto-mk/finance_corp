@@ -26,6 +26,7 @@
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="<?= base_url() ?>assets/metronic/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
     <link href="<?= base_url() ?>assets/metronic/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/metronic/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="<?= base_url() ?>assets/metronic/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
