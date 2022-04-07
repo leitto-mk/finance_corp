@@ -10,7 +10,8 @@ $(document).ready(function(){
             import('./usecase/receipt.js')
             .then(({default: rec}) => {
                 let path = window.location.pathname
-                let segment = path.split('/')[2]
+                let port = window.location.port
+                let segment = port ? path.split('/')[2] : path.split('/')[3]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -36,7 +37,8 @@ $(document).ready(function(){
             import('./usecase/payment.js')
             .then(({default: pay}) => {
                 let path = window.location.pathname
-                let segment = path.split('/')[2]
+                let port = window.location.port
+                let segment = port ? path.split('/')[2] : path.split('/')[3]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -62,7 +64,8 @@ $(document).ready(function(){
             import('./usecase/overbook.js')
             .then(({default: ob}) => {
                 let path = window.location.pathname
-                let segment = path.split('/')[2]
+                let port = window.location.port
+                let segment = port ? path.split('/')[2] : path.split('/')[3]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -88,7 +91,8 @@ $(document).ready(function(){
             import('./usecase/generalJournal.js')
             .then(({default: gj}) => {
                 let path = window.location.pathname
-                let segment = path.split('/')[2]
+                let port = window.location.port
+                let segment = port ? path.split('/')[2] : path.split('/')[3]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -114,7 +118,8 @@ $(document).ready(function(){
             import('./usecase/recalculateBalance.js')
             .then(({default: cal}) => {
                 let path = window.location.pathname
-                let segment = path.split('/')[2]
+                let port = window.location.port
+                let segment = port ? path.split('/')[2] : path.split('/')[3]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -132,7 +137,8 @@ $(document).ready(function(){
             import('./usecase/arReceiptPayment.js')
             .then(({default: arp}) => {
                 let path = window.location.pathname
-                let segment = path.split('/')[2]
+                let port = window.location.port
+                let segment = port ? path.split('/')[2] : path.split('/')[3]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -156,7 +162,11 @@ $(document).ready(function(){
 
         invoice: () => {
             let path = window.location.pathname
-            let segment = path.split('/')[2] ?? ''
+            let port = window.location.port
+            let segment
+
+            segment = port ? path.split('/')[2] : path.split('/')[3]
+            segment = segment ?? ''
             segment = segment.toLowerCase()
 
             var req;
@@ -205,7 +215,8 @@ $(document).ready(function(){
             import('./usecase/apPayment.js')
             .then(({default: apy}) => {
                 let path = window.location.pathname
-                let segment = path.split('/')[2]
+                let port = window.location.port
+                let segment = port ? path.split('/')[2] : path.split('/')[3]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -231,7 +242,8 @@ $(document).ready(function(){
             import('./usecase/cashWithdraw.js')
             .then(({default: caw}) => {
                 let path = window.location.pathname
-                let segment = path.split('/')[2]
+                let port = window.location.port
+                let segment = port ? path.split('/')[2] : path.split('/')[3]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -258,7 +270,8 @@ $(document).ready(function(){
             import('./usecase/cashReceipt.js')
             .then(({default: car}) => {
                 let path = window.location.pathname
-                let segment = path.split('/')[2]
+                let port = window.location.port
+                let segment = port ? path.split('/')[2] : path.split('/')[3]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -388,7 +401,8 @@ $(document).ready(function(){
         //* MASTER
         master: () => {
             var path = window.location.pathname
-            var segment = path.split('/')[1]
+            let port = window.location.port
+            var segment = port ? path.split('/')[1] : path.split('/')[2]
 
             //? OPERATION
             import('./usecase/masterOperation.js')
