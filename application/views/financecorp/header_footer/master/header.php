@@ -62,7 +62,6 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="<?=base_url()?>assets/metronic/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="<?=base_url()?>assets/metronic/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url()?>assets/metronic/toastr/css/toastr.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
         <!-- <link rel="shortcut icon" href="favicon.ico" /> </head> -->
     <!-- END HEAD -->

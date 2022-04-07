@@ -47,7 +47,6 @@
         <script src="<?=base_url()?>assets/metronic/layouts/layout5/scripts/layout.min.js" type="text/javascript"></script>
         <script src="<?=base_url()?>assets/metronic/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <script src="<?=base_url()?>assets/metronic/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
-        <script src="<?=base_url()?>assets/metronic/toastr/js/toastr.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         <!-- BEGIN PAGE LAYOUT SCRIPTS -->
         <script src="<?= base_url() ?>assets/metronic/pages/scripts/form-input-mask.min.js" type="text/javascript"></script>
