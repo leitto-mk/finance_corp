@@ -44,6 +44,7 @@
 				<?php if($type == "edit") : ?>
 					<option id="coa_group" <?= ($transgroup == 'CA' ? 'selected' : '') ?> value="CA">CA - Cash Advance</option>
 					<option id="coa_group" <?= ($transgroup == 'CB' ? 'selected' : '') ?> value="CB">CB - Cash Bank</option>
+					<option id="coa_group" <?= ($transgroup == 'INV' ? 'selected' : '') ?> value="INV">INV - Invoice</option>
 					<option id="coa_group" <?= ($transgroup == 'H1' ? 'selected' : '') ?> value="H1">H1 - Header Level 1</option>
 					<option id="coa_group" <?= ($transgroup == 'H2' ? 'selected' : '') ?> value="H2">H2 - Header Level 2</option>
 					<option id="coa_group" <?= ($transgroup == 'H3' ? 'selected' : '') ?> value="H3">H3 - Header Level 3</option>
@@ -51,6 +52,7 @@
 				<?php else : ?>
 					<option id="coa_group" value="CA">CA - Cash Advance</option>
 					<option id="coa_group" value="CB">CB - Cash Bank</option>
+					<option id="coa_group" value="INV">INV - Invoice</option>
 					<option id="coa_group" value="H1">H1 - Header Level 1</option>
 					<option id="coa_group" value="H2">H2 - Header Level 2</option>
 					<option id="coa_group" value="H3">H3 - Header Level 3</option>
