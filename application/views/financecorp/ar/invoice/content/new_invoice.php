@@ -321,7 +321,7 @@
 					<div class="row">
 						<div class="col-lg-7">
 							<div class="form-group">
-								<label for="payment_vat" class="control-label">VAT</label>
+								<label for="payment_vat" class="control-label">VAT | Inclusive</label>
 								<div class="input-group">
 									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01">
 									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
