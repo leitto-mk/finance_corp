@@ -391,45 +391,51 @@ class Invoice extends CI_Controller
 		//TRANSACTION (LEDGER)
 		$cur_accno_bal = [];
 
-		if((float) $input->post('payment_sub_total') !== 0 && $input->post('payment_sub_total_accno') !== ''){
+		$payment_sub_total = $input->post('payment_sub_total_accno');
+		if($payment_sub_total){
 			array_push(
 				$trans, 
-				$this->_set_ledger_data($input, 'payment_sub_total', $input->post('payment_sub_total_accno'), $cur_accno_bal)
+				$this->_set_ledger_data($input, 'payment_sub_total', $payment_sub_total, $cur_accno_bal)
 			);
 		}
 		
-		if((float) $input->post('payment_discount') !== 0 && $input->post('payment_discount_accno') !== ''){
+		$payment_discount = $input->post('payment_discount_accno');
+		if($payment_discount){
 			array_push(
 				$trans, 
-				$this->_set_ledger_data($input, 'payment_discount', $input->post('payment_discount_accno'), $cur_accno_bal)
+				$this->_set_ledger_data($input, 'payment_discount', $payment_discount, $cur_accno_bal)
 			);
 		}
 		
-		if((float) $input->post('payment_vat') !== 0 && $input->post('payment_vat_accno') !== ''){
+		$payment_vat = $input->post('payment_vat_accno');
+		if($payment_vat){
 			array_push(
 				$trans, 
-				$this->_set_ledger_data($input, 'payment_vat', $input->post('payment_vat_accno'), $cur_accno_bal)
+				$this->_set_ledger_data($input, 'payment_vat', $payment_vat, $cur_accno_bal)
 			);
 		}
 		
-		if((float) $input->post('payment_pph') !== 0 && $input->post('payment_pph_accno') !== ''){
+		$payment_pph = $input->post('payment_pph_accno');
+		if($payment_pph){
 			array_push(
 				$trans, 
-				$this->_set_ledger_data($input, 'payment_pph', $input->post('payment_pph_accno'), $cur_accno_bal)
+				$this->_set_ledger_data($input, 'payment_pph', $payment_pph, $cur_accno_bal)
 			);
 		}
 		
-		if((float) $input->post('payment_freight') !== 0 && $input->post('payment_freight_accno') !== ''){
+		$payment_freight = $input->post('payment_freight_accno');
+		if($payment_freight){
 			array_push(
 				$trans, 
-				$this->_set_ledger_data($input, 'payment_freight', $input->post('payment_freight_accno'), $cur_accno_bal)
+				$this->_set_ledger_data($input, 'payment_freight', $payment_freight, $cur_accno_bal)
 			);
 		}
 		
-		if((float) $input->post('payment_total_amount') !== 0 && $input->post('payment_total_amount_accno') !== ''){
+		$payment_total_amount = $input->post('payment_total_amount_accno');
+		if($payment_total_amount){
 			array_push(
 				$trans, 
-				$this->_set_ledger_data($input, 'payment_total_amount', $input->post('payment_total_amount_accno'), $cur_accno_bal)
+				$this->_set_ledger_data($input, 'payment_total_amount', $payment_total_amount, $cur_accno_bal)
 			);
 		}
 
