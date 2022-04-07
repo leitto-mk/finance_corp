@@ -31,38 +31,38 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- END LAYOUT FIRST STYLES -->
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" /> -->
-        <link href="<?=base_url('assets')?>/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
         <!-- <link rel="stylesheet" type="text/css" href="<?= base_url('assets/')?>js/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="<?= base_url('assets/')?>js/responsive.dataTables.min.css"> -->
-        <link href="<?=base_url('assets')?>/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
         <!-- <script src="<?= base_url('assets/')?>js/jquery-3.4.1.min.js" type="text/javascript"></script> -->
        
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="<?=base_url('assets')?>/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN PAGE LEVEL STYLES -->
-        <link href="<?=base_url('assets')?>/pages/css/about.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
-       <!--  <link href="<?=base_url('assets')?>/js/rowGroup.dataTables.min.css" rel="stylesheet" type="text/css" /> -->
+        <link href="<?=base_url()?>assets/metronic/pages/css/about.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+       <!--  <link href="<?=base_url()?>assets/metronic/js/rowGroup.dataTables.min.css" rel="stylesheet" type="text/css" /> -->
        
-        <link href="<?=base_url('assets')?>/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/global/plugins/clockface/css/clockface.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/global/plugins/clockface/css/clockface.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
-        <link href="<?=base_url('assets')?>/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?=base_url('assets')?>/toastr/css/toastr.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?=base_url()?>assets/metronic/toastr/css/toastr.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
         <!-- <link rel="shortcut icon" href="favicon.ico" /> </head> -->
     <!-- END HEAD -->
@@ -78,7 +78,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!-- BEGIN LOGO -->
                             <h2 class="font-white uppercase bold font-green"><?=$h2?></h2>
                             <!-- <a id="index" class="page-logo" href="index.html"> -->
-                               <!--  <img src="<?=base_url('assets')?>/layouts/layout5/img/logo.png" alt="Logo"> Leave & Travel Management</a> -->
+                               <!--  <img src="<?=base_url()?>assets/metronic/layouts/layout5/img/logo.png" alt="Logo"> Leave & Travel Management</a> -->
                             <!-- END LOGO -->
                         </div>
                     </div>

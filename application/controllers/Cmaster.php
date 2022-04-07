@@ -494,7 +494,7 @@ class Cmaster extends CI_Controller
 						<div class="col-md-4">
 							<div class="portlet light bg-grey-cararra stories-cont">
 		                        <div class="photo">
-		                            <img src="assets/pages/media/users/teambg1.jpg" class="img-responsive" alt="">
+		                            <img src="assets/metronic/pages/media/users/teambg1.jpg" class="img-responsive" alt="">
 		                        </div>
 		                        <div class="title" style="margin-bottom: -15px">
 		                                <span class="font-blue-chambray" style="font-size: 24px" id="abasecompanyshortname"></span>

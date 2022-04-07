@@ -1,6 +1,4 @@
-<?php
-    $this->load->view('financecorp/header_footer/master/header');
-?>
+<?php $this->load->view('financecorp/header_footer/master/header'); ?>
 <style type="text/css">
     .table td,th{
         border-top: 0px!important;
