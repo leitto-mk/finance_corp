@@ -31,12 +31,15 @@ const _callable = {
         let payment_sub_total = $('#payment_sub_total').val()
         payment_sub_total = payment_sub_total !== '' ? parseFloat($('#payment_sub_total').val().replaceAll(',','')) : 0
         let payment_discount = parseFloat($('#payment_discount').val().replaceAll(',','')) / 100
+        $('#amount_discount').val(Intl.NumberFormat('en').format(parseFloat(payment_sub_total * payment_discount)))
         let net_subtotal = payment_sub_total - (payment_sub_total * payment_discount)
 
         $('#payment_net_subtotal').val(net_subtotal)
 
         let payment_vat = +$('#payment_vat').val() / 100 
+        $('#amount_vat').val(Intl.NumberFormat('en').format(net_subtotal * payment_vat))
         let payment_pph = +$('#payment_pph').val() / 100 
+        $('#amount_pph').val(Intl.NumberFormat('en').format(net_subtotal * payment_pph))
         let payment_freight = $('#payment_freight').val()
         payment_freight = payment_freight !== '' ? parseFloat($('#payment_freight').val().replaceAll(',','')) : 0
         let total_amount = 0
@@ -233,7 +236,7 @@ export const FormPage = () => {
                 helper.unblockUI()
         
                 Swal.fire({
-                    'type': 'error',
+                    'icon': 'error',
                     'title': 'ABORTED',
                     'html': `<h4 class="sbold">${err.desc}</h4>`
                 })
@@ -243,7 +246,7 @@ export const FormPage = () => {
 
     (function EventChagePaymentMethod(){
         $('[name="dp_payment_type"]').change(function(){
-            if($(this).val() == 'cash'){
+            if($(this).val() == 'cash' || $(this).val() == 'credit_sales'){
                 $('#dp_payment_card_text').prop('disabled', true).val('')
                 $('#dp_payment_bank').prop('disabled', true).val('')
             }else{
@@ -298,6 +301,28 @@ export const FormPage = () => {
             let url = window.location.origin + '/invoice/submit'
             let formData = $(this).serializeArray()
 
+            //Validate Subtotal
+            if(!$('#payment_sub_total_accno').val()){
+                Swal.fire({
+                    'icon': 'error',
+                    'title': 'Account No. for Subtotal is not selected',
+                    'html': ''
+                })
+
+                return
+            }
+
+            //Validate Total Amount
+            if(!$('#payment_total_amount_accno').val()){
+                Swal.fire({
+                    'icon': 'error',
+                    'title': 'Account No. for Total Amount is not selected',
+                    'html': ''
+                })
+
+                return
+            }
+
             //Deformat Numbers
             formData.find(input => {
                 let input_with_mask = [
@@ -320,7 +345,7 @@ export const FormPage = () => {
                 helper.unblockUI()
                 
                 Swal.fire({
-                    'type': 'success',
+                    'icon': 'success',
                     'title': 'SUCCESS',
                     'html': 'DATA HAS BEEN SUBMITTED'
                 })
@@ -329,7 +354,7 @@ export const FormPage = () => {
                 helper.unblockUI()
         
                 Swal.fire({
-                    'type': 'error',
+                    'icon': 'error',
                     'title': 'ABORTED',
                     'html': `<h4 class="sbold">${err.desc}</h4>`
                 })

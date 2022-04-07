@@ -391,29 +391,47 @@ class Invoice extends CI_Controller
 		//TRANSACTION (LEDGER)
 		$cur_accno_bal = [];
 
-		$payment_sub_total = $this->_set_ledger_data($input, 'payment_sub_total', $input->post('payment_sub_total_accno'), $cur_accno_bal);
-		array_push($trans, $payment_sub_total);
-		$cur_accno_bal[$payment_sub_total['AccNo']] = $payment_sub_total['BalanceBranch'];
+		if((float) $input->post('payment_sub_total') !== 0 && $input->post('payment_sub_total_accno') !== ''){
+			array_push(
+				$trans, 
+				$this->_set_ledger_data($input, 'payment_sub_total', $input->post('payment_sub_total_accno'), $cur_accno_bal)
+			);
+		}
 		
-		$payment_discount = $this->_set_ledger_data($input, 'payment_discount', $input->post('payment_discount_accno'), $cur_accno_bal);
-		array_push($trans, $payment_discount);
-		$cur_accno_bal[$payment_discount['AccNo']] = $payment_discount['BalanceBranch'];
+		if((float) $input->post('payment_discount') !== 0 && $input->post('payment_discount_accno') !== ''){
+			array_push(
+				$trans, 
+				$this->_set_ledger_data($input, 'payment_discount', $input->post('payment_discount_accno'), $cur_accno_bal)
+			);
+		}
 		
-		$payment_vat = $this->_set_ledger_data($input, 'payment_vat', $input->post('payment_vat_accno'), $cur_accno_bal);
-		array_push($trans, $payment_vat);
-		$cur_accno_bal[$payment_vat['AccNo']] = $payment_vat['BalanceBranch'];
+		if((float) $input->post('payment_vat') !== 0 && $input->post('payment_vat_accno') !== ''){
+			array_push(
+				$trans, 
+				$this->_set_ledger_data($input, 'payment_vat', $input->post('payment_vat_accno'), $cur_accno_bal)
+			);
+		}
 		
-		$payment_pph = $this->_set_ledger_data($input, 'payment_pph', $input->post('payment_pph_accno'), $cur_accno_bal);
-		array_push($trans, $payment_pph);
-		$cur_accno_bal[$payment_pph['AccNo']] = $payment_pph['BalanceBranch'];
+		if((float) $input->post('payment_pph') !== 0 && $input->post('payment_pph_accno') !== ''){
+			array_push(
+				$trans, 
+				$this->_set_ledger_data($input, 'payment_pph', $input->post('payment_pph_accno'), $cur_accno_bal)
+			);
+		}
 		
-		$payment_freight = $this->_set_ledger_data($input, 'payment_freight', $input->post('payment_freight_accno'), $cur_accno_bal);
-		array_push($trans, $payment_freight);
-		$cur_accno_bal[$payment_freight['AccNo']] = $payment_freight['BalanceBranch'];
+		if((float) $input->post('payment_freight') !== 0 && $input->post('payment_freight_accno') !== ''){
+			array_push(
+				$trans, 
+				$this->_set_ledger_data($input, 'payment_freight', $input->post('payment_freight_accno'), $cur_accno_bal)
+			);
+		}
 		
-		$payment_total_amount = $this->_set_ledger_data($input, 'payment_total_amount', $input->post('payment_total_amount_accno'), $cur_accno_bal);
-		array_push($trans, $payment_total_amount);
-		$cur_accno_bal[$payment_total_amount['AccNo']] = $payment_total_amount['BalanceBranch'];
+		if((float) $input->post('payment_total_amount') !== 0 && $input->post('payment_total_amount_accno') !== ''){
+			array_push(
+				$trans, 
+				$this->_set_ledger_data($input, 'payment_total_amount', $input->post('payment_total_amount_accno'), $cur_accno_bal)
+			);
+		}
 
 		//DELETE OLD DATA IF EXIST
 		$error = $this->Mdl_corp_invoice->delete_invoice($input->post('invoice_no'));

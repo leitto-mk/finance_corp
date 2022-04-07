@@ -288,7 +288,7 @@
 						<div class="input-group">
 							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="" required>
 							<a name="select_accno" id="payment_sub_total_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
-							<input type="text" id="payment_sub_total_accno" name="payment_sub_total_accno" value="" hidden requried>
+							<input type="text" id="payment_sub_total_accno" name="payment_sub_total_accno" value="" hidden>
 						</div>
 					</div>
 					<div class="row">
@@ -298,7 +298,7 @@
 								<div class="input-group">
 									<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="0" step="0.01">
 									<a name="select_accno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
-									<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="" hidden requried>
+									<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -306,9 +306,7 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount Discount</label>
-								<div class="input-group">
-									<input type="number" name="amount_discount" id="amount_discount" class="form-control text-right" readonly>
-								</div>
+								<input type="text" name="amount_discount" id="amount_discount" class="form-control text-right" readonly>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
@@ -327,7 +325,7 @@
 								<div class="input-group">
 									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01">
 									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
-									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="" hidden requried>
+									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -335,9 +333,7 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount VAT</label>
-								<div class="input-group">
-									<input type="number" name="amount_vat" id="amount_vat" class="form-control text-right" readonly>
-								</div>
+								<input type="text" name="amount_vat" id="amount_vat" class="form-control text-right" readonly>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
@@ -349,7 +345,7 @@
 								<div class="input-group">
 									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="0" step="0.01">
 									<a name="select_accno" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
-									<input type="text" id="payment_pph_accno" name="payment_pph_accno" value="" hidden requried>
+									<input type="text" id="payment_pph_accno" name="payment_pph_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
 							</div>
@@ -357,9 +353,7 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount PPh</label>
-								<div class="input-group">
-									<input type="number" name="amount_pph" id="amount_pph" class="form-control text-right" readonly>
-								</div>
+								<input type="text" name="amount_pph" id="amount_pph" class="form-control text-right" readonly>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
@@ -369,7 +363,7 @@
 						<div class="input-group">
 							<input type="text" name="payment_freight" id="payment_freight" class="form-control text-right">
 							<a name="select_accno" id="payment_freight_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
-							<input type="text" id="payment_freight_accno" name="payment_freight_accno" value="" hidden requried>
+							<input type="text" id="payment_freight_accno" name="payment_freight_accno" value="" hidden>
 						</div>
 					</div>
 					<div class="form-group">
@@ -377,7 +371,7 @@
 						<div class="input-group">
 							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly required>
 							<a name="select_accno" id="payment_total_amount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
-							<input type="text" id="payment_total_amount_accno" name="payment_total_amount_accno" value="" hidden requried>
+							<input type="text" id="payment_total_amount_accno" name="payment_total_amount_accno" value="" hidden>
 						</div>
 					</div>
 					<hr style="margin-top: 40px;">
@@ -400,7 +394,7 @@
 								Credit
 							</label>
 							<label class="mt-radio">
-								<input type="radio" id="radio-credit" name="dp_payment_type" value="credit_purchase">
+								<input type="radio" id="radio-credit" name="dp_payment_type" value="credit_sales">
 								<span></span>
 								Credit Sales
 							</label>
