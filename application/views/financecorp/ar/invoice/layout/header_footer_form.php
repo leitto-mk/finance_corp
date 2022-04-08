@@ -100,7 +100,7 @@
   <script src="<?= base_url() ?>assets/metronic/pages/scripts/form-input-mask.min.js" type="text/javascript"></script>
   <!-- END THEME LAYOUT SCRIPTS -->
   <?php if(isset($script) && $script !== '') : ?>
-      <script id="script" type="module" data-base-url="<?= base_url() ?>" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
+      <script id="script" type="module" data-base-url="<?= base_url() ?>" data-csrf-name="<?= $this->security->get_csrf_token_name() ?>" data-csrf-token="<?= $this->security->get_csrf_hash() ?>" data-load-module="<?= $script ?>" src="<?= base_url("js/main.js") ?>"></script>
   <?php endif; ?>
 </body>
 
