@@ -1383,7 +1383,7 @@ class Humanresource extends CI_Controller {
     }
 
     // function get_cost_center(){
-    //     $deptcode = $_POST['deptcode'];
+    //     $deptcode = $this->input->post('deptcode');
     //     $result = $this->db->query(
     //         "SELECT a.DeptCode,a.DeptDes,a.Branch,b.CostCenter,b.CCDes 
     //          FROM abase_03_dept a 
@@ -1406,7 +1406,7 @@ class Humanresource extends CI_Controller {
     // }
 
     function get_cost_center(){
-        $deptcode = $_POST['deptcode'];
+        $deptcode = $this->input->post('deptcode');
         $result = $this->db->query(
             "SELECT a.DeptCode,a.DeptDes,a.Branch,b.CostCenter,b.CCDes 
              FROM abase_03_dept a 
@@ -1430,7 +1430,7 @@ class Humanresource extends CI_Controller {
 
 
     // function get_cost_center_edit(){
-    //     $i_dept = $_POST['i_dept'];
+    //     $i_dept = $this->input->post('i_dept');
     //     $result = $this->db->query(
     //         "SELECT a.DeptCode,a.DeptDes,a.Branch,b.CostCenter,b.CCDes 
     //          FROM abase_03_dept a 
@@ -1456,7 +1456,7 @@ class Humanresource extends CI_Controller {
     // }
 
     function get_cost_center_edit(){
-        $i_dept = $_POST['i_dept'];
+        $i_dept = $this->input->post('i_dept');
         $result = $this->db->query(
             "SELECT a.DeptCode,a.DeptDes,a.Branch,b.CostCenter,b.CCDes 
              FROM abase_03_dept a 
@@ -2464,10 +2464,12 @@ class Humanresource extends CI_Controller {
     }
 
     function transfer_edit_data_personal(){
+        $idnumber_ = $this->input->post('i_idnumber');
+
         if ($this->input->post('submitdataeditpersonal')) {
             //Personal Data
             $identifier = ($this->input->post('i_check_aidnumber') == 'iset') ? 'iset' : 'inc';
-            $query['Midnumber'] = $idnumber_ = $this->input->post('i_idnumber');
+            $query['Midnumber'] = $idnumber_;
             $query['Midnumberidentifier'] = $idnumberidentifier_ = $identifier;
             $query['Mfirstname'] = $firstname_ = $this->input->post('firstname');
             $query['Mmiddlename'] = $middlename_ = $this->input->post('middlename');
@@ -2585,10 +2587,12 @@ class Humanresource extends CI_Controller {
     }
 
     function transfer_edit_data_job(){
+        $idnumber_ = $this->input->post('i_idnumber');
+
         if ($this->input->post('submitdataeditjob')) {
             //Job Information
             $identifier = ($this->input->post('i_check_aidnumber') == 'iset') ? 'iset' : 'inc';
-            $query['Midnumber'] = $idnumber_ = $this->input->post('i_idnumber');
+            $query['Midnumber'] = $idnumber_;
 
             $query['Mpositionno'] = $positionno_ = $this->input->post('positionno');
             $query['Mapplicantno'] = $applicantno_ = $this->input->post('applicantno');
@@ -2777,9 +2781,10 @@ class Humanresource extends CI_Controller {
 
     function edit_persphoto_byid(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
+
         if ($this->input->post('submitpersphoto')) {
-            $id = $this->input->post('IDNumber');
             $idn = $this->input->post('idnum');
             if(isset($_FILES['photo']) && $_FILES['photo']['name'] != ''){
                 // $this->ddoo_upload('photo');
@@ -2804,9 +2809,9 @@ class Humanresource extends CI_Controller {
 
     function edit_ktp_byid(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submitktpfile')) {
-            $id = $this->input->post('IDNumber');
             $identityno_ = $this->input->post('identityno');
             $identityex_ = $this->input->post('identityexpire');
             if(isset($_FILES['identity']) && $_FILES['identity']['name'] != ''){
@@ -2823,12 +2828,13 @@ class Humanresource extends CI_Controller {
             );
             $this->M_humanresource->edit_ktp_data_byid($id, $datafilektp);
             $this->M_humanresource->edit_ktp_app_data_byid($id, $datafilektp);
+            
             $this->session->set_flashdata('success_update', '<div class="alert alert-success alert-dismissable"> <button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button> <center><strong>Success!</strong> data has been Update</center> </div>');
             redirect('Humanresource/view_edit_data_personal/'.$id.'/#pers');   
 
         }else{
-        $this->session->set_flashdata('failed_edit', '<div class="alert alert-danger alert-dismissable"><button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button><center><strong>Failed!</strong> data cannot be submit</center></div>');
-        redirect('Humanresource/view_edit_data_personal/'.$id.'/#pers');        
+            $this->session->set_flashdata('failed_edit', '<div class="alert alert-danger alert-dismissable"><button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button><center><strong>Failed!</strong> data cannot be submit</center></div>');
+            redirect('Humanresource/view_edit_data_personal/'.$id.'/#pers');        
         }
     }
 
@@ -3047,9 +3053,9 @@ class Humanresource extends CI_Controller {
 
     function add_dependent(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submitdep')) {
-            $id = $this->input->post('IDNumber');
             //Dependent
             $query['Middep'] = $iddep_ = $this->input->post('iddep');
             $query['Mrelationshipdep'] = $relationshipdep_ = $this->input->post('relationshipdep');
@@ -3089,6 +3095,7 @@ class Humanresource extends CI_Controller {
             }else{
                 $photodep = "";
             }
+            
             $data_dep = array(
                 'IDNumber' =>$id,
                 'IDNumberDependent' =>$iddep_,
@@ -3126,7 +3133,9 @@ class Humanresource extends CI_Controller {
                 'RegBy' => $this->session->userdata('IDNumber'),
                 'RegDate' => date('Y-m-d')
             );
+            
             $this->M_humanresource->insert('tbl_emp_per_dep', $data_dep);
+            
             $this->session->set_flashdata('success_added', '<div class="alert alert-success alert-dismissable"> <button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button> <center><strong>Success!</strong> data has been Added</center> </div>');
             redirect('Humanresource/view_edit_data_personal/'.$id.'/#dependent');        
         }else{
@@ -3137,9 +3146,9 @@ class Humanresource extends CI_Controller {
 
     function edit_dependent(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submiteditdep')) {
-            $id = $this->input->post('IDNumber');
             //Dependent
             $query['Middep'] = $iddep_ = $this->input->post('iddep');
             $query['Mrelationshipdep'] = $relationshipdep_ = $this->input->post('relationshipdep');
@@ -3203,9 +3212,9 @@ class Humanresource extends CI_Controller {
 
     function edit_depphoto_byid(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submitdepphoto')) {
-            $id = $this->input->post('IDNumber');
             $idp = $this->input->post('idep');
             if(isset($_FILES['photodep']) && $_FILES['photodep']['name'] != ''){
                 // $this->ddoo_upload('photodep');
@@ -3218,12 +3227,13 @@ class Humanresource extends CI_Controller {
                 'DepPhoto' => $photodep,
             );
             $this->M_humanresource->edit_depphoto_data_byid($idp, $datadepphoto);
+            
             $this->session->set_flashdata('success_update', '<div class="alert alert-success alert-dismissable"> <button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button> <center><strong>Success!</strong> data has been Update</center> </div>');
             redirect('Humanresource/view_edit_data_personal/'.$id.'/#dependent');   
 
         }else{
-        $this->session->set_flashdata('failed_edit', '<div class="alert alert-danger alert-dismissable"><button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button><center><strong>Failed!</strong> data cannot be submit</center></div>');
-        redirect('Humanresource/view_edit_data_personal/'.$id.'/#dependent');        
+            $this->session->set_flashdata('failed_edit', '<div class="alert alert-danger alert-dismissable"><button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button><center><strong>Failed!</strong> data cannot be submit</center></div>');
+            redirect('Humanresource/view_edit_data_personal/'.$id.'/#dependent');        
         }
     }
 
@@ -3356,9 +3366,9 @@ class Humanresource extends CI_Controller {
 
     function add_kin(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submitkin')) {
-            $id = $this->input->post('IDNumber');
             //Kin
             $query['Midnumberkin'] = $idnumberkin_ = $this->input->post('idnumberkin');
             $query['Mrelationshipkin'] = $relationshipkin_ = $this->input->post('relationshipkin');
@@ -3421,9 +3431,9 @@ class Humanresource extends CI_Controller {
 
     function edit_kin(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submiteditkin')) {
-            $id = $this->input->post('IDNumber');
            //Kin
             $query['Midnumberkin'] = $idnumberkin_ = $this->input->post('idnumberkin');
             $query['Mrelationshipkin'] = $relationshipkin_ = $this->input->post('relationshipkin');
@@ -4393,9 +4403,10 @@ class Humanresource extends CI_Controller {
 
     function get_department_by_bu(){
         $bus = $this->input->post('i_bu');
+        $dep = $this->M_humanresource->get_dept_from_bu($bus);
+        
         if ($bus != 'All') {
             # code...
-            $dep = $this->M_humanresource->get_dept_from_bu($bus);
             if(count($dep)>0){
                 $select_box = '';
                 $select_box .= '<option disabled="true">-- Select Department --</option>';
@@ -5183,9 +5194,9 @@ class Humanresource extends CI_Controller {
     //Experience
     function add_experience(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submitexperience')) {
-            $id = $this->input->post('IDNumber');
             //Experience
             $query['Mcompanyexperience'] = $companyexperience_ = $this->input->post('companyexperience');
             $query['Mlocationexperience'] = $locationexperience_ = $this->input->post('locationexperience');
@@ -5224,10 +5235,10 @@ class Humanresource extends CI_Controller {
 
     function edit_experience(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submiteditexperience')) {
             $ctrlno = $this->input->post('ControlNo');
-            $id = $this->input->post('IDNumber');
             $data_edit_experience = array(
               'Company' => $this->input->post('companyexperience'),
               'Location' => $this->input->post('locationexperience'),
@@ -5249,9 +5260,9 @@ class Humanresource extends CI_Controller {
     //Education
     function add_education(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submiteducation')) {
-            $id = $this->input->post('IDNumber');
             //Experience
             $query['Minstitutioneducation'] = $institutioneducation_ = $this->input->post('institutioneducation');
             $query['Mlocationeducation'] = $locationeducation_ = $this->input->post('locationeducation');
@@ -5291,9 +5302,9 @@ class Humanresource extends CI_Controller {
     function edit_education(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
         $query['curuser'] = '090106-001';
+        $id = $this->input->post('IDNumber');
         if ($this->input->post('submitediteducation')) {
             $ctrlno = $this->input->post('ControlNo');
-            $id = $this->input->post('IDNumber');
             $data_edit_education = array(
               'Institution' => $this->input->post('institutioneducation'),
               'Location' => $this->input->post('locationeducation'),
@@ -5315,9 +5326,9 @@ class Humanresource extends CI_Controller {
     //Training
     function add_training(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submittraining')) {
-            $id = $this->input->post('IDNumber');
             //Experience
             $query['Mdaterequesttraining'] = $daterequesttraining_ = $this->input->post('daterequesttraining');
             $query['Mcoursetypetraining'] = $coursetypetraining_ = $this->input->post('coursetypetraining');
@@ -5379,9 +5390,9 @@ class Humanresource extends CI_Controller {
     function edit_training(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
         $query['curuser'] = '090106-001';
+        $id = $this->input->post('IDNumber');
         if ($this->input->post('submitedittraining')) {
             $ctrlno = $this->input->post('ControlNo');
-            $id = $this->input->post('IDNumber');
             $data_edit_training = array(
               'DateRequest' => $this->input->post('daterequesttraining'),
               'CourseType' => $this->input->post('coursetypetraining'),
@@ -5414,9 +5425,9 @@ class Humanresource extends CI_Controller {
     //Language
     function add_language(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submitlanguage')) {
-            $id = $this->input->post('IDNumber');
             //Experience
             $query['Mlanguage'] = $language_ = $this->input->post('language');
             $query['Mspeakinglanguage'] = $speakinglanguage_ = $this->input->post('speakinglanguage');
@@ -5454,9 +5465,9 @@ class Humanresource extends CI_Controller {
     function edit_language(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
         $query['curuser'] = '090106-001';
+        $id = $this->input->post('IDNumber');
         if ($this->input->post('submiteditlanguage')) {
             $ctrlno = $this->input->post('ControlNo');
-            $id = $this->input->post('IDNumber');
             $data_edit_language = array(
               'Language' => $this->input->post('language'),
               'Speaking' => $this->input->post('speakinglanguage'),
@@ -5477,9 +5488,9 @@ class Humanresource extends CI_Controller {
     //Hobby
     function add_hobby(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submithobby')) {
-            $id = $this->input->post('IDNumber');
             //Experience
             $query['Mhobby'] = $hobby_ = $this->input->post('hobby');
             $query['Mremarkshobby'] = $remarkshobby_ = $this->input->post('remarkshobby');
@@ -5509,9 +5520,9 @@ class Humanresource extends CI_Controller {
     function edit_hobby(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
         $query['curuser'] = '090106-001';
+            $id = $this->input->post('IDNumber');
         if ($this->input->post('submitedithobby')) {
             $ctrlno = $this->input->post('ControlNo');
-            $id = $this->input->post('IDNumber');
             $data_edit_hobby = array(
               'Hobby' => $this->input->post('hobby'),
               'Remarks' => $this->input->post('remarkshobby')
@@ -7504,10 +7515,12 @@ class Humanresource extends CI_Controller {
     }
 
     function transfer_edit_data_personal_abc(){
+        $idnumber_ = $this->input->post('i_idnumber');
+
         if ($this->input->post('submitdataeditpersonal')) {
             //Personal Data
             $identifier = ($this->input->post('i_check_aidnumber') == 'iset') ? 'iset' : 'inc';
-            $query['Midnumber'] = $idnumber_ = $this->input->post('i_idnumber');
+            $query['Midnumber'] = $idnumber_;
             $query['Midnumberidentifier'] = $idnumberidentifier_ = $identifier;
             $query['Mfirstname'] = $firstname_ = $this->input->post('firstname');
             $query['Mmiddlename'] = $middlename_ = $this->input->post('middlename');
@@ -7599,10 +7612,12 @@ class Humanresource extends CI_Controller {
     }
 
     function transfer_edit_data_job_abc(){
+        $idnumber_ = $this->input->post('i_idnumber');
+
         if ($this->input->post('submitdataeditjob')) {
             //Job Information
             $identifier = ($this->input->post('i_check_aidnumber') == 'iset') ? 'iset' : 'inc';
-            $query['Midnumber'] = $idnumber_ = $this->input->post('i_idnumber');
+            $query['Midnumber'] = $idnumber_;
 
             $query['Memployeeclass'] = $employeeclass_ = $this->input->post('employeeclass');
             $query['Memployeeclassdes'] = $employeeclassdes_ = $this->input->post('i_employeeclassdes');
@@ -7661,9 +7676,9 @@ class Humanresource extends CI_Controller {
 
     function edit_persphoto_byid_abc(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submitpersphoto')) {
-            $id = $this->input->post('IDNumber');
             $idn = $this->input->post('idnum');
             if(isset($_FILES['photo']) && $_FILES['photo']['name'] != ''){
                 // $this->ddoo_upload('photo');
@@ -7688,9 +7703,9 @@ class Humanresource extends CI_Controller {
 
     function edit_ktp_byid_abc(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submitktpfile')) {
-            $id = $this->input->post('IDNumber');
             $identityno_ = $this->input->post('identityno');
             $identityex_ = $this->input->post('identityexpire');
             if(isset($_FILES['identity']) && $_FILES['identity']['name'] != ''){
@@ -7718,9 +7733,9 @@ class Humanresource extends CI_Controller {
 
     function update_dept_abc(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submit')) {
-            $id = $this->input->post('IDNumber');
             $data_upt_app = array(
               'Company' => $this->input->post('i_companycode'),
               'ComDes' => $this->input->post('i_companydes'),
@@ -7794,9 +7809,9 @@ class Humanresource extends CI_Controller {
 
     function update_marital_abc(){
         // $query['curuser'] = $this->M_humanresource->get_cur_user();
+        $id = $this->input->post('IDNumber');
         $query['curuser'] = '090106-001';
         if ($this->input->post('submiteditmarital')) {
-            $id = $this->input->post('IDNumber');
             $data_marital = array(
               'MaritalStatus' => $this->input->post('maritalstatus'),
               'MaritalStatusDes' => $this->input->post('i_maritalstatusdes') 
