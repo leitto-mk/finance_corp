@@ -234,7 +234,7 @@ class Cash_adv extends CI_Controller
             array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
-        $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
+        $this->Mdl_corp_cash_advance->delete_existed_docno($this->input->post('docno'));
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
@@ -275,21 +275,21 @@ class Cash_adv extends CI_Controller
         $master = $details = $trans = [];
 
         $itemno = 0;
-        $branch = $_POST['branch'];
-        $cur_date = $_POST['transdate'];
+        $branch = $this->input->post('branch');
+        $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_cash_advance->get_last_trans_date();
 
         //COUNTER BALANCE ACCTYPE
-        $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
+        $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $this->input->post('accno')])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
+        $counter_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($this->input->post('branch'), $this->input->post('accno'), $this->input->post('transdate'));
 
         //COUNTER BALANCE
         if ($acctype == 'A' || $acctype == 'E' || $acctype == 'E1') {
-            $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
+            $counter_balance = ($counter_beg_bal + 0) - $this->input->post('totalamount');
         } elseif ($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2') {
-            $counter_balance = ($counter_beg_bal - 0) + $_POST['totalamount'];
+            $counter_balance = ($counter_beg_bal - 0) + $this->input->post('totalamount');
         }
 
         //UPDATE EMPLOYEE BALANCE
@@ -301,7 +301,7 @@ class Cash_adv extends CI_Controller
         if (!$is_docno_exist) {
             $balance = $this->input->post('totalamount');
         } elseif ($is_docno_exist && $cur_docno_amount !== $this->input->post('totalamount')) {
-            $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+            $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $this->input->post('emp_master_id'));
 
             //DIFFERENCE BETWEEN CURRENT AMOUNT AND PREVIOUS AMOUNT
             $difference = ($this->input->post('totalamount') - $emp_beg_bal);
@@ -311,125 +311,125 @@ class Cash_adv extends CI_Controller
 
         //COUNTER-BALANCE
         array_push($trans, [
-            'DocNo' => $_POST['docno'],
-            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
-            'TransDate' => $_POST['transdate'],
+            'DocNo' => $this->input->post('docno'),
+            'RefNo' => ($this->input->post('refno') == '' ? $this->input->post('docno') : $this->input->post('refno')),
+            'TransDate' => $this->input->post('transdate'),
             'TransType' => self::CAW,
-            'JournalGroup' => $_POST['journalgroup'],
-            'Branch' => $_POST['branch'],
+            'JournalGroup' => $this->input->post('journalgroup'),
+            'Branch' => $this->input->post('branch'),
             'Department' => '',
             'CostCenter' => '',
-            'Giro' => $_POST['giro'],
+            'Giro' => $this->input->post('giro'),
             'ItemNo' => $itemno,
-            'AccNo' => $_POST['accno'],
+            'AccNo' => $this->input->post('accno'),
             'AccType' => $acctype,
-            'IDNumber' => $_POST['emp_master_id'],
+            'IDNumber' => $this->input->post('emp_master_id'),
             'Currency' => 'IDR',
             'Rate' => 1,
-            'Unit' => $_POST['totalamount'],
-            'Amount' => $_POST['totalamount'],
+            'Unit' => $this->input->post('totalamount'),
+            'Amount' => $this->input->post('totalamount'),
             'Debit' => 0,
-            'Credit' => $_POST['totalamount'],
+            'Credit' => $this->input->post('totalamount'),
             'Balance' => $balance,
             'BalanceBranch' => $counter_balance,
-            'Remarks' => $_POST['remark'],
+            'Remarks' => $this->input->post('remark'),
             'EntryBy' => '',
             'EntryDate' => date('Y-m-d h:m:s')
         ]);
 
         array_push($master, [
-            'DocNo' => $_POST['docno'],
-            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
-            'IDNumber' => $_POST['emp_master_id'],
+            'DocNo' => $this->input->post('docno'),
+            'RefNo' => ($this->input->post('refno') == '' ? $this->input->post('docno') : $this->input->post('refno')),
+            'IDNumber' => $this->input->post('emp_master_id'),
             'SubmitBy' => '',
             'TransType' => self::CAW,
-            'TransDate' => $_POST['transdate'],
-            'JournalGroup' => $_POST['journalgroup'],
-            'AccNo' => $_POST['accno'],
-            'Giro' => $_POST['giro'],
-            'Remarks' => $_POST['remark'],
-            'Branch' => $_POST['branch'],
-            'TotalAmount' => $_POST['totalamount'],
+            'TransDate' => $this->input->post('transdate'),
+            'JournalGroup' => $this->input->post('journalgroup'),
+            'AccNo' => $this->input->post('accno'),
+            'Giro' => $this->input->post('giro'),
+            'Remarks' => $this->input->post('remark'),
+            'Branch' => $this->input->post('branch'),
+            'TotalAmount' => $this->input->post('totalamount'),
             'Department' => '',
             'CostCenter' => ''
         ]);
 
-        $cur_accno_bal = [$_POST['accno'] => $counter_balance];
-        for ($i = 0; $i < count($_POST['itemno']); $i++) {
+        $cur_accno_bal = [$this->input->post('accno') => $counter_balance];
+        for ($i = 0; $i < count($this->input->post('itemno')); $i++) {
             $itemno += 1;
 
             //DETAIL ACCTYPE
-            $acctypes = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accnos'][$i]])->row()->Acc_Type;
+            $acctypes = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $this->input->post('accnos')[$i]])->row()->Acc_Type;
 
             array_push($details, [
-                'DocNo' => $_POST['docno'],
+                'DocNo' => $this->input->post('docno'),
                 'IDNumber' => '',
-                // 'FullName' => $this->db->select('FullName')->get_where('tbl_hr_append', ['IDNumber' => $_POST['emp'][$i]])->row()->FullName,
-                'AccNo' => $_POST['accnos'][$i],
-                'Department' => $_POST['departments'][$i],
-                'CostCenter' => $_POST['costcenters'][$i],
-                'Remarks' => $_POST['remarks'][$i],
-                'Currency' => $_POST['currency'][$i],
-                'Rate' => $_POST['rate'][$i],
-                'Unit' => $_POST['unit'][$i],
-                'Amount' => $_POST['amount'][$i],
+                // 'FullName' => $this->db->select('FullName')->get_where('tbl_hr_append', ['IDNumber' => $this->input->post('emp')[$i]])->row()->FullName,
+                'AccNo' => $this->input->post('accnos')[$i],
+                'Department' => $this->input->post('departments')[$i],
+                'CostCenter' => $this->input->post('costcenters')[$i],
+                'Remarks' => $this->input->post('remarks')[$i],
+                'Currency' => $this->input->post('currency')[$i],
+                'Rate' => $this->input->post('rate')[$i],
+                'Unit' => $this->input->post('unit')[$i],
+                'Amount' => $this->input->post('amount')[$i],
                 'Debit' => 0,
-                'Credit' => $_POST['amount'][$i]
+                'Credit' => $this->input->post('amount')[$i]
             ]);
 
-            if (isset($cur_accno_bal[$_POST['accnos'][$i]])) {
-                $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
+            if (isset($cur_accno_bal[$this->input->post('accnos')[$i]])) {
+                $branch_beg_bal = $cur_accno_bal[$this->input->post('accnos')[$i]];
             } else {
-                $branch_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
+                $branch_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($this->input->post('branch'), $this->input->post('accnos')[$i], $this->input->post('transdate'));
 
-                $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
+                $cur_accno_bal[$this->input->post('accnos')[$i]] = $branch_beg_bal;
             }
 
             if ($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1') {
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
-                $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) - 0;
+                $branch_bal = ($branch_beg_bal + $this->input->post('amount')[$i]) - 0;
             } elseif ($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX') {
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
-                $branch_bal = ($branch_beg_bal - $_POST['amount'][$i]) + 0;
+                $branch_bal = ($branch_beg_bal - $this->input->post('amount')[$i]) + 0;
             }
 
             //DETAIL BALANCE
             array_push($trans, [
-                'DocNo' => $_POST['docno'],
-                'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
-                'TransDate' => $_POST['transdate'],
+                'DocNo' => $this->input->post('docno'),
+                'RefNo' => ($this->input->post('refno') == '' ? $this->input->post('docno') : $this->input->post('refno')),
+                'TransDate' => $this->input->post('transdate'),
                 'TransType' => self::CAW,
-                'JournalGroup' => $_POST['journalgroup'],
-                'Branch' => $_POST['branch'],
-                'Department' => $_POST['departments'][$i],
-                'CostCenter' => $_POST['costcenters'][$i],
-                'Giro' => $_POST['giro'],
+                'JournalGroup' => $this->input->post('journalgroup'),
+                'Branch' => $this->input->post('branch'),
+                'Department' => $this->input->post('departments')[$i],
+                'CostCenter' => $this->input->post('costcenters')[$i],
+                'Giro' => $this->input->post('giro'),
                 'ItemNo' => $itemno,
-                'AccNo' => $_POST['accnos'][$i],
+                'AccNo' => $this->input->post('accnos')[$i],
                 'AccType' => $acctypes,
-                'IDNumber' => ($itemno == 0 ? $_POST['emp_master_id'] : ''),
-                'Currency' => $_POST['currency'][$i],
-                'Rate' => $_POST['rate'][$i],
-                'Unit' => $_POST['unit'][$i],
-                'Amount' => $_POST['amount'][$i],
-                'Debit' => $_POST['amount'][$i],
+                'IDNumber' => ($itemno == 0 ? $this->input->post('emp_master_id') : ''),
+                'Currency' => $this->input->post('currency')[$i],
+                'Rate' => $this->input->post('rate')[$i],
+                'Unit' => $this->input->post('unit')[$i],
+                'Amount' => $this->input->post('amount')[$i],
+                'Debit' => $this->input->post('amount')[$i],
                 'Credit' => 0,
                 'Balance' => $balance,
                 'BalanceBranch' => $branch_bal,
-                'Remarks' => $_POST['remarks'][$i],
+                'Remarks' => $this->input->post('remarks')[$i],
                 'EntryBy' => '',
                 'EntryDate' => date('Y-m-d h:m:s')
             ]);
 
-            $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
+            $cur_accno_bal[$this->input->post('accnos')[$i]] = $branch_bal;
         }
 
         //DELETE OLD DOCNO DATA FIRST IF EXISTS
-        $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
+        $this->Mdl_corp_cash_advance->delete_existed_docno($this->input->post('docno'));
 
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_cash_advance->submit_cash_advance($master, $details, $trans, $branch, $cur_date);
@@ -643,7 +643,7 @@ class Cash_adv extends CI_Controller
             array_push($accnos, $acc_no[$i]['AccNo']);
         }
 
-        $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
+        $this->Mdl_corp_cash_advance->delete_existed_docno($this->input->post('docno'));
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
         [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($branch, min($accnos), max($accnos), $start, $finish);
@@ -684,21 +684,21 @@ class Cash_adv extends CI_Controller
         $master = $details = $trans = [];
 
         $itemno = 0;
-        $branch = $_POST['branch'];
-        $cur_date = $_POST['transdate'];
+        $branch = $this->input->post('branch');
+        $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_cash_advance->get_last_trans_date();
 
         //COUNTER BALANCE ACCTYPE
-        $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accno']])->row()->Acc_Type;
+        $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $this->input->post('accno')])->row()->Acc_Type;
 
         //SET BEGINNING BALANCE
-        $counter_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($_POST['branch'], $_POST['accno'], $_POST['transdate']);
+        $counter_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($this->input->post('branch'), $this->input->post('accno'), $this->input->post('transdate'));
 
         //COUNTER BALANCE
         if ($acctype == 'A' || $acctype == 'E' || $acctype == 'E1') {
-            $counter_balance = ($counter_beg_bal + $_POST['totalamount']) -  0;
+            $counter_balance = ($counter_beg_bal + $this->input->post('totalamount')) -  0;
         } elseif ($acctype == 'L' || $acctype == 'C' || $acctype == 'R' || $acctype == 'A1' || $acctype == 'R1' || $acctype == 'C1' || $acctype == 'C2') {
-            $counter_balance = ($counter_beg_bal + 0) - $_POST['totalamount'];
+            $counter_balance = ($counter_beg_bal + 0) - $this->input->post('totalamount');
         }
 
         //UPDATE EMPLOYEE BALANCE
@@ -710,7 +710,7 @@ class Cash_adv extends CI_Controller
         if (!$is_docno_exist) {
             $balance = $this->input->post('totalamount');
         } elseif ($is_docno_exist && $cur_docno_amount !== $this->input->post('totalamount')) {
-            $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $_POST['emp_master_id']);
+            $emp_beg_bal = $this->Mdl_corp_cash_advance->get_emp_last_balance($branch, $cur_date, $this->input->post('emp_master_id'));
 
             //DIFFERENCE BETWEEN CURRENT AMOUNT AND PREVIOUS AMOUNT
             $difference = ($this->input->post('totalamount') - $emp_beg_bal);
@@ -720,124 +720,124 @@ class Cash_adv extends CI_Controller
 
         //COUNTER-BALANCE
         array_push($trans, [
-            'DocNo' => $_POST['docno'],
-            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
-            'TransDate' => $_POST['transdate'],
+            'DocNo' => $this->input->post('docno'),
+            'RefNo' => ($this->input->post('refno') == '' ? $this->input->post('docno') : $this->input->post('refno')),
+            'TransDate' => $this->input->post('transdate'),
             'TransType' => self::CAR,
             'JournalGroup' => '',
-            'Branch' => $_POST['branch'],
+            'Branch' => $this->input->post('branch'),
             'Department' => '',
             'CostCenter' => '',
-            'Giro' => $_POST['giro'],
+            'Giro' => $this->input->post('giro'),
             'ItemNo' => $itemno,
-            'AccNo' => $_POST['accno'],
+            'AccNo' => $this->input->post('accno'),
             'AccType' => $acctype,
-            'IDNumber' => $_POST['emp_master_id'],
+            'IDNumber' => $this->input->post('emp_master_id'),
             'Currency' => 'IDR',
             'Rate' => 1,
-            'Unit' => $_POST['totalamount'],
-            'Amount' => $_POST['totalamount'],
+            'Unit' => $this->input->post('totalamount'),
+            'Amount' => $this->input->post('totalamount'),
             'Debit' => 0,
-            'Credit' => $_POST['totalamount'],
+            'Credit' => $this->input->post('totalamount'),
             'Balance' => $balance,
             'BalanceBranch' => $counter_balance,
-            'Remarks' => $_POST['remark'],
+            'Remarks' => $this->input->post('remark'),
             'EntryBy' => '',
             'EntryDate' => date('Y-m-d h:m:s')
         ]);
 
         array_push($master, [
-            'DocNo' => $_POST['docno'],
-            'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
-            'IDNumber' => $_POST['emp_master_id'],
+            'DocNo' => $this->input->post('docno'),
+            'RefNo' => ($this->input->post('refno') == '' ? $this->input->post('docno') : $this->input->post('refno')),
+            'IDNumber' => $this->input->post('emp_master_id'),
             'SubmitBy' => '',
             'TransType' => self::CAR,
-            'TransDate' => $_POST['transdate'],
+            'TransDate' => $this->input->post('transdate'),
             'JournalGroup' => '',
-            'AccNo' => $_POST['accno'],
-            'Giro' => $_POST['giro'],
-            'Remarks' => $_POST['remark'],
-            'Branch' => $_POST['branch'],
-            'TotalAmount' => $_POST['totalamount'],
+            'AccNo' => $this->input->post('accno'),
+            'Giro' => $this->input->post('giro'),
+            'Remarks' => $this->input->post('remark'),
+            'Branch' => $this->input->post('branch'),
+            'TotalAmount' => $this->input->post('totalamount'),
             'Department' => '',
             'CostCenter' => ''
         ]);
 
-        $cur_accno_bal = [$_POST['accno'] => $counter_balance];
-        for ($i = 0; $i < count($_POST['itemno']); $i++) {
+        $cur_accno_bal = [$this->input->post('accno') => $counter_balance];
+        for ($i = 0; $i < count($this->input->post('itemno')); $i++) {
             $itemno += 1;
 
             //DETAIL ACCTYPE
-            $acctypes = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $_POST['accnos'][$i]])->row()->Acc_Type;
+            $acctypes = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $this->input->post('accnos')[$i]])->row()->Acc_Type;
 
             array_push($details, [
-                'DocNo' => $_POST['docno'],
+                'DocNo' => $this->input->post('docno'),
                 'IDNumber' => '',
-                // 'FullName' => $this->db->select('FullName')->get_where('tbl_hr_append', ['IDNumber' => $_POST['emp'][$i]])->row()->FullName,
-                'AccNo' => $_POST['accnos'][$i],
-                'Department' => $_POST['departments'][$i],
-                'CostCenter' => $_POST['costcenters'][$i],
-                'Remarks' => $_POST['remarks'][$i],
-                'Currency' => $_POST['currency'][$i],
-                'Rate' => $_POST['rate'][$i],
-                'Unit' => $_POST['unit'][$i],
-                'Amount' => $_POST['amount'][$i],
+                // 'FullName' => $this->db->select('FullName')->get_where('tbl_hr_append', ['IDNumber' => $this->input->post('emp')[$i]])->row()->FullName,
+                'AccNo' => $this->input->post('accnos')[$i],
+                'Department' => $this->input->post('departments')[$i],
+                'CostCenter' => $this->input->post('costcenters')[$i],
+                'Remarks' => $this->input->post('remarks')[$i],
+                'Currency' => $this->input->post('currency')[$i],
+                'Rate' => $this->input->post('rate')[$i],
+                'Unit' => $this->input->post('unit')[$i],
+                'Amount' => $this->input->post('amount')[$i],
                 'Debit' => 0,
-                'Credit' => $_POST['amount'][$i]
+                'Credit' => $this->input->post('amount')[$i]
             ]);
 
-            if (isset($cur_accno_bal[$_POST['accnos'][$i]])) {
-                $branch_beg_bal = $cur_accno_bal[$_POST['accnos'][$i]];
+            if (isset($cur_accno_bal[$this->input->post('accnos')[$i]])) {
+                $branch_beg_bal = $cur_accno_bal[$this->input->post('accnos')[$i]];
             } else {
-                $branch_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($_POST['branch'], $_POST['accnos'][$i], $_POST['transdate']);
-                $cur_accno_bal[$_POST['accnos'][$i]] = $branch_beg_bal;
+                $branch_beg_bal = $this->Mdl_corp_cash_advance->get_branch_last_balance($this->input->post('branch'), $this->input->post('accnos')[$i], $this->input->post('transdate'));
+                $cur_accno_bal[$this->input->post('accnos')[$i]] = $branch_beg_bal;
             }
 
             if ($acctypes == 'A' || $acctypes == 'E' || $acctypes == 'E1') {
                 /**
                  * (BEGINNING BALANCE + DEBIT) - CREDIT
                  */
-                $branch_bal = ($branch_beg_bal + $_POST['amount'][$i]) -  0;
+                $branch_bal = ($branch_beg_bal + $this->input->post('amount')[$i]) -  0;
             } elseif ($acctypes == 'L' || $acctypes == 'C' || $acctypes == 'R' || $acctypes == 'A1' || $acctypes == 'R1' || $acctypes == 'C1' || $acctypes == 'C2' || $acctypes == 'CX') {
                 /**
                  * (BEGINNING BALANCE - DEBIT) + CREDIT
                  */
-                $branch_bal = ($branch_beg_bal - 0) + $_POST['amount'][$i];
+                $branch_bal = ($branch_beg_bal - 0) + $this->input->post('amount')[$i];
             }
 
             //DETAIL BALANCE
             array_push($trans, [
-                'DocNo' => $_POST['docno'],
-                'RefNo' => ($_POST['refno'] == '' ? $this->input->post('docno') : $this->input->post('refno')),
-                'TransDate' => $_POST['transdate'],
+                'DocNo' => $this->input->post('docno'),
+                'RefNo' => ($this->input->post('refno') == '' ? $this->input->post('docno') : $this->input->post('refno')),
+                'TransDate' => $this->input->post('transdate'),
                 'TransType' => self::CAR,
                 'JournalGroup' => '',
-                'Branch' => $_POST['branch'],
-                'Department' => $_POST['departments'][$i],
-                'CostCenter' => $_POST['costcenters'][$i],
-                'Giro' => $_POST['giro'],
+                'Branch' => $this->input->post('branch'),
+                'Department' => $this->input->post('departments')[$i],
+                'CostCenter' => $this->input->post('costcenters')[$i],
+                'Giro' => $this->input->post('giro'),
                 'ItemNo' => $itemno,
-                'AccNo' => $_POST['accnos'][$i],
+                'AccNo' => $this->input->post('accnos')[$i],
                 'AccType' => $acctypes,
                 'IDNumber' => '',
-                'Currency' => $_POST['currency'][$i],
-                'Rate' => $_POST['rate'][$i],
-                'Unit' => $_POST['unit'][$i],
-                'Amount' => $_POST['amount'][$i],
-                'Debit' => $_POST['amount'][$i],
+                'Currency' => $this->input->post('currency')[$i],
+                'Rate' => $this->input->post('rate')[$i],
+                'Unit' => $this->input->post('unit')[$i],
+                'Amount' => $this->input->post('amount')[$i],
+                'Debit' => $this->input->post('amount')[$i],
                 'Credit' => 0,
                 'Balance' => $balance,
                 'BalanceBranch' => $branch_bal,
-                'Remarks' => $_POST['remarks'][$i],
+                'Remarks' => $this->input->post('remarks')[$i],
                 'EntryBy' => '',
                 'EntryDate' => date('Y-m-d h:m:s')
             ]);
 
-            $cur_accno_bal[$_POST['accnos'][$i]] = $branch_bal;
+            $cur_accno_bal[$this->input->post('accnos')[$i]] = $branch_bal;
         }
 
         //DELETE OLD DOCNO DATA FIRST IF EXISTS
-        $this->Mdl_corp_cash_advance->delete_existed_docno($_POST['docno']);
+        $this->Mdl_corp_cash_advance->delete_existed_docno($this->input->post('docno'));
 
         //SUBMIT CURRENT DOCNO DATA
         $submit = $this->Mdl_corp_cash_advance->submit_cash_advance($master, $details, $trans, $branch, $cur_date);
