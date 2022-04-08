@@ -107,48 +107,6 @@ const _callable = {
         })
     },
 
-    CalculatePayment: () => {
-        //ORDER LIST
-        let subtotal = 0
-
-        $('#tbody_invoice tr').each(function(){
-            let qty = +$(this).find('input[name="qty[]"]').val()
-            let price = $(this).find('input[name="price[]"]').val()
-            price = parseFloat(price.replaceAll(',',''))
-            let discount = +$(this).find('input[name="discount[]"]').val() / 100
-            let total = qty * price
-            let total_discounted = total - (total * discount)
-
-            $(this).find('input[name="total[]"]').val(total_discounted)
-        })
-        
-        //PAYMENT DETAIL
-        $('[name="total[]"]').each(function(){
-            subtotal += parseFloat($(this).val().replaceAll(',',''))
-        })
-
-        $('#payment_sub_total').val(subtotal)
-        let payment_sub_total = $('#payment_sub_total').val()
-        payment_sub_total = payment_sub_total !== '' ? parseFloat($('#payment_sub_total').val().replaceAll(',','')) : 0
-        let payment_discount = parseFloat($('#payment_discount').val().replaceAll(',','')) / 100
-        let net_subtotal = payment_sub_total - (payment_sub_total * payment_discount)
-
-        $('#payment_net_subtotal').val(net_subtotal)
-
-        let payment_vat = +$('#payment_vat').val() / 100 
-        let payment_pph = +$('#payment_pph').val() / 100 
-        let payment_freight = $('#payment_freight').val()
-        payment_freight = payment_freight !== '' ? parseFloat($('#payment_freight').val().replaceAll(',','')) : 0
-        let total_amount = 0
-
-        payment_vat = (net_subtotal * payment_vat)
-        payment_pph = (net_subtotal * payment_pph)
-        
-        total_amount = (net_subtotal + payment_vat - payment_pph + payment_freight)
-
-        $('#payment_total_amount').val(total_amount)
-    },
-
     DeleteInvoiceRecord: url => {
         let confirm = window.confirm("Are You sure to delete this record ?")
 
