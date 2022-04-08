@@ -123,7 +123,7 @@ export const AgingPage = () => {
 
                 if(!response.success == true){
                     Swal.fire({
-                        'type': 'error',
+                        'icon': 'error',
                         'title': 'ERROR',
                         'html': `<h4 class="sbold">${response.desc}</h4>`
                     })   
@@ -188,7 +188,7 @@ export const AgingPage = () => {
                 helper.unblockUI()
 
                 Swal.fire({
-                    'type': 'error',
+                    'icon': 'error',
                     'title': 'ERROR',
                     'html': `<h4 class="sbold">${err.desc}</h4>`
                 })

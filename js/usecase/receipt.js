@@ -22,7 +22,7 @@ const rec = {
                 helper.unblockUI()
                 
                 Swal.fire({
-                    'type': 'error',
+                    'icon': 'error',
                     'title': 'ABORTED',
                     'html': `<h4 class="sbold">${err.desc}</h4>`
                 })
@@ -49,7 +49,7 @@ const rec = {
                     helper.unblockUI()
                     
                     Swal.fire({
-                        'type': 'error',
+                        'icon': 'error',
                         'title': 'ABORTED',
                         'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
@@ -76,14 +76,14 @@ const rec = {
 
                     if(response.success == true){
                         Swal.fire({
-                            'type': 'success',
+                            'icon': 'success',
                             'title': 'DELETED'
                         })
                         
                         row.remove()
                     }else{
                         Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ERROR',
                             'html': `<h4 class="sbold">${response.desc}</h4>`
                         })
@@ -93,7 +93,7 @@ const rec = {
                     helper.unblockUI()
 
                     Swal.fire({
-                        'type': 'error',
+                        'icon': 'error',
                         'title': 'ERROR',
                         'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
@@ -284,7 +284,7 @@ const rec = {
 
                     if(response.success == true){
                         Swal.fire({
-                            'type': 'success',
+                            'icon': 'success',
                             'title': 'SUCCESS',
                             'html': 'DATA HAS BEEN SUBMITTED'
                         })
@@ -301,7 +301,7 @@ const rec = {
                         $('#btn_submit').css('visibility', 'hidden')
                     }else{
                         Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ERROR',
                             'html': `<h4 class="sbold">${response.desc}</h4>`
                         })
@@ -311,7 +311,7 @@ const rec = {
                     helper.unblockUI()
             
                     Swal.fire({
-                        'type': 'error',
+                        'icon': 'error',
                         'title': 'ABORTED',
                         'html': `<h4 class="sbold">${err.desc}</h4>`
                     })

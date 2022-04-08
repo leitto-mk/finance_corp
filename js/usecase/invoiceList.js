@@ -117,12 +117,12 @@ const _callable = {
 
                 if(response.success == true){
                     Swal.fire({
-                        'type': 'success',
+                        'icon': 'success',
                         'title': response.result
                     })
                 }else{
                     Swal.fire({
-                        'type': 'error',
+                        'icon': 'error',
                         'title': 'ERROR',
                         'html': `<h4 class="sbold">${response.desc}</h4>`
                     })
@@ -132,7 +132,7 @@ const _callable = {
                 helper.unblockUI()
 
                 Swal.fire({
-                    'type': 'error',
+                    'icon': 'error',
                     'title': 'ERROR',
                     'html': `<h4 class="sbold">${err.desc}</h4>`
                 })

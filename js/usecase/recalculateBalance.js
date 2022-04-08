@@ -35,13 +35,13 @@ const bal = {
 
                     if(response.success){
                         Swal.fire({
-                            'type': 'success',
+                            'icon': 'success',
                             'title': 'SUCCESS',
                             'html': 'Data has been Re-Calcualted'
                         });
                     }else{
                         Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ABORTED',
                             'html': response.desc
                         })
@@ -51,7 +51,7 @@ const bal = {
                     helper.unblockUI()
 
                     Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ABORTED',
                             'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
@@ -78,13 +78,13 @@ const bal = {
     
                     if(response.success){
                         Swal.fire({
-                            'type': 'success',
+                            'icon': 'success',
                             'title': 'SUCCESS',
                             'html': 'Data has been Re-Calcualted'
                         });
                     }else{
                         Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ABORTED',
                             'html': response.desc
                         })
@@ -94,7 +94,7 @@ const bal = {
                     helper.unblockUI()
     
                     Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ABORTED',
                             'html': `<h4 class="sbold">${err.desc}</h4>`
                     })

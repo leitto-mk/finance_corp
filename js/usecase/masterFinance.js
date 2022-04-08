@@ -34,7 +34,7 @@ const callable = {
                 helper.setSelect2(element, {width: 'auto'})
             }else{
                 Swal.fire({
-                    'type': 'error',
+                    'icon': 'error',
                     'title': 'ERROR',
                     'html': `<h4 class="sbold">${response.desc}</h4>`
                 })
@@ -44,7 +44,7 @@ const callable = {
             helper.unblockUI()
 
             Swal.fire({
-                'type': 'error',
+                'icon': 'error',
                 'title': 'ERROR',
                 'html': `<h4 class="sbold">${err.desc}</h4>`
             })
@@ -103,7 +103,7 @@ const mfin = {
 
                     if(response.success) {
                         Swal.fire({
-                            'type': 'success',
+                            'icon': 'success',
                             'title': 'SUCCESS',
                             'html': `Heading has been submited`
                         })
@@ -111,7 +111,7 @@ const mfin = {
                         location.reload()
                     }else{
                         Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ERROR',
                             'html': `<h4 class="sbold">${response.desc}</h4>`
                         })
@@ -121,7 +121,7 @@ const mfin = {
                     helper.unblockUI()
 
                     Swal.fire({
-                        'type': 'error',
+                        'icon': 'error',
                         'title': 'ERROR',
                         'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
@@ -140,7 +140,7 @@ const mfin = {
 
                     if(response.success){
                         Swal.fire({
-                            'type': 'success',
+                            'icon': 'success',
                             'title': 'SUCCESS',
                             'html': 'Heading has been deleted successfully'
                         })
@@ -148,7 +148,7 @@ const mfin = {
                         location.reload()
                     }else{
                         Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ERROR',
                             'html': `<h4 class="sbold">${response.desc}</h4>`
                         })
@@ -158,7 +158,7 @@ const mfin = {
                     helper.unblockUI()
 
                     Swal.fire({
-                        'type': 'error',
+                        'icon': 'error',
                         'title': 'ERROR',
                         'html': `<h4 class="sbold">${err.desc}</h4>`
                     })

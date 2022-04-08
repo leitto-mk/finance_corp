@@ -87,7 +87,7 @@ const our = {
                         $('#label_date_finish').html(helper.convertDate(date_finish, "DD-MMM-YY"))
                     }else{
                         Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ABORTED',
                             'html': `<h4 class="sbold">${response.desc}</h4>`
                         })
@@ -97,7 +97,7 @@ const our = {
                     helper.unblockUI()
 
                     Swal.fire({
-                        'type': 'error',
+                        'icon': 'error',
                         'title': 'ABORTED',
                         'html': `<h4 class="sbold">${err.desc}</h4>`
                     })

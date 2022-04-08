@@ -142,7 +142,7 @@ const gl = {
                         }
                     }else{
                         Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ERROR',
                             'html': `<h4 class="sbold">${response.desc}</h4>`
                         })
@@ -152,7 +152,7 @@ const gl = {
                     helper.unblockUI()
 
                     Swal.fire({
-                            'type': 'error',
+                            'icon': 'error',
                             'title': 'ABORTED',
                             'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
