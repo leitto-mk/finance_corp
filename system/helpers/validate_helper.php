@@ -22,8 +22,11 @@ if(!function_exists('validate')){
         $CI->load->helper('validate_helper');
 
         if(!$forms || empty($forms)){
-            return true;
+            return false;
         }
+
+        //XSS Filter
+        $CI->security->xss_clean($forms);
 
         //Remove Any Delimiters
         $CI->form_validation->set_error_delimiters('','');
