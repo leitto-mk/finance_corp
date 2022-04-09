@@ -5,7 +5,7 @@
 import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
-const callable = {
+const _callable = {
     validateModalInputs: form => {
         let forms = $(`#${form} .form-required`).serializeArray()
 
@@ -32,13 +32,29 @@ const callable = {
     	}
 
         return true
+    },
+
+    generateRepoDataTable: (table, url, postData, dtColumns) => {
+        repository.generateDataTable(table, url, postData, dtColumns)
+        .then(() => {
+            helper.unblockUI()
+        })
+        .fail(err => {
+            helper.unblockUI()
+
+            Swal.fire({
+                'icon': 'error',
+                'title': 'ERROR',
+                'html': `<h4 class="sbold">${err.desc}</h4>`
+            })
+        })
     }
 }
 
 const msup = {
     initTables: () => {
         //Group
-        repository.generateDataTable(
+        _callable.generateRepoDataTable(
             '#table_master_stockgroup_grp',
             'Cmaster/getDataMasterStockGroup',
             {
@@ -51,21 +67,11 @@ const msup = {
                 {targets:3, data: "TypeDescription"},
                 {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
             ]
-        ).then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
+        )
 
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
 
         //Sub-Category
-        repository.generateDataTable(
+        _callable.generateRepoDataTable(
             '#table_master_stockgroup_type',
             'Cmaster/getDataMasterStockGroup',
             {
@@ -78,21 +84,11 @@ const msup = {
                 {targets:3, data: "CatDescription"},
                 {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
             ]
-        ).then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
+        )
 
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
 
         //Category
-        repository.generateDataTable(
+        _callable.generateRepoDataTable(
             '#table_master_stockgroup_cat',
             'Cmaster/getDataMasterStockGroup',
             {
@@ -105,21 +101,11 @@ const msup = {
                 {targets:3, data: "StockClassDescription"},
                 {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
             ]
-        ).then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
+        )
 
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
 
         //Stock-Class
-        repository.generateDataTable(
+        _callable.generateRepoDataTable(
             '#table_master_stockgroup_class',
             'Cmaster/getDataMasterStockGroup',
             {
@@ -131,18 +117,7 @@ const msup = {
                 {targets:2, data: "StockClassDescription"},
                 {targets:3, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
             ]
-        ).then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
-
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
+        )
     },
 
     eventAddNewItem: () => {
@@ -277,7 +252,7 @@ const msup = {
                             success: function(data){
                                 data = data.replace(/["]/g, "")
                                 if(data == "success"){
-                                    repository.generateDataTable(
+                                    _callable.generateRepoDataTable(
                                         '#table_master_stockgroup_grp',
                                         'Cmaster/getDataMasterStockGroup',
                                         {
@@ -290,18 +265,8 @@ const msup = {
                                             {targets:3, data: "TypeDescription"},
                                             {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                         ]
-                                    ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                                    )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                                     $('#master_crud').modal('hide');
                                 }
                                 if(data == "Data Exist"){
@@ -328,7 +293,7 @@ const msup = {
                             success: function(data){
                                 data = data.replace(/["]/g, "")
                                 if(data == "success"){
-                                    repository.generateDataTable(
+                                    _callable.generateRepoDataTable(
                                         '#table_master_stockgroup_type',
                                         'Cmaster/getDataMasterStockGroup',
                                         {
@@ -341,18 +306,8 @@ const msup = {
                                             {targets:3, data: "CatDescription"},
                                             {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                         ]
-                                    ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                                    )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                                     $('#master_crud').modal('hide');
                                 }
                                 if(data == "Data Exist"){
@@ -379,7 +334,7 @@ const msup = {
                             success: function(data){
                                 data = data.replace(/["]/g, "")
                                 if(data == "success"){
-                                    repository.generateDataTable(
+                                    _callable.generateRepoDataTable(
                                         '#table_master_stockgroup_cat',
                                         'Cmaster/getDataMasterStockGroup',
                                         {
@@ -392,18 +347,8 @@ const msup = {
                                             {targets:3, data: "StockClassDescription"},
                                             {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                         ]
-                                    ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                                    )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                                     $('#master_crud').modal('hide');
                                 }
                                 if(data == "Data Exist"){
@@ -430,7 +375,7 @@ const msup = {
                             success: function(data){
                                 data = data.replace(/["]/g, "")
                                 if(data == "success"){
-                                    repository.generateDataTable(
+                                    _callable.generateRepoDataTable(
                                         '#table_master_stockgroup_class',
                                         'Cmaster/getDataMasterStockGroup',
                                         {
@@ -442,18 +387,8 @@ const msup = {
                                             {targets:2, data: "StockClassDescription"},
                                             {targets:3, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                         ]
-                                    ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                                    )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                                     $('#master_crud').modal('hide');
                                 }
                                 if(data == "Data Exist"){
@@ -665,8 +600,8 @@ const msup = {
                         data: data_stockgrp+"&input=mas_stock_d_grp&id="+id,
                         url: 'Cmaster/editDataMasterStockGroup',
                         success: function(data){
-                            repository.generateDataTable(
-                                $('#table_master_stockgroup_grp'),
+                            _callable.generateRepoDataTable(
+                                '#table_master_stockgroup_grp',
                                 'Cmaster/getDataMasterStockGroup',
                                 {
                                     input: 'mas_stock_d_grp'
@@ -678,18 +613,8 @@ const msup = {
                                     {targets:3, data: "TypeDescription"},
                                     {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                 ]
-                            ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                            )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                             $('#master_crud').modal('hide');
                             alert('Group Updated');
                         }
@@ -702,8 +627,8 @@ const msup = {
                         data: data_stocktype+"&input=mas_stock_c_type&id="+id,
                         url: 'Cmaster/editDataMasterStockGroup',
                         success: function(data){
-                            repository.generateDataTable(
-                                $('#table_master_stockgroup_type'),
+                            _callable.generateRepoDataTable(
+                                '#table_master_stockgroup_type',
                                 'Cmaster/getDataMasterStockGroup',
                                 {
                                     input: 'mas_stock_c_type'
@@ -715,18 +640,8 @@ const msup = {
                                     {targets:3, data: "CatDescription"},
                                     {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                 ]
-                            ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                            )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                             $('#master_crud').modal('hide');
                             alert('Sub Category Updated');
                         }
@@ -739,8 +654,8 @@ const msup = {
                         data: data_stockcategory+"&input=mas_stock_b_cat&id="+id,
                         url: 'Cmaster/editDataMasterStockGroup',
                         success: function(data){
-                            repository.generateDataTable(
-                                $('#table_master_stockgroup_cat'),
+                            _callable.generateRepoDataTable(
+                                '#table_master_stockgroup_cat',
                                 'Cmaster/getDataMasterStockGroup',
                                 {
                                     input: 'mas_stock_b_cat'
@@ -752,18 +667,8 @@ const msup = {
                                     {targets:3, data: "StockClassDescription"},
                                     {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                 ]
-                            ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                            )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                             $('#master_crud').modal('hide');
                             alert('Category Updated');
                         }
@@ -776,8 +681,8 @@ const msup = {
                         data: data_stockclass+"&input=mas_stock_a_class&id="+id,
                         url: 'Cmaster/editDataMasterStockGroup',
                         success: function(data){
-                            repository.generateDataTable(
-                                $('#table_master_stockgroup_class'),
+                            _callable.generateRepoDataTable(
+                                '#table_master_stockgroup_class',
                                 'Cmaster/getDataMasterStockGroup',
                                 {
                                     input: 'mas_stock_a_class'
@@ -788,18 +693,8 @@ const msup = {
                                     {targets:2, data: "StockClassDescription"},
                                     {targets:3, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                 ]
-                            ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                            )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                             $('#master_crud').modal('hide');
                             alert('Class Updated');
                         }
@@ -829,8 +724,8 @@ const msup = {
                                         },
                                         url: 'Cmaster/discDataMasterStockGroup',
                                         success: function(data){
-                                            repository.generateDataTable(
-                                                $('#table_master_stockgroup_grp'),
+                                            _callable.generateRepoDataTable(
+                                                '#table_master_stockgroup_grp',
                                                 'Cmaster/getDataMasterStockGroup',
                                                 {
                                                     input: 'mas_stock_d_grp'
@@ -842,18 +737,8 @@ const msup = {
                                                     {targets:3, data: "TypeDescription"},
                                                     {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                                 ]
-                                            ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                                            )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                                             alert('Group Discontinued');
                                         }
                                     })
@@ -878,8 +763,8 @@ const msup = {
                                         },
                                         url: 'Cmaster/discDataMasterStockGroup',
                                         success: function(data){
-                                            repository.generateDataTable(
-                                                $('#table_master_stockgroup_type'),
+                                            _callable.generateRepoDataTable(
+                                                '#table_master_stockgroup_type',
                                                 'Cmaster/getDataMasterStockGroup',
                                                 {
                                                     input: 'mas_stock_c_type'
@@ -891,18 +776,8 @@ const msup = {
                                                     {targets:3, data: "CatDescription"},
                                                     {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                                 ]
-                                            ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                                            )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                                             alert('Sub Category Discontinued');
                                         }
                                     })
@@ -927,8 +802,8 @@ const msup = {
                                         },
                                         url: 'Cmaster/discDataMasterStockGroup',
                                         success: function(data){
-                                            repository.generateDataTable(
-                                                $('#table_master_stockgroup_cat'),
+                                            _callable.generateRepoDataTable(
+                                                '#table_master_stockgroup_cat',
                                                 'Cmaster/getDataMasterStockGroup',
                                                 {
                                                     input: 'mas_stock_b_cat'
@@ -940,18 +815,8 @@ const msup = {
                                                     {targets:3, data: "StockClassDescription"},
                                                     {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                                 ]
-                                            ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                                            )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                                             alert('Category Discontinued');
                                         }
                                     })
@@ -976,8 +841,8 @@ const msup = {
                                         },
                                         url: 'Cmaster/discDataMasterStockGroup',
                                         success: function(data){
-                                            repository.generateDataTable(
-                                                $('#table_master_stockgroup_class'),
+                                            _callable.generateRepoDataTable(
+                                                '#table_master_stockgroup_class',
                                                 'Cmaster/getDataMasterStockGroup',
                                                 {
                                                     input: 'mas_stock_a_class'
@@ -988,18 +853,8 @@ const msup = {
                                                     {targets:2, data: "StockClassDescription"},
                                                     {targets:3, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
                                                 ]
-                                            ).then(() => {
-                                                helper.unblockUI()
-                                            })
-                                            .fail(err => {
-                                                helper.unblockUI()
+                                            )
 
-                                                Swal.fire({
-                                                    'icon': 'error',
-                                                    'title': 'ERROR',
-                                                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                                                })
-                                            })
                                             alert('Class Discontinued');
                                         }
                                     })
