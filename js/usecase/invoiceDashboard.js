@@ -10,6 +10,11 @@ const _callable = {
     GenerateInvoiceDataTable: (table, formData) => {
         let base_url = window.location.origin + '/invoice/get'
 
+        formData = formData ?? {}
+
+        //Add CSRF Data
+        formData[csrfName] = csrfHash
+
         $(table).DataTable({
             destroy: true,
             serverSide: true,
@@ -140,6 +145,10 @@ const _callable = {
         }
     }
 }
+
+//Get CSRF Hash
+const csrfName = document.querySelector('#script').getAttribute('data-csrf-name')
+const csrfHash = document.querySelector('#script').getAttribute('data-csrf-token')
 
 export const DashboardPage = () => {
     (function InitGenerateDatatable(){

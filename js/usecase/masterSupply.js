@@ -6,7 +6,16 @@ import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
 const callable = {
-    loadDataTable: (table, url, input, data) => {
+    loadDataTable: (table, url, postData, columns) => {
+        //Get CSRF Hash
+        const csrfName = document.querySelector('#script').getAttribute('data-csrf-name')
+        const csrfHash = document.querySelector('#script').getAttribute('data-csrf-token')
+
+        postData = postData ?? {}
+
+        //Add CSRF Token
+        postData[csrfName] = csrfHash
+
         table.DataTable({
             destroy: true,
             responsive: true,
@@ -14,16 +23,11 @@ const callable = {
             lengthMenu: [10, 25, 50, 100, 500],
             ajax: {
                 type: "POST",
-                data: {
-                    input: input
-                },
+                data: postData,
                 url: url,
                 dataSrc: ""
             },
-            // createdRow: function(row, data){
-            //     $(row).attr('id', data.column2)
-            // },
-            columnDefs: data
+            columnDefs: columns
         })
     },
     
@@ -62,7 +66,9 @@ const msup = {
         callable.loadDataTable(
             $('#table_master_stockgroup_grp'),
             'Cmaster/getDataMasterStockGroup',
-            'mas_stock_d_grp',
+            {
+                input: 'mas_stock_d_grp'
+            },
             [
                 {targets:0, className: 'control', orderable: false, defaultContent: ""},
                 {targets:1, data: "GroupCode"},
@@ -76,7 +82,9 @@ const msup = {
         callable.loadDataTable(
             $('#table_master_stockgroup_type'),
             'Cmaster/getDataMasterStockGroup',
-            'mas_stock_c_type',
+            {
+                input: 'mas_stock_c_type'
+            },
             [
                 {targets:0, className: 'control', orderable: false, defaultContent: ""},
                 {targets:1, data: "TypeCode"},
@@ -90,7 +98,9 @@ const msup = {
         callable.loadDataTable(
             $('#table_master_stockgroup_cat'),
             'Cmaster/getDataMasterStockGroup',
-            'mas_stock_b_cat',
+            {
+                input: 'mas_stock_b_cat'
+            },
             [
                 {targets:0, className: 'control', orderable: false, defaultContent: ""},
                 {targets:1, data: "CatCode"},
@@ -104,7 +114,9 @@ const msup = {
         callable.loadDataTable(
             $('#table_master_stockgroup_class'),
             'Cmaster/getDataMasterStockGroup',
-            'mas_stock_a_class',
+            {
+                input: 'mas_stock_a_class'
+            },
             [
                 {targets:0, className: 'control', orderable: false, defaultContent: ""},
                 {targets:1, data: "StockClassCode"},
@@ -249,7 +261,9 @@ const msup = {
                                     callable.loadDataTable(
                                         $('#table_master_stockgroup_grp'),
                                         'Cmaster/getDataMasterStockGroup',
-                                        'mas_stock_d_grp',
+                                        {
+                                            input: 'mas_stock_d_grp'
+                                        },
                                         [
                                             {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                             {targets:1, data: "GroupCode"},
@@ -287,7 +301,9 @@ const msup = {
                                     callable.loadDataTable(
                                         $('#table_master_stockgroup_type'),
                                         'Cmaster/getDataMasterStockGroup',
-                                        'mas_stock_c_type',
+                                        {
+                                            input: 'mas_stock_c_type'
+                                        },
                                         [
                                             {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                             {targets:1, data: "TypeCode"},
@@ -325,7 +341,9 @@ const msup = {
                                     callable.loadDataTable(
                                         $('#table_master_stockgroup_cat'),
                                         'Cmaster/getDataMasterStockGroup',
-                                        'mas_stock_b_cat',
+                                        {
+                                            input: 'mas_stock_b_cat'
+                                        },
                                         [
                                             {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                             {targets:1, data: "CatCode"},
@@ -363,7 +381,9 @@ const msup = {
                                     callable.loadDataTable(
                                         $('#table_master_stockgroup_class'),
                                         'Cmaster/getDataMasterStockGroup',
-                                        'mas_stock_a_class',
+                                        {
+                                            input: 'mas_stock_a_class'
+                                        },
                                         [
                                             {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                             {targets:1, data: "StockClassCode"},
@@ -585,7 +605,9 @@ const msup = {
                             callable.loadDataTable(
                                 $('#table_master_stockgroup_grp'),
                                 'Cmaster/getDataMasterStockGroup',
-                                'mas_stock_d_grp',
+                                {
+                                    input: 'mas_stock_d_grp'
+                                },
                                 [
                                     {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                     {targets:1, data: "GroupCode"},
@@ -609,7 +631,9 @@ const msup = {
                             callable.loadDataTable(
                                 $('#table_master_stockgroup_type'),
                                 'Cmaster/getDataMasterStockGroup',
-                                'mas_stock_c_type',
+                                {
+                                    input: 'mas_stock_c_type'
+                                },
                                 [
                                     {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                     {targets:1, data: "TypeCode"},
@@ -633,7 +657,9 @@ const msup = {
                             callable.loadDataTable(
                                 $('#table_master_stockgroup_cat'),
                                 'Cmaster/getDataMasterStockGroup',
-                                'mas_stock_b_cat',
+                                {
+                                    input: 'mas_stock_b_cat'
+                                },
                                 [
                                     {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                     {targets:1, data: "CatCode"},
@@ -657,7 +683,9 @@ const msup = {
                             callable.loadDataTable(
                                 $('#table_master_stockgroup_class'),
                                 'Cmaster/getDataMasterStockGroup',
-                                'mas_stock_a_class',
+                                {
+                                    input: 'mas_stock_a_class'
+                                },
                                 [
                                     {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                     {targets:1, data: "StockClassCode"},
@@ -697,7 +725,9 @@ const msup = {
                                             callable.loadDataTable(
                                                 $('#table_master_stockgroup_grp'),
                                                 'Cmaster/getDataMasterStockGroup',
-                                                'mas_stock_d_grp',
+                                                {
+                                                    input: 'mas_stock_d_grp'
+                                                },
                                                 [
                                                     {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                                     {targets:1, data: "GroupCode"},
@@ -733,7 +763,9 @@ const msup = {
                                             callable.loadDataTable(
                                                 $('#table_master_stockgroup_type'),
                                                 'Cmaster/getDataMasterStockGroup',
-                                                'mas_stock_c_type',
+                                                {
+                                                    input: 'mas_stock_c_type'
+                                                },
                                                 [
                                                     {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                                     {targets:1, data: "TypeCode"},
@@ -769,7 +801,9 @@ const msup = {
                                             callable.loadDataTable(
                                                 $('#table_master_stockgroup_cat'),
                                                 'Cmaster/getDataMasterStockGroup',
-                                                'mas_stock_b_cat',
+                                                {
+                                                    input: 'mas_stock_b_cat'
+                                                },
                                                 [
                                                     {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                                     {targets:1, data: "CatCode"},
@@ -805,7 +839,9 @@ const msup = {
                                             callable.loadDataTable(
                                                 $('#table_master_stockgroup_class'),
                                                 'Cmaster/getDataMasterStockGroup',
-                                                'mas_stock_a_class',
+                                                {
+                                                    input: 'mas_stock_a_class'
+                                                },
                                                 [
                                                     {targets:0, className: 'control', orderable: false, defaultContent: ""},
                                                     {targets:1, data: "StockClassCode"},

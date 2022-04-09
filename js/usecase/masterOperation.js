@@ -5,8 +5,17 @@
 import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
-const callable = {
+const _callable = {
     loadDataTable: (table, url, postData, columnDef) => {
+        //Get CSRF Hash
+        const csrfName = document.querySelector('#script').getAttribute('data-csrf-name')
+        const csrfHash = document.querySelector('#script').getAttribute('data-csrf-token')
+
+        postData = postData ?? {}
+
+        //Add CSRF Token
+        postData[csrfName] = csrfHash
+
         table.DataTable({
             destroy: true,
             responsive: true,
@@ -54,7 +63,7 @@ const callable = {
 const mopr = {
     initTables: () => {
         //Company
-        callable.loadDataTable(
+        _callable.loadDataTable(
             $('#table_master_abase_company'),
             'Cmaster/getDataMasterAbase',
             { input: 'abasecompany' },
@@ -68,7 +77,7 @@ const mopr = {
         )
 
         //Branch
-        callable.loadDataTable(
+        _callable.loadDataTable(
             $('#table_master_abase_branch'),
             'Cmaster/getDataMasterAbase',
             { input: 'abasebranch' },
@@ -83,7 +92,7 @@ const mopr = {
         )
 
         //Department
-        callable.loadDataTable(
+        _callable.loadDataTable(
             $('#table_master_abase_department'),
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartment' },
@@ -108,7 +117,7 @@ const mopr = {
         )
 
         //Department Business Unit (BU)
-        callable.loadDataTable(
+        _callable.loadDataTable(
             $('#table_master_abase_department_bu'),
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartmentbu' },
@@ -127,7 +136,7 @@ const mopr = {
         )
 
         //Department Division
-        callable.loadDataTable(
+        _callable.loadDataTable(
             $('#table_master_abase_department_div'),
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartmentdiv' },
@@ -140,7 +149,7 @@ const mopr = {
         )
 
         //Cost Center
-        callable.loadDataTable(
+        _callable.loadDataTable(
             $('#table_master_abase_cost_center'),
             'Cmaster/getDataMasterAbase',
             { input: 'abasecostcenter' },
@@ -340,7 +349,7 @@ const mopr = {
             switch($(this).attr('input')){
                 case 'abasecompany':
                     var data_abasecompany = $('#form_abasecompany').serialize();
-                    validate = callable.validateModalInputs('form_abasecompany')
+                    validate = _callable.validateModalInputs('form_abasecompany')
                     if(validate == true){
                         $.ajax({
                             type: "POST",
@@ -365,7 +374,7 @@ const mopr = {
                     break;
                 case 'abasebranch':
                     var data_abasebranch = $('#form_abasebranch').serialize();
-                    validate = callable.validateModalInputs('form_abasebranch')
+                    validate = _callable.validateModalInputs('form_abasebranch')
                     if(validate == true){
                         $.ajax({
                             type: "POST",
@@ -393,7 +402,7 @@ const mopr = {
                     break;
                 case 'abasedepartment':
                     var data_abasedepartment = $('#form_abasedepartment').serialize();
-                    validate = callable.validateModalInputs('form_abasedepartment')
+                    validate = _callable.validateModalInputs('form_abasedepartment')
                     if(validate == true){
                         $.ajax({
                             type: "POST",
@@ -423,7 +432,7 @@ const mopr = {
                     break;
                 case 'abasedepartmentbu':
                     var data_abasedepartmentbu = $('#form_abasedepartmentbu').serialize();
-                    validate = callable.validateModalInputs('form_abasedepartmentbu')
+                    validate = _callable.validateModalInputs('form_abasedepartmentbu')
                     if(validate == true){
                         $.ajax({
                             type: "POST",
@@ -451,7 +460,7 @@ const mopr = {
                     break;
                 case 'abasedepartmentdiv':
                     var data_abasedepartmentdiv = $('#form_abasedepartmentdiv').serialize();
-                    validate = callable.validateModalInputs('form_abasedepartmentdiv')
+                    validate = _callable.validateModalInputs('form_abasedepartmentdiv')
                     if(validate == true){
                         $.ajax({
                             type: "POST",
@@ -480,7 +489,7 @@ const mopr = {
                     break;
                 case 'abasecostcenter':
                     var data_abasecostcenter = $('#form_abasecostcenter').serialize();
-                    validate = callable.validateModalInputs('form_abasecostcenter')
+                    validate = _callable.validateModalInputs('form_abasecostcenter')
                     if(validate == true){
                         $.ajax({
                             type: "POST",

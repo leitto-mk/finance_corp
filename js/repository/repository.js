@@ -6,22 +6,29 @@ import helper from '../helper.js'
  * Mainly interacts with the server and handle request/responses
  * 
 */
+
+//Get CSRF Hash
+const csrfName = document.querySelector('#script').getAttribute('data-csrf-name')
+const csrfHash = document.querySelector('#script').getAttribute('data-csrf-token')
+
 const repository = {
     /**
      * Generate `DataTable`
-     * @type {object}       URLs
-     * @type {object}       body param inside an object
+     * @type    {object}    URLs
+     * @type    {object}    Additional Parameters
      * 
-     * @return {promise}    Promise
+     * @return  {promise}   Promise
      */
     generateDataTable: (url, datas) => {
         var defer = $.Deferred()
         
-        datas = {
-            docno: datas?.docno ?? '',
-            date_start: datas?.date_start ?? helper.firstDayOfMonth(),
-            date_end: datas?.date_end ?? helper.lastDayOfMonth()
-        }
+        datas = datas ?? {}
+        datas.docno = datas?.docno ?? '',
+        datas.date_start = datas?.date_start ?? helper.firstDayOfMonth(),
+        datas.date_end = datas?.date_end ?? helper.lastDayOfMonth()
+
+        //Add CSRF Token
+        datas[csrfName] = csrfHash
 
         $('table').DataTable({
             destroy: true,
@@ -31,7 +38,7 @@ const repository = {
             lengthMenu: [30, 50, 100, 300],
             pagingType: "bootstrap_extended",
             ajax: {
-                url: url.target,
+                url: url?.target ?? url,
                 method: 'POST',
                 data: datas,
                 beforeSend: () => {
@@ -138,6 +145,11 @@ const repository = {
     getRecord: (url, datas) => {
         var defer = $.Deferred()
         
+        datas = datas ?? {}
+        
+        //Add CSRF Token
+        datas[csrfName] = csrfHash
+
         $.ajax({
             url: url,
             method: 'POST',
@@ -170,6 +182,11 @@ const repository = {
     deleteRecord: (url, datas) => {
         var defer = $.Deferred()
 
+        datas = datas ?? {}
+        
+        //Add CSRF Token
+        datas[csrfName] = csrfHash
+
         $.ajax({
             url: url,
             method: 'POST',
@@ -200,6 +217,11 @@ const repository = {
      */
     submitRecord: (url, datas) => {
         var defer = $.Deferred()
+
+        datas = datas ?? {}
+        
+        //Add CSRF Token
+        datas[csrfName] = csrfHash
 
         $.ajax({
             url: url,

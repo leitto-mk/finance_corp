@@ -5,7 +5,7 @@
 import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
-const callable = {
+const _callable = {
     createModal: (id, type) => {
         $('#modal-finance').modal('show')
         $("#modal-finance").find(".modal-body").empty()
@@ -58,7 +58,7 @@ const mfin = {
     coa: {
         eventOpenModalNewHeading: () => {
             $("#btn-new-heading").on("click", function () {
-                callable.createModal(null, 'head')
+                _callable.createModal(null, 'head')
             });
         },
 
@@ -77,13 +77,13 @@ const mfin = {
                     const id = $(this).attr("data-unique")
                     const type = "edit"
                     
-                    callable.createModal(id, type)
+                    _callable.createModal(id, type)
                 },
                 onCancel: function () {
                     const id = $(this).attr("data-unique")
                     const type = "child"
 
-                    callable.createModal(id, type)
+                    _callable.createModal(id, type)
                 },
             })
         },
