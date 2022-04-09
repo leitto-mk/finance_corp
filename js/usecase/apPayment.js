@@ -5,6 +5,82 @@
 import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
+const dtColumns = [
+    {
+        data: 'TransDate',
+        createdCell: response => response.setAttribute('align', 'center'),
+        render: row => {
+            return `<div class="font-dark sbold">${row}</div>`
+        },
+        orderable: false,
+    },
+    {
+        data: 'DocNo',
+        createdCell: response => response.setAttribute('align', 'center'),
+        render: row => {
+            return `<div class="font-dark sbold">${row}</div>`
+        },
+        orderable: false,
+    },
+    {
+        data: 'TransType',
+        createdCell: response => response.setAttribute('align', 'center'),
+        render: row => {
+            return `<div class="font-dark sbold">${row}</div>`
+        },
+        orderable: false,
+    },
+    {
+        data: response => {
+            return response.Branch + ' | ' + response.BranchName
+        },
+        createdCell: response => response.setAttribute('align', 'left'),
+        render: row => {
+            return `<div class="font-dark sbold">${row}</div>`
+        },
+        orderable: false,
+    },
+    {
+        data: 'Remarks',
+        createdCell: response => response.setAttribute('align', 'left'),
+        render: row => {
+            return `<div class="font-dark sbold">${row}</div>`
+        },
+        orderable: false,
+    },
+    {
+        data: 'TotalAmount',
+        createdCell: response => response.setAttribute('align', 'right'),
+        render: row => {
+            return `<div class="font-dark sbold">${Intl.NumberFormat('en').format(row)}</div>`
+        },
+        orderable: false,
+    },
+    {
+        data: response => {
+            var location = window.location.href
+            var baseURL = location.substring(0, location.lastIndexOf('/'))
+
+            return `
+                <a href="${baseURL}/${url.edit}?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                    <i class="fa fa-edit"> </i>
+                </a>
+                <a href="${baseURL}/${url.report}?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                    <i class="fa fa-print"> </i>
+                </a>
+                <a href="javascript:;" name="delete" data-docno="${response.DocNo}" data-branch="${response.Branch}" data-transdate="${response.TransDate}" type="button" class="btn btn-xs red">
+                    <i class="fa fa-trash"> </i>
+                </a>
+            `
+        },
+        createdCell: response => response.setAttribute('align', 'center'),
+        render: response => {
+            return `<div>${response}</div>`
+        },
+        orderable: false
+    },
+]
+
 const apy = {
     indexPage: {
         initDT: () => {
@@ -14,7 +90,13 @@ const apy = {
                 report: 'view_reps_ap_payment'
             }
 
-            repository.generateDataTable(url)
+            let postData = {
+                docno: '',
+                date_start: helper.firstDayOfMonth(),
+                date_end: helper.lastDayOfMonth()
+            }
+
+            repository.generateDataTable('table', url, postData, dtColumns)
             .then(() => {
                 helper.unblockUI()
             })
@@ -41,7 +123,7 @@ const apy = {
                     report: 'view_reps_ap_payment'
                 }
     
-                repository.generateDataTable(url, { docno, date_start, date_end })
+                repository.generateDataTable('table', url, { docno, date_start, date_end }, dtColumns)
                 .then(() => {
                     helper.unblockUI()
                 })

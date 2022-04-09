@@ -5,133 +5,165 @@
 import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
-//Indempotent Function
-const _callable = {
-    GenerateInvoiceDataTable: (table, formData) => {
-        let base_url = window.location.origin + '/invoice/get'
-
-        formData = formData ?? {}
-
-        //Add CSRF Data
-        formData[csrfName] = csrfHash
-
-        $(table).DataTable({
-            destroy: true,
-            serverSide: true,
-            searching: false,
-            info: false,
-            lengthMenu: [30, 50, 100, 300],
-            pagingType: "bootstrap_extended",
-            ajax: {
-                url: base_url,
-                method: 'GET',
-                dataType: 'JSON',
-                data: formData ?? null,
-                beforeSend: () => {
-                    helper.blockUI({
-                        animate: true
-                    })
-                },
-                dataSrc: response => {
-                    helper.unblockUI()
-
-                    if(response.result && response.result.length > 0){
-                        for (let i = 0; i < response.result.length; i++){
-                            response.result[i].ItemNo = i+1
-                        }
-
-                        return response.result
-                    }
-
-                    return response
-                },
-                error: () => {
-                    helper.unblockUI()
-                }
-            },
-            columnDefs: [
-                {
-                    targets: 0,
-                    className: "text-center",
-                    orderable: false,
-                    data: "ItemNo",
-                },
-                { targets: 1, data: "InvoiceNo" },
-                { targets: 2, data: "CustomerName" },
-                { targets: 3, data: "InvoiceDate", className: "text-center" },
-                { targets: 4, data: "DueDate", className: "text-center" },
-                {
-                    targets: 5,
-                    data: "TotalAmount",
-                    className: "text-right",
-                    render: (data, type, row) => {
-                        return new Intl.NumberFormat('en', {
-                            style: "currency",
-                            currency: "IDR",
-                        }).format(data)
-                    },
-                },
-                {
-                    targets: 6,
-                    data: "Payment",
-                    className: "text-right",
-                    render: (data, type, row) => {
-                        return new Intl.NumberFormat('en', {
-                            style: "currency",
-                            currency: "IDR",
-                        }).format(data)
-                    },
-                },
-                {
-                    targets: 7,
-                    data: "Balance",
-                    className: "text-right",
-                    render: (data, type, row) => {
-                        return new Intl.NumberFormat('en', {
-                            style: "currency",
-                            currency: "IDR",
-                        }).format(data)
-                    },
-                },
-                {
-                    targets: 8,
-                    orderable: false,
-                    className: "text-center",
-                    render: (data, type, row) => {
-                        let base_url = window.location.origin + '/invoice'
-
-                        return `<a name="edit" href="${base_url}/edit/${row.InvoiceNo}" target="_blank" class="btn btn-xs grey-gallery btn-outline" title="Edit">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a name="delete" href="${base_url}/delete/${row.InvoiceNo}" class="btn btn-xs grey-gallery btn-outline" title="Delete">
-                                    <i class="fa fa-close"></i>
-                                </a>`
-                    },
-                }
-            ]
-        })
+const dtColumns = [
+    {
+        targets: 0,
+        className: "text-center",
+        orderable: false,
+        data: "ItemNo",
     },
+    { targets: 1, data: "InvoiceNo" },
+    { targets: 2, data: "CustomerName" },
+    { targets: 3, data: "InvoiceDate", className: "text-center" },
+    { targets: 4, data: "DueDate", className: "text-center" },
+    {
+        targets: 5,
+        data: "TotalAmount",
+        className: "text-right",
+        render: (data, type, row) => {
+            return new Intl.NumberFormat('en', {
+                style: "currency",
+                currency: "IDR",
+            }).format(data)
+        },
+    },
+    {
+        targets: 6,
+        data: "Payment",
+        className: "text-right",
+        render: (data, type, row) => {
+            return new Intl.NumberFormat('en', {
+                style: "currency",
+                currency: "IDR",
+            }).format(data)
+        },
+    },
+    {
+        targets: 7,
+        data: "Balance",
+        className: "text-right",
+        render: (data, type, row) => {
+            return new Intl.NumberFormat('en', {
+                style: "currency",
+                currency: "IDR",
+            }).format(data)
+        },
+    },
+    {
+        targets: 8,
+        orderable: false,
+        className: "text-center",
+        render: (data, type, row) => {
+            let base_url = window.location.origin + '/invoice'
+
+            return `<a name="edit" href="${base_url}/edit/${row.InvoiceNo}" target="_blank" class="btn btn-xs grey-gallery btn-outline" title="Edit">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a name="delete" href="#" data-invoiceno="${row.InvoiceNo}" class="btn btn-xs grey-gallery btn-outline" title="Delete">
+                        <i class="fa fa-close"></i>
+                    </a>`
+        },
+    }
+]
+
+export const ListPage = () => {
+    (function InitGenerateDataTable(){
+        let url = window.location.origin + '/invoice/get'
+
+        repository.generateDataTable('#list_invoice', url, null, dtColumns)
+        .then(() => {
+            helper.unblockUI()
+        })
+        .fail(err => {
+            helper.unblockUI()
+
+            Swal.fire({
+                'icon': 'error',
+                'title': 'ERROR',
+                'html': `<h4 class="sbold">${err.desc}</h4>`
+            })
+        })
+    })();
+
+    (function InitSelectSearch(){
+        helper.setSelect2($('#customer'), {width: 'auto'})
+    })();
+
+    (function EventDeleteInvoice(){
+        $('#list_invoice').on('click', 'a[name="delete"]', function(e){
+            e.preventDefault()
     
-    DeleteInvoiceRecord: url => {
-        let confirm = window.confirm("Are You sure to delete this record ?")
+            let deleteUrl = window.location.origin + '/invoice/delete'
+            let deleteData = {
+                invoice: $(this).attr('data-invoiceno')
+            }
+            let dtUrl = window.location.origin + '/invoice/get'
+            let postData = {
+                'customer': $('#customer option:selected').val(),
+                'date_start': $('#date_start').val(),
+                'date_finish': $('#date_finish').val()
+            }
+    
+            let confirm = window.confirm("Are You sure to delete this record ?")
 
-        if(confirm){
-            repository.deleteRecord(url)
-            .then(response => {
-                helper.unblockUI()
+            if(confirm){
+                repository.deleteRecord(deleteUrl, deleteData)
+                .then(response => {
+                    helper.unblockUI()
 
-                if(response.success == true){
-                    Swal.fire({
-                        'icon': 'success',
-                        'title': response.result
-                    })
-                }else{
+                    if(response.success == true){
+                        Swal.fire({
+                            'icon': 'success',
+                            'title': response.result
+                        })
+                    }else{
+                        Swal.fire({
+                            'icon': 'error',
+                            'title': 'ERROR',
+                            'html': `<h4 class="sbold">${response.desc}</h4>`
+                        })
+                    }
+                })
+                .fail(err => {
+                    helper.unblockUI()
+
                     Swal.fire({
                         'icon': 'error',
                         'title': 'ERROR',
-                        'html': `<h4 class="sbold">${response.desc}</h4>`
+                        'html': `<h4 class="sbold">${err.desc}</h4>`
                     })
-                }
+                })
+
+                repository.generateDataTable('#list_invoice', dtUrl, postData, dtColumns)
+                .then(() => {
+                    helper.unblockUI()
+                })
+                .fail(err => {
+                    helper.unblockUI()
+    
+                    Swal.fire({
+                        'icon': 'error',
+                        'title': 'ERROR',
+                        'html': `<h4 class="sbold">${err.desc}</h4>`
+                    })
+                })
+            }
+        })
+    })();
+
+    (function EventPreviewFilter(){
+        $('#submit_filter').click(function(){
+            let postData = {
+                'customer': $('#customer option:selected').val(),
+                'date_start': $('#date_start').val(),
+                'date_finish': $('#date_finish').val()
+            }
+
+            let url = window.location.origin + '/invoice/get'
+
+            repository.generateDataTable('#list_invoice', url, postData, dtColumns)
+            .then(() => {
+                helper.unblockUI()
             })
             .fail(err => {
                 helper.unblockUI()
@@ -142,50 +174,6 @@ const _callable = {
                     'html': `<h4 class="sbold">${err.desc}</h4>`
                 })
             })
-        }
-    }
-}
-
-//Get CSRF Hash
-const csrfName = document.querySelector('#script').getAttribute('data-csrf-name')
-const csrfHash = document.querySelector('#script').getAttribute('data-csrf-token')
-
-export const ListPage = () => {
-    (function InitGenerateDataTable(){
-        _callable.GenerateInvoiceDataTable('#list_invoice')
-    })();
-
-    (function InitSelectSearch(){
-        helper.setSelect2($('#customer'), {width: 'auto'})
-    })();
-
-    (function EventDeleteInvoice(){
-        $('#list_invoice').on('click', 'a[name="delete"]', function(e){
-            e.preventDefault()
-
-            let url = $(this).attr('href')
-
-            _callable.DeleteInvoiceRecord(url)
-
-            let formData = {
-                'customer': $('#customer option:selected').val(),
-                'date_start': $('#date_start').val(),
-                'date_finish': $('#date_finish').val()
-            }
-
-            _callable.GenerateInvoiceDataTable('#list_invoice', formData)
-        })
-    })();
-
-    (function EventPreviewFilter(){
-        $('#submit_filter').click(function(){
-            let formData = {
-                'customer': $('#customer option:selected').val(),
-                'date_start': $('#date_start').val(),
-                'date_finish': $('#date_finish').val()
-            }
-
-            _callable.GenerateInvoiceDataTable('#list_invoice', formData)
         })
     })();
 }

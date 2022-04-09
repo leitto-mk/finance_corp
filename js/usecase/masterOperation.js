@@ -6,31 +6,6 @@ import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
 const _callable = {
-    loadDataTable: (table, url, postData, columnDef) => {
-        //Get CSRF Hash
-        const csrfName = document.querySelector('#script').getAttribute('data-csrf-name')
-        const csrfHash = document.querySelector('#script').getAttribute('data-csrf-token')
-
-        postData = postData ?? {}
-
-        //Add CSRF Token
-        postData[csrfName] = csrfHash
-
-        table.DataTable({
-            destroy: true,
-            responsive: true,
-            autoWidth: false,
-            lengthMenu: [10, 25, 50, 100, 500],
-            ajax: {
-                type: "POST",
-                data: postData,
-                url: url,
-                dataSrc: ""
-            },
-            columnDefs: columnDef
-        })
-    },
-    
     validateModalInputs: form => {
         let forms = $(`#${form} .form-required`).serializeArray()
 
@@ -63,8 +38,8 @@ const _callable = {
 const mopr = {
     initTables: () => {
         //Company
-        _callable.loadDataTable(
-            $('#table_master_abase_company'),
+        repository.generateDataTable(
+            '#table_master_abase_company',
             'Cmaster/getDataMasterAbase',
             { input: 'abasecompany' },
             [
@@ -74,11 +49,22 @@ const mopr = {
                 {targets:3, data:"City"},
                 {targets:4, orderable: false, defaultContent: '<a class="btn dark btn-xs btn-outline view-abase" input="abasecompany" href="#"><i class="fa fa-search"></i></a> <a class="btn dark btn-xs btn-outline edit-abase" input="abasecompany" href="#"><i class="fa fa-pencil"></i></a> <a class="btn dark btn-xs btn-outline disc-abase" input="abasecompany" href="#"><i class="fa fa-trash"></i></a>'}
             ]
-        )
+        ).then(() => {
+            helper.unblockUI()
+        })
+        .fail(err => {
+            helper.unblockUI()
+
+            Swal.fire({
+                'icon': 'error',
+                'title': 'ERROR',
+                'html': `<h4 class="sbold">${err.desc}</h4>`
+            })
+        })
 
         //Branch
-        _callable.loadDataTable(
-            $('#table_master_abase_branch'),
+        repository.generateDataTable(
+            '#table_master_abase_branch',
             'Cmaster/getDataMasterAbase',
             { input: 'abasebranch' },
             [
@@ -89,11 +75,22 @@ const mopr = {
                 {targets:4, data:"ContactNo"},
                 {targets:5, orderable: false, defaultContent: '<a class="btn blue btn-xs btn-outline view-abase" input="abasebranch" href="#"><i class="fa fa-search"></i></a> <a class="btn green btn-xs btn-outline edit-abase" input="abasebranch" href="#"><i class="fa fa-pencil"></i></a> <a class="btn yellow btn-xs btn-outline disc-abase" input="abasebranch" href="#"><i class="fa fa-close"></i></a>'}
             ]
-        )
+        ).then(() => {
+            helper.unblockUI()
+        })
+        .fail(err => {
+            helper.unblockUI()
+
+            Swal.fire({
+                'icon': 'error',
+                'title': 'ERROR',
+                'html': `<h4 class="sbold">${err.desc}</h4>`
+            })
+        })
 
         //Department
-        _callable.loadDataTable(
-            $('#table_master_abase_department'),
+        repository.generateDataTable(
+            '#table_master_abase_department',
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartment' },
             [
@@ -114,11 +111,22 @@ const mopr = {
                 },
                 {targets:5, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-abase" input="abasedepartment" href="#"><i class="fa fa-pencil"></i></a> <a class="btn yellow btn-xs btn-outline disc-abase" input="abasedepartment" href="#"><i class="fa fa-close"></i></a></center>'}
             ]
-        )
+        ).then(() => {
+            helper.unblockUI()
+        })
+        .fail(err => {
+            helper.unblockUI()
+
+            Swal.fire({
+                'icon': 'error',
+                'title': 'ERROR',
+                'html': `<h4 class="sbold">${err.desc}</h4>`
+            })
+        })
 
         //Department Business Unit (BU)
-        _callable.loadDataTable(
-            $('#table_master_abase_department_bu'),
+        repository.generateDataTable(
+            '#table_master_abase_department_bu',
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartmentbu' },
             [
@@ -133,11 +141,22 @@ const mopr = {
                 },
                 {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-abase" input="abasedepartment" href="#"><i class="fa fa-pencil"></i></a> <a class="btn yellow btn-xs btn-outline disc-abase" input="abasedepartment" href="#"><i class="fa fa-close"></i></a></center>'}
             ]
-        )
+        ).then(() => {
+            helper.unblockUI()
+        })
+        .fail(err => {
+            helper.unblockUI()
+
+            Swal.fire({
+                'icon': 'error',
+                'title': 'ERROR',
+                'html': `<h4 class="sbold">${err.desc}</h4>`
+            })
+        })
 
         //Department Division
-        _callable.loadDataTable(
-            $('#table_master_abase_department_div'),
+        repository.generateDataTable(
+            '#table_master_abase_department_div',
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartmentdiv' },
             [
@@ -146,11 +165,22 @@ const mopr = {
                 {targets:2, data:"DivDes"},
                 {targets:3, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-abase" input="abasedepartmentdiv" href="#"><i class="fa fa-pencil"></i></a> <a class="btn yellow btn-xs btn-outline disc-abase" input="abasedepartmentdiv" href="#"><i class="fa fa-close"></i></a></center>'}
             ]
-        )
+        ).then(() => {
+            helper.unblockUI()
+        })
+        .fail(err => {
+            helper.unblockUI()
+
+            Swal.fire({
+                'icon': 'error',
+                'title': 'ERROR',
+                'html': `<h4 class="sbold">${err.desc}</h4>`
+            })
+        })
 
         //Cost Center
-        _callable.loadDataTable(
-            $('#table_master_abase_cost_center'),
+        repository.generateDataTable(
+            '#table_master_abase_cost_center',
             'Cmaster/getDataMasterAbase',
             { input: 'abasecostcenter' },
             [
@@ -160,7 +190,18 @@ const mopr = {
                 {targets:3, data:"DeptCode"},
                 {targets:4, orderable: false, defaultContent: '<a class="btn green btn-xs btn-outline edit-abase" input="abasecostcenter" href="#"><i class="fa fa-pencil"></i></a> <a class="btn yellow btn-xs btn-outline disc-abase" input="abasecostcenter" href="#"><i class="fa fa-close"></i></a>'}
             ]
-        )
+        ).then(() => {
+            helper.unblockUI()
+        })
+        .fail(err => {
+            helper.unblockUI()
+
+            Swal.fire({
+                'icon': 'error',
+                'title': 'ERROR',
+                'html': `<h4 class="sbold">${err.desc}</h4>`
+            })
+        })
     },
 
     eventAddNewItem: () => {
