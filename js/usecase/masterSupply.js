@@ -714,34 +714,33 @@ const msup = {
                     if(accept == true){
                         var remarks = prompt("Remarks", "");
                           if (remarks != null) {
-                                document.getElementById("demo").innerHTML =
-                                    $.ajax({
-                                        type: "POST",
-                                        data: {
-                                            input: 'mas_stock_d_grp',
-                                            id: id,
-                                            remarks: remarks
-                                        },
-                                        url: 'Cmaster/discDataMasterStockGroup',
-                                        success: function(data){
-                                            _callable.generateRepoDataTable(
-                                                '#table_master_stockgroup_grp',
-                                                'Cmaster/getDataMasterStockGroup',
-                                                {
-                                                    input: 'mas_stock_d_grp'
-                                                },
-                                                [
-                                                    {targets:0, className: 'control', orderable: false, defaultContent: ""},
-                                                    {targets:1, data: "GroupCode"},
-                                                    {targets:2, data: "GroupDescription"},
-                                                    {targets:3, data: "TypeDescription"},
-                                                    {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
-                                                ]
-                                            )
+                                $.ajax({
+                                    type: "POST",
+                                    data: {
+                                        input: 'mas_stock_d_grp',
+                                        id: id,
+                                        remarks: remarks
+                                    },
+                                    url: 'Cmaster/discDataMasterStockGroup',
+                                    success: function(data){
+                                        _callable.generateRepoDataTable(
+                                            '#table_master_stockgroup_grp',
+                                            'Cmaster/getDataMasterStockGroup',
+                                            {
+                                                input: 'mas_stock_d_grp'
+                                            },
+                                            [
+                                                {targets:0, className: 'control', orderable: false, defaultContent: ""},
+                                                {targets:1, data: "GroupCode"},
+                                                {targets:2, data: "GroupDescription"},
+                                                {targets:3, data: "TypeDescription"},
+                                                {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
+                                            ]
+                                        )
 
-                                            alert('Group Discontinued');
-                                        }
-                                    })
+                                        alert('Group Discontinued');
+                                    }
+                                })
                           }else{
                               alert('Thankyou')
                           }
@@ -753,34 +752,33 @@ const msup = {
                     if(accept == true){
                         var remarks = prompt("Remarks", "");
                             if (remarks != null) {
-                                document.getElementById("demo").innerHTML =
-                                    $.ajax({
-                                        type: "POST",
-                                        data: {
-                                            input: 'mas_stock_c_type',
-                                            id: id,
-                                            remarks: remarks
-                                        },
-                                        url: 'Cmaster/discDataMasterStockGroup',
-                                        success: function(data){
-                                            _callable.generateRepoDataTable(
-                                                '#table_master_stockgroup_type',
-                                                'Cmaster/getDataMasterStockGroup',
-                                                {
-                                                    input: 'mas_stock_c_type'
-                                                },
-                                                [
-                                                    {targets:0, className: 'control', orderable: false, defaultContent: ""},
-                                                    {targets:1, data: "TypeCode"},
-                                                    {targets:2, data: "TypeDescription"},
-                                                    {targets:3, data: "CatDescription"},
-                                                    {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
-                                                ]
-                                            )
+                                $.ajax({
+                                    type: "POST",
+                                    data: {
+                                        input: 'mas_stock_c_type',
+                                        id: id,
+                                        remarks: remarks
+                                    },
+                                    url: 'Cmaster/discDataMasterStockGroup',
+                                    success: function(data){
+                                        _callable.generateRepoDataTable(
+                                            '#table_master_stockgroup_type',
+                                            'Cmaster/getDataMasterStockGroup',
+                                            {
+                                                input: 'mas_stock_c_type'
+                                            },
+                                            [
+                                                {targets:0, className: 'control', orderable: false, defaultContent: ""},
+                                                {targets:1, data: "TypeCode"},
+                                                {targets:2, data: "TypeDescription"},
+                                                {targets:3, data: "CatDescription"},
+                                                {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
+                                            ]
+                                        )
 
-                                            alert('Sub Category Discontinued');
-                                        }
-                                    })
+                                        alert('Sub Category Discontinued');
+                                    }
+                                })
                             }else{
                                 alert('Thankyou')
                             }
@@ -792,34 +790,33 @@ const msup = {
                     if(accept == true){
                         var remarks = prompt("Remarks", "");
                             if (remarks != null) {
-                                document.getElementById("demo").innerHTML =
-                                    $.ajax({
-                                        type: "POST",
-                                        data: {
-                                            input: 'mas_stock_b_cat',
-                                            id: id,
-                                            remarks: remarks
-                                        },
-                                        url: 'Cmaster/discDataMasterStockGroup',
-                                        success: function(data){
-                                            _callable.generateRepoDataTable(
-                                                '#table_master_stockgroup_cat',
-                                                'Cmaster/getDataMasterStockGroup',
-                                                {
-                                                    input: 'mas_stock_b_cat'
-                                                },
-                                                [
-                                                    {targets:0, className: 'control', orderable: false, defaultContent: ""},
-                                                    {targets:1, data: "CatCode"},
-                                                    {targets:2, data: "CatDescription"},
-                                                    {targets:3, data: "StockClassDescription"},
-                                                    {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
-                                                ]
-                                            )
+                                $.ajax({
+                                    type: "POST",
+                                    data: {
+                                        input: 'mas_stock_b_cat',
+                                        id: id,
+                                        remarks: remarks
+                                    },
+                                    url: 'Cmaster/discDataMasterStockGroup',
+                                    success: function(data){
+                                        _callable.generateRepoDataTable(
+                                            '#table_master_stockgroup_cat',
+                                            'Cmaster/getDataMasterStockGroup',
+                                            {
+                                                input: 'mas_stock_b_cat'
+                                            },
+                                            [
+                                                {targets:0, className: 'control', orderable: false, defaultContent: ""},
+                                                {targets:1, data: "CatCode"},
+                                                {targets:2, data: "CatDescription"},
+                                                {targets:3, data: "StockClassDescription"},
+                                                {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
+                                            ]
+                                        )
 
-                                            alert('Category Discontinued');
-                                        }
-                                    })
+                                        alert('Category Discontinued');
+                                    }
+                                })
                             }else{
                                 alert('Thankyou')
                             }
@@ -831,33 +828,32 @@ const msup = {
                     if(accept == true){
                         var remarks = prompt("Remarks", "");
                             if (remarks != null) {
-                                document.getElementById("demo").innerHTML =
-                                    $.ajax({
-                                        type: "POST",
-                                        data: {
-                                            input: 'mas_stock_a_class',
-                                            id: id,
-                                            remarks: remarks
-                                        },
-                                        url: 'Cmaster/discDataMasterStockGroup',
-                                        success: function(data){
-                                            _callable.generateRepoDataTable(
-                                                '#table_master_stockgroup_class',
-                                                'Cmaster/getDataMasterStockGroup',
-                                                {
-                                                    input: 'mas_stock_a_class'
-                                                },
-                                                [
-                                                    {targets:0, className: 'control', orderable: false, defaultContent: ""},
-                                                    {targets:1, data: "StockClassCode"},
-                                                    {targets:2, data: "StockClassDescription"},
-                                                    {targets:3, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
-                                                ]
-                                            )
+                                $.ajax({
+                                    type: "POST",
+                                    data: {
+                                        input: 'mas_stock_a_class',
+                                        id: id,
+                                        remarks: remarks
+                                    },
+                                    url: 'Cmaster/discDataMasterStockGroup',
+                                    success: function(data){
+                                        _callable.generateRepoDataTable(
+                                            '#table_master_stockgroup_class',
+                                            'Cmaster/getDataMasterStockGroup',
+                                            {
+                                                input: 'mas_stock_a_class'
+                                            },
+                                            [
+                                                {targets:0, className: 'control', orderable: false, defaultContent: ""},
+                                                {targets:1, data: "StockClassCode"},
+                                                {targets:2, data: "StockClassDescription"},
+                                                {targets:3, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-pencil" title="Edit"></i></a> <a class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal"><i class="fa fa-close" title="Discontinue"></i></a></center>'}
+                                            ]
+                                        )
 
-                                            alert('Class Discontinued');
-                                        }
-                                    })
+                                        alert('Class Discontinued');
+                                    }
+                                })
                             }else{
                                 alert('Thankyou')
                             }
