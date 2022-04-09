@@ -485,12 +485,14 @@ class Invoice extends CI_Controller
         return set_success_response($result);
 	}
 
-	public function delete($invoice){
-		$validation = validate($this->input->get(),null,null);
+	public function delete(){
+		$validation = validate($this->input->post(),null,null);
 		
 		if(!$validation) {
 			return set_error_response(self::HTTP_BAD_REQUEST, $validation);
 		}
+
+		$invoice = $this->input->post('invoice');
 
 		try{
 			$this->Mdl_corp_invoice->delete_invoice($invoice);
