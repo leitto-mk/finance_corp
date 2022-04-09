@@ -32,24 +32,11 @@ const _callable = {
     	}
 
         return true
-    }
-}
+    },
 
-const mopr = {
-    initTables: () => {
-        //Company
-        repository.generateDataTable(
-            '#table_master_abase_company',
-            'Cmaster/getDataMasterAbase',
-            { input: 'abasecompany' },
-            [
-                {targets:0, className: 'control', orderable: false, defaultContent:""},
-                {targets:1, data:"ComCode"},
-                {targets:2, data:"ComShortName"},
-                {targets:3, data:"City"},
-                {targets:4, orderable: false, defaultContent: '<a class="btn dark btn-xs btn-outline view-abase" input="abasecompany" href="#"><i class="fa fa-search"></i></a> <a class="btn dark btn-xs btn-outline edit-abase" input="abasecompany" href="#"><i class="fa fa-pencil"></i></a> <a class="btn dark btn-xs btn-outline disc-abase" input="abasecompany" href="#"><i class="fa fa-trash"></i></a>'}
-            ]
-        ).then(() => {
+    generateRepoDataTable: (table, url, postData, dtColumns) => {
+        repository.generateDataTable(table, url, postData, dtColumns)
+        .then(() => {
             helper.unblockUI()
         })
         .fail(err => {
@@ -61,9 +48,27 @@ const mopr = {
                 'html': `<h4 class="sbold">${err.desc}</h4>`
             })
         })
+    }
+}
+
+const mopr = {
+    initTables: () => {
+        //Company
+        _callable.generateRepoDataTable(
+            '#table_master_abase_company',
+            'Cmaster/getDataMasterAbase',
+            { input: 'abasecompany' },
+            [
+                {targets:0, className: 'control', orderable: false, defaultContent:""},
+                {targets:1, data:"ComCode"},
+                {targets:2, data:"ComShortName"},
+                {targets:3, data:"City"},
+                {targets:4, orderable: false, defaultContent: '<a class="btn dark btn-xs btn-outline view-abase" input="abasecompany" href="#"><i class="fa fa-search"></i></a> <a class="btn dark btn-xs btn-outline edit-abase" input="abasecompany" href="#"><i class="fa fa-pencil"></i></a> <a class="btn dark btn-xs btn-outline disc-abase" input="abasecompany" href="#"><i class="fa fa-trash"></i></a>'}
+            ]
+        )
 
         //Branch
-        repository.generateDataTable(
+        _callable.generateRepoDataTable(
             '#table_master_abase_branch',
             'Cmaster/getDataMasterAbase',
             { input: 'abasebranch' },
@@ -75,21 +80,10 @@ const mopr = {
                 {targets:4, data:"ContactNo"},
                 {targets:5, orderable: false, defaultContent: '<a class="btn blue btn-xs btn-outline view-abase" input="abasebranch" href="#"><i class="fa fa-search"></i></a> <a class="btn green btn-xs btn-outline edit-abase" input="abasebranch" href="#"><i class="fa fa-pencil"></i></a> <a class="btn yellow btn-xs btn-outline disc-abase" input="abasebranch" href="#"><i class="fa fa-close"></i></a>'}
             ]
-        ).then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
-
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
+        )
 
         //Department
-        repository.generateDataTable(
+        _callable.generateRepoDataTable(
             '#table_master_abase_department',
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartment' },
@@ -111,21 +105,10 @@ const mopr = {
                 },
                 {targets:5, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-abase" input="abasedepartment" href="#"><i class="fa fa-pencil"></i></a> <a class="btn yellow btn-xs btn-outline disc-abase" input="abasedepartment" href="#"><i class="fa fa-close"></i></a></center>'}
             ]
-        ).then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
-
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
+        )
 
         //Department Business Unit (BU)
-        repository.generateDataTable(
+        _callable.generateRepoDataTable(
             '#table_master_abase_department_bu',
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartmentbu' },
@@ -141,21 +124,10 @@ const mopr = {
                 },
                 {targets:4, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-abase" input="abasedepartment" href="#"><i class="fa fa-pencil"></i></a> <a class="btn yellow btn-xs btn-outline disc-abase" input="abasedepartment" href="#"><i class="fa fa-close"></i></a></center>'}
             ]
-        ).then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
-
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
+        )
 
         //Department Division
-        repository.generateDataTable(
+        _callable.generateRepoDataTable(
             '#table_master_abase_department_div',
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartmentdiv' },
@@ -165,21 +137,10 @@ const mopr = {
                 {targets:2, data:"DivDes"},
                 {targets:3, orderable: false, defaultContent: '<center><a class="btn green btn-xs btn-outline edit-abase" input="abasedepartmentdiv" href="#"><i class="fa fa-pencil"></i></a> <a class="btn yellow btn-xs btn-outline disc-abase" input="abasedepartmentdiv" href="#"><i class="fa fa-close"></i></a></center>'}
             ]
-        ).then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
-
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
+        )
 
         //Cost Center
-        repository.generateDataTable(
+        _callable.generateRepoDataTable(
             '#table_master_abase_cost_center',
             'Cmaster/getDataMasterAbase',
             { input: 'abasecostcenter' },
@@ -190,18 +151,7 @@ const mopr = {
                 {targets:3, data:"DeptCode"},
                 {targets:4, orderable: false, defaultContent: '<a class="btn green btn-xs btn-outline edit-abase" input="abasecostcenter" href="#"><i class="fa fa-pencil"></i></a> <a class="btn yellow btn-xs btn-outline disc-abase" input="abasecostcenter" href="#"><i class="fa fa-close"></i></a>'}
             ]
-        ).then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
-
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
+        )
     },
 
     eventAddNewItem: () => {
