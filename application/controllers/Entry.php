@@ -43,6 +43,18 @@ class Entry extends CI_Controller
         $this->load->model('Mdl_corp_common');
     }
 
+    protected function _calculate_total_amount($formData){
+        $totalAmount = 0;
+        for($i=0; $i < count($formData->post('itemno')); $i++){
+            $curAmount = (float) ($formData->post('rate')[$i] * $formData->post('unit')[$i]);
+            $_POST['amount'][$i] = $curAmount;
+
+            $totalAmount += $curAmount;
+        }
+
+        $_POST['totalamount'] = $totalAmount;
+    }
+
     //* RECEIPT VOUCHER
     public function view_receipt_voucher()
     {
@@ -214,6 +226,9 @@ class Entry extends CI_Controller
         $branch = $this->input->post('branch');
         $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_entry->get_last_trans_date();
+
+        //Calculate Amount & Total Amount
+        $this->_calculate_total_amount($this->input);
 
         //COUNTER BALANCE ACCTYPE
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $this->input->post('accno')])->row()->Acc_Type;
@@ -590,6 +605,9 @@ class Entry extends CI_Controller
         $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_entry->get_last_trans_date();
 
+        //Calculate Amount & Total Amount
+        $this->_calculate_total_amount($this->input);
+
         //COUNTER BALANCE ACCTYPE
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $this->input->post('accno')])->row()->Acc_Type;
 
@@ -964,6 +982,9 @@ class Entry extends CI_Controller
         $branch = $this->input->post('branch');
         $cur_date = $this->input->post('transdate');
         $last_date = $this->Mdl_corp_entry->get_last_trans_date();
+
+        //Calculate Amount & Total Amount
+        $this->_calculate_total_amount($this->input);
 
         //COUNTER BALANCE ACCTYPE
         $acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $this->input->post('accno')])->row()->Acc_Type;
