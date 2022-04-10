@@ -25,7 +25,7 @@ class Mdl_corp_master extends CI_Model {
                 $this->db->insert($table, $data);
             }
         } else {
-                $this->db->insert($table, $data);
+            $this->db->insert($table, $data);
         }
     		
 		$this->db->trans_complete();
@@ -33,11 +33,11 @@ class Mdl_corp_master extends CI_Model {
 		if($this->db->trans_status()){
             $this->db->trans_commit();
             
-            return 'success';
+            return true;
         }else{
             $this->db->trans_rollback();
             
-            return $this->db->error();
+            return false;
         }
 	}
 
@@ -45,8 +45,8 @@ class Mdl_corp_master extends CI_Model {
 		return $this->db->get($table)->result_array();
 	}
 
-	public function getWhere($select, $table, $where, $val){
-		return $this->db->select($select)->get_where($table, [$where => $val])->result_array();
+	public function getWhere($select, $table, $where, $val, $limit, $offset){
+		return $this->db->select($select)->limit($limit, $offset)->get_where($table, [$where => $val])->result_array();
 	}
 
 	public function updateData($where, $val, $table, $data){
@@ -100,8 +100,24 @@ class Mdl_corp_master extends CI_Model {
         }
     }
 
-    function get_join_bu(){
-        $data = $this->db->query("SELECT a.CtrlNo,a.BUCode,a.BUDes,a.DivCode,a.RegBy,a.RegDate,a.Disc,a.DiscDate,a.Remarks,b.DivDes FROM abase_03_dept_bu a LEFT JOIN abase_03_dept_div b ON b.DivCode = a.DivCode WHERE a.Disc = '0'");
+    function get_join_bu($limit, $offset){
+        $data = $this->db->query(
+            "SELECT 
+                a.CtrlNo,
+                a.BUCode,
+                a.BUDes,
+                a.DivCode,
+                a.RegBy,
+                a.RegDate,
+                a.Disc,
+                a.DiscDate,
+                a.Remarks,
+                b.DivDes
+             FROM abase_03_dept_bu a 
+             LEFT JOIN abase_03_dept_div b 
+                ON b.DivCode = a.DivCode 
+             WHERE a.Disc = '0'
+             LIMIT $offset, $limit");
         if ($data) {
             return $data->result_array();
         }else{
@@ -109,8 +125,27 @@ class Mdl_corp_master extends CI_Model {
         }
     }
 
-    function get_join_dept(){
-        $data = $this->db->query("SELECT a.CtrlNo,a.DeptCode,a.DeptDes,a.Branch,a.BUCode,a.RegBy,a.RegDate,a.Disc,a.DiscDate,a.Remarks,b.BUDes,c.BranchName FROM abase_03_dept a LEFT JOIN abase_03_dept_bu b ON b.BUCode = a.BUCode LEFT JOIN abase_02_branch c ON c.BranchCode = a.Branch WHERE a.Disc = '0'");
+    function get_join_dept($limit, $offset){
+        $data = $this->db->query(
+            "SELECT 
+                a.CtrlNo,
+                a.DeptCode,
+                a.DeptDes,
+                a.Branch,
+                a.BUCode,
+                a.RegBy,
+                a.RegDate,
+                a.Disc,
+                a.DiscDate,
+                a.Remarks,
+                b.BUDes,c.BranchName 
+             FROM abase_03_dept a 
+             LEFT JOIN abase_03_dept_bu b 
+                ON b.BUCode = a.BUCode 
+             LEFT JOIN abase_02_branch c 
+                ON c.BranchCode = a.Branch 
+             WHERE a.Disc = '0'
+             LIMIT $offset, $limit");
         if ($data) {
             return $data->result_array();
         }else{
@@ -118,8 +153,22 @@ class Mdl_corp_master extends CI_Model {
         }
     }
 
-    function get_join_cc(){
-        $data = $this->db->query("SELECT a.CostCenter,a.CCDes,a.DeptCode,a.RegBy,a.RegDate,a.Disc,a.DiscDate,a.Remarks,b.DeptDes FROM abase_04_cost_center a LEFT JOIN abase_03_dept b ON b.DeptCode = a.DeptCode WHERE a.Disc = '0'");
+    function get_join_cc($limit, $offset){
+        $data = $this->db->query("SELECT 
+            a.CostCenter,
+            a.CCDes,
+            a.DeptCode,
+            a.RegBy,
+            a.RegDate,
+            a.Disc,
+            a.DiscDate,
+            a.Remarks,
+            b.DeptDes 
+         FROM abase_04_cost_center a 
+         LEFT JOIN abase_03_dept b 
+            ON b.DeptCode = a.DeptCode 
+         WHERE a.Disc = '0'
+         LIMIT $offset, $limit");
         if ($data) {
             return $data->result();
         }else{
@@ -127,8 +176,24 @@ class Mdl_corp_master extends CI_Model {
         }
     }
 
-    function get_join_stockclass_stockcat(){
-        $data = $this->db->query("SELECT a.CatCode,a.CatDescription,a.StockClassCode,a.RegBy,a.RegDate,a.Disc,a.DiscDate,a.Remarks,b.StockClassDescription FROM tbl_mat_mas_stock_b_cat a LEFT JOIN tbl_mat_mas_stock_a_class b ON b.StockClassCode = a.StockClassCode WHERE a.Disc = '0'");
+    function get_join_stockclass_stockcat($limit, $offset){
+        $data = $this->db->query(
+            "SELECT 
+                a.CatCode,
+                a.CatDescription,
+                a.StockClassCode,
+                a.RegBy,
+                a.RegDate,
+                a.Disc,
+                a.DiscDate,
+                a.Remarks,
+                b.StockClassDescription 
+             FROM tbl_mat_mas_stock_b_cat a 
+             LEFT JOIN tbl_mat_mas_stock_a_class b 
+                ON b.StockClassCode = a.StockClassCode 
+            WHERE a.Disc = '0'
+            LIMIT $offset, $limit
+        ");
         if ($data) {
             return $data->result();
         }else{
@@ -136,8 +201,24 @@ class Mdl_corp_master extends CI_Model {
         }
     }
 
-    function get_join_stockcat_stocktype(){
-        $data = $this->db->query("SELECT a.TypeCode,a.TypeDescription,a.CatCode,a.RegBy,a.RegDate,a.Disc,a.DiscDate,a.Remarks,b.CatDescription FROM tbl_mat_mas_stock_c_type a LEFT JOIN tbl_mat_mas_stock_b_cat b ON b.CatCode = a.CatCode WHERE a.Disc = '0'");
+    function get_join_stockcat_stocktype($limit, $offset){
+        $data = $this->db->query(
+            "SELECT 
+                a.TypeCode,
+                a.TypeDescription,
+                a.CatCode,
+                a.RegBy,
+                a.RegDate,
+                a.Disc,
+                a.DiscDate,
+                a.Remarks,
+                b.CatDescription 
+             FROM tbl_mat_mas_stock_c_type a 
+             LEFT JOIN tbl_mat_mas_stock_b_cat b 
+                ON b.CatCode = a.CatCode 
+            WHERE a.Disc = '0'
+            LIMIT $offset, $limit
+        ");
         if ($data) {
             return $data->result();
         }else{
@@ -145,8 +226,24 @@ class Mdl_corp_master extends CI_Model {
         }
     }
 
-    function get_join_stocktype_stockgroup(){
-        $data = $this->db->query("SELECT a.GroupCode,a.GroupDescription,a.TypeCode,a.RegBy,a.RegDate,a.Disc,a.DiscDate,a.Remarks,b.TypeDescription FROM tbl_mat_mas_stock_d_grp a LEFT JOIN tbl_mat_mas_stock_c_type b ON b.TypeCode = a.TypeCode WHERE a.Disc = '0'");
+    function get_join_stocktype_stockgroup($limit, $offset){
+        $data = $this->db->query(
+            "SELECT 
+                a.GroupCode,
+                a.GroupDescription,
+                a.TypeCode,
+                a.RegBy,
+                a.RegDate,
+                a.Disc,
+                a.DiscDate,
+                a.Remarks,
+                b.TypeDescription 
+             FROM tbl_mat_mas_stock_d_grp a 
+             LEFT JOIN tbl_mat_mas_stock_c_type b 
+                ON b.TypeCode = a.TypeCode 
+            WHERE a.Disc = '0'
+            LIMIT $offset, $limit
+        ");
         if ($data) {
             return $data->result();
         }else{
@@ -178,12 +275,14 @@ class Mdl_corp_master extends CI_Model {
             '<button id="delete_currency" class="btn btn-outline btn-xs red" title="Delete" currency-code="$1"><i class="fa fa-trash"></i></button>', 'Currency');
         return $this->dtables->generate();
     }
+    
     function update_data_cur($dstorage, $currency)
     {
         $this->db->where('Currency', $currency);
         $this->db->update('tbl_fa_mas_cur', $dstorage);
         return ($this->db->affected_rows() > 0) ? true : false;
     }
+    
     function get_detail_cur($currency)
     {
         $query = $this->db->query("SELECT * FROM tbl_fa_mas_cur WHERE Currency = '$currency'");
@@ -193,6 +292,7 @@ class Mdl_corp_master extends CI_Model {
             return false;
         }
     }
+    
     function get_all_cur()
     {
         $this->db->select('*');
@@ -205,6 +305,7 @@ class Mdl_corp_master extends CI_Model {
             return false;
         }
     }
+    
     function delete_cur_by_curcode($table, $id)
     {
         $this->db->delete($table, array('Currency' => $id));

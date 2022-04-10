@@ -36,12 +36,13 @@
         <script src="<?=base_url()?>assets/metronic/pages/scripts/table-datatables-responsive.min.js" type="text/javascript"></script>
         <script src="<?=base_url()?>assets/metronic/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <script src="<?=base_url()?>assets/metronic/pages/scripts/components-select2.min.js" type="text/javascript"></script>
-        <script src="<?= base_url() ?>assets/metronic/global/plugins/moment.min.js" type="text/javascript"></script>
+        <script src="<?=base_url()?>assets/metronic/global/plugins/moment.min.js" type="text/javascript"></script>
         <script src="<?=base_url()?>assets/metronic/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
         <script src="<?=base_url()?>assets/metronic/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
         <script src="<?=base_url()?>assets/metronic/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
         <script src="<?=base_url()?>assets/metronic/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
         <script src="<?=base_url()?>assets/metronic/global/plugins/clockface/js/clockface.js" type="text/javascript"></script>
+        <script src="<?=base_url()?>assets/metronic/global/plugins/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGIN -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <script src="<?=base_url()?>assets/metronic/layouts/layout5/scripts/layout.min.js" type="text/javascript"></script>

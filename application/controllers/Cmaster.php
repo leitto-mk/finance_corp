@@ -3,10 +3,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Cmaster extends CI_Controller
 {
+	/**
+     * Common HTTP status codes and their respective description.
+     *
+     * @link http://www.restapitutorial.com/httpstatuscodes.html
+     */
+    const HTTP_OK = 200;
+    const HTTP_CREATED = 201;
+    const HTTP_NOT_MODIFIED = 304;
+    const HTTP_BAD_REQUEST = 400;
+    const HTTP_UNAUTHORIZED = 401;
+    const HTTP_FORBIDDEN = 403;
+    const HTTP_NOT_FOUND = 404;
+    const HTTP_NOT_ACCEPTABLE = 406;
+    const HTTP_INTERNAL_ERROR = 500;
+
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this->load->helper('response');
+
 		$this->load->model('Mdl_corp_master', 'master');
+		
 		$this->load->library(array('Datatables' => 'dtables', 'Zend'));
 	}
 
@@ -444,37 +463,42 @@ class Cmaster extends CI_Controller
 	public function getDataMasterAbase()
 	{
 		$input = $this->input->post('input');
+		
+		//From DataTables Ajax
+		$limit = $this->input->post('length') ?? 100;
+		$offset = $this->input->post('start') ?? 0;
+
 		switch ($input) {
 			case 'abasecompany':
-				$hasil = $this->master->getWhere('*', 'abase_01_com', 'Disc', 0);
+				$hasil = $this->master->getWhere('*', 'abase_01_com', 'Disc', 0, $limit, $offset);
 				echo json_encode($hasil);
 				break;
 			case 'abasebranch':
-				$hasil = $this->master->getWhere('*', 'abase_02_branch', 'Disc', 0);
+				$hasil = $this->master->getWhere('*', 'abase_02_branch', 'Disc', 0, $limit, $offset);
 				echo json_encode($hasil);
 				break;
 				// case 'abasedepartmentbu':
-				// 	$hasil = $this->master->getWhere('*', 'abase_03_dept_bu', 'Disc', 0);
+				// 	$hasil = $this->master->getWhere('*', 'abase_03_dept_bu', 'Disc', 0, $limit, $offset);
 				// 	echo json_encode($hasil);
 				// 	break;
 			case 'abasedepartmentbu':
-				$hasil = $this->master->get_join_bu();
+				$hasil = $this->master->get_join_bu($limit, $offset);
 				echo json_encode($hasil);
 				break;
 				// case 'abasedepartment':
-				// 	$hasil = $this->master->getWhere('*', 'abase_03_dept', 'Disc', 0);
+				// 	$hasil = $this->master->getWhere('*', 'abase_03_dept', 'Disc', 0, $limit, $offset);
 				// 	echo json_encode($hasil);
 				// 	break;
 			case 'abasedepartment':
-				$hasil = $this->master->get_join_dept();
+				$hasil = $this->master->get_join_dept($limit, $offset);
 				echo json_encode($hasil);
 				break;
 			case 'abasedepartmentdiv':
-				$hasil = $this->master->getWhere('*', 'abase_03_dept_div', 'Disc', 0);
+				$hasil = $this->master->getWhere('*', 'abase_03_dept_div', 'Disc', 0, $limit, $offset);
 				echo json_encode($hasil);
 				break;
 			case 'abasecostcenter':
-				$hasil = $this->master->getWhere('*', 'abase_04_cost_center', 'Disc', 0);
+				$hasil = $this->master->getWhere('*', 'abase_04_cost_center', 'Disc', 0, $limit, $offset);
 				echo json_encode($hasil);
 				break;
 				// case 'abasecostcenter' :
@@ -1018,120 +1042,120 @@ class Cmaster extends CI_Controller
 		switch ($this->input->post('input')) {
 			case 'mas_stock_a_class':
 				echo '<form id="form_stockclass">
-							<div class="portlet light bordered">
-			                    <div class="portlet-body">
-			                        <div class="form-horizontal">
-			                            <div class="form-body">
-			                                <div class="form-group">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Code : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                        <input type="text" name="stockclasscode" id="stockclasscode" class="form-control">
-			                                    </div>
-			                                </div>
-			                                <div class="form-group">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Description : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                        <input type="text" name="stockclassdescription" id="stockclassdescription" class="form-control">
-			                                    </div>
-			                                </div>
-			                            </div>
-			                        </div>     
-			                    </div>
-			                </div>
-			             </form>';
+						<div class="portlet light bordered">
+							<div class="portlet-body">
+								<div class="form-horizontal">
+									<div class="form-body">
+										<div class="form-group">
+											<label class="col-md-3 col-sm-3 control-label bold">Code : </label>
+											<div class="col-md-9 col-sm-9">
+												<input type="text" name="stockclasscode" id="stockclasscode" class="form-control">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 col-sm-3 control-label bold">Description : </label>
+											<div class="col-md-9 col-sm-9">
+												<input type="text" name="stockclassdescription" id="stockclassdescription" class="form-control">
+											</div>
+										</div>
+									</div>
+								</div>     
+							</div>
+						</div>
+					</form>';
 				break;
 			case 'mas_stock_b_cat':
 				echo '<form id="form_stockcategory">
-							<div class="portlet light bordered">
-			                    <div class="portlet-body">
-			                        <div class="form-horizontal">
-			                            <div class="form-body">
-			                             	<div class="form-group has-error">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Class : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                    	<select name="stockclasscode" id="stockclasscode" class="form-control selectinput">
-			                                        </select>
-			                                    </div>
-			                                </div>
-			                                <div class="form-group">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Code : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                        <input type="text" name="stockcatcode" id="stockcatcode" class="form-control">
-			                                    </div>
-			                                </div>
-			                                <div class="form-group">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Description : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                        <input type="text" name="stockcatdescription" id="stockcatdescription" class="form-control">
-			                                    </div>
-			                                </div>			                               
-			                            </div>
-			                        </div>     
-			                    </div>
-			                </div>
-			              </form>';
+						<div class="portlet light bordered">
+							<div class="portlet-body">
+								<div class="form-horizontal">
+									<div class="form-body">
+										<div class="form-group has-error">
+											<label class="col-md-3 col-sm-3 control-label bold">Class : </label>
+											<div class="col-md-9 col-sm-9">
+												<select name="stockclasscode" id="stockclasscode" class="form-control selectinput">
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 col-sm-3 control-label bold">Code : </label>
+											<div class="col-md-9 col-sm-9">
+												<input type="text" name="stockcatcode" id="stockcatcode" class="form-control">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 col-sm-3 control-label bold">Description : </label>
+											<div class="col-md-9 col-sm-9">
+												<input type="text" name="stockcatdescription" id="stockcatdescription" class="form-control">
+											</div>
+										</div>			                               
+									</div>
+								</div>     
+							</div>
+						</div>
+					</form>';
 				break;
 			case 'mas_stock_c_type':
 				echo '<form id="form_stocktype">
-							<div class="portlet light bordered">
-			                    <div class="portlet-body">
-			                        <div class="form-horizontal">
-			                            <div class="form-body">
-			                                <div class="form-group has-error">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Category : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                    	<select name="stockcatcode" id="stockcatcode" class="form-control selectinput">
-			                                        </select>
-			                                    </div>
-			                                </div>
-			                                <div class="form-group">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Code : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                        <input type="text" name="stocktypecode" id="stocktypecode" class="form-control">
-			                                    </div>
-			                                </div>
-			                                <div class="form-group">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Description : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                        <input type="text" name="stocktypedescription" id="stocktypedescription" class="form-control">
-			                                    </div>
-			                                </div>
-			                            </div>
-			                        </div>     
-			                    </div>
-			                </div>
-			              </form>';
+						<div class="portlet light bordered">
+							<div class="portlet-body">
+								<div class="form-horizontal">
+									<div class="form-body">
+										<div class="form-group has-error">
+											<label class="col-md-3 col-sm-3 control-label bold">Category : </label>
+											<div class="col-md-9 col-sm-9">
+												<select name="stockcatcode" id="stockcatcode" class="form-control selectinput">
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 col-sm-3 control-label bold">Code : </label>
+											<div class="col-md-9 col-sm-9">
+												<input type="text" name="stocktypecode" id="stocktypecode" class="form-control">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 col-sm-3 control-label bold">Description : </label>
+											<div class="col-md-9 col-sm-9">
+												<input type="text" name="stocktypedescription" id="stocktypedescription" class="form-control">
+											</div>
+										</div>
+									</div>
+								</div>     
+							</div>
+						</div>
+					</form>';
 				break;
 			case 'mas_stock_d_grp':
 				echo '<form id="form_stockgrp">
-							<div class="portlet light bordered">
-			                    <div class="portlet-body">
-			                        <div class="form-horizontal">
-			                            <div class="form-body">
-			                                <div class="form-group has-error">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Sub Category : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                    	<select name="stocktypecode" id="stocktypecode" class="form-control selectinput">
-			                                        </select>
-			                                    </div>
-			                                </div>
-			                                <div class="form-group">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Code : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                        <input type="text" name="stockgrpcode" id="stockgrpcode" class="form-control">
-			                                    </div>
-			                                </div>
-			                                <div class="form-group">
-			                                    <label class="col-md-3 col-sm-3 control-label bold">Description : </label>
-			                                    <div class="col-md-9 col-sm-9">
-			                                        <input type="text" name="stockgrpdescription" id="stockgrpdescription" class="form-control">
-			                                    </div>
-			                                </div>
-			                            </div>
-			                        </div>     
-			                    </div>
-			                </div>
-			              </form>';
+						<div class="portlet light bordered">
+							<div class="portlet-body">
+								<div class="form-horizontal">
+									<div class="form-body">
+										<div class="form-group has-error">
+											<label class="col-md-3 col-sm-3 control-label bold">Sub Category : </label>
+											<div class="col-md-9 col-sm-9">
+												<select name="stocktypecode" id="stocktypecode" class="form-control selectinput">
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 col-sm-3 control-label bold">Code : </label>
+											<div class="col-md-9 col-sm-9">
+												<input type="text" name="stockgrpcode" id="stockgrpcode" class="form-control">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 col-sm-3 control-label bold">Description : </label>
+											<div class="col-md-9 col-sm-9">
+												<input type="text" name="stockgrpdescription" id="stockgrpdescription" class="form-control">
+											</div>
+										</div>
+									</div>
+								</div>     
+							</div>
+						</div>
+					</form>';
 				break;
 		}
 	}
@@ -1139,21 +1163,26 @@ class Cmaster extends CI_Controller
 	public function getDataMasterStockGroup()
 	{
 		$input = $this->input->post('input');
+		
+		//From DataTables Ajax
+		$limit = $this->input->post('length') ?? 100;
+		$offset = $this->input->post('start') ?? 0;
+
 		switch ($input) {
 			case 'mas_stock_a_class':
-				$hasil = $this->master->getWhere('*', 'tbl_mat_mas_stock_a_class', 'Disc', '0');
+				$hasil = $this->master->getWhere('*', 'tbl_mat_mas_stock_a_class', 'Disc', '0', $limit, $offset);
 				echo json_encode($hasil);
 				break;
 			case 'mas_stock_b_cat':
-				$hasil = $this->master->get_join_stockclass_stockcat();
+				$hasil = $this->master->get_join_stockclass_stockcat($limit, $offset);
 				echo json_encode($hasil);
 				break;
 			case 'mas_stock_c_type':
-				$hasil = $this->master->get_join_stockcat_stocktype();
+				$hasil = $this->master->get_join_stockcat_stocktype($limit, $offset);
 				echo json_encode($hasil);
 				break;
 			case 'mas_stock_d_grp':
-				$hasil = $this->master->get_join_stocktype_stockgroup();
+				$hasil = $this->master->get_join_stocktype_stockgroup($limit, $offset);
 				echo json_encode($hasil);
 				break;
 		}
@@ -1162,25 +1191,21 @@ class Cmaster extends CI_Controller
 	public function getDataMasterStockGroupByID()
 	{
 		$input = $this->input->post('input');
-		$id = $this->input->post('StockClassCode');
-		$idcat = $this->input->post('CatCode');
-		$idtype = $this->input->post('TypeCode');
-		$idgroup = $this->input->post('GroupCode');
 		switch ($input) {
 			case 'mas_stock_a_class':
-				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_a_class', 'StockClassCode', $id);
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_a_class', 'StockClassCode', $this->input->post('StockClassCode'));
 				echo json_encode($hasil);
 				break;
 			case 'mas_stock_b_cat':
-				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_b_cat', 'CatCode', $idcat);
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_b_cat', 'CatCode', $this->input->post('CatCode'));
 				echo json_encode($hasil);
 				break;
 			case 'mas_stock_c_type':
-				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_c_type', 'TypeCode', $idtype);
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_c_type', 'TypeCode', $this->input->post('TypeCode'));
 				echo json_encode($hasil);
 				break;
 			case 'mas_stock_d_grp':
-				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_d_grp', 'GroupCode', $idgroup);
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_d_grp', 'GroupCode', $this->input->post('GroupCode'));
 				echo json_encode($hasil);
 				break;
 		}
@@ -1188,7 +1213,11 @@ class Cmaster extends CI_Controller
 
 	public function inputDataMasterStockGroup()
 	{
+		var_dump('<pre>'.print_r($this->input->post(), true).'</pre>');
+		die();
 		$input = ($this->input->post('input'));
+		$result = false;
+		
 		switch ($input) {
 			case 'mas_stock_a_class':
 				$data = [
@@ -1198,8 +1227,7 @@ class Cmaster extends CI_Controller
 					'RegDate' => date('Y-m-d')
 				];
 				$where = ['StockClassCode' => $this->input->post('stockclasscode')];
-				$hasil = $this->master->addData('tbl_mat_mas_stock_a_class', $data, $where);
-				echo json_encode($hasil);
+				$result = $this->master->addData('tbl_mat_mas_stock_a_class', $data, $where);
 				break;
 			case 'mas_stock_b_cat':
 				$data = [
@@ -1210,8 +1238,7 @@ class Cmaster extends CI_Controller
 					'RegDate' => date('Y-m-d')
 				];
 				$where = ['CatCode' => $this->input->post('stockcatcode')];
-				$hasil = $this->master->addData('tbl_mat_mas_stock_b_cat', $data, $where);
-				echo json_encode($hasil);
+				$result = $this->master->addData('tbl_mat_mas_stock_b_cat', $data, $where);
 				break;
 			case 'mas_stock_c_type':
 				$data = [
@@ -1222,8 +1249,7 @@ class Cmaster extends CI_Controller
 					'RegDate' => date('Y-m-d')
 				];
 				$where = ['TypeCode' => $this->input->post('stocktypecode')];
-				$hasil = $this->master->addData('tbl_mat_mas_stock_c_type', $data, $where);
-				echo json_encode($hasil);
+				$result = $this->master->addData('tbl_mat_mas_stock_c_type', $data, $where);
 				break;
 			case 'mas_stock_d_grp':
 				$data = [
@@ -1234,24 +1260,33 @@ class Cmaster extends CI_Controller
 					'RegDate' => date('Y-m-d')
 				];
 				$where = ['GroupCode' => $this->input->post('stockgrpcode')];
-				$hasil = $this->master->addData('tbl_mat_mas_stock_d_grp', $data, $where);
-				echo json_encode($hasil);
+				$result = $this->master->addData('tbl_mat_mas_stock_d_grp', $data, $where);
 				break;
 		}
+
+		if($result !== true){
+			if($result == false){
+				set_error_response(self::HTTP_INTERNAL_ERROR, "Database Error");
+			}else{
+				set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+			}
+		}
+
+		set_success_response("Added");
 	}
 
 	public function editDataMasterStockGroup()
 	{
 		$input = $this->input->post('input');
 		$id  = $this->input->post('id');
+		$result = 0;
 		switch ($input) {
 			case 'mas_stock_a_class':
 				$data = [
 					'StockClassCode' => $this->input->post('stockclasscode'),
 					'StockClassDescription' => $this->input->post('stockclassdescription')
 				];
-				$hasil = $this->master->updateData('StockClassCode', $id, 'tbl_mat_mas_stock_a_class', $data);
-				echo json_encode($hasil);
+				$result = $this->master->updateData('StockClassCode', $id, 'tbl_mat_mas_stock_a_class', $data);
 				break;
 			case 'mas_stock_b_cat':
 				$data = [
@@ -1259,8 +1294,7 @@ class Cmaster extends CI_Controller
 					'CatDescription' => $this->input->post('stockcatdescription'),
 					'StockClassCode' => $this->input->post('stockclasscode')
 				];
-				$hasil = $this->master->updateData('CatCode', $id, 'tbl_mat_mas_stock_b_cat', $data);
-				echo json_encode($hasil);
+				$result = $this->master->updateData('CatCode', $id, 'tbl_mat_mas_stock_b_cat', $data);
 				break;
 			case 'mas_stock_c_type':
 				$data = [
@@ -1268,8 +1302,7 @@ class Cmaster extends CI_Controller
 					'TypeDescription' => $this->input->post('stocktypedescription'),
 					'CatCode' => $this->input->post('stockcatcode')
 				];
-				$hasil = $this->master->updateData('TypeCode', $id, 'tbl_mat_mas_stock_c_type', $data);
-				echo json_encode($hasil);
+				$result = $this->master->updateData('TypeCode', $id, 'tbl_mat_mas_stock_c_type', $data);
 				break;
 			case 'mas_stock_d_grp':
 				$data = [
@@ -1277,10 +1310,15 @@ class Cmaster extends CI_Controller
 					'GroupDescription' => $this->input->post('stockgrpdescription'),
 					'TypeCode' => $this->input->post('stocktypecode')
 				];
-				$hasil = $this->master->updateData('GroupCode', $id, 'tbl_mat_mas_stock_d_grp', $data);
-				echo json_encode($hasil);
+				$result = $this->master->updateData('GroupCode', $id, 'tbl_mat_mas_stock_d_grp', $data);
 				break;
 		}
+
+		if($result == 0){
+			set_error_response(self::HTTP_INTERNAL_ERROR, "Database Error");
+		}
+
+		set_success_response("Updated");
 	}
 
 	public function discDataMasterStockGroup()
@@ -1288,24 +1326,31 @@ class Cmaster extends CI_Controller
 		$input = $this->input->post('input');
 		$id = $this->input->post('id');
 		$remarks = $this->input->post('remarks');
+		$result = 0;
 		switch ($input) {
 			case 'mas_stock_a_class':
 				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-				$hasil = $this->master->updateData('StockClassCode', $id, 'tbl_mat_mas_stock_a_class', $data);
+				$result = $this->master->updateData('StockClassCode', $id, 'tbl_mat_mas_stock_a_class', $data);
 				break;
 			case 'mas_stock_b_cat':
 				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-				$hasil = $this->master->updateData('CatCode', $id, 'tbl_mat_mas_stock_b_cat', $data);
+				$result = $this->master->updateData('CatCode', $id, 'tbl_mat_mas_stock_b_cat', $data);
 				break;
 			case 'mas_stock_c_type':
 				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-				$hasil = $this->master->updateData('TypeCode', $id, 'tbl_mat_mas_stock_c_type', $data);
+				$result = $this->master->updateData('TypeCode', $id, 'tbl_mat_mas_stock_c_type', $data);
 				break;
 			case 'mas_stock_d_grp':
 				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-				$hasil = $this->master->updateData('GroupCode', $id, 'tbl_mat_mas_stock_d_grp', $data);
+				$result = $this->master->updateData('GroupCode', $id, 'tbl_mat_mas_stock_d_grp', $data);
 				break;
 		}
+
+		if($result !== 1){
+			set_error_response(self::HTTP_INTERNAL_ERROR, "Database Error");
+		}
+
+		set_success_response("Deleted");
 	}
 
 	//* STORAGE
@@ -1474,9 +1519,14 @@ class Cmaster extends CI_Controller
 	public function getDataMaster()
 	{
 		$input = $this->input->post('input');
+		
+		//From DataTables Ajax
+		$limit = $this->input->post('length') ?? 100;
+		$offset = $this->input->post('start') ?? 0;
+
 		switch ($input) {
 			case 'mas_customer_price_type':
-				$hasil = $this->master->getWhere('*', 'tbl_mat_cat_customer_price', 'Disc', '0');
+				$hasil = $this->master->getWhere('*', 'tbl_mat_cat_customer_price', 'Disc', '0', $limit, $offset);
 				echo json_encode($hasil);
 				break;
 		}
