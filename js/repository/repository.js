@@ -46,7 +46,8 @@ const repository = {
                     })
                 },
                 dataSrc: response => {
-                    defer.resolve()
+                    helper.unblockUI()
+
                     if(response.result && response.result.length > 0){
                         for (let i = 0; i < response.result.length; i++){
                             response.result[i].ItemNo = i+1
@@ -58,7 +59,13 @@ const repository = {
                     return response
                 },
                 error: err => {
-                    defer.reject(err)
+                    helper.unblockUI()
+
+                    Swal.fire({
+                        'icon': 'error',
+                        'title': 'ERROR',
+                        'html': `<h4 class="sbold">${err.desc}</h4>`
+                    })
                 },
             },
             columnDefs: dtColumns
