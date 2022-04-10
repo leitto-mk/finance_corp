@@ -19,7 +19,7 @@ const repository = {
      * @type    {object}    Request (POST) Body
      * @type    {object}    Column Definition
      * 
-     * @return  {promise}   Promise
+     * @return  {promise}   Promised
      */
     generateDataTable: (table, url, postData, dtColumns) => {
         var defer = $.Deferred()
@@ -37,7 +37,7 @@ const repository = {
             lengthMenu: [30, 50, 100, 300],
             pagingType: "bootstrap_extended",
             ajax: {
-                url: url?.target ?? url, //Some URL has multiple value, check receipt's `initDT`
+                url: url?.target ?? url, //Some URL has multiple value, check receipt's `initDT` for example
                 method: 'POST',
                 data: postData,
                 beforeSend: () => {
@@ -70,12 +70,13 @@ const repository = {
     /**
      * `Fetch` Record from the Server. with `POST` method
      * 
-     * @type {string}       URL string
-     * @type {object}       body param inside an object
+     * @type    {string}    URL string
+     * @type    {object}    body param inside an object
+     * @type    {object}    Type of Response (JSON, text/hml, etc)
      * 
-     * @return {promise}    Promise
+     * @return  {promise}   Promise
      */
-    getRecord: (url, datas) => {
+    getRecord: (url, datas, responseType) => {
         var defer = $.Deferred()
         
         datas = datas ?? {}
@@ -86,7 +87,7 @@ const repository = {
         $.ajax({
             url: url,
             method: 'POST',
-            dataType: 'JSON',
+            dataType: responseType ?? 'JSON',
             data: datas,
             beforeSend: () => {
                 helper.blockUI({
@@ -107,12 +108,13 @@ const repository = {
     /**
      * `Delete` Record from the server. with `POST` method
      * 
-     * @type {string}       URL string
-     * @type {object}       body param inside an object
+     * @type    {string}    URL string
+     * @type    {object}    body param inside an object
+     * @type    {object}    Type of Response (JSON, text/hml, etc)
      * 
-     * @return {promise}    Promise
+     * @return  {promise}   Promise
      */
-    deleteRecord: (url, datas) => {
+    deleteRecord: (url, datas, responseType) => {
         var defer = $.Deferred()
 
         datas = datas ?? {}
@@ -123,6 +125,7 @@ const repository = {
         $.ajax({
             url: url,
             method: 'POST',
+            dataType: responseType ?? 'JSON',
             data: datas,
             beforeSend: () => {
                 helper.blockUI({
@@ -143,12 +146,13 @@ const repository = {
     /**
      * `Submit` Record to the server. with `POST` method
      * 
-     * @type {string}       URL string
-     * @type {object}       body param inside an object
+     * @type    {string}    URL string
+     * @type    {object}    body param inside an object
+     * @type    {object}    Type of Response (JSON, text/hml, etc)
      * 
-     * @return {promise}    Promise
+     * @return  {promise}   Promise
      */
-    submitRecord: (url, datas) => {
+    submitRecord: (url, datas, responseType) => {
         var defer = $.Deferred()
 
         datas = datas ?? {}
@@ -159,7 +163,7 @@ const repository = {
         $.ajax({
             url: url,
             method: 'POST',
-            dataType: 'JSON',
+            dataType: responseType ?? 'JSON',
             data: datas,
             beforeSend: () => {
                 helper.blockUI({
