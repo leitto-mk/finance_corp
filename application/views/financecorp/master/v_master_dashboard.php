@@ -176,10 +176,10 @@
                                         </div>
                                     </div>
                                     <div class="portlet-body" style="margin-top: -10px">
-                                        <table class="table dt-responsive table-bordered" id="table_master_abase_branch2" width="100%">
+                                        <table class="table dt-responsive table-bordered" id="table_master_abase_branch" width="100%">
                                             <thead class="font-dark bg-grey-salt">
                                                 <tr>
-                                                    <th></th>
+                                                    <th class="text-left">No.</th>
                                                     <th class="all text-center">Code</th>
                                                     <th class="all text-center">Name</th>
                                                     <th class="all text-center">Type</th>
@@ -194,39 +194,6 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="master_abase_branch">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="portlet light bg-grey-cararra">
-                                    <h1 class="uppercase bold"><i class="fa fa-map-marker"></i> Branch</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portlet bordered light bg-grey-cararra">
-                            <div class="portlet-title">
-                                <div class="tools">
-                                    <button type="button" class="btn blue btnModal" id="button_add_master_abase_branch"><i class="fa fa-plus"></i> Branch</button>
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                <table class="table dt-responsive" id="table_master_abase_branch" width="100%">
-                                    <thead class="font-dark bg-grey-salt">
-                                        <tr>
-                                            <th></th>
-                                            <th class="all">Code</th>
-                                            <th class="all">Name</th>
-                                            <th class="all">Address</th>
-                                            <th class="all">Contact No</th>
-                                            <th class="all">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>

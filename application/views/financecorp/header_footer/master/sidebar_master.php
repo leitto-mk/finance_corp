@@ -5,17 +5,11 @@
             <li class="font-dark">
                 <a href="#master_abase_company" data-toggle="tab" class="font-dark">Company</a>
             </li>
-            <!-- <li class="font-dark">
-                <a href="#master_abase_branch" data-toggle="tab" class="font-dark">Branch</a>
-            </li> -->
             <li class="font-dark">
-                <a href="#master_abase_department" data-toggle="tab" class="font-dark">Department </a>
+                <a href="#master_abase_department" data-toggle="tab" class="font-dark">Department</a>
             </li>
             <li class="font-dark">
-                <a href="#" class="font-dark">Location </a>
-            </li>
-            <li class="font-dark">
-                <a href="#" class="font-dark">Project </a>
+                <a href="#master_abase_cost_center" data-toggle="tab" class="font-dark">Cost Center</a>
             </li>
             <br>
             <h3 class="blog-sidebar-title uppercase" style="margin-left: -40px">Supply</h3>
