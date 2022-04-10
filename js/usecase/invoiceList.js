@@ -71,18 +71,6 @@ export const ListPage = () => {
         let url = window.location.origin + '/invoice/get'
 
         repository.generateDataTable('#list_invoice', url, null, dtColumns)
-        .then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
-
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
     })();
 
     (function InitSelectSearch(){
@@ -90,7 +78,7 @@ export const ListPage = () => {
     })();
 
     (function EventDeleteInvoice(){
-        $('#list_invoice').on('click', 'a[name="delete"]', function(e){
+        $('#list_invoice').on('click', 'a[name="delete"]', async function(e){
             e.preventDefault()
     
             let deleteUrl = window.location.origin + '/invoice/delete'
@@ -107,7 +95,7 @@ export const ListPage = () => {
             let confirm = window.confirm("Are You sure to delete this record ?")
 
             if(confirm){
-                repository.deleteRecord(deleteUrl, deleteData)
+                await repository.deleteRecord(deleteUrl, deleteData)
                 .then(response => {
                     helper.unblockUI()
 
@@ -134,19 +122,7 @@ export const ListPage = () => {
                     })
                 })
 
-                repository.generateDataTable('#list_invoice', dtUrl, postData, dtColumns)
-                .then(() => {
-                    helper.unblockUI()
-                })
-                .fail(err => {
-                    helper.unblockUI()
-    
-                    Swal.fire({
-                        'icon': 'error',
-                        'title': 'ERROR',
-                        'html': `<h4 class="sbold">${err.desc}</h4>`
-                    })
-                })
+                await repository.generateDataTable('#list_invoice', dtUrl, postData, dtColumns)
             }
         })
     })();
@@ -162,18 +138,6 @@ export const ListPage = () => {
             let url = window.location.origin + '/invoice/get'
 
             repository.generateDataTable('#list_invoice', url, postData, dtColumns)
-            .then(() => {
-                helper.unblockUI()
-            })
-            .fail(err => {
-                helper.unblockUI()
-
-                Swal.fire({
-                    'icon': 'error',
-                    'title': 'ERROR',
-                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                })
-            })
         })
     })();
 }

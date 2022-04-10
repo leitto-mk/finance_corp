@@ -71,22 +71,10 @@ export const DashboardPage = () => {
         let url = window.location.origin + '/invoice/get'
 
         repository.generateDataTable('#table-approval', url, null, dtColumns)
-        .then(() => {
-            helper.unblockUI()
-        })
-        .fail(err => {
-            helper.unblockUI()
-
-            Swal.fire({
-                'icon': 'error',
-                'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.desc}</h4>`
-            })
-        })
     })();
 
     (function EventDeleteInvoice(){
-        $('#table-approval').on('click', 'a[name="delete"]', function(e){
+        $('#table-approval').on('click', 'a[name="delete"]', async function(e){
             e.preventDefault()
     
             let deleteUrl = window.location.origin + '/invoice/delete'
@@ -98,7 +86,7 @@ export const DashboardPage = () => {
             let confirm = window.confirm("Are You sure to delete this record ?")
 
             if(confirm){
-                repository.deleteRecord(deleteUrl, deleteData)
+                await repository.deleteRecord(deleteUrl, deleteData)
                 .then(response => {
                     helper.unblockUI()
 
@@ -125,19 +113,7 @@ export const DashboardPage = () => {
                     })
                 })
 
-                repository.generateDataTable('#table-approval', dtUrl, null, dtColumns)
-                .then(() => {
-                    helper.unblockUI()
-                })
-                .fail(err => {
-                    helper.unblockUI()
-    
-                    Swal.fire({
-                        'icon': 'error',
-                        'title': 'ERROR',
-                        'html': `<h4 class="sbold">${err.desc}</h4>`
-                    })
-                })
+                await repository.generateDataTable('#table-approval', dtUrl, null, dtColumns)
             }
         })
     })();
