@@ -97,18 +97,6 @@ const car = {
             }
 
             repository.generateDataTable('table', url, postData, dtColumns)
-            .then(() => {
-                helper.unblockUI()
-            })
-            .fail(err => {
-                helper.unblockUI()
-                
-                Swal.fire({
-                    'icon': 'error',
-                    'title': 'ABORTED',
-                    'html': `<h4 class="sbold">${err.desc}</h4>`
-                })
-            })
         },
     
         eventShowList: () => {
