@@ -136,7 +136,7 @@ export const DashboardPage = () => {
                 case 'approve':
                     url += '/Invoice/approve'
                     break;
-                case 'approve':
+                case 'decline':
                     url += '/Invoice/decline'
                     break;
             }
@@ -150,6 +150,8 @@ export const DashboardPage = () => {
                         'icon': 'success',
                         'title': response.result
                     })
+
+                    $('#table-approval').DataTable().ajax.reload()
                 }else{
                     Swal.fire({
                         'icon': 'error',
