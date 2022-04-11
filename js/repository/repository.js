@@ -164,8 +164,14 @@ const repository = {
 
         datas = datas ?? {}
         
-        //Add CSRF Token
+        //Add CSRF Token, serialize will use this
         datas[csrfName] = csrfHash
+
+        //Add CSRF Token, serializeArray will use this
+        datas.push({
+            name: csrfName,
+            value: csrfHash
+        })
 
         $.ajax({
             url: url,
