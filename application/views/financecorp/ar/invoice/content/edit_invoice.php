@@ -231,9 +231,9 @@
 													<?php if (!empty($stockcodes)) : ?>
 														<?php for ($i = 0; $i < count($stockcodes); $i++) : ?>
 															<?php if($data[$h]['StockCode'] == $stockcodes[$i]['Stockcode']) : ?>
-																<option selected value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcode[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
+																<option selected value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcodes[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
 															<?php else : ?>
-																<option value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcode[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
+																<option value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcodes[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
 															<?php endif; ?>
 														<?php endfor; ?>
 													<?php endif; ?>
