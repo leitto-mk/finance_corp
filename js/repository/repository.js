@@ -34,6 +34,8 @@ const repository = {
             serverSide: true,
             searching: false,
             info: false,
+            targets: 'no-sort',
+            bSort: false,
             lengthMenu: [30, 50, 100, 300],
             pagingType: "bootstrap_extended",
             ajax: {
