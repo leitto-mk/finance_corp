@@ -716,6 +716,7 @@ class Cmaster extends CI_Controller
 	public function inputDatamasterAbase()
 	{
 		$input = $this->input->post('input');
+
 		switch ($input) {
 			case 'abasecompany':
 				$data = [
@@ -767,9 +768,7 @@ class Cmaster extends CI_Controller
 					'Remarks' => $this->input->post('abasecompanyremarks'),
 					'RegDate' => date('Y-m-d')
 				];
-				$hasil2 = $this->master->addData('abase_02_branch', $data2, $where);
-
-				echo json_encode($hasil2);
+				$result = $this->master->addData('abase_02_branch', $data2, $where);
 				break;
 			case 'abasebranch':
 				$data = [
@@ -795,8 +794,7 @@ class Cmaster extends CI_Controller
 					'RegDate' => date('Y-m-d')
 				];
 				$where = ['BranchCode' => $this->input->post('abasebranchcode')];
-				$hasil = $this->master->addData('abase_02_branch', $data, $where);
-				echo json_encode($hasil);
+				$result = $this->master->addData('abase_02_branch', $data, $where);
 				break;
 			case 'abasedepartment':
 				$data = [
@@ -808,8 +806,7 @@ class Cmaster extends CI_Controller
 					'RegDate' => date('Y-m-d')
 				];
 				$where = ['DeptCode' => $this->input->post('abasedepartmentcode')];
-				$hasil = $this->master->addData('abase_03_dept', $data, $where);
-				echo json_encode($hasil);
+				$result = $this->master->addData('abase_03_dept', $data, $where);
 				break;
 			case 'abasedepartmentbu':
 				$data = [
@@ -820,8 +817,7 @@ class Cmaster extends CI_Controller
 					'RegDate' => date('Y-m-d')
 				];
 				$where = ['BUCode' => $this->input->post('abasedepartmentbucode')];
-				$hasil = $this->master->addData('abase_03_dept_bu', $data, $where);
-				echo json_encode($hasil);
+				$result = $this->master->addData('abase_03_dept_bu', $data, $where);
 				break;
 			case 'abasedepartmentdiv':
 				$data = [
@@ -831,8 +827,7 @@ class Cmaster extends CI_Controller
 					'RegDate' => date('Y-m-d')
 				];
 				$where = ['DivCode' => $this->input->post('abasedepartmentdivcode')];
-				$hasil = $this->master->addData('abase_03_dept_div', $data, $where);
-				echo json_encode($hasil);
+				$result = $this->master->addData('abase_03_dept_div', $data, $where);
 				break;
 			case 'abasecostcenter':
 				$data = [
@@ -843,10 +838,19 @@ class Cmaster extends CI_Controller
 					'RegDate' => date('Y-m-d')
 				];
 				$where = ['CostCenter' => $this->input->post('abasecostcentercode')];
-				$hasil = $this->master->addData('abase_04_cost_center', $data, $where);
-				echo json_encode($hasil);
+				$result = $this->master->addData('abase_04_cost_center', $data, $where);
 				break;
 		}
+
+		if($result !== true){
+			if($result == false){
+				set_error_response(self::HTTP_INTERNAL_ERROR, "Database Error");
+			}else{
+				set_error_response(self::HTTP_INTERNAL_ERROR, $result);
+			}
+		}
+
+		set_success_response("Added");
 	}
 
 	public function getDataMasterAbaseByID()
@@ -885,6 +889,7 @@ class Cmaster extends CI_Controller
 	{
 		$input = $this->input->post('input');
 		$id = $this->input->post('id');
+		$result = 0;
 		switch ($input) {
 			case 'abasecompany':
 				$data = [
@@ -931,8 +936,7 @@ class Cmaster extends CI_Controller
 					'WebAddress' => $this->input->post('abasecompanywebaddress'),
 					'Remarks' => $this->input->post('abasecompanyremarks')
 				];
-				$hasil2 = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data2);
-				echo json_encode($hasil2);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data2);
 				break;
 			case 'abasebranch':
 				$data = [
@@ -956,8 +960,7 @@ class Cmaster extends CI_Controller
 					'WebAddress' => $this->input->post('abasebranchwebaddress'),
 					'Remarks' => $this->input->post('abasebranchremarks')
 				];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data);
-				echo json_encode($hasil);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data);
 				break;
 			case 'abasedepartment':
 				$data = [
@@ -967,8 +970,7 @@ class Cmaster extends CI_Controller
 					'DeptDes' => $this->input->post('abasedepartmentdescription'),
 					'Remarks' => $this->input->post('abasedepartmentremarks')
 				];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept', $data);
-				echo json_encode($hasil);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_03_dept', $data);
 				break;
 			case 'abasedepartmentbu':
 				$data = [
@@ -977,8 +979,7 @@ class Cmaster extends CI_Controller
 					'BUDes' => $this->input->post('abasedepartmentbudescription'),
 					'Remarks' => $this->input->post('abasedepartmentburemarks')
 				];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_bu', $data);
-				echo json_encode($hasil);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_bu', $data);
 				break;
 			case 'abasedepartmentdiv':
 				$data = [
@@ -986,8 +987,7 @@ class Cmaster extends CI_Controller
 					'DivDes' => $this->input->post('abasedepartmentdivdescription'),
 					'Remarks' => $this->input->post('abasedepartmentdivremarks')
 				];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_div', $data);
-				echo json_encode($hasil);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_div', $data);
 				break;
 			case 'abasecostcenter':
 				$data = [
@@ -996,10 +996,15 @@ class Cmaster extends CI_Controller
 					'CCDes' => $this->input->post('abasecostcenterdescription'),
 					'Remarks' => $this->input->post('abasecostcenterremarks')
 				];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_04_cost_center', $data);
-				echo json_encode($hasil);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_04_cost_center', $data);
 				break;
 		}
+
+		if($result == 0){
+			return set_error_response(self::HTTP_INTERNAL_ERROR, "Databse Error");
+		}
+
+		return set_success_response("Updated");
 	}
 
 	public function discDataMasterAbase()
@@ -1007,32 +1012,39 @@ class Cmaster extends CI_Controller
 		$input = $this->input->post('input');
 		$id = $this->input->post('id');
 		$remarks = $this->input->post('remarks');
+		$result = 0;
 		switch ($input) {
 			case 'abasecompany':
 				$data = ['Disc' => 1, 'DiscDate' => date('Y-m-d')];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_01_com', $data);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_01_com', $data);
 				break;
 			case 'abasebranch':
 				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_02_branch', $data);
 				break;
 			case 'abasedepartment':
 				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept', $data);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_03_dept', $data);
 				break;
 			case 'abasedepartmentbu':
 				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_bu', $data);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_bu', $data);
 				break;
 			case 'abasedepartmentdiv':
 				$data = ['Disc' => '1', 'DiscDate' => date('Y-m-d'), 'Remarks' => $remarks];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_div', $data);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_03_dept_div', $data);
 				break;
 			case 'abasecostcenter':
 				$data = ['Disc' => 1, 'DiscDate' => date('Y-m-d')];
-				$hasil = $this->master->updateData('CtrlNo', $id, 'abase_04_cost_center', $data);
+				$result = $this->master->updateData('CtrlNo', $id, 'abase_04_cost_center', $data);
 				break;
 		}
+
+		if($result !== 1){
+			set_error_response(self::HTTP_INTERNAL_ERROR, "Database Error");
+		}
+
+		set_success_response("Deleted");
 	}
 	//Master Abase End
 
