@@ -162,16 +162,9 @@ const repository = {
     submitRecord: (url, datas, responseType) => {
         var defer = $.Deferred()
 
-        datas = datas ?? {}
-        
-        //Add CSRF Token, serialize will use this
-        datas[csrfName] = csrfHash
-
-        //Add CSRF Token, serializeArray will use this
-        datas.push({
-            name: csrfName,
-            value: csrfHash
-        })
+        //If `datas` is array (serializeArray), push new CSRF's object
+        //If `datas` is an object (serialize) bind new CSRF's key and value
+        Array.isArray(datas) ? datas.push({ name: csrfName, value: csrfHash }) : datas[csrfName] = csrfHash
 
         $.ajax({
             url: url,
