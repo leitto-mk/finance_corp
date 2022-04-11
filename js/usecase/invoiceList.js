@@ -7,17 +7,15 @@ import helper from '../helper.js'
 
 const dtColumns = [
     {
-        targets: 0,
         className: "text-center",
         orderable: false,
         data: "ItemNo",
     },
-    { targets: 1, data: "InvoiceNo" },
-    { targets: 2, data: "CustomerName" },
-    { targets: 3, data: "InvoiceDate", className: "text-center" },
-    { targets: 4, data: "DueDate", className: "text-center" },
+    { data: "InvoiceNo" },
+    { data: "CustomerName" },
+    { data: "InvoiceDate", className: "text-center" },
+    { data: "DueDate", className: "text-center" },
     {
-        targets: 5,
         data: "TotalAmount",
         className: "text-right",
         render: (data, type, row) => {
@@ -28,7 +26,6 @@ const dtColumns = [
         },
     },
     {
-        targets: 6,
         data: "Payment",
         className: "text-right",
         render: (data, type, row) => {
@@ -39,7 +36,6 @@ const dtColumns = [
         },
     },
     {
-        targets: 7,
         data: "Balance",
         className: "text-right",
         render: (data, type, row) => {
@@ -50,7 +46,6 @@ const dtColumns = [
         },
     },
     {
-        targets: 8,
         orderable: false,
         className: "text-center",
         render: (data, type, row) => {

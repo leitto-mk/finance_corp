@@ -5,6 +5,8 @@
 import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
+const baseURL = window.location.origin
+
 const dtColumns = [
     {
         data: 'TransDate',
@@ -62,10 +64,10 @@ const dtColumns = [
             var baseURL = location.substring(0, location.lastIndexOf('/'))
 
             return `
-                <a href="${baseURL}/${url.edit}?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                <a href="${baseURL}/Entry/edit_receipt?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                     <i class="fa fa-edit"> </i>
                 </a>
-                <a href="${baseURL}/${url.report}?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                <a href="${baseURL}/Entry/view_reps_receipt_voucher?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                     <i class="fa fa-print"> </i>
                 </a>
                 <a href="javascript:;" name="delete" data-docno="${response.DocNo}" data-branch="${response.Branch}" data-transdate="${response.TransDate}" type="button" class="btn btn-xs red">

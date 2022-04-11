@@ -143,10 +143,7 @@ class Cash_adv extends CI_Controller
 
         $query = $this->Mdl_corp_cash_advance->get_ranged_ca(self::CAW, $datatable);
 
-        $result = [
-            'draw' => $this->input->post('draw'),
-            'data' => $query
-        ];
+        $result = $query;
 
         return set_success_response($result);
     }
@@ -555,10 +552,7 @@ class Cash_adv extends CI_Controller
 
         $query = $this->Mdl_corp_cash_advance->get_ranged_ca(self::CAR, $datatable);
 
-        $result = [
-            'draw' => $this->input->post('draw'),
-            'data' => $query
-        ];
+        $result = $query;
 
         return set_success_response($result);
     }

@@ -79,10 +79,7 @@ class AR extends CI_Controller {
 
         $query = $this->Mdl_corp_ar->get_ranged_ar(self::AR, $datatable);
 
-        $result = [
-            'draw' => $this->input->post('draw'),
-            'data' => $query
-        ];
+        $result = $query;
 
         return set_success_response($result);
     }

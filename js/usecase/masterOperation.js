@@ -45,12 +45,11 @@ const mopr = {
             'Cmaster/getDataMasterAbase',
             { input: 'abasecompany' },
             [
-                { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                { targets: 1, data: "ComCode" },
-                { targets: 2, data: "ComShortName" },
-                { targets: 3, data: "City" },
+                { className: 'control', orderable: false, defaultContent: "" },
+                { data: "ComCode" },
+                { data: "ComShortName" },
+                { data: "City" },
                 {
-                    targets: 4,
                     orderable: false,
                     render: (data, type, row) => {
                         return `
@@ -74,14 +73,13 @@ const mopr = {
             'Cmaster/getDataMasterAbase',
             { input: 'abasebranch' },
             [
-                { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                { targets: 1, data: "BranchCode" },
-                { targets: 2, data: "BranchName" },
-                { targets: 3, data: "BranchType" },
-                { targets: 4, data: "BranchAddress" },
-                { targets: 5, data: "ContactNo" },
+                { className: 'control', orderable: false, defaultContent: "" },
+                { data: "BranchCode" },
+                { data: "BranchName" },
+                { data: "BranchType" },
+                { data: "BranchAddress" },
+                { data: "ContactNo" },
                 {
-                    targets: 6,
                     orderable: false,
                     render: (data, type, row) => {
                         return `
@@ -105,25 +103,22 @@ const mopr = {
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartment' },
             [
-                { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                { targets: 1, data: "DeptCode" },
-                { targets: 2, data: "DeptDes" },
+                { className: 'control', orderable: false, defaultContent: "" },
+                { data: "DeptCode" },
+                { data: "DeptDes" },
                 {
-                    targets: 3,
                     data: "Branch",
                     render: function (data, type, row) {
                         return `${data} - ${row.BranchName}`
                     }
                 },
                 {
-                    targets: 4,
                     data: "BUCode",
                     render: function (data, type, row) {
                         return `${data} - ${row.BUDes}`
                     }
                 },
                 {
-                    targets: 5,
                     orderable: false,
                     render: (data, type, row) => {
                         return `
@@ -147,18 +142,16 @@ const mopr = {
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartmentbu' },
             [
-                { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                { targets: 1, data: "BUCode" },
-                { targets: 2, data: "BUDes" },
+                { className: 'control', orderable: false, defaultContent: "" },
+                { data: "BUCode" },
+                { data: "BUDes" },
                 {
-                    targets: 3,
                     data: "DivCode",
                     render: function (data, type, row) {
                         return `${data} - ${row.DivDes}`
                     }
                 },
                 {
-                    targets: 4,
                     orderable: false,
                     render: (data, type, row) => {
                         return `
@@ -182,11 +175,10 @@ const mopr = {
             'Cmaster/getDataMasterAbase',
             { input: 'abasedepartmentdiv' },
             [
-                { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                { targets: 1, data: "DivCode" },
-                { targets: 2, data: "DivDes" },
+                { className: 'control', orderable: false, defaultContent: "" },
+                { data: "DivCode" },
+                { data: "DivDes" },
                 {
-                    targets: 3,
                     orderable: false,
                     render: (data, type, row) => {
                         return `
@@ -210,12 +202,11 @@ const mopr = {
             'Cmaster/getDataMasterAbase',
             { input: 'abasecostcenter' },
             [
-                { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                { targets: 1, data: "CostCenter" },
-                { targets: 2, data: "CCDes" },
-                { targets: 3, data: "DeptCode" },
+                { className: 'control', orderable: false, defaultContent: "" },
+                { data: "CostCenter" },
+                { data: "CCDes" },
+                { data: "DeptCode" },
                 {
-                    targets: 4,
                     orderable: false,
                     render: (data, type, row) => {
                         return `

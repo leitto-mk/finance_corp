@@ -79,10 +79,7 @@ class AP extends CI_Controller {
 
         $query = $this->Mdl_corp_ap->get_ranged_ap(self::AP, $datatable);
 
-        $result = [
-            'draw' => $this->input->post('draw'),
-            'data' => $query
-        ];
+        $result = $query;
 
         return set_success_response($result);
     }

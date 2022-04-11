@@ -47,12 +47,11 @@ const msup = {
                 input: 'mas_stock_d_grp'
             },
             [
-                { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                { targets: 1, data: "GroupCode" },
-                { targets: 2, data: "GroupDescription" },
-                { targets: 3, data: "TypeDescription" },
+                { className: 'control', orderable: false, defaultContent: "" },
+                { data: "GroupCode" },
+                { data: "GroupDescription" },
+                { data: "TypeDescription" },
                 {
-                    targets: 4,
                     orderable: false,
                     render: (data, type, row) => {
                         return `
@@ -77,12 +76,11 @@ const msup = {
                 input: 'mas_stock_c_type'
             },
             [
-                { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                { targets: 1, data: "TypeCode" },
-                { targets: 2, data: "TypeDescription" },
-                { targets: 3, data: "CatDescription" },
+                { className: 'control', orderable: false, defaultContent: "" },
+                { data: "TypeCode" },
+                { data: "TypeDescription" },
+                { data: "CatDescription" },
                 {
-                    targets: 4,
                     orderable: false,
                     render: (data, type, row) => {
                         return `
@@ -107,12 +105,11 @@ const msup = {
                 input: 'mas_stock_b_cat'
             },
             [
-                { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                { targets: 1, data: "CatCode" },
-                { targets: 2, data: "CatDescription" },
-                { targets: 3, data: "StockClassDescription" },
+                { className: 'control', orderable: false, defaultContent: "" },
+                { data: "CatCode" },
+                { data: "CatDescription" },
+                { data: "StockClassDescription" },
                 {
-                    targets: 4,
                     orderable: false,
                     render: (data, type, row) => {
                         return `
@@ -137,11 +134,10 @@ const msup = {
                 input: 'mas_stock_a_class'
             },
             [
-                { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                { targets: 1, data: "StockClassCode" },
-                { targets: 2, data: "StockClassDescription" },
+                { className: 'control', orderable: false, defaultContent: "" },
+                { data: "StockClassCode" },
+                { data: "StockClassDescription" },
                 {
-                    targets: 3,
                     orderable: false,
                     render: (data, type, row) => {
                         return `

@@ -70,7 +70,7 @@ const repository = {
                     })
                 },
             },
-            columnDefs: dtColumns
+            columns: dtColumns
         })
 
         return defer

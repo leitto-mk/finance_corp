@@ -85,10 +85,7 @@ class Entry extends CI_Controller
 
         $query = $this->Mdl_corp_entry->get_ranged_entry(self::REC, $datatable);
 
-        $result = [
-            'draw' => $this->input->post('draw'),
-            'data' => $query
-        ];
+        $result = $query;
 
         return set_success_response($result);
     }
@@ -463,10 +460,7 @@ class Entry extends CI_Controller
 
         $query = $this->Mdl_corp_entry->get_ranged_entry(self::PAY, $datatable);
 
-        $result = [
-            'draw' => $this->input->post('draw'),
-            'data' => $query
-        ];
+        $result = $query;
 
         return set_success_response($result);
     }
@@ -841,10 +835,7 @@ class Entry extends CI_Controller
 
         $query = $this->Mdl_corp_entry->get_ranged_entry(self::OVB, $datatable);
 
-        $result = [
-            'draw' => $this->input->post('draw'),
-            'data' => $query
-        ];
+        $result = $query;
 
         return set_success_response($result);
     }
@@ -1219,10 +1210,7 @@ class Entry extends CI_Controller
 
         $query = $this->Mdl_corp_entry->get_ranged_entry(self::GNJ, $datatable);
 
-        $result = [
-            'draw' => $this->input->post('draw'),
-            'data' => $query
-        ];
+        $result = $query;
 
         return set_success_response($result);
     }

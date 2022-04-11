@@ -7,7 +7,6 @@ import helper from '../helper.js'
 
 const dtColumns = [
     {
-        targets: 0,
         orderable: false,
         width: 'auto',
         render: (data, type, row) => {
@@ -23,17 +22,15 @@ const dtColumns = [
         }
     },
     {
-        targets: 1,
         className: "text-center",
         orderable: false,
         data: "ItemNo",
     },
-    { targets: 2, data: "InvoiceNo" },
-    { targets: 3, data: "CustomerName" },
-    { targets: 4, data: "InvoiceDate", className: "text-center" },
-    { targets: 5, data: "DueDate", className: "text-center" },
+    { data: "InvoiceNo" },
+    { data: "CustomerName" },
+    { data: "InvoiceDate", className: "text-center" },
+    { data: "DueDate", className: "text-center" },
     {
-        targets: 6,
         data: "TotalAmount",
         className: "text-right",
         render: (data, type, row) => {
@@ -44,7 +41,6 @@ const dtColumns = [
         },
     },
     {
-        targets: 7,
         data: "Payment",
         className: "text-right",
         render: (data, type, row) => {
@@ -55,7 +51,6 @@ const dtColumns = [
         },
     },
     {
-        targets: 8,
         data: "Balance",
         className: "text-right",
         render: (data, type, row) => {
@@ -66,7 +61,6 @@ const dtColumns = [
         },
     },
     {
-        targets: 9,
         orderable: false,
         className: "text-center",
         render: (data, type, row) => {
