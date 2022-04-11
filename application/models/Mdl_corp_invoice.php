@@ -46,12 +46,13 @@ class Mdl_corp_invoice extends CI_Model
 	public function get_invoices($customer, $start, $finish, $limit, $offset)
 	{
 		$this->db->select('
-			mas.InvoiceNo, 
-			cus.CustomerName, 
-			DATE_FORMAT(mas.InvoiceDate, "%Y-%m-%d") AS InvoiceDate, 
-			DATE_FORMAT(mas.DueDate, "%Y-%m-%d") AS DueDate, 
-			mas.TotalAmount, 
-			mas.Payment, 
+			mas.InvoiceNo,
+			cus.CustomerName,
+			DATE_FORMAT(mas.InvoiceDate, "%Y-%m-%d") AS InvoiceDate,
+			DATE_FORMAT(mas.DueDate, "%Y-%m-%d") AS DueDate,
+			mas.ApprovedStatus,
+			mas.TotalAmount,
+			mas.Payment,
 			mas.Balance
 		')
 		->from('tbl_fa_invoice_mas AS mas')

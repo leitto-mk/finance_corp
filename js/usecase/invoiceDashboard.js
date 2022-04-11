@@ -27,6 +27,21 @@ const dtColumns = [
         data: "ItemNo",
     },
     { data: "InvoiceNo" },
+    { 
+        data: "Approvedstatus" ,
+        class: 'text-center',
+        render: (data, type, row) => {
+            let approval;
+            
+            if(row.ApprovedStatus == 1){
+                approval = `<span class="badge badge-info sbold">Approved</span>`
+            }else{
+                approval = `<span class="badge badge-danger sbold">Declined</span>`
+            }
+            
+            return approval
+        }
+    },
     { data: "CustomerName" },
     { data: "InvoiceDate", className: "text-center" },
     { data: "DueDate", className: "text-center" },

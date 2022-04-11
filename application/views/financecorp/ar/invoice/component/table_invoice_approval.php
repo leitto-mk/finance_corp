@@ -22,6 +22,7 @@
 			</th>
 			<th class="text-center">No.</th>
 			<th class="text-center" width="10%">Invoice No.</th>
+			<th class="text-center" width="10%">Approved Status</th>
 			<th class="text-center" width="25%">Customer</th>
 			<th class="text-center" width="7%">Invoice Date</th>
 			<th class="text-center" width="7%">Payment Due</th>
