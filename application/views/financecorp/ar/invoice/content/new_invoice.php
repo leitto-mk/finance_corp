@@ -217,7 +217,7 @@
 												<option value="">-- Select Stockcode --</option>
 												<?php if (!empty($stockcode)) : ?>
 													<?php for ($i = 0; $i < count($stockcode); $i++) : ?>
-														<option value="<?= $stockcode[$i]['Stockcode'] ?>" data-uom="<?= $stockcode[$i]['UOM'] ?>" data-uom-qty="<?= $stockcode[$i]['UOMQty']?>"><?= $stockcode[$i]['StockDescription'] ?></option>
+														<option value="<?= $stockcode[$i]['Stockcode'] ?>" data-uom="<?= $stockcode[$i]['UOM'] ?>" data-uom-qty="<?= $stockcode[$i]['UOMQty']?>"><?= $stockcode[$i]['Stockcode'] ?> | <?= $stockcode[$i]['StockDescription'] ?></option>
 													<?php endfor; ?>
 												<?php endif; ?>
 											</select>
@@ -260,7 +260,7 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="number" name="discount[]" class="form-control text-right so-discount" min="0" value="0" step="0.01">
+											<input type="number" name="discount[]" class="form-control text-right so-discount" min="0" value="11" step="0.01">
 											<span class="help-block hidden"></span>
 										</div>
 									</td>
@@ -303,7 +303,7 @@
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Discount</label>
 								<div class="input-group">
-									<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="0" step="0.01">
+									<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="11" step="0.01">
 									<a name="select_accno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
 									<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="" hidden>
 								</div>
@@ -330,7 +330,7 @@
 							<div class="form-group">
 								<label for="payment_vat" class="control-label">VAT | Inclusive</label>
 								<div class="input-group">
-									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01" readonly>
+									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="0" step="0.01">
 									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
 									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="" hidden>
 									<a class="input-group-addon bg-blue-chambray bg-font-blue-chambray">

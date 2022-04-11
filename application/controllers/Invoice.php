@@ -53,7 +53,15 @@ class Invoice extends CI_Controller
 		$payment_discount = (float) $formData['payment_discount'];
 		$formData['payment_net_subtotal'] = (float) $subtotal - ($subtotal * $payment_discount);
 		$net_subtotal = (float) $formData['payment_net_subtotal'];
-		$vat = $net_subtotal * ($formData['payment_vat'] / 100);
+
+		//VAT Non/Inclusive Calculation
+		$vat = (float) $formData['payment_vat'];
+		if($formData['payment_vat_inclusive'] == 'on'){
+			$vat = ($net_subtotal * (100 / (100 + $vat)) * ($vat / 100));
+		}else{
+			$vat = $net_subtotal * ($formData['payment_vat'] / 100);
+		}
+		
 		$pph = $net_subtotal * ($formData['payment_pph'] / 100);
 		$freight = (float) $formData['payment_freight'];
 		$formData['payment_total_amount'] = (float) ($net_subtotal + $vat - $pph + $freight);

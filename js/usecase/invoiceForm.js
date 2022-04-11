@@ -36,17 +36,28 @@ const _callable = {
 
         $('#payment_net_subtotal').val(net_subtotal)
 
-        let payment_vat = +$('#payment_vat').val() / 100 
-        $('#amount_vat').val(Intl.NumberFormat('en').format(net_subtotal * payment_vat))
+        //VAT Calculation
+        let payment_vat = +$('#payment_vat').val()
+        if($('#payment_vat_inclusive').is(':checked')){
+            payment_vat = (net_subtotal * (100 / (100 + payment_vat)) * (payment_vat / 100))
+            $('#amount_vat').val(Intl.NumberFormat('en').format(payment_vat))
+        }else{
+            payment_vat = (payment_vat / 100)
+            $('#amount_vat').val(Intl.NumberFormat('en').format(net_subtotal * payment_vat))
+            
+            payment_vat = (net_subtotal * payment_vat)
+        }
+
+        // Payment PPH
         let payment_pph = +$('#payment_pph').val() / 100 
         $('#amount_pph').val(Intl.NumberFormat('en').format(net_subtotal * payment_pph))
+        payment_pph = (net_subtotal * payment_pph)
+
+        //Payment Freight
         let payment_freight = $('#payment_freight').val()
         payment_freight = payment_freight !== '' ? parseFloat($('#payment_freight').val().replaceAll(',','')) : 0
-        let total_amount = 0
-
-        payment_vat = (net_subtotal * payment_vat)
-        payment_pph = (net_subtotal * payment_pph)
         
+        let total_amount = 0
         total_amount = (net_subtotal + payment_vat - payment_pph + payment_freight)
 
         $('#payment_total_amount').val(total_amount)
@@ -249,14 +260,7 @@ export const FormPage = () => {
 
     (function EventChangeVATInclusive(){
         $('#payment_vat_inclusive').change(function(){
-            if($(this).is(':checked')){
-                $('#payment_vat').prop('readonly', false)
-            }else{
-                $('#payment_vat').prop({
-                    'readonly': true,
-                    'value': 0
-                })
-            }
+            _callable.CalculatePayment()
         })
     })();
 

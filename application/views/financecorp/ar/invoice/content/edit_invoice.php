@@ -231,9 +231,9 @@
 													<?php if (!empty($stockcodes)) : ?>
 														<?php for ($i = 0; $i < count($stockcodes); $i++) : ?>
 															<?php if($data[$h]['StockCode'] == $stockcodes[$i]['Stockcode']) : ?>
-																<option selected value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcodes[$i]['StockDescription'] ?></option>
+																<option selected value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcode[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
 															<?php else : ?>
-																<option value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcodes[$i]['StockDescription'] ?></option>
+																<option value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcode[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
 															<?php endif; ?>
 														<?php endfor; ?>
 													<?php endif; ?>
@@ -352,7 +352,7 @@
 							<div class="form-group">
 								<label for="payment_vat" class="control-label">VAT | Inclusive</label>
 								<div class="input-group">
-									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="<?= $data[0]['VAT'] ?>" step="0.01" <?= $data[0]['VATInclusive'] == 0 ? 'readonly' : '' ?>>
+									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="<?= $data[0]['VAT'] ?>" step="0.01">
 									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
 									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="<?= $data[0]['VATAcc'] ?>" hidden>
 									<a class="input-group-addon bg-blue-chambray bg-font-blue-chambray">
