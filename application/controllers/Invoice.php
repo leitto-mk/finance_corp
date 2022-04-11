@@ -59,13 +59,20 @@ class Invoice extends CI_Controller
 		$formData['payment_total_amount'] = (float) ($net_subtotal + $vat - $pph + $freight);
 	}
 
-	protected function _set_ledger_data($data, $payment_type, $cur_accno, $cur_accno_bal){
+	protected function _set_ledger_data($data, $payment_type, $cur_accno, &$trans){
 		$cur_accno = str_replace("'", '', $cur_accno);
 		$cur_accno = str_replace("\\", '', $cur_accno);
 		$debit = 0;
 		$credit = 0;
 		$branch_beg_bal = 0;
 		$branch_bal = 0;
+
+		$cur_acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $cur_accno]);
+		if($cur_acctype->num_rows() == 0){
+			return;
+		}
+
+		$cur_acctype = $cur_acctype->row()->Acc_Type;
 
 		switch ($payment_type) {
 			case 'payment_sub_total':
@@ -77,12 +84,12 @@ class Invoice extends CI_Controller
 				$debit = (float) ($data->post('payment_sub_total') - $debit);
 				break;
 			case 'payment_vat':
-				$credit = (float) $data->post('payment_vat') / 100;
+				$credit = (float) ($data->post('payment_vat') / 100);
 				$credit = (float) ($data->post('payment_net_subtotal') * $credit);
 				$credit = (float) ($data->post('payment_net_subtotal') - $credit);
 				break;
 			case 'payment_pph':
-				$debit = (float) $data->post('payment_pph') / 100;
+				$debit = (float) ($data->post('payment_pph') / 100);
 				$debit = (float) ($data->post('payment_net_subtotal') * $debit);
 				$debit = (float) ($data->post('payment_net_subtotal') - $debit);
 				break;
@@ -93,16 +100,8 @@ class Invoice extends CI_Controller
 				$debit = (float) $data->post('payment_total_amount');
 				break;
 		}
-		
-		$cur_acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $cur_accno])->row()->Acc_Type;
 			
-		if (isset($cur_accno_bal[$cur_accno])) {
-			$branch_beg_bal = $cur_accno_bal[$cur_accno];
-		} else {
-			$branch_beg_bal = (float) $this->Mdl_corp_entry->get_branch_last_balance($data->post('branch'), $cur_accno, $data->post('raised_date'));
-
-			$cur_accno_bal[$cur_accno] = $branch_beg_bal;
-		}
+		$branch_beg_bal = (float) $this->Mdl_corp_entry->get_branch_last_balance($data->post('branch'), $cur_accno, $data->post('raised_date'));
 
 		if ($cur_acctype == 'A' || $cur_acctype == 'E' || $cur_acctype == 'E1') {
 			/**
@@ -116,7 +115,7 @@ class Invoice extends CI_Controller
 			$branch_bal = ($branch_beg_bal - $debit) + $credit;
 		}
 		
-		return [
+		array_push($trans, [
 			'DocNo' => $data->post('invoice_no'),
 			'RefNo' => ($data->post('reference_no') == '' ? $data->post('invoice_no') : $data->post('reference_no')),
 			'TransDate' => $data->post('raised_date'),
@@ -137,7 +136,7 @@ class Invoice extends CI_Controller
 			'Remarks' => $data->post('remark'),
 			'EntryBy' => '',
 			'EntryDate' => date('Y-m-d h:m:s')
-		];
+		]);
 	}
 
 	public function index(){
@@ -308,6 +307,11 @@ class Invoice extends CI_Controller
                 'remark',
                 'freight_info',
 				'sales_resp',
+				'payment_discount_accno',
+				'payment_vat_accno',
+				'payment_vat_inclusive',
+				'payment_pph_accno',
+				'payment_freight_accno',
 				'dp_payment_card_text',
 				'dp_payment_total',
 				'payment_total'
@@ -391,55 +395,12 @@ class Invoice extends CI_Controller
 		}
 
 		//TRANSACTION (LEDGER)
-		$cur_accno_bal = [];
-
-		$payment_sub_total = $input->post('payment_sub_total_accno');
-		if($payment_sub_total){
-			array_push(
-				$trans, 
-				$this->_set_ledger_data($input, 'payment_sub_total', $payment_sub_total, $cur_accno_bal)
-			);
-		}
-		
-		$payment_discount = $input->post('payment_discount_accno');
-		if($payment_discount){
-			array_push(
-				$trans, 
-				$this->_set_ledger_data($input, 'payment_discount', $payment_discount, $cur_accno_bal)
-			);
-		}
-		
-		$payment_vat = $input->post('payment_vat_accno');
-		if($payment_vat){
-			array_push(
-				$trans, 
-				$this->_set_ledger_data($input, 'payment_vat', $payment_vat, $cur_accno_bal)
-			);
-		}
-		
-		$payment_pph = $input->post('payment_pph_accno');
-		if($payment_pph){
-			array_push(
-				$trans, 
-				$this->_set_ledger_data($input, 'payment_pph', $payment_pph, $cur_accno_bal)
-			);
-		}
-		
-		$payment_freight = $input->post('payment_freight_accno');
-		if($payment_freight){
-			array_push(
-				$trans, 
-				$this->_set_ledger_data($input, 'payment_freight', $payment_freight, $cur_accno_bal)
-			);
-		}
-		
-		$payment_total_amount = $input->post('payment_total_amount_accno');
-		if($payment_total_amount){
-			array_push(
-				$trans, 
-				$this->_set_ledger_data($input, 'payment_total_amount', $payment_total_amount, $cur_accno_bal)
-			);
-		}
+		$this->_set_ledger_data($input, 'payment_sub_total', $input->post('payment_sub_total_accno'), $trans);
+		$this->_set_ledger_data($input, 'payment_discount', $input->post('payment_discount_accno'), $trans);
+		$this->_set_ledger_data($input, 'payment_vat', $input->post('payment_vat_accno'), $trans);
+		$this->_set_ledger_data($input, 'payment_pph', $input->post('payment_pph_accno'), $trans);
+		$this->_set_ledger_data($input, 'payment_freight', $input->post('payment_freight_accno'), $trans);
+		$this->_set_ledger_data($input, 'payment_total_amount', $input->post('payment_total_amount_accno'), $trans);
 
 		//DELETE OLD DATA IF EXIST
 		$error = $this->Mdl_corp_invoice->delete_invoice($input->post('invoice_no'));
