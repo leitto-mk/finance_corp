@@ -154,8 +154,8 @@ class Invoice extends CI_Controller
 			'title' => 'Dashboard',
 
 			//Cards
-			'waiting' => $this->db->select()->get_where('tbl_fa_invoice_mas', ['ApprovedStatus' => 0])->num_rows(),
 			'approved' => $this->db->select()->get_where('tbl_fa_invoice_mas', ['ApprovedStatus' => 1])->num_rows(),
+			'declined' => $this->db->select()->get_where('tbl_fa_invoice_mas', ['ApprovedStatus' => 0])->num_rows(),
 			'paid' => $this->db->select()->get_where('tbl_fa_invoice_mas', ['PaymentStatus' => 1])->num_rows(),
 			'unpaid' => $this->db->select()->get_where('tbl_fa_invoice_mas', ['PaymentStatus' => 0])->num_rows(),
 		];

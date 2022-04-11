@@ -31,24 +31,24 @@
 		<div class="row widget-row">
 			<div class="col-lg-3">
 				<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 widget-status">
-					<h4 class="widget-thumb-heading">Waiting</h4>
-					<div class="widget-thumb-wrap">
-						<i class="widget-thumb-icon bg-blue-chambray icon-hourglass"></i>
-						<div class="widget-thumb-body">
-							<span class="widget-thumb-subtitle">Total</span>
-							<span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?= $waiting ?>"><?= $waiting ?></span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 widget-status">
 					<h4 class="widget-thumb-heading">Approved</h4>
 					<div class="widget-thumb-wrap">
 						<i class="widget-thumb-icon bg-blue-chambray icon-check"></i>
 						<div class="widget-thumb-body">
 							<span class="widget-thumb-subtitle">Total</span>
 							<span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?= $approved ?>"><?= $approved ?></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 widget-status">
+					<h4 class="widget-thumb-heading">Declined</h4>
+					<div class="widget-thumb-wrap">
+						<i class="widget-thumb-icon bg-blue-chambray icon-ban"></i>
+						<div class="widget-thumb-body">
+							<span class="widget-thumb-subtitle">Total</span>
+							<span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?= $declined ?>"><?= $declined ?></span>
 						</div>
 					</div>
 				</div>
@@ -69,7 +69,7 @@
 				<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 widget-status">
 					<h4 class="widget-thumb-heading">Unpaid</h4>
 					<div class="widget-thumb-wrap">
-						<i class="widget-thumb-icon bg-blue-chambray icon-wallet"></i>
+						<i class="widget-thumb-icon bg-blue-chambray icon-note"></i>
 						<div class="widget-thumb-body">
 							<span class="widget-thumb-subtitle">Total</span>
 							<span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?= $unpaid ?>"><?= $unpaid ?></span>
