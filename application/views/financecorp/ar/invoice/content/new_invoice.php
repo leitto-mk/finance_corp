@@ -313,7 +313,7 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount Discount</label>
-								<input type="text" name="amount_discount" id="amount_discount" class="form-control text-right" readonly>
+								<input type="text" name="amount_discount" id="amount_discount" class="form-control text-right" disabled>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
@@ -346,7 +346,7 @@
 						<div class="col-lg-5">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount VAT</label>
-								<input type="text" name="amount_vat" id="amount_vat" class="form-control text-right" readonly>
+								<input type="text" name="amount_vat" id="amount_vat" class="form-control text-right" disabled>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
@@ -366,7 +366,7 @@
 						<div class="col-lg-5">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount PPh</label>
-								<input type="text" name="amount_pph" id="amount_pph" class="form-control text-right" readonly>
+								<input type="text" name="amount_pph" id="amount_pph" class="form-control text-right" disabled>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
