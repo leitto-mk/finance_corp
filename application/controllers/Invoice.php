@@ -454,6 +454,30 @@ class Invoice extends CI_Controller
         return set_success_response($result);
 	}
 
+	public function approve(){
+		$list = [...$this->input->post('invoice')];
+
+		try{
+			$this->Mdl_corp_invoice->set_approval('approve', $list);
+		}catch(Exception $e){
+			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
+		}
+
+		return set_success_response("Approved");
+	}
+	
+	public function decline(){
+		$list = [...$this->input->post('invoice')];
+
+		try{
+			$this->Mdl_corp_invoice->set_approval('decline', $this->input->post());
+		}catch(Exception $e){
+			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
+		}
+
+		return set_success_response("Decline");
+	}
+
 	public function delete(){
 		$validation = validate($this->input->post(),null,null);
 		

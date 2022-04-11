@@ -87,8 +87,23 @@
 				<div class="caption">
 					<span class="caption-subject bold uppercase">List Invoice Approval</span>
 				</div>
-				<!-- <button class="btn font-white pull-right" style="margin-left: 10px; background-color: #F2784B">Create Service Invoice</button> -->
-				<!-- <button class="btn font-white pull-right" style="background-color: #F2784B">Create Invoice</button> -->
+				<div class="actions">
+					<div class="btn-group">
+						<a class="btn btn-sm blue dropdown-toggle" href="javascript:;" data-toggle="dropdown" aria-expanded="false"> Set Approval
+							<i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu pull-right">
+							<li>
+								<a name="set_approval" data-status="approve">
+								<i class="fa fa-check"></i> Approve </a>
+							</li>
+							<li>
+								<a name="set_approval" data-status="decline">
+								<i class="fa fa-times"></i> Decline </a>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 			<div class="portlet-body">
 				<?php $this->load->view('financecorp/ar/invoice/component/table_invoice_approval'); ?>
