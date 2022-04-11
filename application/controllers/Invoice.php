@@ -56,7 +56,8 @@ class Invoice extends CI_Controller
 
 		//VAT Non/Inclusive Calculation
 		$vat = (float) $formData['payment_vat'];
-		if($formData['payment_vat_inclusive'] == 'on'){
+		$inclusive = $formData['payment_vat_inclusive'] ?? 'off';
+		if($inclusive == 'on'){
 			$vat = ($net_subtotal * (100 / (100 + $vat)) * ($vat / 100));
 		}else{
 			$vat = $net_subtotal * ($formData['payment_vat'] / 100);
