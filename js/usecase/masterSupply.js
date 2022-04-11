@@ -337,6 +337,8 @@ const msup = {
 
         //SUBMIT ITEM
         $(document).on('click', '#btnAdd', async function () {
+            var curTable = $(this).parents('portlet').find('table')
+            
             switch ($(this).attr('input')) {
                 case 'mas_stock_d_grp':
                     validate = _callable.validateModalInputs('form_stockgrp')
@@ -383,34 +385,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_grp',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_d_grp'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "GroupCode" },
-                            { targets: 2, data: "GroupDescription" },
-                            { targets: 3, data: "TypeDescription" },
-                            {
-                                targets: 4,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.GroupCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.GroupCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
                     break;
                 case 'mas_stock_c_type':
                     validate = _callable.validateModalInputs('form_stocktype')
@@ -457,34 +432,8 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_type',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_c_type'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "TypeCode" },
-                            { targets: 2, data: "TypeDescription" },
-                            { targets: 3, data: "CatDescription" },
-                            {
-                                targets: 4,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                                                    <center>
-                                                                        <a data-id="${row.TypeCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal">
-                                                                            <i class="fa fa-pencil" title="Edit"></i>
-                                                                        </a> 
-                                                                        <a data-id="${row.TypeCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal">
-                                                                            <i class="fa fa-close" title="Discontinue"></i>
-                                                                        </a>
-                                                                    </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
+                    break;
                 case 'mas_stock_b_cat':
                     validate = _callable.validateModalInputs('form_stockcategory')
                     if (!validate) {
@@ -530,34 +479,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_cat',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_b_cat'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "CatCode" },
-                            { targets: 2, data: "CatDescription" },
-                            { targets: 3, data: "StockClassDescription" },
-                            {
-                                targets: 4,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.CatCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.CatCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
                     break;
                 case 'mas_stock_a_class':
                     validate = _callable.validateModalInputs('form_stockclass')
@@ -604,33 +526,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_class',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_a_class'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "StockClassCode" },
-                            { targets: 2, data: "StockClassDescription" },
-                            {
-                                targets: 3,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.StockClassCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.StockClassCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
                     break;
             }
         })
@@ -882,6 +778,7 @@ const msup = {
         //SUBMIT EDIT
         $(document).on('click', 'button#btnEdit', async function () {
             var id = $(this).data('id')
+            var curTable = $(this).parents('table')
 
             switch ($(this).attr('input')) {
                 case 'mas_stock_d_grp':
@@ -921,34 +818,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_grp',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_d_grp'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "GroupCode" },
-                            { targets: 2, data: "GroupDescription" },
-                            { targets: 3, data: "TypeDescription" },
-                            {
-                                targets: 4,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.GroupCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.GroupCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
                     break;
                 case 'mas_stock_c_type':
                     //Serialize and convert as Object
@@ -987,34 +857,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_type',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_c_type'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "TypeCode" },
-                            { targets: 2, data: "TypeDescription" },
-                            { targets: 3, data: "CatDescription" },
-                            {
-                                targets: 4,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.TypeCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.TypeCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
                     break;
                 case 'mas_stock_b_cat':
                     //Serialize and convert as Object
@@ -1053,34 +896,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_cat',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_b_cat'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "CatCode" },
-                            { targets: 2, data: "CatDescription" },
-                            { targets: 3, data: "StockClassDescription" },
-                            {
-                                targets: 4,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.CatCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.CatCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
                     break;
                 case 'mas_stock_a_class':
                     //Serialize and convert as Object
@@ -1119,33 +935,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_class',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_a_class'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "StockClassCode" },
-                            { targets: 2, data: "StockClassDescription" },
-                            {
-                                targets: 3,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.StockClassCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.StockClassCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
                     break;
             }
         })
@@ -1155,6 +945,7 @@ const msup = {
         $(document).on('click', 'a.disc-stockgroup', async function (e) {
             e.preventDefault();
             var id = $(this).data('id');
+            var curTable = $(this).parents('table')
 
             var confirm = window.confirm('Are you sure to discontinue this data ?');
             if (!confirm) return;
@@ -1191,34 +982,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_grp',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_d_grp'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "GroupCode" },
-                            { targets: 2, data: "GroupDescription" },
-                            { targets: 3, data: "TypeDescription" },
-                            {
-                                targets: 4,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.GroupCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.GroupCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_d_grp" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
 
                     break;
                 case 'mas_stock_c_type':
@@ -1252,34 +1016,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_type',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_c_type'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "TypeCode" },
-                            { targets: 2, data: "TypeDescription" },
-                            { targets: 3, data: "CatDescription" },
-                            {
-                                targets: 4,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.TypeCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.TypeCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_c_type" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
                     break;
                 case 'mas_stock_b_cat':
                     var remarks = prompt("Remarks", "");
@@ -1312,34 +1049,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_cat',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_b_cat'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "CatCode" },
-                            { targets: 2, data: "CatDescription" },
-                            { targets: 3, data: "StockClassDescription" },
-                            {
-                                targets: 4,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.CatCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.CatCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_b_cat" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
                     break;
                 case 'mas_stock_a_class':
                     var remarks = prompt("Remarks", "");
@@ -1372,33 +1082,7 @@ const msup = {
                             })
                         })
 
-                    await repository.generateDataTable(
-                        '#table_master_stockgroup_class',
-                        `${baseURL}/Cmaster/getDataMasterStockGroup`,
-                        {
-                            input: 'mas_stock_a_class'
-                        },
-                        [
-                            { targets: 0, className: 'control', orderable: false, defaultContent: "" },
-                            { targets: 1, data: "StockClassCode" },
-                            { targets: 2, data: "StockClassDescription" },
-                            {
-                                targets: 3,
-                                orderable: false,
-                                render: (data, type, row) => {
-                                    return `
-                                        <center>
-                                            <a data-id="${row.StockClassCode}" class="btn green btn-xs btn-outline edit-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal">
-                                                <i class="fa fa-pencil" title="Edit"></i>
-                                            </a> 
-                                            <a data-id="${row.StockClassCode}" class="btn yellow btn-xs btn-outline disc-stockgroup" input="mas_stock_a_class" href="#" data-toggle="modal">
-                                                <i class="fa fa-close" title="Discontinue"></i>
-                                            </a>
-                                        </center>`
-                                }
-                            }
-                        ]
-                    )
+                    await curTable.ajax.reload()
                     break;
             }
         })
