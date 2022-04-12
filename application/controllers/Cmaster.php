@@ -1225,9 +1225,7 @@ class Cmaster extends CI_Controller
 
 	public function inputDataMasterStockGroup()
 	{
-		var_dump('<pre>'.print_r($this->input->post(), true).'</pre>');
-		die();
-		$input = ($this->input->post('input'));
+		$input = $this->input->post('input');
 		$result = false;
 		
 		switch ($input) {
