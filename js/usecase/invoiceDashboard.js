@@ -9,9 +9,10 @@ const dtColumns = [
     {
         orderable: false,
         width: 'auto',
+        class: "text-center",
         render: (data, type, row) => {
             return `
-            <div class="md-checkbox text-center" style="left: 40%; right: 50%">
+            <div class="md-checkbox" style="left: 17%">
                 <input type="checkbox" name="invoice_check" value="${row.InvoiceNo}" id="${row.InvoiceNo}" class="md-check">
                 <label for="${row.InvoiceNo}">
                     <span class="inc"></span>
