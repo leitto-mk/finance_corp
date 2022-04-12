@@ -32,15 +32,20 @@ const dtColumns = [
         data: "Approvedstatus" ,
         class: 'text-center',
         render: (data, type, row) => {
-            let approval;
-            
-            if(row.ApprovedStatus == 1){
-                approval = `<span class="badge badge-info sbold">Approved</span>`
-            }else{
-                approval = `<span class="badge badge-danger sbold">Declined</span>`
+            let label;
+
+            switch (+row.ApprovedStatus) {
+                case 1:
+                    label = `<span class="badge badge-info sbold">Approved</span>`
+                    break;
+                case -1:
+                    label = `<span class="badge badge-danger sbold">Declined</span>`
+                default:
+                    label = `<span class="badge badge-warning sbold">Waiting</span>`
+                    break;
             }
             
-            return approval
+            return label
         }
     },
     { data: "CustomerName" },

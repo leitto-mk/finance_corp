@@ -96,7 +96,7 @@ class Mdl_corp_invoice extends CI_Model
 	}
 
 	public function set_approval($approval, $list){
-		$this->db->where_in($list)->update('tbl_fa_invoice_mas', ['ApprovedStatus' => ($approval == 'approve' ? 1 : 0)]);
+		$this->db->where_in($list)->update('tbl_fa_invoice_mas', ['ApprovedStatus' => ($approval == 'approve' ? 1 : -1)]);
 
 		if($this->db->error()['code'] !== 0){
 			throw new Exception("Database Error");
