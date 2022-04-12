@@ -456,7 +456,11 @@ class Invoice extends CI_Controller
 	}
 
 	public function approve(){
-		$list = [...$this->input->post('invoice')];
+		$list = [];
+		$invoices = $this->input->post('invoice');
+		for($i=0; $i < count($invoices); $i++){
+			array_push($list, $invoices[$i]);
+		}
 
 		try{
 			$this->Mdl_corp_invoice->set_approval('approve', $list);
@@ -468,7 +472,11 @@ class Invoice extends CI_Controller
 	}
 	
 	public function decline(){
-		$list = [...$this->input->post('invoice')];
+		$list = [];
+		$invoices = $this->input->post('invoice');
+		for($i=0; $i < count($invoices); $i++){
+			array_push($list, $invoices[$i]);
+		}
 
 		try{
 			$this->Mdl_corp_invoice->set_approval('decline', $list);
