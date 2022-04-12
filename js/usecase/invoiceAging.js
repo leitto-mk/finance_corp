@@ -187,8 +187,6 @@ export const AgingPage = () => {
             .fail(err => {
                 helper.unblockUI()
 
-                console.log(err)
-
                 Swal.fire({
                     'icon': 'error',
                     'title': 'ERROR',

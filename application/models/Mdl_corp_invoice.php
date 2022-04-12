@@ -152,11 +152,10 @@ class Mdl_corp_invoice extends CI_Model
 		->join("(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
 				 WHERE $ageby >= DATE_ADD('$start', INTERVAL 91 DAY)) AS q4", "CustomerCode", 'LEFT');
 
-		if($branch !== ''){
+		if(!empty($branch)){
 			$this->db->where('mas.Branch', $branch);
 		}
-
-		if($customer !== ''){
+		if(!empty($customer)){
 			$this->db->where('mas.CustomerCode', $customer);
 		}
 
@@ -168,10 +167,10 @@ class Mdl_corp_invoice extends CI_Model
 		/**
 		 **  Q1-Q4 Details
 		 */
-		if($branch !== ''){
+		if(!empty($branch)){
 			$this->db->where('mas.Branch', $branch);
 		}
-		if($customer !== ''){
+		if(!empty($customer)){
 			$this->db->where('mas.CustomerCode', $customer);
 		}
 
