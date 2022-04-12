@@ -99,7 +99,7 @@ const our = {
                     Swal.fire({
                         'icon': 'error',
                         'title': 'ABORTED',
-                        'html': `<h4 class="sbold">${err.desc}</h4>`
+                        'html': `<h4 class="sbold">${err.response.JSON.desc ??= 'Server Problem'}</h4>`
                     })
                 })
             })

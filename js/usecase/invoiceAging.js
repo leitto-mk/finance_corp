@@ -187,10 +187,12 @@ export const AgingPage = () => {
             .fail(err => {
                 helper.unblockUI()
 
+                console.log(err)
+
                 Swal.fire({
                     'icon': 'error',
                     'title': 'ERROR',
-                    'html': `<h4 class="sbold">${err.desc}</h4>`
+                    'html': `<h4 class="sbold">${err.response.JSON.desc ??= 'Server Problem'}</h4>`
                 })
             })
         })
