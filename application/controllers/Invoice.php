@@ -471,7 +471,7 @@ class Invoice extends CI_Controller
 		$list = [...$this->input->post('invoice')];
 
 		try{
-			$this->Mdl_corp_invoice->set_approval('decline', $this->input->post());
+			$this->Mdl_corp_invoice->set_approval('decline', $list);
 		}catch(Exception $e){
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
 		}
