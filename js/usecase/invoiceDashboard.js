@@ -29,20 +29,17 @@ const dtColumns = [
     },
     { data: "InvoiceNo" },
     { 
-        data: "Approvedstatus" ,
+        data: "ApprovedStatus" ,
         class: 'text-center',
         render: (data, type, row) => {
             let label;
-
-            switch (+row.ApprovedStatus) {
-                case 1:
-                    label = `<span class="badge badge-info sbold">Approved</span>`
-                    break;
-                case -1:
-                    label = `<span class="badge badge-danger sbold">Declined</span>`
-                default:
-                    label = `<span class="badge badge-warning sbold">Waiting</span>`
-                    break;
+            
+            if(row.ApprovedStatus == 1){
+                label = `<span class="badge badge-info sbold">Approved</span>`
+            }else if(row.ApprovedStatus == -1){
+                label = `<span class="badge badge-danger sbold">Declined</span>`
+            }else if(row.ApprovedStatus == 0){
+                label = `<span class="badge badge-warning sbold">Waiting</span>`
             }
             
             return label
@@ -90,7 +87,7 @@ const dtColumns = [
             return `<a name="edit" href="${base_url}/edit/${row.InvoiceNo}" target="_blank" class="btn btn-xs grey-gallery btn-outline" title="Edit">
                         <i class="fa fa-pencil"></i>
                     </a>
-                    <a name="delete" href="#" data-invoiceno="${row.InvoiceNo}" class="btn btn-xs grey-gallery btn-outline" title="Delete">
+                    <a name="delete" href="javascript:;" data-invoiceno="${row.InvoiceNo}" class="btn btn-xs grey-gallery btn-outline" title="Delete">
                         <i class="fa fa-close"></i>
                     </a>`
         },
