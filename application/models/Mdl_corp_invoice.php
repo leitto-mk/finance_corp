@@ -187,9 +187,9 @@ class Mdl_corp_invoice extends CI_Model
 			mas.Balance
 		")
 		->from('tbl_fa_invoice_mas AS mas')
-		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
-			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
-			 WHERE $ageby BETWEEN '$start' AND DATE_ADD('$start', INTERVAL 30 DAY)) AS q1", "CustomerCode", 'LEFT')->get();
+		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')
+		->where("mas.$ageby BETWEEN '$start' AND DATE_ADD('$start', INTERVAL 30 DAY)")
+		->get();
 		
 		if($this->db->error()['code'] !== 0){
 			throw new Exception("Database Error");
@@ -207,9 +207,9 @@ class Mdl_corp_invoice extends CI_Model
 			mas.Balance
 		")
 		->from('tbl_fa_invoice_mas AS mas')
-		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
-			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
-			 WHERE $ageby BETWEEN DATE_ADD('$start', INTERVAL 31 DAY) AND DATE_ADD('$start', INTERVAL 60 DAY)) AS q2", "CustomerCode", 'LEFT')->get();
+		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')
+		->where("mas.$ageby BETWEEN DATE_ADD('$start', INTERVAL 31 DAY) AND DATE_ADD('$start', INTERVAL 60 DAY)")
+		->get();
 		
 		if($this->db->error()['code'] !== 0){
 			throw new Exception("Database Error");
@@ -227,9 +227,9 @@ class Mdl_corp_invoice extends CI_Model
 			mas.Balance
 		")
 		->from('tbl_fa_invoice_mas AS mas')
-		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
-			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
-			 WHERE $ageby BETWEEN DATE_ADD('$start', INTERVAL 61 DAY) AND DATE_ADD('$start', INTERVAL 90 DAY)) AS q3", "CustomerCode", 'LEFT')->get();
+		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')
+		->where("mas.$ageby BETWEEN DATE_ADD('$start', INTERVAL 61 DAY) AND DATE_ADD('$start', INTERVAL 90 DAY)")
+		->get();
 		
 		if($this->db->error()['code'] !== 0){
 			throw new Exception("Database Error");
@@ -247,9 +247,9 @@ class Mdl_corp_invoice extends CI_Model
 			mas.Balance
 		")
 		->from('tbl_fa_invoice_mas AS mas')
-		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')->join("
-			(SELECT CustomerCode, Balance FROM tbl_fa_invoice_mas
-			 WHERE $ageby >= DATE_ADD('$start', INTERVAL 91 DAY)) AS q4", "CustomerCode", 'LEFT')->get();
+		->join('tbl_mat_cat_customer AS cus', 'CustomerCode', 'LEFT')
+		->where("mas.$ageby >= DATE_ADD('$start', INTERVAL 91 DAY)")
+		->get();
 		
 		if($this->db->error()['code'] !== 0){
 			throw new Exception("Database Error");
