@@ -154,7 +154,7 @@ const gl = {
                     Swal.fire({
                             'icon': 'error',
                             'title': 'ABORTED',
-                            'html': `<h4 class="sbold">${err.response.JSON.desc ??= 'Server Problem'}</h4>`
+                            'html': `<h4 class="sbold">${err.responseJSON.desc ??= 'Server Problem'}</h4>`
                     })
                 })
             })
