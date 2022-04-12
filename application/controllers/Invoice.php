@@ -526,9 +526,9 @@ class Invoice extends CI_Controller
 			$result = [
 				'summary' => $summary,
 				'q1' => $q1,
-				'q1' => $q2,
-				'q1' => $q3,
-				'q1' => $q4
+				'q2' => $q2,
+				'q3' => $q3,
+				'q4' => $q4
 			];
 	
 			return set_success_response($result);
