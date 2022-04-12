@@ -21,7 +21,7 @@
 				</div>
 			</th>
 			<th class="text-center" width="3%">No.</th>
-			<th class="text-center" width="5%">Invoice No.</th>
+			<th class="text-center" width="10%">Invoice No.</th>
 			<th class="text-center" width="3%">Approved Status</th>
 			<th class="text-center" width="25%">Customer</th>
 			<th class="text-center" width="3%">Invoice Date</th>
