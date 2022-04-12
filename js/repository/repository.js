@@ -16,7 +16,7 @@ const repository = {
      * Generate `DataTable`
      * @type    {string}    Selected Table
      * @type    {string}    URL Target
-     * @type    {object}    Request (POST) Body
+     * @type    {object}    body param inside an object, use `serialize` or `serializeArray` for wrapping the body
      * @type    {object}    Column Definition
      * 
      * @return  {promise}   Promised
@@ -26,8 +26,9 @@ const repository = {
         
         postData = postData ?? {}
 
-        //Add CSRF Token
-        postData[csrfName] = csrfHash
+        //If `postData` is an array (serializeArray), push new CSRF's object
+        //If `postData` is an object (serialize) bind new CSRF's key and value
+        Array.isArray(postData) ? postData.push({ name: csrfName, value: csrfHash }) : postData[csrfName] = csrfHash
 
         $(table).DataTable({
             destroy: true,
@@ -80,24 +81,23 @@ const repository = {
      * `Fetch` Record from the Server. with `POST` method
      * 
      * @type    {string}    URL string
-     * @type    {object}    body param inside an object
+     * @type    {object}    body param inside an object, use `serialize` or `serializeArray` for wrapping the body
      * @type    {object}    Type of Response (JSON, text/hml, etc)
      * 
      * @return  {promise}   Promise
      */
-    getRecord: (url, datas, responseType) => {
+    getRecord: (url, postData, responseType) => {
         var defer = $.Deferred()
         
-        datas = datas ?? {}
-        
-        //Add CSRF Token
-        datas[csrfName] = csrfHash
+        //If `postData` is an array (serializeArray), push new CSRF's object
+        //If `postData` is an object (serialize) bind new CSRF's key and value
+        Array.isArray(postData) ? postData.push({ name: csrfName, value: csrfHash }) : postData[csrfName] = csrfHash
 
         $.ajax({
             url: url,
             method: 'POST',
             dataType: responseType ?? 'JSON',
-            data: datas,
+            data: postData,
             beforeSend: () => {
                 helper.blockUI({
                     animate: true
@@ -118,24 +118,23 @@ const repository = {
      * `Delete` Record from the server. with `POST` method
      * 
      * @type    {string}    URL string
-     * @type    {object}    body param inside an object
+     * @type    {object}    body param inside an object, use `serialize` or `serializeArray` for wrapping the body
      * @type    {object}    Type of Response (JSON, text/hml, etc)
      * 
      * @return  {promise}   Promise
      */
-    deleteRecord: (url, datas, responseType) => {
+    deleteRecord: (url, postData, responseType) => {
         var defer = $.Deferred()
 
-        datas = datas ?? {}
-        
-        //Add CSRF Token
-        datas[csrfName] = csrfHash
+        //If `postData` is an array (serializeArray), push new CSRF's object
+        //If `postData` is an object (serialize) bind new CSRF's key and value
+        Array.isArray(postData) ? postData.push({ name: csrfName, value: csrfHash }) : postData[csrfName] = csrfHash
 
         $.ajax({
             url: url,
             method: 'POST',
             dataType: responseType ?? 'JSON',
-            data: datas,
+            data: postData,
             beforeSend: () => {
                 helper.blockUI({
                     animate: true
@@ -156,23 +155,23 @@ const repository = {
      * `Submit` Record to the server. with `POST` method
      * 
      * @type    {string}    URL string
-     * @type    {object}    body param inside an object
+     * @type    {object}    body param inside an object, use `serialize` or `serializeArray` for wrapping the body
      * @type    {object}    Type of Response (JSON, text/hml, etc)
      * 
      * @return  {promise}   Promise
      */
-    submitRecord: (url, datas, responseType) => {
+    submitRecord: (url, postData, responseType) => {
         var defer = $.Deferred()
 
-        //If `datas` is array (serializeArray), push new CSRF's object
-        //If `datas` is an object (serialize) bind new CSRF's key and value
-        Array.isArray(datas) ? datas.push({ name: csrfName, value: csrfHash }) : datas[csrfName] = csrfHash
+        //If `postData` is an array (serializeArray), push new CSRF's object
+        //If `postData` is an object (serialize) bind new CSRF's key and value
+        Array.isArray(postData) ? postData.push({ name: csrfName, value: csrfHash }) : postData[csrfName] = csrfHash
 
         $.ajax({
             url: url,
             method: 'POST',
             dataType: responseType ?? 'JSON',
-            data: datas,
+            data: postData,
             beforeSend: () => {
                 helper.blockUI({
                     animate: true
