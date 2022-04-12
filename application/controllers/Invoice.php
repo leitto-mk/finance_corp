@@ -367,19 +367,19 @@ class Invoice extends CI_Controller
 
 			//Payment Details
 			'SubTotal' => $input->post('payment_sub_total'),
-			'SubTotalAcc' => $input->post('payment_sub_total_accno'),
+			'SubTotalAcc' => str_replace('\'','', $input->post('payment_sub_total_accno')), //Remove quotes
 			'TotalDiscount' => $input->post('payment_discount'),
-			'TotalDiscountAcc' => $input->post('payment_discount_accno'),
+			'TotalDiscountAcc' => str_replace('\'','', $input->post('payment_discount_accno')), //Remove quotes
 			'NetSubTotal' => $input->post('payment_net_subtotal'),
 			'VATInclusive' => $input->post('payment_vat_inclusive') == 'on' ? 1 : 0,
 			'VAT' => $input->post('payment_vat'),
-			'VATAcc' => $input->post('payment_vat_accno'),
+			'VATAcc' => str_replace('\'','', $input->post('payment_vat_accno')), //Remove quotes
 			'PPH' => $input->post('payment_pph'),
-			'PPHAcc' => $input->post('payment_pph_accno'),
+			'PPHAcc' => str_replace('\'','', $input->post('payment_pph_accno')), //Remove quotes
 			'FreightCost' => $input->post('payment_freight'),
-			'FreightCostAcc' => $input->post('payment_freight_accno'),
+			'FreightCostAcc' => str_replace('\'','', $input->post('payment_freight_accno')), //Remove quotes
 			'TotalAmount' => $input->post('payment_total_amount'),
-			'TotalAmountAcc' => $input->post('payment_total_amount_accno'),
+			'TotalAmountAcc' => str_replace('\'','', $input->post('payment_total_amount_accno')), //Remove quotes
 			'PaymentType' => $input->post('dp_payment_type'),
 			'CardNo' => $input->post('dp_payment_card_text'),
 			'BankCode' => $input->post('dp_payment_bank'),
