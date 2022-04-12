@@ -60,9 +60,6 @@ const dtColumns = [
     },
     {
         data: response => {
-            var location = window.location.href
-            var baseURL = location.substring(0, location.lastIndexOf('/'))
-
             return `
                 <a href="${baseURL}/Entry/edit_receipt?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                     <i class="fa fa-edit"> </i>

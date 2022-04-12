@@ -5,6 +5,8 @@
 import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
+const baseURL = window.location.origin
+
 const dtColumns = [
     {
         data: 'TransDate',
@@ -58,9 +60,6 @@ const dtColumns = [
     },
     {
         data: response => {
-            var location = window.location.href
-            var baseURL = location.substring(0, location.lastIndexOf('/'))
-
             return `
                 <a href="${baseURL}/${url.edit}?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                     <i class="fa fa-edit"> </i>
