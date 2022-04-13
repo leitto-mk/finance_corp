@@ -281,7 +281,7 @@
 										</td>
 										<td>
 											<div class="form-group">
-												<input type="number" name="discount[]" class="form-control text-right so-discount" min="0" value="<?= $data[$h]['Discount'] ?>" step="0.01">
+												<input type="number" name="discount[]" class="form-control text-right so-discount" min="0" value="<?= $data[$h]['Discount'] ?: 0 ?>" step="0.01">
 												<span class="help-block hidden"></span>
 											</div>
 										</td>
@@ -325,7 +325,7 @@
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Discount</label>
 								<div class="input-group">
-									<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="<?= $data[0]['TotalDiscount'] ?>" step="0.01">
+									<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="<?= $data[0]['TotalDiscount'] ?: 0 ?>" step="0.01">
 									<a name="select_accno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
 									<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="<?= $data[0]['TotalDiscountAcc'] ?>" hidden>
 								</div>
@@ -352,7 +352,7 @@
 							<div class="form-group">
 								<label for="payment_vat" class="control-label">VAT | Inclusive</label>
 								<div class="input-group">
-									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="<?= $data[0]['VAT'] ?>" step="0.01">
+									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="<?= $data[0]['VAT'] ?: 11 ?>" step="0.1">
 									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
 									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="<?= $data[0]['VATAcc'] ?>" hidden>
 									<a class="input-group-addon bg-blue-chambray bg-font-blue-chambray">
@@ -378,7 +378,7 @@
 							<div class="form-group">
 								<label for="payment_pph" class="control-label">Less PPh 23</label>
 								<div class="input-group">
-									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="<?= $data[0]['PPH'] ?>" step="0.01">
+									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="<?= $data[0]['PPH'] ?: 2 ?>" step="0.01">
 									<a name="select_accno" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
 									<input type="text" id="payment_pph_accno" name="payment_pph_accno" value="<?= $data[0]['PPHAcc'] ?>" hidden>
 								</div>
