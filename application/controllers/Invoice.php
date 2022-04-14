@@ -300,7 +300,15 @@ class Invoice extends CI_Controller
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
 		}
 
-		return set_success_response($result);
+		//Append only AccNo with TransGroup is 'INV'
+		$invoice_acc = [];
+		for($i = 0; $i < count($result); $i++){
+			if(strtolower($result[$i]['TransGroup']) == 'inv'){
+				array_push($invoice_acc, $result[$i]);
+			}
+		}
+
+		return set_success_response($invoice_acc);
 	}
 
 	public function submit(){
