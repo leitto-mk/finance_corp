@@ -153,20 +153,15 @@ export const FormPage = () => {
         });
     })();
 
-    (function EventChangeRaisedDate(){
-        $('#raised_date').change(function(){
-            let raised = $(this).val()
-            $('#due_date').attr({
-                min: raised,
-                value: raised
-            })
-        })
-    })();
-
-    (function EventGetTermsOfDay(){
-        $('#raised_date, #term_days').change(function(){
+    (function EventSetDueDate(){
+        $(document).on('input, change', '#raised_date, #term_days', function(){
             let raised_date = $('#raised_date').val()
             let term_day = +$('#term_days').val()
+
+            $('#due_date').attr({
+                min: raised_date,
+                value: raised_date
+            })
 
             let due_date = moment(raised_date,'YYYY-MM-DD').add(term_day, 'days')
 
@@ -215,12 +210,6 @@ export const FormPage = () => {
             //Get existing AccNo Value from hidden input
             var curAccno = $(this).attr('id').replace('_label','')
             var existedVal = $(`#${curAccno}`).val() ?? ''
-
-            //If Current Accno is for VAT and Inclusive is not checked,
-            //then do nothing
-            if(curAccno == 'payment_vat_accno' && $('#payment_vat_inclusive').is(':checked') == false){
-                return
-            }
 
             let url = window.location.origin + '/Invoice/get_accno'
             await repository.getRecord(url, null)
