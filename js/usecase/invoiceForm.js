@@ -209,7 +209,7 @@ export const FormPage = () => {
 
     (function EventAddSelectAccNo(){
         $('a[name="select_accno"]').click(async function(){
-            var selector = $(this).parent('.input-group')
+            var anchor = $(this)
             var options = {}
 
             //Get existing AccNo Value from hidden input
@@ -226,8 +226,10 @@ export const FormPage = () => {
             await repository.getRecord(url, null)
             .then(response => {
                 helper.unblockUI()
-                let val = response.result
 
+                //Append options with Result Values
+                let val = response.result
+                options["n/a"]  = 'N/A'
                 for(let i=0; i < response.result.length; i++){
                     options[`'${val[i]['Acc_No']}'`] = `${val[i]['Acc_No']} - ${val[i]['Acc_Name']}`
                 }
@@ -242,7 +244,21 @@ export const FormPage = () => {
                     inputPlaceholder: '-- Choose Acc No. --',
                     showCancelButton: true,
                     inputValidator: (value) => {
-                        selector.find('input:hidden').attr('value',value)
+                        if(value !== 'n/a'){
+                            //Store the selected value into hidden input
+                            anchor.parent('.input-group').find('input:hidden').attr('value',value)
+    
+                            //Set the Button's color
+                            anchor.removeClass('font-red-sunglo')
+                            anchor.addClass('bg-font-blue-chambray')
+                        }else{
+                            //Empty the hidden input's value
+                            anchor.parent('.input-group').find('input:hidden').attr('value', null)
+    
+                            //Set the Button's color
+                            anchor.removeClass('bg-font-blue-chambray')
+                            anchor.addClass('font-red-sunglo')
+                        }
                     }
                 })
             })

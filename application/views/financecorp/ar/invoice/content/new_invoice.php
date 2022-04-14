@@ -294,7 +294,7 @@
 						<label for="payment_sub_total" class="control-label">Subtotal</label>
 						<div class="input-group">
 							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="" required>
-							<a name="select_accno" id="payment_sub_total_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<a name="select_accno" id="payment_sub_total_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 							<input type="text" id="payment_sub_total_accno" name="payment_sub_total_accno" value="" hidden>
 						</div>
 					</div>
@@ -304,7 +304,7 @@
 								<label for="payment_discount" class="control-label">Discount</label>
 								<div class="input-group">
 									<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="0" step="0.01">
-									<a name="select_accno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+									<a name="select_accno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 									<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
@@ -331,7 +331,7 @@
 								<label for="payment_vat" class="control-label">VAT | Inclusive</label>
 								<div class="input-group">
 									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="11" step="0.1">
-									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="" hidden>
 									<a class="input-group-addon bg-blue-chambray bg-font-blue-chambray">
 		                        		<label class="mt-checkbox" style="margin-left: 15px">
@@ -357,7 +357,7 @@
 								<label for="payment_pph" class="control-label">PPh 23</label>
 								<div class="input-group">
 									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="2" step="0.1">
-									<a name="select_accno" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+									<a name="select_accno" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 									<input type="text" id="payment_pph_accno" name="payment_pph_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
@@ -375,7 +375,7 @@
 						<label for="payment_freight" class="control-label">Freight</label>
 						<div class="input-group">
 							<input type="text" name="payment_freight" id="payment_freight" class="form-control text-right">
-							<a name="select_accno" id="payment_freight_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<a name="select_accno" id="payment_freight_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 							<input type="text" id="payment_freight_accno" name="payment_freight_accno" value="" hidden>
 						</div>
 					</div>
@@ -383,7 +383,7 @@
 						<label for="payment_total_amount" class="control-label">Total Amount</label>
 						<div class="input-group">
 							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly required>
-							<a name="select_accno" id="payment_total_amount_accno_label" class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Acc No</a>
+							<a name="select_accno" id="payment_total_amount_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 							<input type="text" id="payment_total_amount_accno" name="payment_total_amount_accno" value="" hidden>
 						</div>
 					</div>
