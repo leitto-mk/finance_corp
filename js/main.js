@@ -6,11 +6,11 @@ $(document).ready(function(){
      */
     const modules = {
         //* ENTRY
-        receipt: baseUrl => {
+        receipt: () => {
             import('./usecase/receipt.js')
             .then(({default: rec}) => {
                 let path = window.location.href
-                let segment = path.split(baseUrl)[1]
+                let segment = path.split(window.location.origin)[1]
                 segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
@@ -33,11 +33,11 @@ $(document).ready(function(){
             })
         },
     
-        payment: baseUrl => {
+        payment: () => {
             import('./usecase/payment.js')
             .then(({default: pay}) => {
                 let path = window.location.href
-                let segment = path.split(baseUrl)[1]
+                let segment = path.split(window.location.origin)[1]
                 segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
@@ -60,11 +60,11 @@ $(document).ready(function(){
             })
         },
     
-        overbook: baseUrl => {
+        overbook: () => {
             import('./usecase/overbook.js')
             .then(({default: ob}) => {
                 let path = window.location.href
-                let segment = path.split(baseUrl)[1]
+                let segment = path.split(window.location.origin)[1]
                 segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
@@ -87,11 +87,11 @@ $(document).ready(function(){
             })
         },
     
-        generalJournal: baseUrl => {
+        generalJournal: () => {
             import('./usecase/generalJournal.js')
             .then(({default: gj}) => {
                 let path = window.location.href
-                let segment = path.split(baseUrl)[1]
+                let segment = path.split(window.location.origin)[1]
                 segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
@@ -114,11 +114,11 @@ $(document).ready(function(){
             })
         },
     
-        recalculateBalance: baseUrl => {
+        recalculateBalance: () => {
             import('./usecase/recalculateBalance.js')
             .then(({default: cal}) => {
                 let path = window.location.href
-                let segment = path.split(baseUrl)[1]
+                let segment = path.split(window.location.origin)[1]
                 segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
@@ -133,11 +133,11 @@ $(document).ready(function(){
         },
 
         //* AR
-        arReceiptPayment: baseUrl => {
+        arReceiptPayment: () => {
             import('./usecase/arReceiptPayment.js')
             .then(({default: arp}) => {
                 let path = window.location.href
-                let segment = path.split(baseUrl)[1]
+                let segment = path.split(window.location.origin)[1]
                 segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
@@ -160,9 +160,9 @@ $(document).ready(function(){
             })
         },
 
-        invoice: baseUrl => {
+        invoice: () => {
             let path = window.location.href
-            let segment = path.split(baseUrl)[1]
+            let segment = path.split(window.location.origin)[1]
             segment = segment.split('/')[1] ?? ''
             segment = segment.toLowerCase()
 
@@ -208,11 +208,11 @@ $(document).ready(function(){
         },
 
         //* AP
-        apPayment: baseUrl => {
+        apPayment: () => {
             import('./usecase/apPayment.js')
             .then(({default: apy}) => {
                 let path = window.location.href
-                let segment = path.split(baseUrl)[1]
+                let segment = path.split(window.location.origin)[1]
                 segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
@@ -235,11 +235,11 @@ $(document).ready(function(){
         },
     
         //* CASH ADVANCE
-        cashWithdraw: baseUrl => {
+        cashWithdraw: () => {
             import('./usecase/cashWithdraw.js')
             .then(({default: caw}) => {
                 let path = window.location.href
-                let segment = path.split(baseUrl)[1]
+                let segment = path.split(window.location.origin)[1]
                 segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
@@ -263,11 +263,11 @@ $(document).ready(function(){
             })
         },
     
-        cashReceipt: baseUrl => {
+        cashReceipt: () => {
             import('./usecase/cashReceipt.js')
             .then(({default: car}) => {
                 let path = window.location.href
-                let segment = path.split(baseUrl)[1]
+                let segment = path.split(window.location.origin)[1]
                 segment = segment.split('/')[1]
                 let page = segment.split('_')[0]
 
@@ -291,7 +291,7 @@ $(document).ready(function(){
             })
         },
     
-        cashPersonalStatement: baseUrl => {
+        cashPersonalStatement: () => {
             import('./usecase/cashPersonalStatement.js')
             .then(({default: cap}) => {
                 cap.indexPage.eventGetEmpDetails()
@@ -301,7 +301,7 @@ $(document).ready(function(){
             })
         },
 
-        outstandingReport: baseUrl => {
+        outstandingReport: () => {
             import('./usecase/outstandingReport.js')
             .then(({default: our}) => {
                 our.indexPage.eventGetOutstandingReport()  
@@ -311,7 +311,7 @@ $(document).ready(function(){
             })
         },
     
-        cashTransactionDetail: baseUrl => {
+        cashTransactionDetail: () => {
             import('./usecase/cashTransactionDetail.js')
             .then(({default: ctd}) => {
                 ctd.indexPage.eventGetCashTransactionDetail()  
@@ -322,7 +322,7 @@ $(document).ready(function(){
         },
 
         //* EMPLOYEE
-        employeeRegistered: baseUrl => {
+        employeeRegistered: () => {
             import('./usecase/employeeRegistered.js')
             .then(({default: regd}) => {
                 regd.generateChart()
@@ -332,16 +332,16 @@ $(document).ready(function(){
             })
         },
 
-        newRegister: baseUrl => {},
+        newRegister: () => {},
 
-        employeeGender: baseUrl => {},
+        employeeGender: () => {},
 
-        employeeType: baseUrl => {},
+        employeeType: () => {},
 
-        employeeSupervisor: baseUrl => {},
+        employeeSupervisor: () => {},
     
         //* REPORTS
-        generalLedger: baseUrl => {
+        generalLedger: () => {
             import('./usecase/generalLedger.js')
             .then(({default: gl}) => {
                 gl.indexPage.eventPreviewFilter()
@@ -351,7 +351,7 @@ $(document).ready(function(){
             })
         },
     
-        balanceSheet: baseUrl => {
+        balanceSheet: () => {
             import('./usecase/balanceSheet.js')
             .then(({default: bal}) => {
                 bal.indexPage.initGetURLParamAsFilter()
@@ -363,7 +363,7 @@ $(document).ready(function(){
             })
         },
     
-        incomeStatement: baseUrl => {
+        incomeStatement: () => {
             import('./usecase/incomeStatement.js')
             .then(({default: ics}) => {
                 ics.indexPage.eventChangeOption()
@@ -374,7 +374,7 @@ $(document).ready(function(){
             })
         },
     
-        incomeStatementColumnar: baseUrl => {
+        incomeStatementColumnar: () => {
             import('./usecase/incomeStatementColumnar.js')
             .then(({default: icsc}) => {
                 icsc.indexPage.eventChangeOption()
@@ -385,7 +385,7 @@ $(document).ready(function(){
             })
         },
     
-        journalTransaction: baseUrl => {
+        journalTransaction: () => {
             import('./usecase/journalTransaction.js')
             .then(({default: jtr}) => {
                 jtr.indexPage.eventPreviewFilter()
@@ -396,9 +396,9 @@ $(document).ready(function(){
         },
 
         //* MASTER
-        master: baseUrl => {
+        master: () => {
             var path = window.location.href
-            var segment = path.split(baseUrl)[1]
+            var segment = path.split(window.location.origin)[1]
 
             //? OPERATION
             import('./usecase/masterOperation.js')
@@ -446,13 +446,10 @@ $(document).ready(function(){
     
     //Get Sript Name
     const fn = document.querySelector('#script').getAttribute('data-load-module')
-
-    //Get Base URL
-    const baseURL = document.querySelector('#script').getAttribute('data-base-url')
     
     //Load Script
     if(fn in modules){
-        modules[fn](baseURL)
+        modules[fn]()
     }else{
         console.log(`%cERROR: %cUnrecognised module of %c\`${fn}\``,'color: red','color: white','color: yellow')
     }
