@@ -88,6 +88,8 @@ const repository = {
      */
     getRecord: (url, postData, responseType) => {
         var defer = $.Deferred()
+
+        postData = postData ?? {}
         
         //If `postData` is an array (serializeArray), push new CSRF's object
         //If `postData` is an object (serialize) bind new CSRF's key and value
@@ -126,6 +128,8 @@ const repository = {
     deleteRecord: (url, postData, responseType) => {
         var defer = $.Deferred()
 
+        postData = postData ?? {}
+
         //If `postData` is an array (serializeArray), push new CSRF's object
         //If `postData` is an object (serialize) bind new CSRF's key and value
         Array.isArray(postData) ? postData.push({ name: csrfName, value: csrfHash }) : postData[csrfName] = csrfHash
@@ -162,6 +166,8 @@ const repository = {
      */
     submitRecord: (url, postData, responseType) => {
         var defer = $.Deferred()
+
+        postData = postData ?? {}
 
         //If `postData` is an array (serializeArray), push new CSRF's object
         //If `postData` is an object (serialize) bind new CSRF's key and value
