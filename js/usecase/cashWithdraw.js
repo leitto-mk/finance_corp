@@ -61,10 +61,10 @@ const dtColumns = [
     {
         data: response => {
             return `
-                <a href="${baseURL}/${url.edit}?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                <a href="${baseURL}/Cash_adv/edit_ca_withdraw'?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                     <i class="fa fa-edit"> </i>
                 </a>
-                <a href="${baseURL}/${url.report}?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                <a href="${baseURL}/Cash_adv/view_reps_cash_withdraw?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                     <i class="fa fa-print"> </i>
                 </a>
                 <a href="javascript:;" name="delete" data-docno="${response.DocNo}" data-branch="${response.Branch}" data-transdate="${response.TransDate}" type="button" class="btn btn-xs red">
@@ -83,19 +83,13 @@ const dtColumns = [
 const caw = {
     indexPage: {
         initDT: () => {
-            let url = {
-                target: 'ajax_get_ranged_ca_withdraw',
-                edit: 'edit_ca_withdraw',
-                report: 'view_reps_cash_withdraw'
-            }
-
             let postData = {
                 docno: '',
                 date_start: helper.firstDayOfMonth(),
                 date_end: helper.lastDayOfMonth()
             }
 
-            repository.generateDataTable('table', url, postData, dtColumns)
+            repository.generateDataTable('table', 'ajax_get_ranged_ca_withdraw', postData, dtColumns)
         },
     
         eventShowList: () => {
@@ -103,14 +97,8 @@ const caw = {
                 let docno = $('#search_item').val()
                 let date_start = $('#date_from').val()
                 let date_end = $('#date_to').val()
-
-                let url = {
-                    target: 'ajax_get_ranged_ca_withdraw',
-                    edit: 'edit_ca_withdraw',
-                    report: 'view_reps_cash_withdraw'
-                }
     
-                repository.generateDataTable('table', url, { docno, date_start, date_end }, dtColumns)
+                repository.generateDataTable('table', 'ajax_get_ranged_ca_withdraw', { docno, date_start, date_end }, dtColumns)
                 
             })
         },

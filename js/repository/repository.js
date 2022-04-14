@@ -35,7 +35,7 @@ const repository = {
             lengthMenu: [30, 50, 100, 300],
             pagingType: "bootstrap_extended",
             ajax: {
-                url: url?.target ?? url, //Some URL has multiple value, check receipt's `initDT` for example
+                url: url,
                 method: 'GET',
                 data: postData,
                 beforeSend: () => {

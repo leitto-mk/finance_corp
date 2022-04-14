@@ -61,10 +61,10 @@ const dtColumns = [
     {
         data: response => {
             return `
-                <a href="${baseURL}/${url.edit}?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
+                <a href="${baseURL}/AR/edit_ar_receipt_payment'?docno=${response.DocNo}" target="_blank" type="button" class="btn btn-xs green">
                     <i class="fa fa-edit"> </i>
                 </a>
-                <a href="${baseURL}/${url.report}?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
+                <a href="${baseURL}/AR/view_reps_ar_receipt_payment?docno=${response.DocNo}&branch=${response.Branch}&transdate=${response.TransDate}" target="_blank" name="report" type="button" class="btn btn-xs green-meadow">
                     <i class="fa fa-print"> </i>
                 </a>
                 <a href="javascript:;" name="delete" data-docno="${response.DocNo}" data-branch="${response.Branch}" data-transdate="${response.TransDate}" type="button" class="btn btn-xs red">
@@ -83,19 +83,13 @@ const dtColumns = [
 const arp = {
     indexPage: {
         initDT: () => {
-            let url = {
-                target: 'ajax_get_ranged_ar_receipt_payment',
-                edit: 'edit_ar_receipt_payment',
-                report: 'view_reps_ar_receipt_payment'
-            }
-
             let postData = {
                 docno: '',
                 date_start: helper.firstDayOfMonth(),
                 date_end: helper.lastDayOfMonth()
             }
 
-            repository.generateDataTable('table', url, postData, dtColumns)
+            repository.generateDataTable('table', 'ajax_get_ranged_ar_receipt_payment', postData, dtColumns)
         },
 
         eventShowList: () => {
@@ -103,14 +97,8 @@ const arp = {
                 let docno = $('#search_item').val()
                 let date_start = $('#date_from').val()
                 let date_end = $('#date_to').val()
-
-                let url = {
-                    target: 'ajax_get_ranged_ar_receipt_payment',
-                    edit: 'edit_ar_receipt_payment',
-                    report: 'view_reps_ar_receipt_payment'
-                }
     
-                repository.generateDataTable('table', url, { docno, date_start, date_end }, dtColumns)
+                repository.generateDataTable('table', 'ajax_get_ranged_ar_receipt_payment', { docno, date_start, date_end }, dtColumns)
                 
             })
         },
