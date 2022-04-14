@@ -11,7 +11,7 @@ $(document).ready(function(){
             .then(({default: rec}) => {
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[1]
+                segment = segment.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -38,7 +38,7 @@ $(document).ready(function(){
             .then(({default: pay}) => {
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[1]
+                segment = segment.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -65,7 +65,7 @@ $(document).ready(function(){
             .then(({default: ob}) => {
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[1]
+                segment = segment.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -92,7 +92,7 @@ $(document).ready(function(){
             .then(({default: gj}) => {
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[1]
+                segment = segment.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -119,7 +119,7 @@ $(document).ready(function(){
             .then(({default: cal}) => {
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[1]
+                segment = segment.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -138,7 +138,7 @@ $(document).ready(function(){
             .then(({default: arp}) => {
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[1]
+                segment = segment.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -163,8 +163,11 @@ $(document).ready(function(){
         invoice: () => {
             let path = window.location.href
             let segment = path.split(window.location.origin)[1]
-            segment = segment.split('/')[1] ?? ''
+            console.log(segment)
+            segment = segment.split('/')[2] ?? ''
+            console.log(segment)
             segment = segment.toLowerCase()
+            console.log(segment)
 
             var req;
             switch (segment) {
@@ -213,7 +216,7 @@ $(document).ready(function(){
             .then(({default: apy}) => {
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[1]
+                segment = segment.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -240,7 +243,7 @@ $(document).ready(function(){
             .then(({default: caw}) => {
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[1]
+                segment = segment.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -268,7 +271,7 @@ $(document).ready(function(){
             .then(({default: car}) => {
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[1]
+                segment = segment.split('/')[2]
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
