@@ -93,14 +93,14 @@ class Cash_adv extends CI_Controller
 
     public function ajax_get_emp_details()
     {
-        $validation = validate($this->input->post());
+        $validation = validate($this->input->get());
 
         if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
             return;
         }
 
-        $id = $this->input->post('id');
+        $id = $this->input->get('id');
 
         $result = $this->Mdl_corp_cash_advance->get_ca_registered_ids($id);
 
@@ -125,7 +125,7 @@ class Cash_adv extends CI_Controller
 
     public function ajax_get_ranged_ca_withdraw()
     {
-        $validation = validate($this->input->post(), null, ['docno']);
+        $validation = validate($this->input->get(), null, ['docno']);
 
         if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -133,12 +133,12 @@ class Cash_adv extends CI_Controller
         }
 
         $datatable = [
-            'docno' => $this->input->post('docno'),
-            'date_start' => $this->input->post('date_start'),
-            'date_end' => $this->input->post('date_end'),
+            'docno' => $this->input->get('docno'),
+            'date_start' => $this->input->get('date_start'),
+            'date_end' => $this->input->get('date_end'),
 
-            'limit' => $this->input->post('length'),
-            'start' => $this->input->post('start')
+            'limit' => $this->input->get('length'),
+            'start' => $this->input->get('start')
         ];
 
         $query = $this->Mdl_corp_cash_advance->get_ranged_ca(self::CAW, $datatable);
@@ -534,7 +534,7 @@ class Cash_adv extends CI_Controller
 
     public function ajax_get_ranged_ca_receipt()
     {
-        $validation = validate($this->input->post(), null, ['docno']);
+        $validation = validate($this->input->get(), null, ['docno']);
 
         if (!$validation) {
             set_error_response(self::HTTP_BAD_REQUEST, $validation);
@@ -542,12 +542,12 @@ class Cash_adv extends CI_Controller
         }
 
         $datatable = [
-            'docno' => $this->input->post('docno'),
-            'date_start' => $this->input->post('date_start'),
-            'date_end' => $this->input->post('date_end'),
+            'docno' => $this->input->get('docno'),
+            'date_start' => $this->input->get('date_start'),
+            'date_end' => $this->input->get('date_end'),
 
-            'limit' => $this->input->post('length'),
-            'start' => $this->input->post('start')
+            'limit' => $this->input->get('length'),
+            'start' => $this->input->get('start')
         ];
 
         $query = $this->Mdl_corp_cash_advance->get_ranged_ca(self::CAR, $datatable);
@@ -947,17 +947,17 @@ class Cash_adv extends CI_Controller
 
     public function ajax_get_outsanding_report()
     {
-        $validation = validate($this->input->post());
+        $validation = validate($this->input->get());
 
         if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $branch = $this->input->post('branch');
-        $dept = $this->input->post('dept');
-        $costcenter = $this->input->post('costcenter');
-        $date_start = $this->input->post('date_start');
-        $date_finish = $this->input->post('date_finish');
+        $branch = $this->input->get('branch');
+        $dept = $this->input->get('dept');
+        $costcenter = $this->input->get('costcenter');
+        $date_start = $this->input->get('date_start');
+        $date_finish = $this->input->get('date_finish');
 
         [$result, $error] = $this->Mdl_corp_cash_advance->get_outstanding_report($branch, $dept, $costcenter, $date_start, $date_finish);
 
@@ -991,7 +991,7 @@ class Cash_adv extends CI_Controller
 
     public function ajax_get_cash_transaction_detail()
     {
-        $validation = validate($this->input->post(), [
+        $validation = validate($this->input->get(), [
             'date' => ['date_start', 'date_finish']
         ]);
 
@@ -999,11 +999,11 @@ class Cash_adv extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $branch = $this->input->post('branch');
-        $dept = $this->input->post('dept');
-        $costcenter = $this->input->post('costcenter');
-        $date_start = $this->input->post('date_start');
-        $date_finish = $this->input->post('date_finish');
+        $branch = $this->input->get('branch');
+        $dept = $this->input->get('dept');
+        $costcenter = $this->input->get('costcenter');
+        $date_start = $this->input->get('date_start');
+        $date_finish = $this->input->get('date_finish');
 
         [$result, $error] = $this->Mdl_corp_cash_advance->get_cash_transaction($branch, $dept, $costcenter, $date_start, $date_finish);
 

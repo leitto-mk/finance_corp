@@ -68,19 +68,19 @@ class Entry extends CI_Controller
 
     public function ajax_get_ranged_receipt()
     {
-        $validation = validate($this->input->post(), null, ['docno']);
+        $validation = validate($this->input->get(), null, ['docno']);
 
         if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $datatable = [
-            'docno' => $this->input->post('docno'),
-            'date_start' => $this->input->post('date_start'),
-            'date_end' => $this->input->post('date_end'),
+            'docno' => $this->input->get('docno'),
+            'date_start' => $this->input->get('date_start'),
+            'date_end' => $this->input->get('date_end'),
 
-            'limit' => $this->input->post('length'),
-            'start' => $this->input->post('start')
+            'limit' => $this->input->get('length'),
+            'start' => $this->input->get('start')
         ];
 
         $query = $this->Mdl_corp_entry->get_ranged_entry(self::REC, $datatable);
@@ -442,20 +442,19 @@ class Entry extends CI_Controller
 
     public function ajax_get_ranged_payment()
     {
-
-        $validation = validate($this->input->post(), null, ['docno']);
+        $validation = validate($this->input->get(), null, ['docno']);
 
         if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $datatable = [
-            'docno' => $this->input->post('docno'),
-            'date_start' => $this->input->post('date_start'),
-            'date_end' => $this->input->post('date_end'),
+            'docno' => $this->input->get('docno'),
+            'date_start' => $this->input->get('date_start'),
+            'date_end' => $this->input->get('date_end'),
 
-            'limit' => $this->input->post('length'),
-            'start' => $this->input->post('start')
+            'limit' => $this->input->get('length'),
+            'start' => $this->input->get('start')
         ];
 
         $query = $this->Mdl_corp_entry->get_ranged_entry(self::PAY, $datatable);
@@ -817,20 +816,19 @@ class Entry extends CI_Controller
 
     public function ajax_get_ranged_overbook()
     {
-
-        $validation = validate($this->input->post(), null, ['docno']);
+        $validation = validate($this->input->get(), null, ['docno']);
 
         if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $datatable = [
-            'docno' => $this->input->post('docno'),
-            'date_start' => $this->input->post('date_start'),
-            'date_end' => $this->input->post('date_end'),
+            'docno' => $this->input->get('docno'),
+            'date_start' => $this->input->get('date_start'),
+            'date_end' => $this->input->get('date_end'),
 
-            'limit' => $this->input->post('length'),
-            'start' => $this->input->post('start')
+            'limit' => $this->input->get('length'),
+            'start' => $this->input->get('start')
         ];
 
         $query = $this->Mdl_corp_entry->get_ranged_entry(self::OVB, $datatable);
@@ -1193,19 +1191,19 @@ class Entry extends CI_Controller
 
     public function ajax_get_ranged_general_journal()
     {
-        $validation = validate($this->input->post(), null, ['docno']);
+        $validation = validate($this->input->get(), null, ['docno']);
 
         if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
         $datatable = [
-            'docno' => $this->input->post('docno'),
-            'date_start' => $this->input->post('date_start'),
-            'date_end' => $this->input->post('date_end'),
+            'docno' => $this->input->get('docno'),
+            'date_start' => $this->input->get('date_start'),
+            'date_end' => $this->input->get('date_end'),
 
-            'limit' => $this->input->post('length'),
-            'start' => $this->input->post('start')
+            'limit' => $this->input->get('length'),
+            'start' => $this->input->get('start')
         ];
 
         $query = $this->Mdl_corp_entry->get_ranged_entry(self::GNJ, $datatable);

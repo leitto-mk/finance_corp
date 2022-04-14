@@ -514,7 +514,7 @@ class Invoice extends CI_Controller
 	}
 
 	public function get_aging(){
-		$validation = validate($this->input->post(),[
+		$validation = validate($this->input->get(),[
 			[ //Specific Case
 				'date' => ['date_start'],
 				'number' => [],
@@ -531,10 +531,10 @@ class Invoice extends CI_Controller
 
 		$input = $this->input;
 
-		$branch = $input->post('branch');
-		$customer = $input->post('customer');
-		$ageby = $input->post('ageby') == 'raised_date' ? 'RaisedDate' : 'DueDate';
-		$start = $input->post('date_start');
+		$branch = $input->get('branch');
+		$customer = $input->get('customer');
+		$ageby = $input->get('ageby') == 'raised_date' ? 'RaisedDate' : 'DueDate';
+		$start = $input->get('date_start');
 
 		try {
 			[$summary, $q1, $q2, $q3, $q4] = $this->Mdl_corp_invoice->get_invoice_aging($branch, $customer, $ageby, $start);

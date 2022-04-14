@@ -58,8 +58,8 @@ class C_Finance extends CI_Controller
 
     public function get_form()
     {
-        $id = $this->input->post('id', true);
-        $type = $this->input->post('type', true);
+        $id = $this->input->get('id', true);
+        $type = $this->input->get('type', true);
         
         $title = '';
         $body = '';

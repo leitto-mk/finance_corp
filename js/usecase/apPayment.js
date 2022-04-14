@@ -111,18 +111,7 @@ const apy = {
                 }
     
                 repository.generateDataTable('table', url, { docno, date_start, date_end }, dtColumns)
-                .then(() => {
-                    helper.unblockUI()
-                })
-                .fail(err => {
-                    helper.unblockUI()
-                    
-                    Swal.fire({
-                        'icon': 'error',
-                        'title': 'ABORTED',
-                        'html': `<h4 class="sbold">${err.responseJSON.desc ??= 'Server Problem'}</h4>`
-                    })
-                })
+                
             })
         },
     

@@ -24,7 +24,7 @@ const bal = {
                     return
                 }
     
-                repository.getRecord('ajax_recalculate_branch', {
+                repository.submitRecord('ajax_recalculate_branch', {
                     branch,
                     accno_start,
                     accno_finish,
@@ -69,7 +69,7 @@ const bal = {
                     return
                 }
 
-                repository.getRecord('ajax_recalculate_employee', {
+                repository.submitRecord('ajax_recalculate_employee', {
                     employee,
                     date_start,
                 })

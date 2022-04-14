@@ -56,17 +56,17 @@ class Reports extends CI_Controller
 
     public function ajax_get_general_ledger()
     {
-        $validation = validate($this->input->post());
+        $validation = validate($this->input->get());
 
         if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $branch = $this->input->post('branch');
-        $accno_start = $this->input->post('accno_start');
-        $accno_finish = $this->input->post('accno_finish');
-        $date_start = $this->input->post('date_start');
-        $date_finish = $this->input->post('date_finish');
+        $branch = $this->input->get('branch');
+        $accno_start = $this->input->get('accno_start');
+        $accno_finish = $this->input->get('accno_finish');
+        $date_start = $this->input->get('date_start');
+        $date_finish = $this->input->get('date_finish');
 
         $result = $this->Mdl_corp_reports->get_general_ledger($branch, $accno_start, $accno_finish, $date_start, $date_finish);
 
@@ -259,18 +259,18 @@ class Reports extends CI_Controller
 
     public function ajax_get_journal_transaction()
     {
-        $validation = validate($this->input->post());
+        $validation = validate($this->input->get());
 
         if (!$validation) {
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-        $branch = $this->input->post('branch');
-        $transtype = $this->input->post('trans_type');
-        $accno_start = $this->input->post('accno_start');
-        $accno_finish = $this->input->post('accno_finish');
-        $date_start = $this->input->post('date_start');
-        $date_finish = $this->input->post('date_finish');
+        $branch = $this->input->get('branch');
+        $transtype = $this->input->get('trans_type');
+        $accno_start = $this->input->get('accno_start');
+        $accno_finish = $this->input->get('accno_finish');
+        $date_start = $this->input->get('date_start');
+        $date_finish = $this->input->get('date_finish');
 
         [$result, $error] = $this->Mdl_corp_reports->get_journal_transaction($branch, $transtype, $accno_start, $accno_finish, $date_start, $date_finish);
 

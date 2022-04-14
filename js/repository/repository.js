@@ -7,9 +7,8 @@ import helper from '../helper.js'
  * 
 */
 
-//Get CSRF Hash
-const csrfName = document.querySelector('#script').getAttribute('data-csrf-name')
-const csrfHash = document.querySelector('#script').getAttribute('data-csrf-token')
+const CSRF_NAME = 'csrf_fin_token'
+const CSRF_HASH = helper.getCookie('csrf_fin_cookie')
 
 const repository = {
     /**
@@ -26,10 +25,6 @@ const repository = {
         
         postData = postData ?? {}
 
-        //If `postData` is an array (serializeArray), push new CSRF's object
-        //If `postData` is an object (serialize) bind new CSRF's key and value
-        Array.isArray(postData) ? postData.push({ name: csrfName, value: csrfHash }) : postData[csrfName] = csrfHash
-
         $(table).DataTable({
             destroy: true,
             serverSide: true,
@@ -41,7 +36,7 @@ const repository = {
             pagingType: "bootstrap_extended",
             ajax: {
                 url: url?.target ?? url, //Some URL has multiple value, check receipt's `initDT` for example
-                method: 'POST',
+                method: 'GET',
                 data: postData,
                 beforeSend: () => {
                     helper.blockUI({
@@ -67,7 +62,7 @@ const repository = {
                     Swal.fire({
                         'icon': 'error',
                         'title': 'ERROR',
-                        'html': `<h4 class="sbold">${err.desc}</h4>`
+                        'html': `<h4 class="sbold">${err.responseJSON.desc || 'Server Problem'}</h4>`
                     })
                 },
             },
@@ -90,14 +85,10 @@ const repository = {
         var defer = $.Deferred()
 
         postData = postData ?? {}
-        
-        //If `postData` is an array (serializeArray), push new CSRF's object
-        //If `postData` is an object (serialize) bind new CSRF's key and value
-        Array.isArray(postData) ? postData.push({ name: csrfName, value: csrfHash }) : postData[csrfName] = csrfHash
 
         $.ajax({
             url: url,
-            method: 'POST',
+            method: 'GET',
             dataType: responseType ?? 'JSON',
             data: postData,
             beforeSend: () => {
@@ -121,7 +112,7 @@ const repository = {
      * 
      * @type    {string}    URL string
      * @type    {object}    body param inside an object, use `serialize` or `serializeArray` for wrapping the body
-     * @type    {object}    Type of Response (JSON, text/hml, etc)
+     * @type    {object}    Type of Response (JSON, html, text, etc)
      * 
      * @return  {promise}   Promise
      */
@@ -132,8 +123,13 @@ const repository = {
 
         //If `postData` is an array (serializeArray), push new CSRF's object
         //If `postData` is an object (serialize) bind new CSRF's key and value
-        Array.isArray(postData) ? postData.push({ name: csrfName, value: csrfHash }) : postData[csrfName] = csrfHash
+        Array.isArray(postData) ? postData.push({ name: CSRF_NAME, value: CSRF_HASH }) : postData[CSRF_NAME] = CSRF_HASH
 
+        /**
+         * Couldn't use 'DELETE' method since `DELETE` cannot have parameters/body,
+         * so `POST` method is applied instead.
+         * For more information, see: https://stackoverflow.com/a/46020367
+         */
         $.ajax({
             url: url,
             method: 'POST',
@@ -171,7 +167,7 @@ const repository = {
 
         //If `postData` is an array (serializeArray), push new CSRF's object
         //If `postData` is an object (serialize) bind new CSRF's key and value
-        Array.isArray(postData) ? postData.push({ name: csrfName, value: csrfHash }) : postData[csrfName] = csrfHash
+        Array.isArray(postData) ? postData.push({ name: CSRF_NAME, value: CSRF_HASH }) : postData[CSRF_NAME] = CSRF_HASH
 
         $.ajax({
             url: url,

@@ -54,7 +54,7 @@ class Cmaster extends CI_Controller
 	//Master Abase Start
 	public function viewModalMasterAbase()
 	{
-		$input = $this->input->post('input');
+		$input = $this->input->get('input');
 		switch ($input) {
 			case 'abasecompany':
 				echo '<form id="form_abasecompany" enctype="multipart/form-data">
@@ -462,11 +462,11 @@ class Cmaster extends CI_Controller
 
 	public function getDataMasterAbase()
 	{
-		$input = $this->input->post('input');
+		$input = $this->input->get('input');
 		
 		//From DataTables Ajax
-		$limit = $this->input->post('length') ?? 100;
-		$offset = $this->input->post('start') ?? 0;
+		$limit = $this->input->get('length') ?? 100;
+		$offset = $this->input->get('start') ?? 0;
 
 		switch ($input) {
 			case 'abasecompany':
@@ -510,7 +510,7 @@ class Cmaster extends CI_Controller
 
 	public function viewModalMasterViewAbase()
 	{
-		$input = $this->input->post('input');
+		$input = $this->input->get('input');
 		switch ($input) {
 			case 'abasecompany':
 				echo '
@@ -855,8 +855,8 @@ class Cmaster extends CI_Controller
 
 	public function getDataMasterAbaseByID()
 	{
-		$input = $this->input->post('input');
-		$id = $this->input->post('CtrlNo');
+		$input = $this->input->get('input');
+		$id = $this->input->get('CtrlNo');
 		switch ($input) {
 			case 'abasecompany':
 				$hasil = $this->master->getDataByID('abase_01_com', 'CtrlNo', $id);
@@ -1051,7 +1051,7 @@ class Cmaster extends CI_Controller
 	//* STOCKGROUP
 	public function viewModalMasterStockGroup()
 	{
-		switch ($this->input->post('input')) {
+		switch ($this->input->get('input')) {
 			case 'mas_stock_a_class':
 				echo '<form id="form_stockclass">
 						<div class="portlet light bordered">
@@ -1174,11 +1174,11 @@ class Cmaster extends CI_Controller
 
 	public function getDataMasterStockGroup()
 	{
-		$input = $this->input->post('input');
+		$input = $this->input->get('input');
 		
 		//From DataTables Ajax
-		$limit = $this->input->post('length') ?? 100;
-		$offset = $this->input->post('start') ?? 0;
+		$limit = $this->input->get('length') ?? 100;
+		$offset = $this->input->get('start') ?? 0;
 
 		switch ($input) {
 			case 'mas_stock_a_class':
@@ -1202,22 +1202,22 @@ class Cmaster extends CI_Controller
 
 	public function getDataMasterStockGroupByID()
 	{
-		$input = $this->input->post('input');
+		$input = $this->input->get('input');
 		switch ($input) {
 			case 'mas_stock_a_class':
-				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_a_class', 'StockClassCode', $this->input->post('StockClassCode'));
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_a_class', 'StockClassCode', $this->input->get('StockClassCode'));
 				echo json_encode($hasil);
 				break;
 			case 'mas_stock_b_cat':
-				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_b_cat', 'CatCode', $this->input->post('CatCode'));
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_b_cat', 'CatCode', $this->input->get('CatCode'));
 				echo json_encode($hasil);
 				break;
 			case 'mas_stock_c_type':
-				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_c_type', 'TypeCode', $this->input->post('TypeCode'));
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_c_type', 'TypeCode', $this->input->get('TypeCode'));
 				echo json_encode($hasil);
 				break;
 			case 'mas_stock_d_grp':
-				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_d_grp', 'GroupCode', $this->input->post('GroupCode'));
+				$hasil = $this->master->getDataByID('tbl_mat_mas_stock_d_grp', 'GroupCode', $this->input->get('GroupCode'));
 				echo json_encode($hasil);
 				break;
 		}
