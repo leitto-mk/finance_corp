@@ -163,11 +163,8 @@ $(document).ready(function(){
         invoice: () => {
             let path = window.location.href
             let segment = path.split(window.location.origin)[1]
-            console.log(segment)
             segment = segment.split('/')[2] ?? ''
-            console.log(segment)
             segment = segment.toLowerCase()
-            console.log(segment)
 
             var req;
             switch (segment) {
