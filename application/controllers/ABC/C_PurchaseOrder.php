@@ -119,7 +119,6 @@ class C_PurchaseOrder extends CI_Controller
 
 			default:
 				return "Opps";
-				break;
 		}
 
 		$where_condition = [

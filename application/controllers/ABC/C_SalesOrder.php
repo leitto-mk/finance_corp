@@ -788,7 +788,6 @@ class C_SalesOrder extends CI_Controller
 					'ItemNo' => $row + 1,
 					'PurchaseOrderID' => $doc_no,
 					'SalesNo' => '',
-					'ItemNo' => $row,
 					'Stockcode' => $value,
 					'StockDesc' => $stockcode_data['StockDescription'],
 					'UOM' => $stockcode_data['UOM'],
