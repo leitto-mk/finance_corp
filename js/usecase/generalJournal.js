@@ -310,7 +310,9 @@ const gj = {
                     $(document).find('#tbody_detail tr').each(function(){
                         var cur_remark_val = $(this).find('input[name="remarks[]"]').val()
                         var cur_debit_val = +$(this).find('input[name="debit[]"]').val()
+                        cur_debit_val = parseFloat(cur_debit_val.replaceAll(',',''))
                         var cur_credit_val = +$(this).find('input[name="credit[]"]').val()
+                        cur_credit_val = parseFloat(cur_credit_val.replaceAll(',',''))
         
                         if(cur_remark_val == '' || (cur_debit_val == 0 && cur_credit_val == 0)){
                             $(this).remove()

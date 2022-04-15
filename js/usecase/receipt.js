@@ -298,13 +298,14 @@ const rec = {
         eventSubmitReceipt: () => {
             $('form').submit(function(e){
                 e.preventDefault()
-                
+
                 //Remove Row with empty Description
                 if($('#tbody_detail > tr').length > 1){
                     $(document).find('#tbody_detail tr').each(function(){
                         var cur_remark_val = $(this).find('input[name="remarks[]"]').val()
-                        var cur_amount_val = +$(this).find('input[name="amount[]"]').val()
-        
+                        var cur_amount_val = $(this).find('input[name="amount[]"]').val()
+                        cur_amount_val = parseFloat(cur_amount_val.replaceAll(',',''))
+
                         if(cur_remark_val == '' || cur_remark_val == null || cur_amount_val == 0 || cur_amount_val == null){
                             $(this).remove()
                         }
