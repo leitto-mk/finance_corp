@@ -93,7 +93,7 @@
                             </li>
                             <!-- END SIDEBAR TOGGLER BUTTON -->
                             <li class="nav-head nav-item start" style="margin-top: -20px">
-                                <a href="<?= base_url('Entry'); ?>" class="nav-link nav-toggle" style="background-color: #67809fcc">
+                                <a href="<?= base_url() ?>" class="nav-link nav-toggle" style="background-color: #67809fcc">
                                     <i class="icon-share font-white"></i>
                                     <span class="caption-subject font-white uppercase title bold"> Dashboard </span>
                                 </a>
