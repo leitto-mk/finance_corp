@@ -161,9 +161,12 @@ $(document).ready(function(){
         },
 
         invoice: () => {
+            let host = window.location.hostname
             let path = window.location.href
             let segment = path.split(window.location.origin)[1]
-            segment = segment.split('/')[2] ?? ''
+
+            segment = (host == 'localhost' ? segment.split('/')[2] : segment.split('/')[3])
+            segment = segment ?? ''
             segment = segment.toLowerCase()
 
             var req;
@@ -400,8 +403,6 @@ $(document).ready(function(){
             var path = window.location.href
             var segment = path.split(window.location.origin)[1]
             segment = segment.split('/')[1]
-
-            console.log(segment)
 
             //? OPERATION
             import('./usecase/masterOperation.js')

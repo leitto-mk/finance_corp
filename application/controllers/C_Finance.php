@@ -253,20 +253,20 @@ class C_Finance extends CI_Controller
         $data = [];
 
         for ($i = 1; $i < $max + 1; $i++) {
-        $data['level_' . $i] = $this->finance->M_get_coaccount([
-            'Disc' => 'No',
-            'Level' => strval($i)
-        ])->result_array();
+            $data['level_' . $i] = $this->finance->M_get_coaccount([
+                'Disc' => 'No',
+                'Level' => strval($i)
+            ])->result_array();
         }
 
         for ($max; $max > $min; $max--) {
-        foreach ($data['level_' . $max] as $row => $value) {
-            foreach ($data['level_' . strval($max - 1)] as $parent_row => $parent_value) {
-            if ($parent_value['Acc_No'] == $value['Parent']) {
-                $data['level_' . strval($max - 1)][$parent_row]['child'][] = $data['level_' . $max][$row];
+            foreach ($data['level_' . $max] as $row => $value) {
+                foreach ($data['level_' . strval($max - 1)] as $parent_row => $parent_value) {
+                    if ($parent_value['Acc_No'] == $value['Parent']) {
+                        $data['level_' . strval($max - 1)][$parent_row]['child'][] = $data['level_' . $max][$row];
+                    }
+                }
             }
-            }
-        }
         }
 
         $result = $data['level_1'] ?? null;
