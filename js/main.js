@@ -409,9 +409,10 @@ $(document).ready(function(){
 
         //* MASTER
         master: () => {
+            let host = window.location.host
             var path = window.location.href
             var segment = path.split(window.location.origin)[1]
-            segment = segment.split('/')[1]
+            segment = (host == 'localhost' ? segment.split('/')[2] : segment.split('/')[1])
 
             //? OPERATION
             import('./usecase/masterOperation.js')
