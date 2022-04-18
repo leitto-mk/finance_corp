@@ -7,7 +7,7 @@ import repository from '../repository.js'
 const regd = {
     generateChart: () => {
         let hostname = window.location.host
-        let url = (hostname == 'localhost' ? window.location.origin + '/Financecorp/Humanresource/getChart' : window.location.origin + '/Humanresource/getChart')
+        let url = (hostname == 'localhost' ? window.location.origin + '/financecorp/Humanresource/getChart' : window.location.origin + '/Humanresource/getChart')
 
         repository.getRecord(url)
         .then(response => {
