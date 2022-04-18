@@ -49,7 +49,8 @@ const dtColumns = [
         orderable: false,
         className: "text-center",
         render: (data, type, row) => {
-            let base_url = window.location.origin + '/invoice'
+            let hostname = window.location.hostname
+            let base_url = (hostname == 'localhost' ? window.location.origin + '/Financecorp/Invoice' : window.location.origin + '/Invoice')
 
             return `<a name="edit" href="${base_url}/edit/${row.InvoiceNo}" target="_blank" class="btn btn-xs grey-gallery btn-outline" title="Edit">
                         <i class="fa fa-pencil"></i>
@@ -63,7 +64,8 @@ const dtColumns = [
 
 export const ListPage = () => {
     (function InitGenerateDataTable(){
-        let url = window.location.origin + '/invoice/get'
+        let hostname = window.location.hostname
+            let url = (hostname == 'localhost' ? window.location.origin + '/Financecorp/Invoice/get' : window.location.origin + '/Invoice/get')
 
         repository.generateDataTable('#list_invoice', url, null, dtColumns)
     })();
@@ -130,7 +132,8 @@ export const ListPage = () => {
                 'date_finish': $('#date_finish').val()
             }
 
-            let url = window.location.origin + '/invoice/get'
+            let hostname = window.location.hostname
+            let url = (hostname == 'localhost' ? window.location.origin + '/Financecorp/Invoice/get' : window.location.origin + '/Invoice/get')
 
             repository.generateDataTable('#list_invoice', url, postData, dtColumns)
         })

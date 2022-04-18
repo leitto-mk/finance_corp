@@ -82,7 +82,8 @@ const dtColumns = [
         orderable: false,
         className: "text-center",
         render: (data, type, row) => {
-            let base_url = window.location.origin + '/invoice'
+            let hostname = window.location.hostname
+            let url = (hostname == 'localhost' ? window.location.origin + '/Financecorp/Invoice' : window.location.origin + '/Invoice')
 
             return `<a name="edit" href="${base_url}/edit/${row.InvoiceNo}" target="_blank" class="btn btn-xs grey-gallery btn-outline" title="Edit">
                         <i class="fa fa-pencil"></i>
@@ -96,7 +97,8 @@ const dtColumns = [
 
 export const DashboardPage = () => {
     (function InitGenerateDatatable(){
-        let url = window.location.origin + '/invoice/get'
+        let hostname = window.location.hostname
+        let url = (hostname == 'localhost' ? window.location.origin + '/Financecorp/Invoice/get' : window.location.origin + '/Invoice/get')
 
         repository.generateDataTable('#table-approval', url, null, dtColumns)
     })();
@@ -133,7 +135,8 @@ export const DashboardPage = () => {
                 return
             }
 
-            let url = window.location.origin
+            let hostname = window.location.hostname
+            let url = (hostname == 'localhost' ? window.location.origin + '/Financecorp' : window.location.origin)
 
             switch (approval) {
                 case 'approve':
