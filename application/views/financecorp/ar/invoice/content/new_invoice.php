@@ -195,13 +195,14 @@
 								<tr>
 									<th width="3%" class="text-center">Item</th>
 									<th width="15%" class="text-center">Stockcode</th>
-									<th width="25%" class="text-center">Remark</th>
+									<th width="20%" class="text-center">Remark</th>
 									<th width="5%" class="text-center">UOM</th>
 									<th width="5%" class="text-center">Currency</th>
 									<th width="6%" class="text-center">Qty</th>
 									<th width="13%" class="text-center">Price</th>
 									<th width="5%" class="text-center">Discount</th>
 									<th width="13%" class="text-center">Total</th>
+									<th width="5%" class="text-center">VAT</th>
 								</tr>
 							</thead>
 							<tbody id="tbody_invoice">
@@ -268,6 +269,12 @@
 										<div class="input-group">
 											<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 											<input type="text" name="total[]" class="form-control text-right so-total" min="0" readonly value="0" required>
+										</div>
+									</td>
+									<td>
+										<div class="form-group">
+											<input type="number" name="vat[]" class="form-control text-right" readonly>
+											<span class="help-block hidden"></span>
 										</div>
 									</td>
 								</tr>
