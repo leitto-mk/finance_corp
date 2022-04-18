@@ -161,11 +161,11 @@ $(document).ready(function(){
         },
 
         invoice: () => {
-            let host = window.location.hostname
+            let host = window.location.host
             let path = window.location.href
             let segment = path.split(window.location.origin)[1]
 
-            segment = (host == 'localhost' ? segment.split('/')[2] : segment.split('/')[3])
+            segment = (host == 'localhost' ? segment.split('/')[3] : segment.split('/')[2])
             segment = segment ?? ''
             segment = segment.toLowerCase()
 
