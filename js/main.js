@@ -399,6 +399,9 @@ $(document).ready(function(){
         master: () => {
             var path = window.location.href
             var segment = path.split(window.location.origin)[1]
+            segment = segment.split('/')[1]
+
+            console.log(segment)
 
             //? OPERATION
             import('./usecase/masterOperation.js')
