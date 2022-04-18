@@ -9,9 +9,10 @@ $(document).ready(function(){
         receipt: () => {
             import('./usecase/receipt.js')
             .then(({default: rec}) => {
+                let host = window.location.host
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[2]
+                segment = (host == 'localhost' ? segment.split('/')[3] : segment.split('/')[2])
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -36,9 +37,10 @@ $(document).ready(function(){
         payment: () => {
             import('./usecase/payment.js')
             .then(({default: pay}) => {
+                let host = window.location.host
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[2]
+                segment = (host == 'localhost' ? segment.split('/')[3] : segment.split('/')[2])
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -63,9 +65,10 @@ $(document).ready(function(){
         overbook: () => {
             import('./usecase/overbook.js')
             .then(({default: ob}) => {
+                let host = window.location.host
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[2]
+                segment = (host == 'localhost' ? segment.split('/')[3] : segment.split('/')[2])
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -90,9 +93,10 @@ $(document).ready(function(){
         generalJournal: () => {
             import('./usecase/generalJournal.js')
             .then(({default: gj}) => {
+                let host = window.location.host
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[2]
+                segment = (host == 'localhost' ? segment.split('/')[3] : segment.split('/')[2])
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -117,9 +121,10 @@ $(document).ready(function(){
         recalculateBalance: () => {
             import('./usecase/recalculateBalance.js')
             .then(({default: cal}) => {
+                let host = window.location.host
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[2]
+                segment = (host == 'localhost' ? segment.split('/')[3] : segment.split('/')[2])
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -136,9 +141,10 @@ $(document).ready(function(){
         arReceiptPayment: () => {
             import('./usecase/arReceiptPayment.js')
             .then(({default: arp}) => {
+                let host = window.location.host
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[2]
+                segment = (host == 'localhost' ? segment.split('/')[3] : segment.split('/')[2])
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -214,9 +220,10 @@ $(document).ready(function(){
         apPayment: () => {
             import('./usecase/apPayment.js')
             .then(({default: apy}) => {
+                let host = window.location.host
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[2]
+                segment = (host == 'localhost' ? segment.split('/')[3] : segment.split('/')[2])
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -241,9 +248,10 @@ $(document).ready(function(){
         cashWithdraw: () => {
             import('./usecase/cashWithdraw.js')
             .then(({default: caw}) => {
+                let host = window.location.host
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[2]
+                segment = (host == 'localhost' ? segment.split('/')[3] : segment.split('/')[2])
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */
@@ -269,9 +277,10 @@ $(document).ready(function(){
         cashReceipt: () => {
             import('./usecase/cashReceipt.js')
             .then(({default: car}) => {
+                let host = window.location.host
                 let path = window.location.href
                 let segment = path.split(window.location.origin)[1]
-                segment = segment.split('/')[2]
+                segment = (host == 'localhost' ? segment.split('/')[3] : segment.split('/')[2])
                 let page = segment.split('_')[0]
 
                 if(page.toLowerCase() == 'view'){ /* List Page */

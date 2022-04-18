@@ -5,7 +5,9 @@
 import repository from '../repository/repository.js'
 import helper from '../helper.js'
 
-const baseURL = window.location.origin
+const host = window.location.host
+var baseURL = window.location.origin
+baseURL = (host == 'localhost' ? baseURL + '/financecorp' : baseURL)
 
 const dtColumns = [
     {
