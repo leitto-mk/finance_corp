@@ -115,7 +115,7 @@ export const AgingPage = () => {
                 'date_start': $('#date_start').val()
             }
 
-            let hostname = window.location.hostname
+            let hostname = window.location.host
             let url = (hostname == 'localhost' ? window.location.origin + '/Financecorp/Invoice/get_aging' : window.location.origin + '/Invoice/get_aging')
 
             repository.getRecord(url, formData)

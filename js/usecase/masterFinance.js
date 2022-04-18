@@ -24,7 +24,7 @@ const _callable = {
                 $("#modal-finance").find(".modal-title").text(response.result.title)
                 $("#modal-finance").find(".modal-body").html(response.result.body)
 
-                let hostname = window.location.hostname
+                let hostname = window.location.host
                 let base_url = (hostname == 'localhost' ? window.location.origin + '/Financecorp' : window.location.origin)
                 $("#modal-finance").find("#action-submit, #action-delete").attr("data-unique", id)
                 $("#modal-finance").find("#action-submit").attr("data-type", type)

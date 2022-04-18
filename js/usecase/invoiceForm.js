@@ -211,7 +211,7 @@ export const FormPage = () => {
             var curAccno = $(this).attr('id').replace('_label','')
             var existedVal = $(`#${curAccno}`).val() ?? ''
 
-            let hostname = window.location.hostname
+            let hostname = window.location.host
             let url = (hostname == 'localhost' ? window.location.origin + '/Financecorp/Invoice/get_accno' : window.location.origin + '/Invoice/get_accno')
             await repository.getRecord(url, null)
             .then(response => {
@@ -326,7 +326,7 @@ export const FormPage = () => {
         $('form').submit(function(e){
             e.preventDefault()
 
-            let hostname = window.location.hostname
+            let hostname = window.location.host
             let url = (hostname == 'localhost' ? window.location.origin + '/Financecorp/Invoice/submit' : window.location.origin + '/Invoice/submit')
             let formData = $(this).serializeArray()
 
