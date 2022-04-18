@@ -1458,6 +1458,63 @@
         </div>
     </div>
 </div>
-
 <?php $this->load->view('financecorp/master/v_modal_master_crud'); ?> 
 <?php $this->load->view('financecorp/header_footer/master/footer'); ?>
+<script type="text/javascript">
+    var table = null;
+
+    $(document).on('click', '#get_list_customer', function() {
+        get_list_customer_dt();
+    });
+
+    function get_list_customer_dt(){
+        // Setup Databels
+        $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings){
+            return {
+                "iStart": oSettings._iDisplayStart,
+                "iEnd": oSettings.fnDisplayEnd(),
+                "iLength": oSettings._iDisplayLength,
+                "iTotal": oSettings.fnRecordsTotal(),
+                "iFilteredTotal": oSettings.fnRecordsDisplay(),
+                "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+                "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+            };
+        };
+
+        var table = $('#mytable_list_customer').dataTable({
+            destroy: true,
+            initComplete : function(){
+                var api = this.api();
+                $('#mytable_list_filter input').off('.DT').on('input.DT', function() {
+                    api.search(this.value).draw();
+                });
+            },
+                oLanguage : {
+                    sProcessing : "Loading.."
+                },
+                    processing : true,
+                    serverSide : true,
+                    ajax : {
+                        url     : "<?php echo site_url('APOSMaster/list_customer_dt'); ?>",
+                        type    : "POST"
+                    }, 
+                    columns : [
+                        {data   : "CtrlNo", className: "text-center"},
+                        {data   : "CustomerCode"},
+                        {data   : "CustomerName"},                    
+                        {data   : "BusinessPhone"},                    
+                        {data   : "Address"},
+                        {data   : "view", className: "text-center", "orderable": false},
+                    ], 
+                    order    : [[1, 'asc']],
+            rowCallback : function(row, data, iDisplayIndex){
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page*length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+        });
+        // End Setup Databels
+    }
+</script>
