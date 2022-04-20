@@ -207,12 +207,13 @@
 								<tr>
 									<th width="3%" class="text-center">Item</th>
 									<th width="15%" class="text-center">Stockcode</th>
-									<th width="25%" class="text-center">Remark</th>
+									<th width="20%" class="text-center">Remark</th>
 									<th width="5%" class="text-center">UOM</th>
 									<th width="5%" class="text-center">Currency</th>
-									<th width="6%" class="text-center">Qty</th>
+									<th width="5%" class="text-center">Qty</th>
 									<th width="13%" class="text-center">Price</th>
-									<th width="5%" class="text-center">Discount</th>
+									<th width="3%" class="text-center">Discount</th>
+									<th width="4%" class="text-center">VAT</th>
 									<th width="13%" class="text-center">Total</th>
 								</tr>
 							</thead>
@@ -231,14 +232,20 @@
 													<?php if (!empty($stockcodes)) : ?>
 														<?php for ($i = 0; $i < count($stockcodes); $i++) : ?>
 															<?php if($data[$h]['StockCode'] == $stockcodes[$i]['Stockcode']) : ?>
-																<option selected value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcodes[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
+																<option value="<?= $stockcode[$i]['Stockcode'] ?>" 
+																	data-uom="<?= $stockcode[$i]['UOM'] ?>" 
+																	data-uom-qty="<?= $stockcode[$i]['UOMQty']?>"
+																	data-stock-vat="<?= $stockcode[$i]['StockVAT'] ?>"
+																	data-stock-vat-inclusive="<?= $stockcode[$i]['VATInclusive'] ?>"
+																	data-stock-inv-type="<?= $stockcode[$i]['InvType'] ?>"
+																><?= $stockcode[$i]['Stockcode'] ?> | <?= $stockcode[$i]['StockDescription'] ?></option>
 															<?php else : ?>
 																<option value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcodes[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
 															<?php endif; ?>
 														<?php endfor; ?>
 													<?php endif; ?>
 												</select>
-												<span class="help-block hidden"></span>
+												<input type="text" name="stock-type[]" class="hidden" value="<?= $stockcode[$i]['InvType'] ?>" readonly>
 											</div>
 										</td>
 										<td>
@@ -286,6 +293,11 @@
 											</div>
 										</td>
 										<td>
+											<div class="form-group">
+												<input type="number" name="stock-vat[]" class="form-control text-right" value="<?= $data[$h]['StockVAT'] ?? 0 ?>" disabled>
+											</div>
+										</td>
+										<td>
 											<div class="input-group">
 												<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
 												<input type="text" name="total[]" class="form-control text-right so-total" min="0" readonly value="<?= $data[$h]['Total'] ?>" required>
@@ -316,7 +328,7 @@
 						<label for="payment_sub_total" class="control-label">Subtotal</label>
 						<div class="input-group">
 							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="<?= $data[0]['SubTotal'] ?>" required>
-							<a name="select_accno" id="payment_sub_total_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['SubTotalAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
+							<a name="select_accno" data-transgroup="SUB" id="payment_sub_total_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['SubTotalAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
 							<input type="text" id="payment_sub_total_accno" name="payment_sub_total_accno" value="<?= $data[0]['SubTotalAcc'] ?>" hidden>
 						</div>
 					</div>
@@ -326,7 +338,7 @@
 								<label for="payment_discount" class="control-label">Discount</label>
 								<div class="input-group">
 									<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="<?= $data[0]['TotalDiscount'] ?: 0 ?>" step="0.01">
-									<a name="select_accno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['TotalDiscountAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
+									<a name="select_accno" data-transgroup="DIS" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['TotalDiscountAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
 									<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="<?= $data[0]['TotalDiscountAcc'] ?>" hidden>
 								</div>
 								<span class="help-block hidden"></span>
@@ -353,7 +365,7 @@
 								<label for="payment_vat" class="control-label">VAT | Inclusive</label>
 								<div class="input-group">
 									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="<?= $data[0]['VAT'] ?: 11 ?>" step="0.1">
-									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['VATAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
+									<a name="select_accno" data-transgroup="VAT" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['VATAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
 									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="<?= $data[0]['VATAcc'] ?>" hidden>
 									<a class="input-group-addon bg-blue-chambray bg-font-blue-chambray">
 		                        		<label class="mt-checkbox" style="margin-left: 15px">
@@ -379,7 +391,7 @@
 								<label for="payment_pph" class="control-label">Less PPh 23</label>
 								<div class="input-group">
 									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="<?= $data[0]['PPH'] ?: 2 ?>" step="0.01">
-									<a name="select_accno" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['PPHAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
+									<a name="select_accno" data-transgroup="PPH" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['PPHAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
 									<input type="text" id="payment_pph_accno" name="payment_pph_accno" value="<?= $data[0]['PPHAcc'] ?>" hidden>
 								</div>
 								<span class="help-block hidden"></span>
@@ -397,7 +409,7 @@
 						<label for="payment_freight" class="control-label">Freight</label>
 						<div class="input-group">
 							<input type="text" name="payment_freight" id="payment_freight" class="form-control text-right" value="<?= $data[0]['FreightCost'] ?>">
-							<a name="select_accno" id="payment_freight_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['FreightCostAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
+							<a name="select_accno" data-transgroup="FRE" id="payment_freight_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['FreightCostAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
 							<input type="text" id="payment_freight_accno" name="payment_freight_accno" value="<?= $data[0]['FreightCostAcc'] ?>" hidden>
 						</div>
 					</div>
@@ -405,7 +417,7 @@
 						<label for="payment_total_amount" class="control-label">Total Amount</label>
 						<div class="input-group">
 							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" value="<?= $data[0]['TotalAmount'] ?>" readonly required>
-							<a name="select_accno" id="payment_total_amount_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['TotalAmountAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
+							<a name="select_accno" data-transgroup="AR" id="payment_total_amount_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['TotalAmountAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
 							<input type="text" id="payment_total_amount_accno" name="payment_total_amount_accno" value="<?= $data[0]['TotalAmountAcc'] ?>" hidden>
 						</div>
 					</div>

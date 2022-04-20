@@ -96,7 +96,18 @@ class Mdl_corp_common extends CI_Model
 	}
 
 	public function get_stockcode(){
-		$query = $this->db->select('Stockcode, StockDescription, UOM, UOMQty')->get('tbl_mat_stockcode')->result_array();
+		$query = $this->db->select('
+            sc.Stockcode, 
+            sc.StockDescription, 
+            sc.UOM, 
+            sc.UOMQty,
+            reg.VAT AS StockVAT,
+            reg.VATInclusive,
+            reg.InvType
+        ')
+        ->from('tbl_mat_stockcode AS sc')
+        ->join('tbl_mat_stock_reg AS reg', 'Stockcode', 'LEFT')
+        ->get()->result_array();
 
 		return $query;
 	}

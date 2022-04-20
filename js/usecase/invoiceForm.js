@@ -9,20 +9,29 @@ import helper from '../helper.js'
 const _callable = {
     CalculatePayment: () => {
         //ORDER LIST
-        let subtotal = 0
-
         $('#tbody_invoice tr').each(function(){
+            let isVatInclusive = $(this).find('select[name="stockcode[]"] option:selected').attr('data-stock-vat-inclusive')
+            isVatInclusive = isVatInclusive ? isVatInclusive.toLowerCase() : ''
+            let stockVAT = (+$(this).find('select[name="stockcode[]"] option:selected').attr('data-stock-vat') / 100)
             let qty = +$(this).find('input[name="qty[]"]').val()
             let price = $(this).find('input[name="price[]"]').val()
             price = parseFloat(price.replaceAll(',',''))
-            let discount = +$(this).find('input[name="discount[]"]').val() / 100
+            let discount = (+$(this).find('input[name="discount[]"]').val() / 100)
             let total = qty * price
             let total_discounted = total - (total * discount)
+            
+            let total_discounted_vat = 0
+            if(isVatInclusive === 'no'){
+                total_discounted_vat = (total_discounted * stockVAT)
+            }else{
+                total_discounted_vat = (total_discounted * (100 / (100 + stockVAT)) * (stockVAT / 100))
+            }
 
-            $(this).find('input[name="total[]"]').val(total_discounted)
+            $(this).find('input[name="total[]"]').val(total_discounted_vat)
         })
         
         //PAYMENT DETAIL
+        let subtotal = 0
         $('[name="total[]"]').each(function(){
             subtotal += parseFloat($(this).val().replaceAll(',',''))
         })
@@ -173,10 +182,15 @@ export const FormPage = () => {
         $('#tbody_invoice').on('change','select[name="stockcode[]"]', function(){
             let uom = $('option:selected', this).attr('data-uom')
             let uom_qty = $('option:selected', this).attr('data-uom-qty')
+            let stock_vat = +$('option:selected', this).attr('data-stock-vat')
+            let stock_type = $('option:selected', this).attr('data-stock-inv-type')
+            stock_type = stock_type ? stock_type.toLowerCase() : ''
 
             $(this).parents('tr').find('input[name="uom[]"]').val(uom)
             $(this).parents('tr').find('input[name="qty[]"]').val(uom_qty)
             $(this).parents('tr').find('input[name="qty[]"]').attr('min', uom_qty)
+            $(this).parents('tr').find('input[name="stockvat[]"]').val(stock_vat)
+            $(this).parents('tr').find('input[name="stocktype[]"]').attr('value', stock_type)
 
             _callable.CalculatePayment()
         })
@@ -202,9 +216,10 @@ export const FormPage = () => {
         })
     })();
 
-    (function EventAddSelectAccNo(){
+    (function EventSelectAccNo(){
         $('a[name="select_accno"]').click(async function(){
             var anchor = $(this)
+            var transGroup = anchor.data('transgroup')
             var options = {}
 
             //Get existing AccNo Value from hidden input
@@ -213,44 +228,18 @@ export const FormPage = () => {
 
             let hostname = window.location.host
             let url = (hostname == 'localhost' ? window.location.origin + '/financecorp/Invoice/get_accno' : window.location.origin + '/Invoice/get_accno')
-            await repository.getRecord(url, null)
+            let result = await repository.getRecord(url, { transgroup: transGroup })
             .then(response => {
                 helper.unblockUI()
 
                 //Append options with Result Values
-                let val = response.result
+                let accnos = response.result
                 options["n/a"]  = 'N/A'
-                for(let i=0; i < response.result.length; i++){
-                    options[`'${val[i]['Acc_No']}'`] = `${val[i]['Acc_No']} - ${val[i]['Acc_Name']}`
+                for(let i=0; i < accnos.length; i++){
+                    options[`'${accnos[i]['Acc_No']}'`] = `${accnos[i]['Acc_No']} - ${accnos[i]['Acc_Name']}`
                 }
 
-                Swal.fire({
-                    icon: 'question',
-                    title: "Select Account Number",
-                    input: 'select',
-                    target: 'body',
-                    inputOptions: options,
-                    inputValue: existedVal,
-                    inputPlaceholder: '-- Choose Acc No. --',
-                    showCancelButton: true,
-                    inputValidator: (value) => {
-                        if(value !== 'n/a'){
-                            //Store the selected value into hidden input
-                            anchor.parent('.input-group').find('input:hidden').attr('value',value)
-    
-                            //Set the Button's color
-                            anchor.removeClass('font-red-sunglo')
-                            anchor.addClass('bg-font-blue-chambray')
-                        }else{
-                            //Empty the hidden input's value
-                            anchor.parent('.input-group').find('input:hidden').attr('value', null)
-    
-                            //Set the Button's color
-                            anchor.removeClass('bg-font-blue-chambray')
-                            anchor.addClass('font-red-sunglo')
-                        }
-                    }
-                })
+                return options
             })
             .fail(err => {
                 helper.unblockUI()
@@ -260,6 +249,34 @@ export const FormPage = () => {
                     'title': 'ABORTED',
                     'html': `<h4 class="sbold">${err.responseJSON.desc ??= 'Server Problem'}</h4>`
                 })
+            })
+
+            Swal.fire({
+                icon: 'question',
+                title: "Select Account Number",
+                input: 'select',
+                target: 'body',
+                inputOptions: result,
+                inputValue: existedVal,
+                inputPlaceholder: '-- Choose Acc No. --',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if(value !== 'n/a'){
+                        //Store the selected value into hidden input
+                        anchor.parent('.input-group').find('input:hidden').attr('value',value)
+
+                        //Set the Button's color
+                        anchor.removeClass('font-red-sunglo')
+                        anchor.addClass('bg-font-blue-chambray')
+                    }else{
+                        //Empty the hidden input's value
+                        anchor.parent('.input-group').find('input:hidden').attr('value', null)
+
+                        //Set the Button's color
+                        anchor.removeClass('bg-font-blue-chambray')
+                        anchor.addClass('font-red-sunglo')
+                    }
+                }
             })
         })
     })();

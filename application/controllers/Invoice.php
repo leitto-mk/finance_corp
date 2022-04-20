@@ -300,10 +300,11 @@ class Invoice extends CI_Controller
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
 		}
 
-		//Append only AccNo with TransGroup is 'INV'
+		//Append only AccNo with intended TransGroup
+		$trans_group = $this->input->get('transgroup');
 		$invoice_acc = [];
 		for($i = 0; $i < count($result); $i++){
-			if(strtolower($result[$i]['TransGroup']) == 'inv'){
+			if(strtolower($result[$i]['TransGroup']) === strtolower($trans_group)){
 				array_push($invoice_acc, $result[$i]);
 			}
 		}

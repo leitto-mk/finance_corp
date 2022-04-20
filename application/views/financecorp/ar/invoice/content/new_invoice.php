@@ -198,11 +198,11 @@
 									<th width="20%" class="text-center">Remark</th>
 									<th width="5%" class="text-center">UOM</th>
 									<th width="5%" class="text-center">Currency</th>
-									<th width="6%" class="text-center">Qty</th>
+									<th width="5%" class="text-center">Qty</th>
 									<th width="13%" class="text-center">Price</th>
-									<th width="5%" class="text-center">Discount</th>
+									<th width="3%" class="text-center">Discount</th>
+									<th width="4%" class="text-center">VAT</th>
 									<th width="13%" class="text-center">Total</th>
-									<th width="5%" class="text-center">VAT</th>
 								</tr>
 							</thead>
 							<tbody id="tbody_invoice">
@@ -218,11 +218,17 @@
 												<option value="">-- Select Stockcode --</option>
 												<?php if (!empty($stockcode)) : ?>
 													<?php for ($i = 0; $i < count($stockcode); $i++) : ?>
-														<option value="<?= $stockcode[$i]['Stockcode'] ?>" data-uom="<?= $stockcode[$i]['UOM'] ?>" data-uom-qty="<?= $stockcode[$i]['UOMQty']?>"><?= $stockcode[$i]['Stockcode'] ?> | <?= $stockcode[$i]['StockDescription'] ?></option>
+														<option value="<?= $stockcode[$i]['Stockcode'] ?>" 
+															data-uom="<?= $stockcode[$i]['UOM'] ?>" 
+															data-uom-qty="<?= $stockcode[$i]['UOMQty']?>"
+															data-stock-vat="<?= $stockcode[$i]['StockVAT'] ?>"
+															data-stock-vat-inclusive="<?= $stockcode[$i]['VATInclusive'] ?>"
+															data-stock-inv-type="<?= $stockcode[$i]['InvType'] ?>"
+														><?= $stockcode[$i]['Stockcode'] ?> | <?= $stockcode[$i]['StockDescription'] ?></option>
 													<?php endfor; ?>
 												<?php endif; ?>
 											</select>
-											<span class="help-block hidden"></span>
+											<input type="text" name="stocktype[]" class="hidden" value="" required>
 										</div>
 									</td>
 									<td>
@@ -266,15 +272,14 @@
 										</div>
 									</td>
 									<td>
-										<div class="input-group">
-											<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
-											<input type="text" name="total[]" class="form-control text-right so-total" min="0" readonly value="0" required>
+										<div class="form-group">
+											<input type="number" name="stockvat[]" class="form-control text-right" value="0" disabled>
 										</div>
 									</td>
 									<td>
-										<div class="form-group">
-											<input type="number" name="vat[]" class="form-control text-right" readonly>
-											<span class="help-block hidden"></span>
+										<div class="input-group">
+											<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
+											<input type="text" name="total[]" class="form-control text-right so-total" min="0" readonly value="0" required>
 										</div>
 									</td>
 								</tr>
@@ -301,7 +306,7 @@
 						<label for="payment_sub_total" class="control-label">Subtotal</label>
 						<div class="input-group">
 							<input type="text" name="payment_sub_total" id="payment_sub_total" class="form-control text-right" readonly value="" required>
-							<a name="select_accno" id="payment_sub_total_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
+							<a name="select_accno" data-transgroup="SUB" id="payment_sub_total_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 							<input type="text" id="payment_sub_total_accno" name="payment_sub_total_accno" value="" hidden>
 						</div>
 					</div>
@@ -311,7 +316,7 @@
 								<label for="payment_discount" class="control-label">Discount</label>
 								<div class="input-group">
 									<input type="number" name="payment_discount" id="payment_discount" class="form-control text-right" min="0" value="0" step="0.01">
-									<a name="select_accno" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
+									<a name="select_accno" data-transgroup="DIS" id="payment_discount_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 									<input type="text" id="payment_discount_accno" name="payment_discount_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
@@ -338,7 +343,7 @@
 								<label for="payment_vat" class="control-label">VAT | Inclusive</label>
 								<div class="input-group">
 									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="11" step="0.1">
-									<a name="select_accno" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
+									<a name="select_accno" data-transgroup="VAT" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="" hidden>
 									<a class="input-group-addon bg-blue-chambray bg-font-blue-chambray">
 		                        		<label class="mt-checkbox" style="margin-left: 15px">
@@ -364,7 +369,7 @@
 								<label for="payment_pph" class="control-label">PPh 23</label>
 								<div class="input-group">
 									<input type="number" name="payment_pph" id="payment_pph" class="form-control text-right" min="0" value="2" step="0.1">
-									<a name="select_accno" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
+									<a name="select_accno" data-transgroup="PPH" id="payment_pph_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 									<input type="text" id="payment_pph_accno" name="payment_pph_accno" value="" hidden>
 								</div>
 								<span class="help-block hidden"></span>
@@ -382,7 +387,7 @@
 						<label for="payment_freight" class="control-label">Freight</label>
 						<div class="input-group">
 							<input type="text" name="payment_freight" id="payment_freight" class="form-control text-right">
-							<a name="select_accno" id="payment_freight_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
+							<a name="select_accno" data-transgroup="FRE" id="payment_freight_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 							<input type="text" id="payment_freight_accno" name="payment_freight_accno" value="" hidden>
 						</div>
 					</div>
@@ -390,7 +395,7 @@
 						<label for="payment_total_amount" class="control-label">Total Amount</label>
 						<div class="input-group">
 							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" readonly required>
-							<a name="select_accno" id="payment_total_amount_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
+							<a name="select_accno" data-transgroup="AR" id="payment_total_amount_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
 							<input type="text" id="payment_total_amount_accno" name="payment_total_amount_accno" value="" hidden>
 						</div>
 					</div>
