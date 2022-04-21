@@ -44,7 +44,8 @@
 				<?php if($type == "edit") : ?>
 					<option id="coa_group" <?= ($transgroup == 'CA' ? 'selected' : '') ?> value="CA">CA - Cash Advance</option>
 					<option id="coa_group" <?= ($transgroup == 'CB' ? 'selected' : '') ?> value="CB">CB - Cash Bank</option>
-					<option id="coa_group" <?= ($transgroup == 'SUB' ? 'selected' : '') ?> value="SUB">SUB - Sub Total</option>
+					<option id="coa_group" <?= ($transgroup == 'SG' ? 'selected' : '') ?> value="SG">SG - Sales Goods</option>
+					<option id="coa_group" <?= ($transgroup == 'SS' ? 'selected' : '') ?> value="SS">SS - Sales Services</option>
 					<option id="coa_group" <?= ($transgroup == 'DIS' ? 'selected' : '') ?> value="DIS">DIS - Discount Total</option>
 					<option id="coa_group" <?= ($transgroup == 'VAT' ? 'selected' : '') ?> value="VAT">VAT - VAT</option>
 					<option id="coa_group" <?= ($transgroup == 'PPH' ? 'selected' : '') ?> value="PPH">PPH - PPh 23</option>
@@ -59,7 +60,8 @@
 				<?php else : ?>
 					<option id="coa_group" value="CA">CA - Cash Advance</option>
 					<option id="coa_group" value="CB">CB - Cash Bank</option>
-					<option id="coa_group" value="SUB">SUB - Sub Total</option>
+					<option id="coa_group" value="SG">SG - Sales Goods</option>
+					<option id="coa_group" value="SS">SS - Sales Service</option>
 					<option id="coa_group" value="DIS">DIS - Discount Total</option>
 					<option id="coa_group" value="VAT">VAT - VAT</option>
 					<option id="coa_group" value="PPH">PPH - PPh 23</option>
