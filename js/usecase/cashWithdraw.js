@@ -143,7 +143,7 @@ const caw = {
                     Swal.fire({
                         'icon': 'error',
                         'title': 'ERROR',
-                        'html': `<h4 class="sbold">${err.responseJSON.desc ??= 'Server Problem'}</h4>`
+                        'html': `<h4 class="sbold">${err?.responseJSON?.desc ?? 'Server Problem'}</h4>`
                     })
                 })
             })
@@ -382,7 +382,7 @@ const caw = {
                     Swal.fire({
                         'icon': 'error',
                         'title': 'ABORTED',
-                        'html': `<h4 class="sbold">${err.responseJSON.desc ??= 'Server Problem'}</h4>`
+                        'html': `<h4 class="sbold">${err?.responseJSON?.desc ?? 'Server Problem'}</h4>`
                     })
                 })
             })

@@ -47,7 +47,7 @@ const _callable = {
             Swal.fire({
                 'icon': 'error',
                 'title': 'ERROR',
-                'html': `<h4 class="sbold">${err.responseJSON.desc ??= 'Server Problem'}</h4>`
+                'html': `<h4 class="sbold">${err?.responseJSON?.desc ?? 'Server Problem'}</h4>`
             })
 
             return null
@@ -124,7 +124,7 @@ const mfin = {
                     Swal.fire({
                         'icon': 'error',
                         'title': 'ERROR',
-                        'html': `<h4 class="sbold">${err.responseJSON.desc ??= 'Server Problem'}</h4>`
+                        'html': `<h4 class="sbold">${err?.responseJSON?.desc ?? 'Server Problem'}</h4>`
                     })
                 })
             })
@@ -161,7 +161,7 @@ const mfin = {
                     Swal.fire({
                         'icon': 'error',
                         'title': 'ERROR',
-                        'html': `<h4 class="sbold">${err.responseJSON.desc ??= 'Server Problem'}</h4>`
+                        'html': `<h4 class="sbold">${err?.responseJSON?.desc ?? 'Server Problem'}</h4>`
                     })
                 })
             })
