@@ -101,12 +101,12 @@ class Invoice extends CI_Controller
 		$component_data = [
 			'title' => "INVOICE $invoice",
 
-			//Master
+			//Master select options
 			'customers' => $this->Mdl_corp_common->get_customer(),
 			'storages' => $this->Mdl_corp_common->get_storage(),
 			'branches' => $this->Mdl_corp_common->get_branch(),
 
-			//List
+			//List select options
 			'stockcodes' => $this->Mdl_corp_common->get_stockcode(),
 			'currencies' => $this->Mdl_corp_common->get_currency(),
 
@@ -230,7 +230,7 @@ class Invoice extends CI_Controller
 		$vat_amount = $inventory_amount = $service_amount = 0;
 
 		//Re-Calculate Row Total & Payment Detail
-		$this->_calculate_payment($formData, $vat_amount, $inventory_amount, $service_amount);
+		$this->_calculate_payment($formData);
 
 		//INVOICE MASTER
 		$mas = [
@@ -472,7 +472,7 @@ class Invoice extends CI_Controller
 				return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
 			}
 
-			//Calculate Inventory
+			//Calculate Inventory/COGS
 			$costPrice = $stock_reg->CostPrice;
 			$inventory_amount += $formData['qty'][$i] * $costPrice;
 			$service_amount += $formData['qty'][$i] * $costPrice;
@@ -499,7 +499,7 @@ class Invoice extends CI_Controller
 
 		//Push VAT & Invetory to Trans
 		$formData['inventory_amount'] = $inventory_amount;
-		$formData['service_amount'] = $service_amount;
+		$formData['cogs_amount'] = $service_amount;
 	}
 
 	/**

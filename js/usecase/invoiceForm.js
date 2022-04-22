@@ -136,14 +136,18 @@ export const FormPage = () => {
         
         //Payment
         let pay_subtotal = $(document).find('#payment_sub_total')
+        let pay_amount_discount = $(document).find('#amount_discount')
         let pay_net_subtotal = $(document).find('#payment_net_subtotal')
+        let pay_amount_pph = $(document).find('#amount_pph')
         let pay_vat = $(document).find('#payment_vat_amount')
         let pay_freight = $(document).find('#payment_freight')
         let pay_total_amount = $(document).find('#payment_total_amount')
         let dp_total = $(document).find('#payment_total')
         helper.setInputMask(pay_subtotal, "currency")
         helper.setInputMask(pay_net_subtotal, "currency")
+        helper.setInputMask(pay_amount_discount, "currency")
         helper.setInputMask(pay_vat, "currency")
+        helper.setInputMask(pay_amount_pph, "currency")
         helper.setInputMask(pay_freight, "currency")
         helper.setInputMask(pay_total_amount, "currency")
         helper.setInputMask(dp_total, "currency")

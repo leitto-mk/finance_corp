@@ -302,7 +302,7 @@
 										</td>
 										<td>
 											<div class="form-group">
-												<input type="number" name="stock-vat[]" class="form-control text-right" value="<?= $data[$h]['StockVAT'] ?? 0 ?>" disabled>
+												<input type="number" name="stock-vat[]" class="form-control text-right" value="<?= $data[$h]['VAT'] ?? 0 ?>" disabled>
 											</div>
 										</td>
 										<td>
@@ -355,7 +355,7 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount Discount</label>
-								<input type="text" name="amount_discount" id="amount_discount" class="form-control text-right" disabled>
+								<input type="text" name="amount_discount" id="amount_discount" class="form-control text-right" value="<?= $data[0]['AmountDiscount'] ?>" disabled>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>
@@ -372,8 +372,19 @@
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount VAT</label>
 								<div class="input-group">
+									<?php
+										$vat_amount = 0;
+										for($i=0; $i < count($data); $i++){
+											$stock = $data[$i];
+											if(strtolower($stock['VATInclusive']) === 'no'){
+												$vat_amount = $stock['SubTotal'] * ($stock['VAT'] / 100);
+											}else{
+												$vat_amount = ($stock['SubTotal'] * (100 / (100 + $stock['VAT'])) * ($stock['VAT'] / 100));
+											}
+										}
+									?>
 									<span class="input-group-addon bg-default bg-default">Rp.</span>
-									<input type="text" name="payment_vat_amount" id="payment_vat_amount" class="form-control text-right" disabled>
+									<input type="text" name="payment_vat_amount" id="payment_vat_amount" class="form-control text-right" value="<?= $vat_amount ?>" disabled>
 									<span class="help-block hidden"></span>
 								</div>
 							</div>
@@ -394,7 +405,7 @@
 						<div class="col-lg-5">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount PPh</label>
-								<input type="text" name="amount_pph" id="amount_pph" class="form-control text-right" disabled>
+								<input type="text" name="amount_pph" id="amount_pph" class="form-control text-right" value="<?= $data[0]['AmountPPH'] ?>" disabled>
 								<span class="help-block hidden"></span>
 							</div>
 						</div>

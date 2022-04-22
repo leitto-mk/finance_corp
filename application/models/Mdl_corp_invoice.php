@@ -28,10 +28,16 @@ class Mdl_corp_invoice extends CI_Model
 	public function get_invoice($invoice){
 		$this->db->select('
 			mas.*, 
-			det.*
+			det.*,
+			(mas.SubTotal * (mas.TotalDiscount / 100)) AS AmountDiscount,
+			(mas.NetSubTotal * (mas.PPH / 100)) AS AmountPPH,
+			reg.VAT,
+            reg.VATInclusive,
+            reg.InvType
 		')
 		->from('tbl_fa_invoice_mas AS mas')
 		->join('tbl_fa_invoice_det AS det', 'InvoiceNo', 'LEFT')
+		->join('tbl_mat_stock_reg AS reg', 'Stockcode', 'LEFT')
 		->where('mas.InvoiceNo', $invoice);
 		
 		$query = $this->db->get();
