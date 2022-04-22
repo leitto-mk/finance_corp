@@ -9,25 +9,45 @@ import helper from '../helper.js'
 const _callable = {
     CalculatePayment: () => {
         //ORDER LIST
+        let total_discounted_vat = 0
         $('#tbody_invoice tr').each(function(){
-            let isVatInclusive = $(this).find('select[name="stockcode[]"] option:selected').attr('data-stock-vat-inclusive')
+            let stockCode = $(this).find('select[name="stockcode[]"] option:selected')
+            let isVatInclusive = stockCode.attr('data-stock-vat-inclusive')
             isVatInclusive = isVatInclusive ? isVatInclusive.toLowerCase() : ''
-            let stockVAT = (+$(this).find('select[name="stockcode[]"] option:selected').attr('data-stock-vat') / 100)
+            let stockVAT = +stockCode.attr('data-stock-vat')
             let qty = +$(this).find('input[name="qty[]"]').val()
             let price = $(this).find('input[name="price[]"]').val()
             price = parseFloat(price.replaceAll(',',''))
             let discount = (+$(this).find('input[name="discount[]"]').val() / 100)
             let total = qty * price
             let total_discounted = total - (total * discount)
+
+            //Stock Total
+            $(this).find('input[name="total[]"]').val(total_discounted)
             
-            let total_discounted_vat = 0
+            //VAT Calculation
             if(isVatInclusive === 'no'){
-                total_discounted_vat = (total_discounted * stockVAT)
+                total_discounted_vat += (total_discounted * (stockVAT / 100))
             }else{
-                total_discounted_vat = (total_discounted * (100 / (100 + stockVAT)) * (stockVAT / 100))
+                total_discounted_vat += (total_discounted * (100 / (100 + stockVAT)) * (stockVAT / 100))
             }
 
-            $(this).find('input[name="total[]"]').val(total_discounted_vat)
+            //Calculate Inventory/COGS
+            let stockType = stockCode.attr('data-stock-inv-type')
+            stockType = stockType ? stockType.toLowerCase() : ''
+            let costPrice = stockCode.attr('data-stock-cost-price')
+            let inventory = 0
+            let cogs = 0
+
+            if(stockType == 'inventory'){
+                inventory += (parseFloat(costPrice) * parseFloat(qty))
+                cogs += (parseFloat(costPrice) * parseFloat(qty))
+            }
+
+            $('#inventory_amount').val(inventory)
+            $('#cogs_amount').val(cogs)
+            
+            $('#payment_vat_amount').val(total_discounted_vat)
         })
         
         //PAYMENT DETAIL
@@ -36,6 +56,7 @@ const _callable = {
             subtotal += parseFloat($(this).val().replaceAll(',',''))
         })
 
+        //Net - Subtotal
         $('#payment_sub_total').val(subtotal)
         let payment_sub_total = $('#payment_sub_total').val()
         payment_sub_total = payment_sub_total !== '' ? parseFloat($('#payment_sub_total').val().replaceAll(',','')) : 0
@@ -45,17 +66,9 @@ const _callable = {
 
         $('#payment_net_subtotal').val(net_subtotal)
 
-        //VAT Calculation
-        let payment_vat = +$('#payment_vat').val()
-        if($('#payment_vat_inclusive').is(':checked')){
-            payment_vat = (net_subtotal * (100 / (100 + payment_vat)) * (payment_vat / 100))
-            $('#amount_vat').val(Intl.NumberFormat('en').format(payment_vat))
-        }else{
-            payment_vat = (payment_vat / 100)
-            $('#amount_vat').val(Intl.NumberFormat('en').format(net_subtotal * payment_vat))
-            
-            payment_vat = (net_subtotal * payment_vat)
-        }
+        //VAT Total
+        let payment_vat = $('#payment_vat_amount').val()
+        payment_vat = payment_vat !== '' ? parseFloat(payment_vat.replaceAll(',','')) : 0 
 
         // Payment PPH
         let payment_pph = +$('#payment_pph').val() / 100 
@@ -67,7 +80,7 @@ const _callable = {
         payment_freight = payment_freight !== '' ? parseFloat($('#payment_freight').val().replaceAll(',','')) : 0
         
         let total_amount = 0
-        total_amount = (net_subtotal + payment_vat - payment_pph + payment_freight)
+        total_amount = (net_subtotal + payment_vat + payment_freight) - payment_pph
 
         $('#payment_total_amount').val(total_amount)
     },
@@ -124,11 +137,13 @@ export const FormPage = () => {
         //Payment
         let pay_subtotal = $(document).find('#payment_sub_total')
         let pay_net_subtotal = $(document).find('#payment_net_subtotal')
+        let pay_vat = $(document).find('#payment_vat_amount')
         let pay_freight = $(document).find('#payment_freight')
         let pay_total_amount = $(document).find('#payment_total_amount')
         let dp_total = $(document).find('#payment_total')
         helper.setInputMask(pay_subtotal, "currency")
         helper.setInputMask(pay_net_subtotal, "currency")
+        helper.setInputMask(pay_vat, "currency")
         helper.setInputMask(pay_freight, "currency")
         helper.setInputMask(pay_total_amount, "currency")
         helper.setInputMask(dp_total, "currency")
@@ -247,7 +262,7 @@ export const FormPage = () => {
                 Swal.fire({
                     'icon': 'error',
                     'title': 'ABORTED',
-                    'html': `<h4 class="sbold">${err.responseJSON.desc ??= 'Server Problem'}</h4>`
+                    'html': `<h4 class="sbold">${err?.responseJSON?.desc ?? 'Server Problem'}</h4>`
                 })
             })
 
@@ -376,6 +391,7 @@ export const FormPage = () => {
                     'total[]', 
                     'payment_sub_total', 
                     'payment_net_subtotal', 
+                    'payment_vat_amount',
                     'payment_total_amount',
                     'payment_freight',
                     'payment_total'
@@ -402,7 +418,7 @@ export const FormPage = () => {
                 Swal.fire({
                     'icon': 'error',
                     'title': 'ABORTED',
-                    'html': `<h4 class="sbold">${err.responseJSON.desc ??= 'Server Problem'}</h4>`
+                    'html': `<h4 class="sbold">${err?.responseJSON?.desc ?? 'Server Problem'}</h4>`
                 })
             })
         })

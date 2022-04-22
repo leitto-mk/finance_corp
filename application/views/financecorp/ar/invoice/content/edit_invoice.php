@@ -232,20 +232,28 @@
 													<?php if (!empty($stockcodes)) : ?>
 														<?php for ($i = 0; $i < count($stockcodes); $i++) : ?>
 															<?php if($data[$h]['StockCode'] == $stockcodes[$i]['Stockcode']) : ?>
-																<option value="<?= $stockcode[$i]['Stockcode'] ?>" 
-																	data-uom="<?= $stockcode[$i]['UOM'] ?>" 
-																	data-uom-qty="<?= $stockcode[$i]['UOMQty']?>"
-																	data-stock-vat="<?= $stockcode[$i]['StockVAT'] ?>"
-																	data-stock-vat-inclusive="<?= $stockcode[$i]['VATInclusive'] ?>"
-																	data-stock-inv-type="<?= $stockcode[$i]['InvType'] ?>"
-																><?= $stockcode[$i]['Stockcode'] ?> | <?= $stockcode[$i]['StockDescription'] ?></option>
+																<option selected value="<?= $stockcodes[$i]['Stockcode'] ?>" 
+																	data-uom="<?= $stockcodes[$i]['UOM'] ?>" 
+																	data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"
+																	data-cost-price="<?= $stockcodes[$i]['CostPrice']?>"
+																	data-stock-vat="<?= $stockcodes[$i]['StockVAT'] ?>"
+																	data-stock-vat-inclusive="<?= $stockcodes[$i]['VATInclusive'] ?>"
+																	data-stock-inv-type="<?= $stockcodes[$i]['InvType'] ?>"
+																><?= $stockcodes[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
 															<?php else : ?>
-																<option value="<?= $stockcodes[$i]['Stockcode'] ?>" data-uom="<?= $stockcodes[$i]['UOM'] ?>" data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"><?= $stockcodes[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
+																<option value="<?= $stockcodes[$i]['Stockcode'] ?>" 
+																	data-uom="<?= $stockcodes[$i]['UOM'] ?>" 
+																	data-uom-qty="<?= $stockcodes[$i]['UOMQty']?>"
+																	data-cost-price="<?= $stockcodes[$i]['CostPrice']?>"
+																	data-stock-vat="<?= $stockcodes[$i]['StockVAT'] ?>"
+																	data-stock-vat-inclusive="<?= $stockcodes[$i]['VATInclusive'] ?>"
+																	data-stock-inv-type="<?= $stockcodes[$i]['InvType'] ?>"
+																><?= $stockcodes[$i]['Stockcode'] ?> | <?= $stockcodes[$i]['StockDescription'] ?></option>
 															<?php endif; ?>
 														<?php endfor; ?>
 													<?php endif; ?>
 												</select>
-												<input type="text" name="stock-type[]" class="hidden" value="<?= $stockcode[$i]['InvType'] ?>" readonly>
+												<input type="text" name="stock-type[]" class="hidden" value="" readonly>
 											</div>
 										</td>
 										<td>
@@ -300,7 +308,7 @@
 										<td>
 											<div class="input-group">
 												<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
-												<input type="text" name="total[]" class="form-control text-right so-total" min="0" readonly value="<?= $data[$h]['Total'] ?>" required>
+												<input type="text" name="total[]" class="form-control text-right" min="0" readonly value="<?= $data[$h]['Total'] ?>" required>
 											</div>
 										</td>
 									</tr>
@@ -360,28 +368,14 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-7">
-							<div class="form-group">
-								<label for="payment_vat" class="control-label">VAT | Inclusive</label>
-								<div class="input-group">
-									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="<?= $data[0]['VAT'] ?: 11 ?>" step="0.1">
-									<a name="select_accno" data-transgroup="VAT" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['VATAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
-									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="<?= $data[0]['VATAcc'] ?>" hidden>
-									<a class="input-group-addon bg-blue-chambray bg-font-blue-chambray">
-		                        		<label class="mt-checkbox" style="margin-left: 15px">
-		                            		<input name="payment_vat_inclusive" id="payment_vat_inclusive" type="checkbox" <?= $data[0]['VATInclusive'] == 1 ? 'checked' : '' ?>>
-		                            		<span></span>
-		                        		</label>
-									</a>
-								</div>
-								<span class="help-block hidden"></span>
-							</div>
-						</div>
-						<div class="col-lg-5">
+						<div class="col-lg-12">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount VAT</label>
-								<input type="text" name="amount_vat" id="amount_vat" class="form-control text-right" disabled>
-								<span class="help-block hidden"></span>
+								<div class="input-group">
+									<span class="input-group-addon bg-default bg-default">Rp.</span>
+									<input type="text" name="payment_vat_amount" id="payment_vat_amount" class="form-control text-right" disabled>
+									<span class="help-block hidden"></span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -419,6 +413,13 @@
 							<input type="text" name="payment_total_amount" id="payment_total_amount" class="form-control text-right" value="<?= $data[0]['TotalAmount'] ?>" readonly required>
 							<a name="select_accno" data-transgroup="AR" id="payment_total_amount_accno_label" class="input-group-addon bg-blue-chambray sbold <?= !empty($data[0]['TotalAmountAcc']) ? 'bg-font-blue-chambray' : 'font-red-sunglo' ?>">Acc No</a>
 							<input type="text" id="payment_total_amount_accno" name="payment_total_amount_accno" value="<?= $data[0]['TotalAmountAcc'] ?>" hidden>
+						</div>
+					</div>
+					<!-- INVENTORY / COGS Amount-->
+					<div class="form-group hidden">
+						<div class="input-group">
+							<input type="text" name="inventory_amount" id="inventory_amount" class="form-control text-right" value="" readonly required>
+							<input type="text" name="cogs_amount" id="cogs_amount" class="form-control text-right" value="" readonly required>
 						</div>
 					</div>
 					<hr style="margin-top: 40px;">

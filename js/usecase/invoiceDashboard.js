@@ -85,7 +85,7 @@ const dtColumns = [
             let hostname = window.location.host
             let url = (hostname == 'localhost' ? window.location.origin + '/financecorp/Invoice' : window.location.origin + '/Invoice')
 
-            return `<a name="edit" href="${base_url}/edit/${row.InvoiceNo}" target="_blank" class="btn btn-xs grey-gallery btn-outline" title="Edit">
+            return `<a name="edit" href="${url}/edit/${row.InvoiceNo}" target="_blank" class="btn btn-xs grey-gallery btn-outline" title="Edit">
                         <i class="fa fa-pencil"></i>
                     </a>
                     <a name="delete" href="javascript:;" data-invoiceno="${row.InvoiceNo}" class="btn btn-xs grey-gallery btn-outline" title="Delete">

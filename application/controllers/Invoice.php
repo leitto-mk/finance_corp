@@ -34,120 +34,6 @@ class Invoice extends CI_Controller
 		$this->load->model('Mdl_corp_cash_advance');
 	}
 
-	protected function _calculate_payment($formData){
-		$subtotal = 0;
-
-		for($i = 0; $i < count($formData['stockcode']); $i++){
-			$qty = (float) $formData['qty'][$i];
-			$price = (float) $formData['price'][$i];
-			$discount = (float) $formData['discount'][$i] / 100;
-			$total = $qty * $price;
-			$total = $total - ($total * $discount);
-
-			$formData['total'][$i] = (float) $total;
-
-			$subtotal += $total;
-		}
-
-		$formData['payment_sub_total'] = (float) $subtotal;
-		$payment_discount = (float) $formData['payment_discount'];
-		$formData['payment_net_subtotal'] = (float) $subtotal - ($subtotal * $payment_discount);
-		$net_subtotal = (float) $formData['payment_net_subtotal'];
-
-		//VAT Non/Inclusive Calculation
-		$vat = (float) $formData['payment_vat'];
-		$inclusive = $formData['payment_vat_inclusive'] ?? 'off';
-		if($inclusive == 'on'){
-			$vat = ($net_subtotal * (100 / (100 + $vat)) * ($vat / 100));
-		}else{
-			$vat = $net_subtotal * ($formData['payment_vat'] / 100);
-		}
-		
-		$pph = $net_subtotal * ($formData['payment_pph'] / 100);
-		$freight = (float) $formData['payment_freight'];
-		$formData['payment_total_amount'] = (float) ($net_subtotal + $vat - $pph + $freight);
-	}
-
-	protected function _set_ledger_data($data, $payment_type, $cur_accno, &$trans){
-		$cur_accno = str_replace("'", '', $cur_accno);
-		$cur_accno = str_replace("\\", '', $cur_accno);
-		$debit = 0;
-		$credit = 0;
-		$branch_beg_bal = 0;
-		$branch_bal = 0;
-
-		$cur_acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $cur_accno]);
-		if($cur_acctype->num_rows() == 0){
-			return;
-		}
-
-		$cur_acctype = $cur_acctype->row()->Acc_Type;
-
-		switch ($payment_type) {
-			case 'payment_sub_total':
-				$credit = (float) $data->post('payment_sub_total');
-				break;
-			case 'payment_discount':
-				$debit = (float) ($data->post('payment_discount') / 100);
-				$debit = (float) ($data->post('payment_sub_total') * $debit);
-				$debit = (float) ($data->post('payment_sub_total') - $debit);
-				break;
-			case 'payment_vat':
-				$credit = (float) ($data->post('payment_vat') / 100);
-				$credit = (float) ($data->post('payment_net_subtotal') * $credit);
-				$credit = (float) ($data->post('payment_net_subtotal') - $credit);
-				break;
-			case 'payment_pph':
-				$debit = (float) ($data->post('payment_pph') / 100);
-				$debit = (float) ($data->post('payment_net_subtotal') * $debit);
-				$debit = (float) ($data->post('payment_net_subtotal') - $debit);
-				break;
-			case 'payment_freight':
-				$credit = (float) $data->post('payment_freight');
-				break;
-			case 'payment_total_amount':
-				$debit = (float) $data->post('payment_total_amount');
-				break;
-		}
-			
-		$branch_beg_bal = (float) $this->Mdl_corp_entry->get_branch_last_balance($data->post('branch'), $cur_accno, $data->post('raised_date'));
-
-		if ($cur_acctype == 'A' || $cur_acctype == 'E' || $cur_acctype == 'E1') {
-			/**
-			 * (BEGINNING BALANCE + DEBIT) - CREDIT
-			 */
-			$branch_bal = ($branch_beg_bal + $debit) - $credit;
-		} elseif ($cur_acctype == 'L' || $cur_acctype == 'C' || $cur_acctype == 'R' || $cur_acctype == 'A1' || $cur_acctype == 'R1' || $cur_acctype == 'C1' || $cur_acctype == 'C2' || $cur_acctype == 'CX') {
-			/**
-			 * (BEGINNING BALANCE - DEBIT) + CREDIT
-			 */
-			$branch_bal = ($branch_beg_bal - $debit) + $credit;
-		}
-		
-		array_push($trans, [
-			'DocNo' => $data->post('invoice_no'),
-			'RefNo' => ($data->post('reference_no') == '' ? $data->post('invoice_no') : $data->post('reference_no')),
-			'TransDate' => $data->post('raised_date'),
-			'TransType' => 'INV',
-			'Branch' => $data->post('branch'),
-			'ItemNo' => 0,
-			'AccNo' => $cur_accno,
-			'AccType' => $cur_acctype,
-			'IDNumber' => $data->post('customer'),
-			'Currency' => 'IDR',
-			'Rate' => 1,
-			'Unit' => $data->post('payment_total_amount'),
-			'Amount' => $data->post('payment_total_amount'),
-			'Debit' => $debit,
-			'Credit' => $credit,
-			'Balance' => 0,
-			'BalanceBranch' => $branch_bal,
-			'Remarks' => $data->post('remark'),
-			'EntryBy' => '',
-			'EntryDate' => date('Y-m-d h:m:s')
-		]);
-	}
-
 	public function index(){
 		$title = 'Invoice Module';
 
@@ -313,10 +199,10 @@ class Invoice extends CI_Controller
 	}
 
 	public function submit(){
-		$input = $this->input;
+		$formData = $this->input->post();
 
 		$validation = validate(
-            $input->post(),
+            $formData,
             [ //Specific Case
                 'date' => ['raised_date', 'due_date'],
                 'number' => ['qty', 'price', 'total', 'payment_sub_total', 'payment_net_subtotal', 'payment_total_amount']
@@ -340,88 +226,89 @@ class Invoice extends CI_Controller
             return set_error_response(self::HTTP_BAD_REQUEST, $validation);
         }
 
-		//Re-Calculate Row Total & Payment Detail
-		$formData = $input->post();
-		$this->_calculate_payment($formData);
-
 		$mas = $det = $trans = [];
-		
+		$vat_amount = $inventory_amount = $service_amount = 0;
+
+		//Re-Calculate Row Total & Payment Detail
+		$this->_calculate_payment($formData, $vat_amount, $inventory_amount, $service_amount);
+
 		//INVOICE MASTER
 		$mas = [
 			//Detail
-			'InvoiceNo' => $input->post('invoice_no'),
-			'CustomerCode' => $input->post('customer'),
-			'QuoteRefNo' => ($input->post('reference_no') == '' ? $input->post('invoice_no') : $input->post('reference_no')),
-			'Remark' => $input->post('remark'),
+			'InvoiceNo' => $formData['invoice_no'],
+			'CustomerCode' => $formData['customer'],
+			'QuoteRefNo' => ($formData['reference_no'] == '' ? $formData['invoice_no'] : $formData['reference_no']),
+			'Remark' => $formData['remark'],
 
 			//Bill & Shipping
-			'BillTo' => $input->post('bill_to'),
-			'ShipTo' => $input->post('ship_to'),
-			'Storage' => $input->post('storage'),
-			'Freight' => $input->post('freight'),
-			'FreightInfo' => $input->post('freight_info'),
-			'Ship_Via_Air' => $input->post('ship_via_air') == 'on' ? 1 : 0,
-			'Ship_Via_Sea' => $input->post('ship_via_sea') == 'on' ? 1 : 0,
-			'Ship_Via_Land' => $input->post('ship_via_land') == 'on' ? 1 : 0,
+			'BillTo' => $formData['bill_to'],
+			'ShipTo' => $formData['ship_to'],
+			'Storage' => $formData['storage'],
+			'Freight' => $formData['freight'],
+			'FreightInfo' => $formData['freight_info'],
+			'Ship_Via_Air' => isset($formData['ship_via_air']) ? ($formData['ship_via_air'] == 'on' ? 1 : 0) : 0,
+			'Ship_Via_Sea' => isset($formData['ship_via_sea']) ? ($formData['ship_via_sea'] == 'on' ? 1 : 0) : 0,
+			'Ship_Via_Land' => isset($formData['ship_via_land']) ? ($formData['ship_via_land'] == 'on' ? 1 : 0) : 0,
 
 			//Branch
-			'Branch' => $input->post('branch'),
-			'RefDocNo' => $input->post('ref_docno'),
+			'Branch' => $formData['branch'],
+			'RefDocNo' => $formData['ref_docno'],
 			'RaisedBy' => 'ADMIN',
-			'RaisedDate' => $input->post('raised_date'),
-			'DueDate' => $input->post('due_date'),
-			'TermsOfDays' => $input->post('term_days'),
-			'ContractNo' => $input->post('contract_no'),
-			'SalesResp' => $input->post('sales_resp'),
+			'RaisedDate' => $formData['raised_date'],
+			'DueDate' => $formData['due_date'],
+			'TermsOfDays' => $formData['term_days'],
+			'ContractNo' => $formData['contract_no'],
+			'SalesResp' => $formData['sales_resp'],
 
 			//Payment Details
-			'SubTotal' => $input->post('payment_sub_total'),
-			'SubTotalAcc' => str_replace('\'','', $input->post('payment_sub_total_accno')), //Remove quotes
-			'TotalDiscount' => $input->post('payment_discount'),
-			'TotalDiscountAcc' => str_replace('\'','', $input->post('payment_discount_accno')), //Remove quotes
-			'NetSubTotal' => $input->post('payment_net_subtotal'),
-			'VATInclusive' => $input->post('payment_vat_inclusive') == 'on' ? 1 : 0,
-			'VAT' => $input->post('payment_vat'),
-			'VATAcc' => str_replace('\'','', $input->post('payment_vat_accno')), //Remove quotes
-			'PPH' => $input->post('payment_pph'),
-			'PPHAcc' => str_replace('\'','', $input->post('payment_pph_accno')), //Remove quotes
-			'FreightCost' => $input->post('payment_freight'),
-			'FreightCostAcc' => str_replace('\'','', $input->post('payment_freight_accno')), //Remove quotes
-			'TotalAmount' => $input->post('payment_total_amount'),
-			'TotalAmountAcc' => str_replace('\'','', $input->post('payment_total_amount_accno')), //Remove quotes
-			'PaymentType' => $input->post('dp_payment_type'),
-			'CardNo' => $input->post('dp_payment_card_text'),
-			'BankCode' => $input->post('dp_payment_bank'),
-			'Payment' => $input->post('payment_total'),
-			'PaymentStatus' => ($input->post('payment_total') === $input->post('payment_total_amount') ? 1 : 0),
-			'Balance' => ((float)$input->post('payment_total_amount') - (float) $input->post('payment_total'))
+			'SubTotal' => $formData['payment_sub_total'],
+			'SubTotalAcc' => str_replace('\'','', $formData['payment_sub_total_accno']), //Remove quotes
+			'TotalDiscount' => $formData['payment_discount'],
+			'TotalDiscountAcc' => str_replace('\'','', $formData['payment_discount_accno']), //Remove quotes
+			'NetSubTotal' => $formData['payment_net_subtotal'],
+			'VATAmount' => $formData['payment_vat_amount'],
+			'PPH' => $formData['payment_pph'],
+			'PPHAcc' => str_replace('\'','', $formData['payment_pph_accno']), //Remove quotes
+			'FreightCost' => $formData['payment_freight'],
+			'FreightCostAcc' => str_replace('\'','', $formData['payment_freight_accno']), //Remove quotes
+			'TotalAmount' => $formData['payment_total_amount'],
+			'TotalAmountAcc' => str_replace('\'','', $formData['payment_total_amount_accno']), //Remove quotes
+			'PaymentType' => $formData['dp_payment_type'],
+			'CardNo' => $formData['dp_payment_card_text'] ?? null,
+			'BankCode' => $formData['dp_payment_bank'] ?? null,
+			'Payment' => $formData['payment_total'],
+			'PaymentStatus' => ($formData['payment_total'] === $formData['payment_total_amount'] ? 1 : 0),
+			'Balance' => ((float)$formData['payment_total_amount'] - (float) $formData['payment_total'])
 		];
 
 		//INVOICE DETAIL
-		for($i = 0; $i < count($input->post('stockcode')); $i++){
+		for($i = 0; $i < count($formData['stockcode']); $i++){
 			array_push($det, [
-				'InvoiceNo' => $input->post('invoice_no'),
-				'StockCode' => $input->post('stockcode')[$i],
-				'OrderRemark' => $input->post('order_remark')[$i],
-				'UOM' => $input->post('uom')[$i],
-				'Currency' => $input->post('currency')[$i],
-				'Qty' => $input->post('qty')[$i],
-				'Price' => $input->post('price')[$i],
-				'Discount' => $input->post('discount')[$i],
-				'Total' => $input->post('total')[$i]
+				'InvoiceNo' => $formData['invoice_no'],
+				'StockCode' => $formData['stockcode'][$i],
+				'OrderRemark' => $formData['order_remark'][$i],
+				'UOM' => $formData['uom'][$i],
+				'Currency' => $formData['currency'][$i],
+				'Qty' => $formData['qty'][$i],
+				'Price' => $formData['price'][$i],
+				'Discount' => $formData['discount'][$i],
+				'Total' => $formData['total'][$i]
 			]);
 		}
 
 		//TRANSACTION (LEDGER)
-		$this->_set_ledger_data($input, 'payment_sub_total', $input->post('payment_sub_total_accno'), $trans);
-		$this->_set_ledger_data($input, 'payment_discount', $input->post('payment_discount_accno'), $trans);
-		$this->_set_ledger_data($input, 'payment_vat', $input->post('payment_vat_accno'), $trans);
-		$this->_set_ledger_data($input, 'payment_pph', $input->post('payment_pph_accno'), $trans);
-		$this->_set_ledger_data($input, 'payment_freight', $input->post('payment_freight_accno'), $trans);
-		$this->_set_ledger_data($input, 'payment_total_amount', $input->post('payment_total_amount_accno'), $trans);
+		$this->_set_ledger_data($formData, 'payment_sub_total', $formData['payment_sub_total_accno'], $trans);
+		$this->_set_ledger_data($formData, 'payment_discount', $formData['payment_discount_accno'], $trans);
+		$this->_set_ledger_data($formData, 'payment_pph', $formData['payment_pph_accno'], $trans);
+		$this->_set_ledger_data($formData, 'payment_freight', $formData['payment_freight_accno'], $trans);
+		$this->_set_ledger_data($formData, 'payment_total_amount', $formData['payment_total_amount_accno'], $trans);
+
+		//SET INVENTORY & COGS TO LEDGER
+		$this->_set_ledger_data($formData, 'inventory_amount', 11501, $trans);
+		$this->_set_ledger_data($formData, 'cogs_amount', 51101, $trans);
 
 		//DELETE OLD DATA IF EXIST
-		$error = $this->Mdl_corp_invoice->delete_invoice($input->post('invoice_no'));
+		$error = $this->Mdl_corp_invoice->delete_invoice($formData['invoice_no']);
 		if(!is_null($error)){
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
 		}
@@ -433,7 +320,7 @@ class Invoice extends CI_Controller
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
 		}
 		
-		$invoice_date = $input->post('raised_date');
+		$invoice_date = $formData['raised_date'];
 		$last_transaction = $this->Mdl_corp_common->get_last_trans_date();
 		if (strtotime($invoice_date) < strtotime($last_transaction)) {
             $start = $invoice_date;
@@ -444,19 +331,19 @@ class Invoice extends CI_Controller
         }
 
         //CALCULATE BALANCE FROM CURRENT TRANSDATE TO HIGHEST TRANSDATE
-        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($input->post('branch'), $input->post('accno'), $input->post('accno'), $start, $finish);
+        [$result, $error] = $this->Mdl_corp_entry->recalculate_branch($formData['branch'], 10000, 99999, $start, $finish);
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
 		//CALCULATE EMPLOYEE BALANCE ABOVE TRANSDATE
-        $error = $this->Mdl_corp_cash_advance->update_emp_balance($invoice_date, $input->post('customer'));
+        $error = $this->Mdl_corp_cash_advance->update_emp_balance($invoice_date, $formData['customer']);
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
 
         //CALCULATE RETAINING EARNING
-        $error = $this->Mdl_corp_common->calculate_retaining_earnings($input->post('branch'), $invoice_date);
+        $error = $this->Mdl_corp_common->calculate_retaining_earnings($formData['branch'], $invoice_date);
         if (!is_null($error)) {
             return set_error_response(self::HTTP_INTERNAL_ERROR, $error);
         }
@@ -553,5 +440,165 @@ class Invoice extends CI_Controller
 			return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
 		}
 
+	}
+
+	/**
+	 * Calculate all payment on before submit to Database
+	 * 
+	 * @param 	array 	$formData using `POST` method, pass the reference instead of value
+	 * 
+	 * @return 	void
+	 */
+	protected function _calculate_payment(&$formData){
+		$subtotal = $inventory_amount = $service_amount = $vat_amount = 0;
+
+		//Order List
+		for($i = 0; $i < count($formData['stockcode']); $i++){
+			$qty = (float) $formData['qty'][$i];
+			$price = (float) $formData['price'][$i];
+			$discount = (float) $formData['discount'][$i] / 100;
+			$total = $qty * $price;
+			$total = $total - ($total * $discount);
+
+			$formData['total'][$i] = (float) $total;
+
+			$subtotal += $total;
+
+			//Calculate VAT
+			try{
+				$stock_reg = $this->db->select('CostPrice, VAT, VATInclusive, InvType')->get_where('tbl_mat_stock_reg', ['Stockcode' => $formData['stockcode'][$i]]);
+				$stock_reg = $stock_reg->row();
+			}catch (Exception $e) {
+				return set_error_response(self::HTTP_INTERNAL_ERROR, $e->getMessage());
+			}
+
+			//Calculate Inventory
+			$costPrice = $stock_reg->CostPrice;
+			$inventory_amount += $formData['qty'][$i] * $costPrice;
+			$service_amount += $formData['qty'][$i] * $costPrice;
+
+			$VAT = (float) ($stock_reg->VAT);
+			$VATInclusive = strtolower($stock_reg->VATInclusive);
+
+			if($VATInclusive === 'no'){
+				$vat_amount += ($total * ($VAT / 100));
+			}else{
+				$vat_amount += ($total * (100 / (100 + $VAT)) * ($VAT / 100));
+			}
+		}
+
+		//Payment Detail
+		$formData['payment_sub_total'] = (float) $subtotal;
+		$payment_discount = (float) $formData['payment_discount'] / 100;
+		$formData['payment_net_subtotal'] = (float) ($subtotal - ($subtotal * $payment_discount));
+		$net_subtotal = (float) $formData['payment_net_subtotal'];
+		$formData['payment_vat_amount'] = $vat_amount;
+		$pph = $net_subtotal * ($formData['payment_pph'] / 100);
+		$freight = (float) $formData['payment_freight'];
+		$formData['payment_total_amount'] = (float) ($net_subtotal + $vat_amount + $freight) - $pph;
+
+		//Push VAT & Invetory to Trans
+		$formData['inventory_amount'] = $inventory_amount;
+		$formData['service_amount'] = $service_amount;
+	}
+
+	/**
+	 * Generate Ledger Data
+	 * 
+	 * @param 	array 	$postData using `POST` method
+	 * @param	string	$payment_type (subtotal, discount, pph, freight, total amount & inventory/cogs)
+	 * @param  	string	$cur_accno AccountNo of $payment_type
+	 * @param 	array	$trans for submit to Ledger, pass the reference instead of value
+	 * 
+	 * @return 	void
+	 */
+	protected function _set_ledger_data($postData, $payment_type, $cur_accno, &$trans){
+		$cur_accno = str_replace("'", '', $cur_accno);
+		$cur_accno = str_replace("\\", '', $cur_accno);
+		$debit = 0;
+		$credit = 0;
+		$branch_beg_bal = 0;
+		$branch_bal = 0;
+
+		//Get Account Type
+		$cur_acctype = $this->db->select('Acc_Type')->get_where('tbl_fa_account_no', ['Acc_No' => $cur_accno]);
+		if($cur_acctype->num_rows() == 0){
+			return;
+		}
+		$cur_acctype = $cur_acctype->row()->Acc_Type;
+
+		//Set Debit/Credit
+		switch ($payment_type) {
+			case 'payment_sub_total':
+				$credit = (float) $postData['payment_sub_total'];
+				break;
+			case 'payment_discount':
+				$debit = (float) ($postData['payment_discount'] / 100);
+				$debit = (float) ($postData['payment_sub_total'] * $debit);
+				$debit = (float) ($postData['payment_sub_total'] - $debit);
+				break;
+			case 'payment_vat':
+				$credit = (float) ($postData['payment_vat'] / 100);
+				$credit = (float) ($postData['payment_net_subtotal'] * $credit);
+				$credit = (float) ($postData['payment_net_subtotal'] - $credit);
+				break;
+			case 'payment_pph':
+				$debit = (float) ($postData['payment_pph'] / 100);
+				$debit = (float) ($postData['payment_net_subtotal'] * $debit);
+				$debit = (float) ($postData['payment_net_subtotal'] - $debit);
+				break;
+			case 'payment_freight':
+				$credit = (float) $postData['payment_freight'];
+				break;
+			case 'payment_total_amount':
+				$debit = (float) $postData['payment_total_amount'];
+				break;
+			case 'inventory_amount':
+				$credit = (float) $postData['inventory_amount'];
+				break;
+			case 'cogs_amount':
+				$debit = (float) $postData['cogs_amount'];
+				break;
+		}
+			
+		//Get Branch Beginning Balance
+		$branch_beg_bal = (float) $this->Mdl_corp_entry->get_branch_last_balance($postData['branch'], $cur_accno, $postData['raised_date']);
+
+		//Set Current Branch Beginning Balance
+		if ($cur_acctype == 'A' || $cur_acctype == 'E' || $cur_acctype == 'E1') {
+			/**
+			 * (BEGINNING BALANCE + DEBIT) - CREDIT
+			 */
+			$branch_bal = ($branch_beg_bal + $debit) - $credit;
+		} elseif ($cur_acctype == 'L' || $cur_acctype == 'C' || $cur_acctype == 'R' || $cur_acctype == 'A1' || $cur_acctype == 'R1' || $cur_acctype == 'C1' || $cur_acctype == 'C2' || $cur_acctype == 'CX') {
+			/**
+			 * (BEGINNING BALANCE - DEBIT) + CREDIT
+			 */
+			$branch_bal = ($branch_beg_bal - $debit) + $credit;
+		}
+		
+		//Push New Ledger Data
+		array_push($trans, [
+			'DocNo' => $postData['invoice_no'],
+			'RefNo' => ($postData['reference_no'] == '' ? $postData['invoice_no'] : $postData['reference_no']),
+			'TransDate' => $postData['raised_date'],
+			'TransType' => 'INV',
+			'Branch' => $postData['branch'],
+			'ItemNo' => 0,
+			'AccNo' => $cur_accno,
+			'AccType' => $cur_acctype,
+			'IDNumber' => $postData['customer'],
+			'Currency' => 'IDR',
+			'Rate' => 1,
+			'Unit' => $postData['payment_total_amount'],
+			'Amount' => $postData['payment_total_amount'],
+			'Debit' => $debit,
+			'Credit' => $credit,
+			'Balance' => 0,
+			'BalanceBranch' => $branch_bal,
+			'Remarks' => $postData['remark'],
+			'EntryBy' => '',
+			'EntryDate' => date('Y-m-d h:m:s')
+		]);
 	}
 }

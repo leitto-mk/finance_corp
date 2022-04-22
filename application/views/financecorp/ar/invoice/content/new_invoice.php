@@ -221,6 +221,7 @@
 														<option value="<?= $stockcode[$i]['Stockcode'] ?>" 
 															data-uom="<?= $stockcode[$i]['UOM'] ?>" 
 															data-uom-qty="<?= $stockcode[$i]['UOMQty']?>"
+															data-stock-cost-price="<?= $stockcode[$i]['CostPrice']?>"
 															data-stock-vat="<?= $stockcode[$i]['StockVAT'] ?>"
 															data-stock-vat-inclusive="<?= $stockcode[$i]['VATInclusive'] ?>"
 															data-stock-inv-type="<?= $stockcode[$i]['InvType'] ?>"
@@ -279,7 +280,7 @@
 									<td>
 										<div class="input-group">
 											<span class="input-group-addon bg-blue-chambray bg-font-blue-chambray">Rp.</span>
-											<input type="text" name="total[]" class="form-control text-right so-total" min="0" readonly value="0" required>
+											<input type="text" name="total[]" class="form-control text-right" min="0" readonly value="0" required>
 										</div>
 									</td>
 								</tr>
@@ -338,28 +339,14 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-7">
-							<div class="form-group">
-								<label for="payment_vat" class="control-label">VAT | Inclusive</label>
-								<div class="input-group">
-									<input type="number" name="payment_vat" id="payment_vat" class="form-control text-right" min="0" value="11" step="0.1">
-									<a name="select_accno" data-transgroup="VAT" id="payment_vat_accno_label" class="input-group-addon bg-blue-chambray sbold font-red-sunglo">Acc No</a>
-									<input type="text" id="payment_vat_accno" name="payment_vat_accno" value="" hidden>
-									<a class="input-group-addon bg-blue-chambray bg-font-blue-chambray">
-		                        		<label class="mt-checkbox" style="margin-left: 15px">
-		                            		<input id="payment_vat_inclusive" name="payment_vat_inclusive" type="checkbox">
-		                            		<span></span>
-		                        		</label>
-									</a>
-								</div>
-								<span class="help-block hidden"></span>
-							</div>
-						</div>
-						<div class="col-lg-5">
+						<div class="col-lg-12">
 							<div class="form-group">
 								<label for="payment_discount" class="control-label">Amount VAT</label>
-								<input type="text" name="amount_vat" id="amount_vat" class="form-control text-right" disabled>
-								<span class="help-block hidden"></span>
+								<div class="input-group">
+									<span class="input-group-addon bg-default bg-default">Rp.</span>
+									<input type="text" name="payment_vat_amount" id="payment_vat_amount" class="form-control text-right" readonly>
+									<span class="help-block hidden"></span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -399,6 +386,13 @@
 							<input type="text" id="payment_total_amount_accno" name="payment_total_amount_accno" value="" hidden>
 						</div>
 					</div>
+					<!-- INVENTORY / COGS Amount-->
+					<div class="form-group hidden">
+						<div class="input-group">
+							<input type="text" name="inventory_amount" id="inventory_amount" class="form-control text-right" value="" readonly required>
+							<input type="text" name="cogs_amount" id="cogs_amount" class="form-control text-right" value="" readonly required>
+						</div>
+					</div>
 					<hr style="margin-top: 40px;">
 					<div class="form-group">
 						<label for="dp_payment_type" class="control-label">Payment Method</label>
@@ -427,7 +421,7 @@
 					</div>
 					<div class="form-group">
 						<label for="dp_payment_card_text" class="control-label">Card Number</label>
-						<input type="text" name="dp_payment_card_text" id="dp_payment_card_text" class="form-control" disabled>
+						<input type="text" name="dp_payment_card_text" id="dp_payment_card_text" class="form-control" value="-" disabled>
 					</div>
 					<div class="form-group">
 						<label for="dp_payment_bank" class="control-label">Bank</label>

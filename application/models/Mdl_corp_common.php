@@ -101,6 +101,7 @@ class Mdl_corp_common extends CI_Model
             sc.StockDescription, 
             sc.UOM, 
             sc.UOMQty,
+            reg.CostPrice,
             reg.VAT AS StockVAT,
             reg.VATInclusive,
             reg.InvType
