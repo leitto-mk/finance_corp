@@ -34,6 +34,9 @@ class Invoice extends CI_Controller
 		$this->load->model('Mdl_corp_cash_advance');
 	}
 
+	/******************************************************************************
+	 ** PAGE
+	 *****************************************************************************/
 	public function index(){
 		$title = 'Invoice Module';
 
@@ -161,6 +164,9 @@ class Invoice extends CI_Controller
         $this->load->view('financecorp/ar/invoice/content/v_invoice_aging', $data);
     }
 
+	/******************************************************************************
+	 ** API
+	 *****************************************************************************/
 	public function get(){
 		$input = $this->input;
 
@@ -441,6 +447,10 @@ class Invoice extends CI_Controller
 		}
 
 	}
+
+	/******************************************************************************
+	 ** CALLABLE
+	 *****************************************************************************/
 
 	/**
 	 * Calculate all payment on before submit to Database
